@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "generated": "2026-10-21T11:57:19.183327+00:00",
-  "count": 4284,
+  "generated": "2026-10-21T11:41:06.222322+00:00",
+  "count": 4242,
   "source_files": {
     "WEAP": "WEAP_Export_October_2026_Base.tsv",
     "ARMO": "ARMO_Export_October_2026_ARMOUR.tsv",
@@ -956636,85 +956636,6 @@
     {
       "kind": "plan",
       "brand": "df",
-      "type": "backpack-mod",
-      "id": "PLAN_0062FADB",
-      "name": "Plan: Cultist Backpack",
-      "has_image_box": false,
-      "image_dir": "backpack",
-      "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
-      "category_label": "Backpack Mod Mod / Paint",
-      "obtain_routes": [
-        {
-          "route": "Event: The Mothman Equinox (tier 3)",
-          "source_type": "event-quest",
-          "rate": 0.027027027,
-          "rate_display": "2.7027%",
-          "lvli": [
-            "00621C2B"
-          ],
-          "kind": "event",
-          "conditions": []
-        },
-        {
-          "route": "Event: The Mothman Equinox (tier 2)",
-          "source_type": "event-quest",
-          "rate": 0.0135135135,
-          "rate_display": "1.3514%",
-          "lvli": [
-            "00621C2A"
-          ],
-          "kind": "event",
-          "conditions": []
-        },
-        {
-          "route": "Event: The Mothman Equinox (tier 1)",
-          "source_type": "event-quest",
-          "rate": 0.0040540541,
-          "rate_display": "0.4054%",
-          "lvli": [
-            "00621C28"
-          ],
-          "kind": "event",
-          "conditions": []
-        }
-      ],
-      "obtain_unlocks": [],
-      "plan_item": {
-        "formid": "0062FADB",
-        "edid": "E07A_Recipe_Backpack_Standard_Material_Cultist"
-      },
-      "cobj": {
-        "formid": "0062FADA",
-        "edid": "co_mod_BackPack_Standard_Material_Cultist"
-      },
-      "cnam": {
-        "formid": "0062F458",
-        "edid": "mod_BackPack_Cultist_Material_Default",
-        "sig": "OMOD"
-      },
-      "tradeable": true,
-      "stops_dropping": false,
-      "effects": null,
-      "cut": false,
-      "cut_reason": null,
-      "obtain_ledger": [
-        {
-          "label": "Events & Activities",
-          "routes": [
-            0,
-            1,
-            2
-          ]
-        }
-      ],
-      "backpack_class": "skin",
-      "source_tag": "Events",
-      "images": [],
-      "image_source": ""
-    },
-    {
-      "kind": "plan",
-      "brand": "df",
       "type": "recipe",
       "id": "PLAN_00631F3A",
       "name": "Plan: Daphne",
@@ -979849,71 +979770,6 @@
         "Western Revolver"
       ],
       "weapon_group_solo": false
-    },
-    {
-      "kind": "plan",
-      "brand": "df",
-      "type": "backpack-mod",
-      "id": "PLAN_006EC20D",
-      "name": "Plan: Vault-Tec Survival Backpack",
-      "has_image_box": false,
-      "image_dir": "backpack",
-      "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
-      "category_label": "Backpack Mod Mod / Paint",
-      "obtain_routes": [
-        {
-          "route": "June Seaver (Lumbermill General vendor)",
-          "source_type": "vendor",
-          "rate": 1.0,
-          "rate_display": "100%",
-          "lvli": [
-            "00717DFA"
-          ],
-          "conditions": []
-        }
-      ],
-      "obtain_unlocks": [
-        "Reward for completing the quest: Char Gen",
-        "Reward for completing the quest: 76CharGenQuest"
-      ],
-      "plan_item": {
-        "formid": "006EC20D",
-        "edid": "NPE_Recipe_Backpack_Standard_Material_VaultTecStarter"
-      },
-      "cobj": {
-        "formid": "006EC20E",
-        "edid": "NPE_co_mod_BackPack_Standard_Material_VaultTecStarter"
-      },
-      "cnam": {
-        "formid": "006EC210",
-        "edid": "NPE_mod_BackPack_VaultTecStarter_Material_Default",
-        "sig": "OMOD"
-      },
-      "tradeable": true,
-      "stops_dropping": false,
-      "effects": null,
-      "cut": false,
-      "cut_reason": null,
-      "obtain_ledger": [
-        {
-          "label": "Caps",
-          "routes": [
-            0
-          ]
-        },
-        {
-          "label": "Quests",
-          "unlocks": [
-            0,
-            1
-          ],
-          "drop": "N/A"
-        }
-      ],
-      "backpack_class": "skin",
-      "source_tag": "Quest",
-      "images": [],
-      "image_source": ""
     },
     {
       "kind": "plan",
@@ -1021911,7 +1021767,21 @@
       "image_dir": "body-armour",
       "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
       "category_label": "Armour (physical plan)",
-      "obtain_routes": [],
+      "obtain_routes": [
+        {
+          "route": "The Drifter",
+          "source_type": "event-quest",
+          "rate": 0.0166666667,
+          "rate_display": "1.6667%",
+          "lvli": [
+            "00802158"
+          ],
+          "kind": "quest",
+          "conditions": [
+            "Stops dropping once you learn it"
+          ]
+        }
+      ],
       "obtain_unlocks": [],
       "plan_item": {
         "formid": "007FFEEF",
@@ -1021929,27 +1021799,17 @@
       "tradeable": false,
       "stops_dropping": true,
       "effects": null,
-      "cut": true,
-      "cut_reason": "its only source in the game files is cut — The Drifter is cut content",
-      "obtain_ledger": [],
-      "retired_routes": [
+      "cut": false,
+      "cut_reason": null,
+      "obtain_ledger": [
         {
-          "route": "The Drifter",
-          "source_type": "event-quest",
-          "rate": 0.0166666667,
-          "rate_display": "1.6667%",
-          "lvli": [
-            "00802158"
-          ],
-          "kind": "quest",
-          "conditions": [
-            "Stops dropping once you learn it"
-          ],
-          "retired_because": [
-            "cut source"
+          "label": "Quests",
+          "routes": [
+            0
           ]
         }
       ],
+      "source_tag": "Quest",
       "images": [],
       "image_source": "",
       "plan_page": "body-armour",
@@ -1021969,7 +1021829,21 @@
       "image_dir": "body-armour",
       "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
       "category_label": "Armour (physical plan)",
-      "obtain_routes": [],
+      "obtain_routes": [
+        {
+          "route": "The Drifter",
+          "source_type": "event-quest",
+          "rate": 0.0166666667,
+          "rate_display": "1.6667%",
+          "lvli": [
+            "00802158"
+          ],
+          "kind": "quest",
+          "conditions": [
+            "Stops dropping once you learn it"
+          ]
+        }
+      ],
       "obtain_unlocks": [],
       "plan_item": {
         "formid": "007FFEF0",
@@ -1021987,27 +1021861,17 @@
       "tradeable": false,
       "stops_dropping": true,
       "effects": null,
-      "cut": true,
-      "cut_reason": "its only source in the game files is cut — The Drifter is cut content",
-      "obtain_ledger": [],
-      "retired_routes": [
+      "cut": false,
+      "cut_reason": null,
+      "obtain_ledger": [
         {
-          "route": "The Drifter",
-          "source_type": "event-quest",
-          "rate": 0.0166666667,
-          "rate_display": "1.6667%",
-          "lvli": [
-            "00802158"
-          ],
-          "kind": "quest",
-          "conditions": [
-            "Stops dropping once you learn it"
-          ],
-          "retired_because": [
-            "cut source"
+          "label": "Quests",
+          "routes": [
+            0
           ]
         }
       ],
+      "source_tag": "Quest",
       "images": [],
       "image_source": "",
       "plan_page": "body-armour",
@@ -1022027,7 +1021891,21 @@
       "image_dir": "body-armour",
       "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
       "category_label": "Armour (physical plan)",
-      "obtain_routes": [],
+      "obtain_routes": [
+        {
+          "route": "The Drifter",
+          "source_type": "event-quest",
+          "rate": 0.0166666667,
+          "rate_display": "1.6667%",
+          "lvli": [
+            "00802158"
+          ],
+          "kind": "quest",
+          "conditions": [
+            "Stops dropping once you learn it"
+          ]
+        }
+      ],
       "obtain_unlocks": [],
       "plan_item": {
         "formid": "007FFEF1",
@@ -1022045,27 +1021923,17 @@
       "tradeable": false,
       "stops_dropping": true,
       "effects": null,
-      "cut": true,
-      "cut_reason": "its only source in the game files is cut — The Drifter is cut content",
-      "obtain_ledger": [],
-      "retired_routes": [
+      "cut": false,
+      "cut_reason": null,
+      "obtain_ledger": [
         {
-          "route": "The Drifter",
-          "source_type": "event-quest",
-          "rate": 0.0166666667,
-          "rate_display": "1.6667%",
-          "lvli": [
-            "00802158"
-          ],
-          "kind": "quest",
-          "conditions": [
-            "Stops dropping once you learn it"
-          ],
-          "retired_because": [
-            "cut source"
+          "label": "Quests",
+          "routes": [
+            0
           ]
         }
       ],
+      "source_tag": "Quest",
       "images": [],
       "image_source": "",
       "plan_page": "body-armour",
@@ -1022085,7 +1021953,21 @@
       "image_dir": "body-armour",
       "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
       "category_label": "Armour (physical plan)",
-      "obtain_routes": [],
+      "obtain_routes": [
+        {
+          "route": "The Drifter",
+          "source_type": "event-quest",
+          "rate": 0.0166666667,
+          "rate_display": "1.6667%",
+          "lvli": [
+            "00802158"
+          ],
+          "kind": "quest",
+          "conditions": [
+            "Stops dropping once you learn it"
+          ]
+        }
+      ],
       "obtain_unlocks": [],
       "plan_item": {
         "formid": "007FFEF2",
@@ -1022103,27 +1021985,17 @@
       "tradeable": false,
       "stops_dropping": true,
       "effects": null,
-      "cut": true,
-      "cut_reason": "its only source in the game files is cut — The Drifter is cut content",
-      "obtain_ledger": [],
-      "retired_routes": [
+      "cut": false,
+      "cut_reason": null,
+      "obtain_ledger": [
         {
-          "route": "The Drifter",
-          "source_type": "event-quest",
-          "rate": 0.0166666667,
-          "rate_display": "1.6667%",
-          "lvli": [
-            "00802158"
-          ],
-          "kind": "quest",
-          "conditions": [
-            "Stops dropping once you learn it"
-          ],
-          "retired_because": [
-            "cut source"
+          "label": "Quests",
+          "routes": [
+            0
           ]
         }
       ],
+      "source_tag": "Quest",
       "images": [],
       "image_source": "",
       "plan_page": "body-armour",
@@ -1022143,7 +1022015,21 @@
       "image_dir": "body-armour",
       "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
       "category_label": "Armour (physical plan)",
-      "obtain_routes": [],
+      "obtain_routes": [
+        {
+          "route": "The Drifter",
+          "source_type": "event-quest",
+          "rate": 0.0166666667,
+          "rate_display": "1.6667%",
+          "lvli": [
+            "00802158"
+          ],
+          "kind": "quest",
+          "conditions": [
+            "Stops dropping once you learn it"
+          ]
+        }
+      ],
       "obtain_unlocks": [],
       "plan_item": {
         "formid": "007FFEF3",
@@ -1022161,27 +1022047,17 @@
       "tradeable": false,
       "stops_dropping": true,
       "effects": null,
-      "cut": true,
-      "cut_reason": "its only source in the game files is cut — The Drifter is cut content",
-      "obtain_ledger": [],
-      "retired_routes": [
+      "cut": false,
+      "cut_reason": null,
+      "obtain_ledger": [
         {
-          "route": "The Drifter",
-          "source_type": "event-quest",
-          "rate": 0.0166666667,
-          "rate_display": "1.6667%",
-          "lvli": [
-            "00802158"
-          ],
-          "kind": "quest",
-          "conditions": [
-            "Stops dropping once you learn it"
-          ],
-          "retired_because": [
-            "cut source"
+          "label": "Quests",
+          "routes": [
+            0
           ]
         }
       ],
+      "source_tag": "Quest",
       "images": [],
       "image_source": "",
       "plan_page": "body-armour",
@@ -1022201,7 +1022077,21 @@
       "image_dir": "body-armour",
       "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
       "category_label": "Armour (physical plan)",
-      "obtain_routes": [],
+      "obtain_routes": [
+        {
+          "route": "The Drifter",
+          "source_type": "event-quest",
+          "rate": 0.0166666667,
+          "rate_display": "1.6667%",
+          "lvli": [
+            "00802158"
+          ],
+          "kind": "quest",
+          "conditions": [
+            "Stops dropping once you learn it"
+          ]
+        }
+      ],
       "obtain_unlocks": [],
       "plan_item": {
         "formid": "007FFEF4",
@@ -1022219,27 +1022109,17 @@
       "tradeable": false,
       "stops_dropping": true,
       "effects": null,
-      "cut": true,
-      "cut_reason": "its only source in the game files is cut — The Drifter is cut content",
-      "obtain_ledger": [],
-      "retired_routes": [
+      "cut": false,
+      "cut_reason": null,
+      "obtain_ledger": [
         {
-          "route": "The Drifter",
-          "source_type": "event-quest",
-          "rate": 0.0166666667,
-          "rate_display": "1.6667%",
-          "lvli": [
-            "00802158"
-          ],
-          "kind": "quest",
-          "conditions": [
-            "Stops dropping once you learn it"
-          ],
-          "retired_because": [
-            "cut source"
+          "label": "Quests",
+          "routes": [
+            0
           ]
         }
       ],
+      "source_tag": "Quest",
       "images": [],
       "image_source": "",
       "plan_page": "body-armour",
@@ -1022259,7 +1022139,21 @@
       "image_dir": "mines-and-grenades",
       "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
       "category_label": "Weapon (physical plan)",
-      "obtain_routes": [],
+      "obtain_routes": [
+        {
+          "route": "The Drifter",
+          "source_type": "event-quest",
+          "rate": 0.025,
+          "rate_display": "2.5%",
+          "lvli": [
+            "00802158"
+          ],
+          "kind": "quest",
+          "conditions": [
+            "Stops dropping once you learn it"
+          ]
+        }
+      ],
       "obtain_unlocks": [],
       "plan_item": {
         "formid": "007FFFDA",
@@ -1022277,27 +1022171,17 @@
       "tradeable": false,
       "stops_dropping": true,
       "effects": null,
-      "cut": true,
-      "cut_reason": "its only source in the game files is cut — The Drifter is cut content",
-      "obtain_ledger": [],
-      "retired_routes": [
+      "cut": false,
+      "cut_reason": null,
+      "obtain_ledger": [
         {
-          "route": "The Drifter",
-          "source_type": "event-quest",
-          "rate": 0.025,
-          "rate_display": "2.5%",
-          "lvli": [
-            "00802158"
-          ],
-          "kind": "quest",
-          "conditions": [
-            "Stops dropping once you learn it"
-          ],
-          "retired_because": [
-            "cut source"
+          "label": "Quests",
+          "routes": [
+            0
           ]
         }
       ],
+      "source_tag": "Quest",
       "images": [],
       "image_source": "",
       "plan_page": "mines-and-grenades",
@@ -1022313,7 +1022197,21 @@
       "image_dir": "weapons",
       "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
       "category_label": "Weapon (physical plan)",
-      "obtain_routes": [],
+      "obtain_routes": [
+        {
+          "route": "The Drifter",
+          "source_type": "event-quest",
+          "rate": 0.025,
+          "rate_display": "2.5%",
+          "lvli": [
+            "00802158"
+          ],
+          "kind": "quest",
+          "conditions": [
+            "Stops dropping once you learn it"
+          ]
+        }
+      ],
       "obtain_unlocks": [],
       "plan_item": {
         "formid": "00802193",
@@ -1022331,27 +1022229,17 @@
       "tradeable": false,
       "stops_dropping": true,
       "effects": null,
-      "cut": true,
-      "cut_reason": "its only source in the game files is cut — The Drifter is cut content",
-      "obtain_ledger": [],
-      "retired_routes": [
+      "cut": false,
+      "cut_reason": null,
+      "obtain_ledger": [
         {
-          "route": "The Drifter",
-          "source_type": "event-quest",
-          "rate": 0.025,
-          "rate_display": "2.5%",
-          "lvli": [
-            "00802158"
-          ],
-          "kind": "quest",
-          "conditions": [
-            "Stops dropping once you learn it"
-          ],
-          "retired_because": [
-            "cut source"
+          "label": "Quests",
+          "routes": [
+            0
           ]
         }
       ],
+      "source_tag": "Quest",
       "images": [
         "/wp-content/uploads/guide-images/plan-checklist/weapons/m79-grenade-launcher.avif"
       ],
@@ -1022374,7 +1022262,21 @@
       "image_dir": "weapons",
       "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
       "category_label": "Weapon (physical plan)",
-      "obtain_routes": [],
+      "obtain_routes": [
+        {
+          "route": "The Drifter",
+          "source_type": "event-quest",
+          "rate": 0.025,
+          "rate_display": "2.5%",
+          "lvli": [
+            "00802158"
+          ],
+          "kind": "quest",
+          "conditions": [
+            "Stops dropping once you learn it"
+          ]
+        }
+      ],
       "obtain_unlocks": [],
       "plan_item": {
         "formid": "00802194",
@@ -1022392,27 +1022294,17 @@
       "tradeable": false,
       "stops_dropping": true,
       "effects": null,
-      "cut": true,
-      "cut_reason": "its only source in the game files is cut — The Drifter is cut content",
-      "obtain_ledger": [],
-      "retired_routes": [
+      "cut": false,
+      "cut_reason": null,
+      "obtain_ledger": [
         {
-          "route": "The Drifter",
-          "source_type": "event-quest",
-          "rate": 0.025,
-          "rate_display": "2.5%",
-          "lvli": [
-            "00802158"
-          ],
-          "kind": "quest",
-          "conditions": [
-            "Stops dropping once you learn it"
-          ],
-          "retired_because": [
-            "cut source"
+          "label": "Quests",
+          "routes": [
+            0
           ]
         }
       ],
+      "source_tag": "Quest",
       "images": [
         "/wp-content/uploads/guide-images/plan-checklist/weapons/10mm-submachine-gun.avif"
       ],
@@ -1022435,7 +1022327,21 @@
       "image_dir": "weapons",
       "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
       "category_label": "Weapon (physical plan)",
-      "obtain_routes": [],
+      "obtain_routes": [
+        {
+          "route": "The Drifter",
+          "source_type": "event-quest",
+          "rate": 0.025,
+          "rate_display": "2.5%",
+          "lvli": [
+            "00802158"
+          ],
+          "kind": "quest",
+          "conditions": [
+            "Stops dropping once you learn it"
+          ]
+        }
+      ],
       "obtain_unlocks": [],
       "plan_item": {
         "formid": "00802192",
@@ -1022453,27 +1022359,17 @@
       "tradeable": false,
       "stops_dropping": true,
       "effects": null,
-      "cut": true,
-      "cut_reason": "its only source in the game files is cut — The Drifter is cut content",
-      "obtain_ledger": [],
-      "retired_routes": [
+      "cut": false,
+      "cut_reason": null,
+      "obtain_ledger": [
         {
-          "route": "The Drifter",
-          "source_type": "event-quest",
-          "rate": 0.025,
-          "rate_display": "2.5%",
-          "lvli": [
-            "00802158"
-          ],
-          "kind": "quest",
-          "conditions": [
-            "Stops dropping once you learn it"
-          ],
-          "retired_because": [
-            "cut source"
+          "label": "Quests",
+          "routes": [
+            0
           ]
         }
       ],
+      "source_tag": "Quest",
       "images": [
         "/wp-content/uploads/guide-images/plan-checklist/weapons/assaultron-blade.avif"
       ],

@@ -457,7 +457,7 @@
     "tickSeconds": 60,
     "rested": {
       "name": "Pet Rested",
-      "desc": "",
+      "desc": "10x Pet XP Bonus",
       "multiplier": 10,
       "durationSec": 14400,
       "durationHours": 4.0,
@@ -678,9 +678,9 @@
           "name": "Bait Finder",
           "spell": "WorldPets_CatBuff_Buff01",
           "descs": [
-            "",
-            "",
-            ""
+            "Cat finds <MAG> Improved Baits every 30 minutes",
+            "Cat finds <MAG> Improved Baits every 30 minutes",
+            "Cat finds <MAG> Improved Baits every 30 minutes"
           ],
           "intervalMin": 30,
           "ranks": []
@@ -1537,10 +1537,10 @@
         "weapEdid": "crUnarmedWorldPet_Cat",
         "attackType": "Scratch",
         "speed": 1,
-        "reach": 0.5,
-        "minRange": 100,
+        "reach": 1,
+        "minRange": 50,
         "maxRange": 2000,
-        "attackDelay": 0.2,
+        "attackDelay": 0,
         "animAttackSec": 2,
         "critDmgMult": 2,
         "outOfRangeMult": 1,
@@ -1575,9 +1575,9 @@
           "name": "Dark Titan",
           "spell": "WorldPets_DeathclawBuff_Buff01",
           "descs": [
-            "",
-            "",
-            ""
+            "Deathclaw finds <MAG> Black Titanium Ore every 30 min",
+            "Deathclaw finds <MAG> Black Titanium Ore every 30 min",
+            "Deathclaw finds <MAG> Black Titanium Ore every 30 min"
           ],
           "intervalMin": 30,
           "ranks": []
@@ -1586,9 +1586,9 @@
           "name": "Fun-Festation",
           "spell": "WorldPets_DeathclawBuff_Buff02",
           "descs": [
-            "<+MAG> Legendary upon completing an Infestation",
-            "",
-            ""
+            "<+MAG> Legendary (1 star) upon completing an Infestation",
+            "<+MAG> Legendary (2 star) upon completing an Infestation",
+            "<+MAG> Legendary (3 star) upon completing an Infestation"
           ],
           "trigger": "infestation",
           "intervalMin": null,
@@ -1820,9 +1820,9 @@
           "name": "Stimpak Fetcher",
           "spell": "WorldPets_DogBuff_Buff01",
           "descs": [
-            "",
-            "",
-            ""
+            "Dog finds <MAG> Stimpaks every hour",
+            "Dog finds <MAG> Stimpaks every hour",
+            "Dog finds <MAG> Stimpaks every hour"
           ],
           "intervalMin": 30,
           "ranks": []
@@ -1831,9 +1831,9 @@
           "name": "Bounty Sniffer",
           "spell": "WorldPets_DogBuff_Buff02",
           "descs": [
-            "<MAG>% Chance for additional Legendary for Bounties",
-            "",
-            ""
+            "+<MAG> Legendary item (1 star) when completing a Grunt Hunt with a Dog",
+            "+<MAG> Legendary item (2 star) when completing a Grunt Hunt with a Dog",
+            "+<MAG> Legendary item (3 star) when completing a Grunt Hunt with a Dog"
           ],
           "trigger": "grunt-hunt",
           "intervalMin": null,
@@ -2226,7 +2226,7 @@
           "edid": "ATX_CAMPPets_Actor_Dog_HuntingDog",
           "obtainSource": "Atom Shop",
           "tradeable": false,
-          "description": "",
+          "description": "Lean, rugged and always ready to play!",
           "obtainRoutes": [
             {
               "route": "Caps",
@@ -2791,9 +2791,9 @@
           "name": "Goo-Getter",
           "spell": "WorldPets_RadhogBuff_Buff01",
           "descs": [
-            "",
-            "",
-            ""
+            "Radhog finds <MAG> Toxic-Goo every 30 minutes",
+            "Radhog finds <MAG> Toxic-Goo every 30 minutes",
+            "Radhog finds <MAG> Toxic-Goo every 30 minutes"
           ],
           "intervalMin": 30,
           "ranks": []
