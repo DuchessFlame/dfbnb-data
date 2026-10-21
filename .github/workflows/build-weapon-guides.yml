@@ -1,0 +1,71 @@
+name: Build Weapon Guides Data
+
+# One-weapon guide pages: /bnb/weapons-mods/<slug>-guide/ (first page: The Pipe).
+#
+#   dist/weapon_guides.json            index
+#   dist/weapon_guides/<slug>.json     one doc per page   (renderer: df-bnb-weapon-guide.js)
+#
+# Targeted rebuild only - the full pipelines (dfbnb-patch-build.yml / dfbnb-pts-build.yml)
+# run the same script after the Chainsaw build.
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'src/build_weapon_guides_json.py'
+      - 'src/spawns_configs/chainsaws.py'
+      - 'data/server_listing.tsv'
+      - '.github/workflows/build-weapon-guides.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dist-main
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Run build script
+        run: |
+          python src/build_weapon_guides_json.py
+          python src/build_weapon_guides_json.py --pts
+
+      - name: Verify output
+        run: |
+          python - <<'PY'
+          import json, sys
+          doc = json.load(open("dist/weapon_guides/the-pipe.json", encoding="utf-8"))
+          if not doc["mods"].get("count"):
+              sys.exit("the-pipe.json resolved 0 mods - the OMOD archetype join broke.")
+          u = doc.get("unique_effect") or {}
+          if not u.get("bonuses"):
+              sys.exit("the-pipe.json has no unique-effect bonuses - the PERKEP join broke.")
+          if not (doc.get("encounter") or {}).get("spell"):
+              sys.exit("the-pipe.json lost the Unusual Pipe spell - the ACTI/SPEL join broke.")
+          print(f"OK {doc['mods']['count']} mods, +{u.get('max_total_percent')}% max, "
+                f"maps on server: {doc['maps']['on_server']}")
+          PY
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add dist/
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Build Weapon Guides data"
+            git pull --rebase
+            git push
+          fi

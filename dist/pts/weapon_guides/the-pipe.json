@@ -1,0 +1,4164 @@
+{
+ "_meta": {
+  "generated": "2026-10-21",
+  "channel": "pts",
+  "source": "Game-file exports (WEAP/OMOD/PERK/PCRD/CHAL/GLOB/QUST/ACTI/SPEL/BOOK) + data/server_listing.tsv",
+  "exports": "2026-10-01"
+ },
+ "slug": "the-pipe",
+ "name": "The Pipe",
+ "page_title": "Weapons - The Pipe Guide",
+ "url": "/bnb/weapons-mods/the-pipe-guide/",
+ "blurb": "The Pipe in Fallout 76: the named pipe pistol with the A True Believer effect. How to get it from the Unusual Pipe random encounter, its full stat line, every mod it takes and how to max out its damage bonus.",
+ "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/the-pipe.avif",
+ "overview": {
+  "base_weapon": "Pipe",
+  "base_form_id": "00024F55",
+  "base_edid": "PipeGun",
+  "template": "The Pipe",
+  "template_keyword": "if_tmp_ThePipe",
+  "legendary_stars": 4,
+  "legendary_note": "Drops with 4 legendary stars, each one rolled at random.",
+  "level_requirement": 1,
+  "custom_mod": {
+   "edid": "mod_Custom_ThePipe",
+   "name": "The Pipe",
+   "sig": "OMOD",
+   "form_id": "0091EE2C"
+  }
+ },
+ "obtain": [
+  {
+   "route": "Random Encounters",
+   "drops": "Ready-made weapon",
+   "source": "Random Encounter: Unusual Pipe - a chance each time you sniff the pipe",
+   "rate": "N/A",
+   "rate_note": "The chance is set on Bethesda's servers. Nothing in the game files hands The Pipe out, so there is no percentage to show.",
+   "conditions": [
+    "Sniff the pipe yourself - the pipe's script only fires for players",
+    "The Unusual Pipe is one of many Object random encounters, so it won't be at every encounter point you visit",
+    "Appalachia encounter points only - Skyline Valley and Burning Springs run their own encounter pools, so it never spawns there"
+   ]
+  }
+ ],
+ "unique_effect": {
+  "name": "The Pipe",
+  "description": "A True Believer",
+  "omod": {
+   "edid": "mod_Custom_ThePipe",
+   "name": "The Pipe",
+   "sig": "OMOD",
+   "form_id": "0091EE2C"
+  },
+  "perk_form_ids": [
+   "0091EE2D"
+  ],
+  "bonuses": [
+   {
+    "stat": "damage",
+    "function": "Add Value",
+    "amount": 0.2,
+    "percent": 20.0,
+    "condition": {
+     "kind": "perk",
+     "form_id": "00338438",
+     "edid": "LicensedPlumber01",
+     "rank": 1,
+     "name": "Licensed Plumber"
+    }
+   },
+   {
+    "stat": "damage",
+    "function": "Add Value",
+    "amount": 0.2,
+    "percent": 20.0,
+    "condition": {
+     "kind": "perk",
+     "form_id": "0033843A",
+     "edid": "LicensedPlumber02",
+     "rank": 2,
+     "name": "Licensed Plumber"
+    }
+   },
+   {
+    "stat": "damage",
+    "function": "Add Value",
+    "amount": 0.2,
+    "percent": 20.0,
+    "condition": {
+     "kind": "perk",
+     "form_id": "0033843B",
+     "edid": "LicensedPlumber03",
+     "rank": 3,
+     "name": "Licensed Plumber"
+    }
+   },
+   {
+    "stat": "damage",
+    "function": "Add Value",
+    "amount": 0.2,
+    "percent": 20.0,
+    "condition": {
+     "kind": "challenge",
+     "form_id": "0050DBD1",
+     "edid": "Challenge_Lifetime_CraftScrap_Weapon_Tiers_Ranged_Pistols_Pipe",
+     "name": "Craft or Scrap Pipe Weapons"
+    }
+   }
+  ],
+  "max_total_percent": 80.0,
+  "perk_total_percent": 60.0,
+  "challenge_total_percent": 20.0
+ },
+ "perk_card": {
+  "form_id": "0033843C",
+  "edid": "LicensedPlumberCard",
+  "name": "Licensed Plumber",
+  "special": "Intelligence",
+  "min_level": 5,
+  "ranks": [
+   {
+    "rank": 1,
+    "form_id": "00338438",
+    "name": "Licensed Plumber",
+    "description": "Your pipe weapons break 20% slower and are cheaper to repair."
+   },
+   {
+    "rank": 2,
+    "form_id": "0033843A",
+    "name": "Licensed Plumber",
+    "description": "Your pipe weapons break 40% slower and are cheaper to repair."
+   },
+   {
+    "rank": 3,
+    "form_id": "0033843B",
+    "name": "Licensed Plumber",
+    "description": "Your pipe weapons break 60% slower and are cheaper to repair."
+   }
+  ],
+  "tagline": "Your Vault job has finally paid off!"
+ },
+ "challenge": {
+  "form_id": "0050DBD1",
+  "edid": "Challenge_Lifetime_CraftScrap_Weapon_Tiers_Ranged_Pistols_Pipe",
+  "name": "Craft or Scrap Pipe Weapons",
+  "counts_weapons": [
+   "Pipe Bolt-Action",
+   "Pipe Revolver",
+   "Syringer",
+   "Pipe",
+   "Vox Syringer"
+  ],
+  "type": "Lifetime",
+  "category": "Combat",
+  "counts": "Items Crafted or Scrapped",
+  "target": 76,
+  "keyword": "WeaponTypePipe",
+  "parent": "Craft or Scrap Pistols"
+ },
+ "encounter": {
+  "name": "Unusual Pipe",
+  "edid": "W05_RE_ObjectZW04",
+  "form_id": "00564513",
+  "type": "Object",
+  "aliases": [
+   {
+    "alias": "Pipe",
+    "base": "RE_ObjectZW04_PipeSC",
+    "sig": "SCOL"
+   },
+   {
+    "alias": "Corpse",
+    "base": "RE_ObjectZW04_Loot_Corpse",
+    "sig": "NPC_"
+   },
+   {
+    "alias": "Steam",
+    "base": "WaterSteam",
+    "sig": "MSTT"
+   },
+   {
+    "alias": "Activator",
+    "base": "RE_ObjectZW04_Activator",
+    "sig": "ACTI"
+   }
+  ],
+  "spell": {
+   "form_id": "00564518",
+   "effects": [
+    {
+     "name": "Camera Shake Effect - Intense",
+     "edid": "RE_ObjectZW04_CameraShakeSpellEffectIntense",
+     "magnitude": 0.15,
+     "duration": 25.0
+    },
+    {
+     "name": "Restore Health",
+     "edid": "RE_ObjectZW04_RestoreHealthGeneric",
+     "magnitude": 4.0,
+     "duration": 30.0
+    }
+   ]
+  },
+  "note": {
+   "title": "Pipe...",
+   "text": "PIPE IS LIFE",
+   "form_id": "00568635"
+  },
+  "player_only": true,
+  "guide_url": "/df/random-encounters/random-encounter-guides/object-random-encounters/"
+ },
+ "maps": {
+  "folder": "/wp-content/uploads/guide-images/random-encounters/object/maps/",
+  "pool": "appalachia",
+  "full": null,
+  "numbered": null,
+  "regions": [],
+  "on_server": false
+ },
+ "weapon_stats": {
+  "form_id": "00024F55",
+  "edid": "PipeGun",
+  "name": "Pipe",
+  "level_requirement": 1,
+  "equip_type": "BothHands",
+  "base_damage": {
+   "curve": "CT_Player_Damage_Universal_Tier19",
+   "curve_form_id": "0080F203",
+   "note": "Base damage is not stored on the weapon — it scales with your character level off the curve below.",
+   "by_level": [
+    {
+     "level": 1,
+     "damage": 20.0
+    },
+    {
+     "level": 10,
+     "damage": 25.0
+    },
+    {
+     "level": 20,
+     "damage": 32.0
+    },
+    {
+     "level": 30,
+     "damage": 40.0
+    },
+    {
+     "level": 40,
+     "damage": 52.0
+    },
+    {
+     "level": 50,
+     "damage": 66.0
+    }
+   ],
+   "min": 20.0,
+   "max": 66.0
+  },
+  "stats": [
+   {
+    "label": "Ammo",
+    "value": ".38 Round"
+   },
+   {
+    "label": "Magazine size",
+    "value": "12"
+   },
+   {
+    "label": "AP cost per shot",
+    "value": "13"
+   },
+   {
+    "label": "Delay between shots",
+    "value": "0.17s"
+   },
+   {
+    "label": "Range (full damage)",
+    "value": "1121"
+   },
+   {
+    "label": "Range (falloff ends)",
+    "value": "2243"
+   },
+   {
+    "label": "Damage past max range",
+    "value": "0.5×"
+   },
+   {
+    "label": "Weight",
+    "value": "4"
+   },
+   {
+    "label": "Value (caps)",
+    "value": "25"
+   },
+   {
+    "label": "Durability (health)",
+    "value": "100"
+   },
+   {
+    "label": "Stagger",
+    "value": "Small"
+   },
+   {
+    "label": "Sound level",
+    "value": "Loud"
+   },
+   {
+    "label": "Critical damage",
+    "value": "2.5×"
+   },
+   {
+    "label": "Sneak attack",
+    "value": "2.5×"
+   }
+  ],
+  "mod_slots": [
+   {
+    "edid": "ap_gun_Receiver",
+    "name": "Receiver"
+   },
+   {
+    "edid": "ap_customName",
+    "name": "Unique Effect"
+   }
+  ],
+  "keywords": [
+   "s_40_HandmadePipeA",
+   "ma_Handmade_Nonshotgun",
+   "s_IronSightsPistol",
+   "dn_weap_Pipe",
+   "AnimsRecieverHandmadePipe",
+   "ma_PipeGun",
+   "AnimsReceiverHandmadePipeSA",
+   "WeaponTypeBallistic",
+   "modskill_Guns",
+   "ma_BallisticGun",
+   "ObjectTypeWeapon",
+   "WeaponRequiresMods",
+   "ma_CanHaveNullMuzzle",
+   "WeaponTypePipe",
+   "WeaponTypeRanged",
+   "ma_legendarycrafting_weaponranged",
+   "ma_Misc_Legendarycrafting_Weapon_Ranged4",
+   "ma_legendarycrafting_weapon",
+   "ma_legendarycrafting_weaponexplosivebullets"
+  ]
+ },
+ "preinstalled": [
+  {
+   "edid": "mod_PipeGun_receiver_Base",
+   "name": "Standard Receiver",
+   "sig": "OMOD",
+   "form_id": "002D5E2C"
+  },
+  {
+   "edid": "mod_PipeGun_barrel_veryshort_Base",
+   "name": "Stub Barrel",
+   "sig": "OMOD",
+   "form_id": "002D5DD7"
+  },
+  {
+   "edid": "mod_PipeGun_grip_Base",
+   "name": "Standard Grip",
+   "sig": "OMOD",
+   "form_id": "002D5DDD"
+  },
+  {
+   "edid": "mod_PipeGun_magazine_Base",
+   "name": "Standard Magazine",
+   "sig": "OMOD",
+   "form_id": "002D5DF9"
+  },
+  {
+   "edid": "mod_PipeGun_SCOPE_Ironsights_Base",
+   "name": "Standard Sights",
+   "sig": "OMOD",
+   "form_id": "002D5E43"
+  },
+  {
+   "edid": "mod_Null_Muzzle",
+   "name": "No Muzzle",
+   "sig": "OMOD",
+   "form_id": "0004F21D"
+  }
+ ],
+ "mods": {
+  "archetypes": [
+   "ma_PipeGun"
+  ],
+  "unique_variants": [],
+  "count": 74,
+  "groups": [
+   {
+    "slot": "Barrel",
+    "cosmetic": false,
+    "mods": [
+     {
+      "form_id": "002D5DCD",
+      "edid": "mod_PipeGun_Barrel_Long_Recoil-HipAccuracy",
+      "name": "Aligned Long Barrel",
+      "description": "",
+      "slot": "Barrel",
+      "attach_point": "ap_gun_Barrel",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Barrel_Long_Recoil-HipAccuracy",
+      "effects": [
+       {
+        "label": "AP cost",
+        "value": "+10%"
+       },
+       {
+        "label": "Range",
+        "value": "+50%"
+       },
+       {
+        "label": "Accuracy",
+        "value": "+10"
+       },
+       {
+        "label": "Recoil",
+        "value": "+16%"
+       },
+       {
+        "label": "Time to aim",
+        "value": "+6%"
+       },
+       {
+        "label": "Durability",
+        "value": "-20%"
+       },
+       {
+        "label": "Weight",
+        "value": "+33%"
+       },
+       {
+        "label": "Value",
+        "value": "+38%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 16.5,
+       "text": "Scrap a Pipe to learn it - 16.5% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5DD4",
+      "edid": "mod_PipeGun_Barrel_Short_Recoil-HipAccuracy",
+      "name": "Aligned Short Barrel",
+      "description": "",
+      "slot": "Barrel",
+      "attach_point": "ap_gun_Barrel",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Barrel_Short_Recoil-HipAccuracy",
+      "effects": [
+       {
+        "label": "AP cost",
+        "value": "-10%"
+       },
+       {
+        "label": "Accuracy",
+        "value": "+10"
+       },
+       {
+        "label": "Durability",
+        "value": "-10%"
+       },
+       {
+        "label": "Weight",
+        "value": "+15%"
+       },
+       {
+        "label": "Value",
+        "value": "+20%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 16.5,
+       "text": "Scrap a Pipe to learn it - 16.5% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5DDB",
+      "edid": "mod_PipeGun_Barrel_VeryShort_Recoil-HipAccuracy",
+      "name": "Aligned Stub Barrel",
+      "description": "",
+      "slot": "Barrel",
+      "attach_point": "ap_gun_Barrel",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Barrel_VeryShort_Recoil-HipAccuracy",
+      "effects": [
+       {
+        "label": "AP cost",
+        "value": "-20%"
+       },
+       {
+        "label": "Range",
+        "value": "+100%"
+       },
+       {
+        "label": "Accuracy",
+        "value": "+10"
+       },
+       {
+        "label": "Recoil",
+        "value": "-15%"
+       },
+       {
+        "label": "Hip-fire spread",
+        "value": "+15%"
+       },
+       {
+        "label": "Time to aim",
+        "value": "-15%"
+       },
+       {
+        "label": "Weight",
+        "value": "+15%"
+       },
+       {
+        "label": "Value",
+        "value": "+20%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 16.5,
+       "text": "Scrap a Pipe to learn it - 16.5% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5DCC",
+      "edid": "mod_PipeGun_Barrel_Long_Recoil",
+      "name": "Stabilized Long Barrel",
+      "description": "",
+      "slot": "Barrel",
+      "attach_point": "ap_gun_Barrel",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Barrel_Long_Recoil",
+      "effects": [
+       {
+        "label": "AP cost",
+        "value": "+20%"
+       },
+       {
+        "label": "Range",
+        "value": "+50%"
+       },
+       {
+        "label": "Recoil",
+        "value": "+16%"
+       },
+       {
+        "label": "Hip-fire spread",
+        "value": "-5%"
+       },
+       {
+        "label": "Aimed spread",
+        "value": "+15%"
+       },
+       {
+        "label": "Time to aim",
+        "value": "+6%"
+       },
+       {
+        "label": "Durability",
+        "value": "-20%"
+       },
+       {
+        "label": "Weight",
+        "value": "+33%"
+       },
+       {
+        "label": "Value",
+        "value": "+38%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 16.5,
+       "text": "Scrap a Pipe to learn it - 16.5% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5DD3",
+      "edid": "mod_PipeGun_Barrel_Short_Recoil",
+      "name": "Stabilized Short Barrel",
+      "description": "",
+      "slot": "Barrel",
+      "attach_point": "ap_gun_Barrel",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Barrel_Short_Recoil",
+      "effects": [
+       {
+        "label": "Hip-fire spread",
+        "value": "-5%"
+       },
+       {
+        "label": "Aimed spread",
+        "value": "+15%"
+       },
+       {
+        "label": "Durability",
+        "value": "-10%"
+       },
+       {
+        "label": "Weight",
+        "value": "+15%"
+       },
+       {
+        "label": "Value",
+        "value": "+20%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 16.5,
+       "text": "Scrap a Pipe to learn it - 16.5% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5DDA",
+      "edid": "mod_PipeGun_Barrel_VeryShort_Recoil",
+      "name": "Stabilized Stub Barrel",
+      "description": "",
+      "slot": "Barrel",
+      "attach_point": "ap_gun_Barrel",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Barrel_VeryShort_Recoil",
+      "effects": [
+       {
+        "label": "AP cost",
+        "value": "-10%"
+       },
+       {
+        "label": "Range",
+        "value": "+100%"
+       },
+       {
+        "label": "Recoil",
+        "value": "-15%"
+       },
+       {
+        "label": "Hip-fire spread",
+        "value": "+10%"
+       },
+       {
+        "label": "Aimed spread",
+        "value": "+15%"
+       },
+       {
+        "label": "Time to aim",
+        "value": "-15%"
+       },
+       {
+        "label": "Weight",
+        "value": "+15%"
+       },
+       {
+        "label": "Value",
+        "value": "+20%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 16.5,
+       "text": "Scrap a Pipe to learn it - 16.5% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5DCA",
+      "edid": "mod_PipeGun_Barrel_Long_HipAccuracy",
+      "name": "True Long Barrel",
+      "description": "",
+      "slot": "Barrel",
+      "attach_point": "ap_gun_Barrel",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Barrel_Long_HipAccuracy",
+      "effects": [
+       {
+        "label": "AP cost",
+        "value": "+20%"
+       },
+       {
+        "label": "Range",
+        "value": "+50%"
+       },
+       {
+        "label": "Recoil",
+        "value": "+16%"
+       },
+       {
+        "label": "Hip-fire spread",
+        "value": "-15%"
+       },
+       {
+        "label": "Aimed spread",
+        "value": "-15%"
+       },
+       {
+        "label": "Time to aim",
+        "value": "+6%"
+       },
+       {
+        "label": "Durability",
+        "value": "-15%"
+       },
+       {
+        "label": "Weight",
+        "value": "+33%"
+       },
+       {
+        "label": "Value",
+        "value": "+38%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 16.5,
+       "text": "Scrap a Pipe to learn it - 16.5% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5DD1",
+      "edid": "mod_PipeGun_Barrel_Short_HipAccuracy",
+      "name": "True Short Barrel",
+      "description": "",
+      "slot": "Barrel",
+      "attach_point": "ap_gun_Barrel",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Barrel_Short_HipAccuracy",
+      "effects": [
+       {
+        "label": "Hip-fire spread",
+        "value": "-15%"
+       },
+       {
+        "label": "Aimed spread",
+        "value": "-15%"
+       },
+       {
+        "label": "Durability",
+        "value": "-5%"
+       },
+       {
+        "label": "Weight",
+        "value": "+15%"
+       },
+       {
+        "label": "Value",
+        "value": "+20%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 16.5,
+       "text": "Scrap a Pipe to learn it - 16.5% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5DD8",
+      "edid": "mod_PipeGun_Barrel_VeryShort_HipAccuracy",
+      "name": "True Stub Barrel",
+      "description": "",
+      "slot": "Barrel",
+      "attach_point": "ap_gun_Barrel",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Barrel_VeryShort_HipAccuracy",
+      "effects": [
+       {
+        "label": "AP cost",
+        "value": "-10%"
+       },
+       {
+        "label": "Range",
+        "value": "+100%"
+       },
+       {
+        "label": "Recoil",
+        "value": "-15%"
+       },
+       {
+        "label": "Aimed spread",
+        "value": "-15%"
+       },
+       {
+        "label": "Time to aim",
+        "value": "-15%"
+       },
+       {
+        "label": "Durability",
+        "value": "+5%"
+       },
+       {
+        "label": "Weight",
+        "value": "+15%"
+       },
+       {
+        "label": "Value",
+        "value": "+20%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 16.5,
+       "text": "Scrap a Pipe to learn it - 16.5% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5DC9",
+      "edid": "mod_PipeGun_barrel_long_Base",
+      "name": "Standard Long Barrel",
+      "description": "",
+      "slot": "Barrel",
+      "attach_point": "ap_gun_Barrel",
+      "cosmetic": false,
+      "default": true,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "zzzmiscmod_mod_PipeGun_barrel_long_Base",
+      "effects": [
+       {
+        "label": "AP cost",
+        "value": "+20%"
+       },
+       {
+        "label": "Range",
+        "value": "+50%"
+       },
+       {
+        "label": "Recoil",
+        "value": "+16%"
+       },
+       {
+        "label": "Time to aim",
+        "value": "+6%"
+       },
+       {
+        "label": "Durability",
+        "value": "-10%"
+       },
+       {
+        "label": "Weight",
+        "value": "+18%"
+       },
+       {
+        "label": "Value",
+        "value": "+18%"
+       }
+      ],
+      "learn": {
+       "how": "default",
+       "text": "Known by default"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5DD0",
+      "edid": "mod_PipeGun_barrel_short_Base",
+      "name": "Standard Short Barrel",
+      "description": "",
+      "slot": "Barrel",
+      "attach_point": "ap_gun_Barrel",
+      "cosmetic": false,
+      "default": true,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_barrel_short_Base",
+      "effects": [],
+      "learn": {
+       "how": "default",
+       "text": "Known by default"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5DD7",
+      "edid": "mod_PipeGun_barrel_veryshort_Base",
+      "name": "Stub Barrel",
+      "description": "",
+      "slot": "Barrel",
+      "attach_point": "ap_gun_Barrel",
+      "cosmetic": false,
+      "default": true,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_barrel_veryshort_Base",
+      "effects": [
+       {
+        "label": "AP cost",
+        "value": "-10%"
+       },
+       {
+        "label": "Range",
+        "value": "+100%"
+       },
+       {
+        "label": "Recoil",
+        "value": "-15%"
+       },
+       {
+        "label": "Hip-fire spread",
+        "value": "+15%"
+       },
+       {
+        "label": "Time to aim",
+        "value": "-15%"
+       },
+       {
+        "label": "Durability",
+        "value": "+10%"
+       }
+      ],
+      "learn": {
+       "how": "default",
+       "text": "Known by default"
+      },
+      "preinstalled": true
+     }
+    ]
+   },
+   {
+    "slot": "Grip",
+    "cosmetic": false,
+    "mods": [
+     {
+      "form_id": "002D5DEB",
+      "edid": "mod_PipeGun_Grip_Recoil-HipAccuracy",
+      "name": "Aligned Grip",
+      "description": "",
+      "slot": "Grip",
+      "attach_point": "ap_gun_Grip",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Grip_HipAccuracy-Recoil",
+      "effects": [
+       {
+        "label": "AP cost",
+        "value": "-10%"
+       },
+       {
+        "label": "Accuracy",
+        "value": "+10"
+       },
+       {
+        "label": "Durability",
+        "value": "-10%"
+       },
+       {
+        "label": "Weight",
+        "value": "+15%"
+       },
+       {
+        "label": "Value",
+        "value": "+20%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 16.5,
+       "text": "Scrap a Pipe to learn it - 16.5% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5DE2",
+      "edid": "mod_PipeGun_grip_FullStock_Recoil-HipAccuracy",
+      "name": "Aligned Stock",
+      "description": "",
+      "slot": "Grip",
+      "attach_point": "ap_gun_Grip",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_grip_FullStock_HipAccuracy-Recoil",
+      "effects": [
+       {
+        "label": "AP cost",
+        "value": "-10%"
+       },
+       {
+        "label": "Bash damage",
+        "value": "+20%"
+       },
+       {
+        "label": "Accuracy",
+        "value": "+10"
+       },
+       {
+        "label": "Recoil",
+        "value": "-15%"
+       },
+       {
+        "label": "Stability",
+        "value": "+4%"
+       },
+       {
+        "label": "Time to aim",
+        "value": "+10%"
+       },
+       {
+        "label": "Durability",
+        "value": "-10%"
+       },
+       {
+        "label": "Weight",
+        "value": "+40%"
+       },
+       {
+        "label": "Value",
+        "value": "+40%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 16.5,
+       "text": "Scrap a Pipe to learn it - 16.5% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5DF0",
+      "edid": "mod_PipeGun_Grip_SecondaryDMG",
+      "name": "Bruising Grip",
+      "description": "",
+      "slot": "Grip",
+      "attach_point": "ap_gun_Grip",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Grip_SecondaryDMG",
+      "effects": [
+       {
+        "label": "Bash damage",
+        "value": "+25%"
+       },
+       {
+        "label": "Durability",
+        "value": "-5%"
+       },
+       {
+        "label": "Weight",
+        "value": "+15%"
+       },
+       {
+        "label": "Value",
+        "value": "+20%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 16.5,
+       "text": "Scrap a Pipe to learn it - 16.5% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5DE7",
+      "edid": "mod_PipeGun_grip_FullStock_SecondaryDMG",
+      "name": "Bruising Stock",
+      "description": "",
+      "slot": "Grip",
+      "attach_point": "ap_gun_Grip",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_grip_FullStock_SecondaryDMG",
+      "effects": [
+       {
+        "label": "Bash damage",
+        "value": "+45%"
+       },
+       {
+        "label": "Recoil",
+        "value": "-15%"
+       },
+       {
+        "label": "Stability",
+        "value": "+4%"
+       },
+       {
+        "label": "Time to aim",
+        "value": "+10%"
+       },
+       {
+        "label": "Durability",
+        "value": "-5%"
+       },
+       {
+        "label": "Weight",
+        "value": "+40%"
+       },
+       {
+        "label": "Value",
+        "value": "+40%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 16.5,
+       "text": "Scrap a Pipe to learn it - 16.5% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5DEF",
+      "edid": "mod_PipeGun_Grip_Recoil-SecondaryDMG",
+      "name": "Forceful Grip",
+      "description": "",
+      "slot": "Grip",
+      "attach_point": "ap_gun_Grip",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Grip_Recoil-SecondaryDMG",
+      "effects": [
+       {
+        "label": "Bash damage",
+        "value": "+25%"
+       },
+       {
+        "label": "Recoil",
+        "value": "-15%"
+       },
+       {
+        "label": "Durability",
+        "value": "-10%"
+       },
+       {
+        "label": "Weight",
+        "value": "+35%"
+       },
+       {
+        "label": "Value",
+        "value": "+35%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 16.5,
+       "text": "Scrap a Pipe to learn it - 16.5% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5DE6",
+      "edid": "mod_PipeGun_grip_FullStock_Recoil-SecondaryDMG",
+      "name": "Forceful Stock",
+      "description": "",
+      "slot": "Grip",
+      "attach_point": "ap_gun_Grip",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_grip_FullStock_Recoil-SecondaryDMG",
+      "effects": [
+       {
+        "label": "Bash damage",
+        "value": "+45%"
+       },
+       {
+        "label": "Recoil",
+        "value": "-30%"
+       },
+       {
+        "label": "Stability",
+        "value": "+4%"
+       },
+       {
+        "label": "Time to aim",
+        "value": "+10%"
+       },
+       {
+        "label": "Durability",
+        "value": "-10%"
+       },
+       {
+        "label": "Weight",
+        "value": "+60%"
+       },
+       {
+        "label": "Value",
+        "value": "+55%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 16.5,
+       "text": "Scrap a Pipe to learn it - 16.5% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5DEC",
+      "edid": "mod_PipeGun_Grip_HipAccuracy-SecondaryDMG",
+      "name": "Precise Recoil Grip",
+      "description": "",
+      "slot": "Grip",
+      "attach_point": "ap_gun_Grip",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Grip_HipAccuracy-SecondaryDMG",
+      "effects": [
+       {
+        "label": "Bash damage",
+        "value": "+25%"
+       },
+       {
+        "label": "Durability",
+        "value": "-10%"
+       },
+       {
+        "label": "Weight",
+        "value": "+30%"
+       },
+       {
+        "label": "Value",
+        "value": "+40%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 16.5,
+       "text": "Scrap a Pipe to learn it - 16.5% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5DE3",
+      "edid": "mod_PipeGun_grip_FullStock_HipAccuracy-SecondaryDMG",
+      "name": "Precise Stock",
+      "description": "",
+      "slot": "Grip",
+      "attach_point": "ap_gun_Grip",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_grip_FullStock_HipAccuracy-SecondaryDMG",
+      "effects": [
+       {
+        "label": "Bash damage",
+        "value": "+45%"
+       },
+       {
+        "label": "Recoil",
+        "value": "-15%"
+       },
+       {
+        "label": "Stability",
+        "value": "+4%"
+       },
+       {
+        "label": "Time to aim",
+        "value": "+10%"
+       },
+       {
+        "label": "Durability",
+        "value": "-10%"
+       },
+       {
+        "label": "Weight",
+        "value": "+55%"
+       },
+       {
+        "label": "Value",
+        "value": "+60%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 16.5,
+       "text": "Scrap a Pipe to learn it - 16.5% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5DED",
+      "edid": "mod_PipeGun_Grip_Recoil",
+      "name": "Stabilized Grip",
+      "description": "",
+      "slot": "Grip",
+      "attach_point": "ap_gun_Grip",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Grip_Recoil",
+      "effects": [
+       {
+        "label": "Hip-fire spread",
+        "value": "-5%"
+       },
+       {
+        "label": "Aimed spread",
+        "value": "+15%"
+       },
+       {
+        "label": "Durability",
+        "value": "-10%"
+       },
+       {
+        "label": "Weight",
+        "value": "+15%"
+       },
+       {
+        "label": "Value",
+        "value": "+20%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 16.5,
+       "text": "Scrap a Pipe to learn it - 16.5% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5DE4",
+      "edid": "mod_PipeGun_grip_FullStock_Recoil",
+      "name": "Stabilized Stock",
+      "description": "",
+      "slot": "Grip",
+      "attach_point": "ap_gun_Grip",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_grip_FullStock_Recoil",
+      "effects": [
+       {
+        "label": "Bash damage",
+        "value": "+20%"
+       },
+       {
+        "label": "Recoil",
+        "value": "-15%"
+       },
+       {
+        "label": "Hip-fire spread",
+        "value": "-5%"
+       },
+       {
+        "label": "Aimed spread",
+        "value": "+15%"
+       },
+       {
+        "label": "Stability",
+        "value": "+4%"
+       },
+       {
+        "label": "Time to aim",
+        "value": "+10%"
+       },
+       {
+        "label": "Durability",
+        "value": "-10%"
+       },
+       {
+        "label": "Weight",
+        "value": "+40%"
+       },
+       {
+        "label": "Value",
+        "value": "+40%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 16.5,
+       "text": "Scrap a Pipe to learn it - 16.5% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5DE9",
+      "edid": "mod_PipeGun_Grip_HipAccuracy",
+      "name": "True Grip",
+      "description": "",
+      "slot": "Grip",
+      "attach_point": "ap_gun_Grip",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Grip_HipAccuracy",
+      "effects": [
+       {
+        "label": "Hip-fire spread",
+        "value": "-15%"
+       },
+       {
+        "label": "Aimed spread",
+        "value": "-15%"
+       },
+       {
+        "label": "Durability",
+        "value": "-5%"
+       },
+       {
+        "label": "Weight",
+        "value": "+15%"
+       },
+       {
+        "label": "Value",
+        "value": "+20%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 16.5,
+       "text": "Scrap a Pipe to learn it - 16.5% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5DE0",
+      "edid": "mod_PipeGun_grip_FullStock_HipAccuracy",
+      "name": "True Stock",
+      "description": "",
+      "slot": "Grip",
+      "attach_point": "ap_gun_Grip",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_grip_FullStock_HipAccuracy",
+      "effects": [
+       {
+        "label": "Bash damage",
+        "value": "+20%"
+       },
+       {
+        "label": "Recoil",
+        "value": "-15%"
+       },
+       {
+        "label": "Hip-fire spread",
+        "value": "-15%"
+       },
+       {
+        "label": "Aimed spread",
+        "value": "-15%"
+       },
+       {
+        "label": "Stability",
+        "value": "+4%"
+       },
+       {
+        "label": "Time to aim",
+        "value": "+10%"
+       },
+       {
+        "label": "Durability",
+        "value": "-5%"
+       },
+       {
+        "label": "Weight",
+        "value": "+40%"
+       },
+       {
+        "label": "Value",
+        "value": "+40%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 16.5,
+       "text": "Scrap a Pipe to learn it - 16.5% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5DDD",
+      "edid": "mod_PipeGun_grip_Base",
+      "name": "Standard Grip",
+      "description": "",
+      "slot": "Grip",
+      "attach_point": "ap_gun_Grip",
+      "cosmetic": false,
+      "default": true,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "zzzmiscmod_mod_PipeGun_grip_Base",
+      "effects": [],
+      "learn": {
+       "how": "default",
+       "text": "Known by default"
+      },
+      "preinstalled": true
+     },
+     {
+      "form_id": "002D5DDF",
+      "edid": "mod_PipeGun_grip_FullStock_Base",
+      "name": "Standard Stock",
+      "description": "",
+      "slot": "Grip",
+      "attach_point": "ap_gun_Grip",
+      "cosmetic": false,
+      "default": true,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_grip_FullStock_Base",
+      "effects": [
+       {
+        "label": "Bash damage",
+        "value": "+20%"
+       },
+       {
+        "label": "Recoil",
+        "value": "-15%"
+       },
+       {
+        "label": "Stability",
+        "value": "+4%"
+       },
+       {
+        "label": "Time to aim",
+        "value": "+10%"
+       },
+       {
+        "label": "Weight",
+        "value": "+25%"
+       },
+       {
+        "label": "Value",
+        "value": "+20%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 16.5,
+       "text": "Scrap a Pipe to learn it - 16.5% chance per scrap"
+      },
+      "preinstalled": false
+     }
+    ]
+   },
+   {
+    "slot": "Magazine",
+    "cosmetic": false,
+    "mods": [
+     {
+      "form_id": "002D5DF2",
+      "edid": "mod_PipeGun_Magazine_Ammo",
+      "name": "Drum Magazine",
+      "description": "",
+      "slot": "Magazine",
+      "attach_point": "ap_gun_Mag",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Magazine_Ammo",
+      "effects": [
+       {
+        "label": "Magazine size",
+        "value": "+100%"
+       },
+       {
+        "label": "Reload speed",
+        "value": "-35%"
+       },
+       {
+        "label": "Time to aim",
+        "value": "+35%"
+       },
+       {
+        "label": "Durability",
+        "value": "-10%"
+       },
+       {
+        "label": "Weight",
+        "value": "+50%"
+       },
+       {
+        "label": "Value",
+        "value": "+40%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 16.5,
+       "text": "Scrap a Pipe to learn it - 16.5% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5DF7",
+      "edid": "mod_PipeGun_Magazine_ArmorPen",
+      "name": "Perforating Magazine",
+      "description": "",
+      "slot": "Magazine",
+      "attach_point": "ap_gun_Mag",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Magazine_ArmorPen",
+      "effects": [
+       {
+        "label": "AP cost",
+        "value": "+15%"
+       },
+       {
+        "label": "Recoil",
+        "value": "+10%"
+       },
+       {
+        "label": "Armor Penetration",
+        "value": "+25"
+       },
+       {
+        "label": "Durability",
+        "value": "-8%"
+       },
+       {
+        "label": "Weight",
+        "value": "+10%"
+       },
+       {
+        "label": "Value",
+        "value": "+20%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 16.5,
+       "text": "Scrap a Pipe to learn it - 16.5% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5DFC",
+      "edid": "mod_PipeGun_Magazine_Reload-ArmorPen",
+      "name": "Piercing Magazine",
+      "description": "",
+      "slot": "Magazine",
+      "attach_point": "ap_gun_Mag",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Magazine_Reload-ArmorPen",
+      "effects": [
+       {
+        "label": "AP cost",
+        "value": "+15%"
+       },
+       {
+        "label": "Recoil",
+        "value": "+10%"
+       },
+       {
+        "label": "Reload speed",
+        "value": "+20%"
+       },
+       {
+        "label": "Armor Penetration",
+        "value": "+25"
+       },
+       {
+        "label": "Durability",
+        "value": "-12%"
+       },
+       {
+        "label": "Weight",
+        "value": "+25%"
+       },
+       {
+        "label": "Value",
+        "value": "+40%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 16.5,
+       "text": "Scrap a Pipe to learn it - 16.5% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5DFA",
+      "edid": "mod_PipeGun_Magazine_Reload",
+      "name": "Quick Magazine",
+      "description": "",
+      "slot": "Magazine",
+      "attach_point": "ap_gun_Mag",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Magazine_Reload",
+      "effects": [
+       {
+        "label": "Reload speed",
+        "value": "+20%"
+       },
+       {
+        "label": "Durability",
+        "value": "-5%"
+       },
+       {
+        "label": "Weight",
+        "value": "+15%"
+       },
+       {
+        "label": "Value",
+        "value": "+20%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 16.5,
+       "text": "Scrap a Pipe to learn it - 16.5% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5DF4",
+      "edid": "mod_PipeGun_Magazine_Ammo-ArmorPen",
+      "name": "Stinging Magazine",
+      "description": "",
+      "slot": "Magazine",
+      "attach_point": "ap_gun_Mag",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Magazine_Ammo-ArmorPen",
+      "effects": [
+       {
+        "label": "Magazine size",
+        "value": "+50%"
+       },
+       {
+        "label": "AP cost",
+        "value": "+15%"
+       },
+       {
+        "label": "Recoil",
+        "value": "+10%"
+       },
+       {
+        "label": "Reload speed",
+        "value": "-20%"
+       },
+       {
+        "label": "Time to aim",
+        "value": "+20%"
+       },
+       {
+        "label": "Armor Penetration",
+        "value": "+25"
+       },
+       {
+        "label": "Durability",
+        "value": "-15%"
+       },
+       {
+        "label": "Weight",
+        "value": "+45%"
+       },
+       {
+        "label": "Value",
+        "value": "+45%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 16.5,
+       "text": "Scrap a Pipe to learn it - 16.5% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5DF5",
+      "edid": "mod_PipeGun_Magazine_Ammo-Reload",
+      "name": "Swift Magazine",
+      "description": "",
+      "slot": "Magazine",
+      "attach_point": "ap_gun_Mag",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Magazine_Ammo-Reload",
+      "effects": [
+       {
+        "label": "Magazine size",
+        "value": "+50%"
+       },
+       {
+        "label": "Time to aim",
+        "value": "+20%"
+       },
+       {
+        "label": "Durability",
+        "value": "-12%"
+       },
+       {
+        "label": "Weight",
+        "value": "+50%"
+       },
+       {
+        "label": "Value",
+        "value": "+45%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 16.5,
+       "text": "Scrap a Pipe to learn it - 16.5% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5DF9",
+      "edid": "mod_PipeGun_magazine_Base",
+      "name": "Standard Magazine",
+      "description": "",
+      "slot": "Magazine",
+      "attach_point": "ap_gun_Mag",
+      "cosmetic": false,
+      "default": true,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "zzzmiscmod_mod_PipeGun_magazine_Base",
+      "effects": [],
+      "learn": {
+       "how": "default",
+       "text": "Known by default"
+      },
+      "preinstalled": true
+     }
+    ]
+   },
+   {
+    "slot": "Muzzle",
+    "cosmetic": false,
+    "mods": [
+     {
+      "form_id": "002D5E05",
+      "edid": "mod_PipeGun_muzzle_compensator_Base",
+      "name": "Compensator",
+      "description": "",
+      "slot": "Muzzle",
+      "attach_point": "ap_gun_Muzzle",
+      "cosmetic": false,
+      "default": true,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_muzzle_compensator_Base",
+      "effects": [
+       {
+        "label": "Range",
+        "value": "-6%"
+       },
+       {
+        "label": "Durability",
+        "value": "-8%"
+       },
+       {
+        "label": "Weight",
+        "value": "+10%"
+       },
+       {
+        "label": "Value",
+        "value": "+40%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 11.0,
+       "text": "Scrap a Pipe to learn it - 11% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5E0E",
+      "edid": "mod_PipeGun_Muzzle_LargeBayonet_Base",
+      "name": "Large Bayonet",
+      "description": "",
+      "slot": "Muzzle",
+      "attach_point": "ap_gun_Muzzle",
+      "cosmetic": false,
+      "default": true,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Muzzle_BayonetLarge",
+      "effects": [
+       {
+        "label": "Bash damage",
+        "value": "+75%"
+       },
+       {
+        "label": "Range",
+        "value": "-12%"
+       },
+       {
+        "label": "Durability",
+        "value": "-8%"
+       },
+       {
+        "label": "Weight",
+        "value": "+12%"
+       },
+       {
+        "label": "Value",
+        "value": "+20%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 11.0,
+       "text": "Scrap a Pipe to learn it - 11% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5DFE",
+      "edid": "mod_PipeGun_muzzle_brake_Base",
+      "name": "Muzzle Brake",
+      "description": "",
+      "slot": "Muzzle",
+      "attach_point": "ap_gun_Muzzle",
+      "cosmetic": false,
+      "default": true,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_muzzle_brake_Base",
+      "effects": [
+       {
+        "label": "Range",
+        "value": "-12%"
+       },
+       {
+        "label": "Recoil",
+        "value": "-15%"
+       },
+       {
+        "label": "Durability",
+        "value": "-8%"
+       },
+       {
+        "label": "Weight",
+        "value": "+10%"
+       },
+       {
+        "label": "Value",
+        "value": "+40%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 11.0,
+       "text": "Scrap a Pipe to learn it - 11% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5E13",
+      "edid": "mod_PipeGun_muzzle_SmallBayonet_Base",
+      "name": "Small Bayonet",
+      "description": "",
+      "slot": "Muzzle",
+      "attach_point": "ap_gun_Muzzle",
+      "cosmetic": false,
+      "default": true,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Muzzle_BayonetSmall",
+      "effects": [
+       {
+        "label": "Bash damage",
+        "value": "+40%"
+       },
+       {
+        "label": "Range",
+        "value": "-8%"
+       },
+       {
+        "label": "Durability",
+        "value": "-5%"
+       },
+       {
+        "label": "Weight",
+        "value": "+10%"
+       },
+       {
+        "label": "Value",
+        "value": "+10%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 16.5,
+       "text": "Scrap a Pipe to learn it - 16.5% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5E1A",
+      "edid": "mod_PipeGun_muzzle_suppressor_Base",
+      "name": "Suppressor",
+      "description": "Silences weapon.",
+      "slot": "Muzzle",
+      "attach_point": "ap_gun_Muzzle",
+      "cosmetic": false,
+      "default": true,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_muzzle_suppressor_Base",
+      "effects": [
+       {
+        "label": "Range",
+        "value": "-20%"
+       },
+       {
+        "label": "Durability",
+        "value": "-12%"
+       },
+       {
+        "label": "Weight",
+        "value": "+12%"
+       },
+       {
+        "label": "Value",
+        "value": "+60%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 11.0,
+       "text": "Scrap a Pipe to learn it - 11% chance per scrap"
+      },
+      "preinstalled": false
+     }
+    ]
+   },
+   {
+    "slot": "Receiver",
+    "cosmetic": false,
+    "mods": [
+     {
+      "form_id": "002D5E20",
+      "edid": "mod_PipeGun_Receiver_AmmoConv45",
+      "name": ".45 Receiver",
+      "description": "Changes ammo type to .45 Caliber.",
+      "slot": "Receiver",
+      "attach_point": "ap_gun_Receiver",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "Plan: Pipe Gun .45 Receiver",
+      "plan_form_id": "0052C2B8",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Receiver_AmmoConv45",
+      "effects": [
+       {
+        "label": "Damage bonus",
+        "value": "+15%"
+       },
+       {
+        "label": "Ammo",
+        "value": ".45 Round"
+       },
+       {
+        "label": "Range",
+        "value": "+10%"
+       },
+       {
+        "label": "Recoil",
+        "value": "+10%"
+       },
+       {
+        "label": "Durability",
+        "value": "-5%"
+       },
+       {
+        "label": "Weight",
+        "value": "+10%"
+       },
+       {
+        "label": "Value",
+        "value": "+20%"
+       }
+      ],
+      "learn": {
+       "how": "plan",
+       "text": "Plan: Pipe Gun .45 Receiver"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5E26",
+      "edid": "mod_PipeGun_Receiver_Automatic-AmmoConv45",
+      "name": "Automatic .45 Receiver",
+      "description": "Changes ammo type to .38 caliber.",
+      "slot": "Receiver",
+      "attach_point": "ap_gun_Receiver",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "Plan: Pipe Gun Automatic .38 Receiver",
+      "plan_form_id": "0052BBEA",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Receiver_Automatic-AmmoConv45",
+      "effects": [
+       {
+        "label": "Damage",
+        "value": "-30%"
+       },
+       {
+        "label": "Damage bonus",
+        "value": "+15%"
+       },
+       {
+        "label": "Energy Damage",
+        "value": "-30%"
+       },
+       {
+        "label": "Cryo Damage",
+        "value": "-30%"
+       },
+       {
+        "label": "Fire Damage",
+        "value": "-30%"
+       },
+       {
+        "label": "Poison Damage",
+        "value": "-30%"
+       },
+       {
+        "label": "Radiation Damage",
+        "value": "-30%"
+       },
+       {
+        "label": "Ammo",
+        "value": ".45 Round"
+       },
+       {
+        "label": "Full-auto",
+        "value": "Yes"
+       },
+       {
+        "label": "Magazine size",
+        "value": "+50%"
+       },
+       {
+        "label": "Fire rate",
+        "value": "+82%"
+       },
+       {
+        "label": "Critical damage",
+        "value": "-20%"
+       },
+       {
+        "label": "Sneak attack damage",
+        "value": "-20%"
+       },
+       {
+        "label": "Range",
+        "value": "-7%"
+       },
+       {
+        "label": "Recoil",
+        "value": "+45%"
+       },
+       {
+        "label": "Hip-fire spread",
+        "value": "+10%"
+       },
+       {
+        "label": "Reload speed",
+        "value": "-10%"
+       },
+       {
+        "label": "Durability",
+        "value": "-12%"
+       },
+       {
+        "label": "Weight",
+        "value": "+18%"
+       },
+       {
+        "label": "Value",
+        "value": "+50%"
+       }
+      ],
+      "learn": {
+       "how": "plan",
+       "text": "Plan: Pipe Gun Automatic .38 Receiver"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5E2D",
+      "edid": "mod_PipeGun_Receiver_CritDMG",
+      "name": "Calibrated Receiver",
+      "description": "",
+      "slot": "Receiver",
+      "attach_point": "ap_gun_Receiver",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Receiver_CritDMG",
+      "effects": [
+       {
+        "label": "AP cost",
+        "value": "+20%"
+       },
+       {
+        "label": "Critical damage",
+        "value": "+50%"
+       },
+       {
+        "label": "Durability",
+        "value": "-5%"
+       },
+       {
+        "label": "Weight",
+        "value": "+15%"
+       },
+       {
+        "label": "Value",
+        "value": "+35%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 16.5,
+       "text": "Scrap a Pipe to learn it - 16.5% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5E22",
+      "edid": "mod_PipeGun_Receiver_AmmoConv45-CritDMG",
+      "name": "Critical .45 Receiver",
+      "description": "Changes ammo type to .45 Caliber.",
+      "slot": "Receiver",
+      "attach_point": "ap_gun_Receiver",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "Plan: Pipe Gun Critical .45 Receiver",
+      "plan_form_id": "0052C2B9",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Receiver_AmmoConv45-CritDMG",
+      "effects": [
+       {
+        "label": "Damage bonus",
+        "value": "+15%"
+       },
+       {
+        "label": "Ammo",
+        "value": ".45 Round"
+       },
+       {
+        "label": "AP cost",
+        "value": "+20%"
+       },
+       {
+        "label": "Critical damage",
+        "value": "+50%"
+       },
+       {
+        "label": "Range",
+        "value": "+10%"
+       },
+       {
+        "label": "Recoil",
+        "value": "+10%"
+       },
+       {
+        "label": "Durability",
+        "value": "-10%"
+       },
+       {
+        "label": "Weight",
+        "value": "+25%"
+       },
+       {
+        "label": "Value",
+        "value": "+55%"
+       }
+      ],
+      "learn": {
+       "how": "plan",
+       "text": "Plan: Pipe Gun Critical .45 Receiver"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5E2A",
+      "edid": "mod_PipeGun_Receiver_Automatic-HipAccuracy",
+      "name": "Focused Automatic Receiver",
+      "description": "",
+      "slot": "Receiver",
+      "attach_point": "ap_gun_Receiver",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Receiver_Automatic-HipAccuracy",
+      "effects": [
+       {
+        "label": "Damage",
+        "value": "-30%"
+       },
+       {
+        "label": "Energy Damage",
+        "value": "-30%"
+       },
+       {
+        "label": "Cryo Damage",
+        "value": "-30%"
+       },
+       {
+        "label": "Fire Damage",
+        "value": "-30%"
+       },
+       {
+        "label": "Poison Damage",
+        "value": "-30%"
+       },
+       {
+        "label": "Radiation Damage",
+        "value": "-30%"
+       },
+       {
+        "label": "Full-auto",
+        "value": "Yes"
+       },
+       {
+        "label": "Magazine size",
+        "value": "+50%"
+       },
+       {
+        "label": "Fire rate",
+        "value": "+82%"
+       },
+       {
+        "label": "Critical damage",
+        "value": "-20%"
+       },
+       {
+        "label": "Sneak attack damage",
+        "value": "-20%"
+       },
+       {
+        "label": "Range",
+        "value": "-18%"
+       },
+       {
+        "label": "Recoil",
+        "value": "+35%"
+       },
+       {
+        "label": "Hip-fire spread",
+        "value": "+10%"
+       },
+       {
+        "label": "Reload speed",
+        "value": "-10%"
+       },
+       {
+        "label": "Durability",
+        "value": "-12%"
+       },
+       {
+        "label": "Weight",
+        "value": "+22%"
+       },
+       {
+        "label": "Value",
+        "value": "+50%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 11.0,
+       "text": "Scrap a Pipe to learn it - 11% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "0014833F",
+      "edid": "mod_PipeGun_Receiver_FastTrigger",
+      "name": "Hair Trigger Receiver",
+      "description": "",
+      "slot": "Receiver",
+      "attach_point": "ap_gun_Receiver",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Receiver_FastTrigger",
+      "effects": [
+       {
+        "label": "Delay between shots",
+        "value": "-25%"
+       },
+       {
+        "label": "Durability",
+        "value": "-5%"
+       },
+       {
+        "label": "Weight",
+        "value": "+15%"
+       },
+       {
+        "label": "Value",
+        "value": "+30%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 11.0,
+       "text": "Scrap a Pipe to learn it - 11% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5E30",
+      "edid": "mod_PipeGun_Receiver_Damage",
+      "name": "Hardened Receiver",
+      "description": "",
+      "slot": "Receiver",
+      "attach_point": "ap_gun_Receiver",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Receiver_Damage",
+      "effects": [
+       {
+        "label": "Damage bonus",
+        "value": "+35%"
+       },
+       {
+        "label": "AP cost",
+        "value": "+15%"
+       },
+       {
+        "label": "Recoil",
+        "value": "+30%"
+       },
+       {
+        "label": "Durability",
+        "value": "-12%"
+       },
+       {
+        "label": "Weight",
+        "value": "+30%"
+       },
+       {
+        "label": "Value",
+        "value": "+40%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 16.5,
+       "text": "Scrap a Pipe to learn it - 16.5% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5E34",
+      "edid": "mod_PipeGun_Receiver_FastTrigger-AmmoConversion",
+      "name": "Hasty .45 Receiver",
+      "description": "Changes ammo type to .45 caliber.",
+      "slot": "Receiver",
+      "attach_point": "ap_gun_Receiver",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "Plan: Pipe Gun Hasty .45 Receiver",
+      "plan_form_id": "0052BBEB",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Receiver_FastTrigger-AmmoConversion",
+      "effects": [
+       {
+        "label": "Damage bonus",
+        "value": "+35%"
+       },
+       {
+        "label": "Ammo",
+        "value": ".45 Round"
+       },
+       {
+        "label": "Delay between shots",
+        "value": "-25%"
+       },
+       {
+        "label": "Range",
+        "value": "+20%"
+       },
+       {
+        "label": "Recoil",
+        "value": "+20%"
+       },
+       {
+        "label": "Durability",
+        "value": "-18%"
+       },
+       {
+        "label": "Weight",
+        "value": "+35%"
+       },
+       {
+        "label": "Value",
+        "value": "+70%"
+       }
+      ],
+      "learn": {
+       "how": "plan",
+       "text": "Plan: Pipe Gun Hasty .45 Receiver"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5E28",
+      "edid": "mod_PipeGun_Receiver_Automatic-BaseDMG",
+      "name": "Powerful Automatic Receiver",
+      "description": "",
+      "slot": "Receiver",
+      "attach_point": "ap_gun_Receiver",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Receiver_Automatic-BaseDMG",
+      "effects": [
+       {
+        "label": "Damage",
+        "value": "-30%"
+       },
+       {
+        "label": "Damage bonus",
+        "value": "+25%"
+       },
+       {
+        "label": "Energy Damage",
+        "value": "-30%"
+       },
+       {
+        "label": "Cryo Damage",
+        "value": "-30%"
+       },
+       {
+        "label": "Fire Damage",
+        "value": "-30%"
+       },
+       {
+        "label": "Poison Damage",
+        "value": "-30%"
+       },
+       {
+        "label": "Radiation Damage",
+        "value": "-30%"
+       },
+       {
+        "label": "Full-auto",
+        "value": "Yes"
+       },
+       {
+        "label": "Magazine size",
+        "value": "+50%"
+       },
+       {
+        "label": "Fire rate",
+        "value": "+82%"
+       },
+       {
+        "label": "AP cost",
+        "value": "+10%"
+       },
+       {
+        "label": "Critical damage",
+        "value": "-20%"
+       },
+       {
+        "label": "Sneak attack damage",
+        "value": "-20%"
+       },
+       {
+        "label": "Range",
+        "value": "-18%"
+       },
+       {
+        "label": "Recoil",
+        "value": "+55%"
+       },
+       {
+        "label": "Hip-fire spread",
+        "value": "+10%"
+       },
+       {
+        "label": "Reload speed",
+        "value": "-10%"
+       },
+       {
+        "label": "Durability",
+        "value": "-15%"
+       },
+       {
+        "label": "Weight",
+        "value": "+32%"
+       },
+       {
+        "label": "Value",
+        "value": "+65%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 11.0,
+       "text": "Scrap a Pipe to learn it - 11% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5E24",
+      "edid": "mod_PipeGun_Receiver_AmmoConv45-HipAccuracy",
+      "name": "Precise .45 Receiver",
+      "description": "Changes ammo type to .45 Caliber.",
+      "slot": "Receiver",
+      "attach_point": "ap_gun_Receiver",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "Plan: Pipe Gun Precise .45 Receiver",
+      "plan_form_id": "0052C2BB",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Receiver_AmmoConv45-HipAccuracy",
+      "effects": [
+       {
+        "label": "Damage bonus",
+        "value": "+15%"
+       },
+       {
+        "label": "Ammo",
+        "value": ".45 Round"
+       },
+       {
+        "label": "Range",
+        "value": "+10%"
+       },
+       {
+        "label": "Recoil",
+        "value": "+10%"
+       },
+       {
+        "label": "Durability",
+        "value": "-10%"
+       },
+       {
+        "label": "Weight",
+        "value": "+25%"
+       },
+       {
+        "label": "Value",
+        "value": "+40%"
+       }
+      ],
+      "learn": {
+       "how": "plan",
+       "text": "Plan: Pipe Gun Precise .45 Receiver"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "00470A1E",
+      "edid": "mod_PipeGun_receiver_auto_AntiScorchBeast",
+      "name": "Prime Automatic Receiver",
+      "description": "",
+      "slot": "Receiver",
+      "attach_point": "ap_gun_Receiver",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "Plan: Prime Automatic Pipe Gun Receiver",
+      "plan_form_id": "00470A46",
+      "workbench": "",
+      "loose_mod": "",
+      "effects": [
+       {
+        "label": "Damage",
+        "value": "-30%"
+       },
+       {
+        "label": "Damage bonus",
+        "value": "+35%"
+       },
+       {
+        "label": "Energy Damage",
+        "value": "-30%"
+       },
+       {
+        "label": "Cryo Damage",
+        "value": "-30%"
+       },
+       {
+        "label": "Fire Damage",
+        "value": "-30%"
+       },
+       {
+        "label": "Poison Damage",
+        "value": "-30%"
+       },
+       {
+        "label": "Radiation Damage",
+        "value": "-30%"
+       },
+       {
+        "label": "Ammo",
+        "value": "Ultracite .38 Round"
+       },
+       {
+        "label": "Full-auto",
+        "value": "Yes"
+       },
+       {
+        "label": "Magazine size",
+        "value": "+50%"
+       },
+       {
+        "label": "Fire rate",
+        "value": "-10%"
+       },
+       {
+        "label": "AP cost",
+        "value": "+15%"
+       },
+       {
+        "label": "Critical damage",
+        "value": "-20%"
+       },
+       {
+        "label": "Sneak attack damage",
+        "value": "-20%"
+       },
+       {
+        "label": "Range",
+        "value": "+3%"
+       },
+       {
+        "label": "Recoil",
+        "value": "+45%"
+       },
+       {
+        "label": "Hip-fire spread",
+        "value": "+10%"
+       },
+       {
+        "label": "Reload speed",
+        "value": "-10%"
+       },
+       {
+        "label": "Damage to Scorched",
+        "value": "+65"
+       },
+       {
+        "label": "Durability",
+        "value": "-20%"
+       },
+       {
+        "label": "Weight",
+        "value": "+38%"
+       },
+       {
+        "label": "Value",
+        "value": "+80%"
+       }
+      ],
+      "learn": {
+       "how": "plan",
+       "text": "Plan: Prime Automatic Pipe Gun Receiver"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "00470A1D",
+      "edid": "mod_PipeGun_receiver_AntiScorchBeast",
+      "name": "Prime Receiver",
+      "description": "",
+      "slot": "Receiver",
+      "attach_point": "ap_gun_Receiver",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "Plan: Prime Pipe Gun Receiver",
+      "plan_form_id": "00470A45",
+      "workbench": "",
+      "loose_mod": "",
+      "effects": [
+       {
+        "label": "Damage bonus",
+        "value": "+35%"
+       },
+       {
+        "label": "Ammo",
+        "value": "Ultracite .38 Round"
+       },
+       {
+        "label": "Fire rate",
+        "value": "-10%"
+       },
+       {
+        "label": "AP cost",
+        "value": "+15%"
+       },
+       {
+        "label": "Range",
+        "value": "+20%"
+       },
+       {
+        "label": "Recoil",
+        "value": "+10%"
+       },
+       {
+        "label": "Damage to Scorched",
+        "value": "+65"
+       },
+       {
+        "label": "Durability",
+        "value": "-12%"
+       },
+       {
+        "label": "Weight",
+        "value": "+30%"
+       },
+       {
+        "label": "Value",
+        "value": "+50%"
+       }
+      ],
+      "learn": {
+       "how": "plan",
+       "text": "Plan: Prime Pipe Gun Receiver"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5E23",
+      "edid": "mod_PipeGun_Receiver_AmmoConv45-Damage",
+      "name": "Refined .45 Receiver",
+      "description": "Changes ammo type to .45 Caliber.",
+      "slot": "Receiver",
+      "attach_point": "ap_gun_Receiver",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "Plan: Pipe Gun Refined .45 Receiver",
+      "plan_form_id": "0052C2BA",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Receiver_AmmoConv45-Damage",
+      "effects": [
+       {
+        "label": "Damage bonus",
+        "value": "+40%"
+       },
+       {
+        "label": "Ammo",
+        "value": ".45 Round"
+       },
+       {
+        "label": "AP cost",
+        "value": "+10%"
+       },
+       {
+        "label": "Range",
+        "value": "+10%"
+       },
+       {
+        "label": "Recoil",
+        "value": "+30%"
+       },
+       {
+        "label": "Durability",
+        "value": "-12%"
+       },
+       {
+        "label": "Weight",
+        "value": "+35%"
+       },
+       {
+        "label": "Value",
+        "value": "+55%"
+       }
+      ],
+      "learn": {
+       "how": "plan",
+       "text": "Plan: Pipe Gun Refined .45 Receiver"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5E33",
+      "edid": "mod_PipeGun_Receiver_Damage-HipAccuracy",
+      "name": "Refined Receiver",
+      "description": "",
+      "slot": "Receiver",
+      "attach_point": "ap_gun_Receiver",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Receiver_Damage-HipAccuracy",
+      "effects": [
+       {
+        "label": "Damage bonus",
+        "value": "+25%"
+       },
+       {
+        "label": "AP cost",
+        "value": "+10%"
+       },
+       {
+        "label": "Recoil",
+        "value": "+20%"
+       },
+       {
+        "label": "Durability",
+        "value": "-12%"
+       },
+       {
+        "label": "Weight",
+        "value": "+40%"
+       },
+       {
+        "label": "Value",
+        "value": "+55%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 11.0,
+       "text": "Scrap a Pipe to learn it - 11% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "003C3459",
+      "edid": "mod_Pipegun_Receiver_ScorchedKiller",
+      "name": "Scorched Killer's Receiver",
+      "description": "",
+      "slot": "Receiver",
+      "attach_point": "ap_gun_Receiver",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_Pipegun_Receiver_ScorchedKiller",
+      "effects": [
+       {
+        "label": "Damage",
+        "value": "-20%"
+       },
+       {
+        "label": "Damage to Scorched",
+        "value": "+50"
+       },
+       {
+        "label": "Weight",
+        "value": "+10%"
+       },
+       {
+        "label": "Value",
+        "value": "+35%"
+       }
+      ],
+      "learn": {
+       "how": "pickup",
+       "text": "Learned when you pick the mod up (or from a script)"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5E32",
+      "edid": "mod_PipeGun_Receiver_Damage-CritDMG",
+      "name": "Severe Receiver",
+      "description": "",
+      "slot": "Receiver",
+      "attach_point": "ap_gun_Receiver",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Receiver_Damage-CritDMG",
+      "effects": [
+       {
+        "label": "Damage bonus",
+        "value": "+25%"
+       },
+       {
+        "label": "AP cost",
+        "value": "+30%"
+       },
+       {
+        "label": "Critical damage",
+        "value": "+50%"
+       },
+       {
+        "label": "Recoil",
+        "value": "+20%"
+       },
+       {
+        "label": "Durability",
+        "value": "-12%"
+       },
+       {
+        "label": "Weight",
+        "value": "+40%"
+       },
+       {
+        "label": "Value",
+        "value": "+70%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 11.0,
+       "text": "Scrap a Pipe to learn it - 11% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5E37",
+      "edid": "mod_PipeGun_Receiver_FastTrigger-CritDMG",
+      "name": "Snappy Receiver",
+      "description": "",
+      "slot": "Receiver",
+      "attach_point": "ap_gun_Receiver",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Receiver_FastTrigger-CritDMG",
+      "effects": [
+       {
+        "label": "Delay between shots",
+        "value": "-25%"
+       },
+       {
+        "label": "AP cost",
+        "value": "+20%"
+       },
+       {
+        "label": "Critical damage",
+        "value": "+50%"
+       },
+       {
+        "label": "Durability",
+        "value": "-10%"
+       },
+       {
+        "label": "Weight",
+        "value": "+30%"
+       },
+       {
+        "label": "Value",
+        "value": "+65%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 11.0,
+       "text": "Scrap a Pipe to learn it - 11% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5E38",
+      "edid": "mod_PipeGun_Receiver_FastTrigger-HipAccuracy",
+      "name": "Speedy Receiver",
+      "description": "",
+      "slot": "Receiver",
+      "attach_point": "ap_gun_Receiver",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Receiver_FastTrigger-HipAccuracy",
+      "effects": [
+       {
+        "label": "Delay between shots",
+        "value": "-25%"
+       },
+       {
+        "label": "Durability",
+        "value": "-10%"
+       },
+       {
+        "label": "Weight",
+        "value": "+30%"
+       },
+       {
+        "label": "Value",
+        "value": "+50%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 11.0,
+       "text": "Scrap a Pipe to learn it - 11% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5E3A",
+      "edid": "mod_PipeGun_Receiver_HipAccuracy",
+      "name": "True Receiver",
+      "description": "",
+      "slot": "Receiver",
+      "attach_point": "ap_gun_Receiver",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Receiver_HipAccuracy",
+      "effects": [
+       {
+        "label": "Hip-fire spread",
+        "value": "-15%"
+       },
+       {
+        "label": "Aimed spread",
+        "value": "-15%"
+       },
+       {
+        "label": "Durability",
+        "value": "-5%"
+       },
+       {
+        "label": "Weight",
+        "value": "+15%"
+       },
+       {
+        "label": "Value",
+        "value": "+20%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 16.5,
+       "text": "Scrap a Pipe to learn it - 16.5% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5E36",
+      "edid": "mod_PipeGun_Receiver_FastTrigger-BaseDMG",
+      "name": "Tuned Receiver",
+      "description": "",
+      "slot": "Receiver",
+      "attach_point": "ap_gun_Receiver",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Receiver_FastTrigger-BaseDMG",
+      "effects": [
+       {
+        "label": "Damage bonus",
+        "value": "+25%"
+       },
+       {
+        "label": "Delay between shots",
+        "value": "-25%"
+       },
+       {
+        "label": "AP cost",
+        "value": "+10%"
+       },
+       {
+        "label": "Recoil",
+        "value": "+20%"
+       },
+       {
+        "label": "Durability",
+        "value": "-12%"
+       },
+       {
+        "label": "Weight",
+        "value": "+40%"
+       },
+       {
+        "label": "Value",
+        "value": "+65%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 11.0,
+       "text": "Scrap a Pipe to learn it - 11% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5E29",
+      "edid": "mod_PipeGun_Receiver_Automatic-CritDMG",
+      "name": "Tweaked Automatic Receiver",
+      "description": "",
+      "slot": "Receiver",
+      "attach_point": "ap_gun_Receiver",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Receiver_Automatic-CritDMG",
+      "effects": [
+       {
+        "label": "Damage",
+        "value": "-30%"
+       },
+       {
+        "label": "Energy Damage",
+        "value": "-30%"
+       },
+       {
+        "label": "Cryo Damage",
+        "value": "-30%"
+       },
+       {
+        "label": "Fire Damage",
+        "value": "-30%"
+       },
+       {
+        "label": "Poison Damage",
+        "value": "-30%"
+       },
+       {
+        "label": "Radiation Damage",
+        "value": "-30%"
+       },
+       {
+        "label": "Full-auto",
+        "value": "Yes"
+       },
+       {
+        "label": "Magazine size",
+        "value": "+50%"
+       },
+       {
+        "label": "Fire rate",
+        "value": "+82%"
+       },
+       {
+        "label": "AP cost",
+        "value": "+20%"
+       },
+       {
+        "label": "Critical damage",
+        "value": "-20%"
+       },
+       {
+        "label": "Sneak attack damage",
+        "value": "-20%"
+       },
+       {
+        "label": "Range",
+        "value": "-18%"
+       },
+       {
+        "label": "Recoil",
+        "value": "+35%"
+       },
+       {
+        "label": "Hip-fire spread",
+        "value": "+10%"
+       },
+       {
+        "label": "Reload speed",
+        "value": "-10%"
+       },
+       {
+        "label": "Durability",
+        "value": "-12%"
+       },
+       {
+        "label": "Weight",
+        "value": "+22%"
+       },
+       {
+        "label": "Value",
+        "value": "+65%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 11.0,
+       "text": "Scrap a Pipe to learn it - 11% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5E2F",
+      "edid": "mod_PipeGun_Receiver_CritDMG-HipAccuracy",
+      "name": "Vicious Receiver",
+      "description": "",
+      "slot": "Receiver",
+      "attach_point": "ap_gun_Receiver",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Receiver_CritDMG-HipAccuracy",
+      "effects": [
+       {
+        "label": "AP cost",
+        "value": "+20%"
+       },
+       {
+        "label": "Critical damage",
+        "value": "+50%"
+       },
+       {
+        "label": "Durability",
+        "value": "-10%"
+       },
+       {
+        "label": "Weight",
+        "value": "+30%"
+       },
+       {
+        "label": "Value",
+        "value": "+55%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 16.5,
+       "text": "Scrap a Pipe to learn it - 16.5% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5E2B",
+      "edid": "mod_PipeGun_receiver_automatic_base",
+      "name": "Automatic Receiver",
+      "description": "",
+      "slot": "Receiver",
+      "attach_point": "ap_gun_Receiver",
+      "cosmetic": false,
+      "default": true,
+      "unique_variant": null,
+      "plan": "Plan: Pipe Gun Automatic Mod",
+      "plan_form_id": "004F476E",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_receiver_automatic_base",
+      "effects": [
+       {
+        "label": "Damage",
+        "value": "-30%"
+       },
+       {
+        "label": "Energy Damage",
+        "value": "-30%"
+       },
+       {
+        "label": "Cryo Damage",
+        "value": "-30%"
+       },
+       {
+        "label": "Fire Damage",
+        "value": "-30%"
+       },
+       {
+        "label": "Poison Damage",
+        "value": "-30%"
+       },
+       {
+        "label": "Radiation Damage",
+        "value": "-30%"
+       },
+       {
+        "label": "Full-auto",
+        "value": "Yes"
+       },
+       {
+        "label": "Magazine size",
+        "value": "+50%"
+       },
+       {
+        "label": "Fire rate",
+        "value": "+82%"
+       },
+       {
+        "label": "Critical damage",
+        "value": "-20%"
+       },
+       {
+        "label": "Sneak attack damage",
+        "value": "-20%"
+       },
+       {
+        "label": "Range",
+        "value": "-18%"
+       },
+       {
+        "label": "Recoil",
+        "value": "+35%"
+       },
+       {
+        "label": "Hip-fire spread",
+        "value": "+10%"
+       },
+       {
+        "label": "Reload speed",
+        "value": "-10%"
+       },
+       {
+        "label": "Durability",
+        "value": "-8%"
+       },
+       {
+        "label": "Weight",
+        "value": "+8%"
+       },
+       {
+        "label": "Value",
+        "value": "+30%"
+       }
+      ],
+      "learn": {
+       "how": "plan",
+       "text": "Plan: Pipe Gun Automatic Mod"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5E2C",
+      "edid": "mod_PipeGun_receiver_Base",
+      "name": "Standard Receiver",
+      "description": "",
+      "slot": "Receiver",
+      "attach_point": "ap_gun_Receiver",
+      "cosmetic": false,
+      "default": true,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "zzzmiscmod_mod_PipeGun_receiver_Base",
+      "effects": [],
+      "learn": {
+       "how": "default",
+       "text": "Known by default"
+      },
+      "preinstalled": true
+     }
+    ]
+   },
+   {
+    "slot": "Scope",
+    "cosmetic": false,
+    "mods": [
+     {
+      "form_id": "002D5E72",
+      "edid": "mod_PipeGun_SCOPE_reflex_glow_Base",
+      "name": "Glow Reflex Sight",
+      "description": "",
+      "slot": "Scope",
+      "attach_point": "ap_gun_Scope",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_SCOPE_reflex_glow_Base",
+      "effects": [
+       {
+        "label": "AP cost",
+        "value": "-20%"
+       },
+       {
+        "label": "Accuracy",
+        "value": "+15"
+       },
+       {
+        "label": "Aimed spread",
+        "value": "-15%"
+       },
+       {
+        "label": "Time to aim",
+        "value": "-15%"
+       },
+       {
+        "label": "Durability",
+        "value": "-8%"
+       },
+       {
+        "label": "Weight",
+        "value": "+15%"
+       },
+       {
+        "label": "Value",
+        "value": "+35%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 16.5,
+       "text": "Scrap a Pipe to learn it - 16.5% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5E6B",
+      "edid": "mod_PipeGun_SCOPE_reflex_Base",
+      "name": "Reflex Sight",
+      "description": "",
+      "slot": "Scope",
+      "attach_point": "ap_gun_Scope",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_SCOPE_reflex_Base",
+      "effects": [
+       {
+        "label": "Aimed spread",
+        "value": "-15%"
+       },
+       {
+        "label": "Time to aim",
+        "value": "-15%"
+       },
+       {
+        "label": "Durability",
+        "value": "-5%"
+       },
+       {
+        "label": "Weight",
+        "value": "+10%"
+       },
+       {
+        "label": "Value",
+        "value": "+25%"
+       }
+      ],
+      "learn": {
+       "how": "default",
+       "text": "Known by default"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5E4F",
+      "edid": "mod_PipeGun_SCOPE_longscope_NV_Base",
+      "name": "Long Night Vision Scope",
+      "description": "",
+      "slot": "Scope",
+      "attach_point": "ap_gun_Scope",
+      "cosmetic": false,
+      "default": true,
+      "unique_variant": null,
+      "plan": "Plan: Pipe Gun Long Night Vision Scope",
+      "plan_form_id": "0052BBEC",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_SCOPE_longscope_NV_Base",
+      "effects": [
+       {
+        "label": "Aimed spread",
+        "value": "-24%"
+       },
+       {
+        "label": "Stability",
+        "value": "-18%"
+       },
+       {
+        "label": "Adds a scope",
+        "value": "Yes"
+       },
+       {
+        "label": "Durability",
+        "value": "-12%"
+       },
+       {
+        "label": "Weight",
+        "value": "+30%"
+       },
+       {
+        "label": "Value",
+        "value": "+55%"
+       }
+      ],
+      "learn": {
+       "how": "plan",
+       "text": "Plan: Pipe Gun Long Night Vision Scope"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5E56",
+      "edid": "mod_PipeGun_SCOPE_longscope_Recon_Base",
+      "name": "Long Recon Scope",
+      "description": "",
+      "slot": "Scope",
+      "attach_point": "ap_gun_Scope",
+      "cosmetic": false,
+      "default": true,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_SCOPE_longscope_Recon_Base",
+      "effects": [
+       {
+        "label": "Aimed spread",
+        "value": "-24%"
+       },
+       {
+        "label": "Stability",
+        "value": "-18%"
+       },
+       {
+        "label": "Time to aim",
+        "value": "+15%"
+       },
+       {
+        "label": "Adds a scope",
+        "value": "Yes"
+       },
+       {
+        "label": "Adds effect",
+        "value": "Recon Scope Equipped"
+       },
+       {
+        "label": "Durability",
+        "value": "-12%"
+       },
+       {
+        "label": "Weight",
+        "value": "+30%"
+       },
+       {
+        "label": "Value",
+        "value": "+55%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 11.0,
+       "text": "Scrap a Pipe to learn it - 11% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5E48",
+      "edid": "mod_PipeGun_SCOPE_longscope_Base",
+      "name": "Long Scope",
+      "description": "",
+      "slot": "Scope",
+      "attach_point": "ap_gun_Scope",
+      "cosmetic": false,
+      "default": true,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_SCOPE_longscope_Base",
+      "effects": [
+       {
+        "label": "Aimed spread",
+        "value": "-24%"
+       },
+       {
+        "label": "Stability",
+        "value": "-18%"
+       },
+       {
+        "label": "Adds a scope",
+        "value": "Yes"
+       },
+       {
+        "label": "Durability",
+        "value": "-8%"
+       },
+       {
+        "label": "Weight",
+        "value": "+15%"
+       },
+       {
+        "label": "Value",
+        "value": "+30%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 16.5,
+       "text": "Scrap a Pipe to learn it - 16.5% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5E64",
+      "edid": "mod_PipeGun_SCOPE_mediumscope_NV_Base",
+      "name": "Medium Night Vision Scope",
+      "description": "",
+      "slot": "Scope",
+      "attach_point": "ap_gun_Scope",
+      "cosmetic": false,
+      "default": true,
+      "unique_variant": null,
+      "plan": "Plan: Pipe Gun Medium Night Vision Scope",
+      "plan_form_id": "0052BBED",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_SCOPE_mediumscope_NV_Base",
+      "effects": [
+       {
+        "label": "Aimed spread",
+        "value": "-16%"
+       },
+       {
+        "label": "Stability",
+        "value": "-12%"
+       },
+       {
+        "label": "Adds a scope",
+        "value": "Yes"
+       },
+       {
+        "label": "Durability",
+        "value": "-10%"
+       },
+       {
+        "label": "Weight",
+        "value": "+25%"
+       },
+       {
+        "label": "Value",
+        "value": "+45%"
+       }
+      ],
+      "learn": {
+       "how": "plan",
+       "text": "Plan: Pipe Gun Medium Night Vision Scope"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5E5D",
+      "edid": "mod_PipeGun_SCOPE_mediumscope_Base",
+      "name": "Medium Scope",
+      "description": "",
+      "slot": "Scope",
+      "attach_point": "ap_gun_Scope",
+      "cosmetic": false,
+      "default": true,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "zzzmiscmod_mod_PipeGun_SCOPE_mediumscope_Base",
+      "effects": [
+       {
+        "label": "Aimed spread",
+        "value": "-16%"
+       },
+       {
+        "label": "Stability",
+        "value": "-12%"
+       },
+       {
+        "label": "Adds a scope",
+        "value": "Yes"
+       },
+       {
+        "label": "Durability",
+        "value": "-5%"
+       },
+       {
+        "label": "Weight",
+        "value": "+10%"
+       },
+       {
+        "label": "Value",
+        "value": "+20%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 16.5,
+       "text": "Scrap a Pipe to learn it - 16.5% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5E80",
+      "edid": "mod_PipeGun_SCOPE_shortscope_NV_Base",
+      "name": "Short Night Vision Scope",
+      "description": "",
+      "slot": "Scope",
+      "attach_point": "ap_gun_Scope",
+      "cosmetic": false,
+      "default": true,
+      "unique_variant": null,
+      "plan": "Plan: Pipe Gun Short Night Vision Scope",
+      "plan_form_id": "0052BBE5",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_SCOPE_shortscope_NV_Base",
+      "effects": [
+       {
+        "label": "Aimed spread",
+        "value": "-8%"
+       },
+       {
+        "label": "Stability",
+        "value": "-6%"
+       },
+       {
+        "label": "Adds a scope",
+        "value": "Yes"
+       },
+       {
+        "label": "Durability",
+        "value": "-8%"
+       },
+       {
+        "label": "Weight",
+        "value": "+20%"
+       },
+       {
+        "label": "Value",
+        "value": "+35%"
+       }
+      ],
+      "learn": {
+       "how": "plan",
+       "text": "Plan: Pipe Gun Short Night Vision Scope"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5E87",
+      "edid": "mod_PipeGun_SCOPE_shortscope_Recon_Base",
+      "name": "Short Recon Scope",
+      "description": "",
+      "slot": "Scope",
+      "attach_point": "ap_gun_Scope",
+      "cosmetic": false,
+      "default": true,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_SCOPE_shortscope_Recon_Base",
+      "effects": [
+       {
+        "label": "Aimed spread",
+        "value": "-8%"
+       },
+       {
+        "label": "Stability",
+        "value": "-6%"
+       },
+       {
+        "label": "Time to aim",
+        "value": "+15%"
+       },
+       {
+        "label": "Adds a scope",
+        "value": "Yes"
+       },
+       {
+        "label": "Adds effect",
+        "value": "Recon Scope Equipped"
+       },
+       {
+        "label": "Durability",
+        "value": "-8%"
+       },
+       {
+        "label": "Weight",
+        "value": "+20%"
+       },
+       {
+        "label": "Value",
+        "value": "+35%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 11.0,
+       "text": "Scrap a Pipe to learn it - 11% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5E79",
+      "edid": "mod_PipeGun_SCOPE_shortscope_Base",
+      "name": "Short Scope",
+      "description": "",
+      "slot": "Scope",
+      "attach_point": "ap_gun_Scope",
+      "cosmetic": false,
+      "default": true,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_SCOPE_shortscope_Base",
+      "effects": [
+       {
+        "label": "Aimed spread",
+        "value": "-8%"
+       },
+       {
+        "label": "Stability",
+        "value": "-6%"
+       },
+       {
+        "label": "Adds a scope",
+        "value": "Yes"
+       },
+       {
+        "label": "Durability",
+        "value": "-2%"
+       },
+       {
+        "label": "Weight",
+        "value": "+5%"
+       },
+       {
+        "label": "Value",
+        "value": "+10%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 16.5,
+       "text": "Scrap a Pipe to learn it - 16.5% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5E40",
+      "edid": "mod_PipeGun_SCOPE_glow_Base",
+      "name": "Standard Glow Sights",
+      "description": "",
+      "slot": "Scope",
+      "attach_point": "ap_gun_Scope",
+      "cosmetic": false,
+      "default": true,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_SCOPE_glow_Base",
+      "effects": [
+       {
+        "label": "AP cost",
+        "value": "-20%"
+       },
+       {
+        "label": "Accuracy",
+        "value": "+15"
+       },
+       {
+        "label": "Durability",
+        "value": "-2%"
+       },
+       {
+        "label": "Weight",
+        "value": "+5%"
+       },
+       {
+        "label": "Value",
+        "value": "+10%"
+       }
+      ],
+      "learn": {
+       "how": "scrap",
+       "chance": 16.5,
+       "text": "Scrap a Pipe to learn it - 16.5% chance per scrap"
+      },
+      "preinstalled": false
+     },
+     {
+      "form_id": "002D5E43",
+      "edid": "mod_PipeGun_SCOPE_Ironsights_Base",
+      "name": "Standard Sights",
+      "description": "",
+      "slot": "Scope",
+      "attach_point": "ap_gun_Scope",
+      "cosmetic": false,
+      "default": true,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_PipeGun_Scope_SightsIron",
+      "effects": [],
+      "learn": {
+       "how": "default",
+       "text": "Known by default"
+      },
+      "preinstalled": true
+     }
+    ]
+   }
+  ],
+  "note": "Every mod the base Pipe takes - The Pipe takes the same ones. Mods marked 'Comes on The Pipe' are the parts it drops with. Each mod's numbers include the shared template mods it pulls in, and a scrap chance is the chance to learn that mod each time you scrap one. Legendary effects are rolled separately and are not listed here."
+ }
+}

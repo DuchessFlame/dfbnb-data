@@ -1333,6 +1333,14 @@ jobs:
       - name: Build Chainsaw Spawns JSON
         run: python src/build_chainsaw_spawns_json.py
 
+      # --- ONE-WEAPON GUIDES (/bnb/weapons-mods/<slug>-guide/, first: The Pipe) ---
+      # Reuses the chainsaw engine's stat line + mods (so it needs dist/curves/), then the
+      # named weapon's template, unique-effect perk, perk card, challenge and random
+      # encounter from the exports. Maps are linked only once they are on
+      # data/server_listing.tsv, so a listing refresh push rebuilds this page too.
+      - name: Build Weapon Guides JSON
+        run: python src/build_weapon_guides_json.py --pts
+
       # --- CULT OF THE LAMB ---
       - name: Build Cult of the Lamb JSON
         run: python src/build_cult_of_the_lamb_json.py

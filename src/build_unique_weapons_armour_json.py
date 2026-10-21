@@ -83,6 +83,25 @@ UNRELEASED_BY_HAND = {n for n in (
 # its own Pipe Gun record points at its custom mod / build keyword.
 RELEASED_NO_SOURCE = {"The Pipe"}
 
+# Sources the SERVER hands out, so no export can ever trace them. Written as a
+# normal route so the page shows the real way in instead of "No source found".
+# The Pipe (Duchess, 21 Oct 2026): sniffing the Unusual Pipe Object random
+# encounter (W05_RE_ObjectZW04 00564513) has a chance to put it straight in your
+# inventory. The quest, activator, spell and corpse records in SeventySix.esm
+# never reference PipeGun / mod_Custom_ThePipe / if_tmp_ThePipe, so the chance is
+# server-side and is shown as N/A - never invent a percentage for it.
+# name -> (route, lines, drop rate, guide link)
+SERVER_SIDE_SOURCES = {
+    "The Pipe": (
+        "Events & Activities",
+        ["Drops: Ready-made weapon",
+         "Source: Random Encounter: Unusual Pipe - a chance each time you sniff the pipe",
+         "Note: The chance is set on Bethesda's servers, not in the game files"],
+        "N/A",
+        "/bnb/weapons-mods/the-pipe-guide/",
+    ),
+}
+
 SRC_DIR = Path(__file__).resolve().parent
 REPO_ROOT = SRC_DIR.parent
 TSV_DIR = REPO_ROOT / "tsv"
@@ -1775,6 +1794,16 @@ def build_channel(channel, dist_dir):
                             tradeable=_it.get("tradeable"), drop="N/A")
             _it["howToObtain"], _it["sourceType"] = "Quest: " + _q, "Quest"
             _it["sourceRef"] = _it["questName"] = _q
+        _ss = SERVER_SIDE_SOURCES.get(_it.get("name"))
+        if _ss and not any(r.get("populated") for r in _it.get("obtainRoutes") or []):
+            _route, _lines, _rate, _guide = _ss
+            _routes = _it.get("obtainRoutes") or uwa_obtain.blank_routes()
+            _it["obtainRoutes"] = _routes
+            uwa_obtain._put(_routes, _route, list(_lines),
+                            tradeable=_it.get("tradeable"), drop=_rate)
+            _it["howToObtain"] = "Random Encounter: Unusual Pipe"
+            _it["sourceType"], _it["sourceRef"] = "Random Encounter", "Unusual Pipe"
+            _it["guideUrl"] = _guide
         if not any(r.get("populated") for r in _it.get("obtainRoutes") or []):
             _it["howToObtain"] = "No source found in the game files"
             _it["sourceType"], _it["sourceRef"], _it["questName"] = "Unknown", "", ""
