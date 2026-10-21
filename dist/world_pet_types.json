@@ -454,13 +454,44 @@
         3200
       ]
     ],
-    "tickSeconds": null,
-    "rested": null,
+    "tickSeconds": 60,
+    "rested": {
+      "name": "Pet Rested",
+      "desc": "",
+      "multiplier": 10,
+      "durationSec": 14400,
+      "durationHours": 4.0,
+      "resets": "daily challenge reset"
+    },
     "help": {
-      "overview": [],
-      "leveling": [],
-      "buffs": [],
-      "controls": []
+      "overview": [
+        "Pets can follow you in the Appalachian. More than that, they can be issued commands, do combat, earn experience points and rewards!",
+        "You may acquire Pets in the Atomic Shop. Luckily, there is one available for free!",
+        "Pip-Boy  You can manage your Pet in the PETS section of the Pip-Boy, where is displayed the list of Pets you own, their name, their XP Level and their current health.",
+        "Use it to activate any of your Pets. They will appear right next to you. Only 1 Pet can be active at a time. Pets can follow you pretty much everywhere. If your Pet cannot path to you, no worries. They will automatically find a way to regroup when allowed.",
+        "Command Wheel  You can interact with your Pet directly (or through the player emote wheel) to bring up the Pet Command Wheel and give your Pet Commands. This is also where you find the option to rename or customize your Pet."
+      ],
+      "leveling": [
+        "XP and Leveling  Pets gain experience points, level-up and earn rewards. With a Pet active, every time you earn XP, your Pet will also earn Pet XP  This is limited at once every 1 minutes. So as long as you are active in the World your Pet will earn a steady amount of XP.",
+        "When you Pet as earn enough XP, they will gain Levels. At major level milestones, it unlocks rewards. You can review the list of milestones and the claim the rewards in the Pet Progression Menu accessible via the Pip-Boy PETS section.",
+        "Pets earn Bonus XP for the first few hours of every day. The Pet XP Bonus resets at the same time as daily challenges.",
+        "Rewards  Pets earn many different rewards. The list or rewards for each Pet species are: 2 passive buffs, 4 damage+health upgrades, 3 weight reductions, 4 player titles, 5 currencies, 7 cosmetics and customization.",
+        "Buffs, upgrades and weight reductions stats are displayed in the Pip-Boy under STATS/EFFECTS.",
+        "Passive buffs (which are unique for each species), damage+health upgrades and weight reductions have tiers and can be improved multiple times."
+      ],
+      "buffs": [
+        "The list of unique passive buffs per species are:",
+        "Dog  Finds Stimpak. Gets additional Legendary Item when completing a Grunt Hunt.",
+        "Cat  Finds Improved Baits. Gets Fish Bits when catching a fish.",
+        "Radhog  Finds Toxic-Goo. Gets High-Radiation Fluid in Nuke zones.",
+        "Deathclaw  Finds Black Titanium. Gets additional Legendary Item when completing an Infestation."
+      ],
+      "controls": [
+        "Using the Pet Command Wheel, Pets can FOLLOW, STAY, ATTACK and PROTECT.",
+        "During FOLLOW and STAY, they won't engage enemies and enemies will ignore them.",
+        "In ATTACK they will automatically attack when in combat range. PROTECT means they will wait for the player to take damage before automatically engaging in combat. They are always neutral to other human Players.",
+        "Pet can sustain damage and ultimately fall wounded but they will never die. Use a Stimpak on your injured or wounded Pet to instantly bring them back to full health."
+      ]
     }
   },
   "stats": {
@@ -614,8 +645,8 @@
     ]
   },
   "playerGift": {
-    "interval": 7000,
-    "intervalMin": 117,
+    "interval": 1800,
+    "intervalMin": 30,
     "note": "The finder buff delivers its item on this timer while the pet is active."
   },
   "species": [
@@ -646,14 +677,22 @@
         "sig1": {
           "name": "Bait Finder",
           "spell": "WorldPets_CatBuff_Buff01",
-          "descs": [],
-          "intervalMin": 117,
+          "descs": [
+            "",
+            "",
+            ""
+          ],
+          "intervalMin": 30,
           "ranks": []
         },
         "sig2": {
           "name": "Mega Bits",
           "spell": "WorldPets_CatBuff_Buff02",
-          "descs": [],
+          "descs": [
+            "<MAG>% chance to craft 2x Fish Bits",
+            "<MAG>% chance to craft 2x Fish Bits",
+            "<MAG>% chance to craft 2x Fish Bits"
+          ],
           "trigger": "catch",
           "intervalMin": null,
           "ranks": []
@@ -1521,9 +1560,9 @@
         null
       ],
       "sig2Mag": [
-        1,
         2,
-        3
+        2,
+        2
       ],
       "activity": "Kill Infestation enemies with an active Pet Deathclaw",
       "treasure": {
@@ -1535,14 +1574,22 @@
         "sig1": {
           "name": "Dark Titan",
           "spell": "WorldPets_DeathclawBuff_Buff01",
-          "descs": [],
-          "intervalMin": 117,
+          "descs": [
+            "",
+            "",
+            ""
+          ],
+          "intervalMin": 30,
           "ranks": []
         },
         "sig2": {
           "name": "Fun-Festation",
           "spell": "WorldPets_DeathclawBuff_Buff02",
-          "descs": [],
+          "descs": [
+            "<+MAG> Legendary upon completing an Infestation",
+            "",
+            ""
+          ],
           "trigger": "infestation",
           "intervalMin": null,
           "ranks": [
@@ -1550,7 +1597,7 @@
               "rank": 1,
               "item": "HTO_crLLS_Rewards_Legendary_Boss_Funfestation",
               "itemEdid": "HTO_crLLS_Rewards_Legendary_Boss_Funfestation",
-              "qty": 1,
+              "qty": 2,
               "qtyStatic": 1,
               "entitlement": "",
               "entitlementMissing": false
@@ -1568,7 +1615,7 @@
               "rank": 3,
               "item": "HTO_crLLS_Rewards_Legendary_Boss_Funfestation",
               "itemEdid": "HTO_crLLS_Rewards_Legendary_Boss_Funfestation",
-              "qty": 3,
+              "qty": 2,
               "qtyStatic": 1,
               "entitlement": "",
               "entitlementMissing": false
@@ -1772,14 +1819,22 @@
         "sig1": {
           "name": "Stimpak Fetcher",
           "spell": "WorldPets_DogBuff_Buff01",
-          "descs": [],
-          "intervalMin": 117,
+          "descs": [
+            "",
+            "",
+            ""
+          ],
+          "intervalMin": 30,
           "ranks": []
         },
         "sig2": {
           "name": "Bounty Sniffer",
           "spell": "WorldPets_DogBuff_Buff02",
-          "descs": [],
+          "descs": [
+            "<MAG>% Chance for additional Legendary for Bounties",
+            "",
+            ""
+          ],
           "trigger": "grunt-hunt",
           "intervalMin": null,
           "ranks": []
@@ -2639,7 +2694,7 @@
       "diet": "Omnivore",
       "buffSpell": "Radhog Pet",
       "sig1": "Goo-Getter",
-      "sig2": "Rad-Dration",
+      "sig2": "Nuke Harvest",
       "sig1Mag": [
         null,
         null,
@@ -2660,14 +2715,22 @@
         "sig1": {
           "name": "Goo-Getter",
           "spell": "WorldPets_RadhogBuff_Buff01",
-          "descs": [],
-          "intervalMin": 117,
+          "descs": [
+            "",
+            "",
+            ""
+          ],
+          "intervalMin": 30,
           "ranks": []
         },
         "sig2": {
-          "name": "Rad-Dration",
+          "name": "Nuke Harvest",
           "spell": "WorldPets_RadhogBuff_Buff02",
-          "descs": [],
+          "descs": [
+            "<MAG>% chance to harvest 2x Flux (Flora)",
+            "<MAG>% chance to harvest 2x Flux (Flora)",
+            "<MAG>% chance to harvest 2x Flux (Flora)"
+          ],
           "trigger": "nuke-zone",
           "intervalMin": null,
           "ranks": []
