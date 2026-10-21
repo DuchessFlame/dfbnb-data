@@ -1090,6 +1090,14 @@ jobs:
         run: python src/build_pet_taming_json.py
 
       # --- SPECIALs & STATS ---
+      # builds_data.json is made by build-builds.yml, not here, and "Clear dist for a
+      # clean PTS build" removed it. SPECIALs & Stats needs it (perk card rank text,
+      # legendary effects), so restore the committed copy (no PTS twin exists).
+      - name: Restore builds_data.json for SPECIALs & Stats
+        run: |
+          mkdir -p dist/builds
+          git show HEAD:dist/builds/builds_data.json > dist/builds/builds_data.json
+
       - name: Build SPECIALs & Stats JSON
         run: python src/build_specials_stats_json.py
 
