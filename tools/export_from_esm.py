@@ -16,8 +16,16 @@ straight from the game files, so these no longer need xEdit:
     SPEL    SPEL_Export_<Month>_<Year>_HEADER/_EFFECTS/_CONDITIONS.tsv  (ExportSPELToCSV.pas)
     GLOB    GLOB_Export_<Month>_<Year>.tsv          (ExportGLOBToCSV.pas)
     AVIF    AVIF_Export_<Month>_<Year>.tsv          (ExportAVIFToTSV.pas)
+    MISC    MISC_Export_<Month>_<Year>.tsv          (ExportMISCToCSV.pas)
+    NPC     NPC_Export_<Month>_<Year>.tsv + _PRPS + _Refs  (ExportNPCToTSV.pas)
+    NPC2    NPC2_Vendors_<Month>_<Year>.tsv + _Placements, _Currencies, _Factions,
+            _FactionsPlacements                     (ExportNPC2VendorsToTSV.pas)
+    MISC2   MISC2_Export_<Month>_<Year>.tsv         (ExportMISC2ToCSV.pas)
+    ACTI    ACTI_Export_<Month>_<Year>_ACTI.tsv + _Refs  (ExportACTIToTSV.pas)
+    ACTI2   ACTI2_Export_<Month>_<Year>.tsv         (ExportACTI2ToCSV.pas)
+    REFRLVLI REFRLVLI_Placements_<Month>_<Year>.tsv [+ _Part2 ...]  (ExportREFRPlacementsToTSV.pas on LVLI)
 
-GLOB and AVIF list every record that points at each row ("Referenced By"),
+GLOB, AVIF, MISC and NPC list every record that points at each row ("Referenced By"),
 worked out by esm_refs.py in one ~40 s scan (needs numpy). Known gap: xEdit
 stops reading some quests part-way through their objective/alias conditions, so
 its lists leave out those quests; these lists include them.
@@ -37,6 +45,7 @@ Each file written adds a line to tsv\_exports.tsv, like the .pas scripts do.
 from __future__ import annotations
 
 import argparse
+import math
 import os
 import struct
 import sys
@@ -461,8 +470,747 @@ def exp_misc(esm):
     return _pad_refs(rows, ["FormID", "EDID", "FULL", "Keywords", "Value", "Weight", "MCQP", "ReferencedByCount"])
 
 
+# ------------------------------------------------------------- NPC_ ------
+def _lk(esm, fid):
+    """xEdit LinksTo: the record, or nothing when the FormID can't be resolved."""
+    return fid if fid and esm.exists(fid) else None
+
+def _hex(fid):
+    return "" if fid is None else "%08X" % fid
+
+def _triple(esm, fid):
+    if fid is None:
+        return ["", "", ""]
+    return [_hex(fid), cc(esm.edid_of(fid)), cc(esm.full_of(fid))]
+
+def _pair(esm, fid):
+    return [_hex(fid), cc(esm.edid_of(fid)) if fid is not None else ""]
+
+def exp_npc(esm):
+    """ExportNPCToTSV.pas - main sheet, _PRPS (object properties) and _Refs (Referenced By)."""
+    main = ["\t".join(["FormID", "EDID", "FULL", "SHRT",
+        "RNAM_FormID", "RNAM_EDID", "RNAM_Name", "ATKR_FormID", "ATKR_EDID", "ATKR_Name",
+        "INAM_FormID", "INAM_EDID", "TPLT_FormID", "TPLT_EDID", "TPLT_Name",
+        "LTPT_FormID", "LTPT_EDID", "LTPT_Name", "LTPC_FormID", "LTPC_EDID", "LTPC_Name",
+        "CNAM_FormID", "CNAM_EDID", "CNAM_Name", "VTCK_FormID", "VTCK_EDID", "VTCK_Name",
+        "WNAM_FormID", "WNAM_EDID", "DOFT_FormID", "DOFT_EDID",
+        "ACBS_Flags", "ACBS_XPOffset", "ACBS_Level", "ACBS_CalcMinLvl", "ACBS_CalcMaxLvl",
+        "ACBS_DispositionBase", "ACBS_TemplateFlags", "AJNG_EDID", "AJXG_EDID",
+        "DNAM_CalcHealth", "DNAM_CalcActionPts", "DNAM_FarAwayDist", "DNAM_GearedUpWeapons",
+        "ZNAM_FormID", "ZNAM_EDID", "ECOR_FormID", "ECOR_EDID", "Factions_Flat"])]
+    prps_out = ["NPC_FormID\tNPC_EDID\tPropIndex\tActorValue_FormID\tActorValue_EDID\tActorValue_Name\t"
+                "Value\tCurveTable_FormID\tCurveTable_EDID"]
+    refs_out = ["NPC_FormID\tNPC_EDID\tRefBy_FormID\tRefBy_EDID\tRefBy_Signature"]
+    for r in R.xedit_order(esm, "NPC_"):
+        fid = "%08X" % r.fid
+        ed = cc(r.edid)
+        L = lambda sub: _lk(esm, _u32(r.first(sub)))
+        # ACBS - the .pas asks for 'Flags (sorted)' / 'Template Flags (sorted)', which
+        # don't exist on FO76's ACBS, so those two columns are always blank.
+        xp = lvl = cmin = cmax = disp = ""
+        a = r.first("ACBS")
+        if a and len(a) >= 16:
+            flags, xp_i, lv, cmin_i, cmax_i, disp_i = struct.unpack_from("<IhHHHh", a)
+            xp, cmin, cmax, disp = str(xp_i), str(cmin_i), str(cmax_i), str(disp_i)
+            # Level Mult: xEdit clamps it to 0.10-10.00 on load (wbACBSLevelMultAfterLoad)
+            lvl = ("%.2f" % (min(max(lv, 100), 10000) / 1000.0)) if flags & 0x80 else str(lv)
+        hp = ap = far = geared = ""
+        d = r.first("DNAM")
+        if d and len(d) >= 7:
+            h, p, f = struct.unpack_from("<HHH", d)
+            hp, ap, far, geared = str(h), str(p), str(f), str(d[6])
+        # Factions: SNAM, shown sorted by faction FormID (wbRArrayS)
+        facs = []
+        for v in r.all("SNAM"):
+            if len(v) >= 5:
+                facs.append((struct.unpack_from("<I", v)[0], struct.unpack_from("<b", v, 4)[0]))
+        facs.sort(key=lambda x: x[0])
+        flat = " | ".join("%s[Rank:%d]" % (cc(esm.edid_of(f)) if esm.exists(f) else "", rk) for f, rk in facs)
+        aj = _lk(esm, _u32(r.first("AJNG")))
+        ax = _lk(esm, _u32(r.first("AJXG")))
+        row = [fid, ed, cc(esm.lstring(r.full)), cc(esm.lstring(r.first("SHRT")))]
+        row += _triple(esm, L("RNAM")) + _triple(esm, L("ATKR")) + _pair(esm, L("INAM"))
+        row += _triple(esm, L("TPLT")) + _triple(esm, L("LTPT")) + _triple(esm, L("LTPC"))
+        row += _triple(esm, L("CNAM")) + _triple(esm, L("VTCK")) + _pair(esm, L("WNAM")) + _pair(esm, L("DOFT"))
+        row += ["", xp, lvl, cmin, cmax, disp, "",
+                cc(esm.edid_of(aj)) if aj else "", cc(esm.edid_of(ax)) if ax else "",
+                hp, ap, far, geared]
+        row += _pair(esm, L("ZNAM")) + _pair(esm, L("ECOR")) + [flat]
+        main.append("\t".join(row))
+        # PRPS: 12-byte entries (Actor Value, Value, Curve Table), sorted by Actor Value
+        pr = r.first("PRPS")
+        if pr:
+            ents = sorted((struct.unpack_from("<IfI", pr, i * 12) for i in range(len(pr) // 12)),
+                          key=lambda x: x[0])
+            for i, (av, val, cv) in enumerate(ents):
+                av_l, cv_l = _lk(esm, av), _lk(esm, cv)
+                prps_out.append("\t".join([fid, ed, str(i), _hex(av_l),
+                    cc(esm.edid_of(av_l)) if av_l else "", cc(esm.full_of(av_l)) if av_l else "",
+                    C.fmt_float(val), _hex(cv_l), cc(esm.edid_of(cv_l)) if cv_l else ""]))
+        refs = list(esm.refby.get(r.fid, ()))
+        if r.fid == 0x7 and 0x14 not in refs:  # xEdit's own PlayerRef [PLYR:00000014] points at Player
+            refs = sorted(refs + [0x14])
+        for rf in refs:
+            sig, red = esm.refinfo.get(rf, ("PLYR", "PlayerRef"))
+            refs_out.append("\t".join([fid, ed, "%08X" % rf, cc(red), sig]))
+    return {"": main, "_PRPS": prps_out, "_Refs": refs_out}
+
+
+# ------------------------------------------------------------- NPC2 ------
+class _World:
+    """Placed refs (REFR/ACHR) for the NPC2 vendor export: cell, worldspace,
+    position, rotation and the location (LCTN) each one stands in."""
+
+    def __init__(self, esm):
+        import esm_refs
+        self.esm = esm
+        esm.world_record(0)  # builds the world map once
+        self.w = esm._world
+        # xEdit RefLocation: the first LCTN (lowest FormID) in the ref's Referenced By
+        rules = esm_refs._rules()
+        self.loc_of = {}
+        for loc in sorted(esm.records.get("LCTN", []), key=lambda r: r.fid):
+            for k, v in loc.subs:
+                for o in range(0, len(v) - 3):
+                    f = struct.unpack_from("<I", v, o)[0]
+                    if f in self.w and f not in self.loc_of and \
+                            esm_refs._is_ref(rules, "LCTN", k, o, v, "W"):
+                        self.loc_of[f] = loc.fid
+
+    def sig(self, fid):
+        h = self.w.get(fid)
+        return h[0] if h else ""
+
+    def rec(self, fid):
+        x = self.esm.world_record(fid)
+        return x[1] if x else None
+
+    def place(self, fid):
+        """(world_edid, world_fid, cell_edid, cell_fid, x, y, z, rotz, loc_fid, loc_edid, source)"""
+        esm = self.esm
+        sig, _off, cell, wrld = self.w[fid]
+        r = self.rec(fid)
+        we = wf = ce = cf = ""
+        if wrld:
+            wr = self.rec(wrld)
+            we, wf = cc(wr.edid if wr else ""), "%08X" % wrld
+        if cell:
+            cr = self.rec(cell)
+            ce, cf = cc(cr.edid if cr else ""), "%08X" % cell
+        x = y = z = rz = ""
+        d = r.first("DATA")
+        if d and len(d) >= 24:
+            px, py, pz, _rx, _ry, rzr = struct.unpack_from("<6f", d)
+            x, y, z = C.fmt_float(px), C.fmt_float(py), C.fmt_float(pz)
+            rz = _rot_deg(rzr)
+        lf = le = src = ""
+        if fid in self.loc_of:
+            l = self.loc_of[fid]
+            lf, le, src = "%08X" % l, cc(esm.edid_of(l)), "lctn"
+        elif cell:
+            cr = self.rec(cell)
+            xl = _u32(cr.first("XLCN")) if cr else None
+            if xl and esm.exists(xl):
+                lf, le, src = "%08X" % xl, cc(esm.edid_of(xl)), "cell"
+        return we, wf, ce, cf, x, y, z, rz, lf, le, src
+
+
+def exp_npc2(esm):
+    """ExportNPC2VendorsToTSV.pas - vendor NPCs, their placements, currencies,
+    vendor factions and where each vendor faction's machines / NPCs stand."""
+    W = _World(esm)
+
+    def fact(fid):
+        return esm.get(fid) if fid and esm.sig_of(fid) == "FACT" else None
+
+    def venc_ref(f):
+        v = _u32(f.first("VENC"))
+        return v if v and v in W.w else None   # LinksTo: only when the REFR exists
+
+    def ref_base(rf):
+        if rf is None:
+            return None
+        n = _u32(W.rec(rf).first("NAME"))
+        return n if n and esm.exists(n) else None
+
+    def link(f, sub):
+        v = _u32(f.first(sub)) if f else None
+        return v if v and esm.exists(v) else None
+
+    def hx(v):
+        return "%08X" % v if v else ""
+
+    def ed(v):
+        return cc(esm.edid_of(v)) if v else ""
+
+    def find_merchant(npc):
+        facs = sorted({struct.unpack_from("<I", v)[0] for v in npc.all("SNAM") if len(v) >= 4})
+        fallback = None
+        for fid in facs:
+            f = fact(fid)
+            if f is None:
+                continue
+            if ref_base(venc_ref(f)):
+                return f
+            # the .pas also checks for a "Vendor" flag, but reads the flags' edit
+            # value (a 0/1 bit string), so that test never matches
+            if fallback is None and any(f.first(s) is not None for s in ("VENC", "VEND", "VENV")):
+                fallback = f
+        return fallback
+
+    main = ["\t".join(["NPC_FormID", "NPC_EDID", "NPC_FULL", "NPC_SHRT", "TPLT_FormID", "TPLT_EDID",
+                       "MerchantFaction_FormID", "MerchantFaction_EDID", "VendorFlags",
+                       "BuySellList_FormID", "BuySellList_EDID", "BuySellList_Sig",
+                       "MerchantContainerRef_FormID", "MerchantContainerBase_FormID",
+                       "MerchantContainerBase_EDID", "PlacementCount"])]
+    place = ["\t".join(["NPC_FormID", "NPC_EDID", "Ref_FormID", "Ref_EDID", "Worldspace_EDID",
+                        "Worldspace_FormID", "Cell_EDID", "Cell_FormID", "X", "Y", "Z", "RotZ",
+                        "Location_FormID", "Location_EDID", "Location_Source"])]
+
+    def emit(nf, ne, rf):
+        if rf is None or W.sig(rf) != "REFR":
+            return False
+        p = W.place(rf)
+        place.append("\t".join([nf, ne, "%08X" % rf, cc(W.rec(rf).edid)] + list(p)))
+        return True
+
+    for r in R.xedit_order(esm, "NPC_"):
+        f = find_merchant(r)
+        if f is None:
+            continue
+        nf, ne = "%08X" % r.fid, cc(r.edid)
+        tp = link(r, "TPLT")
+        bs = link(f, "VEND")   # 'Vendor Buy/Sell List'
+        vr = venc_ref(f)
+        vb = ref_base(vr)
+        placed = 0
+        for rf in esm.refby.get(r.fid, ()):
+            if emit(nf, ne, rf):
+                placed += 1
+        if emit(nf, ne, vr):
+            placed += 1
+        # VendorFlags: the .pas asks for 'Vendor Values\Flags', which FO76's VENV doesn't have
+        main.append("\t".join([nf, ne, cc(esm.lstring(r.full)), cc(esm.lstring(r.first("SHRT"))),
+                               hx(tp), ed(tp), "%08X" % f.fid, cc(f.edid), "",
+                               hx(bs), ed(bs), esm.sig_of(bs) if bs else "",
+                               hx(vr), hx(vb), ed(vb), str(placed)]))
+
+    # ---- currencies
+    cur = ["CNCY_FormID\tCNCY_EDID\tFULL\tPluralName\tMaxCount\tDESC\tKeywords"]
+    # These two walk the record group (GroupBySignature + ElementByIndex), which
+    # runs in file order - not the newest-first order Process() sees.
+    for r in esm.records["CNCY"]:
+        # Keywords: the .pas looks for KWDA directly on the record, but FO76 keeps it
+        # inside the 'Keywords' block, so xEdit always leaves this column blank.
+        mx = _u32(r.first("MXCT"))
+        du = r.first("DURL")
+        cur.append("\t".join(["%08X" % r.fid, cc(r.edid), cc(esm.lstring(r.full)),
+                              cc(du.rstrip(b"\0").decode("utf-8", "replace") if du else ""),
+                              "" if mx is None else str(mx), cc(esm.lstring(r.first("DESC"))),
+                              ""]))
+
+    # ---- vendor factions + where their machines / NPCs stand
+    fac = ["\t".join(["Faction_FormID", "Faction_EDID", "Faction_FULL", "Currency_FormID", "Currency_EDID",
+                      "Wallet_FormID", "Wallet_EDID", "RestockDays_FormID", "RestockDays_EDID",
+                      "RestockDays_Value", "BuySell_FormID", "BuySell_EDID", "ContainerRef_FormID",
+                      "ContainerBase_FormID", "ContainerBase_EDID", "Worldspace_EDID", "Cell_EDID",
+                      "X", "Y", "Z", "Location_FormID", "Location_EDID"])]
+    facp = ["\t".join(["Faction_FormID", "Faction_EDID", "Holder_FormID", "Holder_EDID", "Holder_FULL",
+                       "Holder_Sig", "Ref_FormID", "Worldspace_EDID", "Cell_EDID", "X", "Y", "Z",
+                       "Location_FormID", "Location_EDID"])]
+
+    def place_cols(rf):
+        if rf is None or W.sig(rf) not in ("REFR", "ACHR"):
+            return [""] * 7
+        we, _wf, ce, _cf, x, y, z, _rz, lf, le, _s = W.place(rf)
+        return [we, ce, x, y, z, lf, le]
+
+    for r in esm.records["FACT"]:
+        vr = venc_ref(r)
+        if vr is None:
+            continue
+        cu, wa, rs, bs = link(r, "VBCY"), link(r, "VENG"), link(r, "VENR"), link(r, "VEND")
+        vb = ref_base(vr)
+        rv = ""
+        if rs:
+            g = esm.get(rs)
+            fl = g.first("FLTV") if g else None
+            rv = C.fmt_float(struct.unpack("<f", fl[:4])[0]) if fl and len(fl) >= 4 else ""
+        fac.append("\t".join(["%08X" % r.fid, cc(r.edid), cc(esm.lstring(r.full)),
+                              hx(cu), ed(cu), hx(wa), ed(wa), hx(rs), ed(rs), rv, hx(bs), ed(bs),
+                              "%08X" % vr, hx(vb), ed(vb)] + place_cols(vr)))
+        for h in esm.refby.get(r.fid, ()):
+            hs = esm.refinfo[h][0]
+            if hs not in ("ACTI", "FURN", "NPC_"):
+                continue
+            head = ["%08X" % r.fid, cc(r.edid), "%08X" % h, cc(esm.refinfo[h][1]), cc(esm.full_of(h)), hs]
+            for rr in esm.refby.get(h, ()):
+                if W.sig(rr) in ("REFR", "ACHR"):
+                    facp.append("\t".join(head + ["%08X" % rr] + place_cols(rr)))
+
+    return {"": main, "_Placements": place, "_Currencies": cur, "_Factions": fac,
+            "_FactionsPlacements": facp}
+
+
+def npc2_ref_targets(esm):
+    """Referenced By is needed for the NPCs, the factions, and every ACTI / FURN
+    (a vending machine points at its faction through a script property)."""
+    t = {r.fid for s in ("NPC_", "FACT") for r in esm.records[s]}
+    t |= {f for f, v in esm.index.items() if v[0] in ("ACTI", "FURN")}
+    return t
+
+
+# ------------------------------------------------------ MISC2 / ACTI2 ------
+# The "second pass" placement exports: every placed copy of a target set, also one
+# or two hops through a container / activator / leveled list that holds it.
+# Sets: (slug, test on FormID / EDID) per record type.
+PLACEMENT_SETS = {
+    # ExportMISC2ToCSV.pas
+    "MISC": [("pint-sized-slasher-masks",
+              lambda fid, ed: fid == 0x008E069E or "sdow_slasherclue" in ed.lower())],
+    # ExportACTI2ToCSV.pas: the Treasure Map mounds, not the TEMP / DEBUG ones
+    "ACTI": [("treasure-maps",
+              lambda fid, ed: "treasuremapmoundactivator" in ed.lower()
+              and "temp" not in ed.lower() and "debug" not in ed.lower())],
+}
+PLACEMENT_HOLDERS = {"CONT", "ACTI", "FURN", "MSTT", "SCOL", "STAT", "NPC_", "LVLI"}
+
+
+def _placement_set(sig, r):
+    for slug, test in PLACEMENT_SETS[sig]:
+        if test(r.fid, r.edid):
+            return slug
+    return ""
+
+
+def _placement_targets(sig):
+    return lambda esm: {r.fid for r in esm.records[sig] if _placement_set(sig, r)}
+
+
+misc2_ref_targets = _placement_targets("MISC")
+acti2_ref_targets = _placement_targets("ACTI")
+
+
+def _set_placements(esm, sig):
+    """The .pas never finds the cell or worldspace (it climbs the record's parents for
+    a CELL record, which a placed reference never has), so those columns, and the
+    location columns built from them, are always blank - kept blank here to match."""
+    import esm_refs
+    out = ["set\titem_formid\tedid\tname\tsection\tworldspace\tcell\tx\ty\tz\tref_formid\tholder\tloc_name\tloc_source"]
+    esm.world_record(0)
+    scanned = getattr(esm, "_placement_scanned", set())
+    esm._placement_scanned = scanned
+
+    def refs_of(fid):
+        if fid not in esm.refby and fid not in scanned:
+            # a holder found on the way: work out its Referenced By now (rare; one extra scan)
+            more, info = esm_refs.referenced_by(esm, {fid})
+            esm.refby.update(more)
+            esm.refinfo.update(info)
+            scanned.add(fid)
+        return esm.refby.get(fid, ())
+
+    for r in R.xedit_order(esm, sig):
+        slug = _placement_set(sig, r)
+        if not slug:
+            continue
+        fid, ed, full = "%08X" % r.fid, cc(r.edid), cc(esm.lstring(r.full))
+        visited = set()
+
+        def walk(target, holder, depth):
+            if depth > 2 or target in visited:
+                return
+            visited.add(target)
+            for rf in refs_of(target):
+                rs = esm.refinfo[rf][0] if rf in esm.refinfo else ""
+                if rs == "REFR":
+                    w = esm.world_record(rf)
+                    if w and _u32(w[1].first("NAME")) == target:
+                        x = y = z = ""
+                        d = w[1].first("DATA")
+                        if d and len(d) >= 12:
+                            x, y, z = (C.fmt_float(v) for v in struct.unpack_from("<3f", d))
+                        out.append("\t".join([slug, fid, ed, full, sig, "", "", x, y, z,
+                                              "%08X" % rf, holder, "", ""]))
+                        continue
+                if depth < 2 and rs in PLACEMENT_HOLDERS:
+                    walk(rf, holder or esm.refinfo[rf][1], depth + 1)
+
+        walk(r.fid, "", 0)
+    return out
+
+
+def exp_misc2(esm):
+    """ExportMISC2ToCSV.pas - placements of the MISC collectable sets."""
+    return _set_placements(esm, "MISC")
+
+
+def exp_acti2(esm):
+    """ExportACTI2ToCSV.pas - placements of the ACTI sets (Treasure Map dig mounds)."""
+    return _set_placements(esm, "ACTI")
+
+
+# ------------------------------------------------------------- ACTI ------
+XALG_FLAGS = ["Skip HAVOK on Load", "Server Authoritative", "Disable Permanent Decals",
+              "Never Visible Distant", "Item Dispenser", "Item Dispenser Pickedup",
+              "Fast travel restricted", "Block Item Dispenser", "Premium", "Visible Distant",
+              "Camera Weapon Detectable", "Fallout 1st", "Bullion Reward Object",
+              "REFR invalidates previs", "Deleted REFR invalidates previs",
+              "Container weight calculation queued", "UNUSED 17", "No refresh body 3D on load"] + \
+             ["Unknown %d" % i for i in range(19, 33)]
+
+_PAS_SEPS = ("\x1f", "\x1e", "\x1d", "\x1c", "\x1b")
+
+
+def _pas_clean(s):
+    """CleanCell of the ACTI .pas: also blanks its own packing separators #27-#31."""
+    s = (s or "").replace("\r\n", " ").replace("\r", " ").replace("\n", " ").replace("\t", " ")
+    for ch in _PAS_SEPS:
+        s = s.replace(ch, " ")
+    return s.strip(" ")
+
+
+def _vmad_clean(s):
+    s = _pas_clean(s)
+    return s.replace("##", "  ").replace("::", ":").replace("=", " ").strip(" ")
+
+
+class _VmadReader:
+    """Reads a VMAD's scripts and properties with their values (xEdit wbVMAD layout)."""
+
+    def __init__(self, d):
+        self.d, self.p = d, 0
+
+    def u8(self):
+        v = self.d[self.p]; self.p += 1; return v
+
+    def u16(self):
+        v = struct.unpack_from("<H", self.d, self.p)[0]; self.p += 2; return v
+
+    def u32(self):
+        v = struct.unpack_from("<I", self.d, self.p)[0]; self.p += 4; return v
+
+    def s(self):
+        n = self.u16(); v = self.d[self.p:self.p + n]; self.p += n
+        return v.decode("utf-8", "replace")
+
+    def obj(self, fmt):
+        if fmt == 2:
+            self.p += 2; alias = struct.unpack_from("<h", self.d, self.p)[0]; self.p += 2
+            fid = self.u32()
+        else:
+            fid = self.u32(); alias = struct.unpack_from("<h", self.d, self.p)[0]; self.p += 4
+        return ("obj", fid, alias)
+
+    def value(self, t, fmt):
+        if t == 1:
+            return self.obj(fmt)
+        if t == 2:
+            return ("str", self.s())
+        if t == 3:
+            return ("int", struct.unpack_from("<i", self.d, self.p)[0], self.__skip(4))
+        if t == 4:
+            v = struct.unpack_from("<f", self.d, self.p)[0]; self.p += 4; return ("float", v)
+        if t == 5:
+            return ("bool", self.u8())
+        if t == 7:
+            self.struct(fmt); return ("struct",)
+        if t == 11:
+            return ("arr", [self.obj(fmt) for _ in range(self.u32())])
+        if t == 12:
+            return ("arr", [("str", self.s()) for _ in range(self.u32())])
+        if t == 13:
+            n = self.u32(); v = struct.unpack_from("<%di" % n, self.d, self.p); self.p += 4 * n
+            return ("arr", [("int", x) for x in v])
+        if t == 14:
+            n = self.u32(); v = struct.unpack_from("<%df" % n, self.d, self.p); self.p += 4 * n
+            return ("arr", [("float", x) for x in v])
+        if t == 15:
+            n = self.u32(); v = self.d[self.p:self.p + n]; self.p += n
+            return ("arr", [("bool", x) for x in v])
+        if t == 16:
+            self.p += 4; return ("none",)
+        if t == 17:
+            for _ in range(self.u32()):
+                self.struct(fmt)
+            return ("structarr",)
+        return ("none",)
+
+    def __skip(self, n):
+        self.p += n
+
+    def struct(self, fmt):
+        for _ in range(self.u32()):
+            self.s(); t = self.u8(); self.u8(); self.value(t, fmt)
+
+    def scripts(self):
+        self.u16(); fmt = struct.unpack_from("<h", self.d, 2)[0]; self.p = 4
+        out = []
+        for _ in range(self.u16()):
+            name = self.s(); self.u8()
+            props = []
+            for _ in range(self.u16()):
+                pn = self.s(); t = self.u8(); self.u8()
+                props.append((pn, self.value(t, fmt)))
+            out.append((name, props))
+        return out
+
+
+def _xedit_text_key(s):
+    """xEdit sorts script and property names on their upper-case text."""
+    return s.upper()
+
+
+def _dial_index(esm):
+    """{fid: edid} for dialogue topics (DIAL). They sit inside the quests' child
+    groups, which the shared index skips."""
+    if getattr(esm, "_dial", None) is not None:
+        return esm._dial
+    import zlib
+    out = {}
+    with open(esm.esm_path, "rb") as f:
+        size = os.path.getsize(esm.esm_path)
+        f.seek(24 + struct.unpack("<I", f.read(24)[4:8])[0])
+
+        def walk(end):
+            while f.tell() < end:
+                h = f.read(24)
+                n = struct.unpack_from("<I", h, 4)[0]
+                if h[:4] == b"GRUP":
+                    walk(f.tell() + n - 24)
+                    continue
+                if h[:4] != b"DIAL":
+                    f.seek(n, 1)
+                    continue
+                flags, fid = struct.unpack_from("<II", h, 8)
+                data = f.read(n)
+                if flags & 0x40000:
+                    data = zlib.decompress(data[4:])
+                ed = ""
+                if data[:4] == b"EDID":
+                    ln = struct.unpack_from("<H", data, 4)[0]
+                    ed = data[6:6 + ln].rstrip(b"\0").decode("utf-8", "replace")
+                out[fid] = ed
+
+        while f.tell() < size:
+            hdr = f.read(24)
+            ds = struct.unpack_from("<I", hdr, 4)[0]
+            if hdr[8:12] in (b"QUST", b"DIAL"):
+                walk(f.tell() + ds - 24)
+            else:
+                f.seek(ds - 24, 1)
+    esm._dial = out
+    return out
+
+
+def exp_acti(esm):
+    """ExportACTIToTSV.pas - _ACTI (flags, keywords, properties, scripts) and _Refs."""
+    esm.world_record(0)
+    dial = _dial_index(esm)
+
+    def link_cell(fid):
+        """FormID:EDID:Sig of a record that resolves, else None."""
+        if not fid:
+            return None
+        if fid in esm.index:
+            sig, ed = esm.index[fid][:2]
+            return "%08X:%s:%s" % (fid, _pas_clean(ed), sig)
+        if fid in dial:
+            return "%08X:%s:DIAL" % (fid, _pas_clean(dial[fid]))
+        w = esm._world.get(fid)
+        if w:
+            rec = esm.world_record(fid)[1]
+            return "%08X:%s:%s" % (fid, _pas_clean(rec.edid), w[0])
+        return None
+
+    def vval(v):
+        k = v[0]
+        if k == "obj":
+            lc = link_cell(v[1])
+            return lc if lc is not None else ""
+        if k == "str":
+            return _vmad_clean(v[1])
+        if k == "int":
+            return str(v[1])
+        if k == "float":
+            return C.fmt_float(v[1])
+        if k == "bool":
+            return "True" if v[1] else "False"
+        if k == "arr":
+            parts = []
+            for e in v[1]:
+                if e[0] == "obj":
+                    lc = link_cell(e[1])
+                    if lc is not None:
+                        parts.append(lc)
+                    continue
+                x = vval(e)
+                if x != "":
+                    parts.append(x)
+            return "|".join(parts)
+        return ""
+
+    rows, refrows = [], []
+    for r in R.xedit_order(esm, "ACTI"):
+        fid = "%08X" % r.fid
+        ed = _pas_clean(r.edid)
+        full = _pas_clean(esm.lstring(r.full))
+        xa = r.first("XALG")
+        xalg = ""
+        if xa:
+            bits = struct.unpack("<Q", xa[:8].ljust(8, b"\0"))[0]
+            xalg = "|".join(XALG_FLAGS[i] for i in range(32) if bits >> i & 1)
+        ai = r.first("AIID")
+        aiid = "" if ai is None else ("True" if ai[0] else "False")
+        kws = []
+        kw = r.first("KWDA")
+        if kw:
+            for k in sorted(struct.unpack_from("<%dI" % (len(kw) // 4), kw)):
+                lc = link_cell(k)
+                kws.append(lc if lc is not None else "%08X" % k)
+        props = []
+        pr = r.first("PRPS")
+        if pr:
+            for av, val, cv in sorted((struct.unpack_from("<IfI", pr, i * 12) for i in range(len(pr) // 12)),
+                                      key=lambda x: x[0]):
+                avn = _pas_clean(esm.edid_of(av)) if esm.exists(av) else ""
+                # the .pas blanks 'NULL - Null Reference' / 'NULL', but xEdit's text for an
+                # empty curve is 'NULL - Null Reference [00000000]', so it stays
+                cvn = _pas_clean(esm.edid_of(cv)) if cv and esm.exists(cv) else _pas_clean(esm.link_edit_value(cv))
+                props.append((avn, C.fmt_float(val), cvn))
+        vm = r.first("VMAD")
+        vcount, entries = 0, []
+        if vm:
+            try:
+                scripts = _VmadReader(vm).scripts()
+            except Exception:
+                scripts = []
+            scripts.sort(key=lambda s: _xedit_text_key(s[0]))
+            vcount = len(scripts)
+            for sn, ps in scripts:
+                sn = _vmad_clean(sn)
+                if not ps:
+                    entries.append(sn + "::=")
+                    continue
+                for pn, v in sorted(ps, key=lambda p: _xedit_text_key(p[0])):
+                    entries.append(sn + "::" + _vmad_clean(pn) + "=" + vval(v))
+        rows.append((fid, ed, full, xalg, aiid, kws, props, vcount, "##".join(entries)))
+        refs = ["%08X:%s:%s" % (x, _pas_clean(esm.refinfo[x][1]), esm.refinfo[x][0])
+                for x in esm.refby.get(r.fid, ())]
+        refrows.append((fid, ed, refs))
+
+    mk = max((len(x[5]) for x in rows), default=0)
+    mp = max((len(x[6]) for x in rows), default=0)
+    head = ["ACTI_FormID", "ACTI_EDID", "ACTI_FULL", "XALG_Flags", "CanBeInstanced", "KeywordCount"]
+    head += ["KW_%d" % i for i in range(1, mk + 1)] + ["PropCount"]
+    for i in range(1, mp + 1):
+        head += ["Prop_%d_AV" % i, "Prop_%d_Val" % i, "Prop_%d_Curve" % i]
+    head += ["VMAD_ScriptCount", "VMAD_Scripts"]
+    out = ["\t".join(head)]
+    for fid, ed, full, xalg, aiid, kws, props, vc, vm in rows:
+        line = [fid, ed, full, xalg, aiid, str(len(kws))] + kws + [""] * (mk - len(kws)) + [str(len(props))]
+        for p in props:
+            line += list(p)
+        line += ["", "", ""] * (mp - len(props))
+        line += [str(vc), vm]
+        out.append("\t".join(line))
+    mr = max((len(x[2]) for x in refrows), default=0)
+    rout = ["\t".join(["ACTI_FormID", "ACTI_EDID", "ReferencedByCount"] + ["Ref_%d" % i for i in range(1, mr + 1)])]
+    for fid, ed, refs in refrows:
+        rout.append("\t".join([fid, ed, str(len(refs))] + refs + [""] * (mr - len(refs))))
+    return {"_ACTI": out, "_Refs": rout}
+
+
+# ---------------------------------------------------------- REFRLVLI ------
+def _single_same(a, b):
+    """xEdit SingleSameValue: equal within single-float resolution."""
+    import numpy as np
+    a, b = float(np.float32(a)), float(np.float32(b))
+    return abs(a - b) <= max(min(abs(a), abs(b)) * 0.0000005, 0.0000005)
+
+
+def _rot_deg(rad):
+    """xEdit's display of a rotation: radians folded into 0..2pi (anything within a
+    hair of 0 or 2pi shows as 0), then degrees to 4 places (wbNormalizeRadians)."""
+    two_pi = 2 * math.pi
+    r = rad
+    if abs(r / two_pi) > 100.0:
+        r -= math.copysign(1, r) * two_pi * math.trunc(abs(r / two_pi) - 100.0)
+    while r < 0.0:
+        r += two_pi
+    while r > two_pi:
+        r -= two_pi
+    if _single_same(r, 0.0) or _single_same(r, two_pi):
+        r = 0.0
+    return "%.4f" % (r * 180.0 / math.pi)
+
+
+def _ref_positions(esm, fids):
+    """{ref fid: DATA bytes} for many placed refs, read in one pass over the file
+    (opening the ESM once per ref is far too slow over the PC's shared folder)."""
+    import zlib
+    esm.world_record(0)
+    offs = sorted((esm._world[f][1], f) for f in fids if f in esm._world)
+    out = {}
+    with open(esm.esm_path, "rb") as fh:
+        for off, f in offs:
+            fh.seek(off)
+            hdr = fh.read(24)
+            ds = struct.unpack_from("<I", hdr, 4)[0]
+            data = fh.read(ds)
+            if struct.unpack_from("<I", hdr, 8)[0] & 0x40000:
+                data = zlib.decompress(data[4:])
+            for k, v in R._parse_subs(data):
+                if k == "DATA":
+                    out[f] = v
+                    break
+    return out
+
+
+REFRLVLI_PART_BYTES = 40000000   # the .pas MAX_PART_BYTES: keeps each file well under GitHub's 50 MB warning
+
+
+def exp_refrlvli(esm):
+    """ExportREFRPlacementsToTSV.pas run over the whole Leveled Item group: every
+    placed reference (REFR) of a leveled list - the LPI_ "lying in the world" spots.
+    Like the .pas, the worldspace / cell / location columns stay blank (its re-anchor
+    step never finds the cell). The .pas also carries over rows for lists missing
+    from the run; a full run here covers every list, so nothing is carried over."""
+    import esm_refs
+    targets = {r.fid for r in esm.records["LVLI"]}
+    refby, refinfo = esm_refs.referenced_by(esm, targets, referrers={"REFR"})
+    head = ("BaseFormID\tBaseEDID\tBaseName\tRefFormID\tRefEDID\tWorldspaceEDID\tWorldspaceFormID\t"
+            "CellEDID\tCellFormID\tX\tY\tZ\tRotZ\tCellName\tLocationEDID\tLocationName")
+    recs = R.xedit_order(esm, "LVLI")
+    pos = _ref_positions(esm, {rf for v in refby.values() for rf in v})
+    rows = []
+    for r in recs:
+        bf, be, bn = "%08X" % r.fid, cc(r.edid), cc(esm.lstring(r.full))
+        for rf in refby.get(r.fid, ()):
+            x = y = z = rz = ""
+            d = pos.get(rf)
+            if d and len(d) >= 24:
+                px, py, pz, _a, _b, rzr = struct.unpack_from("<6f", d)
+                x, y, z = C.fmt_float(px), C.fmt_float(py), C.fmt_float(pz)
+                rz = _rot_deg(rzr)
+            rows.append("\t".join([bf, be, bn, "%08X" % rf, cc(refinfo[rf][1]), "", "", "", "",
+                                   x, y, z, rz, "", "", ""]))
+    # split into parts of at most REFRLVLI_PART_BYTES, header on each (sizes as the .pas counts them)
+    parts, cur, size = [], [head], len(head) + 2
+    for ln in rows:
+        if len(cur) > 1 and size + len(ln) + 2 > REFRLVLI_PART_BYTES:
+            parts.append(cur)
+            cur, size = [head], len(head) + 2
+        cur.append(ln)
+        size += len(ln) + 2
+    parts.append(cur)
+    return {("" if i == 0 else "_Part%d" % (i + 1)): p for i, p in enumerate(parts)}
+
+
 # exports whose rows list "Referenced By" - one shared scan covers them all
-NEEDS_REFS = {"GLOB", "AVIF", "MISC"}
+NEEDS_REFS = {"GLOB", "AVIF", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
+# exports that need Referenced By for more than their own records
+REF_TARGETS = {"NPC2": npc2_ref_targets, "MISC2": misc2_ref_targets, "ACTI2": acti2_ref_targets}
 
 EXPORTS = {
     # key: (record types to load, file prefix, function)
@@ -478,7 +1226,16 @@ EXPORTS = {
     "GLOB": (["GLOB"], "GLOB_Export", exp_glob),
     "AVIF": (["AVIF"], "AVIF_Export", exp_avif),
     "MISC": (["MISC"], "MISC_Export", exp_misc),
+    "NPC": (["NPC_"], "NPC_Export", exp_npc),
+    "NPC2": (["NPC_", "FACT", "CNCY", "LCTN"], "NPC2_Vendors", exp_npc2),
+    "MISC2": (["MISC"], "MISC2_Export", exp_misc2),
+    "ACTI": (["ACTI"], "ACTI_Export", exp_acti),
+    "ACTI2": (["ACTI"], "ACTI2_Export", exp_acti2),
+    "REFRLVLI": (["LVLI"], "REFRLVLI_Placements", exp_refrlvli),
 }
+
+# PTS file names carry the date only (no time) for these, like their .pas
+DATE_ONLY_PTS = {"REFRLVLI"}
 
 
 def main(argv=None):
@@ -510,7 +1267,12 @@ def main(argv=None):
     if ref_exports:
         import esm_refs
         t1 = time.time()
-        targets = {r.fid for w in ref_exports for s in EXPORTS[w][0] for r in esm.records[s]}
+        targets = set()
+        for w in ref_exports:
+            if w in REF_TARGETS:
+                targets |= REF_TARGETS[w](esm)
+            else:
+                targets |= {r.fid for s in EXPORTS[w][0] for r in esm.records[s]}
         esm.refby, esm.refinfo = esm_refs.referenced_by(esm, targets)
         print("  Referenced By worked out for %d records in %.0fs" % (len(targets), time.time() - t1))
     for w in which:
@@ -519,6 +1281,8 @@ def main(argv=None):
         # one file, or {suffix: lines} for exports that write several files
         files = result if isinstance(result, dict) else {"": result}
         base = R.out_name(prefix, channel)[:-4]
+        if channel == "PTS" and w in DATE_ONLY_PTS:
+            base = base[:-5]   # drop the _HHMM
         for suffix, lines in files.items():
             if len(lines) <= 1:
                 print("  %-7s no records found - nothing written" % (w + suffix))

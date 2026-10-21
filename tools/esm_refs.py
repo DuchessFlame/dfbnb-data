@@ -108,8 +108,9 @@ def _is_ref(rules, sig, sub, rel, field, tsig):
     return tsig in r[1]
 
 
-def referenced_by(esm, targets, chunk=48 << 20):
-    """{target fid: sorted [referrer fid]}, and {referrer fid: (sig, edid)}."""
+def referenced_by(esm, targets, chunk=48 << 20, referrers=None):
+    """{target fid: sorted [referrer fid]}, and {referrer fid: (sig, edid)}.
+    referrers: optional set of record types (e.g. {"REFR"}) - only those are scanned."""
     rules = _rules()
     tsig = {t: esm.sig_of(t) for t in targets}
     tarr = np.array(sorted(targets), dtype="<u4")
@@ -165,6 +166,9 @@ def referenced_by(esm, targets, chunk=48 << 20):
             if hdr[:4] == b"GRUP":
                 continue
             flags, fid = struct.unpack_from("<II", hdr, 8)
+            if referrers is not None and hdr[:4].decode() not in referrers:
+                f.seek(ds, 1)
+                continue
             data = f.read(ds)
             if flags & 0x40000:
                 data = zlib.decompress(data[4:])
