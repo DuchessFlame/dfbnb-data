@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated": "2026-10-21T04:01:37.959168+00:00",
+  "generated": "2026-10-21T06:03:39.375877+00:00",
   "count": 4241,
   "source_files": {
     "WEAP": "WEAP_Export_October_2026_Base.tsv",
@@ -1107252,7 +1107252,9 @@
       "obtain": "Not a plan — The Pipe is a unique version of the Pipe Gun. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Drops from: Random Encounter: Unusual Pipe - a chance each time you sniff the pipe. The chance is set on Bethesda's servers, not in the game files"
+      ],
       "plan_item": null,
       "cobj": null,
       "cnam": {
@@ -1107271,7 +1107273,23 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
-      "obtain_ledger": [],
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": false
+        }
+      ],
+      "source_tag": "Events",
+      "obtain_ledger": [
+        {
+          "label": "Events & Activities",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
       "weapon_role": "unique",
       "weapon_group": "Pipe Gun",
       "weapon_group_key": "pipe-gun",
