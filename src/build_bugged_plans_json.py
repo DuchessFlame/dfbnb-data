@@ -88,6 +88,7 @@ import tsv_source                      # noqa: E402
 import rng76                           # noqa: E402
 import plan_sources                    # noqa: E402
 import plan_unlocks                    # noqa: E402
+import switched_off_starts             # noqa: E402
 
 RX_REF_COL = re.compile(r"^Ref_?\d+$")
 RX_COND_COL = re.compile(r"^Cond\d+$")
@@ -1055,6 +1056,16 @@ def gate(scan, items, master_path):
 SEV_ORDER = {"unobtainable": 0, "route_broken": 1, "broken_item": 2}
 
 
+def _switched_off_starts(data_dir, master):
+    """switched_off_starts.scan(), or None if it fails - a report must never
+    stop the bugged-plans build."""
+    try:
+        return switched_off_starts.scan(data_dir, master)
+    except Exception as e:                       # noqa: BLE001
+        print(f"[bugged_plans] switched_off_starts skipped: {e}")
+        return None
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--data-dir", default=os.path.join(REPO, "tsv"))
@@ -1131,6 +1142,10 @@ def main(argv=None):
         "held_back": held_back,
         "hidden_not_a_bug": len(hidden),
         "checklist_dead_routes": checklist_dead_routes(s, a.master),
+        # Quests whose start item every source hands out at 0% - a report for
+        # a person to confirm (cut, or a seasonal switch). Never auto-cut; see
+        # src/switched_off_starts.py. Not rendered.
+        "switched_off_starts": _switched_off_starts(a.data_dir, a.master),
     }
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
     with open(a.out, "w", encoding="utf-8") as f:
@@ -1140,6 +1155,8 @@ def main(argv=None):
     cd = doc["checklist_dead_routes"]
     print(f"[bugged_plans] new {sum(x['is_new'] for x in items)}, fixed {len(fixed)}, "
           f"held back by gate {len(held_back)}, hidden (not a bug) {len(hidden)}, checklist dead routes {len(cd) if cd is not None else 'n/a'}")
+    if doc["switched_off_starts"] is not None:
+        switched_off_starts.report(doc["switched_off_starts"])
 
 
 if __name__ == "__main__":

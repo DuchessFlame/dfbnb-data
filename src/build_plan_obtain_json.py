@@ -40,9 +40,18 @@ Every backpack plan is an OMOD recipe, so the backpack-mod bucket used to hold
 functional mods, paint skins and cosmetic flair together. `backpack_class`
 splits them on the created OMOD's EDID (`_Effect_` / `_Material_` / `_Flair`),
 falling back to the plan name for the few with no CNAM link. Only class "mod"
-is published — /df/plan-checklists/backpack-mod/ is a mod checklist, not a
-cosmetics list. Skins and flair are dropped from the roster and counted in the
-report under "backpack_cosmetic_dropped".
+is SHOWN on /df/plan-checklists/backpack-mod/ — it is a mod checklist, not a
+cosmetics list (plan_subpages.py skips the rest, so they get no plan_page and
+render on no checklist page).
+
+Skins and flair are still BUILT into plan_master with `backpack_class` set.
+Until 21 Oct 2026 they were dropped here, before any route work, and that broke
+every other reader of plan_master: Brewmaster on Discord, Make Your Own Plan
+Checklist and the Plan Check Mule pages could not find "Plan: Deathclaw Head
+Backpack" or "Plan: Pheasant Foot Backpack Flair" at all, and the only place
+they existed was Current Bugged Plans. Hidden from one page is not the same
+as missing from the data. They are counted in the report under
+"backpack_cosmetic_kept".
 
 OUTPUT & EFFECTS (what the mod actually does)
 ---------------------------------------------
@@ -2166,7 +2175,7 @@ def main(argv=None):
 
     items = []
     unresolved = {"created_object": [], "tradeable": [], "stops_dropping": [],
-                  "no_routes": [], "backpack_cosmetic_dropped": [], "no_effects": [],
+                  "no_routes": [], "backpack_cosmetic_kept": [], "no_effects": [],
                   "cut": []}
     for i, row in enumerate(roster):
         fid  = (row.get("FormID") or "").strip().upper()
@@ -2216,14 +2225,15 @@ def main(argv=None):
         if not cnam_sig and not (cobj or {}).get("edid"):
             unresolved["created_object"].append(name)
 
-        # Backpack bucket: publish the functional mods only. Skins and flair are
-        # dropped here, before any rng76 route work is spent on them.
+        # Backpack bucket: only the functional mods go on the Backpack Mod page
+        # (plan_subpages.py skips skins and flair there). Skins and flair are
+        # still built, so Brewmaster, Make Your Own and the Plan Check Mule
+        # pages can find them - see BACKPACK in the module docstring.
         bp_class = None
         if cat == "backpack-mod":
             bp_class = backpack_class(cnam_edid, (cobj or {}).get("edid"), name)
             if bp_class != "mod":
-                unresolved["backpack_cosmetic_dropped"].append(f"{name} [{bp_class}]")
-                continue
+                unresolved["backpack_cosmetic_kept"].append(f"{name} [{bp_class}]")
 
         # Output & Effects — only a created OMOD can have any.
         effects = None
@@ -2307,7 +2317,11 @@ def main(argv=None):
 
         if bp_class:
             item["backpack_class"] = bp_class
-            item["display_name"] = backpack_display_name(name)
+            # The short title is for the Backpack Mod page, where every row is
+            # a backpack mod. A skin or flair shows on no checklist page, and
+            # elsewhere "Deathclaw Head" alone would not say it is a backpack.
+            if bp_class == "mod":
+                item["display_name"] = backpack_display_name(name)
         items.append(item)
         if (i+1) % 250 == 0:
             print(f"   ... {i+1}/{len(roster)}")
@@ -2497,7 +2511,7 @@ def main(argv=None):
     print("  tradeable :", dict(Counter(it["tradeable"] for it in items)))
     print("  stops_drop:", dict(Counter(it["stops_dropping"] for it in items)))
     print("  effects   :", sum(1 for it in items if it.get("effects")), "of", len(items))
-    print("  backpack cosmetics dropped:", len(unresolved["backpack_cosmetic_dropped"]))
+    print("  backpack cosmetics kept (not on the Backpack Mod page):", len(unresolved["backpack_cosmetic_kept"]))
     live = [it for it in items if not it["cut"]]
     print("  cut content:", len(unresolved["cut"]), "of", len(items),
           f"({len(live)} obtainable)")

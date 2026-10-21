@@ -222,13 +222,55 @@ CONFIRMED_CUT_SOURCE_PATTERNS = (
     # DoubleMutation lists, Double Mutated packages).
     (re.compile(r"double_?mutat|mutation_\w*?double", re.I),
      "double-mutated events", "double-mutated events are cut content"),
+    # The Drifter (P62_* - "Defeat The Drifter", its reward tranches, loot bag,
+    # Secret Service Drifter armour set, Chaos Engine / Tempest / Splinter /
+    # Crackler lists). Duchess, 21 Oct 2026: "all the old drifter stuff is cut".
+    # The files agree it can't be reached but can't prove it: the fight starts
+    # with the Drifter Activation Card, and every reward that hands out the
+    # card rolls GetRandomPercent <= P62_LCP_TheDrifter_KeycardChance_* (all
+    # 0 in every export since Mar 2026, live and PTS) - the same shape as a
+    # seasonal switch, so only a person can call it. The code has to stand on
+    # its own between underscores.
+    (re.compile(r"(?:^|_)p62(?:_|$)", re.I),
+     "The Drifter", "The Drifter is cut content"),
 )
 
 
+# Sources that a cut family rule above would catch but that ARE live. Checked
+# FIRST, so one live trader does not have to be carved out of a family regex.
+# Keep it as short as the cut list and every entry confirmed.
+#   Windy, the Cryptid Hunter (Duchess, 21 Oct 2026): a Milepost Zero trader
+#   that moved to Burning Springs. Her NPC (MILE_GoldVendor_Headquarters_
+#   CryptidHunter) is placed in BurnHWTownInt, unlike the other MILE traders,
+#   and her chest MILE_HQ_CryptidHunter_VendorChest rolls
+#   MILE_Vendor_LL_CryptidHunter_Master -> _Tier3. Her old Tier 1 / Tier 2
+#   lists keep their zzz_ prefix, so is_dev_record() still retires those.
+#   Before this, the MILE rule retired all 22 of her plans and put 18 of them
+#   on Current Bugged Plans.
+# (regex, who it is)
+CONFIRMED_LIVE_SOURCES = (
+    (re.compile(r"cryptid_?hunter", re.I), "Windy (Cryptid Hunter vendor)"),
+)
+
+
+def confirmed_live(edid):
+    """Who this is when the EditorID is a confirmed-live exception, else None."""
+    e = (edid or "").strip()
+    if not e:
+        return None
+    for rx, who in CONFIRMED_LIVE_SOURCES:
+        if rx.search(e):
+            return who
+    return None
+
+
 def cut_source(edid):
-    """Reason string when this EditorID is a confirmed-cut source, else None."""
+    """Reason string when this EditorID is a confirmed-cut source, else None.
+    A confirmed-live exception (CONFIRMED_LIVE_SOURCES) is never cut."""
     e = (edid or "").strip().lower()
     if not e:
+        return None
+    if confirmed_live(e):
         return None
     for prefix, why in CONFIRMED_CUT_SOURCES:
         if e.startswith(prefix.lower()):
