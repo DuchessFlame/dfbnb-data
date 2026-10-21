@@ -397,6 +397,11 @@ def _named(edid, full, sig, fid):
     return ("%s [%s:%08X]" % (s, sig, fid)).lstrip(" ")
 
 
+def ansi_sort_key(s):
+    """Rough Windows AnsiCompareText order (what a sorted TStringList uses): case-insensitive."""
+    return s.lower()
+
+
 # ---------------------------------------------------------------- out ------
 def clean_cell(s):
     s = (s or "").replace("\r\n", " ").replace("\r", " ").replace("\n", " ").replace("\t", " ")

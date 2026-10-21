@@ -423,8 +423,46 @@ def exp_avif(esm):
     return _pad_refs(rows, ["FormID", "EDID", "FULL", "DESC", "ANAM", "ReferencedByCount"])
 
 
+# ------------------------------------------------------------- MISC ------
+def _kw_sorted(esm, kwda):
+    """The .pas keyword list: EDIDs in a sorted, de-duplicated TStringList (case-insensitive), | joined."""
+    if not kwda:
+        return ""
+    eds = {}
+    for fid in struct.unpack_from("<%dI" % (len(kwda) // 4), kwda):
+        if esm.exists(fid):
+            ed = esm.edid_of(fid).strip()
+            if ed:
+                eds.setdefault(ed.lower(), ed)
+    return "|".join(eds[k] for k in sorted(eds, key=R.ansi_sort_key))
+
+
+def exp_misc(esm):
+    rows = []
+    for r in R.xedit_order(esm, "MISC"):
+        d = r.first("DATA")
+        value = weight = ""
+        if d and len(d) >= 8:
+            v, w = struct.unpack_from("<if", d)
+            value, weight = str(v), C.fmt_float(w)
+        mcqp = []
+        m = r.first("MCQP")
+        if m:
+            for i in range(len(m) // 8):
+                comp, tier = struct.unpack_from("<II", m, i * 8)
+                ce = cc(esm.edid_of(comp)) if esm.exists(comp) else cc(esm.link_edit_value(comp))
+                if not ce:
+                    continue
+                te = cc(esm.edid_of(tier)) if esm.exists(tier) else (cc(esm.link_edit_value(tier)) if tier else "")
+                mcqp.append(ce + ":" + te)
+        refs = _refcells(esm, r.fid)
+        rows.append((["%08X" % r.fid, cc(r.edid), cc(esm.lstring(r.full)), _kw_sorted(esm, r.first("KWDA")),
+                      value, weight, "|".join(mcqp), str(len(refs))], refs))
+    return _pad_refs(rows, ["FormID", "EDID", "FULL", "Keywords", "Value", "Weight", "MCQP", "ReferencedByCount"])
+
+
 # exports whose rows list "Referenced By" - one shared scan covers them all
-NEEDS_REFS = {"GLOB", "AVIF"}
+NEEDS_REFS = {"GLOB", "AVIF", "MISC"}
 
 EXPORTS = {
     # key: (record types to load, file prefix, function)
@@ -439,6 +477,7 @@ EXPORTS = {
     "SPEL": (["SPEL"], "SPEL_Export", exp_spel),
     "GLOB": (["GLOB"], "GLOB_Export", exp_glob),
     "AVIF": (["AVIF"], "AVIF_Export", exp_avif),
+    "MISC": (["MISC"], "MISC_Export", exp_misc),
 }
 
 

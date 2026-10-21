@@ -8,7 +8,8 @@ gets the same answer three ways:
   * everything else - xedit_ref_fields.json: for each record/subrecord, which byte
     positions hold FormIDs and what record types they point at. Learned from
     xEdit's own reference cache (FO76Edit Cache\*.refcache, Sep 2026 build), so
-    it matches xEdit field for field.
+    it matches xEdit field for field. Rules are kept per subrecord size where a
+    subrecord has more than one layout (e.g. LVLO is 4 or 12 bytes).
 A one-pass scan (~45 s) of SeventySix.esm, world data included, finds every record
 pointing at the targets. Lists come back sorted by FormID, like ReferencedByIndex.
 """
@@ -36,11 +37,15 @@ def _rules():
         r = {}
         for k, v in raw.items():
             sig, sub = k.split("|")
+            bys = {int(z): {int(o): frozenset(sg) for o, sg in offs.items()}
+                   for z, offs in v.get("bysize", {}).items()}
+            if bys:
+                r[(sig, sub, "size")] = bys
             if "fixed" in v:
                 r[(sig, sub)] = ("fixed", {int(o): frozenset(s) for o, s in v["fixed"].items()})
             elif "stride" in v:
                 r[(sig, sub)] = ("stride", v["stride"], {int(o): frozenset(s) for o, s in v["phases"].items()})
-            else:
+            elif "any" in v:
                 r[(sig, sub)] = ("any", frozenset(v["any"]))
         _RULES = r
     return _RULES
@@ -90,6 +95,9 @@ def _is_ref(rules, sig, sub, rel, field, tsig):
             return rel in vmad.formid_offsets(sig, field)
         except Exception:
             pass
+    bys = rules.get((sig, sub, "size"))
+    if bys is not None and len(field) in bys:  # rule for this exact subrecord size
+        return tsig in bys[len(field)].get(rel, ())
     r = rules.get((sig, sub))
     if r is None:
         return False
