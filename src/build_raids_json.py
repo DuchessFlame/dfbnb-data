@@ -76,6 +76,7 @@ for _p in [_this_dir, _this_dir / "src", _this_dir.parent / "src"]:
 
 from rng76 import Rng76Data, pct, read_tsv, newest, pick
 from patchlog_utils import write_empty_patchlog_feed
+import plan_sources   # site-wide cut test (is_cut_content)
 
 
 PTS = "--pts" in sys.argv
@@ -1034,6 +1035,8 @@ def main() -> int:
                 cn = float(entry.get("LVOV_ChanceNoneValue") or 0.0)
             except ValueError:
                 cn = 0.0
+            if plan_sources.is_cut_content(ed):
+                continue
             rec = seen_pools.setdefault(sub, {"edid": ed, "stages": {}})
             rec["stages"][st] = round(100.0 - cn, 4)
             stage_order[st].append(sub)
@@ -1113,6 +1116,11 @@ def main() -> int:
         # Speed-run trophy — a GMRW reward on the quest, not an Enc list entry.
         extra_edids = [cfg["trophyEdid"]] + list(cfg.get("extraPoolEdids") or [])
         for ed in extra_edids:
+            # Cut content (the Drifter Activation Card, Duchess 21 Oct 2026)
+            # is not a stage reward: plan_sources.is_cut_content is the one
+            # site-wide test, so a family confirmed cut drops off here too.
+            if plan_sources.is_cut_content(ed):
+                continue
             fid = fid_by_edid.get(ed)
             if not fid:
                 print(f"  ! stage {st}: pool EDID not found: {ed}")

@@ -49,6 +49,7 @@ from rng76 import (
     fmt_pct, REGION_BY_SUBLVLI_EDID,
 )
 import tsv_source          # one resolver for every export selection
+import plan_sources        # site-wide cut test (is_cut_content)
 import reward_variants     # which named version a reward list drops
 
 # Resolve paths relative to the repo root (one level up from src/) so the
@@ -3452,6 +3453,11 @@ if __name__ == "__main__":
                 # Pools (all tiers)
                 rewarded = (rr.get("RewardedItem") or "").strip()
                 if not rewarded: continue
+                # A reward that is cut content (the Drifter Activation Card,
+                # a Mole Miner Mystery Crate...) is not a reward a player can
+                # get - plan_sources.is_cut_content is the one site-wide test.
+                if plan_sources.is_cut_content(":".join(rewarded.split(":")[1:-1])):
+                    continue
                 formid, kind = parse_ref(rewarded)
                 count = (rr.get("RewardedItemCount") or "").strip() or "1"
                 conds = merge_conditions(

@@ -21,10 +21,11 @@ does NOT re-derive any of it — it copies those resolved values verbatim into a
 compact per-plan record so the page ships a small file instead of parsing the
 full multi-megabyte plan_master on the client.
 
-INCLUDE-ALL POLICY (deliberate)
--------------------------------
-Every plan in plan_master is included — nothing is excluded here:
-  * cut / unobtainable plans are kept and flagged `cut: true`
+WHAT IS INCLUDED
+----------------
+Every LIVE plan in plan_master (until 21 Oct 2026 cut plans were kept with a
+Cut filter; they now live on Data Mining > Cut Content, like every page's):
+  * cut plans are left out (they are on /df/data-mining/cut-content/)
   * ATX-tagged plans (an `ATX_` EditorID on the plan item / COBJ / created
     object) are kept and flagged `atx: true`
   * source_tag="Atom" plans are kept as-is
@@ -147,7 +148,11 @@ def build(dist_dir=None):
     # Unique weapons (weapon_unique_versions.py) ride in plan_master only so the
     # Weapon page can list them under their base weapon. They are not plans,
     # so they stay off the make-your-own plan list.
-    items = [compact(it) for it in src_items if not it.get("unique_version")]
+    # Cut plans are left off too (Duchess, 21 Oct 2026): every page leaves cut
+    # content out and Data Mining > Cut Content lists it instead
+    # (build_cut_content_json.py). This replaces the old include-all policy.
+    items = [compact(it) for it in src_items
+             if not it.get("unique_version") and not it.get("cut")]
     # Stable, human-friendly default order: name A–Z.
     items.sort(key=lambda r: (r["name"] or "").lower())
 

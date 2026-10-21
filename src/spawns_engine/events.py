@@ -39,6 +39,7 @@ import re
 import csv
 import glob
 import tsv_source          # one resolver for every export selection
+import plan_sources        # site-wide cut test (is_cut_content)
 
 # ── keyword vocabulary ───────────────────────────────────────────────────────
 # Reward / activity signal (build_events_rewards_json.py prefix vocabulary + known
@@ -369,6 +370,11 @@ def detect(closure, parent_edid, c2p=None, tsv_root=None, registry=None):
     # to RA_LL_Rewards_General_AidItems_Rare). Removing the root drops the branch.
     roots = {lv for lv in roots
              if not is_orphan_pool(lv, cand[lv][0], ref_counts, cand[lv][1])}
+    # Cut content (the Drifter, Milepost Zero, Quickplay PvP...) is not an
+    # event a player can run. Same place and same reason as the orphan filter:
+    # removing the ROOT drops its whole branch instead of promoting a sub-pool.
+    # plan_sources.is_cut_content is the one site-wide test (21 Oct 2026).
+    roots = {lv for lv in roots if not plan_sources.is_cut_content(cand[lv][0])}
 
     out = []
     for lv in roots:

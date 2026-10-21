@@ -121,6 +121,13 @@ def legacy_mode(edid):
 
 DEAD_REWARD = re.compile(r"(^|_)(CUT|DONOTUSE|zzz)", re.I)
 
+
+def _is_dead(edid):
+    """A reward / list that is not somewhere you can go: this module's own
+    dead words, or cut content by the site-wide test (plan_sources.
+    is_cut_content - the Drifter, Milepost Zero... 21 Oct 2026)."""
+    return bool(DEAD_REWARD.search(edid or "")) or plan_sources.is_cut_content(edid)
+
 # What an owning leveled list / reward record says about where it sits.
 # First match wins, so the specific patterns come before the generic ones.
 LIST_ROUTES = [
@@ -204,6 +211,7 @@ def _put(routes, name, lines, tradeable=None, drop=None):
 class ObtainIndex:
     def __init__(self, channel="live"):
         self.channel = channel
+        self._cut_seen = set()
         self._load()
 
     # -- exports ---------------------------------------------------------
@@ -298,12 +306,12 @@ class ObtainIndex:
         for r in _rows(self._pick("ALCH_Export_*.tsv", exclude="_Effects")):
             full = _q(r.get("FULL"))
             if full and "<" not in full and "[" not in full \
-                    and not DEAD_REWARD.search(_q(r.get("ALCH_EDID"))):
+                    and not _is_dead(_q(r.get("ALCH_EDID"))):
                 alch_full[_fid(r.get("ALCH_FormID"))] = full
         self.mgef_alch = defaultdict(list)   # MGEF edid -> [ALCH FULL]
         for r in _rows(self._pick("MGEF_Export_*.tsv")):
             ed = _q(r.get("EDID"))
-            if DEAD_REWARD.search(ed):
+            if _is_dead(ed):
                 continue
             for k, v in r.items():
                 v = _q(v)
@@ -330,7 +338,7 @@ class ObtainIndex:
             if not item:
                 continue
             ed = _q(r.get("EDID"))
-            bucket = self.dead_rewards if DEAD_REWARD.search(ed) else self.rewards
+            bucket = self.dead_rewards if _is_dead(ed) else self.rewards
             bucket[item].append((ed, _q(r.get("ParentQuestDisplay"))))
             for k, v in r.items():
                 v = _q(v or "")
@@ -512,7 +520,7 @@ class ObtainIndex:
             seen.add(lf)
             for ref in sorted(self.parents.get(lf, ())):
                 ed, _, sig = ref.rpartition(":")
-                if DEAD_REWARD.search(ed) or ROSTER_LIST.search(ed):
+                if _is_dead(ed) or ROSTER_LIST.search(ed):
                     continue
                 if sig == "MGEF":
                     for nm in self.mgef_alch.get(ed, ()):
@@ -525,6 +533,23 @@ class ObtainIndex:
     def _edid_of_list(self, list_fid):
         return self.list_edid.get(list_fid, "")
 
+    def _cut(self, list_fid, list_edid):
+        """True when this list is not a route. A list that is cut CONTENT (not
+        just a dead zzz list) is remembered for the item being resolved, so an
+        item whose every source is cut is called cut, not unreleased, and the
+        Cut Content page can say where it used to come from."""
+        if DEAD_REWARD.search(list_edid or ""):
+            return True
+        if plan_sources.is_cut_content(list_edid):
+            try:
+                label = self._source_label(list_fid, list_edid)[1]
+            except Exception:                     # noqa: BLE001
+                label = None
+            self._cut_seen.add((label or plan_sources.cut_source_name(list_edid) or list_edid,
+                                plan_sources.cut_source(list_edid) or "cut list"))
+            return True
+        return False
+
     def _drop_lines(self, fid, what):
         """Every populated route a FormID's leveled lists imply.
 
@@ -536,7 +561,7 @@ class ObtainIndex:
             # go, same rule as the dead GMRW rewards. Without this Nailer showed
             # "Optional Success Rare Rewards" off zzzMTNS04_LL_OptionalSuccess_
             # RareRewards_QuestReward, a list nothing rolls any more.
-            if DEAD_REWARD.search(list_edid or ""):
+            if self._cut(list_fid, list_edid):
                 continue
             # A vendor the plan pages already named (Giuseppe, Minerva…) is a
             # vendor route, never "Expedition" read off the list name.
@@ -618,7 +643,7 @@ class ObtainIndex:
         # writers' notes, not something a reader can go and do — skipped.
         for ref in sorted(self.parents.get(list_fid, ())):
             ed, _, sig = ref.rpartition(":")
-            if sig != "QUST" or DEAD_REWARD.search(ed):
+            if sig != "QUST" or _is_dead(ed):
                 continue
             name = self.quest_name.get(ed, "")
             if not name or "<" in name:
@@ -627,7 +652,7 @@ class ObtainIndex:
             route, label = ("Events & Activities", m.group(2)) if m else ("Quests", name)
             out.append((route, label, "weapon", list_fid, list_fid))
         for pf, pe in sorted(self.owners.get(list_fid, ())):
-            if ROSTER_LIST.search(pe) or DEAD_REWARD.search(pe):
+            if ROSTER_LIST.search(pe) or _is_dead(pe):
                 continue
             label = self.vendor_label.get(pf)
             if not label:
@@ -650,6 +675,7 @@ class ObtainIndex:
         """(routes, meta) for one page item. meta carries the corrected plan
         and craftable flags plus a legacy-only marker."""
         routes = blank_routes()
+        self._cut_seen = set()
         key = _norm(item.get("name"))
         recs = sorted(self.rec_by_name.get(key, ()))
         meta = {"planFormId": "", "planName": "", "craftable": False,
@@ -794,6 +820,13 @@ class ObtainIndex:
         for it in items:
             routes, meta = self.routes_for(it)
             it["obtainRoutes"] = routes
+            cut_seen = sorted(getattr(self, "_cut_seen", ()) or ())
+            if cut_seen and not any(r["populated"] for r in routes):
+                # Every source this item had is cut content: the item is cut.
+                # No hand fallback - that would re-add the cut source by name.
+                it["isCut"] = True
+                it["_cutSources"] = cut_seen
+                continue
             it["recordIds"] = meta["recordIds"]
             self._summary_from_own_list(it, routes, meta)
             # The inherited base-weapon plan is worse than no plan: it sends a

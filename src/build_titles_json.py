@@ -732,7 +732,14 @@ def starts_cut(edid: str) -> bool:
     e = (edid or "").strip().upper()
     if any(e.startswith(p) for p in CUT_PREFIXES):
         return True
-    return any(e.endswith(s) for s in CUT_SUFFIXES)
+    if any(e.endswith(s) for s in CUT_SUFFIXES):
+        return True
+    # A confirmed-cut family (Milepost Zero, The Drifter, Quickplay PvP...) is
+    # cut here too - plan_sources is the one site-wide list (21 Oct 2026).
+    # "Caravan Investor" (MILE_PlayerTitles_Suffix_CaravanInvestor) only came
+    # from the cut Milepost Zero quest "A Bump in the Road".
+    import plan_sources
+    return bool(plan_sources.cut_source(edid))
 
 
 # ------------------------------------------------------------

@@ -281,6 +281,24 @@ def cut_source(edid):
     return None
 
 
+def is_cut_content(*edids):
+    """THE site-wide cut test (Duchess, 21 Oct 2026: confirm once, applied on
+    every page). True when any EditorID given is a confirmed-cut source family
+    (CONFIRMED_CUT_SOURCE_PATTERNS) or an editor-only record (zzz / CUT / DEL /
+    POST / debug / test). A confirmed-live exception (CONFIRMED_LIVE_SOURCES)
+    is never cut by the family rules, but an editor-only prefix still wins
+    (zzz_MILE_Vendor_LL_CryptidHunter_Tier1 stays cut).
+
+    Every builder that prints a source - reward pages, farming guides, currency
+    guides, challenges, locations, uniques - calls this instead of keeping its
+    own list, so a new cut family is added in ONE place."""
+    for e in edids:
+        e = (e or "").strip()
+        if e and (is_dev_record(e) or cut_source(e)):
+            return True
+    return False
+
+
 def cut_source_name(edid):
     """Player-facing name of a confirmed-cut source ("the Mole Miner Mystery
     Crate"), else None. Used for the bugged-plans wording."""

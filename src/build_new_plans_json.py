@@ -962,6 +962,10 @@ def main(argv=None):
     # Grouped by SOURCE since 23 Sep 2026 (Duchess): Daily Ops, Minerva, Stamps,
     # Quests, Events ... — see new_plans_sources.py. The type classification
     # above still runs; it now feeds each row's type pill (`type_label`).
+    # A new plan that is cut content is not on this page (Duchess, 21 Oct
+    # 2026): every page leaves cut content out, and Data Mining > Cut Content
+    # (build_cut_content_json.py, read from plan_master) lists it instead.
+    rows = [r for r in rows if not r.get("cut")]
     groups = new_plans_sources.group_rows(rows, outdir,
                                           lambda r: plan_title(r).lower(), GROUPS,
                                           data_dir=args.data_dir)

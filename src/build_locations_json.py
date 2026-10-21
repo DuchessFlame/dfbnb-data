@@ -57,6 +57,7 @@ REPO = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
 
 import tsv_source                                   # noqa: E402
+import plan_sources   # site-wide cut test (is_cut_content)
 import crossref_mappalachia_markers as xref         # noqa: E402
 
 csv.field_size_limit(min(sys.maxsize, 2**31 - 1))
@@ -304,6 +305,7 @@ def load_quests():
         name = re.sub(r"\s*<Alias[^>]*>\s*", " ", name)
         name = re.sub(r"\s+", " ", name).strip(" :-")
         ok = (fid and name and typ and not _DEAD_EDID.search(edid)
+              and not plan_sources.is_cut_content(edid)   # site-wide cut test
               and not re.search(r"template|moduletest", edid, re.I)
               and not name.startswith("[") and not re.search(r"\bMisc Obj\b", name, re.I)
               and fid not in cut and "(cut)" not in name.lower())
@@ -380,7 +382,8 @@ def load_challenges():
         edid = row.get("EDID") or ""
         full = (row.get("FULL") or "").strip()
         m = meta.get(fid, {})
-        cut = m.get("cut") or edid.upper().startswith("CUT_") or bool(_DEAD_EDID.search(edid))
+        cut = (m.get("cut") or edid.upper().startswith("CUT_") or bool(_DEAD_EDID.search(edid))
+               or plan_sources.is_cut_content(edid))
         parent = m.get("parent") or ""
         if not parent:
             a = re.match(r"(\S+)\s", row.get("ANAM") or "")

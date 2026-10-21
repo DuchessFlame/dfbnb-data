@@ -527,9 +527,18 @@ def apply(items, tracer, names=None, obtain_idx=None, hand_only=(), log=print):
         own, holders = tracer.trace(tmp, it.get("recordIds") or [], rosters)
         it["_ownLists"] = [e for _f2, e in own]
         found = []
+        cut_seen = set()
         groups = defaultdict(list)          # NPC drops via one list -> one line
         for h in sorted(holders, key=lambda x: (x["depth"], x["edid"] or "")):
             route, lab = tracer.label(h, obtain_idx, it.get("name", ""))
+            # Cut content is not a source (plan_sources.is_cut_content - the
+            # one site-wide test, 21 Oct 2026). Remembered, so an item whose
+            # EVERY source is cut is called cut rather than unreleased.
+            hed, led = h.get("edid") or "", tracer.lvli_edid.get(h.get("list"), "")
+            if plan_sources.is_cut_content(hed) or plan_sources.is_cut_content(led):
+                why = plan_sources.cut_source(hed) or plan_sources.cut_source(led) or "cut list"
+                cut_seen.add((lab or plan_sources.cut_source_name(hed or led) or hed, why))
+                continue
             if not route:
                 continue
             # A content switch on the way in ("Only while The Slasher event is
@@ -549,6 +558,11 @@ def apply(items, tracer, names=None, obtain_idx=None, hand_only=(), log=print):
             text = ", ".join(ns[:4]) + (f" and {len(ns) - 4} more" if len(ns) > 4 else "")
             found.append(("Events & Activities", f"Enemy drop: {text}", enemies[0][1]))
         if not found:
+            if cut_seen and not any(r.get("populated") for r in it.get("obtainRoutes") or []):
+                it["isCut"] = True
+                it["_cutSources"] = sorted(cut_seen)
+                report.setdefault("cut", []).append(it.get("name"))
+                continue
             report["untraced"].append((it.get("name"), it.get("howToObtain")))
             continue
         report["traced"] += 1

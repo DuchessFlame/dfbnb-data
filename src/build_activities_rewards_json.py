@@ -49,6 +49,7 @@ from rng76 import (
     fmt_pct, REGION_BY_SUBLVLI_EDID,
 )
 import tsv_source          # one resolver for every export selection
+import plan_sources        # site-wide cut test (is_cut_content)
 import reward_variants     # which named version a reward list drops
 
 # Resolve paths relative to the repo root (one level up from src/) so the
@@ -2140,7 +2141,7 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
                 fid = ref.split(":")[0]
                 edid = ref.split(":")[1] if len(ref.split(":")) > 1 else ""
                 # Skip cut/Drifter content items
-                if _CUT_LVLI_RE.search(edid):
+                if _is_cut(edid):
                     continue
                 name = resolve_name_for_formid(fid, edid)
                 item_data = {
@@ -2284,6 +2285,14 @@ def _named_version_slots(root_fid, item_fid, base_name=""):
 # Regex to skip cut/Drifter content LVLIs and items
 _CUT_LVLI_RE = re.compile(r'(?:^|[_\-])(?:CUT|DEL|ZZZ|POST|P62|TheDrifter|Drifter)(?:[_\-]|$)', re.IGNORECASE)
 
+
+def _is_cut(edid):
+    """This builder's old cut words OR the site-wide test
+    (plan_sources.is_cut_content: confirmed cut families such as the Drifter,
+    Milepost Zero, Quickplay PvP, plus zzz/CUT/DEL records). New cut families
+    go into plan_sources.CONFIRMED_CUT_SOURCE_PATTERNS, never into a regex here."""
+    return bool(_CUT_LVLI_RE.search(edid or "")) or plan_sources.is_cut_content(edid)
+
 def _entry_min_level(entry):
     """Minimum player level for one LVLI entry, or 0 when there is none.
 
@@ -2348,7 +2357,7 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
     edid = lvli_edid_by_formid.get(list_id, "")
 
     # Skip cut/Drifter content LVLIs
-    if _CUT_LVLI_RE.search(edid):
+    if _is_cut(edid):
         return None
 
     label = prettify_lvli_label(edid)
@@ -3194,7 +3203,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         edid = (rr.get("EDID") or "").strip()
 
         # Skip cut / deprecated / removed GMRW records
-        if _cut_re.search(edid):
+        if _cut_re.search(edid) or plan_sources.is_cut_content(edid):
             _seen_gmrw_stage[gmrw_fid] = None   # mark seen so we don't re-check
             continue
 
@@ -4501,7 +4510,7 @@ _GMRW_SKIP_RE = re.compile(r'^(zzz_|ZZZ_|CUT_|POST_|DEL_|P62_)', re.IGNORECASE)
 
 for r in GMRW:
     edid = (r.get("EDID") or "").strip()
-    if _GMRW_SKIP_RE.match(edid):
+    if _GMRW_SKIP_RE.match(edid) or plan_sources.is_cut_content(edid):
         continue
     gmrw_fid   = pick(r, "FormID", "GMRW_FormID")
     parent_ref = (r.get("ParentQuestLink") or "").strip()
@@ -5131,7 +5140,7 @@ for key, pages in sorted(reward_pages_by_key.items()):
                 pool_seen.add(pool_key)
                 lvli_edid = lvli_edid_by_formid.get(formid, "")
                 # Skip cut/Drifter content
-                if _CUT_LVLI_RE.search(lvli_edid) or _CUT_LVLI_RE.search(rewarded):
+                if _is_cut(lvli_edid) or _is_cut(rewarded):
                     continue
                 label     = prettify_lvli_label(lvli_edid) or prettify_lvli_label(rewarded.replace(":", "_"))
                 cond_mult = _cond_mult_canon  # pre-computed above, avoids double-counting
@@ -5258,7 +5267,7 @@ for key, pages in sorted(reward_pages_by_key.items()):
                 event["pools"].append(pool_entry)
             else:
                 # Skip cut/Drifter content direct rewards
-                if _CUT_LVLI_RE.search(rewarded):
+                if _is_cut(rewarded):
                     continue
                 nm = resolve_name_for_formid(formid) if formid else rewarded
                 is_plan = nm.startswith(("Plan:", "Recipe:")) if nm else False

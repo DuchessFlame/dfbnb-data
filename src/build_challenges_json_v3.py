@@ -37,6 +37,7 @@ from pathlib import Path
 
 from patchlog_utils import diff_item_lists, _write_json, _git_show_json, write_empty_patchlog_feed
 import tsv_source          # one resolver for every export selection
+import plan_sources        # site-wide cut test (is_cut_content)
 
 # Mini-season / LTE event reward overlay. Event challenges (ATX_DE…) pay
 # scoreboard tickets (mini-season era) or a named item (older LTE era); neither
@@ -724,7 +725,10 @@ CUT_PREFIXES = ("CUT", "DEL", "ZZZ", "ZZZZ", "POST")
 
 def is_cut(edid):
     u = str(edid or "").upper()
-    return any(u.startswith(p) for p in CUT_PREFIXES)
+    # plan_sources.is_cut_content is the site-wide test: confirmed cut
+    # families (Milepost Zero, The Drifter, Quickplay PvP, Vault 94...) are
+    # cut here too, not only on the plan pages (Duchess, 21 Oct 2026).
+    return any(u.startswith(p) for p in CUT_PREFIXES) or plan_sources.is_cut_content(edid)
 
 # Pioneer Scouts badges: "..._Tadpole_Badge_Possum_Chemist" is the umbrella
 # challenge, "..._Tadpole_Badge_Possum_Chemist_Sub_AcquireBeaker" its steps.
@@ -1699,6 +1703,7 @@ def get_quest_line_name(prefix):
 quest_items = []         # for quest checklist pages
 daily_quest_items = []   # for daily pipboy quests page
 quest_groups = defaultdict(list)  # quest_line_prefix -> list of quest items
+CUT_QUESTS = []          # named cut quests -> Data Mining > Cut Content
 
 for row in QUEST:
     edid = pick(row, "EDID")
@@ -1713,6 +1718,10 @@ for row in QUEST:
     if is_template(edid, full):
         continue
     if is_cut(edid):
+        # Off the quest pages, onto Data Mining > Cut Content (Duchess, 21 Oct
+        # 2026) - build_cut_content_json.py reads `cut_quests`.
+        CUT_QUESTS.append({"form_id": pick(row, "FormID"), "edid": edid, "full": full,
+                           "quest_type": quest_type})
         continue
 
     # Resolve rewards from GMRWRef columns
@@ -1737,7 +1746,7 @@ for row in QUEST:
         "rewards": rewards,
         "reward_unknown": len(rewards) == 0,
         "dlc_label": dlc_label,
-        "is_cut": False,
+        "is_cut": is_cut(edid),
         "record_type": "quest",  # quest or encounter
     }
 
@@ -1852,6 +1861,9 @@ output = {
         "fallout-76-quests-checklist": quest_page_structure,
         "daily-pipboy-quests": {"items": daily_quest_items},
     },
+    # Named quests that are cut content (plan_sources.is_cut_content). Not
+    # shown on the quest pages; listed on Data Mining > Cut Content.
+    "cut_quests": sorted(CUT_QUESTS, key=lambda q: (q["full"] or q["edid"]).lower()),
 }
 
 out_path = DIST_DIR / "challenges.json"

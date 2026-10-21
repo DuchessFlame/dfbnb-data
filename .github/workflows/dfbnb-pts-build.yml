@@ -1136,6 +1136,14 @@ jobs:
       - name: Build Unique Weapons Armour JSON
         run: python src/build_unique_weapons_armour_json.py --channel live
 
+      # Data Mining > Cut Content (/df/data-mining/cut-content/). Collects the
+      # cut rows every builder above marked (plan_master, uniques' cut_uniques,
+      # titles, challenges + cut_quests, collectables, CAMP items) - cut
+      # content is on no other page (Duchess, 21 Oct 2026). Must run AFTER all
+      # of them. Decides nothing itself (plan_sources.is_cut_content does).
+      - name: Build Cut Content JSON
+        run: python src/build_cut_content_json.py
+
       # --- APPAREL WITHOUT PLANS (PTS channel) ---
       # tsv/ is already PTS-normalized here, so this IS the PTS build; the
       # relocate step moves dist/no_plan_apparel.json -> dist/pts/. Keep in step

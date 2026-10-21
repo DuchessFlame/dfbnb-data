@@ -63,18 +63,59 @@ INCLUDE_CUT = False
 # Normalised names (norm_name). Keep this short — a file-based rule wins.
 CUT_BY_HAND = {"crimsonsky"}
 
-# In the files but not released in game yet (Duchess, 11 Oct 2026). Kept on the
-# page with an "Unreleased" pill rather than hidden, so they are ready the day
-# they ship. Normalised names.
-# The Drifter's gear: in the files, not in the game yet (Duchess, 15 Oct 2026:
-# "these are unreleased"). Unreleased pill, off the progress bar, no picture
-# needed. Not cut — the Drifter is coming back.
-UNRELEASED_BY_HAND = {n for n in (
-    "Chaos Engine", "Splinter", "Tempest",
-    "Secret Settler Helmet", "Secret Settler Torso",
-    "Secret Settler Left Arm", "Secret Settler Right Arm",
-    "Secret Settler Left Leg", "Secret Settler Right Leg",
-)}
+# In the files but not released in game yet. Kept on the page with an
+# "Unreleased" pill rather than hidden, so they are ready the day they ship.
+# Normalised names. Empty for now.
+# The Drifter's gear (Chaos Engine, Splinter, Tempest, Secret Settler set) was
+# here from 15 Oct 2026. Moved to CUT on 21 Oct 2026: Duchess confirmed the
+# Drifter cut (plan_sources.CONFIRMED_CUT_SOURCE_PATTERNS), and PTS from 20 Sep
+# deletes its plan books and 50 of its 63 lists. It is now caught by the
+# generative "every source is cut" rule below, not by name.
+UNRELEASED_BY_HAND = set()
+
+# Every cut unique, with why and where it used to come from, for the Data
+# Mining > Cut Content page (dist/cut_content.json). Cut items never go on
+# this page (INCLUDE_CUT = False); they go there instead (Duchess, 21 Oct 2026).
+CUT_ITEMS = []
+
+
+def _drop_new_cut(items):
+    """Items uwa_obtain / uwa_trace found cut (every source is cut content,
+    plan_sources.is_cut_content): record them for the Cut Content page and,
+    with INCLUDE_CUT off, take them off this page."""
+    cut_now = []
+    for it in items:
+        seen = it.pop("_cutSources", None)
+        if it.get("isCut") and seen:
+            _record_cut(it, "; ".join(sorted({why for _l, why in seen})),
+                        [label for label, _w in seen])
+            cut_now.append(it.get("name"))
+    if cut_now:
+        print(f"  cut (every source is cut content): {', '.join(sorted(cut_now))}")
+    return [i for i in items if not i.get("isCut")] if not INCLUDE_CUT else items
+
+
+def _specific(was):
+    """Where it used to come from, without a bare family name ("The Drifter")
+    when a specific place ("Defeat The Drifter") was also found."""
+    families = {name.lower() for _rx, name, _why in plan_sources.CONFIRMED_CUT_SOURCE_PATTERNS}
+    was = sorted({w for w in (was or []) if w})
+    keep = [w for w in was if w.lower() not in families]
+    return keep or was
+
+
+def _record_cut(item, why, was=None):
+    CUT_ITEMS.append({
+        "name": item.get("name") or item.get("id"),
+        "kind": item.get("kind") or "",
+        "subType": item.get("subType") or "",
+        "why": why,
+        # The specific place ("Defeat The Drifter") beats the bare family name
+        # ("The Drifter") when both were found.
+        "was": _specific(was),
+        "formId": item.get("formId") or "",
+        "edid": item.get("edid") or "",
+    })
 
 # Out in the game, but nothing in the game files hands them out, so the
 # no-sources rule below must not call them unreleased. The page still says
@@ -112,6 +153,7 @@ import uwa_mods
 import uwa_effects
 import uwa_images      # unique pictures, matched by name (Oct 2026)
 import uwa_obtain
+import plan_sources   # site-wide cut test (is_cut_content)
 import uwa_discover
 import uwa_source_links
 import uwa_rates
@@ -1623,6 +1665,10 @@ def build_channel(channel, dist_dir):
         if norm_name(i.get("name")) in {norm_name(n) for n in UNRELEASED_BY_HAND}:
             i["unreleased"] = True
     if not INCLUDE_CUT:
+        for i in all_items:
+            if i.get("isCut"):
+                _record_cut(i, "confirmed cut in game" if norm_name(i.get("name")) in CUT_BY_HAND
+                            else "its records are marked cut in the game files (zzz / DEL)")
         all_items = [i for i in all_items if not i.get("isCut")]
 
     # Quest aliases that CREATE the item (ALCO) - QUST2_*_ItemAliases.tsv, the
@@ -1692,6 +1738,13 @@ def build_channel(channel, dist_dir):
         print(f"    {name}: {how!r} never reaches {own}")
     obtain_idx = uwa_obtain.index(channel)
     obtain_idx.apply(all_items)
+    # Every way in is cut content (plan_sources.is_cut_content - the one
+    # site-wide test): uwa_obtain marks the item cut and remembers the cut
+    # sources it skipped. Generative, no names - this moved the Drifter's
+    # gear from Unreleased to Cut (21 Oct 2026). One live source and the
+    # item stays (only the cut route is dropped). uwa_trace does the same
+    # for traced sources further down.
+    all_items = _drop_new_cut(all_items)
     # A source fill_sources found by walking the item's own list must also
     # show in the routes, or the summary and the box
     # disagree (Grand Finale: "Seismic Activity" above, routes only showed
@@ -1776,6 +1829,7 @@ def build_channel(channel, dist_dir):
     uwa_names.apply(all_items, uwa_names.Names(_pk))
     uwa_trace.apply(all_items, uwa_trace.Tracer(_pk, read_tsv), uwa_names.Names(_pk),
                     obtain_idx, getattr(obtain_idx, "hand_only", ()))
+    all_items = _drop_new_cut(all_items)   # traced: every source cut -> cut
     craft_mod_routes(all_items, channel)
     for _it in all_items:
         # A summary with nothing behind it would send readers somewhere the
@@ -1904,6 +1958,10 @@ def build_channel(channel, dist_dir):
     report_source_changes(out_path, output)
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(output, f, indent=2, ensure_ascii=False)
+    # Cut uniques for the Cut Content page (build_cut_content_json.py).
+    with open(out_path.parent / "cut_uniques.json", "w", encoding="utf-8") as f:
+        json.dump({"channel": channel, "items": sorted(CUT_ITEMS, key=lambda x: x["name"].lower())},
+                  f, indent=1, ensure_ascii=False)
         f.write("\n")
 
     reuse_only = sum(1 for i in weapon_items if not i["inCurrentExport"])
