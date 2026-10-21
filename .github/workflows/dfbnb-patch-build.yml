@@ -26,7 +26,11 @@ permissions:
   contents: write
 
 concurrency:
-  group: dist-main
+  # Own queue (Oct 2026). 39 workflows shared "dist-main"; GitHub keeps only one
+  # waiting run per group and cancels the older one, so a push that starts ~40
+  # builds bumped this one before it ran. The push step's retry/rebase handles
+  # running alongside the small builds.
+  group: dist-main-patch-build
   cancel-in-progress: false
 
 jobs:
