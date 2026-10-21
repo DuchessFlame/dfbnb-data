@@ -2138,9 +2138,6 @@
     "calculators/outfit_inspiration.json": {
       "key": "edid",
       "added": [
-        "ATX_ARMO_Headwear_Mask_HarvestMask",
-        "ATX_ARMO_Headwear_PoseidonOutfit",
-        "ATX_Clothes_ARMO_Outfit_PoseidonOutfit",
         "RTSV_LightningHitHelmet",
         "RTSV_LightningHitOutfit",
         "SCORE_S27_ARMO_Headwear_AshWalker_HoodMask",
@@ -2166,7 +2163,6 @@
         "WorldPets_Clothes_RadHog_Headwear_NoseRing_Patina"
       ],
       "removed": [
-        "ATX_ARMO_Outfit_EnclaveScientist",
         "WorldPets_ARMO_Headwear_CatTamer",
         "WorldPets_ARMO_Headwear_DCTamer",
         "WorldPets_ARMO_Headwear_DogTamer",
@@ -2413,7 +2409,6 @@
         "ATX_ENTM_Apparel_CAMPPets_Dog_Neckwear_TrackerCollar",
         "ATX_ENTM_Apparel_CAMPPets_Radhog_Headwear_StarNoseRing",
         "ATX_ENTM_CAMP_CAMPPets_Cat_Siamese",
-        "ATX_ENTM_CAMP_CAMPPets_Dog_HuntingDog",
         "ATX_ENTM_CAMP_CAMPPets_Dog_PlottHound",
         "ATX_ENTM_CAMP_CAMPPets_IdleFurniture_Cat_CatBirdBath",
         "ATX_ENTM_CAMP_CAMPPets_IdleFurniture_Dog_DogBath",
@@ -14418,25 +14413,14 @@
     "curves/perk_cards.json": {
       "structural_change": true
     },
+    "cut_content.json": {
+      "structural_change": true
+    },
     "daily_ops/daily_ops_all_rewards.json": {
       "structural_change": true
     },
     "daily_ops/daily_ops_reward_checklist.json": {
       "structural_change": true
-    },
-    "dispensers.json": {
-      "key": "edid",
-      "added": [],
-      "removed": [],
-      "changed": [
-        {
-          "key": "DE2024_Halloween_ENTM_CAMP_Utility_CraniaCandyBowl",
-          "label": "DE2024_Halloween_ENTM_CAMP_Utility_CraniaCandyBowl",
-          "fields": [
-            "description"
-          ]
-        }
-      ]
     },
     "displays.json": {
       "structural_change": true
@@ -14899,12 +14883,6 @@
     },
     "farming_spawns/perfect-bubblegum_spawns.json": {
       "structural_change": true
-    },
-    "farming_spawns/plant-strangler-pod_spawns.json": {
-      "key": "form_id",
-      "added": [],
-      "removed": [],
-      "changed": []
     },
     "farming_spawns/pork-n-beans_spawns.json": {
       "structural_change": true
@@ -16283,10 +16261,21 @@
     "make_plan_checklist.json": {
       "key": "id",
       "added": [
-        "PLAN_008AC859",
+        "PLAN_007FFEEF",
+        "PLAN_007FFEF0",
+        "PLAN_007FFEF1",
+        "PLAN_007FFEF2",
+        "PLAN_007FFEF3",
+        "PLAN_007FFEF4",
+        "PLAN_007FFFDA",
+        "PLAN_00802192",
+        "PLAN_00802193",
+        "PLAN_00802194",
         "PLAN_008D2AB9",
         "PLAN_008D2ABA",
-        "PLAN_0090FBD2",
+        "PLAN_008D5AA7",
+        "PLAN_008D5AA8",
+        "PLAN_008D5AAE",
         "PLAN_0091665F",
         "PLAN_00916660",
         "PLAN_00916661",
@@ -16295,12 +16284,6 @@
         "PLAN_00916664",
         "PLAN_00916665",
         "PLAN_00916666",
-        "PLAN_0092748C",
-        "PLAN_0092748D",
-        "PLAN_0092748E",
-        "PLAN_0092748F",
-        "PLAN_00927490",
-        "PLAN_00927491",
         "PLAN_00934704",
         "PLAN_0094673A",
         "PLAN_0094673B",
@@ -17205,110 +17188,6 @@
           "label": "Plan: Drill Fist Ultracite Bits",
           "fields": [
             "routes"
-          ]
-        },
-        {
-          "key": "PLAN_007FFEEF",
-          "label": "Plan: Secret Settler Left Leg",
-          "fields": [
-            "cut",
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_007FFEF0",
-          "label": "Plan: Secret Settler Helmet",
-          "fields": [
-            "cut",
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_007FFEF1",
-          "label": "Plan: Secret Settler Right Leg",
-          "fields": [
-            "cut",
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_007FFEF2",
-          "label": "Plan: Secret Settler Left Arm",
-          "fields": [
-            "cut",
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_007FFEF3",
-          "label": "Plan: Secret Settler Right Arm",
-          "fields": [
-            "cut",
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_007FFEF4",
-          "label": "Plan: Secret Settler Chest Piece",
-          "fields": [
-            "cut",
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_007FFFDA",
-          "label": "Plan: Crackler Grenade",
-          "fields": [
-            "cut",
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_00802192",
-          "label": "Plan: Tempest",
-          "fields": [
-            "cut",
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_00802193",
-          "label": "Plan: Chaos Engine",
-          "fields": [
-            "cut",
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_00802194",
-          "label": "Plan: Splinter",
-          "fields": [
-            "cut",
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_008D5AA7",
-          "label": "Plan: LMG Calibrated .308 Receiver",
-          "fields": [
-            "cut",
-            "name"
-          ]
-        },
-        {
-          "key": "PLAN_008D5AA8",
-          "label": "Plan: LMG Calibrated .45 Receiver",
-          "fields": [
-            "cut",
-            "name"
-          ]
-        },
-        {
-          "key": "PLAN_008D5AAE",
-          "label": "Plan: LMG Compensator",
-          "fields": [
-            "cut",
-            "name"
           ]
         },
         {
@@ -26752,8 +26631,7 @@
             "obtain_routes",
             "plan_item",
             "retired_routes",
-            "source_tag",
-            "unreleased"
+            "source_tag"
           ]
         },
         {
@@ -26769,8 +26647,7 @@
             "obtain_routes",
             "plan_item",
             "retired_routes",
-            "source_tag",
-            "unreleased"
+            "source_tag"
           ]
         },
         {
@@ -26786,8 +26663,7 @@
             "obtain_routes",
             "plan_item",
             "retired_routes",
-            "source_tag",
-            "unreleased"
+            "source_tag"
           ]
         },
         {
@@ -30503,6 +30379,15 @@
           ]
         },
         {
+          "key": "MILE_PlayerTitles_Suffix_CaravanInvestor",
+          "label": "MILE_PlayerTitles_Suffix_CaravanInvestor",
+          "fields": [
+            "cutContent",
+            "howToObtain",
+            "source"
+          ]
+        },
+        {
           "key": "PlayerTitles_Suffix_Researcher",
           "label": "PlayerTitles_Suffix_Researcher",
           "fields": [
@@ -30760,6 +30645,7 @@
           "key": "SFS09_PlayerTitles_Suffix_Manager",
           "label": "SFS09_PlayerTitles_Suffix_Manager",
           "fields": [
+            "debug",
             "howToObtain"
           ]
         },
@@ -30784,9 +30670,36 @@
     "unique_weapons/unique_weapons.json": {
       "structural_change": true
     },
+    "unique_weapons_armour/cut_uniques.json": {
+      "key": "edid",
+      "added": [
+        "zzzmod_custom_StormRender"
+      ],
+      "removed": [
+        "10mmSMG",
+        "Armor_SecretService_ArmLeft",
+        "Armor_SecretService_ArmRight",
+        "Armor_SecretService_LegLeft",
+        "Armor_SecretService_LegRight",
+        "Armor_SecretService_Torso",
+        "DLC01_AssaultronBlade",
+        "Headwear_Clothes_SecretService_Helmet",
+        "M79"
+      ],
+      "changed": []
+    },
     "unique_weapons_armour/unique_weapons_armour.json": {
       "key": "id",
       "added": [
+        "10mmsmg-4",
+        "armor-secretservice-armleft",
+        "armor-secretservice-armright",
+        "armor-secretservice-legleft",
+        "armor-secretservice-legright",
+        "armor-secretservice-torso-2",
+        "dlc01-assaultronblade-2",
+        "headwear-clothes-secretservice-helmet",
+        "m79-2",
         "mod-custom-corpsestacker",
         "mod-custom-crybaby",
         "mod-custom-deepbreath",
@@ -30797,21 +30710,6 @@
       ],
       "removed": [],
       "changed": [
-        {
-          "key": "10mmsmg-4",
-          "label": "Splinter",
-          "fields": [
-            "craftable",
-            "howToObtain",
-            "obtainRoutes",
-            "planFormId",
-            "planName",
-            "questName",
-            "sourceRef",
-            "sourceType",
-            "uniqueMods"
-          ]
-        },
         {
           "key": "50calmachinegun",
           "label": "Final Word",
@@ -30824,73 +30722,6 @@
           "label": "The Action Hero",
           "fields": [
             "uniqueMods"
-          ]
-        },
-        {
-          "key": "armor-secretservice-armleft",
-          "label": "Secret Settler Left Arm",
-          "fields": [
-            "craftable",
-            "howToObtain",
-            "obtainRoutes",
-            "planFormId",
-            "planName",
-            "questName",
-            "sourceRef",
-            "sourceType"
-          ]
-        },
-        {
-          "key": "armor-secretservice-armright",
-          "label": "Secret Settler Right Arm",
-          "fields": [
-            "craftable",
-            "howToObtain",
-            "obtainRoutes",
-            "planFormId",
-            "planName",
-            "questName",
-            "sourceRef",
-            "sourceType"
-          ]
-        },
-        {
-          "key": "armor-secretservice-legleft",
-          "label": "Secret Settler Left Leg",
-          "fields": [
-            "craftable",
-            "howToObtain",
-            "obtainRoutes",
-            "planFormId",
-            "planName",
-            "questName",
-            "sourceRef",
-            "sourceType"
-          ]
-        },
-        {
-          "key": "armor-secretservice-legright",
-          "label": "Secret Settler Right Leg",
-          "fields": [
-            "craftable",
-            "howToObtain",
-            "obtainRoutes",
-            "planFormId",
-            "planName",
-            "questName",
-            "sourceRef",
-            "sourceType"
-          ]
-        },
-        {
-          "key": "armor-secretservice-torso-2",
-          "label": "Secret Settler Torso",
-          "fields": [
-            "howToObtain",
-            "obtainRoutes",
-            "questName",
-            "sourceRef",
-            "sourceType"
           ]
         },
         {
@@ -30915,17 +30746,10 @@
           ]
         },
         {
-          "key": "dlc01-assaultronblade-2",
-          "label": "Tempest",
+          "key": "dlc03-harpoongun",
+          "label": "Ice Breaker",
           "fields": [
-            "craftable",
-            "howToObtain",
-            "obtainRoutes",
-            "planFormId",
-            "planName",
-            "questName",
-            "sourceRef",
-            "sourceType",
+            "inherentEffect",
             "uniqueMods"
           ]
         },
@@ -30975,20 +30799,6 @@
           ]
         },
         {
-          "key": "headwear-clothes-secretservice-helmet",
-          "label": "Secret Settler Helmet",
-          "fields": [
-            "craftable",
-            "howToObtain",
-            "obtainRoutes",
-            "planFormId",
-            "planName",
-            "questName",
-            "sourceRef",
-            "sourceType"
-          ]
-        },
-        {
           "key": "m79",
           "label": "Crushing Blow",
           "fields": [
@@ -30996,17 +30806,10 @@
           ]
         },
         {
-          "key": "m79-2",
-          "label": "Chaos Engine",
+          "key": "mod-custom-cosmicknife-superheated",
+          "label": "Cosmic Knife Super-Heated",
           "fields": [
-            "craftable",
-            "howToObtain",
-            "obtainRoutes",
-            "planFormId",
-            "planName",
-            "questName",
-            "sourceRef",
-            "sourceType",
+            "inherentEffect",
             "uniqueMods"
           ]
         },
@@ -31027,14 +30830,6 @@
           "label": "Vox Syringer",
           "fields": [
             "howToObtain"
-          ]
-        },
-        {
-          "key": "plasmagun-2",
-          "label": "Prototype ABX03",
-          "fields": [
-            "howToObtain",
-            "obtainRoutes"
           ]
         },
         {

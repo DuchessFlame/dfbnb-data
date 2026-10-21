@@ -555,12 +555,9 @@ _Couldn't key this file to records; contents differ._
 - SFM04_Organic_RadShield  `SFM04_Organic_RadShield` — fields: dgAll, fx
 - TrenchMed_Pitt  `TrenchMed_Pitt` — fields: dgAll, fx
 
-## `calculators/outfit_inspiration.json`  ·  +26 / -9 / ~12
+## `calculators/outfit_inspiration.json`  ·  +23 / -8 / ~12
 
-**Added (26)**
-- ATX_ARMO_Headwear_Mask_HarvestMask  `ATX_ARMO_Headwear_Mask_HarvestMask`
-- ATX_ARMO_Headwear_PoseidonOutfit  `ATX_ARMO_Headwear_PoseidonOutfit`
-- ATX_Clothes_ARMO_Outfit_PoseidonOutfit  `ATX_Clothes_ARMO_Outfit_PoseidonOutfit`
+**Added (23)**
 - RTSV_LightningHitHelmet  `RTSV_LightningHitHelmet`
 - RTSV_LightningHitOutfit  `RTSV_LightningHitOutfit`
 - SCORE_S27_ARMO_Headwear_AshWalker_HoodMask  `SCORE_S27_ARMO_Headwear_AshWalker_HoodMask`
@@ -585,8 +582,7 @@ _Couldn't key this file to records; contents differ._
 - WorldPets_Clothes_RadHog_Headwear_NoseRing_Gold  `WorldPets_Clothes_RadHog_Headwear_NoseRing_Gold`
 - WorldPets_Clothes_RadHog_Headwear_NoseRing_Patina  `WorldPets_Clothes_RadHog_Headwear_NoseRing_Patina`
 
-**Removed (9)**
-- ATX_ARMO_Outfit_EnclaveScientist  `ATX_ARMO_Outfit_EnclaveScientist`
+**Removed (8)**
 - WorldPets_ARMO_Headwear_CatTamer  `WorldPets_ARMO_Headwear_CatTamer`
 - WorldPets_ARMO_Headwear_DCTamer  `WorldPets_ARMO_Headwear_DCTamer`
 - WorldPets_ARMO_Headwear_DogTamer  `WorldPets_ARMO_Headwear_DogTamer`
@@ -700,15 +696,14 @@ _Couldn't key this file to records; contents differ._
 ## `calculators/weak_spot_multipliers.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `camp.json`  ·  +15 / -0 / ~0
+## `camp.json`  ·  +14 / -0 / ~0
 
-**Added (15)**
+**Added (14)**
 - ATX_ENTM_Apparel_CAMPPets_Cat_Neckwear_BraidedCatCollar  `ATX_ENTM_Apparel_CAMPPets_Cat_Neckwear_BraidedCatCollar`
 - ATX_ENTM_Apparel_CAMPPets_Dog_Neckwear_BraidedDogCollar  `ATX_ENTM_Apparel_CAMPPets_Dog_Neckwear_BraidedDogCollar`
 - ATX_ENTM_Apparel_CAMPPets_Dog_Neckwear_TrackerCollar  `ATX_ENTM_Apparel_CAMPPets_Dog_Neckwear_TrackerCollar`
 - ATX_ENTM_Apparel_CAMPPets_Radhog_Headwear_StarNoseRing  `ATX_ENTM_Apparel_CAMPPets_Radhog_Headwear_StarNoseRing`
 - ATX_ENTM_CAMP_CAMPPets_Cat_Siamese  `ATX_ENTM_CAMP_CAMPPets_Cat_Siamese`
-- ATX_ENTM_CAMP_CAMPPets_Dog_HuntingDog  `ATX_ENTM_CAMP_CAMPPets_Dog_HuntingDog`
 - ATX_ENTM_CAMP_CAMPPets_Dog_PlottHound  `ATX_ENTM_CAMP_CAMPPets_Dog_PlottHound`
 - ATX_ENTM_CAMP_CAMPPets_IdleFurniture_Cat_CatBirdBath  `ATX_ENTM_CAMP_CAMPPets_IdleFurniture_Cat_CatBirdBath`
 - ATX_ENTM_CAMP_CAMPPets_IdleFurniture_Dog_DogBath  `ATX_ENTM_CAMP_CAMPPets_IdleFurniture_Dog_DogBath`
@@ -1078,16 +1073,14 @@ _Couldn't key this file to records; contents differ._
 ## `curves/perk_cards.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
+## `cut_content.json`  ·  changed (structural)
+_Couldn't key this file to records; contents differ._
+
 ## `daily_ops/daily_ops_all_rewards.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
 ## `daily_ops/daily_ops_reward_checklist.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
-
-## `dispensers.json`  ·  +0 / -0 / ~1
-
-**Changed (1)**
-- DE2024_Halloween_ENTM_CAMP_Utility_CraniaCandyBowl  `DE2024_Halloween_ENTM_CAMP_Utility_CraniaCandyBowl` — fields: description
 
 ## `displays.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
@@ -1535,8 +1528,6 @@ _Couldn't key this file to records; contents differ._
 ## `farming_spawns/perfect-bubblegum_spawns.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `farming_spawns/plant-strangler-pod_spawns.json`  ·  +0 / -0 / ~0
-
 ## `farming_spawns/pork-n-beans_spawns.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
@@ -1639,13 +1630,24 @@ _Couldn't key this file to records; contents differ._
 ## `locations/all_locations.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `make_plan_checklist.json`  ·  +309 / -23 / ~112
+## `make_plan_checklist.json`  ·  +314 / -23 / ~99
 
-**Added (309)**
-- Plan: Brain In a Jar  `PLAN_008AC859`
+**Added (314)**
+- Plan: Secret Settler Left Leg  `PLAN_007FFEEF`
+- Plan: Secret Settler Helmet  `PLAN_007FFEF0`
+- Plan: Secret Settler Right Leg  `PLAN_007FFEF1`
+- Plan: Secret Settler Left Arm  `PLAN_007FFEF2`
+- Plan: Secret Settler Right Arm  `PLAN_007FFEF3`
+- Plan: Secret Settler Chest Piece  `PLAN_007FFEF4`
+- Plan: Crackler Grenade  `PLAN_007FFFDA`
+- Plan: Tempest  `PLAN_00802192`
+- Plan: Chaos Engine  `PLAN_00802193`
+- Plan: Splinter  `PLAN_00802194`
 - Plan:  Lightning Hit Outfit  `PLAN_008D2AB9`
 - Plan: Lightning Hit Helmet  `PLAN_008D2ABA`
-- Recipe: Thrasher Dinner  `PLAN_0090FBD2`
+- Plan: LMG Calibrated .308 Receiver  `PLAN_008D5AA7`
+- Plan: LMG Calibrated .45 Receiver  `PLAN_008D5AA8`
+- Plan: LMG Compensator  `PLAN_008D5AAE`
 - Plan: Secret Service Spring Assisted Armor Limb  `PLAN_0091665F`
 - Plan: Secret Service Tattered Armor Torso  `PLAN_00916660`
 - Plan: Brotherhood Recon Tattered Armor Torso  `PLAN_00916661`
@@ -1654,12 +1656,6 @@ _Couldn't key this file to records; contents differ._
 - Plan: Covert Scout Spring Assisted Armor Limb  `PLAN_00916664`
 - Plan: Civil Engineer Tattered Armor Torso  `PLAN_00916665`
 - Plan: Civil Engineer Spring Assisted Armor Limb  `PLAN_00916666`
-- Plan: Vault-Tec Vulcan Left Arm  `PLAN_0092748C`
-- Plan: Vault-Tec Vulcan Right Arm  `PLAN_0092748D`
-- Plan: Vault-Tec Vulcan Helmet  `PLAN_0092748E`
-- Plan: Vault-Tec Vulcan Left Leg  `PLAN_0092748F`
-- Plan: Vault-Tec Vulcan Right Leg  `PLAN_00927490`
-- Plan: Vault-Tec Vulcan Torso  `PLAN_00927491`
 - Plan: Mr. Moore  `PLAN_00934704`
 - Plan: Single Action Revolver Vicious Receiver  `PLAN_0094673A`
 - Plan: Single Action Revolver Severe Receiver  `PLAN_0094673B`
@@ -1677,12 +1673,7 @@ _Couldn't key this file to records; contents differ._
 - Plan: LMG Hardened .308 Receiver  `PLAN_00947F2D`
 - Plan: LMG Severe Receiver  `PLAN_00947F2E`
 - Plan: LMG Severe .308 Receiver  `PLAN_00947F2F`
-- Plan: LMG Severe .45 Receiver  `PLAN_00947F30`
-- Plan: LMG Refined Receiver  `PLAN_00947F31`
-- Plan: LMG Refined .308 Receiver  `PLAN_00947F32`
-- Plan: LMG Refined .45 Receiver  `PLAN_00947F33`
-- Plan: LMG True .45 Receiver  `PLAN_00947F34`
-- …and 269 more
+- …and 274 more
 
 **Removed (23)**
 - Deathclaw Leveling Backpack Flair  `RECIPE_008B507F`
@@ -1709,7 +1700,7 @@ _Couldn't key this file to records; contents differ._
 - Cat Tamer Helmet  `RECIPE_00900A92`
 - Cat Tamer Outfit  `RECIPE_00900A93`
 
-**Changed (112)**
+**Changed (99)**
 - Plan: Bowie Knife  `PLAN_00436FF0` — fields: routes
 - Plan: Golf Club  `PLAN_00436FF5` — fields: routes
 - Plan: Pipe Wrench  `PLAN_00436FFA` — fields: routes
@@ -1750,7 +1741,7 @@ _Couldn't key this file to records; contents differ._
 - Plan: Boiling Point  `PLAN_00793014` — fields: routes
 - Plan: Valkyrie  `PLAN_00793438` — fields: routes
 - Plan: Resolve Breaker  `PLAN_00793502` — fields: routes
-- …and 72 more
+- …and 59 more
 
 ## `meat.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
@@ -2146,7 +2137,7 @@ _Couldn't key this file to records; contents differ._
 ## `titles_data.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `titles_player.json`  ·  +22 / -0 / ~40
+## `titles_player.json`  ·  +22 / -0 / ~41
 
 **Added (22)**
 - ATX_PlayerTitles_Prefix_Sudsy  `ATX_PlayerTitles_Prefix_Sudsy`
@@ -2172,13 +2163,14 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S27_PlayerTitles_Suffix_Competitor  `SCORE_S27_PlayerTitles_Suffix_Competitor`
 - zzz_HTO_PlayerTitles_Both_Terminated  `zzz_HTO_PlayerTitles_Both_Terminated`
 
-**Changed (40)**
+**Changed (41)**
 - ATX_PlayerTitles_Prefix_AdVictoriam  `ATX_PlayerTitles_Prefix_AdVictoriam` — fields: releaseDate, releaseLabel, releaseYear, source
 - ATX_PlayerTitles_Prefix_Contessa  `ATX_PlayerTitles_Prefix_Contessa` — fields: releaseDate, releaseLabel, source
 - ATX_PlayerTitles_Prefix_Gleaming  `ATX_PlayerTitles_Prefix_Gleaming` — fields: source
 - ATX_PlayerTitles_Prefix_Tribune  `ATX_PlayerTitles_Prefix_Tribune` — fields: releaseDate, releaseLabel, releaseYear, source
 - ATX_PlayerTitles_Suffix_Buoy  `ATX_PlayerTitles_Suffix_Buoy` — fields: releaseDate, releaseLabel, source
 - ATX_PlayerTitles_Suffix_Technician  `ATX_PlayerTitles_Suffix_Technician` — fields: source
+- MILE_PlayerTitles_Suffix_CaravanInvestor  `MILE_PlayerTitles_Suffix_CaravanInvestor` — fields: cutContent, howToObtain, source
 - PlayerTitles_Suffix_Researcher  `PlayerTitles_Suffix_Researcher` — fields: howToObtain
 - PlayerTitles_Suffix_Zookeeper  `PlayerTitles_Suffix_Zookeeper` — fields: howToObtain
 - SCORE_MiniSeason_2025_AppalachianOutlaws_PlayerTitles_Suffix_Outlaw  `SCORE_MiniSeason_2025_AppalachianOutlaws_PlayerTitles_Suffix_Outlaw` — fields: imageUrl, images
@@ -2211,8 +2203,8 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S25_PlayerTitles_Prefix_Outdoor  `SCORE_S25_PlayerTitles_Prefix_Outdoor` — fields: imageUrl, images
 - SCORE_S25_PlayerTitles_Suffix_Globetrotter  `SCORE_S25_PlayerTitles_Suffix_Globetrotter` — fields: imageUrl, images
 - SCORE_S25_PlayerTitles_Suffix_Pioneer  `SCORE_S25_PlayerTitles_Suffix_Pioneer` — fields: imageUrl, images
-- SFS09_PlayerTitles_Suffix_Manager  `SFS09_PlayerTitles_Suffix_Manager` — fields: howToObtain
-- SFS09_PlayerTitles_Suffix_Tamer  `SFS09_PlayerTitles_Suffix_Tamer` — fields: howToObtain
+- SFS09_PlayerTitles_Suffix_Manager  `SFS09_PlayerTitles_Suffix_Manager` — fields: debug, howToObtain
+- …and 1 more
 
 ## `titles_player_generator.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
@@ -2226,9 +2218,34 @@ _Couldn't key this file to records; contents differ._
 ## `unique_weapons/unique_weapons.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `unique_weapons_armour/unique_weapons_armour.json`  ·  +7 / -0 / ~25
+## `unique_weapons_armour/cut_uniques.json`  ·  +1 / -9 / ~0
 
-**Added (7)**
+**Added (1)**
+- StormRender  `zzzmod_custom_StormRender`
+
+**Removed (9)**
+- Splinter  `10mmSMG`
+- Secret Settler Left Arm  `Armor_SecretService_ArmLeft`
+- Secret Settler Right Arm  `Armor_SecretService_ArmRight`
+- Secret Settler Left Leg  `Armor_SecretService_LegLeft`
+- Secret Settler Right Leg  `Armor_SecretService_LegRight`
+- Secret Settler Torso  `Armor_SecretService_Torso`
+- Tempest  `DLC01_AssaultronBlade`
+- Secret Settler Helmet  `Headwear_Clothes_SecretService_Helmet`
+- Chaos Engine  `M79`
+
+## `unique_weapons_armour/unique_weapons_armour.json`  ·  +16 / -0 / ~17
+
+**Added (16)**
+- Splinter  `10mmsmg-4`
+- Secret Settler Left Arm  `armor-secretservice-armleft`
+- Secret Settler Right Arm  `armor-secretservice-armright`
+- Secret Settler Left Leg  `armor-secretservice-legleft`
+- Secret Settler Right Leg  `armor-secretservice-legright`
+- Secret Settler Torso  `armor-secretservice-torso-2`
+- Tempest  `dlc01-assaultronblade-2`
+- Secret Settler Helmet  `headwear-clothes-secretservice-helmet`
+- Chaos Engine  `m79-2`
 - Corpse Stacker  `mod-custom-corpsestacker`
 - Crybaby  `mod-custom-crybaby`
 - Deep Breath  `mod-custom-deepbreath`
@@ -2237,28 +2254,20 @@ _Couldn't key this file to records; contents differ._
 - Tarnished Claw  `rd01-ultraciteterrorsword-2`
 - V63 Zweihaender  `stormcutter-2`
 
-**Changed (25)**
-- Splinter  `10mmsmg-4` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType, uniqueMods
+**Changed (17)**
 - Final Word  `50calmachinegun` — fields: uniqueMods
 - The Action Hero  `50calmachinegun-2` — fields: uniqueMods
-- Secret Settler Left Arm  `armor-secretservice-armleft` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType
-- Secret Settler Right Arm  `armor-secretservice-armright` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType
-- Secret Settler Left Leg  `armor-secretservice-legleft` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType
-- Secret Settler Right Leg  `armor-secretservice-legright` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType
-- Secret Settler Torso  `armor-secretservice-torso-2` — fields: howToObtain, obtainRoutes, questName, sourceRef, sourceType
 - Whistle in the Dark  `assaultrifle` — fields: obtainRoutes
 - Disorderly Conduct  `baton` — fields: uniqueMods
 - The Dragon  `blackpowder-rifle-dragon` — fields: obtainRoutes
-- Tempest  `dlc01-assaultronblade-2` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType, uniqueMods
+- Ice Breaker  `dlc03-harpoongun` — fields: inherentEffect, uniqueMods
 - Camden Whacker  `dlc04-commiewhacker` — fields: howToObtain, obtainRoutes, sourceRef, sourceType, unreleased
 - Overkill  `fatman-2` — fields: howToObtain, image, imageSameAsBase, inherentEffect, name, obtainRoutes, recordIds, repairOnly, sourceRef, starEffects, uniqueMods
 - The Guarantee  `fatman-3` — fields: howToObtain, image, imageSameAsBase, inherentEffect, name, obtainRoutes, recordIds, repairOnly, sourceRef, starEffects, uniqueMods
-- Secret Settler Helmet  `headwear-clothes-secretservice-helmet` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType
 - Crushing Blow  `m79` — fields: uniqueMods
-- Chaos Engine  `m79-2` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType, uniqueMods
+- Cosmic Knife Super-Heated  `mod-custom-cosmicknife-superheated` — fields: inherentEffect, uniqueMods
 - Grant's Saber  `mom02b-historicsword` — fields: howToObtain, obtainRoutes, questName, sourceRef, sourceType, unreleased
 - Vox Syringer  `mtns05-pipesyringer-vox` — fields: howToObtain
-- Prototype ABX03  `plasmagun-2` — fields: howToObtain, obtainRoutes
 - Slug Buster  `plasmagun-4` — fields: howToObtain, obtainRoutes, questName, sourceRef, sourceType, starEffects
 - Face Breaker  `powerfist` — fields: obtainRoutes
 - Venomous Fang  `rd01-ultraciteterrorsword` — fields: aka, confirmedByGameFiles, name, obtainRoutes
