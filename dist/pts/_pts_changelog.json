@@ -14204,7 +14204,6 @@
           "key": "ATX_ENTM_CAMP_Utility_Collectron_SirLoin",
           "label": "ATX_ENTM_CAMP_Utility_Collectron_SirLoin",
           "fields": [
-            "production",
             "releaseDate"
           ]
         },
@@ -14226,42 +14225,53 @@
           "key": "SCORE_S11_ENTM_CAMP_Utility_Collectron_NukaQuantum",
           "label": "SCORE_S11_ENTM_CAMP_Utility_Collectron_NukaQuantum",
           "fields": [
-            "imageUrl"
+            "howToObtain",
+            "imageUrl",
+            "obtainRoutes"
           ]
         },
         {
           "key": "SCORE_S14_ENTM_CAMP_Utility_Collectron_AutoMiner",
           "label": "SCORE_S14_ENTM_CAMP_Utility_Collectron_AutoMiner",
           "fields": [
-            "imageUrl"
+            "howToObtain",
+            "imageUrl",
+            "obtainRoutes"
           ]
         },
         {
           "key": "SCORE_S17_ENTM_CAMP_Utility_Collectron_Scoutmaster",
           "label": "SCORE_S17_ENTM_CAMP_Utility_Collectron_Scoutmaster",
           "fields": [
-            "imageUrl"
+            "howToObtain",
+            "imageUrl",
+            "obtainRoutes"
           ]
         },
         {
           "key": "SCORE_S22_ENTM_CAMP_Utility_Collectron_RoboButler",
           "label": "SCORE_S22_ENTM_CAMP_Utility_Collectron_RoboButler",
           "fields": [
-            "imageUrl"
+            "howToObtain",
+            "imageUrl",
+            "obtainRoutes"
           ]
         },
         {
           "key": "SCORE_S23_ENTM_CAMP_Utility_Collectron_Cornbot",
           "label": "SCORE_S23_ENTM_CAMP_Utility_Collectron_Cornbot",
           "fields": [
+            "howToObtain",
             "imageUrl",
-            "production"
+            "obtainRoutes"
           ]
         },
         {
           "key": "SCORE_S25_ENTM_CAMP_Utility_Collectron_MrFarmhand",
           "label": "SCORE_S25_ENTM_CAMP_Utility_Collectron_MrFarmhand",
           "fields": [
+            "howToObtain",
+            "obtainRoutes",
             "releaseDate"
           ]
         },
@@ -14276,7 +14286,9 @@
           "key": "SCORE_S4_ENTM_CAMP_Utility_Collectron_NukaCola",
           "label": "SCORE_S4_ENTM_CAMP_Utility_Collectron_NukaCola",
           "fields": [
-            "imageUrl"
+            "howToObtain",
+            "imageUrl",
+            "obtainRoutes"
           ]
         },
         {
@@ -14297,6 +14309,7 @@
           "key": "zzzATX_ENTM_CAMP_Utility_Collectron_SilverBot",
           "label": "zzzATX_ENTM_CAMP_Utility_Collectron_SilverBot",
           "fields": [
+            "howToObtain",
             "releaseDate"
           ]
         }
@@ -14671,6 +14684,9 @@
       "removed": [],
       "changed": []
     },
+    "farming_spawns/cajun-rice-beans_spawns.json": {
+      "structural_change": true
+    },
     "farming_spawns/canned-dog-food_spawns.json": {
       "structural_change": true
     },
@@ -14863,6 +14879,9 @@
     "farming_spawns/hotdog_spawns.json": {
       "structural_change": true
     },
+    "farming_spawns/imitation-seafood_spawns.json": {
+      "structural_change": true
+    },
     "farming_spawns/instamash_spawns.json": {
       "key": "name",
       "added": [],
@@ -14879,6 +14898,9 @@
       "structural_change": true
     },
     "farming_spawns/noodle-cup_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/pemmican_spawns.json": {
       "structural_change": true
     },
     "farming_spawns/perfect-bubblegum_spawns.json": {
@@ -14912,6 +14934,9 @@
       "structural_change": true
     },
     "farming_spawns/sugar-bombs_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/vegetarian-ham_spawns.json": {
       "structural_change": true
     },
     "farming_spawns/yum-yum-deviled-eggs_spawns.json": {
@@ -24496,16 +24521,6 @@
           ]
         },
         {
-          "key": "PLAN_0065DD0A",
-          "label": "Plan: Cupid Cappy Sign",
-          "fields": [
-            "obtain_ledger",
-            "obtain_routes",
-            "retired_routes",
-            "source_tag"
-          ]
-        },
-        {
           "key": "PLAN_0066528F",
           "label": "Plan: Radiation Glove Box",
           "fields": [
@@ -24549,15 +24564,6 @@
           ]
         },
         {
-          "key": "PLAN_00675279",
-          "label": "Plan: Nuka-Cola Balloons",
-          "fields": [
-            "obtain_ledger",
-            "obtain_routes",
-            "retired_routes"
-          ]
-        },
-        {
           "key": "PLAN_0067AED1",
           "label": "Plan: Outhouse",
           "fields": [
@@ -24566,47 +24572,10 @@
           ]
         },
         {
-          "key": "PLAN_0067F169",
-          "label": "Plan: Tunnel of Love Snow Globe",
-          "fields": [
-            "obtain_ledger",
-            "obtain_routes",
-            "retired_routes",
-            "source_tag"
-          ]
-        },
-        {
-          "key": "PLAN_0067F16D",
-          "label": "Plan: Bottle Backpack Flair",
-          "fields": [
-            "obtain_ledger",
-            "obtain_routes",
-            "retired_routes"
-          ]
-        },
-        {
-          "key": "PLAN_0067F16E",
-          "label": "Plan: Cappy Backpack Flair",
-          "fields": [
-            "obtain_ledger",
-            "obtain_routes",
-            "retired_routes"
-          ]
-        },
-        {
           "key": "PLAN_0067F171",
           "label": "Plan: Nuka-World Cowboy Chaps",
           "fields": [
             "image_source"
-          ]
-        },
-        {
-          "key": "PLAN_0067F172",
-          "label": "Plan: Cappy Smasher Super Sledge Paint",
-          "fields": [
-            "obtain_ledger",
-            "obtain_routes",
-            "retired_routes"
           ]
         },
         {
@@ -24618,201 +24587,11 @@
           ]
         },
         {
-          "key": "PLAN_00682116",
-          "label": "Plan: Nuka-Cola Ad Barrier",
-          "fields": [
-            "obtain_ledger",
-            "obtain_routes",
-            "retired_routes"
-          ]
-        },
-        {
-          "key": "PLAN_00682117",
-          "label": "Plan: Nuka-Cola Crate Stalls",
-          "fields": [
-            "obtain_ledger",
-            "obtain_routes",
-            "retired_routes"
-          ]
-        },
-        {
-          "key": "PLAN_00682118",
-          "label": "Plan: Tunnel of Love Poster",
-          "fields": [
-            "obtain_ledger",
-            "obtain_routes",
-            "retired_routes",
-            "source_tag"
-          ]
-        },
-        {
-          "key": "PLAN_0068211C",
-          "label": "Plan: Nuka-Cade Poster",
-          "fields": [
-            "obtain_ledger",
-            "obtain_routes",
-            "retired_routes"
-          ]
-        },
-        {
-          "key": "PLAN_0068211D",
-          "label": "Plan: Nuka Cola Bottle Kiosk",
-          "fields": [
-            "obtain_ledger",
-            "obtain_routes",
-            "retired_routes"
-          ]
-        },
-        {
-          "key": "PLAN_006828E5",
-          "label": "Plan: Cappy Clapper",
-          "fields": [
-            "obtain_ledger",
-            "obtain_routes",
-            "retired_routes"
-          ]
-        },
-        {
-          "key": "PLAN_006828E6",
-          "label": "Plan: Bottle and Cappy Painting Statue",
-          "fields": [
-            "obtain_ledger",
-            "obtain_routes",
-            "retired_routes"
-          ]
-        },
-        {
-          "key": "PLAN_006828E8",
-          "label": "Plan: Bottle and Cappy Balloon Statue",
-          "fields": [
-            "obtain_ledger",
-            "obtain_routes",
-            "retired_routes"
-          ]
-        },
-        {
-          "key": "PLAN_006828E9",
-          "label": "Plan: Bottle and Cappy Hoop Jump Statue",
-          "fields": [
-            "obtain_ledger",
-            "obtain_routes",
-            "retired_routes"
-          ]
-        },
-        {
-          "key": "PLAN_006828EA",
-          "label": "Plan: Bottle and Cappy Walking Globe Statue",
-          "fields": [
-            "obtain_ledger",
-            "obtain_routes",
-            "retired_routes"
-          ]
-        },
-        {
-          "key": "PLAN_006828EC",
-          "label": "Plan: Bottle Bot",
-          "fields": [
-            "obtain_ledger",
-            "obtain_routes",
-            "retired_routes"
-          ]
-        },
-        {
           "key": "PLAN_0068ADED",
           "label": "Plan: Cowboy Hat",
           "fields": [
             "image_source",
             "images"
-          ]
-        },
-        {
-          "key": "PLAN_0068B8EB",
-          "label": "Recipe: Nuka-Dog",
-          "fields": [
-            "obtain_ledger",
-            "obtain_routes",
-            "retired_routes",
-            "source_tag"
-          ]
-        },
-        {
-          "key": "PLAN_0068B8EC",
-          "label": "Recipe: Yao Guai Pastry",
-          "fields": [
-            "obtain_ledger",
-            "obtain_routes",
-            "retired_routes",
-            "source_tag"
-          ]
-        },
-        {
-          "key": "PLAN_0068B8ED",
-          "label": "Recipe: Gulper Stuffed Foot",
-          "fields": [
-            "obtain_ledger",
-            "obtain_routes",
-            "retired_routes",
-            "source_tag"
-          ]
-        },
-        {
-          "key": "PLAN_0068B8EE",
-          "label": "Recipe: Fried Radroach On A Stick",
-          "fields": [
-            "obtain_ledger",
-            "obtain_routes",
-            "retired_routes",
-            "source_tag"
-          ]
-        },
-        {
-          "key": "PLAN_0068B8EF",
-          "label": "Recipe: Fried Scorpion On A Stick",
-          "fields": [
-            "obtain_ledger",
-            "obtain_routes",
-            "retired_routes",
-            "source_tag"
-          ]
-        },
-        {
-          "key": "PLAN_0068B8F0",
-          "label": "Recipe: Brahmin Burgers",
-          "fields": [
-            "obtain_ledger",
-            "obtain_routes",
-            "retired_routes",
-            "source_tag"
-          ]
-        },
-        {
-          "key": "PLAN_0068B8F1",
-          "label": "Recipe: Caramel Mutfruit",
-          "fields": [
-            "obtain_ledger",
-            "obtain_routes",
-            "retired_routes",
-            "source_tag"
-          ]
-        },
-        {
-          "key": "PLAN_0068B8F2",
-          "label": "Recipe: Carnival Pie",
-          "fields": [
-            "obtain_ledger",
-            "obtain_routes",
-            "retired_routes",
-            "source_tag"
-          ]
-        },
-        {
-          "key": "PLAN_0068B8F3",
-          "label": "Recipe: Radscorpion Kebab",
-          "fields": [
-            "obtain_ledger",
-            "obtain_routes",
-            "retired_routes",
-            "source_tag"
           ]
         },
         {
@@ -25738,6 +25517,13 @@
         {
           "key": "PLAN_00772999",
           "label": "Plan: Steel Jack Statue Ghoul",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_0077299B",
+          "label": "Plan: Pipe Quiver Backpack",
           "fields": [
             "image_source"
           ]
@@ -27005,11 +26791,7 @@
           "label": "Plan: Love Tap Paint",
           "fields": [
             "image_source",
-            "images",
-            "obtain_ledger",
-            "obtain_routes",
-            "retired_routes",
-            "source_tag"
+            "images"
           ]
         },
         {
@@ -29522,8 +29304,6 @@
           "key": "ATX_ENTM_CAMP_Collector_AbandonedNest",
           "label": "ATX_ENTM_CAMP_Collector_AbandonedNest",
           "fields": [
-            "bucket",
-            "production",
             "releaseDate"
           ]
         },
@@ -29594,8 +29374,6 @@
           "key": "ATX_ENTM_CAMP_Collector_FeastSideTable",
           "label": "ATX_ENTM_CAMP_Collector_FeastSideTable",
           "fields": [
-            "bucket",
-            "production",
             "releaseDate"
           ]
         },
@@ -29638,6 +29416,8 @@
           "key": "ATX_ENTM_CAMP_Collector_PumpkinPie",
           "label": "ATX_ENTM_CAMP_Collector_PumpkinPie",
           "fields": [
+            "howToObtain",
+            "obtainRoutes",
             "releaseDate"
           ]
         },
@@ -30006,7 +29786,9 @@
           "key": "SCORE_S17_ENTM_CAMP_Collector_Pemmican",
           "label": "SCORE_S17_ENTM_CAMP_Collector_Pemmican",
           "fields": [
-            "imageUrl"
+            "howToObtain",
+            "imageUrl",
+            "obtainRoutes"
           ]
         },
         {
@@ -30048,7 +29830,9 @@
           "key": "SCORE_S23_ENTM_CAMP_Collector_CrashedCargoBot",
           "label": "SCORE_S23_ENTM_CAMP_Collector_CrashedCargoBot",
           "fields": [
-            "imageUrl"
+            "howToObtain",
+            "imageUrl",
+            "obtainRoutes"
           ]
         },
         {
@@ -30062,7 +29846,9 @@
           "key": "SCORE_S24_ENTM_CAMP_Collector_SurvivalCache",
           "label": "SCORE_S24_ENTM_CAMP_Collector_SurvivalCache",
           "fields": [
-            "imageUrl"
+            "howToObtain",
+            "imageUrl",
+            "obtainRoutes"
           ]
         },
         {
@@ -30093,6 +29879,7 @@
           "key": "SSE_Resource_CarnalWeeper",
           "label": "SSE_Resource_CarnalWeeper",
           "fields": [
+            "howToObtain",
             "releaseDate"
           ]
         },
@@ -30100,6 +29887,7 @@
           "key": "SSE_Resource_CrystalCup",
           "label": "SSE_Resource_CrystalCup",
           "fields": [
+            "howToObtain",
             "releaseDate"
           ]
         },
@@ -30107,6 +29895,7 @@
           "key": "SSE_Resource_Radlily",
           "label": "SSE_Resource_Radlily",
           "fields": [
+            "howToObtain",
             "releaseDate"
           ]
         },
