@@ -1214,6 +1214,7 @@ SPEL_FormID	SPEL_EDID	SPEL_FULL	SPEL_DESC	SPIT_Type	SPIT_CastType	SPIT_Delivery	
 0060DBF4	AbPerkSuperMutantBerserker_UnarmedDamage	Iron Fist		Ability	Constant Effect	Self	
 0060DBF3	AbPerkSuperMutantBersker_Weapon	2H Melee Damage		Ability	Constant Effect	Self	
 0060DF40	AbPerkSuperMutantBerserkerSwingSpeed	Berserker Swing Speed		Ability	Constant Effect	Self	
+0061DADC	RE_Travel_Zetan04_FlameSpell	Strong Fire Hazard		Ability	Constant Effect	Self	
 0060A6A8	DailyOps_DoubleMutation_Mutation_SwiftStalker	Swift Stalker (Double)	Cloaking ability and extra fast	Ability	Constant Effect	Self	
 0060A6A7	DailyOps_DoubleMutation_Mutation_StingingFrost	Stinging Frost (Double)	Freezing attacks and toxic hazard on death 	Ability	Constant Effect	Self	
 0060DCDE	DailyOps_DoubleMutation_Mutation_BlisteringCold	Blistering Cold (Double)	Extra fast and freezing attacks 	Ability	Constant Effect	Self	
@@ -1222,6 +1223,10 @@ SPEL_FormID	SPEL_EDID	SPEL_FULL	SPEL_DESC	SPIT_Type	SPIT_CastType	SPIT_Delivery	
 0060EC7F	DailyOps_DoubleMutation_Mutation_Vaporous	Vaporous (Double)	Cloaking ability and explodes on death	Ability	Constant Effect	Self	
 0060EC80	DailyOps_DoubleMutation_Mutation_ChillingMend	Chilling Mend (Double)	Heals in proximity and freezing attacks	Ability	Constant Effect	Self	
 0060EC81	DailyOps_DoubleMutation_Mutation_CloudedToxins	Clouded Toxins (Double)	Cloaking ability and toxic hazard on death	Ability	Constant Effect	Self	
+00620A2A	ATX_COMP_Doberman_CheckItemFetchedTimer_Spell	Dog: Fetch Items		Spell	Fire and Forget	Self	
+00620A2B	ATX_COMP_Doberman_Perk_Spell	Dog Treat		Spell	Fire and Forget	Self	
+00620A2C	SFS09_Habitat_FriendlyBuffSpell	Buddy Toughness		Ability	Constant Effect	Self	
+00620EBB	E01B_Herd_BrahminBuffSpell	Brahmin Toughness		Ability	Constant Effect	Self	
 0061F6A5	ATX_COMP_TuneUp_Mechanic_CarryWeight	Tune-Up		Spell	Fire and Forget	Self	
 0061F690	ATX_COMP_Mechanic_BuffCharisma	Tune-Up		Spell	Fire and Forget	Self	
 0061F6A0	ATX_COMP_TuneUp_Mechanic_CraftingWorkshop	Tune-Up		Spell	Fire and Forget	Self	
@@ -1235,11 +1240,6 @@ SPEL_FormID	SPEL_EDID	SPEL_FULL	SPEL_DESC	SPIT_Type	SPIT_CastType	SPIT_Delivery	
 0061F70D	SCORE_S5_COMP_Charm_Inspector_Spell_Night	Inspector's Charm		Spell	Fire and Forget	Self	
 0061F70C	SCORE_S5_COMP_Charm_Inspector_Spell_Day	Daphne's Charm		Spell	Fire and Forget	Self	
 00620383	SCORE_S5_COMP_Spell_InspectorFX_UNUSED	Inspector's Smoke Bomb		Spell	Fire and Forget	Self	
-0061DADC	RE_Travel_Zetan04_FlameSpell	Strong Fire Hazard		Ability	Constant Effect	Self	
-00620A2A	ATX_COMP_Doberman_CheckItemFetchedTimer_Spell	Dog: Fetch Items		Spell	Fire and Forget	Self	
-00620A2B	ATX_COMP_Doberman_Perk_Spell	Dog Treat		Spell	Fire and Forget	Self	
-00620A2C	SFS09_Habitat_FriendlyBuffSpell	Buddy Toughness		Ability	Constant Effect	Self	
-00620EBB	E01B_Herd_BrahminBuffSpell	Brahmin Toughness		Ability	Constant Effect	Self	
 006216C7	E07A_RitualShader_Spell	Strong Fire Hazard		Ability	Constant Effect	Self	
 00621C20	HeadHunter_Spell	Head Hunter Spell		Spell	Fire and Forget	Self	
 00621FB0	E07A_Mothman_Spell_Shadow	Mothdust Influence		Ability	Constant Effect	Self	
@@ -1254,6 +1254,7 @@ SPEL_FormID	SPEL_EDID	SPEL_FULL	SPEL_DESC	SPIT_Type	SPIT_CastType	SPIT_Delivery	
 00621C0F	HalloweenCandy_StrengthEffect	Sugar Strength	Sugar Strength	Spell	Fire and Forget	Self	
 00621C11	HalloweenCandy_SugarVisionEffect	Sugar Vision	Sugar Vision	Spell	Fire and Forget	Self	
 0062B79F	Mod_Legendary_ElementalArmor_Spell	Elemental Armor Spell		Ability	Constant Effect	Self	
+00632706	FlatwoodsMonsterZetanBoostSpell	Flatwoods Monster Zetan Boost		Spell	Concentration	Contact	
 0062CA69	LegendarySpookedAPSpell	LegendarySpookedAP		Spell	Fire and Forget	Self	
 0062D31F	ZZZ_CheerLeaderSpell	Cheer Leader Spell		Spell	Fire and Forget	Self	
 0062F748	E07A_Mothman_crXPBonusSpell	True Wisdom of the Mothman		Spell	Fire and Forget	Contact	
@@ -1263,34 +1264,38 @@ SPEL_FormID	SPEL_EDID	SPEL_FULL	SPEL_DESC	SPIT_Type	SPIT_CastType	SPIT_Delivery	
 006316B6	ZZZ_Legendary_Weapon_Warmongers_Dispel	Warmongers		Spell	Fire and Forget	Self	
 00631CDE	Legendary_IncreaseAPRegenSpellArea	Invigorating Legendary Mod		Spell	Concentration	Contact	
 00631CDF	Legendary_IncreaseAllyResistsSpellEffect	Guardian's Legendary Mod		Spell	Concentration	Contact	
+00635A06	E01C_Tales_Dark_FlatwoodsMonster_Stunned_Spell			Spell	Fire and Forget	Self	
 00632E37	HalloweenCandy_NukaShineDuration	Sugar Blackout	You're blacking out!	Spell	Fire and Forget	Self	
-00636AFD	CharGen_VaultFed_PerkSpell	Vault Fed		Spell	Fire and Forget	Self	
 0063367B	ZZZ_HeavyHitter_Spell01	Heavy Hitter Spawn Explosion		Spell	Fire and Forget	Contact	
 006337C8	ZZZ_Bruisers_Spell01	Bruiser's Buff		Spell	Fire and Forget	Contact	
 00633852	ZZZ_CriticalHealers_Spell	Critical Healers Spell		Spell	Fire and Forget	Self	
 0063470B	Legendary_ReduceEnemyResistsSpellEffect	Enervating Legendary Mod		Spell	Concentration	Contact	
 0063470C	ZZZ_LegendaryIncreaseAttackSpeedOnKillSpell	LegendaryAPViaKill		Spell	Fire and Forget	Self	
 00635DD5	test_Vharbison_EventSpell	Test Event Spell		Spell	Constant Effect	Self	
-00636721	E07A_Spell_IMOD_MothDust	Moth Dust FX	You're breathing in the Moth Dust!	Spell	Fire and Forget	Self	
-0063DA9B	zzzXPD_Pitt01_ObjMod_CarryAndThrow_Slow_Spell	Slow	Slow movement	Ability	Constant Effect	Self	
-006406E4	XPD_Fuel_Recipe_RewardBuff_Spell	Communal Cooking		Spell	Fire and Forget	Self	
-00632706	FlatwoodsMonsterZetanBoostSpell	Flatwoods Monster Zetan Boost		Spell	Concentration	Contact	
-00635A06	E01C_Tales_Dark_FlatwoodsMonster_Stunned_Spell			Spell	Fire and Forget	Self	
 00636A68	zzz_CharGen_VaultFedPerkSpell	Vault Fed		Spell	Fire and Forget	Self	
-006419C0	crTrogSuperiorPoisonCloakDamage	Poison Cloak		Spell	Concentration	Contact	
-006419BF	crTrogSuperiorPoisonCloak	Poison Cloak		Ability	Constant Effect	Self	
-006446B9	XPD_Fuel_CodeBlue_StimpakBuffSpell	Stimpak Boost		Spell	Fire and Forget	Self	
-00645472	PT_ExpeditionTeamBonus	Expedition Team Bonus		Ability	Fire and Forget	Self	
+00636721	E07A_Spell_IMOD_MothDust	Moth Dust FX	You're breathing in the Moth Dust!	Spell	Fire and Forget	Self	
 00644EA7	ATX_BuffEndurance	Endurance Boost		Spell	Fire and Forget	Self	
 00645D8C	E07B_Invaders_HomerBuff	Homer's Aid		Spell	Fire and Forget	Self	
-0064ADB6	FireHazard_Heavy	Fire Hazard		Spell	Fire and Forget	Contact	
-0064E507	XPD_Hub_Responders_FadeToBlack_Spell			Spell	Fire and Forget	Self	
 0062A5BE	Nukashine_BlackoutCOPY0000	Nukashine Blackout	You're blacking out!	Spell	Fire and Forget	Self	
 0063596C	E09A_Launcher_Fireball			Spell	Fire and Forget	Aimed	
 00636319	E09A_Launcher_EggGasSpell	Egg Gas		Spell	Concentration	Contact	
 006456C3	E09A_Launcher_WallOfFireSpell	Strong Fire Hazard		Spell	Concentration	Contact	
 0064C2E7	E08B_AbDamageResist			Ability	Constant Effect	Self	
 0064D00C	E08A_ToxicBlood_ToxicHazard_Spell_AcidGulper	Toxic Blood Hazard		Spell	Fire and Forget	Self	
+00650155	ATX_BuffIntelligence	Intelligence Boost		Spell	Fire and Forget	Self	
+00650156	ATX_BuffPerception	Perception Boost		Spell	Fire and Forget	Self	
+00651B17	zzzE08B_DownedScrubberRads	E08B Radiation		Spell	Concentration	Contact	
+00651B18	E08B_ScrubberRads_Deadly	Deadly Radiation		Spell	Concentration	Contact	
+00656B02	E08B_ScrubberRads_Token	Radiation		Spell	Concentration	Contact	
+00636AFD	CharGen_VaultFed_PerkSpell	Vault Fed		Spell	Fire and Forget	Self	
+0063DA9B	zzzXPD_Pitt01_ObjMod_CarryAndThrow_Slow_Spell	Slow	Slow movement	Ability	Constant Effect	Self	
+006406E4	XPD_Fuel_Recipe_RewardBuff_Spell	Communal Cooking		Spell	Fire and Forget	Self	
+006419C0	crTrogSuperiorPoisonCloakDamage	Poison Cloak		Spell	Concentration	Contact	
+006419BF	crTrogSuperiorPoisonCloak	Poison Cloak		Ability	Constant Effect	Self	
+006446B9	XPD_Fuel_CodeBlue_StimpakBuffSpell	Stimpak Boost		Spell	Fire and Forget	Self	
+00645472	PT_ExpeditionTeamBonus	Expedition Team Bonus		Ability	Fire and Forget	Self	
+0064ADB6	FireHazard_Heavy	Fire Hazard		Spell	Fire and Forget	Contact	
+0064E507	XPD_Hub_Responders_FadeToBlack_Spell			Spell	Fire and Forget	Self	
 00651092	XPD_Pitt02_DOTSpell_Survivor03	Damage Over Time - Weak		Ability	Constant Effect	Self	
 00651091	XPD_Pitt02_DOTSpell_Survivor02	Damage Over Time - Medium		Ability	Constant Effect	Self	
 00651090	XPD_Pitt02_DOTSpell_Survivor01	Damage Over Time - Heavy		Ability	Constant Effect	Self	
@@ -1298,11 +1303,6 @@ SPEL_FormID	SPEL_EDID	SPEL_FULL	SPEL_DESC	SPIT_Type	SPIT_CastType	SPIT_Delivery	
 00653FDE	SCORE_Pitt_Consumable_XPSpell	Pitt Consumable XP		Spell	Fire and Forget	Self	
 00653FDF	SCORE_PittConsumable_CarryCapacitySpell	Pitt Carry Boost		Spell	Fire and Forget	Self	
 00654957	XPD_Pitt02_ElectricChairSpell	Electricity		Spell	Constant Effect	Contact	
-00650155	ATX_BuffIntelligence	Intelligence Boost		Spell	Fire and Forget	Self	
-00650156	ATX_BuffPerception	Perception Boost		Spell	Fire and Forget	Self	
-00651B17	zzzE08B_DownedScrubberRads	E08B Radiation		Spell	Concentration	Contact	
-00651B18	E08B_ScrubberRads_Deadly	Deadly Radiation		Spell	Concentration	Contact	
-00656B02	E08B_ScrubberRads_Token	Radiation		Spell	Concentration	Contact	
 00662F2E	E08B_ScrubberRads_Deadly_Tapered	Deadly Radiation		Spell	Concentration	Contact	
 006663FB	SCORE_Banner_AutoRevive_ApplyPerk_Spell	Â¢Scout's Courage	Too full!	Spell	Fire and Forget	Self	
 006663FC	SCORE_Banner_BattleCharged_OnKill_Spell	Adrenaline		Spell	Fire and Forget	Self	
@@ -1383,22 +1383,22 @@ SPEL_FormID	SPEL_EDID	SPEL_FULL	SPEL_DESC	SPIT_Type	SPIT_CastType	SPIT_Delivery	
 0067B320	ATX_COMP_NukaBuff_NukaAgent_BuffPerception	Nuka-Inspiration: Wild		Spell	Fire and Forget	Self	
 0067B321	ATX_COMP_NukaBuff_NukaAgent_BuffDiseaseResistance	Nuka-Inspiration: Vaccinated		Spell	Fire and Forget	Self	
 0067B31A	ATX_COMP_NukaBuff_NukaAgent_BuffEndurance	Nuka-Inspiration: Cherry		Spell	Fire and Forget	Self	
-0067BBAC	cr_Heart_Boss_DamageReduction	Heart of the Swarm Boss Buffs		Ability	Constant Effect	Self	
 00677709	XPD_Pitt02_Radstorm_AmbientRadiationSpell	Ambient Radiation		Spell	Concentration	Contact	
 0067F09E	NukaColaCandy_LuckyBreakEffect	Lucky Break	Lucky Break	Spell	Fire and Forget	Self	
 0067F09F	NukaColaCandy_StrengthEffect	Sugar Strength	Sugar Strength	Spell	Fire and Forget	Self	
 0067F0A1	NukaColaCandy_SugarVisionEffect	Sugar Vision	Sugar Vision	Spell	Fire and Forget	Self	
 0067F0A0	NukaColaCandy_SugarRushEffect	Sugar Rush	Sugar Rush	Spell	Fire and Forget	Self	
+00686FB2	NWOT_FortuneSpell_Cooldown	Fortune Cooldown		Spell	Fire and Forget	Self	
+0068ADFA	NWOT_Nukacade_RewardPointsSpell			Spell	Fire and Forget	Self	
+0068DE00	E09A_EarlyDeathPreventionSpell			Spell	Constant Effect	Self	
+0067BBAC	cr_Heart_Boss_DamageReduction	Heart of the Swarm Boss Buffs		Ability	Constant Effect	Self	
 0067F96C	zzzcrDailyOps_ZetanInquisitoBuffSpell	Zetan Inquisitor Heal Field		Ability	Constant Effect	Self	
 0067F96D	zzzcrDailyOps_ZetanInquisitorCloakSpell	Zetan Inquisitor Buff		Spell	Concentration	Contact	
 0067F96E	cr_Heart_Grafton_DamageReduction	Heart of the Swarm Boss Buffs		Ability	Constant Effect	Self	
 00683DF6	zzz_MutatedEvents_PoisonCloudHealSpell	Poison Cloud Heal		Spell	Concentration	Contact	
 00684BA8	zzz_MutatedEvents_PoisonCloudDamageSpell	Poison Cloud Cloak Damage		Spell	Concentration	Contact	
 00685972	zzz_MutatedEvents_FieryInfusion_FireDamageSpell_Tier1	Fire Damage		Spell	Fire and Forget	Contact	
-00686FB2	NWOT_FortuneSpell_Cooldown	Fortune Cooldown		Spell	Fire and Forget	Self	
-0068ADFA	NWOT_Nukacade_RewardPointsSpell			Spell	Fire and Forget	Self	
 0068CC25	DailyOps_Mutation_FreezingTouch_SlowSpell	Freezing Touch	Slow targets down on attack	Spell	Fire and Forget	Contact	
-0068DE00	E09A_EarlyDeathPreventionSpell			Spell	Constant Effect	Self	
 00692277	Legendary_FreezeSpell_ColdShoulder	CryoFreeze		Spell	Fire and Forget	Contact	
 006939DF	ATX_COMP_Scarberry_Blessing_XPBonusSpell	Blessing of the True Mothman		Spell	Fire and Forget	Contact	
 006982EA	zzz_MutatedEvents_FieryInfusion_FireDamageSpell_Tier3	Fire Damage		Spell	Fire and Forget	Contact	
@@ -1413,6 +1413,8 @@ SPEL_FormID	SPEL_EDID	SPEL_FULL	SPEL_DESC	SPIT_Type	SPIT_CastType	SPIT_Delivery	
 006A0643	zzz_MOON_BlueDevilHowl	Blue Devil Howl		Spell	Fire and Forget	Self	
 006A38A5	MOON_Ambush_SPLL_CargoCooldown	Deposited Recently		Spell	Fire and Forget	Self	
 006ABA13	MOON_Ambush_SPLL_CameraShake	Camera Shake Spell		Spell	Fire and Forget	Self	
+006B35AA	DEL_crJerseyDevilHealthStealSpell	Jersey Devil Health Steal Spell		Spell	Fire and Forget	Self	
+006B35AB	DEL_crDevilHeal_Copy01	Drain Blood		Spell	Fire and Forget	Self	
 006B4495	MOON_Ambush_Sanctifier_AbDamageResist			Ability	Constant Effect	Self	
 006B44A5	Moon_Herd_ScreenEffectSpell	Mixed Signals Screen Effect		Spell	Fire and Forget	Self	
 006B682F	MOON_OguaDamageResist			Ability	Constant Effect	Self	
@@ -1423,12 +1425,10 @@ SPEL_FormID	SPEL_EDID	SPEL_FULL	SPEL_DESC	SPIT_Type	SPIT_CastType	SPIT_Delivery	
 006C3003	MOON_BlueDevil_DamageResist			Ability	Constant Effect	Self	
 006C449D	FlameThrowerFireHazardSpellBlue	Strong Fire Hazard		Spell	Fire and Forget	Contact	
 006CC9A9	Moon_Herd_DismemberActorSpell			Spell	Fire and Forget	Self	
-006E1B1A	AbHungerThirstTier	Hunger Thirst Tier		Ability	Constant Effect	Self	
-006B35AA	DEL_crJerseyDevilHealthStealSpell	Jersey Devil Health Steal Spell		Spell	Fire and Forget	Self	
-006B35AB	DEL_crDevilHeal_Copy01	Drain Blood		Spell	Fire and Forget	Self	
 006D5F03	AbPerkScienceExpert	Pyro-Technician		Ability	Constant Effect	Self	
 006D5F02	AbPerkScience	Science!		Ability	Constant Effect	Self	
 006D5F04	AbPerkScienceMaster	Cryologist		Ability	Constant Effect	Self	
+006E1B1A	AbHungerThirstTier	Hunger Thirst Tier		Ability	Constant Effect	Self	
 006E23AA	CritLightning			Spell	Fire and Forget	Self	
 006EBCD7	CircuitbreakerImpactSpell	Circuitbreaker Stun		Spell	Fire and Forget	Contact	
 006EBCD8	CircuitbreakerExplosionSpell	Circuitbreaker Explosion		Spell	Fire and Forget	Contact	
@@ -1539,29 +1539,6 @@ SPEL_FormID	SPEL_EDID	SPEL_FULL	SPEL_DESC	SPIT_Type	SPIT_CastType	SPIT_Delivery	
 00790E0D	ElectricalHazardFatal	Fatal Electricity		Spell	Concentration	Contact	
 0079182B	Storm_RegionBoss_ElectricalHazardLight	Neuro Warfare: Light Electricity		Spell	Concentration	Contact	
 0079182A	Storm_RegionBoss_ElectricalHazardStrong	Strong Electricity		Spell	Concentration	Contact	
-00797E69	zzz_GHL_AbPerkGlowingGut	Rad Bonus		Ability	Constant Effect	Self	
-00797E67	GHL_AbPerkBattleGenes	Battle Genes Perk		Ability	Constant Effect	Self	
-00797E6B	GHL_AbPerkRadioactiveStrength	Radioactive Strength		Ability	Constant Effect	Self	
-00797E6C	zzz_GHL_AbBreatheItIn_Spell	Breathe It In		Ability	Constant Effect	Self	
-00797E68	GHL_AbPerkActionGhoul	Action Ghoul		Ability	Constant Effect	Self	
-00797E65	zzz_GHL_AbPerkTunnelRunner	TunnelRunner		Ability	Constant Effect	Self	
-00797E66	GHL_AbPerkUnitedOrdeal	United Ordeal		Ability	Constant Effect	Self	
-00797E6A	GHL_AbRadioactiveStrengthUse	Radioactive Strength		Spell	Constant Effect	Self	
-0079801D	GHL_LGN_AbPerkActionDiet02	Kill Heal & Satisfy Feral		Spell	Fire and Forget	Self	
-0079801C	GHL_LGN_AbPerkActionDiet01	Kill Heal & Satisfy Feral		Spell	Fire and Forget	Self	
-0079801E	GHL_LGN_AbPerkActionDiet04	Kill Heal & Satisfy Feral		Spell	Fire and Forget	Self	
-0079801F	GHL_LGN_AbPerkActionDiet03	Kill Heal & Satisfy Feral		Spell	Fire and Forget	Self	
-007981FC	zzz_GHL_LGN_AbWildCardFreezeSpell	Wild Card Freeze Spell		Spell	Fire and Forget	Self	
-007981FD	zzz_GHL_LGN_AbWildCardPoisonSpell	Wild Card Poison Spell		Spell	Fire and Forget	Self	
-007981FF	zzz_GHL_LGN_AbWildCardRadiationSpell	Wild Card Radiation Spell		Spell	Fire and Forget	Contact	
-007981FE	zzz_GHL_LGN_AbWildCardFireSpell	Wild Card Fire Spell		Spell	Fire and Forget	Self	
-007981FA	zzz_GHL_LGN_AbWildCardMasterSpell	Wild Card Master Spell		Spell	Fire and Forget	Self	
-007981FB	zzz_GHL_LGN_AbWildCardExplosionSpell	Wild Card Explosion Spell		Spell	Fire and Forget	Contact	
-0079841C	GHL_AbRadioactivePowerSpell	Radioactive Power		Spell	Constant Effect	Self	
-0079841D	GHL_AbPerkRadiationPower	Radiation Power		Ability	Constant Effect	Self	
-0079844A	GHL00_Quest_Blackout_Spell	Blackout	You're blacking out!	Spell	Fire and Forget	Self	
-00799B0B	GHL_abPerkBreatheItIn	Breathe It In		Ability	Constant Effect	Self	
-00799DFB	GHL_AbPerkMadScientist	Mad Scientist		Ability	Constant Effect	Self	
 0077B587	Conductor_ChargeCounter	Conductor Charge Counter		Spell	Fire and Forget	Self	
 0077B588	RestoreHungerThirstLightMealSpell01	Light Meal	Light Meal	Spell	Fire and Forget	Self	
 0077B58B	RestoreHungerThirstLightMealSpell02	Light Meal	Light Meal	Spell	Fire and Forget	Self	
@@ -1572,30 +1549,9 @@ SPEL_FormID	SPEL_EDID	SPEL_FULL	SPEL_DESC	SPIT_Type	SPIT_CastType	SPIT_Delivery	
 00785682	MILE_CaravanEscort_CleanupSpell			Spell	Fire and Forget	Self	
 00793525	MILE_Caravan_Tier03_AbDamageResist			Ability	Constant Effect	Self	
 00793526	MILE_Caravan_Tier02_AbDamageResist			Ability	Constant Effect	Self	
-0079A513	GHL_AbPerkJaguarSpeed	Jaguar Speed		Ability	Constant Effect	Self	
-007A1449	zzz_crSSE_BeezlebabyCloak	Slowing Cloak		Ability	Constant Effect	Self	
-007A144A	zzz_SSE_SlowSpeedHazard	Slowing Pollen		Spell	Concentration	Contact	
-007A18ED	GHL_AbPerkBombScientistRadius	Explosion Radius		Ability	Constant Effect	Self	
-007A18EE	zzz_GHL_AbPerkBombScientist	Bomb Scientist		Ability	Constant Effect	Self	
-007A18EC	GHL_AbBombScientistSpell	Bomb Scientist Rads Power		Spell	Constant Effect	Self	
-007A76BC	GHL_SURV_AbGlowSpell	Glow		Spell	Constant Effect	Self	
-007A76BD	zzz_GHL_SURV_AbGlowAbility	Glow		Ability	Constant Effect	Self	
-007A76BE	GHL_SURV_FeralLosingIt_VisionVFX_Ability			Ability	Constant Effect	Self	
-007A76BF	GHL_SURV_FeralOdd_VisionVFX_Ability			Ability	Constant Effect	Self	
-007A76C0	GHL_SURV_FeralStrange_VisionVFX_Ability			Ability	Constant Effect	Self	
-007A76C1	GHL_SURV_FeralCrazy_VisionVFX_Ability	Crazy Vision		Ability	Constant Effect	Self	
-007A76C2	GHL_SURV_Feral_AbilityBACKUP	Hunger		Ability	Constant Effect	Self	
-007A76C3	GHL_SURV_Feral_Ability	Feral		Ability	Constant Effect	Self	
-007A76C4	GHL_AbFeralTier	Ghoul Feral Tier		Ability	Constant Effect	Self	
-007A76C5	GHL_SURV_FeralMax_VisionVFX_Ability	Feral Strength		Ability	Constant Effect	Self	
-007A7C41	GHL_AbDisguisePenaltyUI	Disguise		Ability	Fire and Forget	Self	
 0079C8A9	PerkMedicSpell	Medic		Spell	Fire and Forget	Self	
 007A0C61	MILE_BrahminUpgradeSpell_HealthRegen01			Spell	Fire and Forget	Self	
-007A888A	GHL_AbPerkBloodyVats	Bloody VATS		Ability	Constant Effect	Self	
-007A888B	GHL_AbPerkFaultySpots	Faulty Spots		Ability	Constant Effect	Self	
-007ABE06	GHL_AbScienceMonsterSpell	Science Monster Rage		Spell	Fire and Forget	Self	
-007ACD3A	GHL_SURV_AbRadsHeal	Rad Heals Health		Ability	Constant Effect	Contact	
-007ACD3B	GHL_SURV_RadiationImmunity	Radiation Heals		Ability	Constant Effect	Self	
+007ABE17	SentryBot_FusionCorePerkSpell			Ability	Constant Effect	Self	
 0077459E	RD01_Enc01_PreventLimbDamageCloakSpell	Prevent Limb Damage		Spell	Constant Effect	Self	
 0077459F	RD01_Enc01_MegaDamageSpell	Mega Damage		Spell	Fire and Forget	Self	
 007852AD	RD01_Enc01_DamagingFloorSpell	Electrified Floor		Ability	Constant Effect	Self	
@@ -1642,9 +1598,7 @@ SPEL_FormID	SPEL_EDID	SPEL_FULL	SPEL_DESC	SPIT_Type	SPIT_CastType	SPIT_Delivery	
 007A83ED	crRD01_Enc06_ScorchtongueProjectileHazard	Poisonous Sludge		Spell	Concentration	Contact	
 007AA9B5	RD01_Enc06_LavaHazard_Spell	Fire Hazard		Spell	Fire and Forget	Contact	
 007AAD21	DEL_WIP4_Legendary_PowerArmor_AutoRepairSpell	Apply Legendary Auto Repair Spell		Spell	Fire and Forget	Self	
-007ABE17	SentryBot_FusionCorePerkSpell			Ability	Constant Effect	Self	
 007AC46B	Legendary_Weapon_ElectriciansExplosionSpell	Electrician's Weapon Explosion		Ability	Constant Effect	Self	
-007AD050	crHoneyBeastBehemothHulkingPresence	Hulking Presence		Ability	Constant Effect	Self	
 007AC998	AbPerkFirstAid	First Aid		Ability	Constant Effect	Self	
 007AC9DD	DEL_WIP4_Legendary_Weapon_ToppersApplyReloadSpell	Toppers Reload Spell		Ability	Constant Effect	Self	
 007ACA0A	Legendary_Weapon_PinPointersDamageSpell	Electricians Explosion Spell		Ability	Constant Effect	Self	
@@ -1665,6 +1619,65 @@ SPEL_FormID	SPEL_EDID	SPEL_FULL	SPEL_DESC	SPIT_Type	SPIT_CastType	SPIT_Delivery	
 007ACEB5	DEL_WIP4_Legendary_PowerArmor_StalwartsCloakSpell	Stalwart's Cloak Spell		Ability	Constant Effect	Self	
 007ACEB6	DEL_WIP4_Legendary_PowerArmor_StalwartsPlayerSpell	Stalwart's Player Spell		Ability	Constant Effect	Self	
 007ACEB4	Legendary_PowerArmor_StalwartsTeamDurabilitySpell	Stalwart's Team Spell		Ability	Concentration	Contact	
+007AD32C	AbPerkRoastProof	Fireproof		Ability	Constant Effect	Self	
+007AD48C	DEL_WIP4_Legendary_PowerArmor_ReflectiveReflectSpell_Melee	Reflective Armor Reflect Melee Damage Spell		Ability	Constant Effect	Self	
+007AD48D	DEL_WIP4_Legendary_PowerArmor_ReflectiveRecieveSpell_Melee	Reflective Armor Recieve Melee Damage Spell		Ability	Fire and Forget	Target Actor	
+007AE497	RD01_Enc01_DamagingFloorSpell_PlatformSurface	Electrified Floor		Ability	Constant Effect	Self	
+007B22BD	RD01_Enc04_HitSquadShieldShader_Spell	Epsilon Shield		Ability	Constant Effect	Self	
+007B2C00	Legendary_Weapon_ConductorsApplySpell	Conductor's Apply Spell		Ability	Constant Effect	Self	
+007B2C01	Legendary_Weapon_ConductorsTeamRestoreSpell	Conductor's Team Restore Spell		Spell	Concentration	Contact	
+007B2C02	Legendary_Weapon_ConductorsCloakSpell	Conductor's Cloak Spell		Spell	Fire and Forget	Self	
+007B3F0D	AbPerkPharmacist	Pharmacist		Ability	Constant Effect	Self	
+007B945A	DEL_Legendary_Weapon_PolishedSpell	Polished		Ability	Constant Effect	Self	
+007B9AF9	RD01_Enc02_CameraShakeSpell	Camera Shake Spell		Spell	Fire and Forget	Self	
+007BB06E	RD01_CanteenSpell	Canteen: Restore Thirst	Slowly restores thirst over time	Ability	Constant Effect	Self	
+007BCEA8	Legendary_PowerArmor_ReflectiveVFXSpell	Reflective Armor Recieve Ballistic VFX Spell		Spell	Fire and Forget	Self	
+00797E69	zzz_GHL_AbPerkGlowingGut	Rad Bonus		Ability	Constant Effect	Self	
+00797E67	GHL_AbPerkBattleGenes	Battle Genes Perk		Ability	Constant Effect	Self	
+00797E6B	GHL_AbPerkRadioactiveStrength	Radioactive Strength		Ability	Constant Effect	Self	
+00797E6C	zzz_GHL_AbBreatheItIn_Spell	Breathe It In		Ability	Constant Effect	Self	
+00797E68	GHL_AbPerkActionGhoul	Action Ghoul		Ability	Constant Effect	Self	
+00797E65	zzz_GHL_AbPerkTunnelRunner	TunnelRunner		Ability	Constant Effect	Self	
+00797E66	GHL_AbPerkUnitedOrdeal	United Ordeal		Ability	Constant Effect	Self	
+00797E6A	GHL_AbRadioactiveStrengthUse	Radioactive Strength		Spell	Constant Effect	Self	
+0079801D	GHL_LGN_AbPerkActionDiet02	Kill Heal & Satisfy Feral		Spell	Fire and Forget	Self	
+0079801C	GHL_LGN_AbPerkActionDiet01	Kill Heal & Satisfy Feral		Spell	Fire and Forget	Self	
+0079801E	GHL_LGN_AbPerkActionDiet04	Kill Heal & Satisfy Feral		Spell	Fire and Forget	Self	
+0079801F	GHL_LGN_AbPerkActionDiet03	Kill Heal & Satisfy Feral		Spell	Fire and Forget	Self	
+007981FC	zzz_GHL_LGN_AbWildCardFreezeSpell	Wild Card Freeze Spell		Spell	Fire and Forget	Self	
+007981FD	zzz_GHL_LGN_AbWildCardPoisonSpell	Wild Card Poison Spell		Spell	Fire and Forget	Self	
+007981FF	zzz_GHL_LGN_AbWildCardRadiationSpell	Wild Card Radiation Spell		Spell	Fire and Forget	Contact	
+007981FE	zzz_GHL_LGN_AbWildCardFireSpell	Wild Card Fire Spell		Spell	Fire and Forget	Self	
+007981FA	zzz_GHL_LGN_AbWildCardMasterSpell	Wild Card Master Spell		Spell	Fire and Forget	Self	
+007981FB	zzz_GHL_LGN_AbWildCardExplosionSpell	Wild Card Explosion Spell		Spell	Fire and Forget	Contact	
+0079841C	GHL_AbRadioactivePowerSpell	Radioactive Power		Spell	Constant Effect	Self	
+0079841D	GHL_AbPerkRadiationPower	Radiation Power		Ability	Constant Effect	Self	
+0079844A	GHL00_Quest_Blackout_Spell	Blackout	You're blacking out!	Spell	Fire and Forget	Self	
+00799B0B	GHL_abPerkBreatheItIn	Breathe It In		Ability	Constant Effect	Self	
+00799DFB	GHL_AbPerkMadScientist	Mad Scientist		Ability	Constant Effect	Self	
+0079A513	GHL_AbPerkJaguarSpeed	Jaguar Speed		Ability	Constant Effect	Self	
+007A1449	zzz_crSSE_BeezlebabyCloak	Slowing Cloak		Ability	Constant Effect	Self	
+007A144A	zzz_SSE_SlowSpeedHazard	Slowing Pollen		Spell	Concentration	Contact	
+007A18ED	GHL_AbPerkBombScientistRadius	Explosion Radius		Ability	Constant Effect	Self	
+007A18EE	zzz_GHL_AbPerkBombScientist	Bomb Scientist		Ability	Constant Effect	Self	
+007A18EC	GHL_AbBombScientistSpell	Bomb Scientist Rads Power		Spell	Constant Effect	Self	
+007A76BC	GHL_SURV_AbGlowSpell	Glow		Spell	Constant Effect	Self	
+007A76BD	zzz_GHL_SURV_AbGlowAbility	Glow		Ability	Constant Effect	Self	
+007A76BE	GHL_SURV_FeralLosingIt_VisionVFX_Ability			Ability	Constant Effect	Self	
+007A76BF	GHL_SURV_FeralOdd_VisionVFX_Ability			Ability	Constant Effect	Self	
+007A76C0	GHL_SURV_FeralStrange_VisionVFX_Ability			Ability	Constant Effect	Self	
+007A76C1	GHL_SURV_FeralCrazy_VisionVFX_Ability	Crazy Vision		Ability	Constant Effect	Self	
+007A76C2	GHL_SURV_Feral_AbilityBACKUP	Hunger		Ability	Constant Effect	Self	
+007A76C3	GHL_SURV_Feral_Ability	Feral		Ability	Constant Effect	Self	
+007A76C4	GHL_AbFeralTier	Ghoul Feral Tier		Ability	Constant Effect	Self	
+007A76C5	GHL_SURV_FeralMax_VisionVFX_Ability	Feral Strength		Ability	Constant Effect	Self	
+007A7C41	GHL_AbDisguisePenaltyUI	Disguise		Ability	Fire and Forget	Self	
+007A888A	GHL_AbPerkBloodyVats	Bloody VATS		Ability	Constant Effect	Self	
+007A888B	GHL_AbPerkFaultySpots	Faulty Spots		Ability	Constant Effect	Self	
+007ABE06	GHL_AbScienceMonsterSpell	Science Monster Rage		Spell	Fire and Forget	Self	
+007ACD3A	GHL_SURV_AbRadsHeal	Rad Heals Health		Ability	Constant Effect	Contact	
+007ACD3B	GHL_SURV_RadiationImmunity	Radiation Heals		Ability	Constant Effect	Self	
+007AD050	crHoneyBeastBehemothHulkingPresence	Hulking Presence		Ability	Constant Effect	Self	
 007AD40F	GHL_LGN_AbFeralRageBonuss	Feral Rage Bonus Add Perk		Spell	Constant Effect	Self	
 007AD438	GHL_RadUseExplosion	Radiation Explosion		Spell	Fire and Forget	Contact	
 007AD439	GHL_AbPerkMadScientistUseSpell	Mad Scientist		Spell	Constant Effect	Self	
@@ -1674,10 +1687,6 @@ SPEL_FormID	SPEL_EDID	SPEL_FULL	SPEL_DESC	SPIT_Type	SPIT_CastType	SPIT_Delivery	
 007AE64D	GHL_GlowVFX_Charged	Glow VFX		Ability	Constant Effect	Self	
 007AE745	GHL_SURV_AbGhoulCharisma	Ghoul Charisma		Ability	Constant Effect	Self	
 007AE746	GHL_SURV_AbPerkDiseaseImmunity	Disease Immunity		Ability	Constant Effect	Self	
-007AD32C	AbPerkRoastProof	Fireproof		Ability	Constant Effect	Self	
-007AD48C	DEL_WIP4_Legendary_PowerArmor_ReflectiveReflectSpell_Melee	Reflective Armor Reflect Melee Damage Spell		Ability	Constant Effect	Self	
-007AD48D	DEL_WIP4_Legendary_PowerArmor_ReflectiveRecieveSpell_Melee	Reflective Armor Recieve Melee Damage Spell		Ability	Fire and Forget	Target Actor	
-007AE497	RD01_Enc01_DamagingFloorSpell_PlatformSurface	Electrified Floor		Ability	Constant Effect	Self	
 007AEE1D	GHL_AbPerkGlowingOne01	Glowing One		Spell	Concentration	Contact	
 007AEE1E	GHL_AbPerkGlowingOneCloakSpell	Glowing One		Ability	Constant Effect	Self	
 007B11BC	ZZZ_SCORE_AbPerk_NukaX_FireResist			Ability	Constant Effect	Self	
@@ -1691,17 +1700,8 @@ SPEL_FormID	SPEL_EDID	SPEL_FULL	SPEL_DESC	SPIT_Type	SPIT_CastType	SPIT_Delivery	
 007B11BA	ZZZ_SCORE_NukaX_PerkFastReloadSpeedSpell	Speedloader		Spell	Fire and Forget	Self	
 007B228D	GHL_AbPerkGlowingOne02	Glowing One		Spell	Concentration	Contact	
 007B283B	SSE_FireHazard_WeedKiller	Fire Hazard		Spell	Fire and Forget	Contact	
-007B22BD	RD01_Enc04_HitSquadShieldShader_Spell	Epsilon Shield		Ability	Constant Effect	Self	
-007B2C00	Legendary_Weapon_ConductorsApplySpell	Conductor's Apply Spell		Ability	Constant Effect	Self	
-007B2C01	Legendary_Weapon_ConductorsTeamRestoreSpell	Conductor's Team Restore Spell		Spell	Concentration	Contact	
-007B2C02	Legendary_Weapon_ConductorsCloakSpell	Conductor's Cloak Spell		Spell	Fire and Forget	Self	
-007B3F0D	AbPerkPharmacist	Pharmacist		Ability	Constant Effect	Self	
-007B945A	DEL_Legendary_Weapon_PolishedSpell	Polished		Ability	Constant Effect	Self	
 007BBB78	InspirationalAuraEffect	Inspirational (Ally)		Spell	Concentration	Aimed	
-007B9AF9	RD01_Enc02_CameraShakeSpell	Camera Shake Spell		Spell	Fire and Forget	Self	
-007BB06E	RD01_CanteenSpell	Canteen: Restore Thirst	Slowly restores thirst over time	Ability	Constant Effect	Self	
 007C2877	AbPerkAwareness	Awareness		Ability	Constant Effect	Self	
-007BCEA8	Legendary_PowerArmor_ReflectiveVFXSpell	Reflective Armor Recieve Ballistic VFX Spell		Spell	Fire and Forget	Self	
 007C7374	GHL_AbPerkEyeOfTheHunter	Eye of the Hunter		Ability	Constant Effect	Self	
 007C7370	GHL_AbPerkPowerfulPresence	Powerful Presence		Ability	Constant Effect	Self	
 007C7373	GHL_AbPerkArmsOfSteel	Arms of Steel		Ability	Constant Effect	Self	
@@ -1720,24 +1720,30 @@ SPEL_FormID	SPEL_EDID	SPEL_FULL	SPEL_DESC	SPIT_Type	SPIT_CastType	SPIT_Delivery	
 007E8B92	ATX_CooldownSpell_BeerMysteryMachine	Beer Mystery Machine Cooldown		Spell	Fire and Forget	Self	
 007F68C9	ATX_BloodTransfusionPumpSpell	Blood Transfusion		Spell	Fire and Forget	Self	
 007F68C3	ATX_CooldownSpell_BloodTransfusionPump	Blood Transfusion Pump Cooldown		Spell	Fire and Forget	Self	
+007FA40D	SCORE_S21_IceBreaker_Spell_Explosion	Cryo Slow Explosion		Spell	Fire and Forget	Contact	
+007FA40C	zzz_SCORE_S21_IceBreaker_Spell	Cryo Slow		Spell	Fire and Forget	Contact	
+007FA3FB	CryoHazard	Cryo Hazard		Spell	Fire and Forget	Contact	
+007AC324	Legendary_Weapon_Electricians_ExplosionSpell	Electricians Weapon Explosion		Ability	Constant Effect	Self	
+00805AAB	AbPerkTormentor	Tormentor		Ability	Constant Effect	Self	
+0080B571	AbPerkAdrenaline	Adrenaline		Ability	Constant Effect	Self	
+0080F8F7	SCORE_S21_AbPerkUnshakeable_Beliefs	Unshakeable Beliefs		Ability	Constant Effect	Self	
+0080F8F6	SCORE_S21_COMP_Unshakeable_Beliefs_Dottie_Buff	Unshakable Beliefs		Spell	Constant Effect	Self	
+00820D79	Perk_OneGunArmy_LimbDamageSpell	One Gun Army		Ability	Constant Effect	Self	
+00820D77	Perk_Enforcer_LimbDamageSpell	Enforcer		Ability	Constant Effect	Self	
+00820D76	Perk_BoneShatterer_LimbDamageSpell	Ghoul Melee Limb Damage		Ability	Constant Effect	Self	
+00820D78	Perk_ModernRenegade_LimbDamageSpell	Modern Renegade		Ability	Constant Effect	Self	
 007FFF24	P62_SetBonus_SecretServiceDrifter_ReflectiveVFXSpell	Secret Settler Recieve Ballistic VFX Spell		Spell	Fire and Forget	Self	
 007FFF22	P62_SetBonus_SecretServiceDrifter_ReflectiveRecieveSpell	Secret Settler Recieve Ballistic Damage Spell		Ability	Fire and Forget	Target Actor	
 007FFF23	P62_SetBonus_SecretServiceDrifter_ReflectiveReflectSpell	Secret Settler Reflect Ballistic Damage Spell		Ability	Constant Effect	Self	
 007FFFED	P62_Grenade_Crackler_ElectricalHazardSpell	Crackler Grenade Electrical Hazard Spell		Spell	Concentration	Contact	
 008021A2	P62_Weapon_Tempest_ApplyBleedSpell	Tempest Apply Bleed Spell		Spell	Fire and Forget	Contact	
 00803408	P62_AbRaceAbilities_TheDrifter	Drifter Abilities		Ability	Constant Effect	Self	
-007FA40D	SCORE_S21_IceBreaker_Spell_Explosion	Cryo Slow Explosion		Spell	Fire and Forget	Contact	
-007FA40C	zzz_SCORE_S21_IceBreaker_Spell	Cryo Slow		Spell	Fire and Forget	Contact	
-007FA3FB	CryoHazard	Cryo Hazard		Spell	Fire and Forget	Contact	
-007AC324	Legendary_Weapon_Electricians_ExplosionSpell	Electricians Weapon Explosion		Ability	Constant Effect	Self	
 00804C42	P62_AbTheDrifter_FortifySpeedSpell	Drifter Ability Fortify Speed		Ability	Constant Effect	Self	
 008063AB	P62_AbTheDrifter_ChameleonSpell	Drifter Ability Chameleon Spell		Ability	Constant Effect	Self	
 0080F7FC	P62_Legendary_Armor_ReboundersRecieveSpell	Rebounders Armor Recieve Ballistic Damage Spell		Ability	Fire and Forget	Target Actor	
 0080F7FA	P62_Legendary_Armor_ReboundersVFXSpell	Rebounders Armor Recieve Ballistic VFX Spell		Spell	Fire and Forget	Self	
 0080F7FB	P62_Legendary_Armor_ReboundersReflectSpell	Rebounders Armor Reflect Ballistic Damage Spell		Ability	Constant Effect	Self	
 0080F858	P62_Legendary_Armor_CrusadersSPECIALSpell	Crusaders S.P.E.C.I.A.L. Spell		Ability	Constant Effect	Self	
-00805AAB	AbPerkTormentor	Tormentor		Ability	Constant Effect	Self	
-0080B571	AbPerkAdrenaline	Adrenaline		Ability	Constant Effect	Self	
 0080F9C0	P62_LegendaryArmor_MetabolicFortifySpell	Metabolic Fortify Food & Chem Spell		Ability	Constant Effect	Self	
 0080FC31	P62_Legendary_Weapon_BrutalistsOnKillSpell	Brutalist's Weapon On Kill Spell		Spell	Fire and Forget	Self	
 0080FC30	P62_Legendary_Weapon_BrutalistsSPECIALSpell	Brutalist's Weapon S.P.E.C.I.A.L. Spell		Spell	Fire and Forget	Self	
@@ -1745,13 +1751,7 @@ SPEL_FormID	SPEL_EDID	SPEL_FULL	SPEL_DESC	SPIT_Type	SPIT_CastType	SPIT_Delivery	
 00811F94	P62_Legendary_Weapon_SightSeersSpell	Sightseer's Fortify Damage Spell		Ability	Constant Effect	Self	
 00813224	P62_Legendary_Armor_OverLoadersEMPSpell	Over-Loader's Power Armor EMP Spell		Spell	Fire and Forget	Contact	
 008154F1	P62_Legendary_Armor_VoltaicEMPSpell	Voltaic Power Armor EMP Spell		Spell	Fire and Forget	Contact	
-0080F8F7	SCORE_S21_AbPerkUnshakeable_Beliefs	Unshakeable Beliefs		Ability	Constant Effect	Self	
-0080F8F6	SCORE_S21_COMP_Unshakeable_Beliefs_Dottie_Buff	Unshakable Beliefs		Spell	Constant Effect	Self	
 00818005	P62_Legendary_Armor_VoltaicSprintSpell	Voltaic Power Armor Sprint Spell		Ability	Constant Effect	Self	
-00820D79	Perk_OneGunArmy_LimbDamageSpell	One Gun Army		Ability	Constant Effect	Self	
-00820D77	Perk_Enforcer_LimbDamageSpell	Enforcer		Ability	Constant Effect	Self	
-00820D76	Perk_BoneShatterer_LimbDamageSpell	Ghoul Melee Limb Damage		Ability	Constant Effect	Self	
-00820D78	Perk_ModernRenegade_LimbDamageSpell	Modern Renegade		Ability	Constant Effect	Self	
 00832CB7	SCORE_S22_CooldownSpell_SarsaparillaMachine	Sunset Sarsaparilla Vending Machine Cooldown		Spell	Fire and Forget	Self	
 00835A75	P62_Weapon_crTempest_ApplyBleedSpell	Tempest Apply Bleed Spell		Spell	Fire and Forget	Contact	
 00835A74	P62_crGrenade_Crackler_ElectricalHazardSpell	Crackler Grenade Electrical Hazard Spell		Spell	Concentration	Contact	
@@ -1773,6 +1773,7 @@ SPEL_FormID	SPEL_EDID	SPEL_FULL	SPEL_DESC	SPIT_Type	SPIT_CastType	SPIT_Delivery	
 0084490D	HazardThirstZapperNukaCherrySpell	Radiation		Spell	Concentration	Contact	
 0084523D	AbPerkGrimReapersSprint	Grim Reaper's Sprint		Ability	Constant Effect	Self	
 0084BF8A	GHL_AbPerkBombScientist	Bomb Scientist		Ability	Constant Effect	Self	
+0085659A	TestLightingDebugSpell	Debug Lighting		Ability	Constant Effect	Self	
 007D2CAD	Burn_NinjaStealthSpell	Stealth Spell		Ability	Constant Effect	Self	
 0080100C	Burn_Sp_RadscorpionFireSting	Burning Radscorpion Fire Sting		Spell	Fire and Forget	Contact	
 0080108B	Burn_StingwingAbraxoSpit	Abraxodyne Corrosion		Spell	Fire and Forget	Contact	
@@ -1867,7 +1868,6 @@ SPEL_FormID	SPEL_EDID	SPEL_FULL	SPEL_DESC	SPIT_Type	SPIT_CastType	SPIT_Delivery	
 00853D34	AbRadHogFury	AbRadHogFury		Spell	Fire and Forget	Self	
 00853D3B	SCORE_S23_CooldownSpell_ChemMysteryMachine	Chem Mystery Machine Cooldown		Spell	Fire and Forget	Self	
 00853E05	Burn_AbraxoNukeWeather_SP	Abraxodyne Weather		Disease	Constant Effect	Self	
-0085659A	TestLightingDebugSpell	Debug Lighting		Ability	Constant Effect	Self	
 008571A5	ChameleonArmorStealthIconSpell	Chameleon		Ability	Constant Effect	Self	
 008571AA	Mutation_ChameleonStealthIcon_Spell	Chameleon		Ability	Constant Effect	Self	
 008591E1	crGlowingRadHogCloak	Radiation Cloak		Ability	Constant Effect	Self	
@@ -1877,15 +1877,15 @@ SPEL_FormID	SPEL_EDID	SPEL_FULL	SPEL_DESC	SPIT_Type	SPIT_CastType	SPIT_Delivery	
 0085AD12	Burn_E01_CameraShakeSpellIntense	Camera Shake Spell		Spell	Fire and Forget	Self	
 0085AD13	Burn_E01_EarthquakeSpell	Camera Shake Spell		Spell	Fire and Forget	Self	
 0085A856	SSE_LandmineTrapExplosionSpell	Susan's Surprise Explosion		Spell	Fire and Forget	Contact	
-00868BBE	AbRaceBigfoot			Ability	Constant Effect	Self	
-00868BBF	crBigfootSlam	Bigfoot Slam		Spell	Fire and Forget	Contact	
-00868BBD	crBigfootStomp	Bigfoot Stomp		Spell	Fire and Forget	Contact	
 00868F79	Burn_E02_FlameThrowerFireHazardSpell2x	Strong Fire Hazard		Spell	Fire and Forget	Contact	
 00885C6D	zzz_SPELL_BuildUp_AdVictoriamSpell	Ad Victoriam		Spell	Fire and Forget	Self	
 00885C6C	zzz_SPELL_PowerAttack_AdVictoriamSpell	Ad Victoriam		Spell	Constant Effect	Self	
 0089174C	Burn_E02_EarthquakeSpell	Camera Shake Spell		Spell	Fire and Forget	Self	
 0089174D	Burn_E02_EarthquakeSpell_Long	Camera Shake Spell		Spell	Fire and Forget	Self	
 00897408	SCORE_MiniSeason_LoveHurts_ChemDuration	Rush of Love		Spell	Fire and Forget	Self	
+00868BBE	AbRaceBigfoot			Ability	Constant Effect	Self	
+00868BBF	crBigfootSlam	Bigfoot Slam		Spell	Fire and Forget	Contact	
+00868BBD	crBigfootStomp	Bigfoot Stomp		Spell	Fire and Forget	Contact	
 0089ADB5	SPELL_FurnitureBuffAccuracy	Accuracy Boost		Spell	Fire and Forget	Self	
 008A6032	crEnemyNormalization_Events_BossEnemy_Spell	Enemy Normalization Spell		Ability	Fire and Forget	Self	
 008A6031	crEnemyNormalization_Events_NormalEnemy_Spell	Enemy Normalization Spell		Ability	Fire and Forget	Self	
@@ -1908,6 +1908,8 @@ SPEL_FormID	SPEL_EDID	SPEL_FULL	SPEL_DESC	SPIT_Type	SPIT_CastType	SPIT_Delivery	
 008C908D	HTO_crEyeBombSuiciderSpell	Infestation EyeBomb Suicider Spell		Ability	Constant Effect	Self	
 008D1C9C	ATX_Buff_SharpeningStone	Sharpening Stone		Spell	Fire and Forget	Self	
 008D3854	AbPerkFreightTrain	Freight Train		Ability	Constant Effect	Self	
+008EE43D	ATX_BuffChaEnd	Charisma & Endurance Boost		Spell	Fire and Forget	Self	
+008EE4D5	GHL_abPerkBaseRadResist	Ghoul Rad Affinity		Ability	Constant Effect	Self	
 008E0683	zzz_SDOW_DailyOps_Mutation_DeepCut	Deep Cutting Spell	Slow targets down on attack	Ability	Constant Effect	Self	
 008E0682	zzz_SDOW_DailyOps_Mutation_DeepCut_DMGSpell	Deep Cutting Spell	Slow targets down on attack	Spell	Fire and Forget	Contact	
 008EC62D	NailerBleedSpell	Bleed		Spell	Fire and Forget	Contact	
@@ -1915,8 +1917,6 @@ SPEL_FormID	SPEL_EDID	SPEL_FULL	SPEL_DESC	SPIT_Type	SPIT_CastType	SPIT_Delivery	
 008F2AEE	AbCrowdControl	Crowd Control		Ability	Constant Effect	Self	
 008F2AED	LoveTap	Love Tap		Spell	Fire and Forget	Self	
 008F2AEF	AbMindOverMatter	Mind Over Matter		Ability	Constant Effect	Self	
-008EE43D	ATX_BuffChaEnd	Charisma & Endurance Boost		Spell	Fire and Forget	Self	
-008EE4D5	GHL_abPerkBaseRadResist	Ghoul Rad Affinity		Ability	Constant Effect	Self	
 008FBD14	AbPerkMisterSandman	Mister Sandman		Ability	Constant Effect	Self	
 00900A5D	AbPerkConcentratedFire	Concentrated Fire		Ability	Constant Effect	Self	
 008B7A77	WorldPets_DogBuff	Dog Pet		Ability	Constant Effect	Self	
@@ -1924,10 +1924,10 @@ SPEL_FormID	SPEL_EDID	SPEL_FULL	SPEL_DESC	SPIT_Type	SPIT_CastType	SPIT_Delivery	
 008BA6D3	WorldPets_RadhogBuff	Radhog Pet		Ability	Constant Effect	Self	
 008C9399	WorldPets_DeathclawBuff	Deathclaw Pet		Ability	Constant Effect	Self	
 008D9BF1	WorldPets_DisabledBuffs	Pet Buffs	Pet buffs are disabled	Ability	Constant Effect	Self	
-008DC2D0	zzz_WorldPets_DeathclawBuff_PetProwess	Combat Prowess		Ability	Constant Effect	Self	
-008DC2D1	zzz_WorldPets_RadhogBuff_PetProwess	Combat Prowess		Ability	Constant Effect	Self	
-008DC2D2	zzz_WorldPets_DogBuff_PetProwess	Combat Prowess		Ability	Constant Effect	Self	
-008DC2CF	zzz_WorldPets_CatBuff_PetProwess	Combat Prowess		Ability	Constant Effect	Self	
+008DC2D0	WorldPets_DeathclawBuff_PetProwess	Combat Prowess		Ability	Constant Effect	Self	
+008DC2D1	WorldPets_RadhogBuff_PetProwess	Combat Prowess		Ability	Constant Effect	Self	
+008DC2D2	WorldPets_DogBuff_PetProwess	Combat Prowess		Ability	Constant Effect	Self	
+008DC2CF	WorldPets_CatBuff_PetProwess	Combat Prowess		Ability	Constant Effect	Self	
 009005E9	ATX_COMP_Cambot_Reporters_Instinct_Buff	Reporter's Instinct		Spell	Constant Effect	Self	
 009005EA	ATX_COMP_AbPerkReporters_Instinct	Reporter's Instinct		Ability	Constant Effect	Self	
 00905317	ATX_AbPerk_TeaWizard_LuckyLeaf01	Lucky-Leaf Spell		Ability	Constant Effect	Self	
@@ -1944,5 +1944,19 @@ SPEL_FormID	SPEL_EDID	SPEL_FULL	SPEL_DESC	SPIT_Type	SPIT_CastType	SPIT_Delivery	
 00928017	HolyFire	Holy Fire		Spell	Fire and Forget	Self	
 0092A00C	MintyBreatherSpell	Friendly Frost		Spell	Fire and Forget	Self	
 0092A0E9	SDOW_SlasherFanGhost_CamoCloak_spell	Slasher Ghost Ability		Ability	Constant Effect	Self	
+0092D8CA	WorldPets_WellRested	Pet Rested	Spell to apply the Well Rested buff (used programmatically).    Gain more World Pet EXP while the buff is active.	Spell	Constant Effect	Self	
 0092D088	SDOW_abBlackAndWhiteVision	abBlackAndWhiteVision		Ability	Fire and Forget	Self	
+0093BD23	WorldPets_DogBuff_Buff02	Bounty Sniffer		Ability	Constant Effect	Self	
+0093BD19	WorldPets_DeathclawBuff_Buff01	Dark Titan		Ability	Constant Effect	Self	
+0093BD1A	WorldPets_CatBuff_Buff02	Mega Bits		Ability	Constant Effect	Self	
+0093BD18	WorldPets_DeathclawBuff_Buff02	Fun-Festation		Ability	Constant Effect	Self	
+0093BD21	WorldPets_DogBuff_CarryCapacity	Pet Carrier		Ability	Constant Effect	Self	
+0093BD1F	WorldPets_RadhogBuff_Buff01	Goo-Getter		Ability	Constant Effect	Self	
+0093BD22	WorldPets_RadhogBuff_CarryCapacity	Pet Carrier		Ability	Constant Effect	Self	
+0093BD20	WorldPets_DeathclawBuff_CarryCapacity	Pet Carrier		Ability	Constant Effect	Self	
+0093BD1C	WorldPets_CatBuff_Buff01	Bait Finder		Ability	Constant Effect	Self	
+0093BD1E	WorldPets_DogBuff_Buff01	Stimpak Fetcher		Ability	Constant Effect	Self	
+0093BD1D	WorldPets_RadhogBuff_Buff02	Nuke Harvest		Ability	Constant Effect	Self	
+0093BD1B	WorldPets_CatBuff_CarryCapacity	Pet Carrier		Ability	Constant Effect	Self	
 0093B762	SDOW_GhostBoyDetectLifeClientSpell	Detect Life		Spell	Fire and Forget	Self	
+00949079	RadiationHazardStrong_Self	Strong Radiation Self		Spell	Fire and Forget	Self	
