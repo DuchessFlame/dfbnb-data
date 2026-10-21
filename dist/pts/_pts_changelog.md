@@ -430,7 +430,7 @@ _Couldn't key this file to records; contents differ._
 
 ## `buffs/scout-banners.json`  ·  +0 / -0 / ~0
 
-## `bugged_plans.json`  ·  +93 / -23 / ~4
+## `bugged_plans.json`  ·  +93 / -0 / ~4
 
 **Added (93)**
 - Plan: LMG Calibrated .308 Receiver  `008D5AA7`
@@ -474,31 +474,6 @@ _Couldn't key this file to records; contents differ._
 - Plan: 50 Cal Machine Gun Severe Receiver  `00948266`
 - Plan: 50 Cal Machine Gun Refined Receiver  `00948267`
 - …and 53 more
-
-**Removed (23)**
-- Plan: Cupid Cappy Sign  `0065DD0A`
-- Plan: Tunnel of Love Snow Globe  `0067F169`
-- Plan: Tunnel of Love Poster  `00682118`
-- Recipe: Nuka-Dog  `0068B8EB`
-- Recipe: Yao Guai Pastry  `0068B8EC`
-- Recipe: Gulper Stuffed Foot  `0068B8ED`
-- Recipe: Fried Radroach On A Stick  `0068B8EE`
-- Recipe: Fried Scorpion On A Stick  `0068B8EF`
-- Recipe: Brahmin Burgers  `0068B8F0`
-- Recipe: Caramel Mutfruit  `0068B8F1`
-- Recipe: Carnival Pie  `0068B8F2`
-- Recipe: Radscorpion Kebab  `0068B8F3`
-- Plan: Secret Settler Left Leg  `007FFEEF`
-- Plan: Secret Settler Helmet  `007FFEF0`
-- Plan: Secret Settler Right Leg  `007FFEF1`
-- Plan: Secret Settler Left Arm  `007FFEF2`
-- Plan: Secret Settler Right Arm  `007FFEF3`
-- Plan: Secret Settler Chest Piece  `007FFEF4`
-- Plan: Crackler Grenade  `007FFFDA`
-- Plan: Tempest  `00802192`
-- Plan: Chaos Engine  `00802193`
-- Plan: Splinter  `00802194`
-- Plan: Love Tap Paint  `008F20F0`
 
 **Changed (4)**
 - Plan: Plasma Caster Short Scope  `00590FC5` — fields: bugs
@@ -1642,7 +1617,7 @@ _Couldn't key this file to records; contents differ._
 ## `locations/all_locations.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `make_plan_checklist.json`  ·  +314 / -23 / ~99
+## `make_plan_checklist.json`  ·  +314 / -23 / ~86
 
 **Added (314)**
 - Plan: Secret Settler Left Leg  `PLAN_007FFEEF`
@@ -1712,7 +1687,7 @@ _Couldn't key this file to records; contents differ._
 - Cat Tamer Helmet  `RECIPE_00900A92`
 - Cat Tamer Outfit  `RECIPE_00900A93`
 
-**Changed (99)**
+**Changed (86)**
 - Plan: Bowie Knife  `PLAN_00436FF0` — fields: routes
 - Plan: Golf Club  `PLAN_00436FF5` — fields: routes
 - Plan: Pipe Wrench  `PLAN_00436FFA` — fields: routes
@@ -1737,23 +1712,23 @@ _Couldn't key this file to records; contents differ._
 - Plan: Vault-Tec University Diploma  `PLAN_006366FF` — fields: routes
 - Plan: Vault-Tec University Pennant  `PLAN_00636706` — fields: routes
 - Plan: Vault-Tec University Poster  `PLAN_0063670C` — fields: routes
-- Plan: Cupid Cappy Sign  `PLAN_0065DD0A` — fields: routes
-- Plan: Tunnel of Love Snow Globe  `PLAN_0067F169` — fields: routes
-- Plan: Tunnel of Love Poster  `PLAN_00682118` — fields: routes
-- Recipe: Nuka-Dog  `PLAN_0068B8EB` — fields: routes
-- Recipe: Yao Guai Pastry  `PLAN_0068B8EC` — fields: routes
-- Recipe: Gulper Stuffed Foot  `PLAN_0068B8ED` — fields: routes
-- Recipe: Fried Radroach On A Stick  `PLAN_0068B8EE` — fields: routes
-- Recipe: Fried Scorpion On A Stick  `PLAN_0068B8EF` — fields: routes
-- Recipe: Brahmin Burgers  `PLAN_0068B8F0` — fields: routes
-- Recipe: Caramel Mutfruit  `PLAN_0068B8F1` — fields: routes
-- Recipe: Carnival Pie  `PLAN_0068B8F2` — fields: routes
-- Recipe: Radscorpion Kebab  `PLAN_0068B8F3` — fields: routes
 - Plan: Ultracite Terror Sword  `PLAN_00792EAD` — fields: routes
 - Plan: Boiling Point  `PLAN_00793014` — fields: routes
 - Plan: Valkyrie  `PLAN_00793438` — fields: routes
 - Plan: Resolve Breaker  `PLAN_00793502` — fields: routes
-- …and 59 more
+- Plan: Flatliner  `PLAN_00793515` — fields: routes
+- Plan: Lickety-Split  `PLAN_00793811` — fields: routes
+- Plan: Cauterizer  `PLAN_00793859` — fields: routes
+- Plan: Drill Fist  `PLAN_00793A43` — fields: routes
+- Plan: Vulcan Left Arm  `PLAN_00793E6A` — fields: routes
+- Plan: Vulcan Right Arm  `PLAN_00793E6B` — fields: routes
+- Plan: Vulcan Helmet  `PLAN_00793E6C` — fields: routes
+- Plan: Vulcan Left Leg  `PLAN_00793E6D` — fields: routes
+- Plan: Vulcan Right Leg  `PLAN_00793E6E` — fields: routes
+- Plan: Vulcan Torso  `PLAN_00793E6F` — fields: routes
+- Plan: Vulcan Rusty Knuckles  `PLAN_00793E70` — fields: routes
+- Plan: Vulcan Optimized Bracers  `PLAN_00793E71` — fields: routes
+- …and 46 more
 
 ## `meat.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
@@ -2215,7 +2190,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S25_PlayerTitles_Prefix_Outdoor  `SCORE_S25_PlayerTitles_Prefix_Outdoor` — fields: imageUrl, images
 - SCORE_S25_PlayerTitles_Suffix_Globetrotter  `SCORE_S25_PlayerTitles_Suffix_Globetrotter` — fields: imageUrl, images
 - SCORE_S25_PlayerTitles_Suffix_Pioneer  `SCORE_S25_PlayerTitles_Suffix_Pioneer` — fields: imageUrl, images
-- SFS09_PlayerTitles_Suffix_Manager  `SFS09_PlayerTitles_Suffix_Manager` — fields: debug, howToObtain
+- SFS09_PlayerTitles_Suffix_Manager  `SFS09_PlayerTitles_Suffix_Manager` — fields: howToObtain
 - …and 1 more
 
 ## `titles_player_generator.json`  ·  changed (structural)
