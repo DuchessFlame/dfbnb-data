@@ -3,7 +3,8 @@ name: DFBNB Patch Build
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 */6 * * *'
+    # :17 past, not on the hour: GitHub delays or drops top-of-hour schedules under load
+    - cron: '17 */6 * * *'
   push:
     branches: [ main ]
     paths:

@@ -14,7 +14,8 @@ name: DFBNB PTS Build
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 */12 * * *'        # midnight & noon UTC
+    # :17 past, not on the hour: GitHub delays or drops top-of-hour schedules under load
+    - cron: '17 */12 * * *'       # 00:17 & 12:17 UTC
   push:
     branches: [ main ]
     paths:
