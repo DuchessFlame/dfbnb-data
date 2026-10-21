@@ -206,7 +206,7 @@ MGEF_FormID	EDID	DATA_Flags_Hex	Detrimental	KeywordCount	Keywords_Flat
 0019C79A	AbFortifyMeleeDmg	00000A02	0	0	
 0019FFB8	abDeathMessageEffect	00000000	0	0	
 001A03FB	StaggerEffect	10001005	1	0	
-001A03FD	DamageHealthContact	00000805	1	0	
+001A03FD	DamageHealthContact	00000805	1	1	DamageTypeBleed[008E065E]
 0002A74C	CA_AddictionEffect	00000000	0	0	
 0002B4DB	abHandyHoverFX	08000A02	0	0	
 0002B6D8	abProtectronRaceEffect	18000A02	0	1	robotCanSelfDestruct[001F1A78]
@@ -1940,8 +1940,11 @@ MGEF_FormID	EDID	DATA_Flags_Hex	Detrimental	KeywordCount	Keywords_Flat
 0061236C	DEL_WIP4_Legendary_Armor_AddSuperDurabilityPerk	00008E00	0	0	
 0061236B	Legendary_PowerArmor_DurabilityAddPerk	00008000	0	0	
 006134EE	Legendary_CloakOnMeleeEffect	00008000	0	0	
+0061DAD7	RE_Travel_Zetan_04FireDamageEffect_VFXONLY	04001245	1	2	DamageTypeFire[0004A0C8] | NoRicochet[002049E5]
 0061285C	zzz_DailyOps_Ench_VolatileExplosionEffect	04000205	1	0	
 0061961B	DailyOps_Ench_PRCBossBurn_Effect	04001005	1	1	DamageTypeFire[0004A0C8]
+00620A1F	ATX_COMP_Doberman_PerkEffect	00000902	0	1	ATX_DispellFortifyAgility[005EDEE1]
+00620A20	ATX_COMP_Doberman_FetchEffect	00008002	0	0	
 0061F69C	ATX_COMP_Mechanic_AbFortifyRepair	00000902	0	1	ATX_COMP_Mechanic_DispellFortifyRepair[0061F696]
 0061F68F	SCORE_S5_COMP_Inspector_DaphnePerk	00008C02	0	0	
 0061F691	ATX_COMP_Mechaniic_AbFortifyCharisma	00000902	0	1	ATX_DispellFortifyCharisma[0061F6AE]
@@ -1956,9 +1959,6 @@ MGEF_FormID	EDID	DATA_Flags_Hex	Detrimental	KeywordCount	Keywords_Flat
 00620382	SCORE_S5_COMP_Inspector_SmokeBombEffect_UNUSED	00000102	0	0	
 00620391	zzz_Festive_HolidayGift_Loot_Tier_01_Effect_v2COPY0002	08008E10	0	0	
 00620392	Spooky_TreatBag_Loot_Effect	08008E10	0	0	
-0061DAD7	RE_Travel_Zetan_04FireDamageEffect_VFXONLY	04001245	1	2	DamageTypeFire[0004A0C8] | NoRicochet[002049E5]
-00620A1F	ATX_COMP_Doberman_PerkEffect	00000902	0	1	ATX_DispellFortifyAgility[005EDEE1]
-00620A20	ATX_COMP_Doberman_FetchEffect	00008002	0	0	
 00621C1D	HeadHunter_AddPerk	00008000	0	0	
 00621FAF	E07A_Mothman_Spell_Shadow_VFX	00001240	0	1	NoRicochet[002049E5]
 00623874	E07B_Invaders_TeleportShader_VFXONLY	04000040	0	1	NoRicochet[002049E5]
@@ -1976,6 +1976,13 @@ MGEF_FormID	EDID	DATA_Flags_Hex	Detrimental	KeywordCount	Keywords_Flat
 0062B799	AbPerkFortifyResistCryo	00000A02	0	0	
 0062B7A7	Legendary_Armor_FortifySprintAPCost	00008A02	0	0	
 0062B7A6	Legendary_Armor_FortifyJumpHeight	00008A0A	0	0	
+00632702	FlatwoodsMonster_CryoResist_Effect	00000802	0	0	
+006326FF	FlatwoodsMonster_FireResist_Effect	00000802	0	0	
+00632700	FlatwoodsMonster_EnergyResist_Effect	00000802	0	0	
+00632705	FlatwoodsMonster_BallisticResist_Effect	00000802	0	0	
+00632701	FlatwoodsMonster_PoisonResist_Effect	00000802	0	0	
+00632703	FlatwoodsMonsterZetanCloak_Effect	00008000	0	0	
+00632704	FlatwoodsMonster_FortifyDamageAll_Effect	00000802	0	0	
 0062CA67	Legendary_SpookedAPEffect	00008000	0	0	
 0062D31A	ZZZ_Legendary_Weapon_CheerLeaderAdddPerk	00008000	0	0	
 0062D860	AbPerkFortifyActionPoints	00008A02	0	0	
@@ -1992,9 +1999,12 @@ MGEF_FormID	EDID	DATA_Flags_Hex	Detrimental	KeywordCount	Keywords_Flat
 00631CDC	zzz_Legendary_CollectorEffect_old	00008000	0	0	
 00631CDD	Legendary_IncreaseAllyResistsAreaEffect	00008000	0	0	
 00631CCE	abLegendaryFortifyResistCryoAura	00000A02	0	0	
+00633457	FlatwoodsMonster_RadResist_Effect	00000802	0	0	
+00635A05	E01C_Tales_Dark_FlatwoodsMonster_Stunned_Effect	00000004	1	0	
+006361A1	V94_DamageHealth_OnHit	00000805	1	0	
+006361A0	V94_DamageHealth_OnHitTaken	00000805	1	0	
 00632E36	HalloweenCandy_NukaShineDurationEffect	0000094A	0	1	AlcoholEffect[0005240A]
 006333B6	abPowerArmorSkellScream_Helmet_FX	10009208	0	0	
-00636AFB	VaultFed_NoHungerNoThirst_Effect	10000002	0	0	
 0063367F	ZZZ_HeavyHitter_Effect01	00000205	1	0	
 00633680	ZZZ_Legendary_Weapon_HeavyHitterAdddPerk	00008000	0	0	
 006337C2	ZZZ_Bruisers_ExtraDamage	00000802	0	0	
@@ -2010,48 +2020,20 @@ MGEF_FormID	EDID	DATA_Flags_Hex	Detrimental	KeywordCount	Keywords_Flat
 00634701	crHazardReduceCryoResist	00000007	1	0	
 00634703	Legendary_ReduceEnemyResistsAreaEffect	00008000	0	0	
 00635072	E07A_Mothman_CultistHighPriestReward_Effect	08008E10	0	0	
-00636720	E07A_Mothman_IMOD_MothDust	04000964	1	0	
-0063DA9A	XPD_Pitt01_ObjMod_CarryAndThrow_Slow_Effect	00001A06	1	0	
-0063F04C	zzz_XPD_ExpeditionPackage_Loot	08008E10	0	0	
-006406E2	XPD_Fuel_Recipe_RewardBuff_Effect	00000802	0	0	
-00632702	FlatwoodsMonster_CryoResist_Effect	00000802	0	0	
-006326FF	FlatwoodsMonster_FireResist_Effect	00000802	0	0	
-00632700	FlatwoodsMonster_EnergyResist_Effect	00000802	0	0	
-00632705	FlatwoodsMonster_BallisticResist_Effect	00000802	0	0	
-00632701	FlatwoodsMonster_PoisonResist_Effect	00000802	0	0	
-00632703	FlatwoodsMonsterZetanCloak_Effect	00008000	0	0	
-00632704	FlatwoodsMonster_FortifyDamageAll_Effect	00000802	0	0	
-00633457	FlatwoodsMonster_RadResist_Effect	00000802	0	0	
-00635A05	E01C_Tales_Dark_FlatwoodsMonster_Stunned_Effect	00000004	1	0	
-006361A1	V94_DamageHealth_OnHit	00000805	1	0	
-006361A0	V94_DamageHealth_OnHitTaken	00000805	1	0	
 00636A66	zzz_VaultFed_NoHungerNoThirst_Effect	10000002	0	0	
+00636720	E07A_Mothman_IMOD_MothDust	04000964	1	0	
 0063E353	cr_ZetanDrone_HeadLaser	18000A02	0	0	
 0063EB7F	crGeneric_CryoSlow_Effect	04009C45	1	0	
-006419BE	crTrogSuperiorPoisonCloakDamageEffect	00001825	1	1	DamageTypePoison[0004B25B]
-006419BD	crTrogSuperiorPoisonCloakEffect	00001000	0	0	
-006446B7	XPD_CodeBlue_StimpakBuffEffect	00000802	0	0	
-00645470	PT_ExpeditionTeamBonusBuff	00000202	0	0	
 00644EA6	ATX_AbFortifyEndurance	00000902	0	1	ATX_DispellFortifyEndurance[00644EA4]
 00645D8A	E07B_Invaders_HomerBuff_FortifyDamageVsZetans	00000802	0	0	
 00645D8B	E07B_Invaders_HomerBuff_FortifyIntelligence	00000802	0	0	
-00648162	Alcohol_DiseaseResist	00000902	0	2	AlcoholEffect[0005240A] | AlcoholDispelEffect[0046983E]
-0064E505	XPD_Hub_Responders_SceneFade	04001C42	0	0	
+006482DA	crGeneric_CryoSlow_Effect_kappa	04009C45	1	0	
 00622F93	E08A_GulperShine_ME	00009408	0	1	DrinkTypeAlcohol[0010C416]
 006354A8	E09A_Launcher_Projectile	00000005	1	1	E09A_Launcher_Fireball_Keyword[006354A3]
 00636314	E09A_Launcher_EggGas_FXApplier	04001440	0	0	
 0063631B	E09A_Launcher_EggGas_IMODApplier	00000000	0	0	
 0064687A	E08A_Gulpershine_GulperSmackerBuff_ME	00000902	0	2	AlcoholEffect[0005240A] | AlcoholDispelEffect[0046983E]
-006482DA	crGeneric_CryoSlow_Effect_kappa	04009C45	1	0	
 0064CD22	PerkPopcornSlowHungerThirstEffect	00000802	0	0	
-00653FD8	SCORE_PittConsumable_FortifyCarryWeight	00000802	0	0	
-00653FD9	SCORE_Pitt_Consumable_XP3_Effect	14000100	0	1	SCORE_PittConsumable_XPEffectDispel[00653FD2]
-00653FDA	SCORE_Banner_RewardEffect	14008600	0	1	ATX_HasPittConsumableEffect[00653FD3]
-00653FD5	SCORE_Pitt_Consumable_XP2_Effect	14000100	0	1	SCORE_PittConsumable_XPEffectDispel[00653FD2]
-00653FD6	SCORE_Pitt_Consumable_XP4_Effect	14000100	0	1	SCORE_PittConsumable_XPEffectDispel[00653FD2]
-00653FD7	SCORE_Pitt_Consumable_XP1_Effect	14000100	0	1	SCORE_PittConsumable_XPEffectDispel[00653FD2]
-006548DE	XPD_Pitt02_ElectricChairDamageHealthContact	00000805	1	1	DamageTypeEnergy[0004A0CB]
-00654DC7	XPD_Pitt02_ObjMod_CarryAndThrow_Slow_Effect	00001A06	1	1	SURV_Icon_Encumbered[0050E532]
 00650153	ATX_AbFortifyIntelligence	00000902	0	1	ATX_DispellFortifyIntelligence[00650157]
 00650154	ATX_AbFortifyPerception	00000902	0	1	ATX_DispellFortifyPerception[0063164F]
 00650776	ReduceCharismaAlcohol	00000906	1	3	AlcoholEffect[0005240A] | AlcoholDispelEffect[0046983E] | EffectTypeDetrimental[004E75AB]
@@ -2063,6 +2045,24 @@ MGEF_FormID	EDID	DATA_Flags_Hex	Detrimental	KeywordCount	Keywords_Flat
 0065B0F1	E08B_RadiationHazardEffect	04000825	1	1	DamageTypeRadiation[0004B25C]
 0065C44B	Gulpershine_Duration	0000894A	0	2	AlcoholEffect[0005240A] | AlcoholDispelEffect[0046983E]
 0065CC33	E08A_Gulpershine_DamageResist	00000942	0	2	AlcoholEffect[0005240A] | AlcoholDispelEffect[0046983E]
+00636AFB	VaultFed_NoHungerNoThirst_Effect	10000002	0	0	
+0063DA9A	XPD_Pitt01_ObjMod_CarryAndThrow_Slow_Effect	00001A06	1	0	
+0063F04C	zzz_XPD_ExpeditionPackage_Loot	08008E10	0	0	
+006406E2	XPD_Fuel_Recipe_RewardBuff_Effect	00000802	0	0	
+006419BE	crTrogSuperiorPoisonCloakDamageEffect	00001825	1	1	DamageTypePoison[0004B25B]
+006419BD	crTrogSuperiorPoisonCloakEffect	00001000	0	0	
+006446B7	XPD_CodeBlue_StimpakBuffEffect	00000802	0	0	
+00645470	PT_ExpeditionTeamBonusBuff	00000202	0	0	
+00648162	Alcohol_DiseaseResist	00000902	0	2	AlcoholEffect[0005240A] | AlcoholDispelEffect[0046983E]
+0064E505	XPD_Hub_Responders_SceneFade	04001C42	0	0	
+00653FD8	SCORE_PittConsumable_FortifyCarryWeight	00000802	0	0	
+00653FD9	SCORE_Pitt_Consumable_XP3_Effect	14000100	0	1	SCORE_PittConsumable_XPEffectDispel[00653FD2]
+00653FDA	SCORE_Banner_RewardEffect	14008600	0	1	ATX_HasPittConsumableEffect[00653FD3]
+00653FD5	SCORE_Pitt_Consumable_XP2_Effect	14000100	0	1	SCORE_PittConsumable_XPEffectDispel[00653FD2]
+00653FD6	SCORE_Pitt_Consumable_XP4_Effect	14000100	0	1	SCORE_PittConsumable_XPEffectDispel[00653FD2]
+00653FD7	SCORE_Pitt_Consumable_XP1_Effect	14000100	0	1	SCORE_PittConsumable_XPEffectDispel[00653FD2]
+006548DE	XPD_Pitt02_ElectricChairDamageHealthContact	00000805	1	1	DamageTypeEnergy[0004A0CB]
+00654DC7	XPD_Pitt02_ObjMod_CarryAndThrow_Slow_Effect	00001A06	1	1	SURV_Icon_Encumbered[0050E532]
 00662898	PlayerBlindEffect	00000006	1	0	
 00664905	ExtraDamageFood	00000902	0	3	FoodEffect[00150738] | FoodDispelEffect_DamageAll[007ACB49] | SURV_EffectTypeFoodBuff[007ACB4A]
 006663ED	abPowerArmorJetpack_Union	1000920C	1	0	
@@ -2125,10 +2125,16 @@ MGEF_FormID	EDID	DATA_Flags_Hex	Detrimental	KeywordCount	Keywords_Flat
 0067B312	ATX_COMP_NukaBuff_NukaAgent_AbFortifyResistRadIngestion	00008902	0	1	ATX_COMP_Nukaagent_DispelResistRadIngestion[0067B2FD]
 0067B315	ATX_COMP_NukaBuff_NukaAgent_AbFortifyEndurance	00000902	0	1	ATX_DispellFortifyEndurance[00644EA4]
 0067B316	ATX_COMP_NukaBuff_NukaAgent_AbFortifyLuck	00000902	0	1	ATX_DispellFortifyLuck[0060497A]
-0067BBAD	cr_Heart_Boss_DamageReductionEffect	10000600	0	0	
 006779EE	AbFortifyResistPoison	00000A02	0	0	
 0067B5F2	abPowerArmorJetpack_Hanukkah	1000920C	1	0	
 0067D4BD	crUltraciteAbomination_DamageReductionEffect	10000600	0	0	
+0067F09D	NukaColaCandyRandomEffect	08008E10	0	0	
+006873DA	WST_Backpack_Relief_ApplyPerk	00008A02	0	0	
+006873DB	Legendary_Armor_WeightJunkAddPerk	00008000	0	0	
+006873C1	EnchThirstZapperInfiniteAmmo	00008000	0	0	
+0068ADF9	NWOT_Nukacade_EventsPointsEffect	04009000	0	0	
+0068DDFC	E09A_EarlyDeathPreventionEffect	00000000	0	0	
+0067BBAD	cr_Heart_Boss_DamageReductionEffect	10000600	0	0	
 0067F3A1	zzz_MutatedEvents_Giftbox_Resilient_Effect	08008E10	0	0	
 0067F39B	zzz_MutatedEvents_Giftbox_BlisteringCold_Effect	08008E10	0	0	
 0067F39D	zzz_MutatedEvents_Giftbox_CloudedToxins_Effect	08008E10	0	0	
@@ -2144,7 +2150,6 @@ MGEF_FormID	EDID	DATA_Flags_Hex	Detrimental	KeywordCount	Keywords_Flat
 0067F39A	zzz_MutatedEvents_Giftbox_ActiveCamo_Effect	08008E10	0	0	
 0067F3A3	zzz_MutatedEvents_Giftbox_SwiftStalker_Effect	08008E10	0	0	
 0067F399	zzz_MutatedEvents_Giftbox_Swiftfooted_Effect	08008E10	0	0	
-0067F09D	NukaColaCandyRandomEffect	08008E10	0	0	
 0067F969	zzzcrDailyOps_ZetanInquisitorBuffSpellEffect	00000000	0	0	
 0067F968	zzzcrDailyOps_ZetanInquisitorCloakSpellEffect	00000000	0	0	
 0067F96A	cr_Heart_Grafton_DamageReductionEffect	10000600	0	0	
@@ -2156,12 +2161,7 @@ MGEF_FormID	EDID	DATA_Flags_Hex	Detrimental	KeywordCount	Keywords_Flat
 0068596F	zzz_MutatedEvents_FieryInfusion_BurningAttacksEffect_Tier1	10008000	0	0	
 0068596E	zzz_MutatedEvents_FieryInfusion_CasterVFX	10001445	1	2	DamageTypeFire[0004A0C8] | InfusionKeyword[006982E4]
 00685970	zzz_MutatedEvents_FieryInfusion_FireDamageSpell_Effect	10001005	1	1	DamageTypeFire[0004A0C8]
-006873DA	WST_Backpack_Relief_ApplyPerk	00008A02	0	0	
-006873DB	Legendary_Armor_WeightJunkAddPerk	00008000	0	0	
-006873C1	EnchThirstZapperInfiniteAmmo	00008000	0	0	
-0068ADF9	NWOT_Nukacade_EventsPointsEffect	04009000	0	0	
 0068CC23	DailyOps_FreezingTouchSlow_Effect	04001947	1	0	
-0068DDFC	E09A_EarlyDeathPreventionEffect	00000000	0	0	
 0068FD0D	SCORE_S12_abPlayerJetpack_SecretService_Daring_Geo	10009208	0	0	
 0068FD0C	SCORE_S12_abPlayerJetpack_BoSInfantry_Daring_Geo	10009208	0	0	
 00690656	zzz_MutatedEvents_Giftbox_ReflectiveSkin_Effect	08008E10	0	0	
@@ -2203,6 +2203,7 @@ MGEF_FormID	EDID	DATA_Flags_Hex	Detrimental	KeywordCount	Keywords_Flat
 006A38A3	MOON_Ambush_ME_CargoCooldown	14008402	0	1	MOON_Ambush_Keyword_SoundCooldown[006B90D0]
 006ABA12	MOON_Ambush_ME_OguaCameraShake	00000002	0	0	
 006AF9AB	abHoneyBeastBeeSwarmRaceNoDisperseEffect	10000000	0	0	
+006B35A6	DEL_abJerseyDevilRaceEffect_Copy01	08008A02	0	0	
 006B4497	Moon_Herd_ScreenEffect	0000884A	0	0	
 006B6918	SCORE_s13_Roast_Proof_Joey_Bello	00000000	0	0	
 006B6924	CritCryoEffect_Coldshoulder	10009800	0	0	
@@ -2224,7 +2225,10 @@ MGEF_FormID	EDID	DATA_Flags_Hex	Detrimental	KeywordCount	Keywords_Flat
 006C3170	AbLegendary_Weapon_AccuracyNotInCombat	00000000	0	0	
 006C3174	AbLegendary_Weapon_DmgConsecutiveHits	00000000	0	0	
 006C449C	FireHazardEffectBlue	00000805	1	2	DamageTypeFire[0004A0C8] | NoRicochet[002049E5]
+006CA753	AddictionOddsFormulaP	00008004	1	0	
+006CA754	RestoreAddictionFormulaP	00000000	0	0	
 006CC9A8	Moon_Herd_DismemberActorEffect	04009000	0	0	
+006D5F01	AbPerkFortifyDmgEnergy	00000A02	0	0	
 006D37DE	AbLegendary_Gourmand_Description	00008000	0	0	
 006D37DF	AbLegendary_Weapon_Gourmand	00008A02	0	0	
 006D7188	abFortifySneakAudio	00000802	0	0	
@@ -2234,10 +2238,6 @@ MGEF_FormID	EDID	DATA_Flags_Hex	Detrimental	KeywordCount	Keywords_Flat
 006DED9B	AbPowerArmor_Excavator_MiningYield_AddPerk	00008A00	0	0	
 006E1B18	HungerThirstTierEffect	00008A02	0	0	
 006E1B19	AbLegendary_Overeater_Description	00008000	0	0	
-006B35A6	DEL_abJerseyDevilRaceEffect_Copy01	08008A02	0	0	
-006CA753	AddictionOddsFormulaP	00008004	1	0	
-006CA754	RestoreAddictionFormulaP	00000000	0	0	
-006D5F01	AbPerkFortifyDmgEnergy	00000A02	0	0	
 006DED22	ZZZ_CircuitBreakerEffect	00001005	1	0	
 006E23A9	CritLightningEffect	10009800	0	0	
 006E7A13	abPowerArmorJetpack_Communist_Blacklist	1000920C	1	0	
@@ -2412,21 +2412,6 @@ MGEF_FormID	EDID	DATA_Flags_Hex	Detrimental	KeywordCount	Keywords_Flat
 00789AC2	Storm_MQ13_HugoElectricVFXEffect	00001002	0	0	
 0078CF2F	abRadTurkeyRaceEffect	10000000	0	0	
 0078DB29	modWeapHeadhunterBleedEffect	00000805	1	0	
-00797DFF	GHL_UseRads_Effect	00008800	0	0	
-00797DFD	GHL_AbPerkRadioactiveFortifyDmgMelee	00008A02	0	0	
-00797DFE	zzz_GHL_BreathItIn_RadsBonusEffect	04000825	1	1	DamageTypeRadiation[0004B25C]
-00798016	GHL_LGN_ActionDietRestoreDrinkEffect	00010000	0	0	
-00798014	GHL_LGN_ActionDietRestoreHealthEffect	00000800	0	0	
-00798015	GHL_LGN_ActionDietRestoreFoodEffect	00010000	0	0	
-007981EF	zzz_GHL_LGN_WildCardExplosionEffect	04000A05	1	0	
-007981F1	zzz_GHL_LGN_WildCardPoisonEffect	00001105	1	1	DamageTypePoison[0004B25B]
-007981F0	zzz_GHL_LGN_WildCardFireEffect	10009005	1	1	DamageTypeFire[0004A0C8]
-007981F3	zzz_GHL_LGN_WildCardMasterSpell	00001F47	1	0	
-007981F4	zzz_GHL_LGN_WildCardRadiationEffect	04000805	1	1	DamageTypeRadiation[0004B25C]
-007981F2	zzz_GHL_LGN_WildCardFreezeEffect	04001947	1	0	
-0079841B	GHL_AbPerkRadioactiveFortifyDmgAllEffect	00008A02	0	0	
-00798441	GHL00_Quest_Blackout_LoadScreenIsActive	0000880A	0	0	
-00799AFE	GHL_AbPerkFortifyRadiationExpose	00000A06	1	0	
 0077B577	RestoreThirstLightMealEffect	00010800	0	0	
 0077B576	Conductor_FullyChargedEffect	00001800	0	0	
 0077B572	Conductor_ChargeCounterEffect	04008005	1	0	
@@ -2434,38 +2419,14 @@ MGEF_FormID	EDID	DATA_Flags_Hex	Detrimental	KeywordCount	Keywords_Flat
 0077B574	zzz_DeletedEffect	00000205	1	0	
 0077B573	ConductorExplosionSpellEffect	00000205	1	0	
 0078567F	MILE_CaravanEscort_BrahminCleanup	14000400	0	0	
-0079AF41	GHL_BattleGenesHealEffect	00000200	0	0	
 0079B70B	AbReduceDiseaseChanceAll	00000A02	0	0	
-007A1447	zzz_SSE_crHazardSlowEffect	00009806	1	0	
-007A1448	zzz_crSSE_BeezlebabyCloakEffect	00000000	0	0	
-007A18EA	zzz_GHL_AbPerkBombScientistFortifyExplosionDmg	00008A02	0	0	
-007A76AA	GHL_SURV_ReduceStrength	00000906	1	0	
-007A76AB	GHL_FeralTierEffect	00008A02	0	0	
-007A76AC	GHL_SURV_FeralNegative_Effect	00000206	1	0	
-007A76AD	GHL_SURV_Feral_Effect	00000004	1	1	GHL_SURV_EffectTypeFeral[007A769F]
-007A76AE	GHL_SURV_Chem_Effect	00010000	0	1	GHL_SURV_EffectTypeFeral[007A769F]
-007A76AF	GHL_SURV_AddFeral_Effect	00010004	1	2	PerkMunchyResistanceInvalidEffectType[00453385] | GHL_SURV_EffectType_IncreaseFeral[007A76A0]
-007A76B5	GHL_SURV_FeralVFX_FeralTier1Effect	00000E02	0	0	
-007A76B0	GHL_SURV_FeralVFX_FeralTier3Effect	00000E02	0	0	
-007A76B1	zzz_GHL_SURV_GlowManagerPerkEffect	00000A02	0	0	
-007A76B2	GHL_SURV_FeralVFX_FeralTier5Effect	00000E02	0	3	SURV_Icon_ColorRed[00001EC9] | GHL_SURV_EffectTypeFeral[007A769F] | GHL_SURV_FeralPenalty_Effect_Keyword[007A76A1]
-007A76B3	GHL_SURV_FeralVFX_FeralTier2Effect	00000E02	0	0	
-007A76B4	GHL_SURV_AddFeral_Potion_Effect	00010004	1	1	GHL_SURV_EffectType_IncreaseFeral[007A76A0]
-007A76B6	GHL_SURV_GlowUseRads_Effect	00008800	0	0	
-007A76A8	GHL_SURV_FeralVFX_FeralTier4Effect	00000E02	0	0	
-007A76A9	GHL_SURV_AddFeralPerk	00000E02	0	0	
-007A7C33	GHL_AbPerkSlowMoveSpeedEffect	00000A06	1	0	
-007A7C32	GHL_DisguiseSlowEffect	00009806	1	0	
 007A0C52	MILE_BrahminUpgrade_AddReflectArmorPerk01	04008E02	0	0	
 007A0C53	MILE_BrahminUpgrade_AddHealthRegenPerk01	04008E02	0	0	
 007A0C57	MILE_BrahminUpgrade_AddReflectArmorPerk02	04008E02	0	0	
 007A0C56	MILE_BrahminUpgrade_FortifyRadHealthMax	00008A02	0	0	
 007A0C55	MILE_BrahminUpgrade_FortifyHurryLength	00000A02	0	0	
 007A0C54	MILE_BrahminUpgrade_FortifyHealth	00000A02	0	0	
-007ABE05	GHL_abPerkScienceMonsterFortifyDmgAll	00000802	0	0	
-007ABF52	GHL00_Quest_TransformPlayer_BlackOutEffect	04000964	1	0	
-007ACD39	GHL_SURV_RadiationImmunityEffect	00000E02	0	0	
-007ACD38	GHL_SURV_RadsHealHealthEffect	00000200	0	0	
+007ABE16	SentryBot_AddPerk_FusionCores	00008000	0	0	
 0077459B	RD01_Enc01_PreventLimbDamageEffect	00001E07	1	0	
 0077459C	RD01_Enc01_DamageHealth_OnHit	00001805	1	0	
 007852AC	RD01_Enc01_DamagingFloorEffect	00000A45	1	1	DamageTypeEnergy[0004A0CB]
@@ -2582,9 +2543,7 @@ MGEF_FormID	EDID	DATA_Flags_Hex	Detrimental	KeywordCount	Keywords_Flat
 007ABE99	abEpicCloakApplyEffect	00009E00	0	0	
 007ABE9A	abEpicFrenzySpeedEffect	00009A00	0	0	
 007ABE98	abEpicSpeedApplyEffect	00009E00	0	0	
-007ABE16	SentryBot_AddPerk_FusionCores	00008000	0	0	
 007AC46C	Legendary_Weapon_ElectriciansAddPerkEffect	10000000	0	0	
-007AD04F	crHoneyBeastBehemothHulkingPresenceEffect	00000806	1	0	
 007AC88B	zzzLegendary_Weapon_StabilizersAddPerkEffect	00000000	0	0	
 007AC997	AbPerkFortifyStimpakHealing	00000B02	0	0	
 007AC9D7	DEL_WIP4_Legendary_Weapon_ToppersAddPerkEffect	00008E00	0	0	
@@ -2618,11 +2577,6 @@ MGEF_FormID	EDID	DATA_Flags_Hex	Detrimental	KeywordCount	Keywords_Flat
 007ACEB0	Legendary_PowerArmor_StalwartsApplyPlayerDurabilityEffect	00000000	0	0	
 007ACEAD	DEL_WIP4_Legendary_PowerArmor_StalwartsAddCloakPerkEffect	00008000	0	0	
 007ACEAE	Legendary_PowerArmor_StalwartsApplyTeamDurabilityEffect	00000000	0	0	
-007AD360	GHL_LGN_AddFeralRagePerk	00000E02	0	0	
-007AD361	GHL_RadiationUseExplosionEffect	00000205	1	0	
-007AD43A	GHL_RadiationGainRadReaver	04000825	1	1	GHL_RadiationBonusEffect[007FFFB7]
-007ADC77	GHL_RadioactiveStrengthUseExplosionEffect	00000205	1	0	
-007AE64B	GHL_GlowEffectVFX_ChargedEffectTier1	00009E00	0	0	
 007AD26B	RD01_Weapon_UltraciteTerrorSword_PoisonDamageEffect	04001105	1	1	DamageTypePoison[0004B25B]
 007AD48B	DEL_WIP4_Legendary_PowerArmor_ReflectiveApplyRecievePerkEffect_Melee	00009247	1	0	
 007AD48A	DEL_WIP4_Legendary_PowerArmor_ReflectiveApplyReflectPerkEffect_Melee	00009242	0	0	
@@ -2631,30 +2585,12 @@ MGEF_FormID	EDID	DATA_Flags_Hex	Detrimental	KeywordCount	Keywords_Flat
 007ADC88	Legendary_PowerArmor_StalwartsApplyCloakPerkEffect	00008000	0	0	
 007AE492	FortifyDeflectChance	00000802	0	1	EffectTypeDeflect[007ACE79]
 007AE577	RD01_Weapon_DrillFist_PoisonDamageEffect	04001105	1	1	DamageTypePoison[0004B25B]
-007AEE19	GHL_GlowingOnePerkCloakEffect01	00000002	0	0	
-007AEE1A	GHL_GlowingOneGrantRadsEffect	04001824	1	2	DamageTypeRadiation[0004B25C] | GHL_RadiationBonusEffect[007FFFB7]
-007AEEE9	SCORE_S20_abPlayerJetpack_BoSInfantry_NuclearPowered_FX	1000920C	1	0	
-007AEEE4	SCORE_S20_abPlayerJetpack_SecretService_NuclearPowered_Geo	10009208	0	0	
-007AEEE7	SCORE_S20_abPlayerJetpack_Muni_NuclearPowered_FX	1000920C	1	0	
-007AEEE8	SCORE_S20_abPlayerJetpack_BoSInfantry_NuclearPowered_Geo	10009208	0	0	
-007AEEE6	SCORE_S20_abPlayerJetpack_Muni_NuclearPowered_Geo	10009208	0	0	
-007AEEE5	SCORE_S20_abPlayerJetpack_SecretService_NuclearPowered_FX	1000920C	1	0	
 007AED01	abMutationEmpathStrength	00008A02	0	0	
-007B11AF	ZZZ_SCORE_NukaX_MeleeSpeedApply	00000802	0	0	
-007B11AA	ZZZ_SCORE_NukaX_PerkFireResistApply	00000802	0	0	
-007B11AE	ZZZ_SCORE_NukaX_PerkStaggerEnemyChanceApply	00000802	0	0	
-007B11AB	ZZZ_SCORE_NukaX_FortifyReloadSpeed	00008A02	0	0	
-007B11AC	ZZZ_SCORE_NukaX_PerkStaggerResistApply	00000802	0	0	
-007B11B0	ZZZ_SCORE_NukaX_RewardEffect_Master	14008000	0	0	
-007B11AD	ZZZ_SCORE_NukaX_PerkFastReloadSpeedApply	00000802	0	0	
-007B228C	GHL_GlowingOnePerkCloakEffect02	00000000	0	0	
-007B273A	SSE_HarvestFlowers_Addperk	00000802	0	2	FoodEffect[00150738] | SURV_EffectTypeFoodBuff[007ACB4A]
 007B22BC	RD01_HitSquadShield_VFXONLY	04001205	1	0	
 007B11C4	Magazine_FortifyResistCryo_Effect	00000902	0	1	MagazineDispelEffects[00436F74]
 007B11C5	Magazine_FortifyResistFire_Effect	00000902	0	1	MagazineDispelEffects[00436F74]
 007B11C6	Magazine_ScoutsLife03_Effect	00000102	0	1	MagazineDispelEffects[00436F74]
 007B23C9	Mod_AmmoCapacity_PlasmaCoreHealth_Tier1	00008000	0	0	
-007B5457	GHL_DisguiseUIDummyEffect	00000A02	0	0	
 007B2BFC	Legendary_Weapon_ConductorsApplyRestoreTeamHealthPerkEffect	00000100	0	1	ConductorsDispelTeamEffectKeyword[007B71D4]
 007B2BFB	Legendary_Weapon_ConductorsApplyRestoreTeamAPPerkEffect	00000100	0	1	ConductorsDispelTeamEffectKeyword[007B71D4]
 007B2BFD	Legendary_Weapon_ConductorsApplyPerkEffect	00000000	0	0	
@@ -2675,14 +2611,79 @@ MGEF_FormID	EDID	DATA_Flags_Hex	Detrimental	KeywordCount	Keywords_Flat
 007B956F	Legendary_PowerArmor_AegisApplyPlayerEREffect	00000802	0	0	
 007B9570	Legendary_PowerArmor_AegisApplyPlayerPREffect	00000802	0	0	
 007B9573	Legendary_PowerArmor_AegisApplyTeamDREffect	00000802	0	0	
+007BB06C	RD01_Backpack_Canteen	10810800	0	0	
+007BC210	abEpicEnergeticVisualPlayerEffect	00001005	1	1	DamageTypeEnergy[0004A0CB]
+007BCEA7	Legendary_PowerArmor_ReflectiveApplyReflectVFXEffect	000001C0	0	1	HasLegendary_PowerArmor_ReflectiveVFX[007BCEA6]
+007C7790	dtElectricalEffectChanceAlwaysMiniGun	00001005	1	1	DamageTypeEnergy[0004A0CB]
+00797DFF	GHL_UseRads_Effect	00008800	0	0	
+00797DFD	GHL_AbPerkRadioactiveFortifyDmgMelee	00008A02	0	0	
+00797DFE	zzz_GHL_BreathItIn_RadsBonusEffect	04000825	1	1	DamageTypeRadiation[0004B25C]
+00798016	GHL_LGN_ActionDietRestoreDrinkEffect	00010000	0	0	
+00798014	GHL_LGN_ActionDietRestoreHealthEffect	00000800	0	0	
+00798015	GHL_LGN_ActionDietRestoreFoodEffect	00010000	0	0	
+007981EF	zzz_GHL_LGN_WildCardExplosionEffect	04000A05	1	0	
+007981F1	zzz_GHL_LGN_WildCardPoisonEffect	00001105	1	1	DamageTypePoison[0004B25B]
+007981F0	zzz_GHL_LGN_WildCardFireEffect	10009005	1	1	DamageTypeFire[0004A0C8]
+007981F3	zzz_GHL_LGN_WildCardMasterSpell	00001F47	1	0	
+007981F4	zzz_GHL_LGN_WildCardRadiationEffect	04000805	1	1	DamageTypeRadiation[0004B25C]
+007981F2	zzz_GHL_LGN_WildCardFreezeEffect	04001947	1	0	
+0079841B	GHL_AbPerkRadioactiveFortifyDmgAllEffect	00008A02	0	0	
+00798441	GHL00_Quest_Blackout_LoadScreenIsActive	0000880A	0	0	
+00799AFE	GHL_AbPerkFortifyRadiationExpose	00000A06	1	0	
+0079AF41	GHL_BattleGenesHealEffect	00000200	0	0	
+007A1447	zzz_SSE_crHazardSlowEffect	00009806	1	0	
+007A1448	zzz_crSSE_BeezlebabyCloakEffect	00000000	0	0	
+007A18EA	zzz_GHL_AbPerkBombScientistFortifyExplosionDmg	00008A02	0	0	
+007A76AA	GHL_SURV_ReduceStrength	00000906	1	0	
+007A76AB	GHL_FeralTierEffect	00008A02	0	0	
+007A76AC	GHL_SURV_FeralNegative_Effect	00000206	1	0	
+007A76AD	GHL_SURV_Feral_Effect	00000004	1	1	GHL_SURV_EffectTypeFeral[007A769F]
+007A76AE	GHL_SURV_Chem_Effect	00010000	0	1	GHL_SURV_EffectTypeFeral[007A769F]
+007A76AF	GHL_SURV_AddFeral_Effect	00010004	1	2	PerkMunchyResistanceInvalidEffectType[00453385] | GHL_SURV_EffectType_IncreaseFeral[007A76A0]
+007A76B5	GHL_SURV_FeralVFX_FeralTier1Effect	00000E02	0	0	
+007A76B0	GHL_SURV_FeralVFX_FeralTier3Effect	00000E02	0	0	
+007A76B1	zzz_GHL_SURV_GlowManagerPerkEffect	00000A02	0	0	
+007A76B2	GHL_SURV_FeralVFX_FeralTier5Effect	00000E02	0	3	SURV_Icon_ColorRed[00001EC9] | GHL_SURV_EffectTypeFeral[007A769F] | GHL_SURV_FeralPenalty_Effect_Keyword[007A76A1]
+007A76B3	GHL_SURV_FeralVFX_FeralTier2Effect	00000E02	0	0	
+007A76B4	GHL_SURV_AddFeral_Potion_Effect	00010004	1	1	GHL_SURV_EffectType_IncreaseFeral[007A76A0]
+007A76B6	GHL_SURV_GlowUseRads_Effect	00008800	0	0	
+007A76A8	GHL_SURV_FeralVFX_FeralTier4Effect	00000E02	0	0	
+007A76A9	GHL_SURV_AddFeralPerk	00000E02	0	0	
+007A7C33	GHL_AbPerkSlowMoveSpeedEffect	00000A06	1	0	
+007A7C32	GHL_DisguiseSlowEffect	00009806	1	0	
+007ABE05	GHL_abPerkScienceMonsterFortifyDmgAll	00000802	0	0	
+007ABF52	GHL00_Quest_TransformPlayer_BlackOutEffect	04000964	1	0	
+007ACD39	GHL_SURV_RadiationImmunityEffect	00000E02	0	0	
+007ACD38	GHL_SURV_RadsHealHealthEffect	00000200	0	0	
+007AD04F	crHoneyBeastBehemothHulkingPresenceEffect	00000806	1	0	
+007AD360	GHL_LGN_AddFeralRagePerk	00000E02	0	0	
+007AD361	GHL_RadiationUseExplosionEffect	00000205	1	0	
+007AD43A	GHL_RadiationGainRadReaver	04000825	1	1	GHL_RadiationBonusEffect[007FFFB7]
+007ADC77	GHL_RadioactiveStrengthUseExplosionEffect	00000205	1	0	
+007AE64B	GHL_GlowEffectVFX_ChargedEffectTier1	00009E00	0	0	
+007AEE19	GHL_GlowingOnePerkCloakEffect01	00000002	0	0	
+007AEE1A	GHL_GlowingOneGrantRadsEffect	04001824	1	2	DamageTypeRadiation[0004B25C] | GHL_RadiationBonusEffect[007FFFB7]
+007AEEE9	SCORE_S20_abPlayerJetpack_BoSInfantry_NuclearPowered_FX	1000920C	1	0	
+007AEEE4	SCORE_S20_abPlayerJetpack_SecretService_NuclearPowered_Geo	10009208	0	0	
+007AEEE7	SCORE_S20_abPlayerJetpack_Muni_NuclearPowered_FX	1000920C	1	0	
+007AEEE8	SCORE_S20_abPlayerJetpack_BoSInfantry_NuclearPowered_Geo	10009208	0	0	
+007AEEE6	SCORE_S20_abPlayerJetpack_Muni_NuclearPowered_Geo	10009208	0	0	
+007AEEE5	SCORE_S20_abPlayerJetpack_SecretService_NuclearPowered_FX	1000920C	1	0	
+007B11AF	ZZZ_SCORE_NukaX_MeleeSpeedApply	00000802	0	0	
+007B11AA	ZZZ_SCORE_NukaX_PerkFireResistApply	00000802	0	0	
+007B11AE	ZZZ_SCORE_NukaX_PerkStaggerEnemyChanceApply	00000802	0	0	
+007B11AB	ZZZ_SCORE_NukaX_FortifyReloadSpeed	00008A02	0	0	
+007B11AC	ZZZ_SCORE_NukaX_PerkStaggerResistApply	00000802	0	0	
+007B11B0	ZZZ_SCORE_NukaX_RewardEffect_Master	14008000	0	0	
+007B11AD	ZZZ_SCORE_NukaX_PerkFastReloadSpeedApply	00000802	0	0	
+007B228C	GHL_GlowingOnePerkCloakEffect02	00000000	0	0	
+007B273A	SSE_HarvestFlowers_Addperk	00000802	0	2	FoodEffect[00150738] | SURV_EffectTypeFoodBuff[007ACB4A]
+007B5457	GHL_DisguiseUIDummyEffect	00000A02	0	0	
 007BBB77	AbFortifyXP	00000A02	0	0	
 007BBB76	AbPerkInspirationalAura	00000200	0	0	
 007BC541	AbPerkFortifyArmorBonus	00000A02	0	0	
-007BB06C	RD01_Backpack_Canteen	10810800	0	0	
 007C280E	AbFortifyVATSAccuracy	00000A02	0	0	
 007C7000	abPerkFortifyDmgClose	00000A02	0	0	
-007BC210	abEpicEnergeticVisualPlayerEffect	00001005	1	1	DamageTypeEnergy[0004A0CB]
-007BCEA7	Legendary_PowerArmor_ReflectiveApplyReflectVFXEffect	000001C0	0	1	HasLegendary_PowerArmor_ReflectiveVFX[007BCEA6]
 007C736B	AbPerkFortifyPowerAttack	00000A02	0	0	
 007C736E	abPerkFortifyVATSAccuracy	00000A02	0	0	
 007C736F	AbFortifyEvasion	00000A02	0	0	
@@ -2691,7 +2692,6 @@ MGEF_FormID	EDID	DATA_Flags_Hex	Detrimental	KeywordCount	Keywords_Flat
 007C778A	RestoreHealth_ConcAimed	00000A00	0	0	
 007C778B	AbPerkSpiritualHealerAura	00000200	0	0	
 007C92C6	AbPerkFortifyDmgWeakSpot	00008A02	0	0	
-007C7790	dtElectricalEffectChanceAlwaysMiniGun	00001005	1	1	DamageTypeEnergy[0004A0CB]
 007CE30B	ZZZ_SCORE_NukaX_ChemDurationApply	00000802	0	0	
 007CF73D	GHL_GlowEffectVFX_ChargedEffectTier3	00009E00	0	0	
 007CF73E	GHL_GlowEffectVFX_ChargedEffectTier4	00009E00	0	0	
@@ -2718,6 +2718,31 @@ MGEF_FormID	EDID	DATA_Flags_Hex	Detrimental	KeywordCount	Keywords_Flat
 007F68C8	ATX_BloodTransfusionEffectPlayerGhoulGiveRads	04008804	1	1	EffectTypeDetrimental[004E75AB]
 007F68C7	ATX_BloodTransfusionEffectHumanRemoveRads	00008800	0	0	
 007FA24E	GHL_RadSpecialistUIDummyEffect	00000A02	0	0	
+007FA405	Explosion_CryoIceBreaker_Effect	00008205	1	0	
+007FA3FE	zzz_CryoHazardEffect_IceBreaker_Slow	00000805	1	2	DamageTypeCyro[0004A0C9] | NoRicochet[002049E5]
+007FA40A	SCORE_S21_IceBreaker_ApplyPerkOnBash	00008802	0	0	
+007FA400	zzz_IceBreakerDamageDamageResistEffect_Contact	00008807	1	0	
+007FA3FD	CryoHazardEffect_IceBreaker	00000805	1	2	DamageTypeCyro[0004A0C9] | NoRicochet[002049E5]
+007AC322	Legendary_Weapon_AddElectriciansPerkEffect	00000800	0	0	
+007FDA9E	AbLegendary_Overeater_Ghoul_Description	00008000	0	0	
+00800569	abPerkFortifyDmgFar	00000A02	0	0	
+00801246	abPerkFortifyDmgCrippled	00000A02	0	0	
+00801CA1	abPerkFortifyDmgAP	00008A02	0	0	
+00803E2C	AbPerkFortifyDmgTorso	00000A02	0	0	
+00805AAA	abPerkFortifyDmgPerCrippled	00000A02	0	0	
+008094D2	Fishing_FortifyMaxBobber_Effect	00000802	0	0	
+008094D3	Fishing_NoHunger_Effect	00000002	0	2	FoodEffect[00150738] | SURV_EffectTypeFoodBuff[007ACB4A]
+008065B2	Mutation_TwistedMuscleLimbDamage	00000A02	0	2	AbilityTypeMutation[003808CE] | AbilityTypeMutation_PositiveEffect[003808D3]
+0080B570	abEnableKillStreak	00008A02	0	0	
+0080F8F4	SCORE_s21_Unshakeable_Beliefs_Dottie	00000000	0	0	
+008184BB	abPowerArmorJetpack_Switchback	1000920C	1	0	
+0081A7D6	AbPerkFortifyDmgMultCryo	00000A02	0	0	
+0081A7D5	AbPerkFortifyDmgMultFire	00000A02	0	0	
+0081A7D4	AbPerkFortifyDmgMultEnergy	00000A02	0	0	
+00820D75	ME_Perk_LimbDamage	00000A02	0	0	
+0082BF22	S21_IceBreakerEffect_TextDummy	00008A02	0	0	
+00834CFA	ZZZ_SCORE_S22_abPlayerJetpack_NukaColaJP_FX	1000920C	1	0	
+00834CFB	ZZZ_SCORE_S22_abPlayerJetpack_NukaColaJP_Geo	10009208	0	0	
 007FFF14	P62_SetBonus_SecretServiceDrifter_ReflectiveApplyRecievePerkEffect	000000C7	1	0	
 007FFF15	P62_SetBonus_SecretServiceDrifter_ReflectiveApplyReflectPerkEffect	000000C2	0	0	
 007FFF16	P62_SetBonus_SecretServiceDrifter_ReflectiveApplyReflectVFXEffect	000001C0	0	1	P62_HasSetBonus_SecretServiceDrifter_ReflectiveVFX[007FFF0C]
@@ -2731,28 +2756,12 @@ MGEF_FormID	EDID	DATA_Flags_Hex	Detrimental	KeywordCount	Keywords_Flat
 0080219C	P62_Weapon_Splinter_StabilityEffect	00000000	0	0	
 00802195	P62_Weapon_ChaosEngine_ApplyAPDrainEffect	04009805	1	0	
 00802196	zzz_P62_Weapon_ChaosEngine_ApplyCryoFreezeEffect	04009C05	1	0	
-007FA405	Explosion_CryoIceBreaker_Effect	00008205	1	0	
-007FA3FE	zzz_CryoHazardEffect_IceBreaker_Slow	00000805	1	2	DamageTypeCyro[0004A0C9] | NoRicochet[002049E5]
-007FA40A	SCORE_S21_IceBreaker_ApplyPerkOnBash	00008802	0	0	
-007FA400	zzz_IceBreakerDamageDamageResistEffect_Contact	00008807	1	0	
-007FA3FD	CryoHazardEffect_IceBreaker	00000805	1	2	DamageTypeCyro[0004A0C9] | NoRicochet[002049E5]
-007AC322	Legendary_Weapon_AddElectriciansPerkEffect	00000800	0	0	
-007FDA9E	AbLegendary_Overeater_Ghoul_Description	00008000	0	0	
-00800569	abPerkFortifyDmgFar	00000A02	0	0	
-00801246	abPerkFortifyDmgCrippled	00000A02	0	0	
-00801CA1	abPerkFortifyDmgAP	00008A02	0	0	
 008063A8	P62_AbTheDrifter_ChamleonEffect	00000A02	0	0	
 0080F7F5	P62_Legendary_Armor_ReboundersAddPerkEffect	00000000	0	0	
 0080F7F3	P62_Legendary_Armor_ReboundersApplyReflectVFXEffect	000001C0	0	1	P62_HasLegendary_Armor_ReboundersVFX[0080F7F1]
 0080F7F4	P62_Legendary_Armor_ReboundersApplyReflectPerkEffect	000000C2	0	0	
 0080F7F6	P62_Legendary_Armor_ReboundersApplyRecievePerkEffect	000000C7	1	0	
 0080F853	P62_Legendary_Armor_CrusadersAddPerkEffect	00000000	0	0	
-00803E2C	AbPerkFortifyDmgTorso	00000A02	0	0	
-00805AAA	abPerkFortifyDmgPerCrippled	00000A02	0	0	
-008094D2	Fishing_FortifyMaxBobber_Effect	00000802	0	0	
-008094D3	Fishing_NoHunger_Effect	00000002	0	2	FoodEffect[00150738] | SURV_EffectTypeFoodBuff[007ACB4A]
-008065B2	Mutation_TwistedMuscleLimbDamage	00000A02	0	2	AbilityTypeMutation[003808CE] | AbilityTypeMutation_PositiveEffect[003808D3]
-0080B570	abEnableKillStreak	00008A02	0	0	
 0080F9BC	P62_Legendary_Armor_MetabolicAddPerkEffect	00008E00	0	0	
 0080F9BE	P62_Legendary_Armor_MetabolicApplyFoodPerkEffect	00000A02	0	0	
 0080F9BD	P62_Legendary_Armor_MetabolicApplyChemPerkEffect	00000A02	0	0	
@@ -2771,20 +2780,11 @@ MGEF_FormID	EDID	DATA_Flags_Hex	Detrimental	KeywordCount	Keywords_Flat
 008154EC	P62_Legendary_PowerArmor_ApplyVoltaicEMPEffect	00000005	1	0	
 008154ED	P62_Legendary_PowerArmor_ApplyVoltaicStunEffect	00001007	1	0	
 008154EB	P62_Legendary_PowerArmor_AddVoltaicScriptEffect	00008E00	0	0	
-0080F8F4	SCORE_s21_Unshakeable_Beliefs_Dottie	00000000	0	0	
 00818004	P62_Legendary_PowerArmor_ApplyVoltaicSprintEffect	04009E00	0	0	
-008184BB	abPowerArmorJetpack_Switchback	1000920C	1	0	
 0081EC4A	P62_AbTheDrifter_WeakPointStaggerEffect	10001005	1	0	
-0081A7D6	AbPerkFortifyDmgMultCryo	00000A02	0	0	
-0081A7D5	AbPerkFortifyDmgMultFire	00000A02	0	0	
-0081A7D4	AbPerkFortifyDmgMultEnergy	00000A02	0	0	
-00820D75	ME_Perk_LimbDamage	00000A02	0	0	
 00832CB5	SCORE_S22_CooldownEffect_SarsaparillaMachine	14008402	0	1	SCORE_S22_CooldownKeyword_SarsaparillaMachine[00832CB1]
-0082BF22	S21_IceBreakerEffect_TextDummy	00008A02	0	0	
 00834429	P62_AbTheDrifter_EnragedEffect	00000005	1	1	DamageTypeEnergy[0004A0CB]
 00835A6F	P62_Weapon_crTempest_AddBleedEffect	10008000	0	0	
-00834CFA	ZZZ_SCORE_S22_abPlayerJetpack_NukaColaJP_FX	1000920C	1	0	
-00834CFB	ZZZ_SCORE_S22_abPlayerJetpack_NukaColaJP_Geo	10009208	0	0	
 00837DF9	abPerkFortifyDmgVsBleeding	00000A02	0	0	
 00837E12	SCORE_S22_FortifyDamageBallistic_SunsetSarsaparilla_Effect	00000902	0	1	SunsetSarsaparillaDispelEffects[00853555]
 00837E11	CosmicKnife_Superheated_DamageResistEffect_Contact	00008907	1	1	SyringerEndangerolKeyword[002473DA]
@@ -2823,6 +2823,7 @@ MGEF_FormID	EDID	DATA_Flags_Hex	Detrimental	KeywordCount	Keywords_Flat
 00852E7C	abAmmoSpenderFortifyStacks_Desc	00000A02	0	0	
 00852F5C	AbPerkFortifyActorWeaponChargeUpSpeedMult	00000A02	0	0	
 00854902	AbPerkFortifyDmgGrenades	00000A02	0	0	
+00856597	TestLightingDebugLightingEffect	00000A02	0	0	
 007D3DED	Weapon_WarShrike_BleedDMGEffect	00000805	1	0	
 00801008	Burn_BurningRadscorpionFireFX	00000A05	1	0	
 00801009	Burn_BurningRadscorpionFireDoT	00000805	1	0	
@@ -2978,7 +2979,6 @@ MGEF_FormID	EDID	DATA_Flags_Hex	Detrimental	KeywordCount	Keywords_Flat
 00856475	EN07_BurningSprings_ApplySmokeVisualEffectEffect_NukeA	10008002	0	0	
 00856476	EN07_BurningSprings_ApplySmokeVisualEffectEffect_NukeB	10008002	0	0	
 00856477	EN07_BurningSprings_ApplySmokeVisualEffectEffect_NukeC	10008002	0	0	
-00856597	TestLightingDebugLightingEffect	00000A02	0	0	
 008571A3	ChameleonArmorStealthIcon	00008E02	0	0	
 008571A6	ChameleonArmorStealthIconUIDummy	00000E02	0	0	
 008571A7	Mutation_Chameleon_StealthIcon	00008E02	0	1	AbilityTypeMutation[003808CE]
@@ -3002,14 +3002,14 @@ MGEF_FormID	EDID	DATA_Flags_Hex	Detrimental	KeywordCount	Keywords_Flat
 0085D817	abPowerArmorResponder_Edison_RPauldron_VFX	10009208	0	0	
 0085D815	abPowerArmorResponder_Edison_LLeg_VFX	10009208	0	0	
 00863C27	dtCryoEffectChanceAlways	00001005	1	0	
-00868BB4	crBigfootSlamAreaEffect	00008001	0	0	
-00868BB3	crBigfootStompAreaEffect	00008001	0	0	
-00868BB2	abBigfootRaceEffect	08000A02	0	0	
 00885C68	zzz_AdVictoriam_Buildup	00000A02	0	0	
 00885C69	zzz_AdVictoriam_ApplyPerk	00000A02	0	0	
 00885C67	AbFortifyPowerAttack	00000A02	0	0	
 0089174B	Burn_E02_EarthquakeSpellEffect	00000002	0	0	
 00897406	AbFortifyChemDuration	00000802	0	0	
+00868BB4	crBigfootSlamAreaEffect	00008001	0	0	
+00868BB3	crBigfootStompAreaEffect	00008001	0	0	
+00868BB2	abBigfootRaceEffect	08000A02	0	0	
 0089ADB4	Ab_FF_FortifyVATSAccuracy	00000802	0	0	
 008A039F	Legendary_Weapon_AdrenalFortifyDmgAll	00000A02	0	0	
 008A148C	AbPerkFortifyEvadeDescription	00000A02	0	0	
@@ -3034,7 +3034,6 @@ MGEF_FormID	EDID	DATA_Flags_Hex	Detrimental	KeywordCount	Keywords_Flat
 008B01D8	modWeapSecondaryBleedEffect	00000805	1	1	DamageTypeBleed[008E065E]
 008B1571	GHL_GlowingOneUIDummyEffect	00000A02	0	0	
 008B1D5F	ABfortify_GatheringBuff_Effect	10000C02	0	1	WeaponsExpert_StatueTypeItem_GatheringBuff[008B1D60]
-008B3A24	Mutation_TalonsBleedEffect	00000805	1	1	DamageTypeDOT[008447D7]
 0085B98D	DEL_HTO_Legendary_Weapon_TarnishedPerkAddEffect	00008E00	0	0	
 0085B98C	DEL_HTO_LegendaryEffect_RestoreFeralEffect	00010000	0	0	
 0085B990	HTO_Legendary_Armor_RagingFortifyDmgAll	00000802	0	0	
@@ -3049,6 +3048,7 @@ MGEF_FormID	EDID	DATA_Flags_Hex	Detrimental	KeywordCount	Keywords_Flat
 008AEFE1	HTO_LightningStrike_ElectricDamage	04001947	1	0	
 008AEFE2	HTO_LightningStrike_CameraShake	00008002	0	0	
 008B33DB	Food_FortifyMoveSpeedEffect	00000902	0	3	FoodEffect[00150738] | SURV_EffectTypeFoodBuff[007ACB4A] | FoodDispelEffect_MoveSpeed[008B33DA]
+008B3A24	Mutation_TalonsBleedEffect	00000805	1	1	DamageTypeDOT[008447D7]
 008B4C3C	AbLocked_Description	00008000	0	0	
 008C9092	HTO_crSuperMutantSuiciderMagicEffect	00008A00	0	0	
 008C908F	HTO_crScorchedSuiciderMagicEffect	00008A00	0	0	
@@ -3057,6 +3057,9 @@ MGEF_FormID	EDID	DATA_Flags_Hex	Detrimental	KeywordCount	Keywords_Flat
 008D3843	PTS_GrantExperienceEffect	00000A00	0	0	
 008D3851	ATX_Backpack_FreightTrain_Description	10800A00	0	0	
 008D3850	ATX_Backpack_FreightTrain_ApplyPerk	10800A00	0	0	
+008DDC0B	GHL00_Quest_BecomeGhoulReduceRadResist	00000806	1	0	
+008EE4D4	GHL00_Quest_BecomeGhoulRadiationEffect	04000825	1	1	DamageTypeRadiation[0004B25C]
+008FBA0E	ATX_FortifyLuck_TeaWizard_LuckyLeaf	00000902	0	1	ATX_Stack_TeaWizard_LuckyLeaf_Luck[008FBA0D]
 008E067B	zzz_SDOW_HazardEffect_DeepCutting	00000805	1	0	
 008E0679	zzz_SDOW_DailyOps_MutationEffect_DeepCuttingPerk	00009600	0	0	
 008E067C	SDOW_PowerArmor_SlasherVoiceModuleEffect	00000000	0	0	
@@ -3069,23 +3072,21 @@ MGEF_FormID	EDID	DATA_Flags_Hex	Detrimental	KeywordCount	Keywords_Flat
 008EE1D9	ExplosionCryo_Cryolator_PolarLobber_Effect	00008205	1	0	
 008EE1DA	modWeapCryoEffect	00000805	1	1	DamageTypeCyro[0004A0C9]
 008EE1DB	CryoHazardEffect_Cryolator	00000805	1	2	DamageTypeCyro[0004A0C9] | NoRicochet[002049E5]
-008DDC0B	GHL00_Quest_BecomeGhoulReduceRadResist	00000806	1	0	
 008F1877	modWeapCryoEffect_Secondary	00000805	1	1	DamageTypeCyro[0004A0C9]
-008EE4D4	GHL00_Quest_BecomeGhoulRadiationEffect	04000825	1	1	DamageTypeRadiation[0004B25C]
 008FBD13	abPerkFortifySneakAttackBonus	00000A02	0	0	
 00900A5C	AbPerkConcentratedFire_Description	00000A02	0	0	
 00900A5B	AbPerkFortifyConcentratedFireRank	00008A02	0	0	
-008B7A75	WorldPets_DogBuffStimpak01	10000A02	0	0	
+008B7A75	WorldPets_Dog_ConsumableBuff	10000A02	0	0	
 008B7A76	WorldPets_DogBuffBounty01	10000A02	0	0	
 008B7CA6	zzz_WorldPets_CatBuffMegaBits02	10000A02	0	0	
 008B7CA7	zzz_WorldPets_CatBuffMegaBits03	10000A02	0	0	
-008B7CA5	WorldPets_CatBuffBait01	10000A02	0	0	
+008B7CA5	WorldPets_Cat_ConsumableBuff	10000A02	0	0	
 008B7CA4	WorldPets_CatBuffMegaBits01	10000A02	0	0	
-008BA6D0	WorldPets_RadhogBuffRad01	10000A02	0	0	
+008BA6D0	WorldPets_Radhog_ConsumableBuff	10000A02	0	0	
 008BA6CF	zzz_WorldPets_RadhogBuffNukeHarvest03	10000A02	0	0	
 008BA6CE	WorldPets_RadhogBuffNukeHarvest01	10000A02	0	0	
 008BA6CD	zzz_WorldPets_RadhogBuffNukeHarvest02	10000A02	0	0	
-008C9397	WorldPets_DeathclawBuffMeat01	10000A02	0	0	
+008C9397	WorldPets_Deathclaw_ConsumableBuff	10000A02	0	0	
 008C9398	WorldPets_DeathclawBuffInfestation01	10000A02	0	0	
 008D188E	WorldPets_CatBuff_CarryCapacity01	10000A02	0	0	
 008D188F	WorldPets_RadhogBuff_CarryCapacity01	10000A02	0	0	
@@ -3095,7 +3096,6 @@ MGEF_FormID	EDID	DATA_Flags_Hex	Detrimental	KeywordCount	Keywords_Flat
 008DC2C8	zzz_WorldPets_Buff_PetProwess_Health01	00000B02	0	1	WorldPets_DispelPetProwess[008EF329]
 008DC2C9	zzz_WorldPets_Buff_PetProwess_Damage01	00000B02	0	1	WorldPets_DispelPetProwess[008EF329]
 008E064F	WorldPets_Buff_UI_PetProwess	10000A02	0	0	
-008FBA0E	ATX_FortifyLuck_TeaWizard_LuckyLeaf	00000902	0	1	ATX_Stack_TeaWizard_LuckyLeaf_Luck[008FBA0D]
 009005ED	ATX_Cambot_ReportersInstinct_FortifyPerception	00000002	0	0	
 009005EE	ATX_Cambot_ReportersInstinct_FortifyLuck	00000002	0	0	
 009005EC	ATX_Reporters_Instinct_Cambot	00000100	0	1	ATX_COMP_Cambot_DispellReportersInstinct[009005EF]
@@ -3132,5 +3132,11 @@ MGEF_FormID	EDID	DATA_Flags_Hex	Detrimental	KeywordCount	Keywords_Flat
 0092A0EA	SDOW_GhostBoyVisual_Player_Effect	00009002	0	0	
 0092A0EB	SDOW_SlasherFanGhost_CamoCloak_effect	00009000	0	0	
 0092B347	SDOW_SlasherFanReward_Effect	08008E10	0	0	
+0092D8C8	WorldPets_Buff_WellRested	18000812	0	0	
 0092D087	SDOW_BlackAndWhiteVision	00000C0A	0	0	
+0093A935	WorldPets_DeathclawBuffInfestation02	10000A02	0	0	
+0093A934	WorldPets_DeathclawBuffInfestation03	10000A02	0	0	
 0093B761	SDOW_GhostBoyDetectLifeApplyClientEffect	10000100	0	0	
+0093D70D	WorldPets_DogBuffBounty03	10000A02	0	0	
+0093D70E	WorldPets_DogBuffBounty02	10000A02	0	0	
+00949078	RadiationHazardEffect_Self	04000825	1	1	DamageTypeRadiation[0004B25C]
