@@ -16,6 +16,7 @@ straight from the game files, so these no longer need xEdit:
     SPEL    SPEL_Export_<Month>_<Year>_HEADER/_EFFECTS/_CONDITIONS.tsv  (ExportSPELToCSV.pas)
     GLOB    GLOB_Export_<Month>_<Year>.tsv          (ExportGLOBToCSV.pas)
     AVIF    AVIF_Export_<Month>_<Year>.tsv          (ExportAVIFToTSV.pas)
+    KYWD    KYWD_Export_<Month>_<Year>.tsv + _Refs  (ExportKYWDToCSV.pas)
     MISC    MISC_Export_<Month>_<Year>.tsv          (ExportMISCToCSV.pas)
     NPC     NPC_Export_<Month>_<Year>.tsv + _PRPS + _Refs  (ExportNPCToTSV.pas)
     NPC2    NPC2_Vendors_<Month>_<Year>.tsv + _Placements, _Currencies, _Factions,
@@ -30,7 +31,7 @@ straight from the game files, so these no longer need xEdit:
             ExportQUST2ToTSV.pas - only that one file; the .pas stays the manual
             backup and still writes all six)
 
-GLOB, AVIF, MISC and NPC list every record that points at each row ("Referenced By"),
+GLOB, AVIF, KYWD, MISC and NPC list every record that points at each row ("Referenced By"),
 worked out by esm_refs.py in one ~40 s scan (needs numpy). Known gap: xEdit
 stops reading some quests part-way through their objective/alias conditions, so
 its lists leave out those quests; these lists include them.
@@ -435,6 +436,73 @@ def exp_avif(esm):
         rows.append((["%08X" % r.fid, cc(r.edid), cc(esm.lstring(r.full)), cc(esm.lstring(r.first("DESC"))),
                       cc(esm.lstring(r.first("ANAM"))), str(len(refs))], refs))
     return _pad_refs(rows, ["FormID", "EDID", "FULL", "DESC", "ANAM", "ReferencedByCount"])
+
+
+# ------------------------------------------------------------- KYWD ------
+# xEdit's names for KYWD TNAM (wbKeywordTypeEnum); anything past the list prints as its number
+KYWD_TYPES = ["None", "Component Tech Level", "Attach Point", "Component Property",
+              "Instantiation Filter", "Mod Association", "Sound", "Anim Archetype",
+              "Function Call", "Recipe Filter", "Attraction Type", "Dialogue Subtype",
+              "Quest Target", "Anim Flavor", "Anim Gender", "Anim Face", "Quest Group",
+              "Anim Injured", "Dispel Effect", "Mod Attribute Name", "Mod Attribute Descriptor",
+              "UI Icon Linkage Name", "Crafting Function", "Item Quality", "Component Quantity",
+              "Atomic Shop Category", "Photomode Category", "Atomic Shop Filter", "Event Header",
+              "Loot Bag", "Item Rarity", "Item Type", "Ghoul"]
+KYWD_SKIP = 0x00195411   # MultirefLOD - 44,000+ refs of system bloat; the .pas skips it too
+
+
+def _xedit_bits(v, empty_width=0):
+    """xEdit's edit value of a flags field: one 0/1 per bit, lowest bit first,
+    up to the highest bit that is set ('' when none - or empty_width zeros)."""
+    if not v:
+        return "0" * empty_width
+    return "".join("1" if v >> i & 1 else "0" for i in range(v.bit_length()))
+
+
+def _zstr(raw):
+    """A plain (not localised) string. Most are UTF-8; a few notes were typed in
+    Windows-1252 (e.g. a curly apostrophe), which xEdit reads that way too."""
+    if not raw:
+        return ""
+    raw = raw.rstrip(b"\0")
+    try:
+        return raw.decode("utf-8")
+    except UnicodeDecodeError:
+        return raw.decode("cp1252", "replace")
+
+
+def exp_kywd(esm):
+    """ExportKYWDToCSV.pas - core sheet and _Refs (one row per Referenced By entry)."""
+    core = ["FormID\tEDID\tFULL_Name\tNNAM_DisplayName\tTNAM_Type\tCNAM_Color\tDNAM_Notes\t"
+            "FNAM_Unknown\tXALG_Flags\tFormTags\tENAM_IconName\tDATA_AttractionRule\t"
+            "NTWK_NetworkMarker\tReferencedByCount"]
+    refs = ["KeywordFormID\tKeywordEDID\tRefIndex\tRefFormID\tRefEDID\tRefSignature\tRefName"]
+    _dial_index(esm)              # dialogue topics sit outside the shared index
+    dial_full = esm._dial_full
+    for r in R.xedit_order(esm, "KYWD"):
+        if r.fid == KYWD_SKIP:
+            continue
+        fid, ed = "%08X" % r.fid, cc(r.edid)
+        t = r.first("TNAM")
+        tnam = ""
+        if t is not None and len(t) >= 4:
+            n = struct.unpack_from("<I", t)[0]
+            tnam = KYWD_TYPES[n] if n < len(KYWD_TYPES) else str(n)
+        f = r.first("FNAM")
+        x = r.first("XALG")
+        xalg = _xedit_bits(int.from_bytes(x, "little")) if x else ""
+        # CNAM (a colour struct), DATA and NTWK print blank from the .pas's
+        # GetElementEditValues - kept blank to match.
+        rl = esm.refby.get(r.fid, ())
+        core.append("\t".join([
+            fid, ed, cc(esm.lstring(r.full)), cc(_zstr(r.first("NNAM"))), tnam, "",
+            cc(_zstr(r.first("DNAM"))), " ".join("%02X" % b for b in f) if f else "",
+            xalg, _xedit_bits(r.flags, 64), cc(_zstr(r.first("ENAM"))), "", "", str(len(rl))]))
+        for i, h in enumerate(rl):
+            sig, red = esm.refinfo[h]
+            name = esm.lstring(dial_full.get(h)) if sig == "DIAL" else esm.full_of(h)
+            refs.append("\t".join([fid, ed, str(i), "%08X" % h, cc(red), sig, cc(name)]))
+    return {"": core, "_Refs": refs}
 
 
 # ------------------------------------------------------------- MISC ------
@@ -973,6 +1041,7 @@ def _dial_index(esm):
         return esm._dial
     import zlib
     out = {}
+    fulls = {}   # raw FULL of each topic (esm.lstring() it) - for the KYWD _Refs names
     with open(esm.esm_path, "rb") as f:
         size = os.path.getsize(esm.esm_path)
         f.seek(24 + struct.unpack("<I", f.read(24)[4:8])[0])
@@ -996,6 +1065,9 @@ def _dial_index(esm):
                     ln = struct.unpack_from("<H", data, 4)[0]
                     ed = data[6:6 + ln].rstrip(b"\0").decode("utf-8", "replace")
                 out[fid] = ed
+                full = R.main_full(R._parse_subs(data))
+                if full is not None:
+                    fulls[fid] = full
 
         while f.tell() < size:
             hdr = f.read(24)
@@ -1005,6 +1077,7 @@ def _dial_index(esm):
             else:
                 f.seek(ds - 24, 1)
     esm._dial = out
+    esm._dial_full = fulls
     return out
 
 
@@ -1406,7 +1479,7 @@ def _lore_notes(esm):
     return out + [x for _, x in rows]
 
 
-NEEDS_REFS = {"GLOB", "AVIF", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
+NEEDS_REFS = {"GLOB", "AVIF", "KYWD", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
 # exports that need Referenced By for more than their own records
 REF_TARGETS = {"NPC2": npc2_ref_targets, "MISC2": misc2_ref_targets, "ACTI2": acti2_ref_targets}
 
@@ -1423,6 +1496,7 @@ EXPORTS = {
     "SPEL": (["SPEL"], "SPEL_Export", exp_spel),
     "GLOB": (["GLOB"], "GLOB_Export", exp_glob),
     "AVIF": (["AVIF"], "AVIF_Export", exp_avif),
+    "KYWD": (["KYWD"], "KYWD_Export", exp_kywd),
     "MISC": (["MISC"], "MISC_Export", exp_misc),
     "NPC": (["NPC_"], "NPC_Export", exp_npc),
     "NPC2": (["NPC_", "FACT", "CNCY", "LCTN"], "NPC2_Vendors", exp_npc2),

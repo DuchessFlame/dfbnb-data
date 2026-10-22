@@ -1,8 +1,8 @@
 # Missing images
 
-Every item on a reward page with no picture anywhere: not in the shared library, not in its own event folder, not on any other page. Built 2026-10-22 from the server listing of 2026-10-22T03:54:06Z.
+Every item on a reward page with no picture anywhere: not in the shared library, not in its own event folder, not on any other page. Built 2026-10-22 from the server listing of 2026-10-22T06:28:47Z.
 
-**3299 items have no picture on the server**: 333 are already on your computer and just need uploading, 2966 need art found (7180 rows - the same item can appear on several pages; one upload fixes every page it is on).
+**3309 items have no picture on the server**: 342 are already on your computer and just need uploading, 2967 need art found (7200 rows - the same item can appear on several pages; one upload fixes every page it is on).
 
 Upload each file to the folder shown, named exactly as shown. Outfits: the folded item-only render is the `_go` file; a mannequin view, if you have one, is `<FormID>_c1.avif` beside it. Never upload a mannequin-only picture as the main image.
 
@@ -2977,7 +2977,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 |---|---|---|
 | Loose Screws | `wp-content/uploads/guide-images/activities/battle-bot/` | `00069081.avif` |
 
-## Activities - Beasts Of Burden (119)
+## Activities - Beasts Of Burden (117)
 
 | Item | Upload to | File name |
 |---|---|---|
@@ -3004,8 +3004,6 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Backwoodsman 7 | `wp-content/uploads/guide-images/activities/beasts-of-burden/` | `004303B6.avif` |
 | Backwoodsman 8 | `wp-content/uploads/guide-images/activities/beasts-of-burden/` | `004303C8.avif` |
 | Backwoodsman 9 | `wp-content/uploads/guide-images/activities/beasts-of-burden/` | `004303CB.avif` |
-| Double Mutated Package | `wp-content/uploads/guide-images/activities/beasts-of-burden/` | `00697589.avif` |
-| Double Mutated Party Pack | `wp-content/uploads/guide-images/activities/beasts-of-burden/` | `00698821.avif` |
 | Flatwoods Monster Card | `wp-content/uploads/guide-images/activities/beasts-of-burden/` | `006975A6.avif` |
 | Grafton Monster Card | `wp-content/uploads/guide-images/activities/beasts-of-burden/` | `006975A3.avif` |
 | Grognak the Barbarian 1 | `wp-content/uploads/guide-images/activities/beasts-of-burden/` | `004303D0.avif` |
@@ -3161,15 +3159,13 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Copper Ore | `wp-content/uploads/guide-images/activities/breach-and-clear/` | `00019E51.avif` |
 | Silver Ore | `wp-content/uploads/guide-images/activities/breach-and-clear/` | `00065328.avif` |
 
-## Activities - Campfire Tales (34)
+## Activities - Campfire Tales (32)
 
 | Item | Upload to | File name |
 |---|---|---|
 | Baseball Grenade *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/mines-and-grenades/` | `baseball-grenade.avif` |
 | Cryo Grenade *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/mines-and-grenades/` | `cryo-grenade.avif` |
 | Cryo Mine *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/mines-and-grenades/` | `cryo-mine.avif` |
-| Double Mutated Package | `wp-content/uploads/guide-images/activities/campfire-tales/` | `00697589.avif` |
-| Double Mutated Party Pack | `wp-content/uploads/guide-images/activities/campfire-tales/` | `00698821.avif` |
 | Floater Flamer Grenade *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/mines-and-grenades/` | `floater-flamer-grenade.avif` |
 | Floater Freezer Grenade *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/mines-and-grenades/` | `floater-freezer-grenade.avif` |
 | Floater Gnasher Grenade *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/mines-and-grenades/` | `floater-gnasher-grenade.avif` |
@@ -3502,12 +3498,10 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Utility Repair Kit Improved | `wp-content/uploads/guide-images/activities/encryptid/` | `0041ADEC.avif` |
 | White Wolf Fedora | `wp-content/uploads/guide-images/activities/encryptid/` | `0040FAC1.avif` |
 
-## Activities - Eviction Notice (6)
+## Activities - Eviction Notice (4)
 
 | Item | Upload to | File name |
 |---|---|---|
-| Double Mutated Package | `wp-content/uploads/guide-images/activities/eviction-notice/` | `00697589.avif` |
-| Double Mutated Party Pack | `wp-content/uploads/guide-images/activities/eviction-notice/` | `00698821.avif` |
 | Legendary Scrip | `wp-content/uploads/guide-images/activities/eviction-notice/` | `003F7410.avif` |
 | Mutated Package | `wp-content/uploads/guide-images/activities/eviction-notice/` | `00697588.avif` |
 | Mutated Party Pack | `wp-content/uploads/guide-images/activities/eviction-notice/` | `00698820.avif` |
@@ -3606,12 +3600,10 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Aluminum Scrap | `wp-content/uploads/guide-images/activities/fly-swatter/` | `0006907A.avif` |
 | Somerset Special .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 
-## Activities - Free Range (7)
+## Activities - Free Range (5)
 
 | Item | Upload to | File name |
 |---|---|---|
-| Double Mutated Package | `wp-content/uploads/guide-images/activities/free-range/` | `00697589.avif` |
-| Double Mutated Party Pack | `wp-content/uploads/guide-images/activities/free-range/` | `00698821.avif` |
 | Legendary Scrip | `wp-content/uploads/guide-images/activities/free-range/` | `003F7410.avif` |
 | Mutated Package | `wp-content/uploads/guide-images/activities/free-range/` | `00697588.avif` |
 | Mutated Party Pack | `wp-content/uploads/guide-images/activities/free-range/` | `00698820.avif` |
@@ -3675,24 +3667,20 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Stingwing Filet *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `stingwing-filet.avif` |
 | Yao Guai Ribs | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `00046955.avif` |
 
-## Activities - Guided Meditation (7)
+## Activities - Guided Meditation (5)
 
 | Item | Upload to | File name |
 |---|---|---|
 | Addictol | `wp-content/uploads/guide-images/activities/guided-meditation/` | `000459C5.avif` |
-| Double Mutated Package | `wp-content/uploads/guide-images/activities/guided-meditation/` | `00697589.avif` |
-| Double Mutated Party Pack | `wp-content/uploads/guide-images/activities/guided-meditation/` | `00698821.avif` |
 | Legendary Scrip | `wp-content/uploads/guide-images/activities/guided-meditation/` | `003F7410.avif` |
 | Mutated Package | `wp-content/uploads/guide-images/activities/guided-meditation/` | `00697588.avif` |
 | Mutated Party Pack | `wp-content/uploads/guide-images/activities/guided-meditation/` | `00698820.avif` |
 | Treasury Note | `wp-content/uploads/guide-images/activities/guided-meditation/` | `005A5443.avif` |
 
-## Activities - Heart Of The Swamp (6)
+## Activities - Heart Of The Swamp (4)
 
 | Item | Upload to | File name |
 |---|---|---|
-| Double Mutated Package | `wp-content/uploads/guide-images/activities/heart-of-the-swamp/` | `00697589.avif` |
-| Double Mutated Party Pack | `wp-content/uploads/guide-images/activities/heart-of-the-swamp/` | `00698821.avif` |
 | Legendary Scrip | `wp-content/uploads/guide-images/activities/heart-of-the-swamp/` | `003F7410.avif` |
 | Mutated Package | `wp-content/uploads/guide-images/activities/heart-of-the-swamp/` | `00697588.avif` |
 | Mutated Party Pack | `wp-content/uploads/guide-images/activities/heart-of-the-swamp/` | `00698820.avif` |
@@ -3939,13 +3927,11 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Raw Wolf Meat | `wp-content/uploads/guide-images/activities/leader-of-the-pack/` | `00110A48.avif` |
 | Somerset Special .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 
-## Activities - Line In The Sand (11)
+## Activities - Line In The Sand (9)
 
 | Item | Upload to | File name |
 |---|---|---|
 | .44 Round | `wp-content/uploads/guide-images/activities/line-in-the-sand/` | `0009221C.avif` |
-| Double Mutated Package | `wp-content/uploads/guide-images/activities/line-in-the-sand/` | `00697589.avif` |
-| Double Mutated Party Pack | `wp-content/uploads/guide-images/activities/line-in-the-sand/` | `00698821.avif` |
 | Fusion Core | `wp-content/uploads/guide-images/activities/line-in-the-sand/` | `00075FE4.avif` |
 | Last Stand Brotherhood Recon Chest Piece | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `005DD339.avif` |
 | Legendary Scrip | `wp-content/uploads/guide-images/activities/line-in-the-sand/` | `003F7410.avif` |
@@ -3955,7 +3941,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | The Fact Finder .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 | Treasury Note | `wp-content/uploads/guide-images/activities/line-in-the-sand/` | `005A5443.avif` |
 
-## Activities - Lode Baring (28)
+## Activities - Lode Baring (26)
 
 | Item | Upload to | File name |
 |---|---|---|
@@ -3965,8 +3951,6 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Calmex | `wp-content/uploads/guide-images/activities/lode-baring/` | `00058AA7.avif` |
 | Daddy-O | `wp-content/uploads/guide-images/activities/lode-baring/` | `00156D0B.avif` |
 | Day Tripper | `wp-content/uploads/guide-images/activities/lode-baring/` | `00150729.avif` |
-| Double Mutated Package | `wp-content/uploads/guide-images/activities/lode-baring/` | `00697589.avif` |
-| Double Mutated Party Pack | `wp-content/uploads/guide-images/activities/lode-baring/` | `00698821.avif` |
 | Fury | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `000628CA.avif` |
 | Grape Mentats | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `0010129A.avif` |
 | Legendary Module | `wp-content/uploads/guide-images/activities/lode-baring/` | `005652F9.avif` |
@@ -3994,12 +3978,10 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 |---|---|---|
 | Halloween Candy | `wp-content/uploads/guide-images/activities/monster-mash/` | `0051A9FC.avif` |
 
-## Activities - Moonshine Jamboree (10)
+## Activities - Moonshine Jamboree (8)
 
 | Item | Upload to | File name |
 |---|---|---|
-| Double Mutated Package | `wp-content/uploads/guide-images/activities/moonshine-jamboree/` | `00697589.avif` |
-| Double Mutated Party Pack | `wp-content/uploads/guide-images/activities/moonshine-jamboree/` | `00698821.avif` |
 | Fermentable Mire Magic Moonshine | `wp-content/uploads/guide-images/activities/moonshine-jamboree/` | `00655D12.avif` |
 | Legendary Scrip | `wp-content/uploads/guide-images/activities/moonshine-jamboree/` | `003F7410.avif` |
 | Mutated Package | `wp-content/uploads/guide-images/activities/moonshine-jamboree/` | `00697588.avif` |
@@ -4224,15 +4206,13 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Treasury Note | `wp-content/uploads/guide-images/activities/neurological-warfare/` | `005A5443.avif` |
 | V63-OLGA Laser Gun *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `laser-gun.avif` |
 
-## Activities - One Violent Night (15)
+## Activities - One Violent Night (13)
 
 | Item | Upload to | File name |
 |---|---|---|
 | Beer *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `beer.avif` |
 | Beer Hat | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `003621BC.avif` |
 | Blackwater Brew *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `blackwater-brew.avif` |
-| Double Mutated Package | `wp-content/uploads/guide-images/activities/one-violent-night/` | `00697589.avif` |
-| Double Mutated Party Pack | `wp-content/uploads/guide-images/activities/one-violent-night/` | `00698821.avif` |
 | Legendary Scrip | `wp-content/uploads/guide-images/activities/one-violent-night/` | `003F7410.avif` |
 | Mutated Package | `wp-content/uploads/guide-images/activities/one-violent-night/` | `00697588.avif` |
 | Mutated Party Pack | `wp-content/uploads/guide-images/activities/one-violent-night/` | `00698820.avif` |
@@ -4499,14 +4479,12 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 |---|---|---|
 | Somerset Special .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 
-## Activities - Project Paradise (122)
+## Activities - Project Paradise (120)
 
 | Item | Upload to | File name |
 |---|---|---|
 | Arktos Lab Coat | `wp-content/uploads/guide-images/activities/project-paradise/` | `003EFC5B.avif` |
 | Corpse Flower Stamen | `wp-content/uploads/guide-images/activities/project-paradise/` | `00366F95.avif` |
-| Double Mutated Package | `wp-content/uploads/guide-images/activities/project-paradise/` | `00697589.avif` |
-| Double Mutated Party Pack | `wp-content/uploads/guide-images/activities/project-paradise/` | `00698821.avif` |
 | Legendary Module | `wp-content/uploads/guide-images/activities/project-paradise/` | `005652F9.avif` |
 | Legendary Scrip | `wp-content/uploads/guide-images/activities/project-paradise/` | `003F7410.avif` |
 | Mutated Package | `wp-content/uploads/guide-images/activities/project-paradise/` | `00697588.avif` |
@@ -4626,7 +4604,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Treasury Note | `wp-content/uploads/guide-images/activities/project-paradise/` | `005A5443.avif` |
 | Utility Repair Kit Improved | `wp-content/uploads/guide-images/activities/project-paradise/` | `0041ADEC.avif` |
 
-## Activities - Radiation Rumble (228)
+## Activities - Radiation Rumble (226)
 
 | Item | Upload to | File name |
 |---|---|---|
@@ -4649,8 +4627,6 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Combat Armor Right Leg | `wp-content/uploads/guide-images/activities/radiation-rumble/` | `0011D3C4.avif` |
 | Commander's Charge Revolutionary Sword *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `revolutionary-war-sword.avif` |
 | Cop Cap | `wp-content/uploads/guide-images/activities/radiation-rumble/` | `003E8C73.avif` |
-| Double Mutated Package | `wp-content/uploads/guide-images/activities/radiation-rumble/` | `00697589.avif` |
-| Double Mutated Party Pack | `wp-content/uploads/guide-images/activities/radiation-rumble/` | `00698821.avif` |
 | Drill | `wp-content/uploads/guide-images/activities/radiation-rumble/` | `00081DD5.avif` |
 | Emmett Mountain Hazmat Suit | `wp-content/uploads/guide-images/activities/radiation-rumble/` | `00595914.avif` |
 | Forest Camo Jumpsuit | `wp-content/uploads/guide-images/activities/radiation-rumble/` | `003E5758.avif` |
@@ -4869,7 +4845,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Plan: Blue Ridge Caravan Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0059A038.avif` |
 | Plan: Blue Ridge Caravan Flag | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0057253C.avif` |
 
-## Activities - Safe And Sound (123)
+## Activities - Safe And Sound (121)
 
 | Item | Upload to | File name |
 |---|---|---|
@@ -4898,8 +4874,6 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Backwoodsman 9 | `wp-content/uploads/guide-images/activities/safe-and-sound/` | `004303CB.avif` |
 | Beast of Beckley Card | `wp-content/uploads/guide-images/activities/safe-and-sound/` | `006975A7.avif` |
 | Blue Devil Card | `wp-content/uploads/guide-images/activities/safe-and-sound/` | `006975A4.avif` |
-| Double Mutated Package | `wp-content/uploads/guide-images/activities/safe-and-sound/` | `00697589.avif` |
-| Double Mutated Party Pack | `wp-content/uploads/guide-images/activities/safe-and-sound/` | `00698821.avif` |
 | Grognak the Barbarian 1 | `wp-content/uploads/guide-images/activities/safe-and-sound/` | `004303D0.avif` |
 | Grognak the Barbarian 10 | `wp-content/uploads/guide-images/activities/safe-and-sound/` | `004303E8.avif` |
 | Grognak the Barbarian 2 | `wp-content/uploads/guide-images/activities/safe-and-sound/` | `004303D2.avif` |
@@ -5158,15 +5132,13 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | T-51b Right Arm | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `00140C4D.avif` |
 | T-51b Right Leg | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `00140C50.avif` |
 
-## Activities - Swarm Of Suitors (75)
+## Activities - Swarm Of Suitors (73)
 
 | Item | Upload to | File name |
 |---|---|---|
 | Black Cowboy Hat | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `00113DC9.avif` |
 | Black Prospector's Hat | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `00113D87.avif` |
 | Cop Cap | `wp-content/uploads/guide-images/activities/swarm-of-suitors/` | `003E8C73.avif` |
-| Double Mutated Package | `wp-content/uploads/guide-images/activities/swarm-of-suitors/` | `00697589.avif` |
-| Double Mutated Party Pack | `wp-content/uploads/guide-images/activities/swarm-of-suitors/` | `00698821.avif` |
 | Laser Gun *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `laser-gun.avif` |
 | Leather Chest Piece | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0007B9C6.avif` |
 | Leather Left Arm | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0007B9C7.avif` |
@@ -5244,12 +5216,10 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 |---|---|---|
 | Sweetwater Special Blend *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `sweetwater-special-blend.avif` |
 
-## Activities - Test Your Metal (50)
+## Activities - Test Your Metal (48)
 
 | Item | Upload to | File name |
 |---|---|---|
-| Double Mutated Package | `wp-content/uploads/guide-images/activities/test-your-metal/` | `00697589.avif` |
-| Double Mutated Party Pack | `wp-content/uploads/guide-images/activities/test-your-metal/` | `00698821.avif` |
 | Legendary Items Armor Rank1 | `wp-content/uploads/guide-images/activities/test-your-metal/` | `00417C4B.avif` |
 | Legendary Items Armor Rank2 | `wp-content/uploads/guide-images/activities/test-your-metal/` | `00417C40.avif` |
 | Legendary Items Armor Rank3 | `wp-content/uploads/guide-images/activities/test-your-metal/` | `00417C41.avif` |
@@ -5306,7 +5276,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Nuclear Waste | `wp-content/uploads/guide-images/activities/the-path-to-enlightenment/` | `00069086.avif` |
 | Somerset Special .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 
-## Activities - Tunnel Of Love (14)
+## Activities - Tunnel Of Love (40)
 
 | Item | Upload to | File name |
 |---|---|---|
@@ -5322,15 +5292,39 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Nuka-Cola | `wp-content/uploads/guide-images/activities/tunnel-of-love/` | `0004835D.avif` |
 | Nuka-Cola Twist | `wp-content/uploads/guide-images/activities/tunnel-of-love/` | `00660864.avif` |
 | Nuka-Dog *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `nuka-dog.avif` |
+| Plan: Bottle and Cappy Balloon Statue | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006828E8.avif` |
+| Plan: Bottle and Cappy Hoop Jump Statue | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006828E9.avif` |
+| Plan: Bottle and Cappy Painting Statue | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006828E6.avif` |
+| Plan: Bottle and Cappy Walking Globe Statue | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006828EA.avif` |
+| Plan: Bottle Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0067AEBC.avif` |
+| Plan: Bottle Bot | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0066DBCE.avif` |
+| Plan: Cappy Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0067AEBB.avif` |
+| Plan: Cappy Clapper | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0066C137.avif` |
+| Plan: Cappy Smasher Super Sledge Paint | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `00679A92.avif` |
+| Plan: Cupid Cappy Sign | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006772F1.avif` |
+| Plan: Nuka Cola Bottle Kiosk | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0068212E.avif` |
+| Plan: Nuka-Cade Poster | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0068211C.avif` |
+| Plan: Nuka-Cola Ad Barrier | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0068212B.avif` |
+| Plan: Nuka-Cola Balloons | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0067527C.avif` |
+| Plan: Nuka-Cola Crate Stalls | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0068212C.avif` |
+| Plan: Tunnel of Love Poster | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00682118.avif` |
+| Plan: Tunnel of Love Snow Globe | `wp-content/uploads/guide-images/plan-checklist/snowglobe/` | `0067F169.avif` |
 | Radscorpion Kebab *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `radscorpion-kebab.avif` |
+| Recipe: Brahmin Burgers *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `brahmin-burgers.avif` |
+| Recipe: Caramel Mutfruit *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `caramel-mutfruit.avif` |
+| Recipe: Carnival Pie *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `carnival-pie.avif` |
+| Recipe: Fried Radroach On A Stick *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `fried-radroach-on-a-stick.avif` |
+| Recipe: Fried Scorpion On A Stick *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `fried-scorpion-on-a-stick.avif` |
+| Recipe: Gulper Stuffed Foot *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `gulper-stuffed-foot.avif` |
+| Recipe: Nuka-Dog *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `nuka-dog.avif` |
+| Recipe: Radscorpion Kebab *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `radscorpion-kebab.avif` |
+| Recipe: Yao Guai Pastry *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `yao-guai-pastry.avif` |
 | Yao Guai Pastry *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `yao-guai-pastry.avif` |
 
-## Activities - Uranium Fever (6)
+## Activities - Uranium Fever (4)
 
 | Item | Upload to | File name |
 |---|---|---|
-| Double Mutated Package | `wp-content/uploads/guide-images/activities/uranium-fever/` | `00697589.avif` |
-| Double Mutated Party Pack | `wp-content/uploads/guide-images/activities/uranium-fever/` | `00698821.avif` |
 | Legendary Scrip | `wp-content/uploads/guide-images/activities/uranium-fever/` | `003F7410.avif` |
 | Mutated Package | `wp-content/uploads/guide-images/activities/uranium-fever/` | `00697588.avif` |
 | Mutated Party Pack | `wp-content/uploads/guide-images/activities/uranium-fever/` | `00698820.avif` |
@@ -7645,7 +7639,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Nuclear Waste | `wp-content/uploads/guide-images/public-events/the-path-to-enlightenment/` | `00069086.avif` |
 | Somerset Special .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 
-## Public Events - Tunnel Of Love (14)
+## Public Events - Tunnel Of Love (40)
 
 | Item | Upload to | File name |
 |---|---|---|
@@ -7661,7 +7655,33 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Nuka-Cola | `wp-content/uploads/guide-images/public-events/tunnel-of-love/` | `0004835D.avif` |
 | Nuka-Cola Twist | `wp-content/uploads/guide-images/public-events/tunnel-of-love/` | `00660864.avif` |
 | Nuka-Dog *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `nuka-dog.avif` |
+| Plan: Bottle and Cappy Balloon Statue | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006828E8.avif` |
+| Plan: Bottle and Cappy Hoop Jump Statue | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006828E9.avif` |
+| Plan: Bottle and Cappy Painting Statue | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006828E6.avif` |
+| Plan: Bottle and Cappy Walking Globe Statue | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006828EA.avif` |
+| Plan: Bottle Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0067AEBC.avif` |
+| Plan: Bottle Bot | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0066DBCE.avif` |
+| Plan: Cappy Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0067AEBB.avif` |
+| Plan: Cappy Clapper | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0066C137.avif` |
+| Plan: Cappy Smasher Super Sledge Paint | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `00679A92.avif` |
+| Plan: Cupid Cappy Sign | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006772F1.avif` |
+| Plan: Nuka Cola Bottle Kiosk | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0068212E.avif` |
+| Plan: Nuka-Cade Poster | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0068211C.avif` |
+| Plan: Nuka-Cola Ad Barrier | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0068212B.avif` |
+| Plan: Nuka-Cola Balloons | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0067527C.avif` |
+| Plan: Nuka-Cola Crate Stalls | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0068212C.avif` |
+| Plan: Tunnel of Love Poster | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00682118.avif` |
+| Plan: Tunnel of Love Snow Globe | `wp-content/uploads/guide-images/plan-checklist/snowglobe/` | `0067F169.avif` |
 | Radscorpion Kebab *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `radscorpion-kebab.avif` |
+| Recipe: Brahmin Burgers *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `brahmin-burgers.avif` |
+| Recipe: Caramel Mutfruit *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `caramel-mutfruit.avif` |
+| Recipe: Carnival Pie *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `carnival-pie.avif` |
+| Recipe: Fried Radroach On A Stick *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `fried-radroach-on-a-stick.avif` |
+| Recipe: Fried Scorpion On A Stick *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `fried-scorpion-on-a-stick.avif` |
+| Recipe: Gulper Stuffed Foot *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `gulper-stuffed-foot.avif` |
+| Recipe: Nuka-Dog *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `nuka-dog.avif` |
+| Recipe: Radscorpion Kebab *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `radscorpion-kebab.avif` |
+| Recipe: Yao Guai Pastry *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `yao-guai-pastry.avif` |
 | Yao Guai Pastry *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `yao-guai-pastry.avif` |
 
 ## Public Events - Uranium Fever (6)
