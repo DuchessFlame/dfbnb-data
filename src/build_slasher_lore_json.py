@@ -30,7 +30,9 @@ elsewhere ("image", "mapImage", "locationImage" per EditorID).
              tools/make_lore_note_images.py from the game's paper texture and
              the note's own text (the game has no picture per note: it lays the
              text over a plain paper model, BOOK INAM)
-  holotapes  holotape.avif — one generic holotape picture, row thumb only
+  holotapes  the site-wide holotape picture (src/shared_images.py), row thumb only
+  radio      by speaker (SPEAKER_IMAGE): debunker-news.avif for Remington
+             Goodwin's Debunker News, row thumb only
 Note text comes from ALLYDLG _LoreNotes (keeps the game's line breaks, fonts,
 colours and alignment as "note.blocks"); the BOOK export is the fallback.
 
@@ -55,6 +57,7 @@ sys.path.insert(0, str(HERE))
 
 import tsv_source            # noqa: E402
 import note_markup           # noqa: E402
+import shared_images         # noqa: E402
 import plan_quest_guides     # noqa: E402
 import slasher_guide         # noqa: E402
 
@@ -64,7 +67,11 @@ PREFIX = "SDOW_"
 OUT_NAME = "collectables_slasher_lore.json"
 LOCATIONS_JSON = REPO / "data" / "slasher_lore_locations.json"
 IMAGE_DIR = "/wp-content/uploads/guide-images/collectables/Slasher-Lore/"
-HOLOTAPE_IMAGE = IMAGE_DIR + "holotape.avif"      # one generic holotape picture
+HOLOTAPE_IMAGE = shared_images.HOLOTAPE_IMAGE      # the site-wide holotape picture
+# Radio row picture by who speaks in it (voice type EditorID -> file). The
+# Debunker's is his own talking-head portrait from interface/vocharacteranim.swf
+# (frame label SDOW_NPCM_Debunker), the one the HUD shows when he talks.
+SPEAKER_IMAGE = {"SDOW_NPCM_Debunker": "debunker-news.avif"}
 DEV_RX = re.compile(r"^(zzz|cut_|del_|post_)", re.I)
 RECIPE_KW = "ObjectTypeRecipe"
 
@@ -319,6 +326,7 @@ class Build:
         # holotapes -----------------------------------------------------
         lore = collections.defaultdict(list)
         radio = collections.OrderedDict()
+        radio_img = {}
         lp = self.newest("ALLYDLG_Export_*_Lore.tsv")
         for r in (_rows(lp) if lp else []):
             if not (r.get("QuestEDID") or "").startswith(PREFIX):
@@ -329,6 +337,9 @@ class Build:
             else:
                 k = (r.get("QuestEDID"), r.get("QuestName"), r.get("SceneEDID"), r.get("SceneFormID"))
                 radio.setdefault(k, []).append((int(r.get("LineOrder") or 0), line))
+                sp = _ref(r.get("Speaker"))
+                if sp and sp[1] in SPEAKER_IMAGE:
+                    radio_img.setdefault(k, IMAGE_DIR + SPEAKER_IMAGE[sp[1]])
         p = self.newest("NOTE_Export_*.tsv")
         for r in (_rows(p) if p else []):
             edid = (r.get("NOTE_EDID") or "").strip()
@@ -345,6 +356,7 @@ class Build:
             items.append(it)
         # radio broadcasts ----------------------------------------------
         for (qed, qname, sed, sfid), lines in radio.items():
+            qname0 = qname
             tr = [l for _, l in sorted(lines, key=lambda x: x[0])]
             if not tr:
                 continue
@@ -360,6 +372,9 @@ class Build:
                 "{}: {}".format(station, self._report_name(sed))
             it = self._item((sfid or "").upper(), sed, name, "Radio Broadcast",
                             [(key, {"row": "Radio", "name": station, "conditions": []})], objectives, transcript=tr)
+            img = (self.overrides.get(sed) or {}).get("image") or radio_img.get((qed, qname0, sed, sfid))
+            if img:
+                it["image"] = img
             items.append(it)
 
         groups = []
