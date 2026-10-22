@@ -17,6 +17,7 @@ straight from the game files, so these no longer need xEdit:
     GLOB    GLOB_Export_<Month>_<Year>.tsv          (ExportGLOBToCSV.pas)
     AVIF    AVIF_Export_<Month>_<Year>.tsv          (ExportAVIFToTSV.pas)
     KYWD    KYWD_Export_<Month>_<Year>.tsv + _Refs  (ExportKYWDToCSV.pas)
+    CURV    CURV_Export_<Month>_<Year>_CURV.tsv      (ExportCURVToTSV.pas; points: extract_curvetables.py + CI)
     MISC    MISC_Export_<Month>_<Year>.tsv          (ExportMISCToCSV.pas)
     NPC     NPC_Export_<Month>_<Year>.tsv + _PRPS + _Refs  (ExportNPCToTSV.pas)
     NPC2    NPC2_Vendors_<Month>_<Year>.tsv + _Placements, _Currencies, _Factions,
@@ -31,7 +32,7 @@ straight from the game files, so these no longer need xEdit:
             ExportQUST2ToTSV.pas - only that one file; the .pas stays the manual
             backup and still writes all six)
 
-GLOB, AVIF, KYWD, MISC and NPC list every record that points at each row ("Referenced By"),
+GLOB, AVIF, KYWD, CURV, MISC and NPC list every record that points at each row ("Referenced By"),
 worked out by esm_refs.py in one ~40 s scan (needs numpy). Known gap: xEdit
 stops reading some quests part-way through their objective/alias conditions, so
 its lists leave out those quests; these lists include them.
@@ -503,6 +504,21 @@ def exp_kywd(esm):
             name = esm.lstring(dial_full.get(h)) if sig == "DIAL" else esm.full_of(h)
             refs.append("\t".join([fid, ed, str(i), "%08X" % h, cc(red), sig, cc(name)]))
     return {"": core, "_Refs": refs}
+
+
+# ------------------------------------------------------------- CURV ------
+def exp_curv(esm):
+    """ExportCURVToTSV.pas - the records file (_CURV). The X/Y points are not in the
+    record: extract_curvetables.py refreshes the curve JSONs from Startup.ba2 and
+    CI's build_curv_points_tsv.py makes the _POINTS file from them."""
+    rows = []
+    for r in R.xedit_order(esm, "CURV"):
+        path = cc(_zstr(r.first("JASF")))
+        refs = _refcells(esm, r.fid)
+        rows.append((["%08X" % r.fid, cc(r.edid), path, path.replace("/", "\\").rsplit("\\", 1)[-1],
+                      str(len(refs))], refs))
+    return {"_CURV": _pad_refs(rows, ["FormID", "EDID", "JASF_Path", "JsonFileName",
+                                      "ReferencedByCount"], prefix="Ref_")}
 
 
 # ------------------------------------------------------------- MISC ------
@@ -1479,7 +1495,7 @@ def _lore_notes(esm):
     return out + [x for _, x in rows]
 
 
-NEEDS_REFS = {"GLOB", "AVIF", "KYWD", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
+NEEDS_REFS = {"GLOB", "AVIF", "KYWD", "CURV", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
 # exports that need Referenced By for more than their own records
 REF_TARGETS = {"NPC2": npc2_ref_targets, "MISC2": misc2_ref_targets, "ACTI2": acti2_ref_targets}
 
@@ -1497,6 +1513,7 @@ EXPORTS = {
     "GLOB": (["GLOB"], "GLOB_Export", exp_glob),
     "AVIF": (["AVIF"], "AVIF_Export", exp_avif),
     "KYWD": (["KYWD"], "KYWD_Export", exp_kywd),
+    "CURV": (["CURV"], "CURV_Export", exp_curv),
     "MISC": (["MISC"], "MISC_Export", exp_misc),
     "NPC": (["NPC_"], "NPC_Export", exp_npc),
     "NPC2": (["NPC_", "FACT", "CNCY", "LCTN"], "NPC2_Vendors", exp_npc2),
