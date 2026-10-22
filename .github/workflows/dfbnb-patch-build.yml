@@ -963,6 +963,7 @@ jobs:
         continue-on-error: true
         run: |
           python src/check_uwa_sources.py
+          python src/check_uwa_sources.py --channel pts
 
       # Data Mining > Cut Content (/df/data-mining/cut-content/). Collects the
       # cut rows every builder above marked (plan_master, uniques' cut_uniques,
@@ -971,7 +972,6 @@ jobs:
       # of them. Decides nothing itself (plan_sources.is_cut_content does).
       - name: Build Cut Content JSON
         run: python src/build_cut_content_json.py
-          python src/check_uwa_sources.py --channel pts
 
       # --- APPAREL WITHOUT PLANS (/df/collectables/apparel-without-plans/checklist/) ---
       # Outputs dist/no_plan_apparel.json for df-bnb-plan-checklists.js

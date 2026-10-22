@@ -170372,7 +170372,7 @@
                 "count": 0
               },
               "plan": {
-                "any": 8.4571,
+                "any": 8.4572,
                 "each": 0.4444,
                 "count": 35
               },
@@ -172915,7 +172915,7 @@
                 "count": 0
               },
               "plan": {
-                "any": 8.4571,
+                "any": 8.4572,
                 "each": 0.4444,
                 "count": 35
               },
@@ -175458,7 +175458,7 @@
                 "count": 0
               },
               "plan": {
-                "any": 8.4571,
+                "any": 8.4572,
                 "each": 0.4444,
                 "count": 35
               },
@@ -188939,6 +188939,1305 @@
         ]
       },
       "recommendedMap": "event-swap-treasure-hunters-phantoms-high-priests-recommended-route-map.jpg"
+    },
+    "the-slasher-guide": {
+      "slug": "the-slasher-guide",
+      "ok": true,
+      "tracker": {
+        "name": "(Seasonal) The Slasher",
+        "intro": "Admirers of the infamous Pint-Sized Slasher are congregating in Appalachia for some nefarious reason. While I investigate their plan, I should find ways to weaken their advancement."
+      },
+      "phases": [
+        {
+          "key": "phase-1",
+          "label": "Phase 1",
+          "gameText": "Pint-Sized Slasher Masks have been spread across Appalachia",
+          "quest": {
+            "formId": "008F15C1",
+            "edid": "SDOW_MQ01_Bodies",
+            "name": "The Slasher: Masked Truth",
+            "steps": [
+              "Listen to the \"Breaking News\" radio broadcast",
+              "Collect the clippings left by the killers (5)",
+              "Read \"A page torn from a children's book\"",
+              "Find Pint-Sized Slasher Masks in cabins, campgrounds, and fairgrounds (10)",
+              "Investigate the area described in the note",
+              "Search the dog kennel"
+            ],
+            "availability": "Only available for the duration of The Slasher Seasonal Content",
+            "rewardGmrw": [
+              "008F76A2"
+            ]
+          },
+          "challenges": [
+            {
+              "name": "(Seasonal) Collect Pint-Sized Slasher Masks",
+              "type": "Lifetime",
+              "required": 3,
+              "phase": "phase-1",
+              "edid": "SDOW_Challenge_Lifetime_Collect_SlasherClue_01",
+              "reward": "Ghost Boy (1)"
+            },
+            {
+              "name": "(Seasonal) Collect More Pint-Sized Slasher Masks",
+              "type": "Lifetime",
+              "required": 10,
+              "phase": "phase-1",
+              "edid": "SDOW_Challenge_Lifetime_Collect_SlasherClue_02",
+              "reward": "Title: Laughing"
+            },
+            {
+              "name": "(Seasonal) Collect Even More Pint-Sized Slasher Masks",
+              "type": "Lifetime",
+              "required": 30,
+              "phase": "phase-1",
+              "edid": "SDOW_Challenge_Lifetime_Collect_SlasherClue_03",
+              "reward": "Pint-Sized Fishing Bobber"
+            },
+            {
+              "name": "(Seasonal) Collect The Remaining Pint-Sized Slasher Masks",
+              "type": "Lifetime",
+              "required": 50,
+              "phase": "phase-1",
+              "edid": "SDOW_Challenge_Lifetime_Collect_SlasherClue_04",
+              "reward": "Pint-Sized Radio"
+            }
+          ]
+        },
+        {
+          "key": "phase-2",
+          "label": "Phase 2",
+          "gameText": "The Pint-Sized Phantoms are disrupting Daily Ops and burying odd treasures in Disturbed Graves",
+          "quest": {
+            "formId": "008F15A1",
+            "edid": "SDOW_MQ02_Graves",
+            "name": "The Slasher: Secrets to the Grave",
+            "steps": [
+              "Complete an Activity or Event to acquire a Pint-Sized Phantoms' Map",
+              "Read the Pint-Sized Phantoms' Map",
+              "Complete \"(Repeatable) Disturbed Grave\"",
+              "Complete Activities or Events to acquire more maps",
+              "Find the pages of the document in Disturbed Graves (4)",
+              "Read \"Our Mission - Part IV\"",
+              "\"Seek your fortune\" at Tyler County Fairgrounds",
+              "Investigate the Smiling Clown",
+              "Listen to the \"Invite Me\" holotape"
+            ],
+            "requires": [
+              "The Slasher: Masked Truth"
+            ],
+            "availability": "Only available for the duration of The Slasher Seasonal Content",
+            "rewardGmrw": [
+              "008F76A5"
+            ]
+          },
+          "sideQuests": [
+            {
+              "formId": "008F1665",
+              "edid": "SDOW_SQ01_Graves_Repeatable",
+              "name": "Repeatable: Disturbed Grave",
+              "steps": [
+                "Find the Disturbed Grave",
+                "Equip a shovel",
+                "Use a shovel to dig up the Disturbed Grave",
+                "Take the ritual pile"
+              ],
+              "availability": "Only available for the duration of The Slasher Seasonal Content",
+              "rewardGmrw": [
+                "008F2AFB"
+              ]
+            }
+          ],
+          "challenges": [
+            {
+              "name": "Complete the Quest: \"Disturbed Grave\"",
+              "type": "Daily",
+              "required": 1,
+              "phase": "phase-2",
+              "edid": "SCORE_Challenge_Daily_QuestComplete_Event_SDOW_SQ01_Graves_Repeatable"
+            },
+            {
+              "name": "Kill an Enemy with a Shovel during the \"Disturbed Grave\" Quest",
+              "type": "Daily",
+              "required": 6,
+              "phase": "phase-2",
+              "edid": "SCORE_Challenge_Daily_Kill_Enemy_Shovel_SDOW_SQ01"
+            },
+            {
+              "name": "Kill an Enemy with a Shovel during the \"Disturbed Grave\" Quest while on a Team",
+              "type": "Daily",
+              "required": 6,
+              "phase": "phase-2",
+              "edid": "SCORE_Challenge_Daily_Kill_Enemy_Shovel_SDOW_SQ01_Teammate"
+            },
+            {
+              "name": "Kill a Pint-Sized Phantom during a Daily Operation while on a Team!",
+              "type": "Daily",
+              "required": 10,
+              "phase": "phase-2",
+              "edid": "SCORE_Challenge_Daily_Kill_SlasherFan_DailyOps_Teammate"
+            },
+            {
+              "name": "Kill a Pint-Sized Phantom during a Daily Operation!",
+              "type": "Daily",
+              "required": 10,
+              "phase": "phase-2",
+              "edid": "SCORE_Challenge_Daily_Kill_SlasherFan_DailyOps"
+            },
+            {
+              "name": "Complete the Quest: \"Disturbed Grave\"",
+              "type": "Weekly",
+              "required": 4,
+              "phase": "phase-2",
+              "edid": "SCORE_Challenge_Weekly_QuestComplete_Event_SDOW_SQ01_Graves_Repeatable"
+            },
+            {
+              "name": "Kill an Enemy with a Shovel during the \"Disturbed Grave\" Quest",
+              "type": "Weekly",
+              "required": 20,
+              "phase": "phase-2",
+              "edid": "SCORE_Challenge_Weekly_Kill_Enemy_Shovel_SDOW_SQ01"
+            },
+            {
+              "name": "Kill a Pint-Sized Phantom during a Daily Operation while on a Team!",
+              "type": "Weekly",
+              "required": 30,
+              "phase": "phase-2",
+              "edid": "SCORE_Challenge_Weekly_Kill_SlasherFan_DailyOps_Teammate"
+            },
+            {
+              "name": "Kill a Pint-Sized Phantom during a Daily Operation!",
+              "type": "Weekly",
+              "required": 30,
+              "phase": "phase-2",
+              "edid": "SCORE_Challenge_Weekly_Kill_SlasherFan_DailyOps"
+            }
+          ]
+        },
+        {
+          "key": "phase-3",
+          "label": "Phase 3",
+          "gameText": "The Pint-Sized Phantoms are infesting Appalachia",
+          "quest": {
+            "formId": "008F15C2",
+            "edid": "SDOW_MQ04_Infestations",
+            "name": "The Slasher: Out of the Shadows",
+            "steps": [
+              "Investigate the areas where the Pint-Sized Phantoms were spotted (2)",
+              "Find the \"Phantoms' Orders\" in RobCo Research Center",
+              "Find the \"Phantoms' Orders\" in Gauley Mine",
+              "Read \"Phantoms' Orders: His Vessel\"",
+              "Investigate Organ Cave",
+              "Defeat the Pint-Sized Phantom Tinkerer",
+              "Search the Pint-Sized Phantom Tinkerer",
+              "Listen to \"The Summoning\" holotape"
+            ],
+            "requires": [
+              "The Slasher: Masked Truth",
+              "The Slasher: Secrets to the Grave"
+            ],
+            "availability": "Only available for the duration of The Slasher Seasonal Content",
+            "rewardGmrw": [
+              "008F76A4"
+            ]
+          },
+          "challenges": [
+            {
+              "name": "Kill a Pint-Sized Phantom during an Infestation",
+              "type": "Daily",
+              "required": 6,
+              "phase": "phase-3",
+              "edid": "SCORE_Challenge_Daily_Kill_SlasherFan_HostileTakeover"
+            },
+            {
+              "name": "Kill a Pint-Sized Phantom during an Infestation while on a Team",
+              "type": "Daily",
+              "required": 6,
+              "phase": "phase-3",
+              "edid": "SCORE_Challenge_Daily_Kill_SlasherFan_HostileTakeover_Teammate"
+            },
+            {
+              "name": "Kill a Pint-Sized Phantom during an Infestation",
+              "type": "Weekly",
+              "required": 20,
+              "phase": "phase-3",
+              "edid": "SCORE_Challenge_Weekly_Kill_SlasherFan_HostileTakeover"
+            }
+          ]
+        },
+        {
+          "key": "phase-4",
+          "label": "Phase 4",
+          "gameText": "The Pint-Sized Phantoms are disturbing Mischief Night",
+          "challenges": [
+            {
+              "name": "Kill an Uninvited Pint-Sized Phantom",
+              "type": "Weekly",
+              "required": 1,
+              "phase": "phase-4",
+              "edid": "SCORE_Challenge_Weekly_Seasonal_Kill_PartyCrasher_MN2_Quest_Mischief",
+              "target": {
+                "name": "Uninvited Pint-Sized Phantom",
+                "formId": "008E06DE"
+              }
+            }
+          ]
+        },
+        {
+          "key": "phase-5",
+          "label": "Phase 5",
+          "gameText": "The Pint-Sized Phantoms are hiding among Spooky Scorched",
+          "challenges": []
+        },
+        {
+          "key": "finale",
+          "label": "Finale",
+          "gameText": "The Reborn Pint-Sized Slasher is lurking near Head Hunts",
+          "quest": {
+            "formId": "008F15C3",
+            "edid": "SDOW_MQ05_Headhunt",
+            "name": "The Slasher: Blood Will Have Blood",
+            "steps": [
+              "Listen to \"A Warning\" broadcast",
+              "Complete Head Hunts for a chance to find the Reborn Pint-Sized Slasher",
+              "Defeat the Reborn Pint-Sized Slasher"
+            ],
+            "requires": [
+              "The Slasher: Masked Truth",
+              "The Slasher: Secrets to the Grave",
+              "The Slasher: Out of the Shadows"
+            ],
+            "availability": "Only available for the duration of The Slasher Seasonal Content",
+            "rewardGmrw": [
+              "008F76A3"
+            ]
+          },
+          "challenges": [
+            {
+              "name": "Kill The Reborn Pint-Sized Slasher",
+              "type": "Weekly",
+              "required": 1,
+              "phase": "finale",
+              "edid": "SCORE_Challenge_Weekly_Seasonal_Kill_PartyCrasher_HeadHunt",
+              "target": {
+                "name": "The Reborn Pint-Sized Slasher",
+                "formId": "008E06C5"
+              }
+            }
+          ]
+        }
+      ],
+      "storyQuests": [
+        "The Slasher: Masked Truth",
+        "The Slasher: Secrets to the Grave",
+        "The Slasher: Out of the Shadows",
+        "The Slasher: Blood Will Have Blood"
+      ],
+      "eventChallenges": [
+        {
+          "name": "Kill a Pint-Sized Phantom while on a Team and wearing a Costume",
+          "type": "Daily",
+          "required": 5,
+          "phase": "event",
+          "edid": "SCORE_Challenge_Daily_Kill_SlasherFan_InCostume_Teammate"
+        },
+        {
+          "name": "Kill a Pint-Sized Phantom while wearing a Costume",
+          "type": "Daily",
+          "required": 5,
+          "phase": "event",
+          "edid": "SCORE_Challenge_Daily_Kill_SlasherFan_InCostume"
+        },
+        {
+          "name": "Kill a Pint-Sized Phantom",
+          "type": "Daily",
+          "required": 10,
+          "phase": "event",
+          "edid": "SCORE_Challenge_Daily_Kill_SlasherFan"
+        },
+        {
+          "name": "Kill a Pint-Sized Phantom while in a Team",
+          "type": "Daily",
+          "required": 10,
+          "phase": "event",
+          "edid": "SCORE_Challenge_Daily_Kill_SlasherFan_Teammate"
+        },
+        {
+          "name": "Kill a Pint-Sized Phantom while on a Team and wearing a Costume",
+          "type": "Weekly",
+          "required": 16,
+          "phase": "event",
+          "edid": "SCORE_Challenge_Weekly_Kill_SlasherFan_InCostume_Teammate"
+        },
+        {
+          "name": "Kill a Pint-Sized Phantom while wearing a Costume",
+          "type": "Weekly",
+          "required": 16,
+          "phase": "event",
+          "edid": "SCORE_Challenge_Weekly_Kill_SlasherFan_InCostume"
+        },
+        {
+          "name": "Kill a Pint-Sized Phantom",
+          "type": "Weekly",
+          "required": 30,
+          "phase": "event",
+          "edid": "SCORE_Challenge_Weekly_Kill_SlasherFan"
+        },
+        {
+          "name": "Kill a Pint-Sized Phantom while in a Team",
+          "type": "Weekly",
+          "required": 30,
+          "phase": "event",
+          "edid": "SCORE_Challenge_Weekly_Kill_SlasherFan_Teammate"
+        }
+      ],
+      "graveCount": 18,
+      "finaleRewards": [
+        {
+          "name": "Plan: Pint-Sized Slasher Power Armor Helmet Paint",
+          "tradeable": false,
+          "image": "/wp-content/uploads/guide-images/plan-checklist/power-armour/sdow_mod_powerarmor_all_material_paint_slasherpa_helmet.avif",
+          "sources": [
+            {
+              "how": "quest",
+              "quest": "The Slasher: Blood Will Have Blood",
+              "rate": 1.0,
+              "rateDisplay": "100.0000%"
+            }
+          ]
+        },
+        {
+          "name": "Plan: Pint-Sized Auto Axe Paint",
+          "tradeable": true,
+          "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/sdow_mod_custom_slasheraxe_appearance.avif",
+          "sources": [
+            {
+              "how": "drop",
+              "from": "The Reborn Pint-Sized Slasher",
+              "rate": 0.04,
+              "rateDisplay": "4.0000%"
+            }
+          ]
+        },
+        {
+          "name": "Plan: Pint-Sized Slasher Power Armor Arms Paint",
+          "tradeable": true,
+          "image": "/wp-content/uploads/guide-images/plan-checklist/power-armour/sdow_mod_powerarmor_all_material_paint_slasherpa_armleft.avif",
+          "sources": [
+            {
+              "how": "drop",
+              "from": "The Reborn Pint-Sized Slasher",
+              "rate": 0.04,
+              "rateDisplay": "4.0000%"
+            }
+          ]
+        },
+        {
+          "name": "Plan: Pint-Sized Slasher Power Armor Jetpack Paint",
+          "tradeable": true,
+          "image": "/wp-content/uploads/guide-images/plan-checklist/power-armour/sdow_mod_powerarmor_x01_torso_misc_jetpack_slasherpajetpack.avif",
+          "sources": [
+            {
+              "how": "drop",
+              "from": "The Reborn Pint-Sized Slasher",
+              "rate": 0.04,
+              "rateDisplay": "4.0000%"
+            }
+          ]
+        },
+        {
+          "name": "Plan: Pint-Sized Slasher Power Armor Legs Paint",
+          "tradeable": true,
+          "image": "/wp-content/uploads/guide-images/plan-checklist/power-armour/sdow_mod_powerarmor_all_material_paint_slasherpa_legleft.avif",
+          "sources": [
+            {
+              "how": "drop",
+              "from": "The Reborn Pint-Sized Slasher",
+              "rate": 0.04,
+              "rateDisplay": "4.0000%"
+            }
+          ]
+        },
+        {
+          "name": "Plan: Pint-Sized Slasher Power Armor Torso Paint",
+          "tradeable": true,
+          "image": "/wp-content/uploads/guide-images/plan-checklist/power-armour/sdow_mod_powerarmor_all_material_paint_slasherpa_torso.avif",
+          "sources": [
+            {
+              "how": "drop",
+              "from": "The Reborn Pint-Sized Slasher",
+              "rate": 0.04,
+              "rateDisplay": "4.0000%"
+            }
+          ]
+        }
+      ]
+    },
+    "/df/seasonal-events/the-slasher/the-slasher-guide/": {
+      "slug": "the-slasher-guide",
+      "ok": true,
+      "tracker": {
+        "name": "(Seasonal) The Slasher",
+        "intro": "Admirers of the infamous Pint-Sized Slasher are congregating in Appalachia for some nefarious reason. While I investigate their plan, I should find ways to weaken their advancement."
+      },
+      "phases": [
+        {
+          "key": "phase-1",
+          "label": "Phase 1",
+          "gameText": "Pint-Sized Slasher Masks have been spread across Appalachia",
+          "quest": {
+            "formId": "008F15C1",
+            "edid": "SDOW_MQ01_Bodies",
+            "name": "The Slasher: Masked Truth",
+            "steps": [
+              "Listen to the \"Breaking News\" radio broadcast",
+              "Collect the clippings left by the killers (5)",
+              "Read \"A page torn from a children's book\"",
+              "Find Pint-Sized Slasher Masks in cabins, campgrounds, and fairgrounds (10)",
+              "Investigate the area described in the note",
+              "Search the dog kennel"
+            ],
+            "availability": "Only available for the duration of The Slasher Seasonal Content",
+            "rewardGmrw": [
+              "008F76A2"
+            ]
+          },
+          "challenges": [
+            {
+              "name": "(Seasonal) Collect Pint-Sized Slasher Masks",
+              "type": "Lifetime",
+              "required": 3,
+              "phase": "phase-1",
+              "edid": "SDOW_Challenge_Lifetime_Collect_SlasherClue_01",
+              "reward": "Ghost Boy (1)"
+            },
+            {
+              "name": "(Seasonal) Collect More Pint-Sized Slasher Masks",
+              "type": "Lifetime",
+              "required": 10,
+              "phase": "phase-1",
+              "edid": "SDOW_Challenge_Lifetime_Collect_SlasherClue_02",
+              "reward": "Title: Laughing"
+            },
+            {
+              "name": "(Seasonal) Collect Even More Pint-Sized Slasher Masks",
+              "type": "Lifetime",
+              "required": 30,
+              "phase": "phase-1",
+              "edid": "SDOW_Challenge_Lifetime_Collect_SlasherClue_03",
+              "reward": "Pint-Sized Fishing Bobber"
+            },
+            {
+              "name": "(Seasonal) Collect The Remaining Pint-Sized Slasher Masks",
+              "type": "Lifetime",
+              "required": 50,
+              "phase": "phase-1",
+              "edid": "SDOW_Challenge_Lifetime_Collect_SlasherClue_04",
+              "reward": "Pint-Sized Radio"
+            }
+          ]
+        },
+        {
+          "key": "phase-2",
+          "label": "Phase 2",
+          "gameText": "The Pint-Sized Phantoms are disrupting Daily Ops and burying odd treasures in Disturbed Graves",
+          "quest": {
+            "formId": "008F15A1",
+            "edid": "SDOW_MQ02_Graves",
+            "name": "The Slasher: Secrets to the Grave",
+            "steps": [
+              "Complete an Activity or Event to acquire a Pint-Sized Phantoms' Map",
+              "Read the Pint-Sized Phantoms' Map",
+              "Complete \"(Repeatable) Disturbed Grave\"",
+              "Complete Activities or Events to acquire more maps",
+              "Find the pages of the document in Disturbed Graves (4)",
+              "Read \"Our Mission - Part IV\"",
+              "\"Seek your fortune\" at Tyler County Fairgrounds",
+              "Investigate the Smiling Clown",
+              "Listen to the \"Invite Me\" holotape"
+            ],
+            "requires": [
+              "The Slasher: Masked Truth"
+            ],
+            "availability": "Only available for the duration of The Slasher Seasonal Content",
+            "rewardGmrw": [
+              "008F76A5"
+            ]
+          },
+          "sideQuests": [
+            {
+              "formId": "008F1665",
+              "edid": "SDOW_SQ01_Graves_Repeatable",
+              "name": "Repeatable: Disturbed Grave",
+              "steps": [
+                "Find the Disturbed Grave",
+                "Equip a shovel",
+                "Use a shovel to dig up the Disturbed Grave",
+                "Take the ritual pile"
+              ],
+              "availability": "Only available for the duration of The Slasher Seasonal Content",
+              "rewardGmrw": [
+                "008F2AFB"
+              ]
+            }
+          ],
+          "challenges": [
+            {
+              "name": "Complete the Quest: \"Disturbed Grave\"",
+              "type": "Daily",
+              "required": 1,
+              "phase": "phase-2",
+              "edid": "SCORE_Challenge_Daily_QuestComplete_Event_SDOW_SQ01_Graves_Repeatable"
+            },
+            {
+              "name": "Kill an Enemy with a Shovel during the \"Disturbed Grave\" Quest",
+              "type": "Daily",
+              "required": 6,
+              "phase": "phase-2",
+              "edid": "SCORE_Challenge_Daily_Kill_Enemy_Shovel_SDOW_SQ01"
+            },
+            {
+              "name": "Kill an Enemy with a Shovel during the \"Disturbed Grave\" Quest while on a Team",
+              "type": "Daily",
+              "required": 6,
+              "phase": "phase-2",
+              "edid": "SCORE_Challenge_Daily_Kill_Enemy_Shovel_SDOW_SQ01_Teammate"
+            },
+            {
+              "name": "Kill a Pint-Sized Phantom during a Daily Operation while on a Team!",
+              "type": "Daily",
+              "required": 10,
+              "phase": "phase-2",
+              "edid": "SCORE_Challenge_Daily_Kill_SlasherFan_DailyOps_Teammate"
+            },
+            {
+              "name": "Kill a Pint-Sized Phantom during a Daily Operation!",
+              "type": "Daily",
+              "required": 10,
+              "phase": "phase-2",
+              "edid": "SCORE_Challenge_Daily_Kill_SlasherFan_DailyOps"
+            },
+            {
+              "name": "Complete the Quest: \"Disturbed Grave\"",
+              "type": "Weekly",
+              "required": 4,
+              "phase": "phase-2",
+              "edid": "SCORE_Challenge_Weekly_QuestComplete_Event_SDOW_SQ01_Graves_Repeatable"
+            },
+            {
+              "name": "Kill an Enemy with a Shovel during the \"Disturbed Grave\" Quest",
+              "type": "Weekly",
+              "required": 20,
+              "phase": "phase-2",
+              "edid": "SCORE_Challenge_Weekly_Kill_Enemy_Shovel_SDOW_SQ01"
+            },
+            {
+              "name": "Kill a Pint-Sized Phantom during a Daily Operation while on a Team!",
+              "type": "Weekly",
+              "required": 30,
+              "phase": "phase-2",
+              "edid": "SCORE_Challenge_Weekly_Kill_SlasherFan_DailyOps_Teammate"
+            },
+            {
+              "name": "Kill a Pint-Sized Phantom during a Daily Operation!",
+              "type": "Weekly",
+              "required": 30,
+              "phase": "phase-2",
+              "edid": "SCORE_Challenge_Weekly_Kill_SlasherFan_DailyOps"
+            }
+          ]
+        },
+        {
+          "key": "phase-3",
+          "label": "Phase 3",
+          "gameText": "The Pint-Sized Phantoms are infesting Appalachia",
+          "quest": {
+            "formId": "008F15C2",
+            "edid": "SDOW_MQ04_Infestations",
+            "name": "The Slasher: Out of the Shadows",
+            "steps": [
+              "Investigate the areas where the Pint-Sized Phantoms were spotted (2)",
+              "Find the \"Phantoms' Orders\" in RobCo Research Center",
+              "Find the \"Phantoms' Orders\" in Gauley Mine",
+              "Read \"Phantoms' Orders: His Vessel\"",
+              "Investigate Organ Cave",
+              "Defeat the Pint-Sized Phantom Tinkerer",
+              "Search the Pint-Sized Phantom Tinkerer",
+              "Listen to \"The Summoning\" holotape"
+            ],
+            "requires": [
+              "The Slasher: Masked Truth",
+              "The Slasher: Secrets to the Grave"
+            ],
+            "availability": "Only available for the duration of The Slasher Seasonal Content",
+            "rewardGmrw": [
+              "008F76A4"
+            ]
+          },
+          "challenges": [
+            {
+              "name": "Kill a Pint-Sized Phantom during an Infestation",
+              "type": "Daily",
+              "required": 6,
+              "phase": "phase-3",
+              "edid": "SCORE_Challenge_Daily_Kill_SlasherFan_HostileTakeover"
+            },
+            {
+              "name": "Kill a Pint-Sized Phantom during an Infestation while on a Team",
+              "type": "Daily",
+              "required": 6,
+              "phase": "phase-3",
+              "edid": "SCORE_Challenge_Daily_Kill_SlasherFan_HostileTakeover_Teammate"
+            },
+            {
+              "name": "Kill a Pint-Sized Phantom during an Infestation",
+              "type": "Weekly",
+              "required": 20,
+              "phase": "phase-3",
+              "edid": "SCORE_Challenge_Weekly_Kill_SlasherFan_HostileTakeover"
+            }
+          ]
+        },
+        {
+          "key": "phase-4",
+          "label": "Phase 4",
+          "gameText": "The Pint-Sized Phantoms are disturbing Mischief Night",
+          "challenges": [
+            {
+              "name": "Kill an Uninvited Pint-Sized Phantom",
+              "type": "Weekly",
+              "required": 1,
+              "phase": "phase-4",
+              "edid": "SCORE_Challenge_Weekly_Seasonal_Kill_PartyCrasher_MN2_Quest_Mischief",
+              "target": {
+                "name": "Uninvited Pint-Sized Phantom",
+                "formId": "008E06DE"
+              }
+            }
+          ]
+        },
+        {
+          "key": "phase-5",
+          "label": "Phase 5",
+          "gameText": "The Pint-Sized Phantoms are hiding among Spooky Scorched",
+          "challenges": []
+        },
+        {
+          "key": "finale",
+          "label": "Finale",
+          "gameText": "The Reborn Pint-Sized Slasher is lurking near Head Hunts",
+          "quest": {
+            "formId": "008F15C3",
+            "edid": "SDOW_MQ05_Headhunt",
+            "name": "The Slasher: Blood Will Have Blood",
+            "steps": [
+              "Listen to \"A Warning\" broadcast",
+              "Complete Head Hunts for a chance to find the Reborn Pint-Sized Slasher",
+              "Defeat the Reborn Pint-Sized Slasher"
+            ],
+            "requires": [
+              "The Slasher: Masked Truth",
+              "The Slasher: Secrets to the Grave",
+              "The Slasher: Out of the Shadows"
+            ],
+            "availability": "Only available for the duration of The Slasher Seasonal Content",
+            "rewardGmrw": [
+              "008F76A3"
+            ]
+          },
+          "challenges": [
+            {
+              "name": "Kill The Reborn Pint-Sized Slasher",
+              "type": "Weekly",
+              "required": 1,
+              "phase": "finale",
+              "edid": "SCORE_Challenge_Weekly_Seasonal_Kill_PartyCrasher_HeadHunt",
+              "target": {
+                "name": "The Reborn Pint-Sized Slasher",
+                "formId": "008E06C5"
+              }
+            }
+          ]
+        }
+      ],
+      "storyQuests": [
+        "The Slasher: Masked Truth",
+        "The Slasher: Secrets to the Grave",
+        "The Slasher: Out of the Shadows",
+        "The Slasher: Blood Will Have Blood"
+      ],
+      "eventChallenges": [
+        {
+          "name": "Kill a Pint-Sized Phantom while on a Team and wearing a Costume",
+          "type": "Daily",
+          "required": 5,
+          "phase": "event",
+          "edid": "SCORE_Challenge_Daily_Kill_SlasherFan_InCostume_Teammate"
+        },
+        {
+          "name": "Kill a Pint-Sized Phantom while wearing a Costume",
+          "type": "Daily",
+          "required": 5,
+          "phase": "event",
+          "edid": "SCORE_Challenge_Daily_Kill_SlasherFan_InCostume"
+        },
+        {
+          "name": "Kill a Pint-Sized Phantom",
+          "type": "Daily",
+          "required": 10,
+          "phase": "event",
+          "edid": "SCORE_Challenge_Daily_Kill_SlasherFan"
+        },
+        {
+          "name": "Kill a Pint-Sized Phantom while in a Team",
+          "type": "Daily",
+          "required": 10,
+          "phase": "event",
+          "edid": "SCORE_Challenge_Daily_Kill_SlasherFan_Teammate"
+        },
+        {
+          "name": "Kill a Pint-Sized Phantom while on a Team and wearing a Costume",
+          "type": "Weekly",
+          "required": 16,
+          "phase": "event",
+          "edid": "SCORE_Challenge_Weekly_Kill_SlasherFan_InCostume_Teammate"
+        },
+        {
+          "name": "Kill a Pint-Sized Phantom while wearing a Costume",
+          "type": "Weekly",
+          "required": 16,
+          "phase": "event",
+          "edid": "SCORE_Challenge_Weekly_Kill_SlasherFan_InCostume"
+        },
+        {
+          "name": "Kill a Pint-Sized Phantom",
+          "type": "Weekly",
+          "required": 30,
+          "phase": "event",
+          "edid": "SCORE_Challenge_Weekly_Kill_SlasherFan"
+        },
+        {
+          "name": "Kill a Pint-Sized Phantom while in a Team",
+          "type": "Weekly",
+          "required": 30,
+          "phase": "event",
+          "edid": "SCORE_Challenge_Weekly_Kill_SlasherFan_Teammate"
+        }
+      ],
+      "graveCount": 18,
+      "finaleRewards": [
+        {
+          "name": "Plan: Pint-Sized Slasher Power Armor Helmet Paint",
+          "tradeable": false,
+          "image": "/wp-content/uploads/guide-images/plan-checklist/power-armour/sdow_mod_powerarmor_all_material_paint_slasherpa_helmet.avif",
+          "sources": [
+            {
+              "how": "quest",
+              "quest": "The Slasher: Blood Will Have Blood",
+              "rate": 1.0,
+              "rateDisplay": "100.0000%"
+            }
+          ]
+        },
+        {
+          "name": "Plan: Pint-Sized Auto Axe Paint",
+          "tradeable": true,
+          "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/sdow_mod_custom_slasheraxe_appearance.avif",
+          "sources": [
+            {
+              "how": "drop",
+              "from": "The Reborn Pint-Sized Slasher",
+              "rate": 0.04,
+              "rateDisplay": "4.0000%"
+            }
+          ]
+        },
+        {
+          "name": "Plan: Pint-Sized Slasher Power Armor Arms Paint",
+          "tradeable": true,
+          "image": "/wp-content/uploads/guide-images/plan-checklist/power-armour/sdow_mod_powerarmor_all_material_paint_slasherpa_armleft.avif",
+          "sources": [
+            {
+              "how": "drop",
+              "from": "The Reborn Pint-Sized Slasher",
+              "rate": 0.04,
+              "rateDisplay": "4.0000%"
+            }
+          ]
+        },
+        {
+          "name": "Plan: Pint-Sized Slasher Power Armor Jetpack Paint",
+          "tradeable": true,
+          "image": "/wp-content/uploads/guide-images/plan-checklist/power-armour/sdow_mod_powerarmor_x01_torso_misc_jetpack_slasherpajetpack.avif",
+          "sources": [
+            {
+              "how": "drop",
+              "from": "The Reborn Pint-Sized Slasher",
+              "rate": 0.04,
+              "rateDisplay": "4.0000%"
+            }
+          ]
+        },
+        {
+          "name": "Plan: Pint-Sized Slasher Power Armor Legs Paint",
+          "tradeable": true,
+          "image": "/wp-content/uploads/guide-images/plan-checklist/power-armour/sdow_mod_powerarmor_all_material_paint_slasherpa_legleft.avif",
+          "sources": [
+            {
+              "how": "drop",
+              "from": "The Reborn Pint-Sized Slasher",
+              "rate": 0.04,
+              "rateDisplay": "4.0000%"
+            }
+          ]
+        },
+        {
+          "name": "Plan: Pint-Sized Slasher Power Armor Torso Paint",
+          "tradeable": true,
+          "image": "/wp-content/uploads/guide-images/plan-checklist/power-armour/sdow_mod_powerarmor_all_material_paint_slasherpa_torso.avif",
+          "sources": [
+            {
+              "how": "drop",
+              "from": "The Reborn Pint-Sized Slasher",
+              "rate": 0.04,
+              "rateDisplay": "4.0000%"
+            }
+          ]
+        }
+      ]
+    },
+    "/df/seasonal-events/the-slasher/the-slasher-guide": {
+      "slug": "the-slasher-guide",
+      "ok": true,
+      "tracker": {
+        "name": "(Seasonal) The Slasher",
+        "intro": "Admirers of the infamous Pint-Sized Slasher are congregating in Appalachia for some nefarious reason. While I investigate their plan, I should find ways to weaken their advancement."
+      },
+      "phases": [
+        {
+          "key": "phase-1",
+          "label": "Phase 1",
+          "gameText": "Pint-Sized Slasher Masks have been spread across Appalachia",
+          "quest": {
+            "formId": "008F15C1",
+            "edid": "SDOW_MQ01_Bodies",
+            "name": "The Slasher: Masked Truth",
+            "steps": [
+              "Listen to the \"Breaking News\" radio broadcast",
+              "Collect the clippings left by the killers (5)",
+              "Read \"A page torn from a children's book\"",
+              "Find Pint-Sized Slasher Masks in cabins, campgrounds, and fairgrounds (10)",
+              "Investigate the area described in the note",
+              "Search the dog kennel"
+            ],
+            "availability": "Only available for the duration of The Slasher Seasonal Content",
+            "rewardGmrw": [
+              "008F76A2"
+            ]
+          },
+          "challenges": [
+            {
+              "name": "(Seasonal) Collect Pint-Sized Slasher Masks",
+              "type": "Lifetime",
+              "required": 3,
+              "phase": "phase-1",
+              "edid": "SDOW_Challenge_Lifetime_Collect_SlasherClue_01",
+              "reward": "Ghost Boy (1)"
+            },
+            {
+              "name": "(Seasonal) Collect More Pint-Sized Slasher Masks",
+              "type": "Lifetime",
+              "required": 10,
+              "phase": "phase-1",
+              "edid": "SDOW_Challenge_Lifetime_Collect_SlasherClue_02",
+              "reward": "Title: Laughing"
+            },
+            {
+              "name": "(Seasonal) Collect Even More Pint-Sized Slasher Masks",
+              "type": "Lifetime",
+              "required": 30,
+              "phase": "phase-1",
+              "edid": "SDOW_Challenge_Lifetime_Collect_SlasherClue_03",
+              "reward": "Pint-Sized Fishing Bobber"
+            },
+            {
+              "name": "(Seasonal) Collect The Remaining Pint-Sized Slasher Masks",
+              "type": "Lifetime",
+              "required": 50,
+              "phase": "phase-1",
+              "edid": "SDOW_Challenge_Lifetime_Collect_SlasherClue_04",
+              "reward": "Pint-Sized Radio"
+            }
+          ]
+        },
+        {
+          "key": "phase-2",
+          "label": "Phase 2",
+          "gameText": "The Pint-Sized Phantoms are disrupting Daily Ops and burying odd treasures in Disturbed Graves",
+          "quest": {
+            "formId": "008F15A1",
+            "edid": "SDOW_MQ02_Graves",
+            "name": "The Slasher: Secrets to the Grave",
+            "steps": [
+              "Complete an Activity or Event to acquire a Pint-Sized Phantoms' Map",
+              "Read the Pint-Sized Phantoms' Map",
+              "Complete \"(Repeatable) Disturbed Grave\"",
+              "Complete Activities or Events to acquire more maps",
+              "Find the pages of the document in Disturbed Graves (4)",
+              "Read \"Our Mission - Part IV\"",
+              "\"Seek your fortune\" at Tyler County Fairgrounds",
+              "Investigate the Smiling Clown",
+              "Listen to the \"Invite Me\" holotape"
+            ],
+            "requires": [
+              "The Slasher: Masked Truth"
+            ],
+            "availability": "Only available for the duration of The Slasher Seasonal Content",
+            "rewardGmrw": [
+              "008F76A5"
+            ]
+          },
+          "sideQuests": [
+            {
+              "formId": "008F1665",
+              "edid": "SDOW_SQ01_Graves_Repeatable",
+              "name": "Repeatable: Disturbed Grave",
+              "steps": [
+                "Find the Disturbed Grave",
+                "Equip a shovel",
+                "Use a shovel to dig up the Disturbed Grave",
+                "Take the ritual pile"
+              ],
+              "availability": "Only available for the duration of The Slasher Seasonal Content",
+              "rewardGmrw": [
+                "008F2AFB"
+              ]
+            }
+          ],
+          "challenges": [
+            {
+              "name": "Complete the Quest: \"Disturbed Grave\"",
+              "type": "Daily",
+              "required": 1,
+              "phase": "phase-2",
+              "edid": "SCORE_Challenge_Daily_QuestComplete_Event_SDOW_SQ01_Graves_Repeatable"
+            },
+            {
+              "name": "Kill an Enemy with a Shovel during the \"Disturbed Grave\" Quest",
+              "type": "Daily",
+              "required": 6,
+              "phase": "phase-2",
+              "edid": "SCORE_Challenge_Daily_Kill_Enemy_Shovel_SDOW_SQ01"
+            },
+            {
+              "name": "Kill an Enemy with a Shovel during the \"Disturbed Grave\" Quest while on a Team",
+              "type": "Daily",
+              "required": 6,
+              "phase": "phase-2",
+              "edid": "SCORE_Challenge_Daily_Kill_Enemy_Shovel_SDOW_SQ01_Teammate"
+            },
+            {
+              "name": "Kill a Pint-Sized Phantom during a Daily Operation while on a Team!",
+              "type": "Daily",
+              "required": 10,
+              "phase": "phase-2",
+              "edid": "SCORE_Challenge_Daily_Kill_SlasherFan_DailyOps_Teammate"
+            },
+            {
+              "name": "Kill a Pint-Sized Phantom during a Daily Operation!",
+              "type": "Daily",
+              "required": 10,
+              "phase": "phase-2",
+              "edid": "SCORE_Challenge_Daily_Kill_SlasherFan_DailyOps"
+            },
+            {
+              "name": "Complete the Quest: \"Disturbed Grave\"",
+              "type": "Weekly",
+              "required": 4,
+              "phase": "phase-2",
+              "edid": "SCORE_Challenge_Weekly_QuestComplete_Event_SDOW_SQ01_Graves_Repeatable"
+            },
+            {
+              "name": "Kill an Enemy with a Shovel during the \"Disturbed Grave\" Quest",
+              "type": "Weekly",
+              "required": 20,
+              "phase": "phase-2",
+              "edid": "SCORE_Challenge_Weekly_Kill_Enemy_Shovel_SDOW_SQ01"
+            },
+            {
+              "name": "Kill a Pint-Sized Phantom during a Daily Operation while on a Team!",
+              "type": "Weekly",
+              "required": 30,
+              "phase": "phase-2",
+              "edid": "SCORE_Challenge_Weekly_Kill_SlasherFan_DailyOps_Teammate"
+            },
+            {
+              "name": "Kill a Pint-Sized Phantom during a Daily Operation!",
+              "type": "Weekly",
+              "required": 30,
+              "phase": "phase-2",
+              "edid": "SCORE_Challenge_Weekly_Kill_SlasherFan_DailyOps"
+            }
+          ]
+        },
+        {
+          "key": "phase-3",
+          "label": "Phase 3",
+          "gameText": "The Pint-Sized Phantoms are infesting Appalachia",
+          "quest": {
+            "formId": "008F15C2",
+            "edid": "SDOW_MQ04_Infestations",
+            "name": "The Slasher: Out of the Shadows",
+            "steps": [
+              "Investigate the areas where the Pint-Sized Phantoms were spotted (2)",
+              "Find the \"Phantoms' Orders\" in RobCo Research Center",
+              "Find the \"Phantoms' Orders\" in Gauley Mine",
+              "Read \"Phantoms' Orders: His Vessel\"",
+              "Investigate Organ Cave",
+              "Defeat the Pint-Sized Phantom Tinkerer",
+              "Search the Pint-Sized Phantom Tinkerer",
+              "Listen to \"The Summoning\" holotape"
+            ],
+            "requires": [
+              "The Slasher: Masked Truth",
+              "The Slasher: Secrets to the Grave"
+            ],
+            "availability": "Only available for the duration of The Slasher Seasonal Content",
+            "rewardGmrw": [
+              "008F76A4"
+            ]
+          },
+          "challenges": [
+            {
+              "name": "Kill a Pint-Sized Phantom during an Infestation",
+              "type": "Daily",
+              "required": 6,
+              "phase": "phase-3",
+              "edid": "SCORE_Challenge_Daily_Kill_SlasherFan_HostileTakeover"
+            },
+            {
+              "name": "Kill a Pint-Sized Phantom during an Infestation while on a Team",
+              "type": "Daily",
+              "required": 6,
+              "phase": "phase-3",
+              "edid": "SCORE_Challenge_Daily_Kill_SlasherFan_HostileTakeover_Teammate"
+            },
+            {
+              "name": "Kill a Pint-Sized Phantom during an Infestation",
+              "type": "Weekly",
+              "required": 20,
+              "phase": "phase-3",
+              "edid": "SCORE_Challenge_Weekly_Kill_SlasherFan_HostileTakeover"
+            }
+          ]
+        },
+        {
+          "key": "phase-4",
+          "label": "Phase 4",
+          "gameText": "The Pint-Sized Phantoms are disturbing Mischief Night",
+          "challenges": [
+            {
+              "name": "Kill an Uninvited Pint-Sized Phantom",
+              "type": "Weekly",
+              "required": 1,
+              "phase": "phase-4",
+              "edid": "SCORE_Challenge_Weekly_Seasonal_Kill_PartyCrasher_MN2_Quest_Mischief",
+              "target": {
+                "name": "Uninvited Pint-Sized Phantom",
+                "formId": "008E06DE"
+              }
+            }
+          ]
+        },
+        {
+          "key": "phase-5",
+          "label": "Phase 5",
+          "gameText": "The Pint-Sized Phantoms are hiding among Spooky Scorched",
+          "challenges": []
+        },
+        {
+          "key": "finale",
+          "label": "Finale",
+          "gameText": "The Reborn Pint-Sized Slasher is lurking near Head Hunts",
+          "quest": {
+            "formId": "008F15C3",
+            "edid": "SDOW_MQ05_Headhunt",
+            "name": "The Slasher: Blood Will Have Blood",
+            "steps": [
+              "Listen to \"A Warning\" broadcast",
+              "Complete Head Hunts for a chance to find the Reborn Pint-Sized Slasher",
+              "Defeat the Reborn Pint-Sized Slasher"
+            ],
+            "requires": [
+              "The Slasher: Masked Truth",
+              "The Slasher: Secrets to the Grave",
+              "The Slasher: Out of the Shadows"
+            ],
+            "availability": "Only available for the duration of The Slasher Seasonal Content",
+            "rewardGmrw": [
+              "008F76A3"
+            ]
+          },
+          "challenges": [
+            {
+              "name": "Kill The Reborn Pint-Sized Slasher",
+              "type": "Weekly",
+              "required": 1,
+              "phase": "finale",
+              "edid": "SCORE_Challenge_Weekly_Seasonal_Kill_PartyCrasher_HeadHunt",
+              "target": {
+                "name": "The Reborn Pint-Sized Slasher",
+                "formId": "008E06C5"
+              }
+            }
+          ]
+        }
+      ],
+      "storyQuests": [
+        "The Slasher: Masked Truth",
+        "The Slasher: Secrets to the Grave",
+        "The Slasher: Out of the Shadows",
+        "The Slasher: Blood Will Have Blood"
+      ],
+      "eventChallenges": [
+        {
+          "name": "Kill a Pint-Sized Phantom while on a Team and wearing a Costume",
+          "type": "Daily",
+          "required": 5,
+          "phase": "event",
+          "edid": "SCORE_Challenge_Daily_Kill_SlasherFan_InCostume_Teammate"
+        },
+        {
+          "name": "Kill a Pint-Sized Phantom while wearing a Costume",
+          "type": "Daily",
+          "required": 5,
+          "phase": "event",
+          "edid": "SCORE_Challenge_Daily_Kill_SlasherFan_InCostume"
+        },
+        {
+          "name": "Kill a Pint-Sized Phantom",
+          "type": "Daily",
+          "required": 10,
+          "phase": "event",
+          "edid": "SCORE_Challenge_Daily_Kill_SlasherFan"
+        },
+        {
+          "name": "Kill a Pint-Sized Phantom while in a Team",
+          "type": "Daily",
+          "required": 10,
+          "phase": "event",
+          "edid": "SCORE_Challenge_Daily_Kill_SlasherFan_Teammate"
+        },
+        {
+          "name": "Kill a Pint-Sized Phantom while on a Team and wearing a Costume",
+          "type": "Weekly",
+          "required": 16,
+          "phase": "event",
+          "edid": "SCORE_Challenge_Weekly_Kill_SlasherFan_InCostume_Teammate"
+        },
+        {
+          "name": "Kill a Pint-Sized Phantom while wearing a Costume",
+          "type": "Weekly",
+          "required": 16,
+          "phase": "event",
+          "edid": "SCORE_Challenge_Weekly_Kill_SlasherFan_InCostume"
+        },
+        {
+          "name": "Kill a Pint-Sized Phantom",
+          "type": "Weekly",
+          "required": 30,
+          "phase": "event",
+          "edid": "SCORE_Challenge_Weekly_Kill_SlasherFan"
+        },
+        {
+          "name": "Kill a Pint-Sized Phantom while in a Team",
+          "type": "Weekly",
+          "required": 30,
+          "phase": "event",
+          "edid": "SCORE_Challenge_Weekly_Kill_SlasherFan_Teammate"
+        }
+      ],
+      "graveCount": 18,
+      "finaleRewards": [
+        {
+          "name": "Plan: Pint-Sized Slasher Power Armor Helmet Paint",
+          "tradeable": false,
+          "image": "/wp-content/uploads/guide-images/plan-checklist/power-armour/sdow_mod_powerarmor_all_material_paint_slasherpa_helmet.avif",
+          "sources": [
+            {
+              "how": "quest",
+              "quest": "The Slasher: Blood Will Have Blood",
+              "rate": 1.0,
+              "rateDisplay": "100.0000%"
+            }
+          ]
+        },
+        {
+          "name": "Plan: Pint-Sized Auto Axe Paint",
+          "tradeable": true,
+          "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/sdow_mod_custom_slasheraxe_appearance.avif",
+          "sources": [
+            {
+              "how": "drop",
+              "from": "The Reborn Pint-Sized Slasher",
+              "rate": 0.04,
+              "rateDisplay": "4.0000%"
+            }
+          ]
+        },
+        {
+          "name": "Plan: Pint-Sized Slasher Power Armor Arms Paint",
+          "tradeable": true,
+          "image": "/wp-content/uploads/guide-images/plan-checklist/power-armour/sdow_mod_powerarmor_all_material_paint_slasherpa_armleft.avif",
+          "sources": [
+            {
+              "how": "drop",
+              "from": "The Reborn Pint-Sized Slasher",
+              "rate": 0.04,
+              "rateDisplay": "4.0000%"
+            }
+          ]
+        },
+        {
+          "name": "Plan: Pint-Sized Slasher Power Armor Jetpack Paint",
+          "tradeable": true,
+          "image": "/wp-content/uploads/guide-images/plan-checklist/power-armour/sdow_mod_powerarmor_x01_torso_misc_jetpack_slasherpajetpack.avif",
+          "sources": [
+            {
+              "how": "drop",
+              "from": "The Reborn Pint-Sized Slasher",
+              "rate": 0.04,
+              "rateDisplay": "4.0000%"
+            }
+          ]
+        },
+        {
+          "name": "Plan: Pint-Sized Slasher Power Armor Legs Paint",
+          "tradeable": true,
+          "image": "/wp-content/uploads/guide-images/plan-checklist/power-armour/sdow_mod_powerarmor_all_material_paint_slasherpa_legleft.avif",
+          "sources": [
+            {
+              "how": "drop",
+              "from": "The Reborn Pint-Sized Slasher",
+              "rate": 0.04,
+              "rateDisplay": "4.0000%"
+            }
+          ]
+        },
+        {
+          "name": "Plan: Pint-Sized Slasher Power Armor Torso Paint",
+          "tradeable": true,
+          "image": "/wp-content/uploads/guide-images/plan-checklist/power-armour/sdow_mod_powerarmor_all_material_paint_slasherpa_torso.avif",
+          "sources": [
+            {
+              "how": "drop",
+              "from": "The Reborn Pint-Sized Slasher",
+              "rate": 0.04,
+              "rateDisplay": "4.0000%"
+            }
+          ]
+        }
+      ]
     }
   }
 }
