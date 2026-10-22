@@ -1376,7 +1376,34 @@ def exp_lore(esm):
                         ("%08X" % note.fid) if note else "", cc(esm.lstring(note.first("FULL"))) if note else "",
                         str(n), "%08X" % ifid, cc(sp), cc(spn), cc(t)]))
                     n += 1
-    return {"_Lore": out}
+    return {"_Lore": out, "_LoreNotes": _lore_notes(esm)}
+
+
+def _lore_notes(esm):
+    """_LoreNotes file: every readable note (BOOK with DESC text, not a recipe
+    or plan) with its text kept EXACTLY as the game has it - the font / colour
+    / align markup and the line breaks (written as a literal \\n). The BOOK
+    export flattens the line breaks, so lore pages read this one.
+    Paper = the STAT the note shows when you inspect it (BOOK INAM)."""
+    out = ["FormID\tEDID\tName\tPaperFormID\tPaperEDID\tModel\tText"]
+    rows = []
+    for r in esm.records.get("BOOK", []):
+        ed = r.edid or ""
+        if not ed or "recipe" in ed.lower():
+            continue
+        txt = esm.lstring(r.first("DESC")) if r.first("DESC") else ""
+        if not txt or not txt.strip():
+            continue
+        inam = r.first("INAM")
+        pf = struct.unpack("<I", inam[:4])[0] if inam and len(inam) >= 4 else 0
+        modl = r.first("MODL")
+        modl = modl.rstrip(b"\0").decode("utf-8", "replace") if modl else ""
+        txt = txt.replace("\r\n", "\n").replace("\r", "\n").replace("\t", " ").replace("\n", "\\n")
+        rows.append((ed.lower(), "\t".join([
+            "%08X" % r.fid, ed, cc(esm.lstring(r.first("FULL")) if r.first("FULL") else ""),
+            ("%08X" % pf) if pf else "", esm.edid_of(pf) if pf else "", modl, txt])))
+    rows.sort()
+    return out + [x for _, x in rows]
 
 
 NEEDS_REFS = {"GLOB", "AVIF", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
@@ -1404,7 +1431,7 @@ EXPORTS = {
     "ACTI2": (["ACTI"], "ACTI2_Export", exp_acti2),
     "REFRLVLI": (["LVLI"], "REFRLVLI_Placements", exp_refrlvli),
     "QUST2RQ": (["QUST"], "QUST2_Export", exp_qust2_rq),
-    "LORE": (["NOTE"], "ALLYDLG_Export", exp_lore),
+    "LORE": (["NOTE", "BOOK"], "ALLYDLG_Export", exp_lore),
 }
 
 # PTS file names carry the date only (no time) for these, like their .pas
