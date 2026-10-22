@@ -98,6 +98,7 @@ import plan_route_kinds     # quest vs event vs enemy, cut double-mutation lists
 import plan_subpages        # which page every plan renders on
 import plan_consumables     # Recipe page grouping: Food / Drinks / Alcohol / ...
 import add_armour_groups    # armour page grouping: set -> Mods / Skins
+import plan_quest_guides    # "how to do this quest" under quest routes
 from spawns_engine import sources as ssrc
 # reuse the farming Containers resolver + rate helpers + rng76 wrapper
 import build_farming_used_for as bfu
@@ -2480,6 +2481,14 @@ def main(argv=None):
             out["armour_groups_sources"] = astats["sources"]
     except Exception as exc:                      # noqa: BLE001 - never fatal
         print(f"  WARNING: armour grouping skipped: {exc}", file=sys.stderr)
+
+    # Quest steps. A quest reward is not a loot drop: the route gets a key into
+    # out["quest_guides"] (objectives, the quest chain that starts it, when it
+    # runs), all from the QUST2 _RewardQuests export. Pure join, no rates.
+    try:
+        plan_quest_guides.report(plan_quest_guides.attach(items, args.data_dir, out))
+    except Exception as exc:                      # noqa: BLE001 - never fatal
+        print(f"  WARNING: quest guides skipped: {exc}", file=sys.stderr)
 
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
     with open(args.out, "w", encoding="utf-8") as f:

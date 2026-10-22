@@ -24,6 +24,11 @@ straight from the game files, so these no longer need xEdit:
     ACTI    ACTI_Export_<Month>_<Year>_ACTI.tsv + _Refs  (ExportACTIToTSV.pas)
     ACTI2   ACTI2_Export_<Month>_<Year>.tsv         (ExportACTI2ToCSV.pas)
     REFRLVLI REFRLVLI_Placements_<Month>_<Year>.tsv [+ _Part2 ...]  (ExportREFRPlacementsToTSV.pas on LVLI)
+    LORE    ALLYDLG_Export_<Month>_<Year>_Lore.tsv  (the _Lore file of
+            ExportCampAllyDialogToTSV.pas: radio / holotape dialogue lines)
+    QUST2RQ QUST2_Export_<Month>_<Year>_RewardQuests.tsv  (the _RewardQuests file of
+            ExportQUST2ToTSV.pas - only that one file; the .pas stays the manual
+            backup and still writes all six)
 
 GLOB, AVIF, MISC and NPC list every record that points at each row ("Referenced By"),
 worked out by esm_refs.py in one ~40 s scan (needs numpy). Known gap: xEdit
@@ -1208,6 +1213,172 @@ def exp_refrlvli(esm):
 
 
 # exports whose rows list "Referenced By" - one shared scan covers them all
+# ------------------------------------------------------------- QUST2 _RewardQuests --
+def exp_qust2_rq(esm):
+    """ExportQUST2ToTSV.pas, _RewardQuests file only: every quest with a reward
+    stage (QRWD) or a "(Seasonal)" name (event trackers), one row per objective,
+    log entry, stage comment and reward.
+    Read by src/plan_quest_guides.py (the quest steps on the plan pages)."""
+    out = ["QuestFormID\tQuestEDID\tQuestName\tRowKind\tIndex\tText\tLink"]
+    for r in R.xedit_order(esm, "QUST"):
+        # Reward quests, plus seasonal tracker quests ("(Seasonal) The Slasher"):
+        # their objectives are the event's phases (src/slasher_guide.py).
+        if not (any(k == "QRWD" for k, _ in r.subs)
+                or esm.lstring(r.first("FULL")).startswith("(Seasonal)")):
+            continue
+        head = "%08X\t%s\t%s" % (r.fid, cc(r.edid), cc(esm.lstring(r.first("FULL"))))
+        stage, in_obj, objs = None, False, []
+        for k, v in r.subs:
+            if k == "INDX" and not in_obj:
+                stage = str(struct.unpack_from("<H", v)[0])
+            elif k == "QOBJ":
+                in_obj = True
+                obj = str(struct.unpack_from("<H", v)[0])
+            elif k == "NNAM" and in_obj:
+                objs.append("%s\tObjective\t%s\t%s\t" % (head, obj, cc(esm.lstring(v))))
+            elif in_obj or stage is None:
+                continue
+            elif k == "SCFC":
+                out.append("%s\tStageNote\t%s\t%s\t" % (
+                    head, stage, cc(v.rstrip(b"\0").decode("utf-8", "replace"))))
+            elif k == "CNAM":
+                out.append("%s\tLog\t%s\t%s\t" % (head, stage, cc(esm.lstring(v))))
+            elif k == "QRWD":
+                g = struct.unpack("<I", v[:4])[0]
+                out.append("%s\tReward\t%s\t\t%08X:%s:%s" % (
+                    head, stage, g, cc(esm.edid_of(g)), esm.sig_of(g) or "GMRW"))
+        out.extend(objs)
+    return {"_RewardQuests": out}
+
+
+# ------------------------------------------------------------- ALLYDLG _Lore --
+_LORE_QUEST_RX = None
+
+
+def _lore_walk(esm):
+    """Quest child groups: DIAL topics (by quest), INFOs (by topic), SCENs."""
+    import re as _re
+    import zlib as _zlib
+    dials, infos, scens = {}, {}, []
+    with open(esm.esm_path, "rb") as f:
+        size = os.path.getsize(esm.esm_path)
+
+        def walk(end, gtype, gparent):
+            while f.tell() < end:
+                hdr = f.read(24)
+                sig = hdr[:4]
+                ds = struct.unpack("<I", hdr[4:8])[0]
+                if sig == b"GRUP":
+                    lab = struct.unpack("<I", hdr[8:12])[0]
+                    gt = struct.unpack("<i", hdr[12:16])[0]
+                    walk(f.tell() + ds - 24, gt, lab)
+                    continue
+                fl, fid = struct.unpack("<II", hdr[8:16])
+                if sig not in (b"DIAL", b"INFO", b"SCEN"):
+                    f.seek(ds, 1)
+                    continue
+                data = f.read(ds)
+                if fl & 0x40000:
+                    data = _zlib.decompress(data[4:])
+                subs = R._parse_subs(data)
+                if sig == b"DIAL":
+                    q = next((struct.unpack("<I", v[:4])[0] for k, v in subs if k == "QNAM"), 0)
+                    dials[fid] = q
+                elif sig == b"INFO" and gtype == 7:
+                    infos.setdefault(gparent, []).append((fid, subs))
+                elif sig == b"SCEN":
+                    q = next((struct.unpack("<I", v[:4])[0] for k, v in subs if k == "PNAM"), 0)
+                    ed = next((v.rstrip(b"\0").decode("utf-8", "replace") for k, v in subs if k == "EDID"), "")
+                    scens.append((fid, q, ed, subs))
+
+        f.seek(0)
+        h = f.read(24)
+        f.seek(24 + struct.unpack("<I", h[4:8])[0])
+        while f.tell() < size:
+            g = f.read(24)
+            gs = struct.unpack("<I", g[4:8])[0]
+            st = f.tell() - 24
+            if g[8:12] in (b"QUST", b"DIAL", b"SCEN"):
+                walk(st + gs, 0, 0)
+            f.seek(st + gs)
+    return dials, infos, scens
+
+
+def exp_lore(esm):
+    """ExportCampAllyDialogToTSV.pas, _Lore file: the spoken lines of every
+    radio / holotape / broadcast quest (EditorID says so) and of every scene a
+    holotape NOTE plays (NOTE SNAM), in the order the scene plays them.
+    Read by src/build_slasher_lore_json.py (and any future lore page)."""
+    import re as _re
+    rx = _re.compile(r"radio|holotape|broadcast", _re.I)
+    dials, infos, scens = _lore_walk(esm)
+    info_by_fid = {fid: subs for lst in infos.values() for fid, subs in lst}
+    note_for_scene = {}
+    for r in esm.records.get("NOTE", []):
+        sn = r.first("SNAM")
+        if sn and len(sn) >= 4:
+            note_for_scene.setdefault(struct.unpack("<I", sn[:4])[0], r)
+
+    def lines_of(subs, depth=0):
+        txt = [esm.lstring(v) for k, v in subs if k == "NAM1"]
+        txt = [t for t in txt if t]
+        if txt or depth > 3:
+            return txt
+        d = next((v for k, v in subs if k == "DNAM"), None)
+        if d and len(d) >= 4:
+            j = info_by_fid.get(struct.unpack("<I", d[:4])[0])
+            if j:
+                return lines_of(j, depth + 1)
+        return []
+
+    def speaker(subs):
+        a = next((v for k, v in subs if k == "ANAM" and len(v) == 4), None)
+        if not a:
+            return "", ""
+        fid = struct.unpack("<I", a)[0]
+        # FormID:EDID:SIG - the .pas LinkCell format, so both write the same cell
+        return "%08X:%s:%s" % (fid, esm.edid_of(fid), esm.sig_of(fid)), esm.full_of(fid)
+
+    def actions(subs):
+        acts, cur = [], None
+        for k, v in subs:
+            if k == "ANAM" and len(v) == 2:
+                cur = {}
+                acts.append(cur)
+            elif cur is not None and len(v) == 4:
+                if k == "INAM":
+                    cur["i"] = struct.unpack("<I", v)[0]
+                elif k == "SNAM":
+                    cur["s"] = struct.unpack("<I", v)[0]
+                elif k == "DATA":
+                    cur["t"] = struct.unpack("<I", v)[0]
+        acts = [a for a in acts if "t" in a]
+        acts.sort(key=lambda a: (a.get("s", 0), a.get("i", 0)))
+        return acts
+
+    out = ["QuestFormID\tQuestEDID\tQuestName\tSceneOrder\tSceneFormID\tSceneEDID\t"
+           "HolotapeFormID\tHolotapeName\tLineOrder\tInfoFormID\tSpeaker\tSpeakerName\tText"]
+    order = {}
+    for sfid, q, sed, subs in scens:
+        note = note_for_scene.get(sfid)
+        qed = esm.edid_of(q)
+        if not (note or rx.search(qed or "")):
+            continue
+        order[q] = order.get(q, -1) + 1
+        qname = esm.full_of(q)
+        n = 0
+        for a in actions(subs):
+            for ifid, isubs in infos.get(a["t"], []):
+                sp, spn = speaker(isubs)
+                for t in lines_of(isubs):
+                    out.append("\t".join([
+                        "%08X" % q, cc(qed), cc(qname), str(order[q]), "%08X" % sfid, cc(sed),
+                        ("%08X" % note.fid) if note else "", cc(esm.lstring(note.first("FULL"))) if note else "",
+                        str(n), "%08X" % ifid, cc(sp), cc(spn), cc(t)]))
+                    n += 1
+    return {"_Lore": out}
+
+
 NEEDS_REFS = {"GLOB", "AVIF", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
 # exports that need Referenced By for more than their own records
 REF_TARGETS = {"NPC2": npc2_ref_targets, "MISC2": misc2_ref_targets, "ACTI2": acti2_ref_targets}
@@ -1232,6 +1403,8 @@ EXPORTS = {
     "ACTI": (["ACTI"], "ACTI_Export", exp_acti),
     "ACTI2": (["ACTI"], "ACTI2_Export", exp_acti2),
     "REFRLVLI": (["LVLI"], "REFRLVLI_Placements", exp_refrlvli),
+    "QUST2RQ": (["QUST"], "QUST2_Export", exp_qust2_rq),
+    "LORE": (["NOTE"], "ALLYDLG_Export", exp_lore),
 }
 
 # PTS file names carry the date only (no time) for these, like their .pas
