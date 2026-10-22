@@ -4,11 +4,10 @@ render_slasher_lore_maps.py - maps for /df/collectables/slasher-lore/checklist/.
 
 Where the Slasher notes and holotapes turn up, read from the game files:
 
-  * Pint-Sized Slasher Masks (the placed SDOW_SlasherClue refs). SDOW_MQ01_Bodies
-    gives a newspaper clipping, and last the children's book page, each time enough
-    masks are collected (its stage notes: "I've found a newspaper clipping inside one
-    of the Slasher masks"), so the masks ARE where those five notes come from.
-    Numbered the same as the masks page (tsv/collectable_map_numbers.tsv).
+  * NOT the masks: the Article Clippings and the children's book page come out of
+    the Pint-Sized Slasher Masks (SDOW_MQ01_Bodies hands one out per batch of masks -
+    its stage notes say so), and the masks have their own spawn guide, so they are
+    left off (Duchess, 22 Oct 2026). The page says so in words.
   * The quest spots: every alias in SPOT_ALIASES is resolved in SeventySix.esm -
     a Location Ref Type alias (ALRT) to the one placed ref carrying that type, a
     forced-ref alias (ALFR) to its ref. Nothing positional is typed here.
@@ -18,8 +17,7 @@ on the grave pages).
 
 Outputs (default: Guides and Stuff\.Collectables\Slasher Lore):
   01 Full Maps\slasher-lore-map.jpg
-  02 Numbered Maps\slasher-lore-map_numbered.jpg
-  03 Region Tiles\<region-slug>-lore-map.jpg
+  03 Region Tiles\<region-slug>-lore-map.jpg   (only regions with a spot)
   slasher-lore_coords.csv
 Server folder: /wp-content/uploads/guide-images/collectables/Slasher-Lore/ (JPEG -
 maps never go up as AVIF). build_slasher_lore_json.py links whichever of them are
@@ -56,8 +54,6 @@ DEFAULT_OUT = os.environ.get(
     os.path.join(os.path.expanduser("~"), "OneDrive", "Guides and Stuff",
                  ".Collectables", "Slasher Lore"))
 
-MASK_SET = "pint-sized-slasher-masks"
-MAP_NUMBERS_TSV = os.path.join(REPO, "tsv", "collectable_map_numbers.tsv")
 
 # (quest EDID, alias name) -> what the reader finds there. The position comes from
 # the alias in the game files; only the words are ours. Words follow the quests'
@@ -132,15 +128,6 @@ def load_spots(data_dir):
     return spots
 
 
-def mask_numbers():
-    nums = {}
-    with open(MAP_NUMBERS_TSV, encoding="utf-8") as fh:
-        for r in csv.DictReader(fh, delimiter="\t"):
-            if r["set"] == MASK_SET:
-                nums[r["ref_formid"].upper()] = (r["map_number"], r["map_region"], r["map_marker"])
-    return nums
-
-
 # ---------------------------------------------------------------- drawing
 
 def draw_square(d, px, py, fill, size=SPOT_D):
@@ -188,24 +175,13 @@ def render(out_root, data_dir):
     boxes = RSP.region_bboxes(conn)
 
     import crossref_mappalachia_markers as xref
-    rings, markers = xref.load_mappalachia()[:2]
+    rings = xref.load_mappalachia()[0]
 
-    masks = RSM.load_masks(rings, markers)
-    nums = mask_numbers()
-    for m in masks:
-        n = nums.get(m["ref"].upper())
-        m["n"] = n[0] if n else "?"
-        if n:                       # same region as the masks page's tiles
-            m["region"] = n[1] or m["region"]
     spots = load_spots(data_dir)
-    # Letters, not numbers: the numbered map carries the masks' own numbers 1-108,
-    # so a "1" square beside a "1" mask would read as the same thing.
     for i, s in enumerate(spots):
         s["n"] = chr(ord("A") + i)
         s["region"] = xref.region_for_xy(rings, s["x"], s["y"], nearest=True) or "Unknown"
-
-    for p in masks + spots:
-        p["px"], p["py"] = to_px(p["x"], p["y"])
+        s["px"], s["py"] = to_px(s["x"], s["y"])
 
     bg = os.path.join(RSM.MAPPALACHIA, "img", "wrld", "Appalachia_menu.jpg")
     base = Image.open(bg).convert("RGB")
@@ -214,41 +190,24 @@ def render(out_root, data_dir):
 
     plain = base.copy()
     d = ImageDraw.Draw(plain)
-    for m in masks:
-        RSM.draw_marker(d, m["px"], m["py"], MASK_FILL, "circle")
     f_spot = RSM._font(64)
     for s in spots:
         draw_square(d, s["px"], s["py"], SPOT_FILL)
         tb = d.textbbox((0, 0), s["n"], font=f_spot)
-        RSM.draw_outlined_text(d, (s["px"] - (tb[2] - tb[0]) / 2 - tb[0],
-                                   s["py"] - (tb[3] - tb[1]) / 2 - tb[1]),
-                               s["n"], f_spot, fill=(0, 0, 0), outline=SPOT_FILL, w=0)
+        d.text((s["px"] - (tb[2] - tb[0]) / 2 - tb[0], s["py"] - (tb[3] - tb[1]) / 2 - tb[1]),
+               s["n"], font=f_spot, fill=(0, 0, 0))
 
     os.makedirs(os.path.join(out_root, "01 Full Maps"), exist_ok=True)
     p_plain = os.path.join(out_root, "01 Full Maps", "slasher-lore-map.jpg")
-    with_legend(map_watermark.apply(plain), len(masks), spots).save(p_plain, "JPEG", quality=88, optimize=True)
+    with_legend(map_watermark.apply(plain), 0, spots).save(p_plain, "JPEG", quality=88, optimize=True)
 
-    # numbered: the mask numbers, matching the masks page
-    numbered = plain.copy()
-    dn = ImageDraw.Draw(numbered)
-    f = RSM._font(56)
-    taken_spots = [dict(s, n="") for s in spots]
-    RSP.place_labels(dn, taken_spots + masks, f)
-    for m in masks:
-        RSM.draw_outlined_text(dn, m["label_xy"], str(m["n"]), f, w=3)
-    for s, t in zip(spots, taken_spots):
-        s["label_box"] = (s["px"] - SPOT_D, s["py"] - SPOT_D, s["px"] + SPOT_D, s["py"] + SPOT_D)
-    os.makedirs(os.path.join(out_root, "02 Numbered Maps"), exist_ok=True)
-    p_num = os.path.join(out_root, "02 Numbered Maps", "slasher-lore-map_numbered.jpg")
-    with_legend(map_watermark.apply(numbered), len(masks), spots).save(p_num, "JPEG", quality=88, optimize=True)
-
-    # region tiles off the numbered map (one per region; grows to fit every label)
+    # one close-up per region that has a spot, with its own legend
     tiles_dir = os.path.join(out_root, "03 Region Tiles")
-    by_region = defaultdict(list)
-    for p in masks + spots:
-        by_region[p["region"]].append(p)
-    made = []
     os.makedirs(tiles_dir, exist_ok=True)
+    by_region = defaultdict(list)
+    for s in spots:
+        by_region[s["region"]].append(s)
+    made = []
     for region, rows in sorted(by_region.items()):
         box = boxes.get(region)
         if box:
@@ -257,41 +216,33 @@ def render(out_root, data_dir):
             xs = [r["px"] for r in rows]; ys = [r["py"] for r in rows]
             x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
         for r in rows:
-            lb = r.get("label_box") or (r["px"], r["py"], r["px"], r["py"])
-            x0 = min(x0, r["px"] - SPOT_D, lb[0]); y0 = min(y0, r["py"] - SPOT_D, lb[1])
-            x1 = max(x1, r["px"] + SPOT_D, lb[2]); y1 = max(y1, r["py"] + SPOT_D, lb[3])
+            x0 = min(x0, r["px"] - SPOT_D); y0 = min(y0, r["py"] - SPOT_D)
+            x1 = max(x1, r["px"] + SPOT_D); y1 = max(y1, r["py"] + SPOT_D)
         pad = 120
         x0 = max(0, int(x0 - pad)); y0 = max(0, int(y0 - pad))
         x1 = min(S, int(x1 + pad)); y1 = min(S, int(y1 + pad))
-        crop = numbered.crop((x0, y0, x1, y1))
+        crop = plain.crop((x0, y0, x1, y1))
         w, h = crop.size
         crop = crop.resize((RSM.TILE_WIDTH, max(1, int(h * RSM.TILE_WIDTH / w))), Image.LANCZOS)
         name = "%s-lore-map.jpg" % RSP._region_slug(region)
-        # A tile is often looked at on its own, so it carries its own legend: the
-        # masks and the lettered spots that are in this region only.
-        rmasks = sum(1 for r in rows if r in masks)
-        rspots = [s for s in spots if s["region"] == region]
-        with_legend(map_watermark.apply(crop, corner="bottom-right"), rmasks, rspots).save(
+        with_legend(map_watermark.apply(crop, corner="bottom-right"), 0, rows).save(
             os.path.join(tiles_dir, name), "JPEG", quality=88, optimize=True)
         made.append((region, name, len(rows)))
 
     with open(os.path.join(out_root, "slasher-lore_coords.csv"), "w", newline="",
               encoding="utf-8") as fh:
         w_ = csv.writer(fh)
-        w_.writerow(["kind", "n", "region", "place", "finds", "ref_formid", "game_x", "game_y"])
+        w_.writerow(["n", "region", "place", "finds", "ref_formid", "game_x", "game_y"])
         for s in spots:
-            w_.writerow(["quest spot", s["n"], s["region"], s["place"], s["finds"], s["ref"],
+            w_.writerow([s["n"], s["region"], s["place"], s["finds"], s["ref"],
                          round(s["x"], 1), round(s["y"], 1)])
-        for m in sorted(masks, key=lambda m: int(m["n"]) if str(m["n"]).isdigit() else 9999):
-            w_.writerow(["mask", m["n"], m["region"], m.get("marker", ""), "", m["ref"],
-                         round(m["x"], 1), round(m["y"], 1)])
 
-    print("  masks=%d spots=%d" % (len(masks), len(spots)))
+    print("  spots=%d  logo=%s" % (len(spots), "yes" if map_watermark._logo() is not None else "NO"))
     for s in spots:
         print("   %s %-42s %-14s %s" % (s["n"], s["place"], s["region"], s["ref"]))
-    print("  %s\n  %s" % (p_plain, p_num))
+    print("  " + p_plain)
     for region, name, n in made:
-        print("  tile %-16s %-34s %d points" % (region, name, n))
+        print("  tile %-16s %-30s %d spot(s)" % (region, name, n))
 
 
 def main():
