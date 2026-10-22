@@ -979,9 +979,6 @@ _Couldn't key this file to records; contents differ._
 ## `cryptids/angler.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `cryptids/bigfoot.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
-
 ## `cryptids/blue-devil.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
@@ -989,9 +986,6 @@ _Couldn't key this file to records; contents differ._
 _Couldn't key this file to records; contents differ._
 
 ## `cryptids/grafton-monster.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
-
-## `cryptids/jersey-lesser-devils.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
 ## `cryptids/megasloth.json`  ·  changed (structural)
@@ -1549,6 +1543,9 @@ _Couldn't key this file to records; contents differ._
 _Couldn't key this file to records; contents differ._
 
 ## `farming_spawns/nuka-victory-candy_spawns.json`  ·  changed (structural)
+_Couldn't key this file to records; contents differ._
+
+## `farming_spawns/pemmican_spawns.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
 ## `farming_spawns/perfect-bubblegum_spawns.json`  ·  changed (structural)
@@ -2318,7 +2315,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S25_PlayerTitles_Prefix_Outdoor  `SCORE_S25_PlayerTitles_Prefix_Outdoor` — fields: imageUrl, images
 - SCORE_S25_PlayerTitles_Suffix_Globetrotter  `SCORE_S25_PlayerTitles_Suffix_Globetrotter` — fields: imageUrl, images
 - SCORE_S25_PlayerTitles_Suffix_Pioneer  `SCORE_S25_PlayerTitles_Suffix_Pioneer` — fields: imageUrl, images
-- SFS09_PlayerTitles_Suffix_Manager  `SFS09_PlayerTitles_Suffix_Manager` — fields: debug, howToObtain
+- SFS09_PlayerTitles_Suffix_Manager  `SFS09_PlayerTitles_Suffix_Manager` — fields: howToObtain
 - …and 1 more
 
 ## `titles_player_generator.json`  ·  changed (structural)
