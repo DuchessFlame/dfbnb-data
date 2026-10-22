@@ -46,8 +46,9 @@ import map_watermark
 S = RSM.S
 DOT_D = RSM.DOT_D
 MASK_FILL = RSM.MASK_FILL               # amber, same as the mask maps
-SPOT_FILL = (64, 224, 255)              # bright cyan square - reads on every region's ground
+SPOT_FILL = (255, 193, 7)               # amber - the map-marker icons are pale blue, so cyan blended in
 SPOT_D = 60
+OFFSET = 52                             # lettered square sits up-right of its spot
 
 DEFAULT_OUT = os.environ.get(
     "SLASHER_LORE_OUT",
@@ -136,37 +137,49 @@ def draw_square(d, px, py, fill, size=SPOT_D):
                 outline=RSM.DOT_OUTLINE, width=4)
 
 
-def with_legend(img, n_masks, spots):
-    """The map with its legend in a black strip UNDER it. Every corner of this map
-    has dots (Burning Springs and Tyler County Fairgrounds masks top-left, more in
-    the others), so a legend box on the map always hid some - it goes below instead.
-    Two columns: masks + the first spots left, the rest right."""
-    f_title, f_row, f_sub = RSM._font(96), RSM._font(64), RSM._font(52)
-    rows = [("circle", "Pint-Sized Slasher Masks  (%d)" % n_masks,
-             "the Article Clippings and the children's book page come out of these")] if n_masks else []
-    rows += [("square", "%s  %s" % (s["n"], s["place"]), s["finds"]) for s in spots]
-    # two columns on the 4096 maps; one on the 2600 region tiles, where two touch
-    per_col = (len(rows) + 1) // 2 if img.width >= 3500 else len(rows)
-    row_h, top = 140, 40 + 96 + 30
-    band_h = top + per_col * row_h + 30
-    out = Image.new("RGB", (img.width, img.height + band_h), RSM.LEGEND_BG)
-    out.paste(img, (0, 0))
-    d = ImageDraw.Draw(out)
-    y0 = img.height
-    d.rectangle([0, y0, img.width - 1, y0 + band_h - 1], outline=RSM.LEGEND_BORDER,
-                width=RSM.LEGEND_BORDER_W)
-    d.text((48, y0 + 30), TITLE, font=f_title, fill=(255, 255, 255))
-    col_w = img.width // 2
-    for i, (shape, a_, b_) in enumerate(rows):
-        x = 48 + (i // per_col) * col_w
-        y = y0 + top + (i % per_col) * row_h
-        if shape == "circle":
-            RSM.draw_marker(d, x + 24, y + 36, MASK_FILL, "circle")
-        else:
-            draw_square(d, x + 24, y + 36, SPOT_FILL, size=48)
-        d.text((x + 72, y), a_, font=f_row, fill=(240, 240, 240))
-        d.text((x + 72, y + 70), b_, font=f_sub, fill=(190, 190, 190))
-    return out
+def draw_legend_box(img, spots):
+    """Legend as a box ON the map, top-left - where the mask maps keep theirs
+    (Duchess, 22 Oct 2026: not a strip hanging under the map). Moves to top-right
+    only if a lettered spot would sit under it. Sized to the image (4096 map or
+    2600 tile)."""
+    k = img.width / 4096.0
+    f_title, f_row, f_sub = RSM._font(int(84 * k)), RSM._font(int(60 * k)), RSM._font(int(46 * k))
+    d = ImageDraw.Draw(img)
+    rows = [("%s  %s" % (s["n"], s["place"]), s["finds"]) for s in spots]
+    row_h, pad_in = int(126 * k), int(30 * k)
+    sw = int(44 * k)
+    tw = d.textlength(TITLE, font=f_title)
+    rw = max(max(d.textlength(a, font=f_row), d.textlength(b, font=f_sub)) for a, b in rows)
+    box_w = int(max(tw, rw + sw + 28 * k) + 2 * pad_in)
+    box_h = int(pad_in + 96 * k + 14 * k + len(rows) * row_h + pad_in / 2)
+    m = int(RSM.LEGEND_PAD * k)
+    def clear(x0):
+        return not any(x0 - SPOT_D <= s["lx"] <= x0 + box_w + SPOT_D and
+                       s["ly"] <= m + box_h + SPOT_D for s in spots)
+    x0 = m if clear(m) else img.width - m - box_w
+    y0 = m
+    d.rectangle([x0, y0, x0 + box_w, y0 + box_h], fill=RSM.LEGEND_BG,
+                outline=RSM.LEGEND_BORDER, width=max(2, int(RSM.LEGEND_BORDER_W * k)))
+    d.text((x0 + pad_in, y0 + pad_in * 0.6), TITLE, font=f_title, fill=(255, 255, 255))
+    y = y0 + pad_in + 96 * k + 14 * k
+    for a_, b_ in rows:
+        draw_square(d, x0 + pad_in + sw / 2, y + 32 * k, SPOT_FILL, size=sw)
+        d.text((x0 + pad_in + sw + 22 * k, y), a_, font=f_row, fill=(240, 240, 240))
+        d.text((x0 + pad_in + sw + 22 * k, y + 64 * k), b_, font=f_sub, fill=(190, 190, 190))
+        y += row_h
+
+
+def draw_spot(d, s, f_spot, k=1.0):
+    """Lettered square up-right of the spot, with a short line back to it, so the
+    location's own map-marker icon underneath stays visible."""
+    size = SPOT_D * k
+    d.line([(s["dx"], s["dy"]), (s["lx"], s["ly"])],
+           fill=(15, 15, 15), width=max(3, int(6 * k)))
+    d.line([(s["dx"], s["dy"]), (s["lx"], s["ly"])], fill=SPOT_FILL, width=max(2, int(3 * k)))
+    draw_square(d, s["lx"], s["ly"], SPOT_FILL, size=size)
+    tb = d.textbbox((0, 0), s["n"], font=f_spot)
+    d.text((s["lx"] - (tb[2] - tb[0]) / 2 - tb[0], s["ly"] - (tb[3] - tb[1]) / 2 - tb[1]),
+           s["n"], font=f_spot, fill=(0, 0, 0))
 
 
 def render(out_root, data_dir):
@@ -188,18 +201,27 @@ def render(out_root, data_dir):
     if base.size != (S, S):
         base = base.resize((S, S), Image.LANCZOS)
 
+    # The in-game map-marker icons (Mappalachia img/mapmarker/*.svg at its MapMarker
+    # positions) - the same layer the Treasure Hunter route maps use. A map without
+    # them is just terrain (Duchess, 22 Oct 2026). Needs cairosvg.
+    import render_event_swap_maps as ESW
+    marks = ESW.map_marker_icons()
+    for x, y, _label, im in marks:
+        px, py = to_px(x, y)
+        base.paste(im, (int(px - im.width / 2), int(py - im.height / 2)), im)
+
     plain = base.copy()
     d = ImageDraw.Draw(plain)
     f_spot = RSM._font(64)
     for s in spots:
-        draw_square(d, s["px"], s["py"], SPOT_FILL)
-        tb = d.textbbox((0, 0), s["n"], font=f_spot)
-        d.text((s["px"] - (tb[2] - tb[0]) / 2 - tb[0], s["py"] - (tb[3] - tb[1]) / 2 - tb[1]),
-               s["n"], font=f_spot, fill=(0, 0, 0))
+        s["dx"], s["dy"] = s["px"], s["py"]
+        s["lx"], s["ly"] = s["px"] + OFFSET, s["py"] - OFFSET
+        draw_spot(d, s, f_spot)
+    draw_legend_box(plain, spots)
 
     os.makedirs(os.path.join(out_root, "01 Full Maps"), exist_ok=True)
     p_plain = os.path.join(out_root, "01 Full Maps", "slasher-lore-map.jpg")
-    with_legend(map_watermark.apply(plain), 0, spots).save(p_plain, "JPEG", quality=88, optimize=True)
+    map_watermark.apply(plain).save(p_plain, "JPEG", quality=88, optimize=True)
 
     # one close-up per region that has a spot, with its own legend
     tiles_dir = os.path.join(out_root, "03 Region Tiles")
@@ -221,11 +243,21 @@ def render(out_root, data_dir):
         pad = 120
         x0 = max(0, int(x0 - pad)); y0 = max(0, int(y0 - pad))
         x1 = min(S, int(x1 + pad)); y1 = min(S, int(y1 + pad))
-        crop = plain.crop((x0, y0, x1, y1))
+        x1 = min(S, max(x1, max(r["lx"] for r in rows) + SPOT_D + pad))
+        y0 = max(0, min(y0, min(r["ly"] for r in rows) - SPOT_D - pad))
+        # crop the map BEFORE its legend went on, then give the tile its own legend
+        tile_src = base.copy()
+        dt = ImageDraw.Draw(tile_src)
+        for s in rows:
+            draw_spot(dt, s, f_spot)
+        crop = tile_src.crop((x0, y0, x1, y1))
         w, h = crop.size
         crop = crop.resize((RSM.TILE_WIDTH, max(1, int(h * RSM.TILE_WIDTH / w))), Image.LANCZOS)
         name = "%s-lore-map.jpg" % RSP._region_slug(region)
-        with_legend(map_watermark.apply(crop, corner="bottom-right"), 0, rows).save(
+        sc = RSM.TILE_WIDTH / float(w)
+        trows = [dict(r, lx=(r["lx"] - x0) * sc, ly=(r["ly"] - y0) * sc) for r in rows]
+        draw_legend_box(crop, trows)
+        map_watermark.apply(crop, corner="bottom-right").save(
             os.path.join(tiles_dir, name), "JPEG", quality=88, optimize=True)
         made.append((region, name, len(rows)))
 
@@ -237,7 +269,7 @@ def render(out_root, data_dir):
             w_.writerow([s["n"], s["region"], s["place"], s["finds"], s["ref"],
                          round(s["x"], 1), round(s["y"], 1)])
 
-    print("  spots=%d  logo=%s" % (len(spots), "yes" if map_watermark._logo() is not None else "NO"))
+    print("  spots=%d  map icons=%d  logo=%s" % (len(spots), len(marks), "yes" if map_watermark._logo() is not None else "NO"))
     for s in spots:
         print("   %s %-42s %-14s %s" % (s["n"], s["place"], s["region"], s["ref"]))
     print("  " + p_plain)
