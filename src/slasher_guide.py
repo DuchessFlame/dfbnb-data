@@ -202,8 +202,11 @@ def _paints(dist_root, finale, challenges, tsv_root):
         rows = []
         for r in it.get("obtain_routes") or []:
             lv = {str(x).upper() for x in r.get("lvli") or []}
-            if finale and (r.get("quest_guide") == finale.get("formId")
-                           or (r.get("kind") == "quest" and r.get("rate") == 1.0 and lv & reward_lists)):
+            # Only the finale's own guaranteed reward - not the shared quest
+            # grab-bag every story quest also rolls (hundreds of plans at <1%).
+            if finale and r.get("rate") == 1.0 and (
+                    r.get("quest_guide") == finale.get("formId")
+                    or (r.get("kind") == "quest" and lv & reward_lists)):
                 rows.append({"how": "quest", "quest": finale["name"],
                              "rate": r.get("rate"), "rateDisplay": _rate4(r.get("rate"))})
             elif lv & set(death_lists):
