@@ -449,6 +449,9 @@ jobs:
             --seasons tsv/fallout76_seasons.tsv \
             --outdir dist
 
+      - name: Build Slasher Lore JSON
+        run: python src/build_slasher_lore_json.py --data-dir tsv --out dist/collectables_slasher_lore.json
+
       # --- CAMP ITEMS ---
       - name: Build Camp Items JSON
         run: |

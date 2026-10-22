@@ -13,6 +13,12 @@ on:
       - "tsv/KYWD_Export*_Refs.tsv"
       - "tsv/fallout76_seasons.tsv"
       - "src/build_collectables_json.py"
+      - "src/build_slasher_lore_json.py"
+      - "src/slasher_guide.py"
+      - "data/slasher_lore_locations.json"
+      - "tsv/NOTE_Export*.tsv"
+      - "tsv/ALLYDLG_Export*_Lore.tsv"
+      - "tsv/QUST2_Export*_RewardQuests.tsv"
       - ".github/workflows/build-collectables-json.yml"
 
 permissions:
@@ -39,6 +45,9 @@ jobs:
             --tsv-root tsv \
             --seasons tsv/fallout76_seasons.tsv \
             --outdir dist
+
+      - name: Build Slasher Lore JSON
+        run: python src/build_slasher_lore_json.py --data-dir tsv --out dist/collectables_slasher_lore.json
 
       - name: Sanity check outputs
         run: |
