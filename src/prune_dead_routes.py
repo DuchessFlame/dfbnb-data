@@ -100,26 +100,36 @@ def attach(items, tsv_dir):
         stats["routes"] += len(gone)
         if not keep and not (it.get("obtain_unlocks") or []):
             stats["rows_left_with_nothing"] += 1
-            # Every source this plan had is a CONFIRMED cut source (Mole Miner
-            # Mystery Crate — plan_sources.CONFIRMED_CUT_SOURCES): the plan is
-            # cut content, so it moves under the Cut filter and out of the
-            # progress total, same as a cut_reason() plan. Only when ALL its
-            # retired routes are cut sources — one other dead reason and the
-            # plan stays live (red, on Bugged Plans) for a person to look at.
-            if not it.get("cut") and all(
-                    set(g["retired_because"]) == {"cut source"}
-                    for g in it["retired_routes"]):
-                lists = [l for g in it["retired_routes"] for l in (g.get("lvli") or [])]
-                why = sorted({w for w in (cut_source_reason(scan, l) for l in lists) if w})
-                it["cut"] = True
-                it["cut_reason"] = ("its only source in the game files is cut — "
-                                    + "; ".join(why or ["cut source"]))
-                stats["rows_made_cut"] += 1
         for g in gone:
             for w in g["retired_because"]:
                 stats["why: " + w] += 1
         if len(examples) < 8:
             examples.append(f"{it.get('name')}: -{', '.join(g.get('route') or '?' for g in gone)}")
+    # Every source this plan had is a CONFIRMED cut source (Mole Miner Mystery
+    # Crate, the Drifter — plan_sources.CONFIRMED_CUT_SOURCE_PATTERNS): the
+    # plan is cut content, so it leaves the pages for Data Mining > Cut Content
+    # and drops out of the progress total, same as a cut_reason() plan. Only
+    # when ALL its retired routes are cut sources — one other dead reason and
+    # the plan stays live (red, on Bugged Plans) for a person to look at.
+    # A Backlog / TEMP holding pen Bethesda never marked cut (a "parked list")
+    # counts with them, as long as at least one source is a confirmed-cut one:
+    # BOS Combat / Leather Armor Paint only came from a Mole Miner Mystery
+    # Crate and Minerva's parked Backlog_02, and sat on the plan pages with no
+    # source (21 Oct 2026). Runs over EVERY row, not just ones retired this
+    # pass, so a plan retired by an earlier build is judged too.
+    for it in items:
+        if it.get("cut") or it.get("obtain_routes") or it.get("obtain_unlocks"):
+            continue
+        reasons = [set(g.get("retired_because") or ()) for g in it.get("retired_routes") or []]
+        if not reasons or not all(r <= {"cut source", "parked list (cut, not marked)"} for r in reasons) \
+                or not any("cut source" in r for r in reasons):
+            continue
+        lists = [l for g in it["retired_routes"] for l in (g.get("lvli") or [])]
+        why = sorted({w for w in (cut_source_reason(scan, l) for l in lists) if w})
+        it["cut"] = True
+        it["cut_reason"] = ("its only source in the game files is cut — "
+                            + "; ".join(why or ["cut source"]))
+        stats["rows_made_cut"] += 1
     stats["_examples"] = examples
     return stats
 

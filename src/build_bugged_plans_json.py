@@ -1104,6 +1104,14 @@ def main(argv=None):
                "source": s.label(s.lvli[fid]["edid"]),
                "plans": sorted((s.books[b]["full"] or s.books[b]["edid"]) for b in bs)}
               for fid, bs in sorted(s.parked.items())]
+    # Cut content is not a bug (Duchess, 21 Oct 2026): a plan whose only
+    # problem is that every source is cut (the Drifter, a Mole Miner Mystery
+    # Crate) is listed on Data Mining > Cut Content, not here. Never reported
+    # as "fixed" either - it didn't get fixed, it moved.
+    moved_cut = {x["id"] for x in items
+                 if x.get("bugs") and all(b["kind"] == "cut_source" for b in x["bugs"])}
+    items = [x for x in items if x["id"] not in moved_cut]
+    s.stats["moved_to_cut_content"] = len(moved_cut)
     hidden = [x for x in items if (review.get(x["id"]) or {}).get("status") == "not_a_bug"]
     items = [x for x in items if x not in hidden]
     for x in items:
@@ -1116,7 +1124,7 @@ def main(argv=None):
         x["is_new"] = bool(prev_items) and old is None
     cur_ids = {x["id"] for x in items}
     fixed = [{"id": i, "name": o["name"], "fixed_on": today} for i, o in prev_items.items()
-             if i not in cur_ids and i not in {h["id"] for h in hidden}]
+             if i not in cur_ids and i not in {h["id"] for h in hidden} and i not in moved_cut]
     # keep earlier fixes for a few runs so readers see what changed
     for f in prev.get("fixed", []):
         if f["id"] not in cur_ids and f["id"] not in {x["id"] for x in fixed} and \
