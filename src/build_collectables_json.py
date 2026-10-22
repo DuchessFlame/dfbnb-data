@@ -27,6 +27,7 @@ from html.parser import HTMLParser
 from html import unescape
 
 import tsv_source
+import shared_images
 from patchlog_utils import write_patchlog_feed, _git_show_json, diff_item_lists, _write_json
 
 
@@ -2342,6 +2343,7 @@ def main():
     holotapes_data = {
         "generatedAt": generated_at,
         "type": "holotapes",
+        "defaultImage": shared_images.HOLOTAPE_IMAGE,   # row picture for every holotape
         "items": holotapes,
         "cutContent": holotapes_cut
     }

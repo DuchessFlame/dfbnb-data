@@ -22,10 +22,19 @@ Everything comes from the game files and is rebuilt every patch:
               ('Find the "Phantoms' Orders" in RobCo Research Center'), else
               data/slasher_lore_locations.json (Duchess fills it in)
 
-Pictures: the page looks for guide-images/collectables/slasher-lore/
+Pictures: the page looks for guide-images/collectables/Slasher-Lore/
 <slug>-map.avif (map marker) and <slug>-location.avif (location photo) — upload
 with those names and they appear; data/slasher_lore_locations.json can point
-elsewhere.
+elsewhere ("image", "mapImage", "locationImage" per EditorID).
+  notes      <slug>-note.avif — the note on its in-game paper, made by
+             tools/make_lore_note_images.py from the game's paper texture and
+             the note's own text (the game has no picture per note: it lays the
+             text over a plain paper model, BOOK INAM)
+  holotapes  the site-wide holotape picture (src/shared_images.py), row thumb only
+  radio      by speaker (SPEAKER_IMAGE): debunker-news.avif for Remington
+             Goodwin's Debunker News, row thumb only
+Note text comes from ALLYDLG _LoreNotes (keeps the game's line breaks, fonts,
+colours and alignment as "note.blocks"); the BOOK export is the fallback.
 
     python src/build_slasher_lore_json.py                 # live  -> dist/
     python src/build_slasher_lore_json.py --pts           # PTS   -> dist/pts/
@@ -47,6 +56,8 @@ REPO = HERE.parent
 sys.path.insert(0, str(HERE))
 
 import tsv_source            # noqa: E402
+import note_markup           # noqa: E402
+import shared_images         # noqa: E402
 import plan_quest_guides     # noqa: E402
 import slasher_guide         # noqa: E402
 
@@ -55,7 +66,19 @@ csv.field_size_limit(1 << 30)
 PREFIX = "SDOW_"
 OUT_NAME = "collectables_slasher_lore.json"
 LOCATIONS_JSON = REPO / "data" / "slasher_lore_locations.json"
-IMAGE_DIR = "/wp-content/uploads/guide-images/collectables/slasher-lore/"
+IMAGE_DIR = "/wp-content/uploads/guide-images/collectables/Slasher-Lore/"
+HOLOTAPE_IMAGE = shared_images.HOLOTAPE_IMAGE      # the site-wide holotape picture
+# Radio row picture by who speaks in it (voice type EditorID -> file). The
+# Debunker's is his own talking-head portrait from interface/vocharacteranim.swf
+# (frame label SDOW_NPCM_Debunker), the one the HUD shows when he talks.
+# The Reborn Slasher: his Pint-Sized Slasher power armor helmet art (the paint
+# his quest rewards), Duchess's pick 22 Oct 2026. In the files he wears the
+# Atom Shop costume + mask (SDOW_LL_Outfit_SlasherBoss_Normal). A full
+# /wp-content/... path is used as is.
+SPEAKER_IMAGE = {
+    "SDOW_NPCM_Debunker": "debunker-news.avif",
+    "SDOW_NPCM_SlasherImpostor": "reborn-slasher.avif",
+}
 DEV_RX = re.compile(r"^(zzz|cut_|del_|post_)", re.I)
 RECIPE_KW = "ObjectTypeRecipe"
 
@@ -153,6 +176,14 @@ class Build:
                 self.overrides = json.load(open(LOCATIONS_JSON, encoding="utf-8")).get("items", {})
             except Exception:                                  # noqa: BLE001
                 self.overrides = {}
+        # note text exactly as the game lays it out (line breaks, fonts)
+        self.note_text = {}
+        p = nw("ALLYDLG_Export_*_LoreNotes.tsv")
+        if p:
+            for r in _rows(p):
+                fid = (r.get("FormID") or "").strip().upper()
+                if fid:
+                    self.note_text[fid] = r
         self._rng = None
         self._conds = None
 
@@ -290,10 +321,19 @@ class Build:
             routes = self.routes_for(fid, refs)
             if not routes:
                 continue                                  # nothing gives it out
-            items.append(self._item(fid, edid, r.get("FULL"), "Note", routes, objectives, contents=text))
+            it = self._item(fid, edid, r.get("FULL"), "Note", routes, objectives, contents=text)
+            ln = self.note_text.get(fid)
+            if ln and (ln.get("Text") or "").strip():
+                blocks = note_markup.parse(ln["Text"])
+                if blocks:
+                    it["contents"] = note_markup.plain(blocks)
+                    it["note"] = {"blocks": blocks, "paper": (ln.get("PaperEDID") or "").strip() or None}
+            it["image"] = (self.overrides.get(edid) or {}).get("image") or IMAGE_DIR + _slug(it["name"]) + "-note.avif"
+            items.append(it)
         # holotapes -----------------------------------------------------
         lore = collections.defaultdict(list)
         radio = collections.OrderedDict()
+        radio_img = {}
         lp = self.newest("ALLYDLG_Export_*_Lore.tsv")
         for r in (_rows(lp) if lp else []):
             if not (r.get("QuestEDID") or "").startswith(PREFIX):
@@ -304,6 +344,10 @@ class Build:
             else:
                 k = (r.get("QuestEDID"), r.get("QuestName"), r.get("SceneEDID"), r.get("SceneFormID"))
                 radio.setdefault(k, []).append((int(r.get("LineOrder") or 0), line))
+                sp = _ref(r.get("Speaker"))
+                if sp and sp[1] in SPEAKER_IMAGE:
+                    f = SPEAKER_IMAGE[sp[1]]
+                    radio_img.setdefault(k, f if f.startswith("/") else IMAGE_DIR + f)
         p = self.newest("NOTE_Export_*.tsv")
         for r in (_rows(p) if p else []):
             edid = (r.get("NOTE_EDID") or "").strip()
@@ -315,9 +359,12 @@ class Build:
             if not routes:
                 continue
             tr = [l for _, l in sorted(lore[fid], key=lambda x: x[0])]
-            items.append(self._item(fid, edid, r.get("FULL"), "Holotape", routes, objectives, transcript=tr))
+            it = self._item(fid, edid, r.get("FULL"), "Holotape", routes, objectives, transcript=tr)
+            it["image"] = (self.overrides.get(edid) or {}).get("image") or HOLOTAPE_IMAGE
+            items.append(it)
         # radio broadcasts ----------------------------------------------
         for (qed, qname, sed, sfid), lines in radio.items():
+            qname0 = qname
             tr = [l for _, l in sorted(lines, key=lambda x: x[0])]
             if not tr:
                 continue
@@ -333,6 +380,9 @@ class Build:
                 "{}: {}".format(station, self._report_name(sed))
             it = self._item((sfid or "").upper(), sed, name, "Radio Broadcast",
                             [(key, {"row": "Radio", "name": station, "conditions": []})], objectives, transcript=tr)
+            img = (self.overrides.get(sed) or {}).get("image") or radio_img.get((qed, qname0, sed, sfid))
+            if img:
+                it["image"] = img
             items.append(it)
 
         groups = []
