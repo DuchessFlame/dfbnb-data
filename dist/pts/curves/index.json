@@ -1,16 +1,16 @@
 {
   "meta": {
-    "buildTimeUTC": "2026-10-22T06:57:33.421Z",
+    "buildTimeUTC": "2026-10-22T09:21:44.404Z",
     "input": "CURV_Export_October_2026_POINTS.tsv",
-    "curves": 1744,
-    "points": 31836,
+    "curves": 1791,
+    "points": 32722,
     "chunkMaxCurves": 200
   },
   "categories": [
     {
       "id": "other",
       "title": "Other",
-      "count": 1744
+      "count": 1791
     }
   ],
   "chunks": {
@@ -93,6 +93,19 @@
       "yLabel": "Bonus Value"
     },
     {
+      "id": "0057A1F4",
+      "edid": "BabylonPopulationBasedTimeline",
+      "category": "other",
+      "points": 3,
+      "xMin": 0,
+      "xMax": 21,
+      "yMin": 0,
+      "yMax": 390,
+      "desc": "Babylon Population Based Timeline curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Output Value"
+    },
+    {
       "id": "007BC53F",
       "edid": "BarbarianBonus",
       "category": "other",
@@ -128,6 +141,71 @@
       "yMin": 4,
       "yMax": 43,
       "desc": "Bodyguards curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Bonus Value"
+    },
+    {
+      "id": "00919959",
+      "edid": "Bonus_QuickFix",
+      "category": "other",
+      "points": 3,
+      "xMin": 0,
+      "xMax": 10,
+      "yMin": 0,
+      "yMax": 0.5,
+      "desc": "Bonus_Quick Fix curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Multiplier"
+    },
+    {
+      "id": "00919AD7",
+      "edid": "Bonus_Valkyrie",
+      "category": "other",
+      "points": 3,
+      "xMin": 0,
+      "xMax": 30,
+      "yMin": 0,
+      "yMax": 0.6,
+      "desc": "Bonus_Valkyrie curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Multiplier"
+    },
+    {
+      "id": "00915476",
+      "edid": "BonusPerKill_CrowdControl",
+      "category": "other",
+      "points": 3,
+      "xMin": 0,
+      "xMax": 10,
+      "yMin": 0,
+      "yMax": 50,
+      "desc": "Bonus curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Bonus Value"
+    },
+    {
+      "id": "00914F58",
+      "edid": "BonusPerKill_LoveTap",
+      "category": "other",
+      "points": 3,
+      "xMin": 0,
+      "xMax": 10,
+      "yMin": 0,
+      "yMax": 100,
+      "desc": "Bonus Per Kill Love curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Bonus Value"
+    },
+    {
+      "id": "00915475",
+      "edid": "BonusPerKill_SoleSurvior",
+      "category": "other",
+      "points": 3,
+      "xMin": 0,
+      "xMax": 10,
+      "yMin": 0,
+      "yMax": 30,
+      "desc": "Bonus curve table value, scaling by input.",
       "xLabel": "Player Level",
       "yLabel": "Bonus Value"
     },
@@ -2001,14 +2079,18 @@
       "id": "0079B11E",
       "edid": "COBJ_Legendary_Attach_Scrip",
       "category": "other",
-      "points": 21,
+      "points": 11,
       "xMin": 0,
-      "xMax": 20,
+      "xMax": 50,
       "yMin": 0,
-      "yMax": 1000,
+      "yMax": 99999,
       "desc": "COBJ Legendary Attach Scrip curve table value, scaling by input.",
       "xLabel": "Player Level",
-      "yLabel": "Output Value"
+      "yLabel": "Output Value",
+      "softCap": {
+        "x": 2,
+        "y": 50
+      }
     },
     {
       "id": "0079B105",
@@ -2678,14 +2760,430 @@
       "yLabel": "Bonus Value"
     },
     {
+      "id": "001F54D0",
+      "edid": "COBJ_Workshop_Acid",
+      "category": "other",
+      "points": 24,
+      "xMin": 0,
+      "xMax": 100,
+      "yMin": 0,
+      "yMax": 100,
+      "desc": "COBJ Workshop Acid curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Bonus Value"
+    },
+    {
+      "id": "001F54DE",
+      "edid": "COBJ_Workshop_Adhesive",
+      "category": "other",
+      "points": 24,
+      "xMin": 0,
+      "xMax": 100,
+      "yMin": 0,
+      "yMax": 100,
+      "desc": "COBJ Workshop Adhesive curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Bonus Value"
+    },
+    {
+      "id": "001F54DF",
+      "edid": "COBJ_Workshop_Aluminum",
+      "category": "other",
+      "points": 24,
+      "xMin": 0,
+      "xMax": 100,
+      "yMin": 0,
+      "yMax": 100,
+      "desc": "COBJ Workshop curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Bonus Value"
+    },
+    {
+      "id": "001F54E0",
+      "edid": "COBJ_Workshop_AntiBallisticFiber",
+      "category": "other",
+      "points": 24,
+      "xMin": 0,
+      "xMax": 100,
+      "yMin": 0,
+      "yMax": 100,
+      "desc": "COBJ Workshop Anti Ballistic curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Bonus Value"
+    },
+    {
+      "id": "001F54E1",
+      "edid": "COBJ_Workshop_Antiseptic",
+      "category": "other",
+      "points": 24,
+      "xMin": 0,
+      "xMax": 100,
+      "yMin": 0,
+      "yMax": 100,
+      "desc": "COBJ Workshop Antiseptic curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Bonus Value"
+    },
+    {
+      "id": "001F54E2",
+      "edid": "COBJ_Workshop_Asbestos",
+      "category": "other",
+      "points": 24,
+      "xMin": 0,
+      "xMax": 100,
+      "yMin": 0,
+      "yMax": 100,
+      "desc": "COBJ Workshop Asbestos curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Bonus Value"
+    },
+    {
+      "id": "001F54E3",
+      "edid": "COBJ_Workshop_BlackTitanium",
+      "category": "other",
+      "points": 24,
+      "xMin": 0,
+      "xMax": 100,
+      "yMin": 0,
+      "yMax": 100,
+      "desc": "COBJ Workshop Black Titanium curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Bonus Value"
+    },
+    {
+      "id": "001F54E4",
+      "edid": "COBJ_Workshop_Bone",
+      "category": "other",
+      "points": 24,
+      "xMin": 0,
+      "xMax": 100,
+      "yMin": 0,
+      "yMax": 100,
+      "desc": "COBJ Workshop Bone curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Bonus Value"
+    },
+    {
+      "id": "001F54E5",
+      "edid": "COBJ_Workshop_Ceramic",
+      "category": "other",
+      "points": 24,
+      "xMin": 0,
+      "xMax": 100,
+      "yMin": 0,
+      "yMax": 100,
+      "desc": "COBJ Workshop curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Bonus Value"
+    },
+    {
+      "id": "001F54E6",
+      "edid": "COBJ_Workshop_Circuitry",
+      "category": "other",
+      "points": 24,
+      "xMin": 0,
+      "xMax": 100,
+      "yMin": 0,
+      "yMax": 100,
+      "desc": "COBJ Workshop Circuitry curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Bonus Value"
+    },
+    {
+      "id": "001F54E7",
+      "edid": "COBJ_Workshop_Cloth",
+      "category": "other",
+      "points": 24,
+      "xMin": 0,
+      "xMax": 100,
+      "yMin": 0,
+      "yMax": 100,
+      "desc": "COBJ Workshop Cloth curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Bonus Value"
+    },
+    {
+      "id": "001F54E8",
+      "edid": "COBJ_Workshop_Concrete",
+      "category": "other",
+      "points": 24,
+      "xMin": 0,
+      "xMax": 100,
+      "yMin": 0,
+      "yMax": 100,
+      "desc": "COBJ Workshop Concrete curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Bonus Value"
+    },
+    {
+      "id": "001F54F2",
+      "edid": "COBJ_Workshop_Copper",
+      "category": "other",
+      "points": 24,
+      "xMin": 0,
+      "xMax": 100,
+      "yMin": 0,
+      "yMax": 100,
+      "desc": "COBJ Workshop curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Bonus Value"
+    },
+    {
+      "id": "001F54F3",
+      "edid": "COBJ_Workshop_Cork",
+      "category": "other",
+      "points": 24,
+      "xMin": 0,
+      "xMax": 100,
+      "yMin": 0,
+      "yMax": 100,
+      "desc": "COBJ Workshop Cork curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Bonus Value"
+    },
+    {
+      "id": "001F54F4",
+      "edid": "COBJ_Workshop_Crystal",
+      "category": "other",
+      "points": 24,
+      "xMin": 0,
+      "xMax": 100,
+      "yMin": 0,
+      "yMax": 100,
+      "desc": "COBJ Workshop Crystal curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Bonus Value"
+    },
+    {
+      "id": "001F54F5",
+      "edid": "COBJ_Workshop_Fertilizer",
+      "category": "other",
+      "points": 24,
+      "xMin": 0,
+      "xMax": 100,
+      "yMin": 0,
+      "yMax": 100,
+      "desc": "COBJ Workshop curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Bonus Value"
+    },
+    {
+      "id": "001F54F6",
+      "edid": "COBJ_Workshop_Fiberglass",
+      "category": "other",
+      "points": 24,
+      "xMin": 0,
+      "xMax": 100,
+      "yMin": 0,
+      "yMax": 100,
+      "desc": "COBJ Workshop curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Bonus Value"
+    },
+    {
+      "id": "001F54F7",
+      "edid": "COBJ_Workshop_FiberOptics",
+      "category": "other",
+      "points": 24,
+      "xMin": 0,
+      "xMax": 100,
+      "yMin": 0,
+      "yMax": 100,
+      "desc": "COBJ Workshop curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Bonus Value"
+    },
+    {
+      "id": "001F54F8",
+      "edid": "COBJ_Workshop_Gears",
+      "category": "other",
+      "points": 24,
+      "xMin": 0,
+      "xMax": 100,
+      "yMin": 0,
+      "yMax": 100,
+      "desc": "COBJ Workshop Gears curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Bonus Value"
+    },
+    {
+      "id": "001F54F9",
+      "edid": "COBJ_Workshop_Glass",
+      "category": "other",
+      "points": 24,
+      "xMin": 0,
+      "xMax": 100,
+      "yMin": 0,
+      "yMax": 100,
+      "desc": "COBJ Workshop Glass curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Bonus Value"
+    },
+    {
+      "id": "001F54FA",
+      "edid": "COBJ_Workshop_Gold",
+      "category": "other",
+      "points": 24,
+      "xMin": 0,
+      "xMax": 100,
+      "yMin": 0,
+      "yMax": 100,
+      "desc": "COBJ Workshop Gold curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Bonus Value"
+    },
+    {
+      "id": "001F54FB",
+      "edid": "COBJ_Workshop_Lead",
+      "category": "other",
+      "points": 24,
+      "xMin": 0,
+      "xMax": 100,
+      "yMin": 0,
+      "yMax": 100,
+      "desc": "COBJ Workshop Lead curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Bonus Value"
+    },
+    {
+      "id": "001F54FC",
+      "edid": "COBJ_Workshop_Leather",
+      "category": "other",
+      "points": 24,
+      "xMin": 0,
+      "xMax": 100,
+      "yMin": 0,
+      "yMax": 100,
+      "desc": "COBJ Workshop curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Bonus Value"
+    },
+    {
+      "id": "001F54FD",
+      "edid": "COBJ_Workshop_NuclearMaterial",
+      "category": "other",
+      "points": 24,
+      "xMin": 0,
+      "xMax": 100,
+      "yMin": 0,
+      "yMax": 100,
+      "desc": "COBJ Workshop Nuclear curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Bonus Value"
+    },
+    {
+      "id": "001F54FE",
+      "edid": "COBJ_Workshop_Oil",
+      "category": "other",
+      "points": 24,
+      "xMin": 0,
+      "xMax": 100,
+      "yMin": 0,
+      "yMax": 100,
+      "desc": "COBJ Workshop Oil curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Bonus Value"
+    },
+    {
+      "id": "001F54FF",
+      "edid": "COBJ_Workshop_Plastic",
+      "category": "other",
+      "points": 24,
+      "xMin": 0,
+      "xMax": 100,
+      "yMin": 0,
+      "yMax": 100,
+      "desc": "COBJ Workshop Plastic curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Bonus Value"
+    },
+    {
+      "id": "001F5500",
+      "edid": "COBJ_Workshop_Rubber",
+      "category": "other",
+      "points": 24,
+      "xMin": 0,
+      "xMax": 100,
+      "yMin": 0,
+      "yMax": 100,
+      "desc": "COBJ Workshop curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Bonus Value"
+    },
+    {
+      "id": "001F5501",
+      "edid": "COBJ_Workshop_Screws",
+      "category": "other",
+      "points": 24,
+      "xMin": 0,
+      "xMax": 100,
+      "yMin": 0,
+      "yMax": 100,
+      "desc": "COBJ Workshop Screws curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Bonus Value"
+    },
+    {
+      "id": "001F5502",
+      "edid": "COBJ_Workshop_Silver",
+      "category": "other",
+      "points": 24,
+      "xMin": 0,
+      "xMax": 100,
+      "yMin": 0,
+      "yMax": 100,
+      "desc": "COBJ Workshop curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Bonus Value"
+    },
+    {
+      "id": "001F5504",
+      "edid": "COBJ_Workshop_Springs",
+      "category": "other",
+      "points": 24,
+      "xMin": 0,
+      "xMax": 100,
+      "yMin": 0,
+      "yMax": 100,
+      "desc": "COBJ Workshop Springs curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Bonus Value"
+    },
+    {
+      "id": "001F5506",
+      "edid": "COBJ_Workshop_Steel",
+      "category": "other",
+      "points": 24,
+      "xMin": 0,
+      "xMax": 100,
+      "yMin": 0,
+      "yMax": 100,
+      "desc": "COBJ Workshop Steel curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Bonus Value"
+    },
+    {
+      "id": "001F5507",
+      "edid": "COBJ_Workshop_Wood",
+      "category": "other",
+      "points": 24,
+      "xMin": 0,
+      "xMax": 100,
+      "yMin": 0,
+      "yMax": 100,
+      "desc": "COBJ Workshop Wood curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Bonus Value"
+    },
+    {
       "id": "0018BCC9",
       "edid": "ConditionDamageScaleFactor_Armor_Combat",
       "category": "other",
-      "points": 8,
+      "points": 11,
       "xMin": 1,
-      "xMax": 34,
-      "yMin": 0.096,
-      "yMax": 0.108,
+      "xMax": 300,
+      "yMin": 0.01,
+      "yMax": 0.04,
       "desc": "Condition Damage Scale Factor curve table value, scaling by input.",
       "xLabel": "Player Level",
       "yLabel": "Base Damage"
@@ -2694,11 +3192,11 @@
       "id": "0050A60A",
       "edid": "ConditionDamageScaleFactor_Armor_Enclave",
       "category": "other",
-      "points": 8,
+      "points": 11,
       "xMin": 1,
-      "xMax": 34,
-      "yMin": 0.096,
-      "yMax": 0.108,
+      "xMax": 300,
+      "yMin": 0.01,
+      "yMax": 0.04,
       "desc": "Condition Damage Scale Factor curve table value, scaling by input.",
       "xLabel": "Player Level",
       "yLabel": "Base Damage"
@@ -2707,11 +3205,11 @@
       "id": "0003490F",
       "edid": "ConditionDamageScaleFactor_Armor_Leather",
       "category": "other",
-      "points": 8,
+      "points": 11,
       "xMin": 1,
-      "xMax": 34,
-      "yMin": 0.096,
-      "yMax": 0.132,
+      "xMax": 300,
+      "yMin": 0.01,
+      "yMax": 0.04,
       "desc": "Condition Damage Scale Factor Armor curve table value, scaling by input.",
       "xLabel": "Player Level",
       "yLabel": "Base Damage"
@@ -2720,11 +3218,11 @@
       "id": "001FAB9C",
       "edid": "ConditionDamageScaleFactor_Armor_Marine",
       "category": "other",
-      "points": 8,
+      "points": 11,
       "xMin": 1,
-      "xMax": 34,
-      "yMin": 0.096,
-      "yMax": 0.108,
+      "xMax": 300,
+      "yMin": 0.01,
+      "yMax": 0.04,
       "desc": "Condition Damage Scale Factor curve table value, scaling by input.",
       "xLabel": "Player Level",
       "yLabel": "Base Damage"
@@ -2733,11 +3231,11 @@
       "id": "00310BE3",
       "edid": "ConditionDamageScaleFactor_Armor_Metal",
       "category": "other",
-      "points": 8,
+      "points": 11,
       "xMin": 1,
-      "xMax": 34,
-      "yMin": 0.096,
-      "yMax": 0.114,
+      "xMax": 300,
+      "yMin": 0.01,
+      "yMax": 0.04,
       "desc": "Condition Damage Scale Factor curve table value, scaling by input.",
       "xLabel": "Player Level",
       "yLabel": "Base Damage"
@@ -2746,11 +3244,11 @@
       "id": "006F3DBB",
       "edid": "ConditionDamageScaleFactor_Armor_Muni",
       "category": "other",
-      "points": 8,
+      "points": 11,
       "xMin": 1,
-      "xMax": 34,
-      "yMin": 0.096,
-      "yMax": 0.108,
+      "xMax": 300,
+      "yMin": 0.01,
+      "yMax": 0.04,
       "desc": "Condition Damage Scale Factor curve table value, scaling by input.",
       "xLabel": "Player Level",
       "yLabel": "Base Damage"
@@ -2759,11 +3257,11 @@
       "id": "001FAB9F",
       "edid": "ConditionDamageScaleFactor_Armor_Raider",
       "category": "other",
-      "points": 8,
+      "points": 11,
       "xMin": 1,
-      "xMax": 34,
-      "yMin": 0.09,
-      "yMax": 0.12,
+      "xMax": 300,
+      "yMin": 0.01,
+      "yMax": 0.04,
       "desc": "Condition Damage Scale Factor Armor curve table value, scaling by input.",
       "xLabel": "Player Level",
       "yLabel": "Base Damage"
@@ -2772,11 +3270,11 @@
       "id": "0050A609",
       "edid": "ConditionDamageScaleFactor_Armor_Robot",
       "category": "other",
-      "points": 8,
+      "points": 11,
       "xMin": 1,
-      "xMax": 34,
-      "yMin": 0.096,
-      "yMax": 0.114,
+      "xMax": 300,
+      "yMin": 0.01,
+      "yMax": 0.04,
       "desc": "Condition Damage Scale Factor curve table value, scaling by input.",
       "xLabel": "Player Level",
       "yLabel": "Base Damage"
@@ -2785,11 +3283,11 @@
       "id": "001FAB99",
       "edid": "ConditionDamageScaleFactor_Armor_Trapper",
       "category": "other",
-      "points": 8,
+      "points": 11,
       "xMin": 1,
-      "xMax": 34,
-      "yMin": 0.09,
-      "yMax": 0.12,
+      "xMax": 300,
+      "yMin": 0.01,
+      "yMax": 0.04,
       "desc": "Condition Damage Scale Factor Armor curve table value, scaling by input.",
       "xLabel": "Player Level",
       "yLabel": "Base Damage"
@@ -2798,11 +3296,11 @@
       "id": "001FAB9B",
       "edid": "ConditionDamageScaleFactor_Armor_Wood",
       "category": "other",
-      "points": 8,
+      "points": 11,
       "xMin": 1,
-      "xMax": 34,
-      "yMin": 0.12,
-      "yMax": 0.156,
+      "xMax": 300,
+      "yMin": 0.01,
+      "yMax": 0.04,
       "desc": "Condition Damage Scale Factor curve table value, scaling by input.",
       "xLabel": "Player Level",
       "yLabel": "Base Damage"
@@ -2811,120 +3309,92 @@
       "id": "0051020D",
       "edid": "ConditionDamageScaleFactor_PowerArmor_Excavator",
       "category": "other",
-      "points": 12,
+      "points": 11,
       "xMin": 1,
-      "xMax": 200,
-      "yMin": 0.0375,
-      "yMax": 0.05,
+      "xMax": 300,
+      "yMin": 0.01,
+      "yMax": 0.04,
       "desc": "Condition Damage Scale Factor Power curve table value, scaling by input.",
       "xLabel": "Player Level",
-      "yLabel": "Base Damage",
-      "softCap": {
-        "x": 70,
-        "y": 0.0375
-      }
+      "yLabel": "Base Damage"
     },
     {
       "id": "0039272E",
       "edid": "ConditionDamageScaleFactor_PowerArmor_Raider",
       "category": "other",
-      "points": 12,
+      "points": 11,
       "xMin": 1,
-      "xMax": 200,
-      "yMin": 0.04,
-      "yMax": 0.055,
+      "xMax": 300,
+      "yMin": 0.01,
+      "yMax": 0.04,
       "desc": "Condition Damage Scale Factor Power Armor curve table value, scaling by input.",
       "xLabel": "Player Level",
-      "yLabel": "Base Damage",
-      "softCap": {
-        "x": 70,
-        "y": 0.04
-      }
+      "yLabel": "Base Damage"
     },
     {
       "id": "0051020C",
       "edid": "ConditionDamageScaleFactor_PowerArmor_T45",
       "category": "other",
-      "points": 12,
+      "points": 11,
       "xMin": 1,
-      "xMax": 200,
-      "yMin": 0.04,
-      "yMax": 0.048,
+      "xMax": 300,
+      "yMin": 0.01,
+      "yMax": 0.04,
       "desc": "Condition Damage Scale Factor Power curve table value, scaling by input.",
       "xLabel": "Player Level",
-      "yLabel": "Base Damage",
-      "softCap": {
-        "x": 70,
-        "y": 0.04
-      }
+      "yLabel": "Base Damage"
     },
     {
       "id": "0051020E",
       "edid": "ConditionDamageScaleFactor_PowerArmor_T51",
       "category": "other",
-      "points": 12,
+      "points": 11,
       "xMin": 1,
-      "xMax": 200,
-      "yMin": 0.04,
-      "yMax": 0.048,
+      "xMax": 300,
+      "yMin": 0.01,
+      "yMax": 0.04,
       "desc": "Condition Damage Scale Factor Power curve table value, scaling by input.",
       "xLabel": "Player Level",
-      "yLabel": "Base Damage",
-      "softCap": {
-        "x": 70,
-        "y": 0.04
-      }
+      "yLabel": "Base Damage"
     },
     {
       "id": "0051020F",
       "edid": "ConditionDamageScaleFactor_PowerArmor_T60",
       "category": "other",
-      "points": 12,
+      "points": 11,
       "xMin": 1,
-      "xMax": 200,
-      "yMin": 0.04,
-      "yMax": 0.045,
+      "xMax": 300,
+      "yMin": 0.01,
+      "yMax": 0.04,
       "desc": "Condition Damage Scale Factor Power curve table value, scaling by input.",
       "xLabel": "Player Level",
-      "yLabel": "Base Damage",
-      "softCap": {
-        "x": 70,
-        "y": 0.04
-      }
+      "yLabel": "Base Damage"
     },
     {
       "id": "00510211",
       "edid": "ConditionDamageScaleFactor_PowerArmor_Ultracite",
       "category": "other",
-      "points": 12,
+      "points": 11,
       "xMin": 1,
-      "xMax": 200,
-      "yMin": 0.04,
-      "yMax": 0.045,
+      "xMax": 300,
+      "yMin": 0.01,
+      "yMax": 0.04,
       "desc": "Condition Damage Scale Factor Power curve table value, scaling by input.",
       "xLabel": "Player Level",
-      "yLabel": "Base Damage",
-      "softCap": {
-        "x": 70,
-        "y": 0.04
-      }
+      "yLabel": "Base Damage"
     },
     {
       "id": "00510210",
       "edid": "ConditionDamageScaleFactor_PowerArmor_X01",
       "category": "other",
-      "points": 12,
+      "points": 11,
       "xMin": 1,
-      "xMax": 200,
-      "yMin": 0.04,
-      "yMax": 0.045,
+      "xMax": 300,
+      "yMin": 0.01,
+      "yMax": 0.04,
       "desc": "Condition Damage Scale Factor Power curve table value, scaling by input.",
       "xLabel": "Player Level",
-      "yLabel": "Base Damage",
-      "softCap": {
-        "x": 70,
-        "y": 0.04
-      }
+      "yLabel": "Base Damage"
     },
     {
       "id": "002E8F1A",
@@ -5474,12 +5944,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 1,
-      "yMax": 209,
+      "yMax": 15034,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Armor Value"
+      "xLabel": "Input Value",
+      "yLabel": "Armor Value",
+      "softCap": {
+        "x": 23,
+        "y": 3
+      }
     },
     {
       "id": "0076E985",
@@ -5487,12 +5961,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 1,
-      "yMax": 203,
+      "yMax": 12470,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Armor Value"
+      "xLabel": "Input Value",
+      "yLabel": "Armor Value",
+      "softCap": {
+        "x": 23,
+        "y": 3
+      }
     },
     {
       "id": "0076E986",
@@ -5500,12 +5978,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 1,
-      "yMax": 204,
+      "yMax": 10743,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Armor Value"
+      "xLabel": "Input Value",
+      "yLabel": "Armor Value",
+      "softCap": {
+        "x": 23,
+        "y": 4
+      }
     },
     {
       "id": "0076E987",
@@ -5513,12 +5995,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 2,
-      "yMax": 209,
+      "yMax": 9472,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Armor Value"
+      "xLabel": "Input Value",
+      "yLabel": "Armor Value",
+      "softCap": {
+        "x": 23,
+        "y": 4
+      }
     },
     {
       "id": "0076E988",
@@ -5526,12 +6012,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 2,
-      "yMax": 215,
+      "yMax": 8463,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Armor Value"
+      "xLabel": "Input Value",
+      "yLabel": "Armor Value",
+      "softCap": {
+        "x": 23,
+        "y": 5
+      }
     },
     {
       "id": "0076E989",
@@ -5539,15 +6029,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 3,
-      "yMax": 223,
+      "yMax": 7618,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Armor Value",
       "softCap": {
-        "x": 31,
-        "y": 6
+        "x": 23,
+        "y": 5
       }
     },
     {
@@ -5556,14 +6046,14 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 3,
-      "yMax": 230,
+      "yMax": 6886,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Armor Value",
       "softCap": {
-        "x": 25,
+        "x": 23,
         "y": 6
       }
     },
@@ -5573,15 +6063,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 4,
-      "yMax": 238,
+      "yMax": 6240,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Armor Value",
       "softCap": {
-        "x": 13,
-        "y": 5
+        "x": 23,
+        "y": 7
       }
     },
     {
@@ -5590,12 +6080,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 4,
-      "yMax": 246,
+      "yMax": 5667,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Armor Value"
+      "xLabel": "Input Value",
+      "yLabel": "Armor Value",
+      "softCap": {
+        "x": 23,
+        "y": 8
+      }
     },
     {
       "id": "0076E98D",
@@ -5603,12 +6097,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 5,
-      "yMax": 253,
+      "yMax": 5156,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Armor Value"
+      "xLabel": "Input Value",
+      "yLabel": "Armor Value",
+      "softCap": {
+        "x": 23,
+        "y": 9
+      }
     },
     {
       "id": "0076E98E",
@@ -5616,12 +6114,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 6,
-      "yMax": 260,
+      "yMax": 4701,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Armor Value"
+      "xLabel": "Input Value",
+      "yLabel": "Armor Value",
+      "softCap": {
+        "x": 23,
+        "y": 11
+      }
     },
     {
       "id": "0076E98F",
@@ -5629,12 +6131,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 7,
-      "yMax": 268,
+      "yMax": 4296,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Armor Value"
+      "xLabel": "Input Value",
+      "yLabel": "Armor Value",
+      "softCap": {
+        "x": 23,
+        "y": 12
+      }
     },
     {
       "id": "0076E990",
@@ -5642,12 +6148,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 8,
-      "yMax": 275,
+      "yMax": 3937,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Armor Value"
+      "xLabel": "Input Value",
+      "yLabel": "Armor Value",
+      "softCap": {
+        "x": 23,
+        "y": 14
+      }
     },
     {
       "id": "0076E991",
@@ -5655,12 +6165,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 9,
-      "yMax": 283,
+      "yMax": 3620,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Armor Value"
+      "xLabel": "Input Value",
+      "yLabel": "Armor Value",
+      "softCap": {
+        "x": 23,
+        "y": 15
+      }
     },
     {
       "id": "0076E992",
@@ -5668,12 +6182,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 10,
-      "yMax": 291,
+      "yMax": 3340,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Armor Value"
+      "xLabel": "Input Value",
+      "yLabel": "Armor Value",
+      "softCap": {
+        "x": 23,
+        "y": 17
+      }
     },
     {
       "id": "0076E993",
@@ -5681,12 +6199,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 12,
-      "yMax": 300,
+      "yMax": 3093,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Armor Value"
+      "xLabel": "Input Value",
+      "yLabel": "Armor Value",
+      "softCap": {
+        "x": 23,
+        "y": 19
+      }
     },
     {
       "id": "0076E994",
@@ -5694,12 +6216,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 13,
-      "yMax": 309,
+      "yMax": 2877,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Armor Value"
+      "xLabel": "Input Value",
+      "yLabel": "Armor Value",
+      "softCap": {
+        "x": 23,
+        "y": 21
+      }
     },
     {
       "id": "0076E995",
@@ -5707,12 +6233,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 15,
-      "yMax": 318,
+      "yMax": 2688,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Armor Value"
+      "xLabel": "Input Value",
+      "yLabel": "Armor Value",
+      "softCap": {
+        "x": 23,
+        "y": 24
+      }
     },
     {
       "id": "0076E996",
@@ -5720,12 +6250,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 17,
-      "yMax": 329,
+      "yMax": 2523,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Armor Value"
+      "xLabel": "Input Value",
+      "yLabel": "Armor Value",
+      "softCap": {
+        "x": 23,
+        "y": 26
+      }
     },
     {
       "id": "0076E997",
@@ -5733,12 +6267,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 19,
-      "yMax": 340,
+      "yMax": 2380,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Armor Value"
+      "xLabel": "Input Value",
+      "yLabel": "Armor Value",
+      "softCap": {
+        "x": 23,
+        "y": 29
+      }
     },
     {
       "id": "0076E998",
@@ -5746,11 +6284,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 21,
-      "yMax": 352,
+      "yMax": 2257,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Armor Value"
     },
     {
@@ -5759,11 +6297,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 23,
-      "yMax": 366,
+      "yMax": 2151,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Armor Value"
     },
     {
@@ -5772,11 +6310,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 26,
-      "yMax": 381,
+      "yMax": 2062,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Armor Value"
     },
     {
@@ -5785,11 +6323,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 28,
-      "yMax": 397,
+      "yMax": 1987,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Armor Value"
     },
     {
@@ -5798,11 +6336,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 31,
-      "yMax": 414,
+      "yMax": 1926,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Armor Value"
     },
     {
@@ -5811,11 +6349,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 35,
-      "yMax": 434,
+      "yMax": 1878,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Armor Value"
     },
     {
@@ -5824,11 +6362,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 38,
-      "yMax": 455,
+      "yMax": 1841,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Armor Value"
     },
     {
@@ -5837,11 +6375,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 42,
-      "yMax": 478,
+      "yMax": 1815,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Armor Value"
     },
     {
@@ -5850,11 +6388,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 46,
-      "yMax": 503,
+      "yMax": 1800,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Armor Value"
     },
     {
@@ -5863,11 +6401,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 51,
-      "yMax": 531,
+      "yMax": 1795,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Armor Value"
     },
     {
@@ -5876,11 +6414,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 56,
-      "yMax": 562,
+      "yMax": 1801,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Armor Value"
     },
     {
@@ -5889,11 +6427,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 61,
-      "yMax": 596,
+      "yMax": 1816,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Armor Value"
     },
     {
@@ -5902,11 +6440,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 67,
-      "yMax": 633,
+      "yMax": 1841,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Armor Value"
     },
     {
@@ -5915,11 +6453,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 74,
-      "yMax": 673,
+      "yMax": 1876,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Armor Value"
     },
     {
@@ -5928,11 +6466,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 81,
-      "yMax": 718,
+      "yMax": 1921,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Armor Value"
     },
     {
@@ -5941,11 +6479,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 89,
-      "yMax": 767,
+      "yMax": 1978,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Armor Value"
     },
     {
@@ -5954,11 +6492,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 98,
-      "yMax": 822,
+      "yMax": 2045,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Armor Value"
     },
     {
@@ -5967,11 +6505,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 107,
-      "yMax": 881,
+      "yMax": 2125,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Armor Value"
     },
     {
@@ -5980,11 +6518,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 118,
-      "yMax": 947,
+      "yMax": 2217,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Armor Value"
     },
     {
@@ -5993,11 +6531,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 130,
-      "yMax": 1020,
+      "yMax": 2323,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Armor Value"
     },
     {
@@ -6006,11 +6544,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 143,
-      "yMax": 1100,
+      "yMax": 2443,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Armor Value"
     },
     {
@@ -6019,11 +6557,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 158,
-      "yMax": 1188,
+      "yMax": 2580,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Armor Value"
     },
     {
@@ -6032,11 +6570,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 174,
-      "yMax": 1286,
+      "yMax": 2734,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Armor Value"
     },
     {
@@ -6045,11 +6583,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 191,
-      "yMax": 1394,
+      "yMax": 2907,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Armor Value"
     },
     {
@@ -6058,11 +6596,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 211,
-      "yMax": 1514,
+      "yMax": 3101,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Armor Value"
     },
     {
@@ -6071,11 +6609,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 233,
-      "yMax": 1646,
+      "yMax": 3318,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Armor Value"
     },
     {
@@ -6084,11 +6622,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 257,
-      "yMax": 1793,
+      "yMax": 3561,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Armor Value"
     },
     {
@@ -6097,11 +6635,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 284,
-      "yMax": 1956,
+      "yMax": 3832,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Armor Value"
     },
     {
@@ -6110,11 +6648,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 314,
-      "yMax": 2137,
+      "yMax": 4134,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Armor Value"
     },
     {
@@ -6123,11 +6661,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 348,
-      "yMax": 2338,
+      "yMax": 4471,
       "desc": "Creatures Armor Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Armor Value"
     },
     {
@@ -6149,14 +6687,14 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 1,
-      "yMax": 95,
+      "yMax": 3520,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Base Damage",
       "softCap": {
-        "x": 25,
+        "x": 23,
         "y": 2
       }
     },
@@ -6166,14 +6704,14 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 1,
-      "yMax": 102,
+      "yMax": 3687,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Base Damage",
       "softCap": {
-        "x": 19,
+        "x": 23,
         "y": 2
       }
     },
@@ -6183,14 +6721,14 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 1,
-      "yMax": 111,
+      "yMax": 3882,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Base Damage",
       "softCap": {
-        "x": 13,
+        "x": 23,
         "y": 2
       }
     },
@@ -6200,15 +6738,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 2,
-      "yMax": 120,
+      "yMax": 4101,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Base Damage",
       "softCap": {
-        "x": 31,
-        "y": 3
+        "x": 23,
+        "y": 2
       }
     },
     {
@@ -6217,12 +6755,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 2,
-      "yMax": 131,
+      "yMax": 4341,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Base Damage"
+      "xLabel": "Input Value",
+      "yLabel": "Base Damage",
+      "softCap": {
+        "x": 23,
+        "y": 3
+      }
     },
     {
       "id": "0076E9BB",
@@ -6230,12 +6772,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 2,
-      "yMax": 143,
+      "yMax": 4600,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Base Damage"
+      "xLabel": "Input Value",
+      "yLabel": "Base Damage",
+      "softCap": {
+        "x": 23,
+        "y": 3
+      }
     },
     {
       "id": "0076E9BC",
@@ -6243,12 +6789,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 2,
-      "yMax": 157,
+      "yMax": 4876,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Base Damage"
+      "xLabel": "Input Value",
+      "yLabel": "Base Damage",
+      "softCap": {
+        "x": 23,
+        "y": 4
+      }
     },
     {
       "id": "0076E9BD",
@@ -6256,12 +6806,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 3,
-      "yMax": 171,
+      "yMax": 5167,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Base Damage"
+      "xLabel": "Input Value",
+      "yLabel": "Base Damage",
+      "softCap": {
+        "x": 23,
+        "y": 4
+      }
     },
     {
       "id": "0076E9BE",
@@ -6269,12 +6823,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 3,
-      "yMax": 186,
+      "yMax": 5471,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Base Damage"
+      "xLabel": "Input Value",
+      "yLabel": "Base Damage",
+      "softCap": {
+        "x": 23,
+        "y": 4
+      }
     },
     {
       "id": "0076E9BF",
@@ -6282,12 +6840,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 4,
-      "yMax": 203,
+      "yMax": 5789,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Base Damage"
+      "xLabel": "Input Value",
+      "yLabel": "Base Damage",
+      "softCap": {
+        "x": 23,
+        "y": 5
+      }
     },
     {
       "id": "0076E9C0",
@@ -6295,15 +6857,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 4,
-      "yMax": 221,
+      "yMax": 6120,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Base Damage",
       "softCap": {
-        "x": 19,
-        "y": 5
+        "x": 23,
+        "y": 6
       }
     },
     {
@@ -6312,15 +6874,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 5,
-      "yMax": 240,
+      "yMax": 6463,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Base Damage",
       "softCap": {
-        "x": 13,
-        "y": 5
+        "x": 23,
+        "y": 6
       }
     },
     {
@@ -6329,15 +6891,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 5,
-      "yMax": 261,
+      "yMax": 6818,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Base Damage",
       "softCap": {
-        "x": 13,
-        "y": 6
+        "x": 23,
+        "y": 7
       }
     },
     {
@@ -6346,15 +6908,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 6,
-      "yMax": 283,
+      "yMax": 7187,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Base Damage",
       "softCap": {
-        "x": 19,
-        "y": 7
+        "x": 23,
+        "y": 8
       }
     },
     {
@@ -6363,15 +6925,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 6,
-      "yMax": 307,
+      "yMax": 7570,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Base Damage",
       "softCap": {
-        "x": 19,
-        "y": 8
+        "x": 23,
+        "y": 9
       }
     },
     {
@@ -6380,15 +6942,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 7,
-      "yMax": 332,
+      "yMax": 7967,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Base Damage",
       "softCap": {
-        "x": 19,
-        "y": 9
+        "x": 23,
+        "y": 10
       }
     },
     {
@@ -6397,15 +6959,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 8,
-      "yMax": 359,
+      "yMax": 8379,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Base Damage",
       "softCap": {
-        "x": 19,
-        "y": 10
+        "x": 23,
+        "y": 11
       }
     },
     {
@@ -6414,15 +6976,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 9,
-      "yMax": 388,
+      "yMax": 8809,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Base Damage",
       "softCap": {
-        "x": 13,
-        "y": 11
+        "x": 23,
+        "y": 12
       }
     },
     {
@@ -6431,15 +6993,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 10,
-      "yMax": 419,
+      "yMax": 9256,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Base Damage",
       "softCap": {
-        "x": 13,
-        "y": 12
+        "x": 23,
+        "y": 14
       }
     },
     {
@@ -6448,15 +7010,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 11,
-      "yMax": 453,
+      "yMax": 9723,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Base Damage",
       "softCap": {
-        "x": 13,
-        "y": 13
+        "x": 23,
+        "y": 15
       }
     },
     {
@@ -6465,15 +7027,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 13,
-      "yMax": 489,
+      "yMax": 10211,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Base Damage",
       "softCap": {
-        "x": 13,
-        "y": 15
+        "x": 23,
+        "y": 17
       }
     },
     {
@@ -6482,15 +7044,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 14,
-      "yMax": 527,
+      "yMax": 10722,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Base Damage",
       "softCap": {
-        "x": 13,
-        "y": 16
+        "x": 23,
+        "y": 19
       }
     },
     {
@@ -6499,15 +7061,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 16,
-      "yMax": 568,
+      "yMax": 11257,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Base Damage",
       "softCap": {
-        "x": 13,
-        "y": 18
+        "x": 23,
+        "y": 21
       }
     },
     {
@@ -6516,15 +7078,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 17,
-      "yMax": 613,
+      "yMax": 11820,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Base Damage",
       "softCap": {
-        "x": 13,
-        "y": 20
+        "x": 23,
+        "y": 23
       }
     },
     {
@@ -6533,15 +7095,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 19,
-      "yMax": 661,
+      "yMax": 12412,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Base Damage",
       "softCap": {
-        "x": 19,
-        "y": 24
+        "x": 23,
+        "y": 25
       }
     },
     {
@@ -6550,15 +7112,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 22,
-      "yMax": 712,
+      "yMax": 13037,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Base Damage",
       "softCap": {
-        "x": 13,
-        "y": 25
+        "x": 23,
+        "y": 28
       }
     },
     {
@@ -6567,15 +7129,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 24,
-      "yMax": 768,
+      "yMax": 13695,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Base Damage",
       "softCap": {
-        "x": 13,
-        "y": 28
+        "x": 23,
+        "y": 31
       }
     },
     {
@@ -6584,15 +7146,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 27,
-      "yMax": 828,
+      "yMax": 14392,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Base Damage",
       "softCap": {
-        "x": 13,
-        "y": 31
+        "x": 23,
+        "y": 35
       }
     },
     {
@@ -6601,15 +7163,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 30,
-      "yMax": 893,
+      "yMax": 15129,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Base Damage",
       "softCap": {
-        "x": 13,
-        "y": 34
+        "x": 23,
+        "y": 39
       }
     },
     {
@@ -6618,15 +7180,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 33,
-      "yMax": 963,
+      "yMax": 15910,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Base Damage",
       "softCap": {
-        "x": 13,
-        "y": 38
+        "x": 23,
+        "y": 43
       }
     },
     {
@@ -6635,15 +7197,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 37,
-      "yMax": 1039,
+      "yMax": 16738,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Base Damage",
       "softCap": {
-        "x": 13,
-        "y": 42
+        "x": 23,
+        "y": 47
       }
     },
     {
@@ -6652,15 +7214,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 41,
-      "yMax": 1121,
+      "yMax": 17618,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Base Damage",
       "softCap": {
-        "x": 13,
-        "y": 47
+        "x": 23,
+        "y": 53
       }
     },
     {
@@ -6669,15 +7231,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 46,
-      "yMax": 1210,
+      "yMax": 18553,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Base Damage",
       "softCap": {
-        "x": 13,
-        "y": 52
+        "x": 23,
+        "y": 58
       }
     },
     {
@@ -6686,15 +7248,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 51,
-      "yMax": 1307,
+      "yMax": 19549,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Base Damage",
       "softCap": {
-        "x": 13,
-        "y": 58
+        "x": 23,
+        "y": 65
       }
     },
     {
@@ -6703,15 +7265,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 56,
-      "yMax": 1411,
+      "yMax": 20609,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Base Damage",
       "softCap": {
-        "x": 13,
-        "y": 64
+        "x": 23,
+        "y": 72
       }
     },
     {
@@ -6720,15 +7282,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 63,
-      "yMax": 1525,
+      "yMax": 21739,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Base Damage",
       "softCap": {
-        "x": 19,
-        "y": 76
+        "x": 23,
+        "y": 80
       }
     },
     {
@@ -6737,15 +7299,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 70,
-      "yMax": 1648,
+      "yMax": 22944,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Base Damage",
       "softCap": {
-        "x": 13,
-        "y": 79
+        "x": 23,
+        "y": 89
       }
     },
     {
@@ -6754,15 +7316,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 78,
-      "yMax": 1782,
+      "yMax": 24231,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Base Damage",
       "softCap": {
-        "x": 13,
-        "y": 88
+        "x": 23,
+        "y": 98
       }
     },
     {
@@ -6771,15 +7333,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 86,
-      "yMax": 1928,
+      "yMax": 25605,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Base Damage",
       "softCap": {
-        "x": 13,
-        "y": 98
+        "x": 23,
+        "y": 109
       }
     },
     {
@@ -6788,12 +7350,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 96,
-      "yMax": 2087,
+      "yMax": 27074,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Base Damage"
+      "xLabel": "Input Value",
+      "yLabel": "Base Damage",
+      "softCap": {
+        "x": 23,
+        "y": 121
+      }
     },
     {
       "id": "0076E9DE",
@@ -6801,15 +7367,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 107,
-      "yMax": 2259,
+      "yMax": 28645,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Base Damage",
       "softCap": {
-        "x": 13,
-        "y": 121
+        "x": 23,
+        "y": 135
       }
     },
     {
@@ -6818,15 +7384,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 119,
-      "yMax": 2447,
+      "yMax": 30325,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Base Damage",
       "softCap": {
-        "x": 13,
-        "y": 135
+        "x": 23,
+        "y": 150
       }
     },
     {
@@ -6835,12 +7401,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 133,
-      "yMax": 2651,
+      "yMax": 32125,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Base Damage"
+      "xLabel": "Input Value",
+      "yLabel": "Base Damage",
+      "softCap": {
+        "x": 23,
+        "y": 166
+      }
     },
     {
       "id": "0076E9E1",
@@ -6848,12 +7418,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 148,
-      "yMax": 2874,
+      "yMax": 34052,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Base Damage"
+      "xLabel": "Input Value",
+      "yLabel": "Base Damage",
+      "softCap": {
+        "x": 23,
+        "y": 185
+      }
     },
     {
       "id": "0076E9E2",
@@ -6861,12 +7435,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 165,
-      "yMax": 3117,
+      "yMax": 36117,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Base Damage"
+      "xLabel": "Input Value",
+      "yLabel": "Base Damage",
+      "softCap": {
+        "x": 23,
+        "y": 205
+      }
     },
     {
       "id": "0076E9E3",
@@ -6874,12 +7452,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 183,
-      "yMax": 3381,
+      "yMax": 38331,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Base Damage"
+      "xLabel": "Input Value",
+      "yLabel": "Base Damage",
+      "softCap": {
+        "x": 23,
+        "y": 228
+      }
     },
     {
       "id": "0076E9E4",
@@ -6887,12 +7469,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 204,
-      "yMax": 3670,
+      "yMax": 40706,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Base Damage"
+      "xLabel": "Input Value",
+      "yLabel": "Base Damage",
+      "softCap": {
+        "x": 23,
+        "y": 254
+      }
     },
     {
       "id": "0076E9E5",
@@ -6900,12 +7486,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 228,
-      "yMax": 3985,
+      "yMax": 43253,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Base Damage"
+      "xLabel": "Input Value",
+      "yLabel": "Base Damage",
+      "softCap": {
+        "x": 23,
+        "y": 282
+      }
     },
     {
       "id": "0076E9E6",
@@ -6913,12 +7503,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 254,
-      "yMax": 4329,
+      "yMax": 45988,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Base Damage"
+      "xLabel": "Input Value",
+      "yLabel": "Base Damage",
+      "softCap": {
+        "x": 23,
+        "y": 314
+      }
     },
     {
       "id": "0076E9E7",
@@ -6926,12 +7520,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 283,
-      "yMax": 4704,
+      "yMax": 48924,
       "desc": "Creatures Damage Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Base Damage"
+      "xLabel": "Input Value",
+      "yLabel": "Base Damage",
+      "softCap": {
+        "x": 23,
+        "y": 349
+      }
     },
     {
       "id": "0076E9E8",
@@ -6939,15 +7537,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 2,
-      "yMax": 4329,
+      "yMax": 2844462,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Health",
       "softCap": {
-        "x": 13,
-        "y": 9
+        "x": 23,
+        "y": 16
       }
     },
     {
@@ -6956,15 +7554,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 2,
-      "yMax": 4794,
+      "yMax": 2972047,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Health",
       "softCap": {
-        "x": 13,
-        "y": 10
+        "x": 23,
+        "y": 17
       }
     },
     {
@@ -6973,15 +7571,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 3,
-      "yMax": 5312,
+      "yMax": 3108971,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Health",
       "softCap": {
-        "x": 13,
-        "y": 12
+        "x": 23,
+        "y": 19
       }
     },
     {
@@ -6990,15 +7588,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 3,
-      "yMax": 5893,
+      "yMax": 3255958,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Health",
       "softCap": {
-        "x": 13,
-        "y": 13
+        "x": 23,
+        "y": 22
       }
     },
     {
@@ -7007,15 +7605,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 4,
-      "yMax": 6542,
+      "yMax": 3413796,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Health",
       "softCap": {
-        "x": 13,
-        "y": 15
+        "x": 23,
+        "y": 25
       }
     },
     {
@@ -7024,15 +7622,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 5,
-      "yMax": 7270,
+      "yMax": 3583345,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Health",
       "softCap": {
-        "x": 13,
-        "y": 17
+        "x": 23,
+        "y": 28
       }
     },
     {
@@ -7041,15 +7639,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 5,
-      "yMax": 8085,
+      "yMax": 3765541,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Health",
       "softCap": {
-        "x": 13,
-        "y": 20
+        "x": 23,
+        "y": 32
       }
     },
     {
@@ -7058,15 +7656,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 6,
-      "yMax": 8999,
+      "yMax": 3961410,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Health",
       "softCap": {
-        "x": 13,
-        "y": 23
+        "x": 23,
+        "y": 37
       }
     },
     {
@@ -7075,15 +7673,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 8,
-      "yMax": 10026,
+      "yMax": 4172069,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Health",
       "softCap": {
-        "x": 13,
-        "y": 26
+        "x": 23,
+        "y": 43
       }
     },
     {
@@ -7092,15 +7690,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 9,
-      "yMax": 11178,
+      "yMax": 4398739,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Health",
       "softCap": {
-        "x": 13,
-        "y": 31
+        "x": 23,
+        "y": 49
       }
     },
     {
@@ -7109,15 +7707,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 11,
-      "yMax": 12473,
+      "yMax": 4642755,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Health",
       "softCap": {
-        "x": 13,
-        "y": 36
+        "x": 23,
+        "y": 57
       }
     },
     {
@@ -7126,15 +7724,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 13,
-      "yMax": 13929,
+      "yMax": 4905576,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Health",
       "softCap": {
-        "x": 13,
-        "y": 42
+        "x": 23,
+        "y": 67
       }
     },
     {
@@ -7143,15 +7741,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 15,
-      "yMax": 15567,
+      "yMax": 5188800,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Health",
       "softCap": {
-        "x": 13,
-        "y": 49
+        "x": 23,
+        "y": 78
       }
     },
     {
@@ -7160,15 +7758,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 18,
-      "yMax": 17412,
+      "yMax": 5494175,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Health",
       "softCap": {
-        "x": 13,
-        "y": 58
+        "x": 23,
+        "y": 92
       }
     },
     {
@@ -7177,15 +7775,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 22,
-      "yMax": 19490,
+      "yMax": 5823615,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Health",
       "softCap": {
-        "x": 13,
-        "y": 68
+        "x": 23,
+        "y": 108
       }
     },
     {
@@ -7194,15 +7792,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 26,
-      "yMax": 21834,
+      "yMax": 6179217,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Health",
       "softCap": {
-        "x": 13,
-        "y": 80
+        "x": 23,
+        "y": 127
       }
     },
     {
@@ -7211,15 +7809,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 31,
-      "yMax": 24477,
+      "yMax": 6563282,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Health",
       "softCap": {
-        "x": 13,
-        "y": 94
+        "x": 23,
+        "y": 149
       }
     },
     {
@@ -7228,15 +7826,15 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 36,
-      "yMax": 27461,
+      "yMax": 6978331,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "Health",
       "softCap": {
-        "x": 13,
-        "y": 111
+        "x": 23,
+        "y": 176
       }
     },
     {
@@ -7245,12 +7843,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 43,
-      "yMax": 30833,
+      "yMax": 7427134,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 208
+      }
     },
     {
       "id": "0076E9FB",
@@ -7258,12 +7860,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 52,
-      "yMax": 34644,
+      "yMax": 7912729,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 246
+      }
     },
     {
       "id": "0076E9FC",
@@ -7271,12 +7877,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 61,
-      "yMax": 38955,
+      "yMax": 8438457,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 291
+      }
     },
     {
       "id": "0076E9FD",
@@ -7284,12 +7894,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 73,
-      "yMax": 43836,
+      "yMax": 9007989,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 344
+      }
     },
     {
       "id": "0076E9FE",
@@ -7297,12 +7911,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 87,
-      "yMax": 49364,
+      "yMax": 9625362,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 408
+      }
     },
     {
       "id": "0076E9FF",
@@ -7310,12 +7928,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 103,
-      "yMax": 55631,
+      "yMax": 10295020,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 483
+      }
     },
     {
       "id": "0076EA00",
@@ -7323,12 +7945,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 123,
-      "yMax": 62740,
+      "yMax": 11021860,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 573
+      }
     },
     {
       "id": "0076EA01",
@@ -7336,12 +7962,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 146,
-      "yMax": 70809,
+      "yMax": 11811270,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 679
+      }
     },
     {
       "id": "0076EA02",
@@ -7349,12 +7979,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 173,
-      "yMax": 79974,
+      "yMax": 12669190,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 806
+      }
     },
     {
       "id": "0076EA03",
@@ -7362,12 +7996,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 206,
-      "yMax": 90393,
+      "yMax": 13602180,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 956
+      }
     },
     {
       "id": "0076EA04",
@@ -7375,12 +8013,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 245,
-      "yMax": 102242,
+      "yMax": 14617470,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 1134
+      }
     },
     {
       "id": "0076EA05",
@@ -7388,12 +8030,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 291,
-      "yMax": 115730,
+      "yMax": 15723060,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 1346
+      }
     },
     {
       "id": "0076EA06",
@@ -7401,12 +8047,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 346,
-      "yMax": 131094,
+      "yMax": 16927760,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 1597
+      }
     },
     {
       "id": "0076EA07",
@@ -7414,12 +8064,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 412,
-      "yMax": 148604,
+      "yMax": 18241330,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 1896
+      }
     },
     {
       "id": "0076EA08",
@@ -7427,12 +8081,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 489,
-      "yMax": 168577,
+      "yMax": 19674580,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 2251
+      }
     },
     {
       "id": "0076EA09",
@@ -7440,12 +8098,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 582,
-      "yMax": 191373,
+      "yMax": 21239440,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 2672
+      }
     },
     {
       "id": "0076EA0A",
@@ -7453,12 +8115,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 692,
-      "yMax": 217410,
+      "yMax": 22949140,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 3172
+      }
     },
     {
       "id": "0076EA0B",
@@ -7466,12 +8132,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 823,
-      "yMax": 247169,
+      "yMax": 24818360,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 3767
+      }
     },
     {
       "id": "0076EA0C",
@@ -7479,12 +8149,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 978,
-      "yMax": 281204,
+      "yMax": 26863350,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 4473
+      }
     },
     {
       "id": "0076EA0D",
@@ -7492,12 +8166,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 1163,
-      "yMax": 320159,
+      "yMax": 29102140,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 5311
+      }
     },
     {
       "id": "0076EA0E",
@@ -7505,12 +8183,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 1383,
-      "yMax": 364773,
+      "yMax": 31554750,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 6307
+      }
     },
     {
       "id": "0076EA0F",
@@ -7518,12 +8200,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 1644,
-      "yMax": 415905,
+      "yMax": 34243430,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 7491
+      }
     },
     {
       "id": "0076EA10",
@@ -7531,12 +8217,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 1955,
-      "yMax": 474545,
+      "yMax": 37192900,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 8896
+      }
     },
     {
       "id": "0076EA11",
@@ -7544,12 +8234,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 2324,
-      "yMax": 541842,
+      "yMax": 40430640,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 10565
+      }
     },
     {
       "id": "0076EA12",
@@ -7557,12 +8251,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 2763,
-      "yMax": 619127,
+      "yMax": 43987240,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 12548
+      }
     },
     {
       "id": "0076EA13",
@@ -7570,12 +8268,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 3286,
-      "yMax": 707940,
+      "yMax": 47896780,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 14904
+      }
     },
     {
       "id": "0076EA14",
@@ -7583,12 +8285,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 3907,
-      "yMax": 810069,
+      "yMax": 52197200,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 17702
+      }
     },
     {
       "id": "0076EA15",
@@ -7596,12 +8302,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 4645,
-      "yMax": 927590,
+      "yMax": 56930820,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 21026
+      }
     },
     {
       "id": "0076EA16",
@@ -7609,12 +8319,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 5523,
-      "yMax": 1062910,
+      "yMax": 62144830,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 24975
+      }
     },
     {
       "id": "0076EA17",
@@ -7622,12 +8336,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 6567,
-      "yMax": 1218827,
+      "yMax": 67891920,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 29665
+      }
     },
     {
       "id": "0076EA18",
@@ -7635,12 +8353,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 7808,
-      "yMax": 1398593,
+      "yMax": 74230950,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 35237
+      }
     },
     {
       "id": "0076EA19",
@@ -7648,12 +8370,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 9284,
-      "yMax": 1605990,
+      "yMax": 81227700,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 41856
+      }
     },
     {
       "id": "007ABE3A",
@@ -7661,12 +8387,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 11038,
-      "yMax": 1845417,
+      "yMax": 88955700,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 49720
+      }
     },
     {
       "id": "007ABE3B",
@@ -7674,12 +8404,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 13125,
-      "yMax": 2121995,
+      "yMax": 97497310,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 59061
+      }
     },
     {
       "id": "007ABE3C",
@@ -7687,12 +8421,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 15605,
-      "yMax": 2441689,
+      "yMax": 106944700,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 70158
+      }
     },
     {
       "id": "007ABE3D",
@@ -7700,12 +8438,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 18554,
-      "yMax": 2811451,
+      "yMax": 117401200,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 83342
+      }
     },
     {
       "id": "007ABE3E",
@@ -7713,12 +8455,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 22061,
-      "yMax": 3239383,
+      "yMax": 128982600,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 99004
+      }
     },
     {
       "id": "007ABE3F",
@@ -7726,12 +8472,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 26231,
-      "yMax": 3734938,
+      "yMax": 141818900,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 117610
+      }
     },
     {
       "id": "007ABE40",
@@ -7739,12 +8489,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 31188,
-      "yMax": 4309144,
+      "yMax": 156056000,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 139715
+      }
     },
     {
       "id": "007ABE41",
@@ -7752,12 +8506,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 37083,
-      "yMax": 4974880,
+      "yMax": 171857900,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 165977
+      }
     },
     {
       "id": "007ABE42",
@@ -7765,12 +8523,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 44092,
-      "yMax": 5747187,
+      "yMax": 189408800,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 197177
+      }
     },
     {
       "id": "007ABE43",
@@ -7778,12 +8540,16 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 52425,
-      "yMax": 6643640,
+      "yMax": 208916300,
       "desc": "Creatures Health Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
-      "yLabel": "Health"
+      "xLabel": "Input Value",
+      "yLabel": "Health",
+      "softCap": {
+        "x": 23,
+        "y": 234244
+      }
     },
     {
       "id": "0078B560",
@@ -10935,6 +11701,19 @@
       }
     },
     {
+      "id": "00905314",
+      "edid": "CT_FoodHealth_TeaWizard_LuckyLeaf",
+      "category": "other",
+      "points": 8,
+      "xMin": 1,
+      "xMax": 25,
+      "yMin": 20,
+      "yMax": 20,
+      "desc": "Food curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Health"
+    },
+    {
       "id": "007A80E2",
       "edid": "CT_GatlingLaser_Mod_FireDMG",
       "category": "other",
@@ -11019,13 +11798,13 @@
       "id": "0080F54A",
       "edid": "CT_Legendary_Armor_Adrenal",
       "category": "other",
-      "points": 2,
-      "xMin": 1,
+      "points": 3,
+      "xMin": 0,
       "xMax": 10,
-      "yMin": 10,
+      "yMin": 0,
       "yMax": 100,
       "desc": "Legendary Armor curve table value, scaling by input.",
-      "xLabel": "Star Rating / Rank",
+      "xLabel": "Player Level",
       "yLabel": "Armor Value"
     },
     {
@@ -11411,9 +12190,9 @@
       "id": "006C1375",
       "edid": "CT_Legendary_Armor_LowHealthIncreasesStats",
       "category": "other",
-      "points": 7,
+      "points": 5,
       "xMin": 0,
-      "xMax": 0.6,
+      "xMax": 0.61,
       "yMin": 0,
       "yMax": 3,
       "desc": "Legendary Armor Low curve table value, scaling by input.",
@@ -11641,8 +12420,8 @@
       "points": 2,
       "xMin": 1,
       "xMax": 100,
-      "yMin": 0.25,
-      "yMax": 0.25,
+      "yMin": 100,
+      "yMax": 100,
       "desc": "Legendary Armor Rads curve table value, scaling by input.",
       "xLabel": "Player Level",
       "yLabel": "Armor Value"
@@ -12283,6 +13062,19 @@
       "desc": "Legendary Weapon Melee Swing curve table value, scaling by input.",
       "xLabel": "Player Level",
       "yLabel": "Speed Modifier"
+    },
+    {
+      "id": "008F159F",
+      "edid": "CT_Legendary_Weapon_Polished_DMG",
+      "category": "other",
+      "points": 27,
+      "xMin": 0,
+      "xMax": 2,
+      "yMin": 0,
+      "yMax": 60,
+      "desc": "Legendary Weapon Polished curve table value, scaling by input.",
+      "xLabel": "Rank",
+      "yLabel": "Base Damage"
     },
     {
       "id": "008AF3DD",
@@ -16897,11 +17689,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 1,
-      "yMax": 45,
+      "yMax": 83,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -16910,11 +17702,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 2,
-      "yMax": 54,
+      "yMax": 97,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -16923,11 +17715,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 3,
-      "yMax": 69,
+      "yMax": 124,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -16936,11 +17728,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 4,
-      "yMax": 91,
+      "yMax": 163,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -16949,11 +17741,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 6,
-      "yMax": 119,
+      "yMax": 214,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -16962,11 +17754,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 8,
-      "yMax": 155,
+      "yMax": 278,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -16975,11 +17767,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 11,
-      "yMax": 198,
+      "yMax": 354,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -16988,11 +17780,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 14,
-      "yMax": 247,
+      "yMax": 443,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17001,11 +17793,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 18,
-      "yMax": 304,
+      "yMax": 543,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17014,11 +17806,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 22,
-      "yMax": 367,
+      "yMax": 657,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17027,11 +17819,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 5719,
-      "yMax": 87663,
+      "yMax": 156419,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17040,11 +17832,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 27,
-      "yMax": 438,
+      "yMax": 782,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17053,11 +17845,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 32,
-      "yMax": 515,
+      "yMax": 921,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17066,11 +17858,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 37,
-      "yMax": 600,
+      "yMax": 1071,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17079,11 +17871,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 43,
-      "yMax": 691,
+      "yMax": 1235,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17092,11 +17884,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 50,
-      "yMax": 790,
+      "yMax": 1411,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17105,11 +17897,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 57,
-      "yMax": 895,
+      "yMax": 1599,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17118,11 +17910,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 64,
-      "yMax": 1008,
+      "yMax": 1801,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17131,11 +17923,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 72,
-      "yMax": 1128,
+      "yMax": 2015,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17144,11 +17936,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 80,
-      "yMax": 1255,
+      "yMax": 2242,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17157,11 +17949,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 89,
-      "yMax": 1390,
+      "yMax": 2482,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17170,11 +17962,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 98,
-      "yMax": 1532,
+      "yMax": 2734,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17183,11 +17975,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 108,
-      "yMax": 1681,
+      "yMax": 3000,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17196,11 +17988,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 118,
-      "yMax": 1837,
+      "yMax": 3279,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17209,11 +18001,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 129,
-      "yMax": 2001,
+      "yMax": 3572,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17222,11 +18014,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 140,
-      "yMax": 2172,
+      "yMax": 3877,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17235,11 +18027,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 151,
-      "yMax": 2351,
+      "yMax": 4196,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17248,11 +18040,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 164,
-      "yMax": 2537,
+      "yMax": 4529,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17261,11 +18053,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 176,
-      "yMax": 2731,
+      "yMax": 4875,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17274,11 +18066,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 189,
-      "yMax": 2933,
+      "yMax": 5235,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17287,11 +18079,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 203,
-      "yMax": 3143,
+      "yMax": 5609,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17300,11 +18092,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 217,
-      "yMax": 3360,
+      "yMax": 5998,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17313,11 +18105,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 232,
-      "yMax": 3586,
+      "yMax": 6400,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17326,11 +18118,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 247,
-      "yMax": 3820,
+      "yMax": 6817,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17339,11 +18131,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 263,
-      "yMax": 4062,
+      "yMax": 7249,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17352,11 +18144,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 279,
-      "yMax": 4312,
+      "yMax": 7696,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17365,11 +18157,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 296,
-      "yMax": 4571,
+      "yMax": 8158,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17378,11 +18170,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 314,
-      "yMax": 4839,
+      "yMax": 8635,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17391,11 +18183,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 332,
-      "yMax": 5115,
+      "yMax": 9129,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17404,11 +18196,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 351,
-      "yMax": 5401,
+      "yMax": 9638,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17417,11 +18209,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 370,
-      "yMax": 5695,
+      "yMax": 10164,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17430,11 +18222,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 390,
-      "yMax": 5999,
+      "yMax": 10706,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17443,11 +18235,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 410,
-      "yMax": 6313,
+      "yMax": 11266,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17456,11 +18248,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 431,
-      "yMax": 6636,
+      "yMax": 11843,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17469,11 +18261,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 453,
-      "yMax": 6970,
+      "yMax": 12439,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17482,11 +18274,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 475,
-      "yMax": 7314,
+      "yMax": 13053,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17495,11 +18287,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 499,
-      "yMax": 7669,
+      "yMax": 13686,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17508,11 +18300,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 522,
-      "yMax": 8035,
+      "yMax": 14339,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17521,11 +18313,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 547,
-      "yMax": 8413,
+      "yMax": 15013,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17534,11 +18326,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 572,
-      "yMax": 8802,
+      "yMax": 15708,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17547,11 +18339,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 599,
-      "yMax": 9204,
+      "yMax": 16425,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17560,11 +18352,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 626,
-      "yMax": 9618,
+      "yMax": 17164,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17573,11 +18365,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 654,
-      "yMax": 10046,
+      "yMax": 17928,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17586,11 +18378,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 683,
-      "yMax": 10488,
+      "yMax": 18716,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17599,11 +18391,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 712,
-      "yMax": 10944,
+      "yMax": 19530,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17612,11 +18404,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 743,
-      "yMax": 11415,
+      "yMax": 20371,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17625,11 +18417,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 775,
-      "yMax": 11903,
+      "yMax": 21240,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17638,11 +18430,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 808,
-      "yMax": 12406,
+      "yMax": 22139,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17651,11 +18443,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 842,
-      "yMax": 12928,
+      "yMax": 23069,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17664,11 +18456,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 877,
-      "yMax": 13467,
+      "yMax": 24032,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17677,11 +18469,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 913,
-      "yMax": 14026,
+      "yMax": 25029,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17690,11 +18482,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 951,
-      "yMax": 14606,
+      "yMax": 26063,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17703,11 +18495,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 990,
-      "yMax": 15207,
+      "yMax": 27136,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17716,11 +18508,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 1031,
-      "yMax": 15831,
+      "yMax": 28249,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17729,11 +18521,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 1074,
-      "yMax": 16479,
+      "yMax": 29406,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17742,11 +18534,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 1117,
-      "yMax": 17153,
+      "yMax": 30609,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17755,11 +18547,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 1163,
-      "yMax": 17855,
+      "yMax": 31861,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17768,11 +18560,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 1211,
-      "yMax": 18586,
+      "yMax": 33164,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17781,11 +18573,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 1261,
-      "yMax": 19347,
+      "yMax": 34524,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17794,11 +18586,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 1313,
-      "yMax": 20142,
+      "yMax": 35942,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17807,11 +18599,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 1367,
-      "yMax": 20973,
+      "yMax": 37424,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17820,11 +18612,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 1423,
-      "yMax": 21841,
+      "yMax": 38973,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17833,11 +18625,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 1483,
-      "yMax": 22750,
+      "yMax": 40595,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17846,11 +18638,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 1545,
-      "yMax": 23702,
+      "yMax": 42295,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17859,11 +18651,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 1610,
-      "yMax": 24701,
+      "yMax": 44077,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17872,11 +18664,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 1679,
-      "yMax": 25750,
+      "yMax": 45948,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17885,11 +18677,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 1751,
-      "yMax": 26853,
+      "yMax": 47916,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17898,11 +18690,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 1826,
-      "yMax": 28013,
+      "yMax": 49986,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17911,11 +18703,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 1906,
-      "yMax": 29236,
+      "yMax": 52167,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17924,11 +18716,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 1990,
-      "yMax": 30525,
+      "yMax": 54467,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17937,11 +18729,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 2079,
-      "yMax": 31886,
+      "yMax": 56896,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17950,11 +18742,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 2173,
-      "yMax": 33324,
+      "yMax": 59463,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17963,11 +18755,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 2272,
-      "yMax": 34846,
+      "yMax": 62178,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17976,11 +18768,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 2377,
-      "yMax": 36458,
+      "yMax": 65055,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -17989,11 +18781,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 2489,
-      "yMax": 38168,
+      "yMax": 68105,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -18002,11 +18794,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 2607,
-      "yMax": 39982,
+      "yMax": 71342,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -18015,11 +18807,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 2733,
-      "yMax": 41910,
+      "yMax": 74782,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -18028,11 +18820,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 2867,
-      "yMax": 43960,
+      "yMax": 78440,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -18041,11 +18833,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 3009,
-      "yMax": 46142,
+      "yMax": 82334,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -18054,11 +18846,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 3161,
-      "yMax": 48468,
+      "yMax": 86483,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -18067,11 +18859,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 3323,
-      "yMax": 50948,
+      "yMax": 90909,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -18080,11 +18872,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 3496,
-      "yMax": 53596,
+      "yMax": 95633,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -18093,11 +18885,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 3680,
-      "yMax": 56425,
+      "yMax": 100681,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -18106,11 +18898,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 3878,
-      "yMax": 59450,
+      "yMax": 106078,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -18119,11 +18911,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 4089,
-      "yMax": 62687,
+      "yMax": 111854,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -18132,11 +18924,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 4315,
-      "yMax": 66154,
+      "yMax": 118040,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -18145,11 +18937,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 4558,
-      "yMax": 69870,
+      "yMax": 124670,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -18158,11 +18950,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 4818,
-      "yMax": 73855,
+      "yMax": 131781,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -18171,11 +18963,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 5097,
-      "yMax": 78132,
+      "yMax": 139414,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -18184,11 +18976,11 @@
       "category": "other",
       "points": 50,
       "xMin": 1,
-      "xMax": 295,
+      "xMax": 540,
       "yMin": 5397,
-      "yMax": 82726,
+      "yMax": 147610,
       "desc": "Player XP Universal curve table value, scaling by input.",
-      "xLabel": "Player Level",
+      "xLabel": "Input Value",
       "yLabel": "XP Required"
     },
     {
@@ -18726,6 +19518,19 @@
         "x": 45,
         "y": 13
       }
+    },
+    {
+      "id": "00914F68",
+      "edid": "CT_Unique_Weapon_Lawbringer_WeaponSpeed",
+      "category": "other",
+      "points": 11,
+      "xMin": 0,
+      "xMax": 10,
+      "yMin": 0,
+      "yMax": 0.5,
+      "desc": "Unique Weapon Lawbringer Weapon curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Speed Modifier"
     },
     {
       "id": "0079768C",
@@ -19813,7 +20618,7 @@
       "xMin": 1,
       "xMax": 150,
       "yMin": 1981,
-      "yMax": 114518,
+      "yMax": 116459,
       "desc": "World Pets Pet Prowess curve table value, scaling by input.",
       "xLabel": "Player Level",
       "yLabel": "Health"
@@ -19904,14 +20709,27 @@
       "xMin": 1,
       "xMax": 200,
       "yMin": 0,
-      "yMax": 3200,
+      "yMax": 6400,
       "desc": "World Pets XP curve table value, scaling by input.",
       "xLabel": "Player Level",
       "yLabel": "XP Required",
       "softCap": {
         "x": 5,
-        "y": 250
+        "y": 500
       }
+    },
+    {
+      "id": "00919FCA",
+      "edid": "Debilitator_Bonus",
+      "category": "other",
+      "points": 3,
+      "xMin": 0,
+      "xMax": 100,
+      "yMin": 0,
+      "yMax": 200,
+      "desc": "Debilitator curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Output Value"
     },
     {
       "id": "00345A56",
@@ -20694,6 +21512,19 @@
       "yLabel": "Bonus Value"
     },
     {
+      "id": "00919FD4",
+      "edid": "Farmhand_Bonus",
+      "category": "other",
+      "points": 5,
+      "xMin": 1,
+      "xMax": 100,
+      "yMin": 5,
+      "yMax": 50,
+      "desc": "Farmhand curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Bonus Value"
+    },
+    {
       "id": "005109AB",
       "edid": "FFZ10_CT_FoodHealth_BioluminescentFluid",
       "category": "other",
@@ -20908,6 +21739,19 @@
       "desc": "Heavy Gunner Reload curve table value, scaling by input.",
       "xLabel": "Player Level",
       "yLabel": "Reload Speed Modifier"
+    },
+    {
+      "id": "008F15A0",
+      "edid": "HTO_CT_Legendary_Weapon_Tarnished_DMG",
+      "category": "other",
+      "points": 24,
+      "xMin": 0,
+      "xMax": 2,
+      "yMin": 0,
+      "yMax": 120,
+      "desc": "HTO CT Legendary Weapon Tarnished curve table value, scaling by input.",
+      "xLabel": "Rank",
+      "yLabel": "Base Damage"
     },
     {
       "id": "007C2818",
@@ -21447,8 +22291,8 @@
       "points": 4,
       "xMin": 1,
       "xMax": 4,
-      "yMin": 1,
-      "yMax": 6,
+      "yMin": 3,
+      "yMax": 30,
       "desc": "Legendary Scrap Values curve table value, scaling by input.",
       "xLabel": "Rank",
       "yLabel": "Armor Value"
@@ -21460,8 +22304,8 @@
       "points": 4,
       "xMin": 1,
       "xMax": 4,
-      "yMin": 1,
-      "yMax": 6,
+      "yMin": 3,
+      "yMax": 30,
       "desc": "Legendary Scrap Values Power curve table value, scaling by input.",
       "xLabel": "Rank",
       "yLabel": "Armor Value"
@@ -21473,8 +22317,8 @@
       "points": 4,
       "xMin": 1,
       "xMax": 4,
-      "yMin": 1,
-      "yMax": 6,
+      "yMin": 3,
+      "yMax": 30,
       "desc": "Legendary Scrap Values curve table value, scaling by input.",
       "xLabel": "Rank",
       "yLabel": "Bonus Value"
@@ -21486,8 +22330,8 @@
       "points": 4,
       "xMin": 1,
       "xMax": 4,
-      "yMin": 1,
-      "yMax": 6,
+      "yMin": 3,
+      "yMax": 30,
       "desc": "Legendary Scrap Values Weapons curve table value, scaling by input.",
       "xLabel": "Rank",
       "yLabel": "Bonus Value"
@@ -21499,8 +22343,8 @@
       "points": 4,
       "xMin": 1,
       "xMax": 4,
-      "yMin": 3,
-      "yMax": 30,
+      "yMin": 15,
+      "yMax": 150,
       "desc": "Legendary Sell Values curve table value, scaling by input.",
       "xLabel": "Rank",
       "yLabel": "Armor Value"
@@ -21512,8 +22356,8 @@
       "points": 4,
       "xMin": 1,
       "xMax": 4,
-      "yMin": 10,
-      "yMax": 55,
+      "yMin": 15,
+      "yMax": 150,
       "desc": "Legendary Sell Values Armor Power curve table value, scaling by input.",
       "xLabel": "Rank",
       "yLabel": "Armor Value"
@@ -21525,11 +22369,11 @@
       "points": 4,
       "xMin": 1,
       "xMax": 4,
-      "yMin": 5,
-      "yMax": 50,
+      "yMin": 15,
+      "yMax": 150,
       "desc": "Legendary Sell Values curve table value, scaling by input.",
       "xLabel": "Rank",
-      "yLabel": "Bonus Value"
+      "yLabel": "Output Value"
     },
     {
       "id": "00429A7B",
@@ -21538,11 +22382,11 @@
       "points": 4,
       "xMin": 1,
       "xMax": 4,
-      "yMin": 5,
-      "yMax": 50,
+      "yMin": 15,
+      "yMax": 150,
       "desc": "Legendary Sell Values Weapons curve table value, scaling by input.",
       "xLabel": "Rank",
-      "yLabel": "Bonus Value"
+      "yLabel": "Output Value"
     },
     {
       "id": "005C71A9",
@@ -22443,11 +23287,15 @@
       "points": 5,
       "xMin": 1,
       "xMax": 100,
-      "yMin": 10,
-      "yMax": 210,
+      "yMin": 0.8,
+      "yMax": 0.99,
       "desc": "Lone Wanderer DR curve table value, scaling by input.",
       "xLabel": "Player Level",
-      "yLabel": "Output Value"
+      "yLabel": "Multiplier",
+      "softCap": {
+        "x": 60,
+        "y": 0.83
+      }
     },
     {
       "id": "0046C699",
@@ -22721,6 +23569,19 @@
       "yLabel": "Stagger Chance"
     },
     {
+      "id": "00919FD5",
+      "edid": "Peacemaker_Bonus",
+      "category": "other",
+      "points": 5,
+      "xMin": 1,
+      "xMax": 100,
+      "yMin": 5,
+      "yMax": 50,
+      "desc": "Peacemaker curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Bonus Value"
+    },
+    {
       "id": "007B3F0B",
       "edid": "PharmacistBonus",
       "category": "other",
@@ -22751,6 +23612,19 @@
       "yLabel": "Bonus Value"
     },
     {
+      "id": "00915477",
+      "edid": "PiratePunchBonus",
+      "category": "other",
+      "points": 3,
+      "xMin": 0,
+      "xMax": 20,
+      "yMin": 0,
+      "yMax": 100,
+      "desc": "Pirate Punch curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Bonus Value"
+    },
+    {
       "id": "0031C6F2",
       "edid": "POST_CT_Thrown_BottlecapMineDMG",
       "category": "other",
@@ -22760,6 +23634,19 @@
       "yMin": 200,
       "yMax": 200,
       "desc": "POST CT Thrown Bottlecap Mine curve table value, scaling by input.",
+      "xLabel": "Player Level",
+      "yLabel": "Output Value"
+    },
+    {
+      "id": "00914F54",
+      "edid": "PowerAttackPerOnslaught_WhackerSmacker",
+      "category": "other",
+      "points": 3,
+      "xMin": 0,
+      "xMax": 100,
+      "yMin": 0,
+      "yMax": 500,
+      "desc": "Power Attack Per Onslaught Whacker curve table value, scaling by input.",
       "xLabel": "Player Level",
       "yLabel": "Output Value"
     },
@@ -22780,18 +23667,14 @@
       "id": "00788D3B",
       "edid": "RD01_ConditionDamageScaleFactor_PowerArmor_EnclaveVulcan",
       "category": "other",
-      "points": 12,
+      "points": 11,
       "xMin": 1,
-      "xMax": 200,
-      "yMin": 0.04,
-      "yMax": 0.045,
+      "xMax": 300,
+      "yMin": 0.01,
+      "yMax": 0.04,
       "desc": "RD 01 Condition Damage Scale Factor Power curve table value, scaling by input.",
       "xLabel": "Player Level",
-      "yLabel": "Base Damage",
-      "softCap": {
-        "x": 70,
-        "y": 0.04
-      }
+      "yLabel": "Base Damage"
     },
     {
       "id": "00788D3C",
