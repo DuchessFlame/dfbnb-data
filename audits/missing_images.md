@@ -1,8 +1,8 @@
 # Missing images
 
-Every item on a reward page with no picture anywhere: not in the shared library, not in its own event folder, not on any other page. Built 2026-10-15 from the server listing of 2026-10-15T08:18:53Z.
+Every item on a reward page with no picture anywhere: not in the shared library, not in its own event folder, not on any other page. Built 2026-10-22 from the server listing of 2026-10-22T03:54:06Z.
 
-**3272 items have no picture on the server**: 333 are already on your computer and just need uploading, 2939 need art found (7155 rows - the same item can appear on several pages; one upload fixes every page it is on).
+**3299 items have no picture on the server**: 333 are already on your computer and just need uploading, 2966 need art found (7180 rows - the same item can appear on several pages; one upload fixes every page it is on).
 
 Upload each file to the folder shown, named exactly as shown. Outfits: the folded item-only render is the `_go` file; a mannequin view, if you have one, is `<FormID>_c1.avif` beside it. Never upload a mannequin-only picture as the main image.
 
@@ -344,27 +344,58 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: Veracio Hat *(cut)* | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `0073989E.avif` |
 | Radhog Tamer Outfit | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `00900A89_go.avif` |
 
-## Plan Checklists - Backpack Mods (17)
+## Plan Checklists - Backpack Mods (48)
 
 | Item | Upload to | File name |
 |---|---|---|
+| Plan: Alien Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `006A1814.avif` |
 | Plan: Aqua Backpack Material *(cut)* | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0046A3A9.avif` |
+| Plan: Atomicset Ltd. Handbag Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0076F47B.avif` |
 | Plan: Backpack Armor Plated Mod | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0042C559.avif` |
 | Plan: Backpack High Capacity Mod | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0042C550.avif` |
 | Plan: Backpack Insulated Mod | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0042C560.avif` |
 | Plan: Backpack Lead Lined Mod | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0042C55C.avif` |
 | Plan: Backpack Refrigerated Mod | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0042E519.avif` |
+| Plan: Black Cloth Backpack *(cut)* | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0042C549.avif` |
+| Plan: Black Leather Backpack *(cut)* | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0042C54B.avif` |
+| Plan: Blue Backpack Material *(cut)* | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0046A3AA.avif` |
+| Plan: Blue Ridge Caravan Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0059A038.avif` |
+| Plan: Bottle Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0067AEBC.avif` |
+| Plan: Brown Leather Backpack *(cut)* | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0042C54D.avif` |
 | Plan: Canteen Backpack Mod | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `007551CA.avif` |
+| Plan: Cappy Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0067AEBB.avif` |
 | Plan: Chemist's Backpack Mod | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `00595237.avif` |
+| Plan: Cultist Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0062F458.avif` |
+| Plan: Deathclaw Head Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `00767AC8.avif` |
+| Plan: Egg Carrier Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `00805A9C.avif` |
 | Plan: Frame Backpack *(cut)* | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0046A3A4.avif` |
+| Plan: Green Backpack Material *(cut)* | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0046A3AB.avif` |
 | Plan: Grocer's Backpack Mod | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `00595236.avif` |
 | Plan: Jack o' Lantern Backpack *(cut)* | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `00782CF6.avif` |
+| Plan: Moe The Mole Backpack Flair *(cut)* | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `00785058.avif` |
+| Plan: Ogua Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `00691D4C.avif` |
+| Plan: Peppermint Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0076F459.avif` |
+| Plan: Pheasant Backpack Flair *(cut)* | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0078505D.avif` |
+| Plan: Pheasant Foot Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `007525E5.avif` |
+| Plan: Pink Backpack Material *(cut)* | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0046A3AC.avif` |
+| Plan: Pioneer Scout Possum Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `00428BC2.avif` |
 | Plan: Pioneer Scout Tadpole Backpack *(cut)* | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0046A36D.avif` |
+| Plan: Princess Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `007281A7.avif` |
+| Plan: Red Backpack Material *(cut)* | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0046A3AD.avif` |
 | Plan: Scrap Rat Backpack Mod | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `006D9A9D.avif` |
+| Plan: Scuba Tank Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `007AED26.avif` |
+| Plan: Snowman Head Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0076F460.avif` |
 | Plan: Standard Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `004275E9.avif` |
+| Plan: Thrasher Plushie Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `006EB2B0.avif` |
 | Plan: Tonic Backpack Flair *(cut)* | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `00692254.avif` |
 | Plan: Turkey Backpack Flair *(cut)* | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `00746FC2.avif` |
-| Scuba Tank Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `007AED26.avif` |
+| Plan: Ultracite Titan Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0067AEBD.avif` |
+| Plan: Vault Boy Plushie Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `00694C1F.avif` |
+| Plan: Vault Girl Plushie Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `00694C20.avif` |
+| Plan: Vault-Tec Backpack Material *(cut)* | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0046A3AE.avif` |
+| Plan: Vault-Tec Survival Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `006EC210.avif` |
+| Plan: White Backpack Material *(cut)* | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0046A3AF.avif` |
+| Plan: Yellow Backpack Material *(cut)* | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0046A3B0.avif` |
 
 ## Plan Checklists - Body Armour (292)
 
@@ -679,8 +710,8 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Item | Upload to | File name |
 |---|---|---|
 | Plan: Atom Cats Leather Armor Paint | `wp-content/uploads/guide-images/plan-checklist/legacy-nuclear-winter/` | `006369B8.avif` |
-| Plan: BOS Combat Armor Paint | `wp-content/uploads/guide-images/plan-checklist/legacy-nuclear-winter/` | `006369C3.avif` |
-| Plan: BOS Leather Armor Paint | `wp-content/uploads/guide-images/plan-checklist/legacy-nuclear-winter/` | `006369BD.avif` |
+| Plan: BOS Combat Armor Paint *(cut)* | `wp-content/uploads/guide-images/plan-checklist/legacy-nuclear-winter/` | `006369C3.avif` |
+| Plan: BOS Leather Armor Paint *(cut)* | `wp-content/uploads/guide-images/plan-checklist/legacy-nuclear-winter/` | `006369BD.avif` |
 | Plan: Marine Camouflage Gatling Laser Paint | `wp-content/uploads/guide-images/plan-checklist/legacy-nuclear-winter/` | `006369BA.avif` |
 | Plan: Marine Camouflage Leather Armor Paint | `wp-content/uploads/guide-images/plan-checklist/legacy-nuclear-winter/` | `006369BE.avif` |
 | Plan: Shi Leather Armor Paint | `wp-content/uploads/guide-images/plan-checklist/legacy-nuclear-winter/` | `006369C5.avif` |
@@ -690,7 +721,7 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 
 | Item | Upload to | File name |
 |---|---|---|
-| Plan: Crackler Grenade | `wp-content/uploads/guide-images/plan-checklist/mines-and-grenades/` | `007FFFEE.avif` |
+| Plan: Crackler Grenade *(cut)* | `wp-content/uploads/guide-images/plan-checklist/mines-and-grenades/` | `007FFFEE.avif` |
 | Plan: Cryo Grenade *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/mines-and-grenades/` | `cryo-grenade.avif` |
 | Plan: Cryo Mine *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/mines-and-grenades/` | `cryo-mine.avif` |
 | Plan: Dynamite *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/mines-and-grenades/` | `dynamite.avif` |
@@ -878,10 +909,10 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: T-45 Tesla Coils | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `001D0318.avif` |
 | Plan: T-45 VATS Matrix Overlay *(cut)* | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `0020374D.avif` |
 | Plan: T-45 Winterized Paint *(cut)* | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `005018F0.avif` |
-| Plan: T-51 Power Armor Brotherhood Knight Paint *(cut)* | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `0065C0E0.avif` |
 | Plan: T-51 Power Armor Brotherhood Knight Paint | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `005EF703.avif` |
-| Plan: T-51 Power Armor Brotherhood Paladin Paint *(cut)* | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `0065C0E1.avif` |
+| Plan: T-51 Power Armor Brotherhood Knight Paint *(cut)* | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `0065C0E0.avif` |
 | Plan: T-51 Power Armor Brotherhood Paladin Paint | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `005EF704.avif` |
+| Plan: T-51 Power Armor Brotherhood Paladin Paint *(cut)* | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `0065C0E1.avif` |
 | Plan: T-51 Power Armor Nuka-Cola Paint | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `0047AA75.avif` |
 | Plan: T-51b Blood Cleanser | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `001D031C.avif` |
 | Plan: T-51b Calibrated Shocks | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `0017A5B2.avif` |
@@ -1554,7 +1585,7 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: Vault Suit Underarmor Style | `wp-content/uploads/guide-images/plan-checklist/underarmour/` | `0089D6BD.avif` |
 | Plan: Vault Tec University Jumpsuit *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/underarmour/` | `vault-tec-university-jumpsuit.avif` |
 
-## Plan Checklists - Weapons (81)
+## Plan Checklists - Weapons (82)
 
 | Item | Upload to | File name |
 |---|---|---|
@@ -1615,6 +1646,7 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: Tillberg's Tornado *(cut)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `00692562.avif` |
 | Plan: War Shrike | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `007D3AF4.avif` |
 | Pumpkin Smasher Paint (Assault Rifle) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `006E1DF3.avif` |
+| Quantum Paint (Cryolator) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `008F4CBD.avif` |
 | Raider Paint (Railway Rifle) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `0091EEA1.avif` |
 | Reaper Paint (Gatling Laser) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `00787F82.avif` |
 | Reaper Paint (Gatling Laser) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `00841336.avif` |
@@ -2331,8 +2363,8 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: T-60 Jack-O-Lite | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00796786.avif` |
 | Plan: Table Lamps | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `004F6D70.avif` |
 | Plan: Table Television | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `004E898D.avif` |
-| Plan: Tattered Curtains | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00633366.avif` |
 | Plan: Tattered Curtains *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00632411.avif` |
+| Plan: Tattered Curtains | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00633366.avif` |
 | Plan: Taxidermy Fox *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0076AC84.avif` |
 | Plan: Taxidermy Opossum *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0076AC83.avif` |
 | Plan: Taxidermy Owl *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0076AC87.avif` |
@@ -2394,8 +2426,8 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: Vault-Tec Jack O'Lantern | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `005772BF.avif` |
 | Plan: Vault-Tec Motorized Butter Churn *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00830902.avif` |
 | Plan: Vendors *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00391179.avif` |
-| Plan: Vintage Water Cooler | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00634B17.avif` |
 | Plan: Vintage Water Cooler | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `005FBD08.avif` |
+| Plan: Vintage Water Cooler | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00634B17.avif` |
 | Plan: VTU Statue | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00355983.avif` |
 | Plan: Wall Mounted Fan | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00633365.avif` |
 | Plan: Wall Safe | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0067AED3.avif` |
@@ -2513,7 +2545,7 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: Mobster Jack O'Lantern | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `005772C4.avif` |
 | Plan: Mothman Jack-O-Lite | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0079678C.avif` |
 | Plan: Practice Jack O'Lantern | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `005772C6.avif` |
-| Plan: Princess Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `00728184.avif` |
+| Plan: Princess Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `007281A7.avif` |
 | Plan: Pumpkin Rack | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `005772C9.avif` |
 | Plan: Rad Skull Rider Helmet | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `006EF779.avif` |
 | Plan: Redcoat Hat | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `007720C0.avif` |
@@ -2528,16 +2560,16 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: Surprised Jack O'Lantern | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `005772C2.avif` |
 | Plan: T-60 Jack-O-Lite | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00796786.avif` |
 | Plan: Vault Boy Jack O'Lantern | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `005772C0.avif` |
-| Plan: Vault Boy Plushie Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `00694C1C.avif` |
+| Plan: Vault Boy Plushie Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `00694C1F.avif` |
 | Plan: Vault Door Jack O'Lantern | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `005772C1.avif` |
-| Plan: Vault Girl Plushie Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `00694C1B.avif` |
+| Plan: Vault Girl Plushie Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `00694C20.avif` |
 | Plan: Vault-Tec Jack O'Lantern | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `005772BF.avif` |
 
 ## Seasonal Events - Holiday Scorched (81)
 
 | Item | Upload to | File name |
 |---|---|---|
-| Plan: Atomicset Ltd. Handbag Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0076F477.avif` |
+| Plan: Atomicset Ltd. Handbag Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0076F47B.avif` |
 | Plan: Barbed Wire Fences | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0063336C.avif` |
 | Plan: Behemoth Boss Plushie | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0063338B.avif` |
 | Plan: Big Meadows Gas Well Snow Globe | `wp-content/uploads/guide-images/plan-checklist/snowglobe/` | `0078505A.avif` |
@@ -2586,7 +2618,7 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: Mounted Squirrel | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00435861.avif` |
 | Plan: Musket Stack Monument | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `005DD68C.avif` |
 | Plan: Nuka Girl Area Rug | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `005F2B96.avif` |
-| Plan: Peppermint Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0076F454.avif` |
+| Plan: Peppermint Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0076F459.avif` |
 | Plan: Plastiform Candle | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0072E36D.avif` |
 | Plan: Plastiform Candy Cane - Blue | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0079B1FB.avif` |
 | Plan: Plastiform Candy Cane - Red | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0079B1FC.avif` |
@@ -2611,7 +2643,7 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: Shenandoah Vistor Center Snow Globe | `wp-content/uploads/guide-images/plan-checklist/snowglobe/` | `00785056.avif` |
 | Plan: Sitting Gorilla | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `005AFDEE.avif` |
 | Plan: Slumber Mill Motel Snow Globe | `wp-content/uploads/guide-images/plan-checklist/snowglobe/` | `00785057.avif` |
-| Plan: Snowman Head Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0076F45B.avif` |
+| Plan: Snowman Head Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0076F460.avif` |
 | Plan: Standing Gorilla | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `005AD986.avif` |
 | Plan: Star Light | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0072DB4F.avif` |
 | Plan: Tattered Curtains | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00633366.avif` |
@@ -2619,22 +2651,19 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: Wall Mounted Fan | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00633365.avif` |
 | Plan: Winter Icicle Lights | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0059FFFD.avif` |
 
-## Seasonal Events - Mischief Night (15)
+## Seasonal Events - Mischief Night (12)
 
 | Item | Upload to | File name |
 |---|---|---|
 | Plan: Bat Plushie | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00783BBD.avif` |
-| Plan: Bat Plushie Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `00773A2F.avif` |
 | Plan: Boney Arm Sconce | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00783BBC.avif` |
 | Plan: Crooked Metal Fence | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0078491D.avif` |
 | Plan: Cultist Lamp | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0078C72F.avif` |
 | Plan: Deathclaw Gargoyle Statue | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `007832A2.avif` |
 | Plan: Hay Bale Throne | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0077E756.avif` |
-| Plan: Jack-in-the-box Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `00771F5A.avif` |
 | Plan: Large Deathclaw Gargoyle Statue | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0079B5DB.avif` |
 | Plan: Mischief Night Stein | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `008323E4.avif` |
 | Plan: Scorpion Plushie | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0079671E.avif` |
-| Plan: Scorpion Plushie Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `007800AE.avif` |
 | Plan: Skeletal Weapon Rack | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0077D84D.avif` |
 | Plan: Spooky Scarecrow Headpiece | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `0077ED4F_go.avif` |
 | Plan: Spooky Scarecrow Outfit | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `0076DA7D_go.avif` |
@@ -2648,7 +2677,7 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: Crude Skull Mask | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `0076EF98.avif` |
 | Plan: Cultist Adept Hood | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0062C3A3.avif` |
 | Plan: Cultist Adept Robes | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0062C3A2.avif` |
-| Plan: Cultist Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0062FADB.avif` |
+| Plan: Cultist Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0062F458.avif` |
 | Plan: Cultist Enlightened Hood | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0062A5FC.avif` |
 | Plan: Cultist Enlightened Robes | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0062A5FB.avif` |
 | Plan: Cultist Eventide Hood | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `00755EA6.avif` |
@@ -2790,7 +2819,7 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 |---|---|---|
 | Black Hazmat Suit | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `0061E211.avif` |
 | Brotherhood Special Ops Suit | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `005D86EE.avif` |
-| Plan: Alien Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `00696251.avif` |
+| Plan: Alien Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `006A1814.avif` |
 | Plan: Aquarium Signs | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0076A6A9.avif` |
 | Plan: Arctic Marine Armor Helmet | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0061E1E0.avif` |
 | Plan: Arctic Marine Left Arm | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0061E1E5.avif` |
@@ -2948,7 +2977,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 |---|---|---|
 | Loose Screws | `wp-content/uploads/guide-images/activities/battle-bot/` | `00069081.avif` |
 
-## Activities - Beasts Of Burden (120)
+## Activities - Beasts Of Burden (119)
 
 | Item | Upload to | File name |
 |---|---|---|
@@ -3020,13 +3049,12 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Plan: Dirty Blue Ridge Sleeping Bag | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00691D11.avif` |
 | Plan: Fur Sleeping Bag | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00691D10.avif` |
 | Plan: Mounted Ogua Head | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006CCB5C.avif` |
-| Plan: Ogua Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `00691D45.avif` |
+| Plan: Ogua Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `00691D4C.avif` |
 | Plan: Ogua Curtain Door | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00691D08.avif` |
 | Plan: Ogua Egg | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006ABA11.avif` |
 | Plan: Ogua Hunter Hood | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `006CCB14.avif` |
 | Plan: Ogua Hunter Outfit | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `006CCB13_go.avif` |
 | Plan: Ogua Plushie | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0068ADF3.avif` |
-| Plan: Ogua Shell Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `006D7A0E.avif` |
 | Scouts' Life 1 | `wp-content/uploads/guide-images/activities/beasts-of-burden/` | `00432CDC.avif` |
 | Scouts' Life 10 | `wp-content/uploads/guide-images/activities/beasts-of-burden/` | `00432CF8.avif` |
 | Scouts' Life 2 | `wp-content/uploads/guide-images/activities/beasts-of-burden/` | `00432CDF.avif` |
@@ -3187,8 +3215,6 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 
 | Item | Upload to | File name |
 |---|---|---|
-| Handmade Rifle *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `handmade-gun.avif` |
-| Lickety-Split Railway *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `railway-rifle.avif` |
 | Night Light Tesla Rifle *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `tesla-rifle.avif` |
 | Plan: Lightning Harvester | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00745CDE.avif` |
 | Plan: Lost Tube | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0075E13A.avif` |
@@ -3203,6 +3229,8 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Plan: Wildlife Turkey Trail Sign | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0077081C.avif` |
 | Plan: Wildlife Wolf Trail Sign | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0077081D.avif` |
 | Red Terror Light Machine Gun *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `mg42-light-machine-gun.avif` |
+| Shattered Grounds Handmade Rifle *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `handmade-gun.avif` |
+| Ticket to Revenge Railway *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `railway-rifle.avif` |
 
 ## Activities - Death Blossoms (2)
 
@@ -3217,7 +3245,6 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 |---|---|---|
 | .44 Round | `wp-content/uploads/guide-images/activities/distant-thunder/` | `0009221C.avif` |
 | Last Stand Brotherhood Recon Chest Piece | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `005DD339.avif` |
-| Lawbringer .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 | Plan: Excavator Cooling Vent | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `00338660.avif` |
 | Plan: Excavator Hydraulic Bracers | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `00338659.avif` |
 | Plan: Excavator Internal Database | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `0033865B.avif` |
@@ -3258,6 +3285,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Plan: T-60 Motion-Assist Servos | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `00203746.avif` |
 | Plan: T-60 Right Arm | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `00140C45.avif` |
 | Plan: T-60 Right Leg | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `00140C3F.avif` |
+| The Fact Finder .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 
 ## Activities - Distinguished Guests (59)
 
@@ -3562,21 +3590,21 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Item | Upload to | File name |
 |---|---|---|
 | Canned Meat Stew | `wp-content/uploads/guide-images/activities/feed-the-people/` | `00343776.avif` |
-| Lawbringer .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
+| Somerset Special .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 
 ## Activities - Fertile Soil (2)
 
 | Item | Upload to | File name |
 |---|---|---|
-| Lawbringer .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 | Raw Fertilizer | `wp-content/uploads/guide-images/activities/fertile-soil/` | `001BF730.avif` |
+| Somerset Special .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 
 ## Activities - Fly Swatter (2)
 
 | Item | Upload to | File name |
 |---|---|---|
 | Aluminum Scrap | `wp-content/uploads/guide-images/activities/fly-swatter/` | `0006907A.avif` |
-| Lawbringer .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
+| Somerset Special .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 
 ## Activities - Free Range (7)
 
@@ -3611,7 +3639,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Missile | `wp-content/uploads/guide-images/activities/gearing-up/` | `000CABA3.avif` |
 | Plan: Deathclaw Tamer Hat | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `00844583.avif` |
 | Plan: Deathclaw Tamer Outfit | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `007F543B_go.avif` |
-| Plan: Egg Carrier Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `007F543C.avif` |
+| Plan: Egg Carrier Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `00805A9C.avif` |
 | Plan: Jackson Junkyard Sign | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `008409FC.avif` |
 | Plan: Mounted Armored Deathclaw Head | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0085541D.avif` |
 | Plan: Trash Cube | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `007FDC2A.avif` |
@@ -3908,8 +3936,8 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 
 | Item | Upload to | File name |
 |---|---|---|
-| Lawbringer .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 | Raw Wolf Meat | `wp-content/uploads/guide-images/activities/leader-of-the-pack/` | `00110A48.avif` |
+| Somerset Special .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 
 ## Activities - Line In The Sand (11)
 
@@ -3920,11 +3948,11 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Double Mutated Party Pack | `wp-content/uploads/guide-images/activities/line-in-the-sand/` | `00698821.avif` |
 | Fusion Core | `wp-content/uploads/guide-images/activities/line-in-the-sand/` | `00075FE4.avif` |
 | Last Stand Brotherhood Recon Chest Piece | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `005DD339.avif` |
-| Lawbringer .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 | Legendary Scrip | `wp-content/uploads/guide-images/activities/line-in-the-sand/` | `003F7410.avif` |
 | Mutated Package | `wp-content/uploads/guide-images/activities/line-in-the-sand/` | `00697588.avif` |
 | Mutated Party Pack | `wp-content/uploads/guide-images/activities/line-in-the-sand/` | `00698820.avif` |
 | Plan: Brotherhood Underarmor Style | `wp-content/uploads/guide-images/plan-checklist/underarmour/` | `0089D6C3.avif` |
+| The Fact Finder .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 | Treasury Note | `wp-content/uploads/guide-images/activities/line-in-the-sand/` | `005A5443.avif` |
 
 ## Activities - Lode Baring (28)
@@ -4027,10 +4055,10 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Plan: Bottle and Cappy Hoop Jump Statue | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006828E9.avif` |
 | Plan: Bottle and Cappy Painting Statue | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006828E6.avif` |
 | Plan: Bottle and Cappy Walking Globe Statue | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006828EA.avif` |
-| Plan: Bottle Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0067F16D.avif` |
+| Plan: Bottle Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0067AEBC.avif` |
 | Plan: Bottle Bot | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0066DBCE.avif` |
 | Plan: Cappy & Bottle Cowboy Cutouts | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0067AEE1.avif` |
-| Plan: Cappy Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0067F16E.avif` |
+| Plan: Cappy Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0067AEBB.avif` |
 | Plan: Cappy Clapper | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0066C137.avif` |
 | Plan: Cappy Smasher Super Sledge Paint | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `00679A92.avif` |
 | Plan: Deputy's Hat | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `00669386.avif` |
@@ -4084,7 +4112,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Plan: Crude Skull Mask | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `0076EF98.avif` |
 | Plan: Cultist Adept Hood | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0062C3A3.avif` |
 | Plan: Cultist Adept Robes | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0062C3A2.avif` |
-| Plan: Cultist Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0062FADB.avif` |
+| Plan: Cultist Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0062F458.avif` |
 | Plan: Cultist Enlightened Hood | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0062A5FC.avif` |
 | Plan: Cultist Enlightened Robes | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0062A5FB.avif` |
 | Plan: Cultist Eventide Hood | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `00755EA6.avif` |
@@ -4131,12 +4159,10 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | 5.56 Round | `wp-content/uploads/guide-images/activities/neurological-warfare/` | `0001F278.avif` |
 | 5mm Round | `wp-content/uploads/guide-images/activities/neurological-warfare/` | `0001F66C.avif` |
 | Arrow | `wp-content/uploads/guide-images/activities/neurological-warfare/` | `005A5DD2.avif` |
+| Bulwark Secret Service Chest Piece | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `00568FA9.avif` |
 | Fusion Cell | `wp-content/uploads/guide-images/activities/neurological-warfare/` | `000C1897.avif` |
 | Fusion Core | `wp-content/uploads/guide-images/activities/neurological-warfare/` | `00075FE4.avif` |
-| Handmade Rifle *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `handmade-gun.avif` |
-| Laser Gun *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `laser-gun.avif` |
 | Legendary Module | `wp-content/uploads/guide-images/activities/neurological-warfare/` | `005652F9.avif` |
-| Lickety-Split Railway *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `railway-rifle.avif` |
 | Mini Nuke | `wp-content/uploads/guide-images/activities/neurological-warfare/` | `000E6B2E.avif` |
 | Missile | `wp-content/uploads/guide-images/activities/neurological-warfare/` | `000CABA3.avif` |
 | Night Light Tesla Rifle *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `tesla-rifle.avif` |
@@ -4144,7 +4170,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Plan: Casual Underarmor Style | `wp-content/uploads/guide-images/plan-checklist/underarmour/` | `0089D6C2.avif` |
 | Plan: Deathclaw Tamer Hat | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `00844583.avif` |
 | Plan: Deathclaw Tamer Outfit | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `007F543B_go.avif` |
-| Plan: Egg Carrier Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `007F543C.avif` |
+| Plan: Egg Carrier Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `00805A9C.avif` |
 | Plan: Goliath Braincase Display | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `007586A8.avif` |
 | Plan: Goliath Braincase Throne | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0075592C.avif` |
 | Plan: Goliath Claw Display | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00754FBB.avif` |
@@ -4164,7 +4190,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Plan: Shenandoah Turkey Poster | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0075380F.avif` |
 | Plan: Storm Goliath Figure | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `007586AE.avif` |
 | Plan: Taxidermy Thrasher | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0076E832.avif` |
-| Plan: Thrasher Plushie Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `006EB2AE.avif` |
+| Plan: Thrasher Plushie Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `006EB2B0.avif` |
 | Plan: Trash Cube | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `007FDC2A.avif` |
 | Plan: V63 Shock Baton Blueprint | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0075C209.avif` |
 | Plan: V63 Weather Machine Blueprint | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0075C203.avif` |
@@ -4185,7 +4211,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Rad-X | `wp-content/uploads/guide-images/activities/neurological-warfare/` | `00024057.avif` |
 | Rad-X: Diluted *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `diluted-rad-x.avif` |
 | Red Terror Light Machine Gun *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `mg42-light-machine-gun.avif` |
-| Secret Settler Secret Service Chest Piece | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `00568FA9.avif` |
+| Shattered Grounds Handmade Rifle *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `handmade-gun.avif` |
 | Shotgun Shell | `wp-content/uploads/guide-images/activities/neurological-warfare/` | `0001F673.avif` |
 | Stable Cobalt Flux | `wp-content/uploads/guide-images/activities/neurological-warfare/` | `002B9179.avif` |
 | Stable Crimson Flux | `wp-content/uploads/guide-images/activities/neurological-warfare/` | `002B917F.avif` |
@@ -4194,7 +4220,9 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Stable Yellowcake Flux | `wp-content/uploads/guide-images/activities/neurological-warfare/` | `002B9181.avif` |
 | Stimpak *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `stimpak.avif` |
 | Stimpak: Super *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `super-stimpak.avif` |
+| Ticket to Revenge Railway *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `railway-rifle.avif` |
 | Treasury Note | `wp-content/uploads/guide-images/activities/neurological-warfare/` | `005A5443.avif` |
+| V63-OLGA Laser Gun *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `laser-gun.avif` |
 
 ## Activities - One Violent Night (15)
 
@@ -4469,7 +4497,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 
 | Item | Upload to | File name |
 |---|---|---|
-| Lawbringer .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
+| Somerset Special .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 
 ## Activities - Project Paradise (122)
 
@@ -4838,10 +4866,10 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Blue Ridge Caravan Gas Mask | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `00594A46.avif` |
 | Blue Ridge Caravan Outfit | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `00590B6D.avif` |
 | Pepperoni Roll *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `pepperoni-roll.avif` |
-| Plan: Blue Ridge Caravan Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `00594A47.avif` |
+| Plan: Blue Ridge Caravan Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0059A038.avif` |
 | Plan: Blue Ridge Caravan Flag | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0057253C.avif` |
 
-## Activities - Safe And Sound (124)
+## Activities - Safe And Sound (123)
 
 | Item | Upload to | File name |
 |---|---|---|
@@ -4911,7 +4939,6 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Plan: Blue Devil Plushie | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00685506.avif` |
 | Plan: Blue Devil Statue | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006C5637.avif` |
 | Plan: Blue Ridge Rug | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006918BA.avif` |
-| Plan: Brahmin Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `00683119.avif` |
 | Plan: Brahmin Skin Rug | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00691D44.avif` |
 | Plan: Cartography Table | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00691D36.avif` |
 | Plan: Kids Brahmin Clock | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00691D35.avif` |
@@ -5007,9 +5034,9 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Plan: Bottle and Cappy Hoop Jump Statue | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006828E9.avif` |
 | Plan: Bottle and Cappy Painting Statue | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006828E6.avif` |
 | Plan: Bottle and Cappy Walking Globe Statue | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006828EA.avif` |
-| Plan: Bottle Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0067F16D.avif` |
+| Plan: Bottle Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0067AEBC.avif` |
 | Plan: Bottle Bot | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0066DBCE.avif` |
-| Plan: Cappy Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0067F16E.avif` |
+| Plan: Cappy Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0067AEBB.avif` |
 | Plan: Cappy Clapper | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0066C137.avif` |
 | Plan: Cappy Smasher Super Sledge Paint | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `00679A92.avif` |
 | Plan: Casual Underarmor Style | `wp-content/uploads/guide-images/plan-checklist/underarmour/` | `0089D6C2.avif` |
@@ -5026,7 +5053,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Plan: Nuka-Cola Balloons | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0067527C.avif` |
 | Plan: Nuka-Cola Crate Stalls | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0068212C.avif` |
 | Plan: Titan Plushie | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0067F3F8.avif` |
-| Plan: Ultracite Titan Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0067F16C.avif` |
+| Plan: Ultracite Titan Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0067AEBD.avif` |
 | Rad-X | `wp-content/uploads/guide-images/activities/seismic-activity/` | `00024057.avif` |
 | Rad-X: Diluted *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `diluted-rad-x.avif` |
 | Radscorpion Kebab *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `radscorpion-kebab.avif` |
@@ -5093,10 +5120,10 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Plan: Bottle and Cappy Hoop Jump Statue | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006828E9.avif` |
 | Plan: Bottle and Cappy Painting Statue | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006828E6.avif` |
 | Plan: Bottle and Cappy Walking Globe Statue | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006828EA.avif` |
-| Plan: Bottle Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0067F16D.avif` |
+| Plan: Bottle Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0067AEBC.avif` |
 | Plan: Bottle Bot | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0066DBCE.avif` |
 | Plan: Bottle Plush | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0067A92B.avif` |
-| Plan: Cappy Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0067F16E.avif` |
+| Plan: Cappy Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0067AEBB.avif` |
 | Plan: Cappy Clapper | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0066C137.avif` |
 | Plan: Cappy Plush | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0067A536.avif` |
 | Plan: Cappy Smasher Super Sledge Paint | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `00679A92.avif` |
@@ -5276,8 +5303,8 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 
 | Item | Upload to | File name |
 |---|---|---|
-| Lawbringer .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 | Nuclear Waste | `wp-content/uploads/guide-images/activities/the-path-to-enlightenment/` | `00069086.avif` |
+| Somerset Special .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 
 ## Activities - Tunnel Of Love (14)
 
@@ -5398,7 +5425,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 |---|---|---|
 | Loose Screws | `wp-content/uploads/guide-images/public-events/battle-bot/` | `00069081.avif` |
 
-## Public Events - Beasts Of Burden (120)
+## Public Events - Beasts Of Burden (119)
 
 | Item | Upload to | File name |
 |---|---|---|
@@ -5470,13 +5497,12 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Plan: Dirty Blue Ridge Sleeping Bag | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00691D11.avif` |
 | Plan: Fur Sleeping Bag | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00691D10.avif` |
 | Plan: Mounted Ogua Head | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006CCB5C.avif` |
-| Plan: Ogua Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `00691D45.avif` |
+| Plan: Ogua Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `00691D4C.avif` |
 | Plan: Ogua Curtain Door | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00691D08.avif` |
 | Plan: Ogua Egg | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006ABA11.avif` |
 | Plan: Ogua Hunter Hood | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `006CCB14.avif` |
 | Plan: Ogua Hunter Outfit | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `006CCB13_go.avif` |
 | Plan: Ogua Plushie | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0068ADF3.avif` |
-| Plan: Ogua Shell Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `006D7A0E.avif` |
 | Scouts' Life 1 | `wp-content/uploads/guide-images/public-events/beasts-of-burden/` | `00432CDC.avif` |
 | Scouts' Life 10 | `wp-content/uploads/guide-images/public-events/beasts-of-burden/` | `00432CF8.avif` |
 | Scouts' Life 2 | `wp-content/uploads/guide-images/public-events/beasts-of-burden/` | `00432CDF.avif` |
@@ -5665,7 +5691,6 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 
 | Item | Upload to | File name |
 |---|---|---|
-| .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 | Ammo44 | `wp-content/uploads/guide-images/public-events/distant-thunder/` | `0009221C.avif` |
 | Last Stand Brotherhood Recon Chest Piece | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `005DD339.avif` |
 | Plan: Excavator Cooling Vent | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `00338660.avif` |
@@ -5732,6 +5757,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Plan: T-60 Right Leg | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `00140C3F.avif` |
 | Plan: T-60 Rusty Knuckles | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `001CCE16.avif` |
 | Plan: T-60 Sensor Array | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `00181033.avif` |
+| The Fact Finder .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 
 ## Public Events - Distinguished Guests (59)
 
@@ -6042,22 +6068,22 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 
 | Item | Upload to | File name |
 |---|---|---|
-| .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 | Canned Meat Stew | `wp-content/uploads/guide-images/public-events/feed-the-people/` | `00343776.avif` |
+| Somerset Special .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 
 ## Public Events - Fertile Soil (2)
 
 | Item | Upload to | File name |
 |---|---|---|
-| .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 | Raw Fertilizer | `wp-content/uploads/guide-images/public-events/fertile-soil/` | `001BF730.avif` |
+| Somerset Special .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 
 ## Public Events - Fly Swatter (2)
 
 | Item | Upload to | File name |
 |---|---|---|
-| .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 | Aluminum Scrap | `wp-content/uploads/guide-images/public-events/fly-swatter/` | `0006907A.avif` |
+| Somerset Special .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 
 ## Public Events - Free Range (7)
 
@@ -6094,7 +6120,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Legendary Module | `wp-content/uploads/guide-images/public-events/gearing-up/` | `005652F9.avif` |
 | Plan: Deathclaw Tamer Hat | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `00844583.avif` |
 | Plan: Deathclaw Tamer Outfit | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `007F543B_go.avif` |
-| Plan: Egg Carrier Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `007F543C.avif` |
+| Plan: Egg Carrier Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `00805A9C.avif` |
 | Plan: Jackson Junkyard Sign | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `008409FC.avif` |
 | Plan: Mounted Armored Deathclaw Head | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0085541D.avif` |
 | Plan: Trash Cube | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `007FDC2A.avif` |
@@ -6390,14 +6416,13 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 
 | Item | Upload to | File name |
 |---|---|---|
-| .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 | Raw Wolf Meat | `wp-content/uploads/guide-images/public-events/leader-of-the-pack/` | `00110A48.avif` |
+| Somerset Special .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 
 ## Public Events - Line In The Sand (11)
 
 | Item | Upload to | File name |
 |---|---|---|
-| .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 | Ammo Fusion Core | `wp-content/uploads/guide-images/public-events/line-in-the-sand/` | `00075FE4.avif` |
 | Ammo44 | `wp-content/uploads/guide-images/public-events/line-in-the-sand/` | `0009221C.avif` |
 | Double Mutated Package | `wp-content/uploads/guide-images/public-events/line-in-the-sand/` | `00697589.avif` |
@@ -6407,6 +6432,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Mutated Package | `wp-content/uploads/guide-images/public-events/line-in-the-sand/` | `00697588.avif` |
 | Mutated Party Pack | `wp-content/uploads/guide-images/public-events/line-in-the-sand/` | `00698820.avif` |
 | Plan: Brotherhood Underarmor Style | `wp-content/uploads/guide-images/plan-checklist/underarmour/` | `0089D6C3.avif` |
+| The Fact Finder .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 | Treasury Note | `wp-content/uploads/guide-images/public-events/line-in-the-sand/` | `005A5443.avif` |
 
 ## Public Events - Lode Baring (28)
@@ -6511,10 +6537,10 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Plan: Bottle and Cappy Hoop Jump Statue | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006828E9.avif` |
 | Plan: Bottle and Cappy Painting Statue | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006828E6.avif` |
 | Plan: Bottle and Cappy Walking Globe Statue | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006828EA.avif` |
-| Plan: Bottle Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0067F16D.avif` |
+| Plan: Bottle Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0067AEBC.avif` |
 | Plan: Bottle Bot | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0066DBCE.avif` |
 | Plan: Cappy & Bottle Cowboy Cutouts | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0067AEE1.avif` |
-| Plan: Cappy Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0067F16E.avif` |
+| Plan: Cappy Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0067AEBB.avif` |
 | Plan: Cappy Clapper | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0066C137.avif` |
 | Plan: Cappy Smasher Super Sledge Paint | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `00679A92.avif` |
 | Plan: Deputy's Hat | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `00669386.avif` |
@@ -6566,7 +6592,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Plan: Crude Skull Mask | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `0076EF98.avif` |
 | Plan: Cultist Adept Hood | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0062C3A3.avif` |
 | Plan: Cultist Adept Robes | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0062C3A2.avif` |
-| Plan: Cultist Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0062FADB.avif` |
+| Plan: Cultist Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0062F458.avif` |
 | Plan: Cultist Enlightened Hood | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0062A5FC.avif` |
 | Plan: Cultist Enlightened Robes | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0062A5FB.avif` |
 | Plan: Cultist Eventide Hood | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `00755EA6.avif` |
@@ -6619,13 +6645,13 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Ammo45Caliber | `wp-content/uploads/guide-images/public-events/neurological-warfare/` | `0001F66A.avif` |
 | Ammo556 | `wp-content/uploads/guide-images/public-events/neurological-warfare/` | `0001F278.avif` |
 | Ammo5mm | `wp-content/uploads/guide-images/public-events/neurological-warfare/` | `0001F66C.avif` |
-| Laser *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `laser-gun.avif` |
+| Bulwark Secret Service Chest Piece | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `00568FA9.avif` |
 | Legendary Module | `wp-content/uploads/guide-images/public-events/neurological-warfare/` | `005652F9.avif` |
 | Plan: 10mm SMG Arctic Paint | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `00751EC6.avif` |
 | Plan: Casual Underarmor Style | `wp-content/uploads/guide-images/plan-checklist/underarmour/` | `0089D6C2.avif` |
 | Plan: Deathclaw Tamer Hat | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `00844583.avif` |
 | Plan: Deathclaw Tamer Outfit | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `007F543B_go.avif` |
-| Plan: Egg Carrier Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `007F543C.avif` |
+| Plan: Egg Carrier Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `00805A9C.avif` |
 | Plan: Goliath Braincase Display | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `007586A8.avif` |
 | Plan: Goliath Braincase Throne | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0075592C.avif` |
 | Plan: Goliath Claw Display | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00754FBB.avif` |
@@ -6645,7 +6671,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Plan: Shenandoah Turkey Poster | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0075380F.avif` |
 | Plan: Storm Goliath Figure | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `007586AE.avif` |
 | Plan: Taxidermy Thrasher | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0076E832.avif` |
-| Plan: Thrasher Plushie Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `006EB2AE.avif` |
+| Plan: Thrasher Plushie Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `006EB2B0.avif` |
 | Plan: Trash Cube | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `007FDC2A.avif` |
 | Plan: V63 Shock Baton Blueprint | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0075C209.avif` |
 | Plan: V63 Weather Machine Blueprint | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0075C203.avif` |
@@ -6665,7 +6691,6 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Rad-X | `wp-content/uploads/guide-images/public-events/neurological-warfare/` | `00024057.avif` |
 | Rad-X: Diluted *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `diluted-rad-x.avif` |
 | Red Terror Light Machine Gun *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `mg42-light-machine-gun.avif` |
-| Secret Settler Secret Service Chest Piece | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `00568FA9.avif` |
 | Shattered Grounds Handmade Rifle *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `handmade-gun.avif` |
 | Stable Cobalt Flux | `wp-content/uploads/guide-images/public-events/neurological-warfare/` | `002B9179.avif` |
 | Stable Crimson Flux | `wp-content/uploads/guide-images/public-events/neurological-warfare/` | `002B917F.avif` |
@@ -6677,6 +6702,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Ticket to Revenge Railway *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `railway-rifle.avif` |
 | Treasury Note | `wp-content/uploads/guide-images/public-events/neurological-warfare/` | `005A5443.avif` |
 | V63-BERTHA Tesla *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `tesla-rifle.avif` |
+| V63-OLGA Laser *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `laser-gun.avif` |
 
 ## Public Events - One Violent Night (15)
 
@@ -6809,7 +6835,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 
 | Item | Upload to | File name |
 |---|---|---|
-| .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
+| Somerset Special .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 
 ## Public Events - Project Paradise (122)
 
@@ -7178,10 +7204,10 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Blue Ridge Caravan Gas Mask | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `00594A46.avif` |
 | Blue Ridge Caravan Outfit | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `00590B6D.avif` |
 | Pepperoni Roll *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `pepperoni-roll.avif` |
-| Plan: Blue Ridge Caravan Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `00594A47.avif` |
+| Plan: Blue Ridge Caravan Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0059A038.avif` |
 | Plan: Blue Ridge Caravan Flag | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0057253C.avif` |
 
-## Public Events - Safe And Sound (125)
+## Public Events - Safe And Sound (124)
 
 | Item | Upload to | File name |
 |---|---|---|
@@ -7252,7 +7278,6 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Plan: Blue Devil Plushie | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00685506.avif` |
 | Plan: Blue Devil Statue | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006C5637.avif` |
 | Plan: Blue Ridge Rug | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006918BA.avif` |
-| Plan: Brahmin Backpack | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `00683119.avif` |
 | Plan: Brahmin Skin Rug | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00691D44.avif` |
 | Plan: Cartography Table | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00691D36.avif` |
 | Plan: Kids Brahmin Clock | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00691D35.avif` |
@@ -7348,9 +7373,9 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Plan: Bottle and Cappy Hoop Jump Statue | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006828E9.avif` |
 | Plan: Bottle and Cappy Painting Statue | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006828E6.avif` |
 | Plan: Bottle and Cappy Walking Globe Statue | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006828EA.avif` |
-| Plan: Bottle Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0067F16D.avif` |
+| Plan: Bottle Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0067AEBC.avif` |
 | Plan: Bottle Bot | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0066DBCE.avif` |
-| Plan: Cappy Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0067F16E.avif` |
+| Plan: Cappy Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0067AEBB.avif` |
 | Plan: Cappy Clapper | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0066C137.avif` |
 | Plan: Cappy Smasher Super Sledge Paint | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `00679A92.avif` |
 | Plan: Casual Underarmor Style | `wp-content/uploads/guide-images/plan-checklist/underarmour/` | `0089D6C2.avif` |
@@ -7367,7 +7392,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Plan: Nuka-Cola Balloons | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0067527C.avif` |
 | Plan: Nuka-Cola Crate Stalls | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0068212C.avif` |
 | Plan: Titan Plushie | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0067F3F8.avif` |
-| Plan: Ultracite Titan Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0067F16C.avif` |
+| Plan: Ultracite Titan Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0067AEBD.avif` |
 | Rad-X | `wp-content/uploads/guide-images/public-events/seismic-activity/` | `00024057.avif` |
 | Rad-X: Diluted *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `diluted-rad-x.avif` |
 | Radscorpion Kebab *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `radscorpion-kebab.avif` |
@@ -7434,10 +7459,10 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Plan: Bottle and Cappy Hoop Jump Statue | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006828E9.avif` |
 | Plan: Bottle and Cappy Painting Statue | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006828E6.avif` |
 | Plan: Bottle and Cappy Walking Globe Statue | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006828EA.avif` |
-| Plan: Bottle Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0067F16D.avif` |
+| Plan: Bottle Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0067AEBC.avif` |
 | Plan: Bottle Bot | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0066DBCE.avif` |
 | Plan: Bottle Plush | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0067A92B.avif` |
-| Plan: Cappy Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0067F16E.avif` |
+| Plan: Cappy Backpack Flair | `wp-content/uploads/guide-images/plan-checklist/backpack/` | `0067AEBB.avif` |
 | Plan: Cappy Clapper | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0066C137.avif` |
 | Plan: Cappy Plush | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0067A536.avif` |
 | Plan: Cappy Smasher Super Sledge Paint | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `00679A92.avif` |
@@ -7617,8 +7642,8 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 
 | Item | Upload to | File name |
 |---|---|---|
-| .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 | Nuclear Waste | `wp-content/uploads/guide-images/public-events/the-path-to-enlightenment/` | `00069086.avif` |
+| Somerset Special .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 
 ## Public Events - Tunnel Of Love (14)
 
