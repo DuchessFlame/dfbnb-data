@@ -71,12 +71,13 @@ HOLOTAPE_IMAGE = shared_images.HOLOTAPE_IMAGE      # the site-wide holotape pict
 # Radio row picture by who speaks in it (voice type EditorID -> file). The
 # Debunker's is his own talking-head portrait from interface/vocharacteranim.swf
 # (frame label SDOW_NPCM_Debunker), the one the HUD shows when he talks.
-# The Reborn Slasher wears the Atom Shop Pint-Sized Slasher Costume + Mask
-# (his outfit list SDOW_LL_Outfit_SlasherBoss_Normal), so his picture is that
-# costume's Atom Shop art, already on the site (full path = used as is).
+# The Reborn Slasher: his Pint-Sized Slasher power armor helmet art (the paint
+# his quest rewards), Duchess's pick 22 Oct 2026. In the files he wears the
+# Atom Shop costume + mask (SDOW_LL_Outfit_SlasherBoss_Normal). A full
+# /wp-content/... path is used as is.
 SPEAKER_IMAGE = {
     "SDOW_NPCM_Debunker": "debunker-news.avif",
-    "SDOW_NPCM_SlasherImpostor": "/wp-content/uploads/guide-images/atom-shop/bundle-images/ATX_Apparel_Outfit_PintsizedSlasher_MP4.avif",
+    "SDOW_NPCM_SlasherImpostor": "reborn-slasher.avif",
 }
 DEV_RX = re.compile(r"^(zzz|cut_|del_|post_)", re.I)
 RECIPE_KW = "ObjectTypeRecipe"
