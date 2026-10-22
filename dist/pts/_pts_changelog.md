@@ -920,6 +920,9 @@ _Couldn't key this file to records; contents differ._
 **Added (1)**
 - Corn Dolly  `ATX_Plushie_CornDolly_Misc`
 
+## `collectables_slasher_lore.json`  ·  changed (structural)
+_Couldn't key this file to records; contents differ._
+
 ## `collectrons.json`  ·  +0 / -0 / ~28
 
 **Changed (28)**
@@ -1998,7 +2001,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi  `SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi` — fields: imageUrl
 - SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat  `SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat` — fields: imageUrl
 
-## `plan_master.json`  ·  +309 / -107 / ~1585
+## `plan_master.json`  ·  +309 / -107 / ~1343
 
 **Added (309)**
 - Plan: Brain In a Jar  `PLAN_008AC859`
@@ -2086,7 +2089,7 @@ _Couldn't key this file to records; contents differ._
 - Cursed Harpoon Gun  `UNIQ_CURSED_HARPOON_GUN`
 - …and 67 more
 
-**Changed (1585)**
+**Changed (1343)**
 - Mr. Handy Player Icon  `NWREWARD_003FBB46` — fields: image_source, images
 - Pocket Watch Player Icon  `NWREWARD_003FBB49` — fields: image_source, images
 - MegaSloth Player Icon  `NWREWARD_003FBB4B` — fields: image_source, images
@@ -2127,7 +2130,7 @@ _Couldn't key this file to records; contents differ._
 - Plan: Lead Lined Combat Armor Chest  `PLAN_000224FC` — fields: obtain_ledger, obtain_routes, retired_routes
 - Plan: BoS Combat Armor Chest Piece  `PLAN_000224FD` — fields: obtain_ledger, obtain_routes, retired_routes
 - Plan: Cushioned Combat Armor Legs  `PLAN_00022E98` — fields: obtain_ledger, obtain_routes, retired_routes
-- …and 1545 more
+- …and 1303 more
 
 ## `plan_master_unresolved.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
