@@ -1214,11 +1214,15 @@ def exp_refrlvli(esm):
 # ------------------------------------------------------------- QUST2 _RewardQuests --
 def exp_qust2_rq(esm):
     """ExportQUST2ToTSV.pas, _RewardQuests file only: every quest with a reward
-    stage (QRWD), one row per objective, log entry, stage comment and reward.
+    stage (QRWD) or a "(Seasonal)" name (event trackers), one row per objective,
+    log entry, stage comment and reward.
     Read by src/plan_quest_guides.py (the quest steps on the plan pages)."""
     out = ["QuestFormID\tQuestEDID\tQuestName\tRowKind\tIndex\tText\tLink"]
     for r in R.xedit_order(esm, "QUST"):
-        if not any(k == "QRWD" for k, _ in r.subs):
+        # Reward quests, plus seasonal tracker quests ("(Seasonal) The Slasher"):
+        # their objectives are the event's phases (src/slasher_guide.py).
+        if not (any(k == "QRWD" for k, _ in r.subs)
+                or esm.lstring(r.first("FULL")).startswith("(Seasonal)")):
             continue
         head = "%08X\t%s\t%s" % (r.fid, cc(r.edid), cc(esm.lstring(r.first("FULL"))))
         stage, in_obj, objs = None, False, []

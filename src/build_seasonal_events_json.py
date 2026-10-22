@@ -5364,6 +5364,17 @@ def main():
     except Exception as e:
         print("  [ERROR] treasure-hunter-farming-map failed: {}".format(e))
 
+    # The Slasher Guide (phases, story quests, challenges, finale rewards — all
+    # from the game files; see src/slasher_guide.py)
+    print("\n[build_seasonal_events] Processing: The Slasher Guide")
+    try:
+        import slasher_guide
+        _slg = slasher_guide.build(TSV_ROOT)
+        for _k in (slasher_guide.SLUG, slasher_guide.URL, slasher_guide.URL.rstrip("/")):
+            output["byPage"][_k] = _slg
+    except Exception as e:
+        print("  [ERROR] the-slasher-guide failed: {}".format(e))
+
     DIST_DIR.mkdir(parents=True, exist_ok=True)
     out_path = DIST_DIR / "seasonal_events_rewards_by_page.json"
     with open(out_path, "w", encoding="utf-8") as f:
