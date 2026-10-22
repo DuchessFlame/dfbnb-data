@@ -402,6 +402,7 @@ class Build:
             "type": "slasher-lore",
             "count": sum(len(g["items"]) for g in groups),
             "groups": groups,
+            "maps": lore_maps(),
         }
 
     @staticmethod
@@ -429,6 +430,44 @@ class Build:
         if transcript is not None:
             it["transcript"] = transcript
         return it
+
+
+# Maps drawn by src/render_slasher_lore_maps.py (on the PC) and uploaded to
+# IMAGE_DIR. Only files on data/server_listing.tsv are linked, so the page never
+# points at a map that isn't up yet - after the upload, refresh the listing.
+SERVER_LISTING = os.path.join(REPO, "data", "server_listing.tsv")
+MAP_FULL = "slasher-lore-map.jpg"
+MAP_NUMBERED = "slasher-lore-map_numbered.jpg"
+MAP_TILE_SUFFIX = "-lore-map.jpg"
+REGION_NAMES = {"the-forest": "The Forest", "forest": "The Forest", "ash-heap": "Ash Heap",
+                "savage-divide": "Savage Divide", "the-mire": "The Mire",
+                "cranberry-bog": "Cranberry Bog", "toxic-valley": "Toxic Valley",
+                "skyline-valley": "Skyline Valley", "burning-springs": "Burning Springs"}
+
+
+def lore_maps(listing=SERVER_LISTING):
+    """{full, numbered, regions:[{name,url}]} for the maps that are on the server."""
+    rel = IMAGE_DIR.replace("/wp-content/uploads/", "")
+    have = set()
+    if os.path.exists(listing):
+        with open(listing, encoding="utf-8") as fh:
+            for line in fh:
+                if line.startswith(rel):
+                    have.add(line.split("\t", 1)[0][len(rel):])
+    out = {}
+    if MAP_FULL in have:
+        out["full"] = IMAGE_DIR + MAP_FULL
+    if MAP_NUMBERED in have:
+        out["numbered"] = IMAGE_DIR + MAP_NUMBERED
+    regions = []
+    for f in sorted(have):
+        if f.endswith(MAP_TILE_SUFFIX) and f not in (MAP_FULL, MAP_NUMBERED):
+            slug = f[:-len(MAP_TILE_SUFFIX)]
+            regions.append({"name": REGION_NAMES.get(slug, slug.replace("-", " ").title()),
+                            "url": IMAGE_DIR + f})
+    if regions:
+        out["regions"] = sorted(regions, key=lambda r: r["name"].replace("The ", ""))
+    return out
 
 
 def main(argv=None):
