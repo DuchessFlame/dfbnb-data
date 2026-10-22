@@ -16,6 +16,11 @@ straight from the game files, so these no longer need xEdit:
     SPEL    SPEL_Export_<Month>_<Year>_HEADER/_EFFECTS/_CONDITIONS.tsv  (ExportSPELToCSV.pas)
     GLOB    GLOB_Export_<Month>_<Year>.tsv          (ExportGLOBToCSV.pas)
     AVIF    AVIF_Export_<Month>_<Year>.tsv          (ExportAVIFToTSV.pas)
+    KYWD    KYWD_Export_<Month>_<Year>.tsv + _Refs  (ExportKYWDToCSV.pas)
+    CURV    CURV_Export_<Month>_<Year>_CURV.tsv      (ExportCURVToTSV.pas; points: extract_curvetables.py + CI)
+    CMPO    CMPO_Export_<Month>_<Year>.tsv          (ExportCMPOToTSV.pas)
+    RESO    RESO_Export_<Month>_<Year>.tsv          (ExportRESOToTSV.pas)
+    BPTD    BPTD_Export_<Month>_<Year>.tsv          (ExportBPTDToTSV.pas)
     MISC    MISC_Export_<Month>_<Year>.tsv          (ExportMISCToCSV.pas)
     NPC     NPC_Export_<Month>_<Year>.tsv + _PRPS + _Refs  (ExportNPCToTSV.pas)
     NPC2    NPC2_Vendors_<Month>_<Year>.tsv + _Placements, _Currencies, _Factions,
@@ -30,7 +35,7 @@ straight from the game files, so these no longer need xEdit:
             ExportQUST2ToTSV.pas - only that one file; the .pas stays the manual
             backup and still writes all six)
 
-GLOB, AVIF, MISC and NPC list every record that points at each row ("Referenced By"),
+GLOB, AVIF, KYWD, CURV, MISC and NPC list every record that points at each row ("Referenced By"),
 worked out by esm_refs.py in one ~40 s scan (needs numpy). Known gap: xEdit
 stops reading some quests part-way through their objective/alias conditions, so
 its lists leave out those quests; these lists include them.
@@ -435,6 +440,193 @@ def exp_avif(esm):
         rows.append((["%08X" % r.fid, cc(r.edid), cc(esm.lstring(r.full)), cc(esm.lstring(r.first("DESC"))),
                       cc(esm.lstring(r.first("ANAM"))), str(len(refs))], refs))
     return _pad_refs(rows, ["FormID", "EDID", "FULL", "DESC", "ANAM", "ReferencedByCount"])
+
+
+# ------------------------------------------------------------- KYWD ------
+# xEdit's names for KYWD TNAM (wbKeywordTypeEnum); anything past the list prints as its number
+KYWD_TYPES = ["None", "Component Tech Level", "Attach Point", "Component Property",
+              "Instantiation Filter", "Mod Association", "Sound", "Anim Archetype",
+              "Function Call", "Recipe Filter", "Attraction Type", "Dialogue Subtype",
+              "Quest Target", "Anim Flavor", "Anim Gender", "Anim Face", "Quest Group",
+              "Anim Injured", "Dispel Effect", "Mod Attribute Name", "Mod Attribute Descriptor",
+              "UI Icon Linkage Name", "Crafting Function", "Item Quality", "Component Quantity",
+              "Atomic Shop Category", "Photomode Category", "Atomic Shop Filter", "Event Header",
+              "Loot Bag", "Item Rarity", "Item Type", "Ghoul"]
+KYWD_SKIP = 0x00195411   # MultirefLOD - 44,000+ refs of system bloat; the .pas skips it too
+
+
+def _xedit_bits(v, empty_width=0):
+    """xEdit's edit value of a flags field: one 0/1 per bit, lowest bit first,
+    up to the highest bit that is set ('' when none - or empty_width zeros)."""
+    if not v:
+        return "0" * empty_width
+    return "".join("1" if v >> i & 1 else "0" for i in range(v.bit_length()))
+
+
+def _zstr(raw):
+    """A plain (not localised) string. Most are UTF-8; a few notes were typed in
+    Windows-1252 (e.g. a curly apostrophe), which xEdit reads that way too."""
+    if not raw:
+        return ""
+    raw = raw.rstrip(b"\0")
+    try:
+        return raw.decode("utf-8")
+    except UnicodeDecodeError:
+        return raw.decode("cp1252", "replace")
+
+
+def exp_kywd(esm):
+    """ExportKYWDToCSV.pas - core sheet and _Refs (one row per Referenced By entry)."""
+    core = ["FormID\tEDID\tFULL_Name\tNNAM_DisplayName\tTNAM_Type\tCNAM_Color\tDNAM_Notes\t"
+            "FNAM_Unknown\tXALG_Flags\tFormTags\tENAM_IconName\tDATA_AttractionRule\t"
+            "NTWK_NetworkMarker\tReferencedByCount"]
+    refs = ["KeywordFormID\tKeywordEDID\tRefIndex\tRefFormID\tRefEDID\tRefSignature\tRefName"]
+    _dial_index(esm)              # dialogue topics sit outside the shared index
+    dial_full = esm._dial_full
+    for r in R.xedit_order(esm, "KYWD"):
+        if r.fid == KYWD_SKIP:
+            continue
+        fid, ed = "%08X" % r.fid, cc(r.edid)
+        t = r.first("TNAM")
+        tnam = ""
+        if t is not None and len(t) >= 4:
+            n = struct.unpack_from("<I", t)[0]
+            tnam = KYWD_TYPES[n] if n < len(KYWD_TYPES) else str(n)
+        f = r.first("FNAM")
+        x = r.first("XALG")
+        xalg = _xedit_bits(int.from_bytes(x, "little")) if x else ""
+        # CNAM (a colour struct), DATA and NTWK print blank from the .pas's
+        # GetElementEditValues - kept blank to match.
+        rl = esm.refby.get(r.fid, ())
+        core.append("\t".join([
+            fid, ed, cc(esm.lstring(r.full)), cc(_zstr(r.first("NNAM"))), tnam, "",
+            cc(_zstr(r.first("DNAM"))), " ".join("%02X" % b for b in f) if f else "",
+            xalg, _xedit_bits(r.flags, 64), cc(_zstr(r.first("ENAM"))), "", "", str(len(rl))]))
+        for i, h in enumerate(rl):
+            sig, red = esm.refinfo[h]
+            name = esm.lstring(dial_full.get(h)) if sig == "DIAL" else esm.full_of(h)
+            refs.append("\t".join([fid, ed, str(i), "%08X" % h, cc(red), sig, cc(name)]))
+    return {"": core, "_Refs": refs}
+
+
+# ------------------------------------------------------------- CURV ------
+def exp_curv(esm):
+    """ExportCURVToTSV.pas - the records file (_CURV). The X/Y points are not in the
+    record: extract_curvetables.py refreshes the curve JSONs from Startup.ba2 and
+    CI's build_curv_points_tsv.py makes the _POINTS file from them."""
+    rows = []
+    for r in R.xedit_order(esm, "CURV"):
+        path = cc(_zstr(r.first("JASF")))
+        refs = _refcells(esm, r.fid)
+        rows.append((["%08X" % r.fid, cc(r.edid), path, path.replace("/", "\\").rsplit("\\", 1)[-1],
+                      str(len(refs))], refs))
+    return {"_CURV": _pad_refs(rows, ["FormID", "EDID", "JASF_Path", "JsonFileName",
+                                      "ReferencedByCount"], prefix="Ref_")}
+
+
+# ------------------------------------------------------------- CMPO ------
+def exp_cmpo(esm):
+    """ExportCMPOToTSV.pas - components: scrap item, scrap scalar, quantity tiers."""
+    out = ["CMPO_FormID\tCMPO_EDID\tFULL\tScrapItem_FormID\tScrapItem_EDID\tScrapItem_FULL\t"
+           "ModScrapScalar_FormID\tModScrapScalar_EDID\tCVPA\tReferencedByCount"]
+
+    def link(raw):
+        fid = struct.unpack_from("<I", raw)[0] if raw and len(raw) >= 4 else 0
+        return _lk(esm, fid)
+
+    for r in R.xedit_order(esm, "CMPO"):
+        scrap, scalar = link(r.first("MNAM")), link(r.first("GNAM"))
+        # CVPA: 12-byte entries (keyword, count, curve). xEdit shows the array
+        # sorted on the keyword's FormID; entries whose keyword won't resolve are skipped.
+        cv = r.first("CVPA") or b""
+        ents = sorted((struct.unpack_from("<III", cv, i * 12) for i in range(len(cv) // 12)),
+                      key=lambda t: t[0])
+        tiers = []
+        for kw, n, curve in ents:
+            k = _lk(esm, kw)
+            if k is None:
+                continue
+            ced = cc(esm.edid_of(curve)) if _lk(esm, curve) is not None else ""
+            tiers.append("%s:%d:%s" % (cc(esm.edid_of(k)), n, ced))
+        out.append("\t".join([
+            "%08X" % r.fid, cc(r.edid), cc(esm.lstring(r.full)),
+            _hex(scrap), esm.edid_of(scrap) if scrap else "", cc(esm.full_of(scrap)) if scrap else "",
+            _hex(scalar), esm.edid_of(scalar) if scalar else "",
+            "|".join(tiers), str(len(esm.refby.get(r.fid, ())))]))
+    return out
+
+
+# ------------------------------------------------------------- RESO ------
+def exp_reso(esm):
+    """ExportRESOToTSV.pas - workshop resources (actor value, produce list, interval)."""
+    rows = []
+    for r in R.xedit_order(esm, "RESO"):
+        refs = _refcells(esm, r.fid)
+        rows.append((["%08X" % r.fid, cc(r.edid)] +
+                     [cc(_link(esm, r.first(s))) if r.first(s) is not None else "" for s in ("NAM1", "NAM2", "NAM4")] +
+                     [str(len(refs))], refs))
+    return _pad_refs(rows, ["FormID", "EDID", "NAM1_ActorValue", "NAM2_Produce", "NAM4_Interval",
+                            "ReferencedByCount"])
+
+
+# ------------------------------------------------------------- BPTD ------
+BPTD_PART_TYPES = ["Torso", "Head1", "Eye", "LookAt", "Fly Grab", "Head2", "LeftArm1", "LeftArm2",
+                   "RightArm1", "RightArm2", "LeftLeg1", "LeftLeg2", "LeftLeg3", "RightLeg1",
+                   "RightLeg2", "RightLeg3", "Brain", "Weapon", "Root", "COM", "Pelvis", "Camera",
+                   "Offset Root", "Left Foot", "Right Foot", "Face Target Source"]
+BPTD_FLAGS = ["Severable", "Hit Reaction", "Hit Reaction - Default", "Explodable",
+              "Cut - Meat Cap Sever", "On Cripple", "Explodable - Absolute Chance",
+              "Show Cripple Geometry"]
+
+
+def _strip_tsv(s):
+    """The BPTD .pas StripTSV: tabs and line breaks to spaces, no trimming."""
+    return (s or "").replace("\t", " ").replace("\r", " ").replace("\n", " ")
+
+
+def exp_bptd(esm):
+    """ExportBPTDToTSV.pas - one row per body part, in xEdit's 'Body Parts (sorted)'
+    order (VATS target, upper-case text), with the races that use the record."""
+    out = ["BPTD_FormID\tBPTD_EDID\tModel\tPartIndex\tBPTN_PartName\tBPNN_PartNode\t"
+           "BPNT_VATSTarget\tDamageMult\tPartType\tHealthPercent\tActorValue_FormID\t"
+           "ActorValue_EDID\tActorValue_FULL\tToHitChance\tExplosionChancePct\t"
+           "NonLethalDismemberChance\tFlags\tLimbReplacementScale\tRefBy_RACE_FormIDs\t"
+           "RefBy_RACE_EDIDs\tRefBy_RACE_Names"]
+    for r in R.xedit_order(esm, "BPTD"):
+        # a part starts at its name (BPTN) - or at its node (BPNN) when the name is missing
+        parts, cur = [], None
+        for k, v in r.subs:
+            if k == "BPTN" or (k == "BPNN" and (cur is None or "BPNN" in cur)):
+                cur = {}
+                parts.append(cur)
+            if cur is not None:
+                cur.setdefault(k, v)
+        if not parts:
+            # xEdit still shows one empty part (all zero) for a record with none
+            parts = [{"BPND": bytes(113)}]
+        parts.sort(key=lambda p: _xedit_text_key(_zstr(p.get("BPNT"))))
+        races = [h for h in esm.refby.get(r.fid, ()) if esm.refinfo[h][0] == "RACE"]
+        race_cols = [" | ".join("%08X" % h for h in races),
+                     " | ".join(_strip_tsv(esm.refinfo[h][1]) for h in races),
+                     " | ".join(_strip_tsv(esm.full_of(h)) for h in races)]
+        head = ["%08X" % r.fid, _strip_tsv(r.edid), _strip_tsv(_zstr(r.first("MODL")))]
+        for i, p in enumerate(parts):
+            d = p.get("BPND")
+            vals = [""] * 11
+            if d and len(d) >= 74:
+                fl, pt, hp = d[64], d[65], d[66]
+                av = _lk(esm, struct.unpack_from("<I", d, 67)[0])
+                vals = [C.fmt_float(struct.unpack_from("<f", d, 0)[0]),
+                        BPTD_PART_TYPES[pt] if pt < len(BPTD_PART_TYPES) else "<Unknown: %d>" % pt,
+                        str(hp), _hex(av), _strip_tsv(esm.edid_of(av)) if av else "",
+                        _strip_tsv(esm.full_of(av)) if av else "",
+                        str(d[71]), str(d[72]), str(d[73]),
+                        ", ".join(BPTD_FLAGS[b] for b in range(8) if fl >> b & 1),
+                        C.fmt_float(struct.unpack_from("<f", d, 60)[0])]
+            out.append("\t".join(head + [str(i), _strip_tsv(esm.lstring(p.get("BPTN"))),
+                                          _strip_tsv(_zstr(p.get("BPNN"))), _strip_tsv(_zstr(p.get("BPNT")))]
+                                  + vals + race_cols))
+    return out
 
 
 # ------------------------------------------------------------- MISC ------
@@ -973,6 +1165,7 @@ def _dial_index(esm):
         return esm._dial
     import zlib
     out = {}
+    fulls = {}   # raw FULL of each topic (esm.lstring() it) - for the KYWD _Refs names
     with open(esm.esm_path, "rb") as f:
         size = os.path.getsize(esm.esm_path)
         f.seek(24 + struct.unpack("<I", f.read(24)[4:8])[0])
@@ -996,6 +1189,9 @@ def _dial_index(esm):
                     ln = struct.unpack_from("<H", data, 4)[0]
                     ed = data[6:6 + ln].rstrip(b"\0").decode("utf-8", "replace")
                 out[fid] = ed
+                full = R.main_full(R._parse_subs(data))
+                if full is not None:
+                    fulls[fid] = full
 
         while f.tell() < size:
             hdr = f.read(24)
@@ -1005,6 +1201,7 @@ def _dial_index(esm):
             else:
                 f.seek(ds - 24, 1)
     esm._dial = out
+    esm._dial_full = fulls
     return out
 
 
@@ -1406,7 +1603,7 @@ def _lore_notes(esm):
     return out + [x for _, x in rows]
 
 
-NEEDS_REFS = {"GLOB", "AVIF", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
+NEEDS_REFS = {"GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
 # exports that need Referenced By for more than their own records
 REF_TARGETS = {"NPC2": npc2_ref_targets, "MISC2": misc2_ref_targets, "ACTI2": acti2_ref_targets}
 
@@ -1423,6 +1620,11 @@ EXPORTS = {
     "SPEL": (["SPEL"], "SPEL_Export", exp_spel),
     "GLOB": (["GLOB"], "GLOB_Export", exp_glob),
     "AVIF": (["AVIF"], "AVIF_Export", exp_avif),
+    "KYWD": (["KYWD"], "KYWD_Export", exp_kywd),
+    "CURV": (["CURV"], "CURV_Export", exp_curv),
+    "CMPO": (["CMPO"], "CMPO_Export", exp_cmpo),
+    "RESO": (["RESO"], "RESO_Export", exp_reso),
+    "BPTD": (["BPTD"], "BPTD_Export", exp_bptd),
     "MISC": (["MISC"], "MISC_Export", exp_misc),
     "NPC": (["NPC_"], "NPC_Export", exp_npc),
     "NPC2": (["NPC_", "FACT", "CNCY", "LCTN"], "NPC2_Vendors", exp_npc2),

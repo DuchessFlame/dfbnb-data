@@ -179,9 +179,11 @@ def main(argv=None):
 
         # Optional clean: delete json files that won't be replaced (true mirror).
         if args.clean and target.exists():
-            keep = {(target / r).resolve() for r in fresh}
+            # compared without case: Windows folders ignore it, and the game spells
+            # some folders differently from the repo (worldpets vs WorldPets)
+            keep = {str((target / r).resolve()).lower() for r in fresh}
             for existing in target.rglob("*.json"):
-                if existing.resolve() not in keep:
+                if str(existing.resolve()).lower() not in keep:
                     removed += 1
                     if not args.dry_run:
                         existing.unlink()
