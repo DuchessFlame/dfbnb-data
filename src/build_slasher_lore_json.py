@@ -392,8 +392,11 @@ class Build:
             if its:
                 kind_order = {"Radio Broadcast": 0, "Holotape": 1, "Note": 2}
                 its.sort(key=lambda i: (kind_order.get(i["kind"], 9), i["name"]))
-                groups.append({"key": k, "label": self.phase_label(k) if k != ANY_KEY else ANY_LABEL,
-                               "items": its})
+                g = {"key": k, "label": self.phase_label(k) if k != ANY_KEY else ANY_LABEL}
+                if slasher_guide.PLAIN_WORDS.get(k):
+                    g["sub"] = slasher_guide.PLAIN_WORDS[k]   # plain-words line under the heading
+                g["items"] = its
+                groups.append(g)
         return {
             "generatedAt": datetime.now(timezone.utc).isoformat(),
             "type": "slasher-lore",

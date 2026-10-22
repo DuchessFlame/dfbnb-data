@@ -61,6 +61,17 @@ QUEST_FOR_PHASE = {
 # the repeatable side quest shown under a phase
 EXTRA_QUESTS = {"phase-2": ["SDOW_SQ01_Graves_Repeatable"]}
 
+# What each story-quest phase actually is, in words readers know. The quest
+# names ("The Slasher: Masked Truth") mean nothing to most players. Same words as
+# the Slasher Guide's kicker lines (df-bnb-seasonal-events.js) — keep in step.
+# Phases 4 and 5 are already named after their event, so they need none.
+PLAIN_WORDS = {
+    "phase-1": "Pint-Sized Slasher Masks",
+    "phase-2": "Daily Ops and Disturbed Graves",
+    "phase-3": "Infestations",
+    "finale": "Head Hunts",
+}
+
 # first matching word in a challenge's EditorID -> phase key
 CHALLENGE_PHASE = [
     ("SlasherClue", "phase-1"),
