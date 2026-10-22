@@ -2249,7 +2249,7 @@ _Couldn't key this file to records; contents differ._
 ## `titles_data.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `titles_player.json`  ·  +22 / -0 / ~41
+## `titles_player.json`  ·  +22 / -0 / ~40
 
 **Added (22)**
 - ATX_PlayerTitles_Prefix_Sudsy  `ATX_PlayerTitles_Prefix_Sudsy`
@@ -2275,14 +2275,13 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S27_PlayerTitles_Suffix_Competitor  `SCORE_S27_PlayerTitles_Suffix_Competitor`
 - zzz_HTO_PlayerTitles_Both_Terminated  `zzz_HTO_PlayerTitles_Both_Terminated`
 
-**Changed (41)**
+**Changed (40)**
 - ATX_PlayerTitles_Prefix_AdVictoriam  `ATX_PlayerTitles_Prefix_AdVictoriam` — fields: releaseDate, releaseLabel, releaseYear, source
 - ATX_PlayerTitles_Prefix_Contessa  `ATX_PlayerTitles_Prefix_Contessa` — fields: releaseDate, releaseLabel, source
 - ATX_PlayerTitles_Prefix_Gleaming  `ATX_PlayerTitles_Prefix_Gleaming` — fields: source
 - ATX_PlayerTitles_Prefix_Tribune  `ATX_PlayerTitles_Prefix_Tribune` — fields: releaseDate, releaseLabel, releaseYear, source
 - ATX_PlayerTitles_Suffix_Buoy  `ATX_PlayerTitles_Suffix_Buoy` — fields: releaseDate, releaseLabel, source
 - ATX_PlayerTitles_Suffix_Technician  `ATX_PlayerTitles_Suffix_Technician` — fields: source
-- MILE_PlayerTitles_Suffix_CaravanInvestor  `MILE_PlayerTitles_Suffix_CaravanInvestor` — fields: cutContent, howToObtain, source
 - PlayerTitles_Suffix_Researcher  `PlayerTitles_Suffix_Researcher` — fields: howToObtain
 - PlayerTitles_Suffix_Zookeeper  `PlayerTitles_Suffix_Zookeeper` — fields: howToObtain
 - SCORE_MiniSeason_2025_AppalachianOutlaws_PlayerTitles_Suffix_Outlaw  `SCORE_MiniSeason_2025_AppalachianOutlaws_PlayerTitles_Suffix_Outlaw` — fields: imageUrl, images
@@ -2315,8 +2314,8 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S25_PlayerTitles_Prefix_Outdoor  `SCORE_S25_PlayerTitles_Prefix_Outdoor` — fields: imageUrl, images
 - SCORE_S25_PlayerTitles_Suffix_Globetrotter  `SCORE_S25_PlayerTitles_Suffix_Globetrotter` — fields: imageUrl, images
 - SCORE_S25_PlayerTitles_Suffix_Pioneer  `SCORE_S25_PlayerTitles_Suffix_Pioneer` — fields: imageUrl, images
-- SFS09_PlayerTitles_Suffix_Manager  `SFS09_PlayerTitles_Suffix_Manager` — fields: howToObtain
-- …and 1 more
+- SFS09_PlayerTitles_Suffix_Manager  `SFS09_PlayerTitles_Suffix_Manager` — fields: debug, howToObtain
+- SFS09_PlayerTitles_Suffix_Tamer  `SFS09_PlayerTitles_Suffix_Tamer` — fields: howToObtain
 
 ## `titles_player_generator.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
