@@ -71,7 +71,13 @@ HOLOTAPE_IMAGE = shared_images.HOLOTAPE_IMAGE      # the site-wide holotape pict
 # Radio row picture by who speaks in it (voice type EditorID -> file). The
 # Debunker's is his own talking-head portrait from interface/vocharacteranim.swf
 # (frame label SDOW_NPCM_Debunker), the one the HUD shows when he talks.
-SPEAKER_IMAGE = {"SDOW_NPCM_Debunker": "debunker-news.avif"}
+# The Reborn Slasher wears the Atom Shop Pint-Sized Slasher Costume + Mask
+# (his outfit list SDOW_LL_Outfit_SlasherBoss_Normal), so his picture is that
+# costume's Atom Shop art, already on the site (full path = used as is).
+SPEAKER_IMAGE = {
+    "SDOW_NPCM_Debunker": "debunker-news.avif",
+    "SDOW_NPCM_SlasherImpostor": "/wp-content/uploads/guide-images/atom-shop/bundle-images/ATX_Apparel_Outfit_PintsizedSlasher_MP4.avif",
+}
 DEV_RX = re.compile(r"^(zzz|cut_|del_|post_)", re.I)
 RECIPE_KW = "ObjectTypeRecipe"
 
@@ -339,7 +345,8 @@ class Build:
                 radio.setdefault(k, []).append((int(r.get("LineOrder") or 0), line))
                 sp = _ref(r.get("Speaker"))
                 if sp and sp[1] in SPEAKER_IMAGE:
-                    radio_img.setdefault(k, IMAGE_DIR + SPEAKER_IMAGE[sp[1]])
+                    f = SPEAKER_IMAGE[sp[1]]
+                    radio_img.setdefault(k, f if f.startswith("/") else IMAGE_DIR + f)
         p = self.newest("NOTE_Export_*.tsv")
         for r in (_rows(p) if p else []):
             edid = (r.get("NOTE_EDID") or "").strip()
