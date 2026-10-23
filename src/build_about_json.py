@@ -51,7 +51,7 @@ PLACEHOLDER_SUBTITLE = "Coming soon."
 # "Coming soon." is truthy — so leaving Follow in the placeholder loop below
 # silently shipped "Coming soon." as the live subtitle. (Fixed Aug 2026.)
 FOLLOW = {
-    "title": "Follow",
+    "title": "About - Follow",
     "subtitle": (
         "Hey, I’m Kat — also known as DuchessFlame! I create Fallout 76 "
         "guides, break down game updates, and built Buffs n Brew to help "
@@ -64,7 +64,7 @@ FOLLOW = {
 # Support My Work — narrative + action cards. Edit this constant to update
 # the page content; the workflow regenerates dist/about.json on push.
 SUPPORT_MY_WORK = {
-    "title": "Support My Work",
+    "title": "About - Support My Work",
     "subtitle": "Hey there, I’m Kat — also known as Duchess!",
     "intro": [
         "I’m an Australian data miner and content creator who makes "
@@ -134,7 +134,7 @@ SUPPORT_MY_WORK = {
 # Same shape as SUPPORT_MY_WORK so it reuses renderProsePage in
 # df-bnb-about.js — intro paragraphs, action cards, closing lines.
 WORK_WITH_ME = {
-    "title": "Work With Me",
+    "title": "About - Work With Me",
     "subtitle": "Collaborations, sponsorships and creator partnerships.",
     "intro": [
         "I’m passionate about partnering with brands and creators to bring "
@@ -202,6 +202,203 @@ WORK_WITH_ME = {
     ],
 }
 
+# Privacy Policy — written guide (flat prose). Rendered by renderWrittenGuide
+# in df-bnb-about.js using the .ab-guide component (style guide → Written
+# Guides). Each section is { "title": <H2 or "" for the lead-in>, "html": ... }.
+# Wording is Duchess's own (23 Oct 2026) — edit here, not in the JS. When the
+# policy changes, update the "Last updated" date in the subtitle too.
+PRIVACY_POLICY = {
+    "title": "About - Privacy Policy",
+    "subtitle": "Last updated: 23 October 2026",
+    "sections": [
+        {
+            "title": "",
+            "html": (
+                "<p>This policy explains what information theduchessflame.com, "
+                "the Buffs n Brew community tools and the DuchessFlame Discord "
+                "bots (Brewmaster and Mia Matthews Flame) collect, how we use it, "
+                "and the choices you have. In this policy, “we”, “us” and "
+                "“DuchessFlame” mean the person who runs this website and its "
+                "bots.</p>"
+            ),
+        },
+        {
+            "title": "Information we collect",
+            "html": (
+                "<h3>When you use the website</h3>"
+                "<ul>"
+                "<li><strong>Account details:</strong> if you register, we keep "
+                "your username, email address, display name and any profile "
+                "details you choose to add, such as pronouns.</li>"
+                "<li><strong>Messages you send us:</strong> messages sent through "
+                "the Contact tab, bug reports and guide suggestions, including "
+                "anything you attach.</li>"
+                "<li><strong>Your checklist and tracker progress:</strong> what "
+                "you’ve ticked off on the website’s checklists and trackers. Some "
+                "of this is saved only in your own browser.</li>"
+                "<li><strong>Technical information:</strong> like most websites, "
+                "our web host keeps basic server logs (such as IP address, "
+                "browser type and the pages you visit) for security and to keep "
+                "the site running. WordPress sets cookies to keep you logged "
+                "in.</li>"
+                "</ul>"
+                "<h3>When you use our Discord bots</h3>"
+                "<ul>"
+                "<li>Our bots see messages posted in the channels they have "
+                "access to. They respond to messages that mention them, reply to "
+                "them or use their commands.</li>"
+                "<li>They may store your Discord user ID, username and display "
+                "name, along with information you give them, such as your time "
+                "zone, bug reports, suggestions or to-do requests.</li>"
+                "<li>To write replies, the bots send the relevant message text to "
+                "an AI service (see “Who we share information with”).</li>"
+                "</ul>"
+            ),
+        },
+        {
+            "title": "How we use your information",
+            "html": (
+                "<ul>"
+                "<li>To run the website, your account and the community "
+                "tools.</li>"
+                "<li>To answer your messages, bug reports and suggestions.</li>"
+                "<li>To let the Discord bots answer questions, run commands and "
+                "help with community moderation. This includes alerting "
+                "moderators to suspicious messages, such as attempts to make the "
+                "bot open links.</li>"
+                "<li>To keep the website and community safe and to fix "
+                "problems.</li>"
+                "</ul>"
+                "<p>We do not sell your information, and we do not use it for "
+                "advertising.</p>"
+            ),
+        },
+        {
+            "title": "Google user data",
+            "html": (
+                "<p>Mia Matthews Flame is a personal assistant app used only by "
+                "the owner of DuchessFlame, with her own Google accounts. It does "
+                "not request access to anyone else’s Google account.</p>"
+                "<p>With the owner’s permission, the app accesses:</p>"
+                "<ul>"
+                "<li><strong>Gmail (read, label/archive and send):</strong> to "
+                "show emails from real people in one inbox, to send replies she "
+                "writes herself, and to find bills and invoices so they can be "
+                "added to her bills list and calendar.</li>"
+                "<li><strong>Google Calendar (read and add events):</strong> to "
+                "show upcoming events and add reminders and bill due dates she "
+                "asks for.</li>"
+                "</ul>"
+                "<h3>How this data is handled</h3>"
+                "<ul>"
+                "<li>Access tokens are stored only on the owner’s own "
+                "computers.</li>"
+                "<li>Email content is read when needed and is not kept "
+                "permanently. The exception is bill details (biller, amount, due "
+                "date), which are saved to her private bills list.</li>"
+                "<li>Email text may be sent to Anthropic’s Claude API so bill "
+                "details can be pulled out or a reply drafted. Anthropic’s API "
+                "terms state that it does not use this data to train its "
+                "models.</li>"
+                "<li>Google user data is never sold, never used for advertising, "
+                "and never shared with anyone else except as needed to provide "
+                "these features, to comply with the law, or for security.</li>"
+                "<li>The owner can remove the app’s access at any time at "
+                "<a href=\"https://myaccount.google.com/permissions\" "
+                "target=\"_blank\" rel=\"noopener\">myaccount.google.com/permissions</a>.</li>"
+                "</ul>"
+                "<p>The use and transfer of information received from Google APIs "
+                "by Mia Matthews Flame will adhere to the "
+                "<a href=\"https://developers.google.com/terms/api-services-user-data-policy\" "
+                "target=\"_blank\" rel=\"noopener\">Google API Services User Data "
+                "Policy</a>, including the Limited Use requirements.</p>"
+            ),
+        },
+        {
+            "title": "Who we share information with",
+            "html": (
+                "<p>We only share information with the services that run the "
+                "website and bots:</p>"
+                "<ul>"
+                "<li><strong>Our web host</strong>, which stores the website and "
+                "its data.</li>"
+                "<li><strong>Discord</strong>, where the bots operate (see "
+                "Discord’s own privacy policy).</li>"
+                "<li><strong>Anthropic</strong>, whose Claude AI writes the bots’ "
+                "replies and processes the text sent to it.</li>"
+                "<li><strong>Google</strong>, for the Gmail and Calendar features "
+                "described above.</li>"
+                "<li><strong>Buffer</strong>, which we use to schedule our own "
+                "social media posts. No member data is sent to Buffer.</li>"
+                "</ul>"
+                "<p>We may also share information if the law requires it, or to "
+                "protect the safety of our members or the community.</p>"
+            ),
+        },
+        {
+            "title": "How long we keep it",
+            "html": (
+                "<ul>"
+                "<li>Account details are kept while your account is open.</li>"
+                "<li>Messages and reports are kept while they’re useful to the "
+                "community. For example, bug reports are kept until the bug is "
+                "fixed.</li>"
+                "<li>Bot conversation history is short and is cleared "
+                "regularly.</li>"
+                "<li>You can ask us to delete your information at any time.</li>"
+                "</ul>"
+            ),
+        },
+        {
+            "title": "Keeping it safe",
+            "html": (
+                "<p>We use secure (HTTPS) connections, keep passwords and access "
+                "keys private, and limit who can see members’ information. No "
+                "system is perfectly secure, but we take reasonable steps to "
+                "protect your information.</p>"
+            ),
+        },
+        {
+            "title": "Your choices",
+            "html": (
+                "<ul>"
+                "<li>You can update or delete your account details on the "
+                "website, or ask us to do it for you.</li>"
+                "<li>You can ask what information we hold about you, ask us to "
+                "correct it, or ask us to delete it.</li>"
+                "<li>You can stop the bots seeing your messages by not posting in "
+                "the channels they use, or by leaving the server.</li>"
+                "</ul>"
+            ),
+        },
+        {
+            "title": "Children",
+            "html": (
+                "<p>Fallout 76 is rated for mature audiences, and Discord requires "
+                "users to be at least 13. This website and its community are not "
+                "aimed at children, and we do not knowingly collect information "
+                "from anyone under 13.</p>"
+            ),
+        },
+        {
+            "title": "Changes to this policy",
+            "html": (
+                "<p>If we change this policy, we’ll update the date at the top of "
+                "this page.</p>"
+            ),
+        },
+        {
+            "title": "Contact",
+            "html": (
+                "<p>For questions or privacy requests, email "
+                "<a href=\"mailto:duchessflame3215@gmail.com?subject=Privacy%20request\">"
+                "duchessflame3215@gmail.com</a> or use the Contact tab on this "
+                "website.</p>"
+            ),
+        },
+    ],
+}
+
 
 def read_tsv_column(path: Path, column: str) -> list[str]:
     """Read a single column out of a TSV, stripping blanks. Returns [] if the
@@ -224,7 +421,7 @@ def build(src_dir: Path) -> dict:
     # Vault Legends — donor names
     donors = read_tsv_column(src_dir / "vault_legends.tsv", "name")
     about["vault-legends"] = {
-        "title": "Vault Legends",
+        "title": "About - Vault Legends",
         "subtitle": VAULT_LEGENDS_SUBTITLE,
         "donors": donors,
     }
@@ -242,10 +439,13 @@ def build(src_dir: Path) -> dict:
     # Follow — intro card copy. Link cards are rendered from the JS module.
     about["follow"] = FOLLOW
 
+    # Privacy Policy — written guide (sections of H2 + HTML prose).
+    about["privacy-policy"] = PRIVACY_POLICY
+
     # Other /about/ pages — placeholder until content is added.
     # Each is keyed by URL slug; the JS module dispatches by slug.
     for slug, title in [
-        ("community-groups", "Community Groups"),
+        ("community-groups", "About - Community Groups"),
     ]:
         about[slug] = {
             "title": title,
@@ -277,6 +477,7 @@ def main() -> int:
     print(f"  vault-legends donors: {len(data['vault-legends']['donors'])}")
     print(f"  support-my-work    actions: {len(data['support-my-work']['actions'])}")
     print(f"  work-with-me       actions: {len(data['work-with-me']['actions'])}")
+    print(f"  privacy-policy     sections: {len(data['privacy-policy']['sections'])}")
     print(f"  follow             subtitle={data['follow']['subtitle'][:48]!r}...")
     for k in ("community-groups",):
         print(f"  {k:<18} title={data[k]['title']!r}, subtitle={data[k]['subtitle']!r}")
