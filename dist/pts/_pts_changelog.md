@@ -2166,7 +2166,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S25_PlayerTitles_Prefix_Outdoor  `SCORE_S25_PlayerTitles_Prefix_Outdoor` — fields: imageUrl, images
 - SCORE_S25_PlayerTitles_Suffix_Globetrotter  `SCORE_S25_PlayerTitles_Suffix_Globetrotter` — fields: imageUrl, images
 - SCORE_S25_PlayerTitles_Suffix_Pioneer  `SCORE_S25_PlayerTitles_Suffix_Pioneer` — fields: imageUrl, images
-- SFS09_PlayerTitles_Suffix_Manager  `SFS09_PlayerTitles_Suffix_Manager` — fields: howToObtain
+- SFS09_PlayerTitles_Suffix_Manager  `SFS09_PlayerTitles_Suffix_Manager` — fields: debug, howToObtain
 - SFS09_PlayerTitles_Suffix_Tamer  `SFS09_PlayerTitles_Suffix_Tamer` — fields: howToObtain
 
 ## `titles_player_generator.json`  ·  changed (structural)
