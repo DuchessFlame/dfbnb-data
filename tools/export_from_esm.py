@@ -21,6 +21,9 @@ straight from the game files, so these no longer need xEdit:
     CMPO    CMPO_Export_<Month>_<Year>.tsv          (ExportCMPOToTSV.pas)
     RESO    RESO_Export_<Month>_<Year>.tsv          (ExportRESOToTSV.pas)
     BPTD    BPTD_Export_<Month>_<Year>.tsv          (ExportBPTDToTSV.pas)
+    ECAT    ECAT_Export_<Month>_<Year>.tsv          (ExportECATToTSV.pas)
+    CNDF    CNDF_Export_<Month>_<Year>.tsv          (ExportCNDFToTSV.pas)
+    LSCR    LSCR_Export_<Month>_<Year>.tsv          (ExportLSCRToTSV.pas)
     MISC    MISC_Export_<Month>_<Year>.tsv          (ExportMISCToCSV.pas)
     NPC     NPC_Export_<Month>_<Year>.tsv + _PRPS + _Refs  (ExportNPCToTSV.pas)
     NPC2    NPC2_Vendors_<Month>_<Year>.tsv + _Placements, _Currencies, _Factions,
@@ -626,6 +629,84 @@ def exp_bptd(esm):
             out.append("\t".join(head + [str(i), _strip_tsv(esm.lstring(p.get("BPTN"))),
                                           _strip_tsv(_zstr(p.get("BPNN"))), _strip_tsv(_zstr(p.get("BPNT")))]
                                   + vals + race_cols))
+    return out
+
+
+# ------------------------------------------------------- ECAT / CNDF / LSCR ------
+def _linkcell(esm, fid):
+    return "%08X:%s:%s" % (fid, esm.edid_of(fid), esm.sig_of(fid))
+
+
+def exp_ecat(esm):
+    """ExportECATToTSV.pas - emote categories: keywords and Referenced By, each padded."""
+    rows = []
+    for r in R.xedit_order(esm, "ECAT"):
+        kw = r.first("KWDA") or b""
+        kws = []
+        for fid in struct.unpack_from("<%dI" % (len(kw) // 4), kw):
+            kws.append(cc(_linkcell(esm, fid)) if _lk(esm, fid) is not None else cc(esm.link_edit_value(fid)))
+        refs = _refcells(esm, r.fid)
+        rows.append((["%08X" % r.fid, cc(r.edid), cc(esm.lstring(r.full)), cc(_zstr(r.first("SNAM")))], kws, refs))
+    mk = max((len(k) for _b, k, _r in rows), default=0)
+    mr = max((len(x) for _b, _k, x in rows), default=0)
+    out = ["\t".join(["FormID", "EDID", "FULL", "SNAM", "KeywordCount"] + ["KW_%d" % i for i in range(1, mk + 1)]
+                     + ["ReferencedByCount"] + ["Ref_%d" % i for i in range(1, mr + 1)])]
+    for b, k, x in rows:
+        out.append("\t".join(b + [str(len(k))] + k + [""] * (mk - len(k)) + [str(len(x))] + x + [""] * (mr - len(x))))
+    return out
+
+
+def exp_cndf(esm):
+    """ExportCNDFToTSV.pas - condition forms: their conditions and Referenced By, each padded."""
+    rows = []
+    for r in R.xedit_order(esm, "CNDF"):
+        conds = _cond_cols(esm, r)
+        rows.append((["%08X" % r.fid, cc(r.edid)], conds, _refcells(esm, r.fid)))
+    mc = max((len(c) for _b, c, _r in rows), default=0)
+    mr = max((len(x) for _b, _c, x in rows), default=0)
+    out = ["\t".join(["FormID", "EDID", "CondCount"] + ["Cond%d" % i for i in range(1, mc + 1)]
+                     + ["ReferencedByCount"] + ["Ref%d" % i for i in range(1, mr + 1)])]
+    for b, c, x in rows:
+        out.append("\t".join(b + [str(len(c))] + c + [""] * (mc - len(c)) + [str(len(x))] + x + [""] * (mr - len(x))))
+    return out
+
+
+def exp_lscr(esm):
+    """ExportLSCRToTSV.pas - loading screens: text, conditions (RunOn|Function|Param1|
+    Compare|Type, ## between), artwork links, and the quests that use them."""
+    st = _strip_tsv
+    out = ["LSCR_FormID\tLSCR_EDID\tDESC_Description\tConditionCount\tConditions\t"
+           "BNAM_BackgroundImage\tNNAM_LoadingScreenNIF\tTNAM_Transform\tONAM_Rotation\t"
+           "ZNAM_Zoom\tMOD2_CameraPath\tPNAM_Unknown\tLSST_LoadingScreenText\t"
+           "RefBy_QUST_FormIDs\tRefBy_QUST_EDIDs"]
+    for r in R.xedit_order(esm, "LSCR"):
+        ctx = C.Ctx(esm, r)
+        conds = []
+        for ctda, c1, c2 in C.conditions(r):
+            els, _ref = C.elements(ctx, ctda, c1, c2)
+            d = {}
+            for name, val in els:
+                d.setdefault(name.split(" - ")[0], val)
+            p1 = els[5][1]
+            fid = struct.unpack_from("<I", ctda, 12)[0]
+            if p1.endswith("[%s:%08X]" % (esm.sig_of(fid), fid)) and esm.exists(fid):
+                p1 = _linkcell(esm, fid)   # the .pas prints a linked Parameter #1 as FormID:EDID:Sig
+            conds.append("|".join(st(v) for v in (d["Run On"], d["Function"], p1, d["Comparison Value"], d["Type"])))
+        quests = [h for h in esm.refby.get(r.fid, ()) if esm.refinfo[h][0] == "QUST"]
+
+        def lnk(sub):
+            v = r.first(sub)
+            return st(_link(esm, v)) if v is not None else ""
+
+        def txt(sub):
+            v = r.first(sub)
+            return st(_zstr(v)) if v is not None else ""
+        pn = r.first("PNAM")
+        out.append("\t".join([
+            "%08X" % r.fid, st(r.edid), st(esm.lstring(r.first("DESC"))), str(len(conds)), "##".join(conds),
+            txt("BNAM"), lnk("NNAM"), lnk("TNAM"), "", "", "",
+            C.hexbytes(pn) if pn is not None else "", st(esm.lstring(r.first("LSST"))),
+            " | ".join("%08X" % h for h in quests), " | ".join(st(esm.refinfo[h][1]) for h in quests)]))
     return out
 
 
@@ -1603,7 +1684,7 @@ def _lore_notes(esm):
     return out + [x for _, x in rows]
 
 
-NEEDS_REFS = {"GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
+NEEDS_REFS = {"GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "ECAT", "CNDF", "LSCR", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
 # exports that need Referenced By for more than their own records
 REF_TARGETS = {"NPC2": npc2_ref_targets, "MISC2": misc2_ref_targets, "ACTI2": acti2_ref_targets}
 
@@ -1625,6 +1706,9 @@ EXPORTS = {
     "CMPO": (["CMPO"], "CMPO_Export", exp_cmpo),
     "RESO": (["RESO"], "RESO_Export", exp_reso),
     "BPTD": (["BPTD"], "BPTD_Export", exp_bptd),
+    "ECAT": (["ECAT"], "ECAT_Export", exp_ecat),
+    "CNDF": (["CNDF"], "CNDF_Export", exp_cndf),
+    "LSCR": (["LSCR"], "LSCR_Export", exp_lscr),
     "MISC": (["MISC"], "MISC_Export", exp_misc),
     "NPC": (["NPC_"], "NPC_Export", exp_npc),
     "NPC2": (["NPC_", "FACT", "CNCY", "LCTN"], "NPC2_Vendors", exp_npc2),
