@@ -797,30 +797,9 @@ EVENTS = {
             ],
         },
     },
-    # Slasher Masked Spooky Scorched (SDOW season content). Renamed 2 Oct 2026
-    # (Duchess) from "Spooky Scorched — Slasher Loot" / "Slasher Loot Bag": there
-    # is NO bag. The slug stays as it was so the URL does not move.
-    #
-    # Spooky Scorched death loot LLD_Creature_Scorched_Spooky [0062038E] carries
-    # an extra entry, 008F6AC2:SDOW_LLD_SpookyScorched, gated on BOTH
-    #   GetGlobalValue LCP_SDOW_Slasher [GLOB:008E066F] == 1   (the season toggle)
-    #   WornHasKeyword SDOW_ClothingTypeSlasherHead == 1        (the scorched is masked)
-    # The mask itself comes from CreatureOutfit_Spooky_ScorchedOutfit [0062038B]
-    # (First Match: the SDOW outfit behind a GetRandomPercent roll + the same
-    # toggle), so only some Spooky Scorched wear it. The rewards are rolled
-    # straight into the corpse — the Spooky Treat Bag (Spooky_TreatBag_Loot ->
-    # LL_Spooky_TreatBag_Loot) never reaches these lists, and an unmasked Spooky
-    # Scorched cannot drop them. SDOW_LLD_SpookyScorched is UseAll (max 0): a
-    # guaranteed Ghost Boy chem plus independent Rare and Ultra-Rare rolls.
-    "spooky-scorched-slasher-loot-all-rewards": {
-        "name": "Slasher Masked Spooky Scorched",
-        "eventSlug": "spooky-scorched-slasher-loot",
-        "description": "While the Slasher season is running, some of the Spooky Scorched that stalk Appalachia during the Halloween event turn up wearing a Slasher mask. Kill a masked one and loot its body for a guaranteed Ghost Boy stealth chem plus a chance at the Slasher's rare and ultra-rare plans. These rewards only come from the masked Spooky Scorched themselves — they are not in Spooky Treat Bags, and unmasked Spooky Scorched never drop them.",
-        "isContainerLoot": True,
-        "containers": [
-            {"title": "Slasher Masked Spooky Scorched", "lvliFormID": "008F6AC2"},
-        ],
-    },
+    # "Spooky Scorched — Slasher Loot" page REMOVED 24 Oct 2026 (Duchess): the
+    # masked Spooky Scorched corpse loot (SDOW_LLD_SpookyScorched [008F6AC2]) is
+    # covered on The Slasher All Rewards page (see its activity list below).
     "holiday-scorched-all-rewards": {
         "name": "Holiday Scorched",
         "eventSlug": "holiday-scorched",
@@ -3291,8 +3270,11 @@ _SLASHER_ACTIVITIES = [
         "lvlis": ["008FCEA4"],
     },
     {
-        # Corpse loot of Slasher-MASKED Spooky Scorched only, never treat bags
-        # (see "spooky-scorched-slasher-loot-all-rewards" above).
+        # Corpse loot of Slasher-MASKED Spooky Scorched only, never treat bags.
+        # Spooky Scorched death loot LLD_Creature_Scorched_Spooky [0062038E] has
+        # this extra entry gated on the season toggle LCP_SDOW_Slasher == 1 AND
+        # WornHasKeyword SDOW_ClothingTypeSlasherHead (the scorched is masked).
+        # UseAll: a guaranteed Ghost Boy chem plus Rare and Ultra-Rare rolls.
         "label": "Slasher Masked Spooky Scorched", "edid": "SDOW_LLD_SpookyScorched",
         "lvlis": ["008F6AC2"],
     },

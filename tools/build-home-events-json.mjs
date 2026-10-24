@@ -172,6 +172,15 @@ const endTime = normaliseTime12h(r.EndTime, startTime || "12:00 PM");
       badge: badge || null,
       notes: notes || null,
       sort: toIntOrNull(r.Sort),
+      // Grouping (added 24 Oct 2026): a row with a Parent id is drawn as a
+      // phase inside its parent event's card on the home page. Phase is the
+      // short label ("Phase 1", "Finale"), Subtitle says what you actually do,
+      // and OwnCard = yes also keeps the row as its own card (e.g. Spooky
+      // Scorched, a stand-alone event that is also a Slasher phase).
+      parent: (r.Parent ?? "").trim() || null,
+      phase: (r.Phase ?? "").trim() || null,
+      subtitle: (r.Subtitle ?? "").trim() || null,
+      ownCard: /^(y|yes|true|1)$/i.test((r.OwnCard ?? "").trim()),
     });
   }
 
