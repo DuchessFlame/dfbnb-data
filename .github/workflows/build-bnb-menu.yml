@@ -35,5 +35,10 @@ jobs:
             echo "No changes to commit."
           else
             git commit -m "Build BnB menu data"
-            git push
+            for i in 1 2 3 4 5; do
+              git pull --rebase origin main && git push && exit 0
+              echo "Push clashed with another build - retrying in $((i*10))s ($i/5)"
+              sleep $((i*10))
+            done
+            exit 1
           fi
