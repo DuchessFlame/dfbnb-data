@@ -990,7 +990,36 @@ class Rng76Resolver:
             * (1.0 - actual_entry_cn / 100.0)
         )
 
+        # An entry with Count 0 and no quantity GLOB/CURV hands out NOTHING
+        # when it is picked (24 Oct 2026). Bethesda uses it as a deliberate
+        # "nothing" slot: Assaultrons' death list carries their blade and head
+        # at count 0 (they never drop them), LLS_Caps_Med has a 0-caps roll.
+        # One Violent Night hands its rare list (the Nailer) out at count 0,
+        # so the Nailer never drops there - the page said 3.5714%. It still
+        # takes its share of the pick, so pick_weight is left alone.
+        if self._entry_qty_is_zero(entry):
+            cn_factor = 0.0
+
         return (pick_weight, cn_factor)
+
+    @staticmethod
+    def _entry_qty_is_zero(entry: Dict[str, str]) -> bool:
+        raw = (entry.get("LVIV_Quantity") or "").strip()
+        if not raw:
+            return False
+        if (entry.get("LVIG_QuantityGlobal") or "").strip() or \
+                (entry.get("LVIT_QuantityCurve") or "").strip():
+            return False
+        # A level-tiered entry (min level from a GLOB/CURV) is part of the
+        # armour weight-class ladder (LL_Armor_Combat_Torso: Heavy twice, one
+        # at count 0) - not a plain "nothing" slot. Left alone.
+        if (entry.get("LVLG_MinimumLevelGlobal") or "").strip() or \
+                (entry.get("LVLT_MinimumLevelCurve") or "").strip():
+            return False
+        try:
+            return float(raw) == 0.0
+        except ValueError:
+            return False
 
     # ---- quick (cached) resolve ------------------------------------
 

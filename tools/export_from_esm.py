@@ -37,6 +37,8 @@ straight from the game files, so these no longer need xEdit:
     QUST2RQ QUST2_Export_<Month>_<Year>_RewardQuests.tsv  (the _RewardQuests file of
             ExportQUST2ToTSV.pas - only that one file; the .pas stays the manual
             backup and still writes all six)
+    QUSTSP  QUST2_Export_<Month>_<Year>_ScriptProps.tsv  (quest script properties:
+            reward lists and chance GLOBs a quest's script rolls itself)
 
 GLOB, AVIF, KYWD, CURV, MISC and NPC list every record that points at each row ("Referenced By"),
 worked out by esm_refs.py in one ~40 s scan (needs numpy). Known gap: xEdit
@@ -1529,6 +1531,46 @@ def exp_qust2_rq(esm):
     return {"_RewardQuests": out}
 
 
+# ------------------------------------------------------------- QUST _ScriptProps --
+def exp_qust_sp(esm):
+    """Quest script properties (VMAD): one row per property, with the record it
+    points at (FormID:EDID:SIG) or its number. A GLOB property also carries the
+    GLOB's value. Read by src/uwa_obtain.py: a reward a quest's own script
+    hands out (Breach and Clear's Meteorite Sword: LL_MTR05_RareWeapon, rolled
+    against MTR05_Breach_RareItemPercentChance) gets its list and chance from
+    here instead of "not in the game files"."""
+    out = ["QuestFormID\tQuestEDID\tQuestName\tScript\tProperty\tType\tValue\tGlobValue"]
+    for r in R.xedit_order(esm, "QUST"):
+        vm = r.first("VMAD")
+        if not vm:
+            continue
+        try:
+            scripts = _VmadReader(vm).scripts()
+        except Exception:                                 # noqa: BLE001
+            continue
+        head = "%08X\t%s\t%s" % (r.fid, cc(r.edid), cc(esm.lstring(r.first("FULL"))))
+        for sname, props in scripts:
+            for pn, v in props:
+                vals = v[1] if v[0] == "arr" else [v]
+                for x in vals:
+                    if x[0] == "obj":
+                        fid = x[1]
+                        if not fid:
+                            continue
+                        sig = esm.sig_of(fid) or ""
+                        gv = ""
+                        if sig == "GLOB":
+                            g = esm.get(fid)
+                            f = g.first("FLTV") if g else None
+                            if f and len(f) >= 4:
+                                gv = "%g" % struct.unpack_from("<f", f)[0]
+                        out.append("%s\t%s\t%s\tobj\t%08X:%s:%s\t%s" % (
+                            head, cc(sname), cc(pn), fid, cc(esm.edid_of(fid)), sig, gv))
+                    elif x[0] in ("int", "float", "bool"):
+                        out.append("%s\t%s\t%s\t%s\t%g\t" % (head, cc(sname), cc(pn), x[0], x[1]))
+    return {"_ScriptProps": out}
+
+
 # ------------------------------------------------------------- ALLYDLG _Lore --
 _LORE_QUEST_RX = None
 
@@ -1717,6 +1759,7 @@ EXPORTS = {
     "ACTI2": (["ACTI"], "ACTI2_Export", exp_acti2),
     "REFRLVLI": (["LVLI"], "REFRLVLI_Placements", exp_refrlvli),
     "QUST2RQ": (["QUST"], "QUST2_Export", exp_qust2_rq),
+    "QUSTSP": (["QUST", "GLOB"], "QUST2_Export", exp_qust_sp),
     "LORE": (["NOTE", "BOOK"], "ALLYDLG_Export", exp_lore),
 }
 

@@ -2490,6 +2490,20 @@ def main(argv=None):
     except Exception as exc:                      # noqa: BLE001 - never fatal
         print(f"  WARNING: quest guides skipped: {exc}", file=sys.stderr)
 
+    # Seasonal / limited quests say when they run, on every route (24 Oct 2026).
+    try:
+        print(f"  availability notes: {plan_quest_guides.attach_availability(items, args.data_dir)} route(s)")
+    except Exception as exc:                      # noqa: BLE001 - never fatal
+        print(f"  WARNING: availability notes skipped: {exc}", file=sys.stderr)
+    # Vendor / Cost / Reputation / Stock on Gold Bullion and Stamps vendor
+    # routes - the same numbers as the uniques page (vendor_detail.py).
+    try:
+        import vendor_detail
+        _ch = "pts" if "pts" in os.path.normpath(args.out).split(os.sep) else "live"
+        print(f"  vendor details: {vendor_detail.attach(items, args.data_dir, _ch)} route(s)")
+    except Exception as exc:                      # noqa: BLE001 - never fatal
+        print(f"  WARNING: vendor details skipped: {exc}", file=sys.stderr)
+
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
     with open(args.out, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=2)

@@ -382,3 +382,37 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+def attach_availability(items, tsv_dir):
+    """route["availability"] on ANY route (event, repeatable, daily ...) whose
+    quest only runs at certain times - the quest's own log line "(This quest
+    is only available for the duration of The Slasher Seasonal Content)".
+    Quest routes already carry it inside quest_guide; this covers the rest
+    (Duchess, 24 Oct 2026: "new players are gonna be like what is Disturbed
+    Grave and think they can do it all the time"). Returns routes tagged."""
+    g = Guides(tsv_dir)
+    if not g.ok:
+        return 0
+    by_key = collections.defaultdict(set)
+    for fid, q in g.quests.items():
+        if q["name"]:
+            by_key[route_key(q["name"])].add(fid)
+            by_key[route_key(re.sub(r"^[A-Za-z ]+:\s+", "", q["name"]))].add(fid)
+    n = 0
+    for it in items:
+        for key in ("obtain_routes", "retired_routes"):
+            for r in it.get(key) or []:
+                r.pop("availability", None)
+                name = r.get("route") or ""
+                fids = by_key.get(route_key(name), set()) | \
+                    by_key.get(route_key(re.sub(r"^[A-Za-z ]+:\s+", "", name)), set())
+                if not fids:
+                    fids = {f for L in (r.get("lvli") or [])
+                            for gm in g.gmrw_by_list.get(str(L).upper(), ())
+                            for f in g.quest_by_gmrw.get(gm, ())}
+                avs = {g.availability(f) for f in fids if f in g.quests} - {None}
+                if len(avs) == 1:
+                    r["availability"] = avs.pop()
+                    n += 1
+    return n

@@ -194,7 +194,8 @@ class RouteIndex:
             cn = (r.get("CNAM_FormID") or "").strip().upper()
             if cn:
                 self.cobj_by_cnam.setdefault(cn, []).append(fid)
-        self.chal = {(r.get("FormID") or "").strip().upper(): (r.get("FULL") or "").strip()
+        import chal_names   # the required count goes on the name (24 Oct 2026)
+        self.chal = {(r.get("FormID") or "").strip().upper(): chal_names.display(r.get("FULL"), r.get("TNAM"))
                      for r in read_tsv(latest(tsv_root, "CHAL_Export_*.tsv"))}
         book_f = latest(tsv_root, "BOOK_Export_*.tsv")
         self.books = {(r.get("FormID") or "").strip().upper() for r in read_tsv(book_f)}

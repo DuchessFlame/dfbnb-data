@@ -949,6 +949,8 @@ def _item_alias_quests(channel):
         name = strip_q(r.get("QuestName", ""))
         if not name or "<" in name or "[" in name:
             continue
+        if plan_sources.is_cut_content(strip_q(r.get("QuestEDID", ""))):
+            continue
         name = re.sub(r"^\s*(Event|Daily|Activity):\s*", "", name)
         for m in re.finditer(r"ALCO=([0-9A-Fa-f]{8}):[^:;]*:(WEAP|ARMO)\b",
                              strip_q(r.get("Links", ""))):
@@ -980,7 +982,8 @@ def _event_lists(channel):
             qname[norm_formid(r.get("FormID", ""))] = re.sub(r"^\s*Event:\s*", "", full)
     reward_of = defaultdict(set)              # list EDID -> quest names
     for r in read_tsv(gm):
-        if _DEAD_LIST.search(strip_q(r.get("EDID", ""))):
+        if _DEAD_LIST.search(strip_q(r.get("EDID", ""))) or \
+                plan_sources.is_cut_content(strip_q(r.get("EDID", ""))):
             continue
         item = strip_q(r.get("RewardedItem", ""))
         if not item.endswith(":LVLI"):
@@ -1259,7 +1262,59 @@ def attach_conditions(items, channel):
     own_lists, find_events = _event_lists(channel)
     stats = {"routes": 0, "with": 0, "unchecked": 0}
     implied = {f"Only from {plan_conditions._humanize(k)}" for k in uwa_trace.IMPLIED_KW}
+
+    def _line_conds(paths, title):
+        out = []
+        for list_fid, target in paths:
+            if not list_fid:
+                continue
+            ln, _sk = idx.for_lists([str(list_fid).upper()], str(target).upper(), title)
+            out += [l for l in ln if l not in out]
+        return tuple(sorted(plan_conditions.tidy(out)))
+
+    def _split_by_conditions(it):
+        """A route's conditions are shared by every source in it, so sources
+        with DIFFERENT gates become separate entries (24 Oct 2026): The
+        Dragon's lock levels belong to the safes, not to Infestations; The
+        Fixer's "after The Lowe-Down" to Encryptid, not the packages."""
+        title = {"title": it.get("name") or ""}
+        out = []
+        for r in it.get("obtainRoutes") or []:
+            lp = r.get("_linePaths") or {}
+            srcs = [l for l in r.get("lines") or [] if l.startswith("Source:")]
+            if not r.get("populated") or len(srcs) < 2 or not lp:
+                out.append(r)
+                continue
+            groups = {}
+            for l in srcs:
+                k = _line_conds(lp.get(l, []), title) if lp.get(l) else None
+                groups.setdefault(k, []).append(l)
+            if None in groups:
+                # lines with no list behind them ride with the ungated group
+                tgt = () if () in groups else next((k for k in groups if k is not None), None)
+                if tgt is not None:
+                    groups.setdefault(tgt, []).extend(groups.pop(None))
+            if len(groups) < 2:
+                out.append(r)
+                continue
+            head = [l for l in r["lines"] if l.startswith("Drops:")]
+            plan = [l for l in r["lines"] if l.startswith("Plan:")]
+            rest = [l for l in r["lines"] if not l.startswith(("Drops:", "Source:", "Plan:"))]
+            for gi, (k, ls) in enumerate(sorted(groups.items(), key=lambda kv: (len(kv[0] or ()), kv[0] or ()))):
+                e = dict(r)
+                e["lines"] = head + [l for l in srcs if l in ls] + plan + (rest if gi == 0 else [])
+                e["_linePaths"] = {l: lp[l] for l in ls if l in lp}
+                ps = []
+                for l in ls:
+                    for pth in lp.get(l, []):
+                        if pth not in ps:
+                            ps.append(pth)
+                e["paths"] = ps
+                out.append(e)
+        it["obtainRoutes"] = out
+
     for it in items:
+        _split_by_conditions(it)
         key = norm_name(it.get("name"))
         own = it.get("_rosterList") or own_lists.get(key) or OWN_LIST_ALIAS.get(key)
         ways = find_events.tops(own) if own else []
@@ -1525,6 +1580,10 @@ def rename_from_own_mod(items, omod_by_fid):
 def build_channel(channel, dist_dir):
     global _SLUG_SEEN
     _SLUG_SEEN = {}
+    # Each channel's cut list is its own: without this a "both" build wrote
+    # live's cut items into the PTS list too (the Drifter gear - cut on live,
+    # given by the PTS Drifter Loot Bag - and every other name twice).
+    CUT_ITEMS.clear()
     print(f"\n{'='*64}\n  Unique Weapons & Armour -- channel: {channel}\n{'='*64}")
 
     pool_name, pool_fid = build_pool_index()
@@ -1899,16 +1958,25 @@ def build_channel(channel, dist_dir):
     _labels = uwa_route_labels.Labels(_pk, read_tsv, REPO_ROOT)
     uwa_entries.split(all_items, obtain_idx, _labels, uwa_entries.Books(_pk, read_tsv))
     uwa_entries.split_ranks(all_items, obtain_idx, uwa_entries.Timers(_pk, read_tsv))
+    # Player-facing route names: raid encounters, event kinds, raid plans,
+    # Scoreboard crafting unlocks — all read from the files (uwa_route_labels).
+    # BEFORE the drop conditions (24 Oct 2026): lines it moves between Events
+    # and Quests take their lists with them, so each entry's conditions are
+    # read from its own sources.
+    uwa_route_labels.apply(all_items, _labels)
     attach_conditions(all_items, channel)
     uwa_entries.quest_craft_entries(all_items, obtain_idx)
     uwa_images.attach(all_items)   # pictures by name, from the server listing
-    # Player-facing route names: raid encounters, event kinds, raid plans,
-    # Scoreboard crafting unlocks — all read from the files (uwa_route_labels).
-    uwa_route_labels.apply(all_items, _labels)
     # Seasonal-only quest sources say so (Disturbed Grave - The Slasher).
     uwa_route_labels.quest_availability(all_items, os.path.dirname(pick("GMRW_Export_*.tsv", channel) or ""))
+    print(f"  same source named twice, merged: {uwa_obtain.dedupe_same_source(all_items)}")
+    print(f"  choice rewards explained: {uwa_obtain.choice_reward_notes(all_items, obtain_idx, os.path.dirname(pick('GMRW_Export_*.tsv', channel) or ''))}")
+    # Prize terminals say what they cost (TERM menu rows).
+    print(f"  prize terminal costs: {uwa_obtain.prize_terminal_costs(all_items, obtain_idx, os.path.dirname(pick('GMRW_Export_*.tsv', channel) or ''))}")
     # Stamps routes in the vendor layout with their stamp price (24 Oct 2026).
     print(f"  stamp vendor routes with Vendor / Cost: {uwa_obtain.stamp_vendor_layout(all_items, obtain_idx)}")
+    # Atom Shop / Limited Time Bundle offers from the Atom Shop page's data
+    print(f"  atom shop / bundle offers: {uwa_obtain.atom_shop_routes(all_items, os.path.join(REPO_ROOT, 'dist', 'atom_shop.json'))}")
     # Drop rate on every source line with a leveled list behind it - rng76's
     # numbers, the same engine as the plan pages (uwa_rates.py, 17 Oct 2026).
     _lv = pick("LVLI_Export_*_LVLI_Entries.tsv", channel)
@@ -1919,6 +1987,10 @@ def build_channel(channel, dist_dir):
     else:
         uwa_rates.strip(all_items)
     uwa_entries.final_text(all_items, uwa_entries.load_seasons(REPO_ROOT))
+    # quest script properties (tools/export_from_esm.py QUSTSP): the chance a
+    # quest's own script hands a weapon out (Meteorite Sword, Breach and Clear)
+    _sp = pick("QUST2_Export_*_ScriptProps.tsv", channel)
+    print(f"  script-spawned sources: {uwa_obtain.script_spawn_notes(all_items, _rates if _lv else None, os.path.dirname(_sp) if _sp else None)}")
 
     # Items Bethesda's own WeaponsUniqueNamedList has never heard of AND that
     # the override table names as mod records rather than weapons. Dropping

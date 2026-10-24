@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated": "2026-10-24T12:43:31Z",
+  "generated": "2026-10-24T15:43:07Z",
   "channel": "pts",
   "count": 134,
   "counts": {
@@ -2217,11 +2217,12 @@
           "populated": true,
           "lines": [
             "Drops: Plan only",
-            "Source: Giuseppe (Expeditions vendor) — 100.0000%",
-            "Plan: Plan: Circuit Breaker"
+            "Plan: Plan: Circuit Breaker",
+            "Vendor: Giuseppe Delcavo — Whitespring Refuge",
+            "Cost: 500 Stamps"
           ],
           "tradeable": false,
-          "dropRate": "",
+          "dropRate": "N/A",
           "conditions": [],
           "conditionsChecked": true
         },
@@ -2531,11 +2532,12 @@
           "populated": true,
           "lines": [
             "Drops: Plan only",
-            "Source: Giuseppe (Expeditions vendor) — 100.0000%",
-            "Plan: Plan: Cold Shoulder"
+            "Plan: Plan: Cold Shoulder",
+            "Vendor: Giuseppe Delcavo — Whitespring Refuge",
+            "Cost: 500 Stamps"
           ],
           "tradeable": false,
-          "dropRate": "",
+          "dropRate": "N/A",
           "conditions": [],
           "conditionsChecked": true
         },
@@ -2560,10 +2562,17 @@
         },
         {
           "route": "Atom Shop",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
+          "populated": true,
+          "lines": [
+            "Drops: Unlocks crafting (Weapon Workbench)",
+            "Source: Cold Shoulder Starter Bundle",
+            "Cost: 1,000 Atoms",
+            "Note: In the Atom Shop's Add-ons store."
+          ],
+          "tradeable": false,
+          "dropRate": "N/A",
+          "conditions": [],
+          "conditionsChecked": true
         },
         {
           "route": "Limited Time Bundle",
@@ -2937,11 +2946,12 @@
           "populated": true,
           "lines": [
             "Drops: Plan only",
-            "Source: Giuseppe (Expeditions vendor) — 100.0000%",
-            "Plan: Plan: Cosmic Knife"
+            "Plan: Plan: Cosmic Knife",
+            "Vendor: Giuseppe Delcavo — Whitespring Refuge",
+            "Cost: 500 Stamps"
           ],
           "tradeable": false,
-          "dropRate": "",
+          "dropRate": "N/A",
           "conditions": [],
           "conditionsChecked": true
         },
@@ -3049,12 +3059,14 @@
           "route": "Stamps",
           "populated": true,
           "lines": [
-            "Drops: Unlocks this mod — get the Cosmic Knife here, then craft the mod onto it at a Weapon Workbench",
-            "Source: Giuseppe (Expeditions vendor) — 100.0000%",
-            "Plan: Plan: Cosmic Knife"
+            "Drops: Plan only",
+            "Plan: Plan: Cosmic Knife",
+            "Vendor: Giuseppe Delcavo — Whitespring Refuge",
+            "Cost: 500 Stamps",
+            "Note: Comes with the Super-Heated mod. Craft it onto the Cosmic Knife at a Weapon Workbench."
           ],
           "tradeable": true,
-          "dropRate": "",
+          "dropRate": "N/A",
           "conditions": [],
           "conditionsChecked": true
         },
@@ -3062,8 +3074,9 @@
           "route": "Scoreboard",
           "populated": true,
           "lines": [
-            "Drops: Unlocks this mod — get the Cosmic Knife here, then craft the mod onto it at a Weapon Workbench",
-            "Source: Appalachian Modern Living (Season 22 Scoreboard)"
+            "Drops: Unlocks crafting (Weapon Workbench)",
+            "Source: Appalachian Modern Living (Season 22 Scoreboard)",
+            "Note: Comes with the Super-Heated mod. Craft it onto the Cosmic Knife at a Weapon Workbench."
           ],
           "tradeable": true,
           "dropRate": "N/A",
@@ -3113,7 +3126,8 @@
           "dropRate": null
         }
       ],
-      "recordIds": []
+      "recordIds": [],
+      "modOf": "Cosmic Knife"
     },
     {
       "id": "combatshotgun",
@@ -4919,7 +4933,9 @@
           ],
           "tradeable": true,
           "dropRate": "",
-          "conditions": [],
+          "conditions": [
+            "Level 50 and above"
+          ],
           "conditionsChecked": true
         },
         {
@@ -5539,6 +5555,23 @@
           "dropRate": "N/A",
           "conditions": [
             "Only at Neighborly reputation with the Raiders or higher"
+          ],
+          "conditionsChecked": true
+        },
+        {
+          "route": "Gold Bullion",
+          "populated": true,
+          "lines": [
+            "Drops: Plan only",
+            "Plan: Plan: Face Breaker",
+            "Vendor: Minerva — travelling vendor",
+            "Stock: List 1 (Emporium), List 4 (Big Sale)",
+            "Cost: 750 Gold Bullion"
+          ],
+          "tradeable": false,
+          "dropRate": "N/A",
+          "conditions": [
+            "Only in the weeks the vendor has it in stock"
           ],
           "conditionsChecked": true
         },
@@ -7029,9 +7062,9 @@
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
-      "howToObtain": "Event: A Feast Fit for a King / Event: Fishing - Linda Lee Chum Trough",
+      "howToObtain": "Event: Fishing - Linda Lee Chum Trough",
       "sourceType": "Event",
-      "sourceRef": "Event: A Feast Fit for a King",
+      "sourceRef": "Fishing - Linda Lee Chum Trough",
       "questName": "",
       "craftable": false,
       "planName": "",
@@ -7111,7 +7144,6 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made weapon",
-            "Source: Event: A Feast Fit for a King — 100.0000%",
             "Source: Fishing - Linda Lee Chum Trough — 7.1429%",
             "Legacy: Survival mode version — no longer obtainable, player trading only"
           ],
@@ -8174,9 +8206,9 @@
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
-      "howToObtain": "Challenge: Find more Abraxodyne Intel / Vendor: Splint (Burning Springs Gun, Settlers vendor)",
+      "howToObtain": "Challenge: Find more Abraxodyne Intel (76) / Vendor: Splint (Burning Springs Gun, Settlers vendor)",
       "sourceType": "Challenge",
-      "sourceRef": "Find more Abraxodyne Intel",
+      "sourceRef": "Find more Abraxodyne Intel (76)",
       "questName": "",
       "craftable": false,
       "planName": "",
@@ -8233,7 +8265,7 @@
           "tradeable": true,
           "dropRate": "",
           "conditions": [
-            "Only after completing the challenge Find more Abraxodyne Intel"
+            "Only after completing the challenge Find more Abraxodyne Intel (76)"
           ],
           "conditionsChecked": true
         },
@@ -8291,7 +8323,7 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made weapon",
-            "Source: Find more Abraxodyne Intel — 100.0000%"
+            "Source: Find more Abraxodyne Intel (76) — 100.0000%"
           ],
           "tradeable": true,
           "dropRate": "",
@@ -8404,12 +8436,15 @@
           "lines": [
             "Drops: Plan only",
             "Plan: Plan: Mechanic's Best Friend",
-            "Vendor: Minerva — travelling vendor — rotating stock",
-            "Legacy: Survival mode version — no longer obtainable, player trading only"
+            "Vendor: Minerva — travelling vendor",
+            "Stock: List 21 (Emporium), List 24 (Big Sale)",
+            "Cost: 1,000 Gold Bullion"
           ],
           "tradeable": true,
           "dropRate": "N/A",
-          "conditions": [],
+          "conditions": [
+            "Only in the weeks the vendor has it in stock"
+          ],
           "conditionsChecked": true
         },
         {
@@ -8435,7 +8470,8 @@
             "Drops: Ready-made weapon",
             "Source: Daily Ops, Elder rank (cleared in 8:00 or less) — 1.3302%",
             "Source: Daily Ops, Paladin rank (cleared in 12:00 or less) — 0.1737%",
-            "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0579%"
+            "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0579%",
+            "Legacy: Survival mode version — no longer obtainable, player trading only"
           ],
           "conditions": [
             "Level 50 and above"
@@ -8454,8 +8490,10 @@
             "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0579%",
             "Plan: Plan: Mechanic's Best Friend"
           ],
-          "conditions": [],
-          "conditionsChecked": false
+          "conditions": [
+            "Level 50 and above"
+          ],
+          "conditionsChecked": true
         },
         {
           "route": "Quests",
@@ -8625,14 +8663,27 @@
           "lines": [
             "Drops: Ready-made weapon",
             "Source: Opening a Pint-Sized Phantom Pack — 0.6667%",
-            "Source: Daily Ops, Elder rank (cleared in 8:00 or less) — 1.3302%",
-            "Source: Daily Ops, Paladin rank (cleared in 12:00 or less) — 0.1737%",
-            "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0579%",
             "Legacy: Survival mode version — no longer obtainable, player trading only"
           ],
           "tradeable": true,
           "dropRate": "",
           "conditions": [],
+          "conditionsChecked": true
+        },
+        {
+          "route": "Events & Activities",
+          "populated": true,
+          "lines": [
+            "Drops: Ready-made weapon",
+            "Source: Daily Ops, Elder rank (cleared in 8:00 or less) — 1.3302%",
+            "Source: Daily Ops, Paladin rank (cleared in 12:00 or less) — 0.1737%",
+            "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0579%"
+          ],
+          "tradeable": true,
+          "dropRate": "",
+          "conditions": [
+            "Level 50 and above"
+          ],
           "conditionsChecked": true
         },
         {
@@ -8765,7 +8816,8 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made weapon",
-            "Source: Activity: Breach and Clear — 100.0000%"
+            "Source: Activity: Breach and Clear — 25.0000%",
+            "Note: Rolled by the activity's own script, not a reward list - MTR05_Breach_RareItemPercentChance = 0.25 in the game files, a 25% chance each time."
           ],
           "tradeable": true,
           "dropRate": "",
@@ -8941,7 +8993,8 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made weapon",
-            "Source: Field Testing — 100.0000%"
+            "Source: Field Testing — 100.0000%",
+            "Note: Field Testing is a choice - you get this if you side with Colin; siding with Marty gives a different reward."
           ],
           "tradeable": true,
           "dropRate": "",
@@ -9471,10 +9524,11 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made weapon",
-            "Source: Public Event: One Violent Night — 3.5714%"
+            "Source: Public Event: One Violent Night — 0%",
+            "Note: 0% in the game files - this source is still wired up but hands nothing out, so it does not drop from here."
           ],
           "tradeable": true,
-          "dropRate": "",
+          "dropRate": "N/A",
           "conditions": [],
           "conditionsChecked": true
         },
@@ -9637,7 +9691,8 @@
           "lines": [
             "Drops: Ready-made weapon",
             "Source: Repeatable: Disturbed Grave — 1.5000%",
-            "Legacy: Survival mode version — no longer obtainable, player trading only"
+            "Legacy: Survival mode version — no longer obtainable, player trading only",
+            "Note: Repeatable: Disturbed Grave — only available for the duration of The Slasher Seasonal Content."
           ],
           "tradeable": true,
           "dropRate": "",
@@ -9771,7 +9826,9 @@
           "lines": [
             "Drops: Plan only",
             "Plan: Plan: Nuka-Launcher",
-            "Vendor: Minerva — travelling vendor — rotating stock"
+            "Vendor: Minerva — travelling vendor",
+            "Stock: List 15 (Emporium), List 16 (Big Sale)",
+            "Cost: 750 Gold Bullion"
           ],
           "tradeable": false,
           "dropRate": "N/A",
@@ -9938,9 +9995,7 @@
           "lines": [
             "Drops: Ready-made weapon",
             "Source: Public Event: Line in the Sand — 1.6667%",
-            "Source: Activity: Distant Thunder — 1.6667%",
-            "Source: Daily: Heart of the Enemy — 1.6667%",
-            "Source: Quest: Over and Out — 100.0000%"
+            "Source: Activity: Distant Thunder — 1.6667%"
           ],
           "tradeable": true,
           "dropRate": "",
@@ -9949,10 +10004,16 @@
         },
         {
           "route": "Quests",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
+          "populated": true,
+          "lines": [
+            "Drops: Ready-made weapon",
+            "Source: Daily: Heart of the Enemy — 1.6667%",
+            "Source: Over and Out — 100.0000%"
+          ],
+          "tradeable": true,
+          "dropRate": "",
+          "conditions": [],
+          "conditionsChecked": true
         },
         {
           "route": "Challenges",
@@ -10681,6 +10742,7 @@
             "Drops: Plan only",
             "Plan: Plan: Piercing Love",
             "Vendor: Mortimer — Crater",
+            "Cost: 1,000 Gold Bullion",
             "Reputation: Raiders — Ally"
           ],
           "tradeable": false,
@@ -10936,9 +10998,9 @@
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
-      "howToObtain": "Challenge: Find more Abraxodyne Intel / Vendor: Windy (Cryptid Hunter vendor)",
+      "howToObtain": "Challenge: Find more Abraxodyne Intel (145) / Vendor: Windy (Cryptid Hunter vendor)",
       "sourceType": "Challenge",
-      "sourceRef": "Find more Abraxodyne Intel",
+      "sourceRef": "Find more Abraxodyne Intel (145)",
       "questName": "",
       "craftable": false,
       "planName": "",
@@ -10995,7 +11057,7 @@
           "tradeable": true,
           "dropRate": "",
           "conditions": [
-            "Only after completing the challenge Find more Abraxodyne Intel"
+            "Only after completing the challenge Find more Abraxodyne Intel (145)"
           ],
           "conditionsChecked": true
         },
@@ -11053,7 +11115,7 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made weapon",
-            "Source: Find more Abraxodyne Intel — 100.0000%"
+            "Source: Find more Abraxodyne Intel (145) — 100.0000%"
           ],
           "tradeable": true,
           "dropRate": "",
@@ -11619,7 +11681,8 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made weapon",
-            "Source: Repeatable: Disturbed Grave — 2.5000%"
+            "Source: Repeatable: Disturbed Grave — 2.5000%",
+            "Note: Repeatable: Disturbed Grave — only available for the duration of The Slasher Seasonal Content."
           ],
           "tradeable": true,
           "dropRate": "",
@@ -11793,7 +11856,9 @@
           ],
           "tradeable": true,
           "dropRate": "",
-          "conditions": [],
+          "conditions": [
+            "Level 50 and above"
+          ],
           "conditionsChecked": true
         },
         {
@@ -12151,10 +12216,10 @@
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
-      "howToObtain": "Quest: Flavors of Mayhem",
-      "sourceType": "Quest",
-      "sourceRef": "Flavors of Mayhem",
-      "questName": "Flavors of Mayhem",
+      "howToObtain": "No source found in the game files",
+      "sourceType": "Unknown",
+      "sourceRef": "",
+      "questName": "",
       "craftable": false,
       "planName": "",
       "tradeable": true,
@@ -12219,15 +12284,10 @@
         },
         {
           "route": "Quests",
-          "populated": true,
-          "lines": [
-            "Drops: Ready-made weapon",
-            "Source: Flavors of Mayhem — 100.0000%"
-          ],
-          "tradeable": true,
-          "dropRate": "",
-          "conditions": [],
-          "conditionsChecked": true
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
         },
         {
           "route": "Challenges",
@@ -12240,6 +12300,7 @@
       "recordIds": [
         "003E1331"
       ],
+      "unreleased": true,
       "imageSameAsBase": true
     },
     {
@@ -12379,7 +12440,8 @@
           "lines": [
             "Drops: Ready-made weapon",
             "Source: Repeatable: Disturbed Grave — 1.5000%",
-            "Legacy: Survival mode version — no longer obtainable, player trading only"
+            "Legacy: Survival mode version — no longer obtainable, player trading only",
+            "Note: Repeatable: Disturbed Grave — only available for the duration of The Slasher Seasonal Content."
           ],
           "tradeable": true,
           "dropRate": "",
@@ -13511,7 +13573,6 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made weapon",
-            "Source: Bounty hunt target — 5.0000%",
             "Source: Enemy drop: The Reborn Pint-Sized Slasher — 5.0000%"
           ],
           "tradeable": false,
@@ -13819,12 +13880,15 @@
           "lines": [
             "Drops: Plan only",
             "Plan: Plan: Sole Survivor",
-            "Vendor: Minerva — travelling vendor — rotating stock",
-            "Legacy: Survival mode version — no longer obtainable, player trading only"
+            "Vendor: Minerva — travelling vendor",
+            "Stock: List 18 (Emporium), List 20 (Big Sale)",
+            "Cost: 1,000 Gold Bullion"
           ],
           "tradeable": true,
           "dropRate": "N/A",
-          "conditions": [],
+          "conditions": [
+            "Only in the weeks the vendor has it in stock"
+          ],
           "conditionsChecked": true
         },
         {
@@ -13850,7 +13914,8 @@
             "Drops: Ready-made weapon",
             "Source: Daily Ops, Elder rank (cleared in 8:00 or less) — 1.3302%",
             "Source: Daily Ops, Paladin rank (cleared in 12:00 or less) — 0.1737%",
-            "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0579%"
+            "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0579%",
+            "Legacy: Survival mode version — no longer obtainable, player trading only"
           ],
           "conditions": [
             "Level 50 and above"
@@ -13869,8 +13934,10 @@
             "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0579%",
             "Plan: Plan: Sole Survivor"
           ],
-          "conditions": [],
-          "conditionsChecked": false
+          "conditions": [
+            "Level 50 and above"
+          ],
+          "conditionsChecked": true
         },
         {
           "route": "Quests",
@@ -14924,7 +14991,9 @@
           ],
           "tradeable": true,
           "dropRate": "",
-          "conditions": [],
+          "conditions": [
+            "Level 50 and above"
+          ],
           "conditionsChecked": true
         },
         {
@@ -15294,32 +15363,28 @@
           "lines": [
             "Drops: Ready-made weapon",
             "Source: Infestations — 1.7241%",
-            "Source: Bounty hunt target — 20.6897% – 82.7586%",
-            "Source: Legendary enemy drop — 17.8030% – 82.7586%",
+            "Source: Bounty hunt target (ranged-weapon pool) — 1.7241%",
+            "Source: Bounty hunt target (any-weapon pool) — 0.8621%",
+            "Source: Bounty hunt target (special any-item pool) — 0.4310%",
             "Source: Meat Bag — 1.6511%",
-            "Source: Trunk — 0.0198% – 1.7021%",
-            "Source: Steamer Trunk — 0.0198% – 1.7021%",
+            "Source: Trunk (pre-war) — 1.7021%",
+            "Source: Trunk (pre-war at a point of interest / raider at a point of interest) — 0.0198%",
+            "Source: Steamer Trunk (pre-war) — 1.7021%",
+            "Source: Steamer Trunk (pre-war at a point of interest / raider at a point of interest) — 0.0198%",
             "Source: Activity: Battle Bots — 1.7021%",
             "Source: Treasure Maps — 1.7021%",
-            "Source: U.S.S.A. Supply Crate",
+            "Source: U.S.S.A. Supply Crate — 0%",
             "Source: Resource Drop Crate — 0.8511%",
-            "Source: Government Aid Drop",
+            "Source: Government Aid Drop — 0%",
             "Source: Tool Case — 0.5106%",
             "Source: Donations Box — 0.0198%",
             "Source: Responders Crate — 0.0198%",
-            "Source: Safe — 0.6218%",
             "Source: Duffle Bag — 0.0693%",
-            "Source: Boss enemies (large loot) — 0.1246%",
-            "Source: Boss enemies (medium loot) — 0.1886%",
+            "Source: Boss enemies (large loot) — 0.1024%",
+            "Source: Boss enemies (medium loot) — 0.1352%",
             "Source: Boss enemies (small loot) — 0.0107%",
-            "Source: Cooler — 0.6218%",
             "Source: Enclave Activity: Dropped Connection — 0.8511%",
-            "Source: Pre-War Safe — 0.6218%",
-            "Source: Super Duper Mart Safe — 0.6218%",
             "Source: Vault Trunk — 0.0693%",
-            "Source: Mayor's Safe — 0.6218%",
-            "Source: Security Office Safe — 0.6218%",
-            "Source: Daniel's Safe — 0.6218%",
             "Source: Enemy drop: Albino Deathclaw, Alpha Deathclaw, Armored Deathclaw, Chameleon Deathclaw and 18 more — 0.1332%",
             "Source: Enemy drop: Glowing Mothman, Mothman, Mothman Hatchling, Scorched Mothman and 2 more — 0.1332%",
             "Source: Enemy drop: Dr. Blackburn — 0.1332%",
@@ -15336,7 +15401,49 @@
             "Source: Enemy drop: Ultracite Titan — 0.1332%",
             "Source: Enemy drop: Uninvited Scorchbeast — 0.1332%",
             "Source: Enemy drop: Thunder Crab — 0.1332%",
-            "Source: Enemy drop: Camp Counselor Nia, Glowing Stormigo, Glowing Wendigo, Nightstalker and 5 more — 0.1332%"
+            "Source: Enemy drop: Camp Counselor Nia, Glowing Stormigo, Glowing Wendigo, Nightstalker and 5 more — 0.1332%",
+            "Note: A legendary drop first picks a pool (ranged weapons, any weapon, any item...); each rate is the chance of this item once that pool is picked.",
+            "Note: 0% in the game files - this source is still wired up but hands nothing out, so it does not drop from here."
+          ],
+          "tradeable": true,
+          "dropRate": "",
+          "conditions": [],
+          "conditionsChecked": true
+        },
+        {
+          "route": "Events & Activities",
+          "populated": true,
+          "lines": [
+            "Drops: Ready-made weapon",
+            "Source: Legendary enemy drop (ranged-weapon pool) — 1.7241%",
+            "Source: Legendary enemy drop (any-weapon pool) — 0.8621%",
+            "Source: Legendary enemy drop (special any-item pool) — 0.4310%",
+            "Source: Legendary enemy drop (creature any-item pool) — 0.3709%",
+            "Note: A legendary drop first picks a pool (ranged weapons, any weapon, any item...); each rate is the chance of this item once that pool is picked."
+          ],
+          "tradeable": true,
+          "dropRate": "",
+          "conditions": [
+            "Only from legendary enemies of rank 4 (of 5 ranks in the game files)"
+          ],
+          "conditionsChecked": true
+        },
+        {
+          "route": "Events & Activities",
+          "populated": true,
+          "lines": [
+            "Drops: Ready-made weapon",
+            "Source: Safe (pre-war / random encounter / raider trapped) — 0.6218%",
+            "Source: Safe (raider) — 0.5198%",
+            "Source: Cooler — 0.6218%",
+            "Source: Pre-War Safe (standard / raider trapped) — 0.6218%",
+            "Source: Pre-War Safe (raider) — 0.5198%",
+            "Source: Super Duper Mart Safe (pre-war / raider trapped) — 0.6218%",
+            "Source: Super Duper Mart Safe (raider) — 0.5198%",
+            "Source: Mayor's Safe (pre-war) — 0.6218%",
+            "Source: Mayor's Safe (raider) — 0.5198%",
+            "Source: Security Office Safe — 0.6218%",
+            "Source: Daniel's Safe — 0.6218%"
           ],
           "tradeable": true,
           "dropRate": "",
@@ -15354,7 +15461,18 @@
           "lines": [
             "Drops: Ready-made weapon",
             "Source: Lost and Found — 1.7021%",
-            "Source: One of Us — 0.8511%",
+            "Source: One of Us — 0.8511%"
+          ],
+          "tradeable": true,
+          "dropRate": "",
+          "conditions": [],
+          "conditionsChecked": true
+        },
+        {
+          "route": "Quests",
+          "populated": true,
+          "lines": [
+            "Drops: Ready-made weapon",
             "Source: Mayor for a Day — 0.6218%"
           ],
           "tradeable": true,
@@ -15497,9 +15615,18 @@
           "lines": [
             "Drops: Ready-made weapon",
             "Source: Public Event: Line in the Sand — 1.6667%",
-            "Source: Activity: Distant Thunder — 1.6667%",
-            "Source: Daily: Heart of the Enemy — 1.6667%",
-            "Source: Quest: Mother of Invention — 100.0000%",
+            "Source: Activity: Distant Thunder — 1.6667%"
+          ],
+          "tradeable": true,
+          "dropRate": "",
+          "conditions": [],
+          "conditionsChecked": true
+        },
+        {
+          "route": "Events & Activities",
+          "populated": true,
+          "lines": [
+            "Drops: Ready-made weapon",
             "Source: Enemy drop: Pint-Sized Phantom Trespasser (only while The Slasher event is running) — 1.6667%"
           ],
           "tradeable": true,
@@ -15509,10 +15636,16 @@
         },
         {
           "route": "Quests",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
+          "populated": true,
+          "lines": [
+            "Drops: Ready-made weapon",
+            "Source: Daily: Heart of the Enemy — 1.6667%",
+            "Source: Mother of Invention — 100.0000%"
+          ],
+          "tradeable": true,
+          "dropRate": "",
+          "conditions": [],
+          "conditionsChecked": true
         },
         {
           "route": "Challenges",
@@ -15651,7 +15784,8 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made weapon",
-            "Source: Field Testing — 100.0000%"
+            "Source: Field Testing — 100.0000%",
+            "Note: Field Testing is a choice - you get this if you side with Marty; siding with Colin gives a different reward."
           ],
           "tradeable": true,
           "dropRate": "",
@@ -15720,7 +15854,7 @@
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
-      "howToObtain": "Quest: Wolf in Sheep's Clothing / Event: Opening a Mutated Package or Mutated Party Pack / Quest: Event: Encryptid / Quest: Atlantic City: The Human Condition",
+      "howToObtain": "Quest: Wolf in Sheep's Clothing / Event: Opening a Mutated Package or Mutated Party Pack / Quest: Event: Encryptid / Quest: Hells Eagles / and 2 more",
       "sourceType": "Quest",
       "sourceRef": "Wolf in Sheep's Clothing",
       "questName": "Wolf in Sheep's Clothing",
@@ -15840,6 +15974,21 @@
           "conditionsChecked": true
         },
         {
+          "route": "Events & Activities",
+          "populated": true,
+          "lines": [
+            "Drops: Plan only",
+            "Source: Public Event: Encryptid — 10.0000%",
+            "Plan: Plan: The Fixer"
+          ],
+          "tradeable": true,
+          "dropRate": "",
+          "conditions": [
+            "Only after completing The Lowe-Down"
+          ],
+          "conditionsChecked": true
+        },
+        {
           "route": "Quests",
           "populated": true,
           "tradeable": true,
@@ -15858,12 +16007,12 @@
           "dropRate": "",
           "lines": [
             "Drops: Plan only",
-            "Source: Event: Encryptid — 50.0000%",
-            "Source: Atlantic City: The Human Condition — 1.3158%",
+            "Source: Hells Eagles — 1.3158%",
+            "Source: Custodial Compulsions — 1.3158%",
+            "Source: Regent of the Dead — 1.3158%",
             "Plan: Plan: The Fixer"
           ],
           "conditions": [
-            "Only after completing The Lowe-Down",
             "Stops dropping once you learn it"
           ],
           "conditionsChecked": true
@@ -16010,7 +16159,9 @@
           ],
           "tradeable": true,
           "dropRate": "",
-          "conditions": [],
+          "conditions": [
+            "Level 50 and above"
+          ],
           "conditionsChecked": true
         },
         {
@@ -16082,7 +16233,7 @@
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
-      "howToObtain": "Quest: Waste Management",
+      "howToObtain": "Quest: Waste Management / Daily Ops / Event: Opening a Mutated Package or Mutated Party Pack",
       "sourceType": "Quest",
       "sourceRef": "Waste Management",
       "questName": "Waste Management",
@@ -16130,12 +16281,15 @@
           "lines": [
             "Drops: Plan only",
             "Plan: Plan: The Gutter",
-            "Vendor: Minerva — travelling vendor — rotating stock",
-            "Legacy: an older version — no longer obtainable, player trading only"
+            "Vendor: Minerva — travelling vendor",
+            "Stock: List 6 (Emporium), List 8 (Big Sale), List 22 (Emporium), List 24 (Big Sale)",
+            "Cost: 1,000 Gold Bullion"
           ],
           "tradeable": true,
           "dropRate": "N/A",
-          "conditions": [],
+          "conditions": [
+            "Only in the weeks the vendor has it in stock"
+          ],
           "conditionsChecked": true
         },
         {
@@ -16154,10 +16308,35 @@
         },
         {
           "route": "Events & Activities",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
+          "populated": true,
+          "lines": [
+            "Drops: Plan only",
+            "Source: Opening a Mutated Package — 0.0455%",
+            "Source: Opening a Mutated Party Pack — 0.0909%",
+            "Plan: Plan: The Gutter",
+            "Legacy: an older version — no longer obtainable, player trading only"
+          ],
+          "tradeable": true,
+          "dropRate": "",
+          "conditions": [],
+          "conditionsChecked": true
+        },
+        {
+          "route": "Events & Activities",
+          "populated": true,
+          "lines": [
+            "Drops: Plan only",
+            "Source: Daily Ops, Elder rank (cleared in 8:00 or less) — 1.3302%",
+            "Source: Daily Ops, Paladin rank (cleared in 12:00 or less) — 0.1737%",
+            "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0579%",
+            "Plan: Plan: The Gutter"
+          ],
+          "tradeable": true,
+          "dropRate": "",
+          "conditions": [
+            "Level 50 and above"
+          ],
+          "conditionsChecked": true
         },
         {
           "route": "Quests",
@@ -16259,7 +16438,7 @@
           "route": "Atom Shop",
           "populated": true,
           "lines": [
-            "Drops: Ready-made weapon",
+            "Drops: Unlocks crafting (Weapon Workbench)",
             "Source: Atom Shop"
           ],
           "tradeable": true,
@@ -16876,7 +17055,9 @@
           ],
           "tradeable": true,
           "dropRate": "",
-          "conditions": [],
+          "conditions": [
+            "Level 50 and above"
+          ],
           "conditionsChecked": true
         },
         {
@@ -17497,7 +17678,8 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made armour",
-            "Source: Prize terminal (spend Claim Tokens) — earned from Lode Baring — 100.0000%"
+            "Source: Prize terminal (spend Claim Tokens) — earned from Lode Baring — 100.0000%",
+            "Cost: 100 Claim Tokens (Jackpot Haul!)"
           ],
           "tradeable": true,
           "dropRate": "",
@@ -17628,12 +17810,15 @@
           "lines": [
             "Drops: Plan only",
             "Plan: Plan: Unstoppable Monster",
-            "Vendor: Minerva — travelling vendor — rotating stock",
-            "Legacy: Survival mode version — no longer obtainable, player trading only"
+            "Vendor: Minerva — travelling vendor",
+            "Stock: List 10 (Emporium), List 12 (Big Sale)",
+            "Cost: 1,000 Gold Bullion"
           ],
           "tradeable": true,
           "dropRate": "N/A",
-          "conditions": [],
+          "conditions": [
+            "Only in the weeks the vendor has it in stock"
+          ],
           "conditionsChecked": true
         },
         {
@@ -17658,6 +17843,18 @@
           "lines": [
             "Drops: Ready-made weapon",
             "Source: Opening a Pint-Sized Phantom Pack — 0.6667%",
+            "Legacy: Survival mode version — no longer obtainable, player trading only"
+          ],
+          "conditions": [],
+          "conditionsChecked": true
+        },
+        {
+          "route": "Events & Activities",
+          "populated": true,
+          "tradeable": true,
+          "dropRate": "",
+          "lines": [
+            "Drops: Ready-made weapon",
             "Source: Daily Ops, Elder rank (cleared in 8:00 or less) — 1.3302%",
             "Source: Daily Ops, Paladin rank (cleared in 12:00 or less) — 0.1737%",
             "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0579%"
@@ -17679,8 +17876,10 @@
             "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0579%",
             "Plan: Plan: Unstoppable Monster"
           ],
-          "conditions": [],
-          "conditionsChecked": false
+          "conditions": [
+            "Level 50 and above"
+          ],
+          "conditionsChecked": true
         },
         {
           "route": "Quests",
@@ -17872,7 +18071,7 @@
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
-      "howToObtain": "Quest: The Eye of the Storm / Quest: A Matter of Matter / Vendor: Windy (Cryptid Hunter vendor) / Event: Expedition / and 1 more",
+      "howToObtain": "Quest: The Eye of the Storm / Quest: A Matter of Matter / Vendor: Windy (Cryptid Hunter vendor) / Challenge: Lifetime challenge (name not in the game files yet)",
       "sourceType": "Quest",
       "sourceRef": "The Eye of the Storm",
       "questName": "The Eye of the Storm",
@@ -17937,15 +18136,10 @@
         },
         {
           "route": "Events & Activities",
-          "populated": true,
-          "lines": [
-            "Drops: Ready-made weapon",
-            "Source: Expedition — 100.0000%"
-          ],
-          "tradeable": true,
-          "dropRate": "",
-          "conditions": [],
-          "conditionsChecked": true
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
         },
         {
           "route": "Quests",
@@ -19107,7 +19301,8 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made weapon",
-            "Source: Prototypical Problems — 100.0000%"
+            "Source: Prototypical Problems",
+            "Note: Handed out by the quest's own script rather than a reward list, so the chance is set in that script and is not in the game files."
           ],
           "tradeable": true,
           "dropRate": "",
@@ -19163,10 +19358,10 @@
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
-      "howToObtain": "Quest: Daily: Someone To Talk To",
-      "sourceType": "Quest",
-      "sourceRef": "Daily: Someone To Talk To",
-      "questName": "Daily: Someone To Talk To",
+      "howToObtain": "No source found in the game files",
+      "sourceType": "Unknown",
+      "sourceRef": "",
+      "questName": "",
       "craftable": false,
       "planName": "",
       "tradeable": true,
@@ -19238,15 +19433,10 @@
         },
         {
           "route": "Quests",
-          "populated": true,
-          "lines": [
-            "Drops: Ready-made weapon",
-            "Source: Daily: Someone To Talk To — 100.0000%"
-          ],
-          "tradeable": true,
-          "dropRate": "",
-          "conditions": [],
-          "conditionsChecked": true
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
         },
         {
           "route": "Challenges",
@@ -19259,6 +19449,7 @@
       "recordIds": [
         "0050CA2C"
       ],
+      "unreleased": true,
       "imageSameAsBase": true
     },
     {
@@ -19719,12 +19910,15 @@
           "lines": [
             "Drops: Plan only",
             "Plan: Plan: Whistle in the Dark",
-            "Vendor: Minerva — travelling vendor — rotating stock",
-            "Legacy: an older version — no longer obtainable, player trading only"
+            "Vendor: Minerva — travelling vendor",
+            "Stock: List 6 (Emporium), List 8 (Big Sale), List 22 (Emporium), List 24 (Big Sale)",
+            "Cost: 1,000 Gold Bullion"
           ],
           "tradeable": true,
           "dropRate": "N/A",
-          "conditions": [],
+          "conditions": [
+            "Only in the weeks the vendor has it in stock"
+          ],
           "conditionsChecked": true
         },
         {
@@ -19750,7 +19944,8 @@
             "Drops: Ready-made weapon",
             "Source: Daily Ops, Elder rank (cleared in 8:00 or less) — 1.3302%",
             "Source: Daily Ops, Paladin rank (cleared in 12:00 or less) — 0.1737%",
-            "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0579%"
+            "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0579%",
+            "Legacy: an older version — no longer obtainable, player trading only"
           ],
           "conditions": [
             "Level 50 and above"
@@ -19769,8 +19964,10 @@
             "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0579%",
             "Plan: Plan: Whistle in the Dark"
           ],
-          "conditions": [],
-          "conditionsChecked": false
+          "conditions": [
+            "Level 50 and above"
+          ],
+          "conditionsChecked": true
         },
         {
           "route": "Quests",
@@ -20062,7 +20259,7 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made weapon",
-            "Source: Season 8 Scoreboard — 100.0000%"
+            "Source: A Better Life Underground (Season 8 Scoreboard)"
           ],
           "tradeable": false,
           "dropRate": "",

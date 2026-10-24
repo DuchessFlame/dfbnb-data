@@ -62,6 +62,7 @@ USAGE
 from __future__ import annotations
 
 import csv
+import chal_names
 import json
 import os
 import re
@@ -273,7 +274,8 @@ def build_challenge_lookup() -> dict:
         edid = (r.get("EDID") or "").strip()
         if not edid:
             continue
-        out[edid.upper()] = ((r.get("FULL") or "").strip(), is_cut(edid))
+        # chal_names.display: the required count goes on the name (24 Oct 2026)
+        out[edid.upper()] = (chal_names.display(r.get("FULL"), r.get("TNAM")), is_cut(edid))
     return out
 
 
