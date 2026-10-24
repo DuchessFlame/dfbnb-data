@@ -1538,7 +1538,9 @@ def exp_qust_sp(esm):
     GLOB's value. Read by src/uwa_obtain.py: a reward a quest's own script
     hands out (Breach and Clear's Meteorite Sword: LL_MTR05_RareWeapon, rolled
     against MTR05_Breach_RareItemPercentChance) gets its list and chance from
-    here instead of "not in the game files"."""
+    here instead of "not in the game files".
+    Manual backup: "!!!Wordpress - ExportQUST2ToTSV.pas" writes the same
+    _ScriptProps file, same columns (CollectScriptProps, 25 Oct 2026)."""
     out = ["QuestFormID\tQuestEDID\tQuestName\tScript\tProperty\tType\tValue\tGlobValue"]
     for r in R.xedit_order(esm, "QUST"):
         vm = r.first("VMAD")
