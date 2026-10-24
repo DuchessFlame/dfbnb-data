@@ -145,7 +145,9 @@ class Labels:
         self.craft = {}                    # (norm name, "Scoreboard"/"Atom Shop") -> bench
         for r in self._rows("ENTM_Export_*.tsv"):
             ed = _q(r.get("EDID"))
-            if _DEAD.search(ed) or not re.search(r"_ENTM_(Weapons?|Armor|Armour)_", ed, re.I):
+            # _ENTM_Skin_WeaponModel_: a whole weapon sold as a "skin" (The
+            # Invader - "WEAPON IS CRAFTABLE AT WEAPON WORKBENCHES").
+            if _DEAD.search(ed) or not re.search(r"_ENTM_(Weapons?|Armor|Armour|Skin_WeaponModel)_", ed, re.I):
                 continue
             b = _BENCH.search(_q(r.get("DESC")))
             if not b:
@@ -178,11 +180,66 @@ class Labels:
         return False
 
 
+def _quests_out_of_events(it, changed):
+    """A quest or a daily is not an event (Duchess, 24 Oct 2026: Oathbreaker
+    showed "Daily: Heart of the Enemy" and "Quest: Over and Out" under Events
+    & Activities). Their Source lines move to a Quests entry - "Quest: " is
+    dropped there, the way the Quests row already reads ("Tracking Unknowns",
+    "Daily: Waste Not") - keeping their Drops line, conditions, tradeable pill
+    and the lists behind them (uwa_rates)."""
+    routes = it.get("obtainRoutes") or []
+    moved = []                         # (source route, lines to move)
+    for r in routes:
+        if r.get("route") != "Events & Activities" or not r.get("populated"):
+            continue
+        go = [l for l in r["lines"] if re.match(r"^Source: (Quest|Daily): ", l)]
+        if go:
+            moved.append((r, go))
+    for r, go in moved:
+        lp = r.get("_linePaths") or {}
+        drops = next((l for l in r["lines"] if l.startswith("Drops:")), "")
+        new_lines, new_lp = [], {}
+        for l in go:
+            nl = re.sub(r"^Source: Quest: ", "Source: ", l)
+            new_lines.append(nl)
+            if l in lp:
+                new_lp[nl] = lp.pop(l)
+        r["lines"] = [l for l in r["lines"] if l not in go]
+        if not any(l.startswith("Source:") for l in r["lines"]):
+            # nothing left under Events: the entry itself is the quest's
+            r["lines"] = [l for l in r["lines"] if not l.startswith(("Drops:", "Plan:"))]
+            if not r["lines"]:
+                r.update({"populated": False, "lines": [], "tradeable": None, "dropRate": None})
+                r.pop("conditions", None)
+        rest = [l for l in r["lines"] if not l.startswith(("Drops:", "Source:"))] \
+            if r.get("populated") else []
+        q_idx = [i for i, x in enumerate(routes) if x.get("route") == "Quests"]
+        same = next((routes[i] for i in q_idx if routes[i].get("populated")
+                     and drops in routes[i]["lines"]), None)
+        if same is not None:
+            at = max(i for i, l in enumerate(same["lines"]) if l.startswith(("Drops:", "Source:")))
+            same["lines"][at + 1:at + 1] = [l for l in new_lines if l not in same["lines"]]
+            same.setdefault("_linePaths", {}).update(new_lp)
+        else:
+            entry = {"route": "Quests", "populated": True,
+                     "lines": [drops] + new_lines + [l for l in rest if l.startswith("Plan:")],
+                     "tradeable": r.get("tradeable"), "dropRate": r.get("dropRate") or "",
+                     "conditions": list(r.get("conditions") or []),
+                     "conditionsChecked": r.get("conditionsChecked", True),
+                     "_linePaths": new_lp}
+            blank = next((i for i in q_idx if not routes[i].get("populated")), None)
+            if blank is not None:
+                routes[blank] = entry
+            else:
+                routes.insert(max(q_idx) + 1 if q_idx else len(routes), entry)
+        changed["quest moved out of Events"].append(f"{it['name']}: {', '.join(new_lines)}")
+
+
 def apply(items, labels, log=print):
     changed = defaultdict(list)
     for it in items:
         renames = {}
-        names = [it.get("name")] + list(it.get("aka") or [])
+        names = [it.get("name")] + list(it.get("aka") or []) + [it.get("modOf")]
         for r in it.get("obtainRoutes") or []:
             if not r.get("populated"):
                 continue
@@ -231,6 +288,7 @@ def apply(items, labels, log=print):
             # the same source can now appear twice ("Breach and Clear" +
             # "Activity: Breach and Clear")
             r["lines"] = list(dict.fromkeys(lines))
+        _quests_out_of_events(it, changed)
         # one-line summary and refs follow the new names
         for old, new in renames.items():
             for k in ("howToObtain", "sourceRef"):
@@ -245,3 +303,49 @@ def apply(items, labels, log=print):
         for x in sorted(set(v))[:60]:
             log(f"    {x}")
     return changed
+
+
+def quest_availability(items, tsv_dir, log=print):
+    """A quest/event source that only runs during a season or event says so
+    (Duchess, 24 Oct 2026: "new players are gonna be like what is Disturbed
+    Grave and think they can do it all the time"). The text is the quest's own
+    log line "(This quest is only available ...)", read by
+    plan_quest_guides.Guides - the same reader the plan pages use."""
+    try:
+        import plan_quest_guides as pqg
+        g = pqg.Guides(tsv_dir)
+    except Exception as exc:                             # noqa: BLE001
+        log(f"  quest availability: skipped ({exc})")
+        return 0
+    if not g.ok:
+        return 0
+    n = 0
+    for it in items:
+        for r in it.get("obtainRoutes") or []:
+            if not r.get("populated"):
+                continue
+            notes = []
+            for l in r["lines"]:
+                if not l.startswith("Source: "):
+                    continue
+                src = re.sub(r"\s+—\s+[\d.]+%.*$", "", l[8:])
+                fids = set()
+                for key in {pqg.route_key(src),
+                            pqg.route_key(re.sub(r"^[A-Za-z ]+:\s+", "", src))}:
+                    for fid in g.by_name.get(key, ()):
+                        fids.add(fid)
+                    # quest titles keep their kind ("Repeatable: Disturbed Grave")
+                for fid, q in g.quests.items():
+                    if q["name"] and pqg.route_key(q["name"]) in {pqg.route_key(src)}:
+                        fids.add(fid)
+                avs = {g.availability(f) for f in fids if f in g.quests} - {None}
+                if len(avs) == 1:
+                    av = avs.pop().rstrip(".")
+                    note = f"Note: {src} — {av[0].lower() + av[1:]}."
+                    if note not in r["lines"] and note not in notes:
+                        notes.append(note)
+            if notes:
+                r["lines"] += notes
+                n += 1
+    log(f"  quest availability notes: {n} route(s)")
+    return n

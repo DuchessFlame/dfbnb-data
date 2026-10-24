@@ -331,7 +331,14 @@ class ObtainIndex:
         for r in _rows(self._pick("CHAL_Export_*.tsv")):
             full = _q(r.get("FULL"))
             if full and "<" not in full and "[" not in full:
-                chal_full[_fid(r.get("FormID"))] = full
+                # The required count (TNAM) tells the tiers apart: nine
+                # Abraxodyne challenges are all "Find more Abraxodyne Intel"
+                # (Duchess, 24 Oct 2026: "Find more Abraxodyne Intel (145)").
+                try:
+                    need = int(float(_q(r.get("TNAM")) or 0))
+                except (ValueError, TypeError):
+                    need = 0
+                chal_full[_fid(r.get("FormID"))] = f"{full} ({need:,})" if need > 1 else full
         self.reward_chal = {}               # GMRW edid -> challenge name
         for r in _rows(self._pick("GMRW_Export_*.tsv")):
             item = _fid(r.get("RewardedItem"))
@@ -563,6 +570,14 @@ class ObtainIndex:
             # RareRewards_QuestReward, a list nothing rolls any more.
             if self._cut(list_fid, list_edid):
                 continue
+            # A list whose only holders are cut or catalogue lists is not a way
+            # in (V63 Zweihaender: LL_Weapon_Stormcutter sits only in
+            # zzzQuestRewards_LLS_Weapon_SkylineValley and read "Expedition -
+            # 100%"). A list nobody references at all is left to the rules below.
+            ups = self.parents.get(list_fid, ())
+            if ups and all(_is_dead(u.rpartition(":")[0]) or ROSTER_LIST.search(u.rpartition(":")[0])
+                           or u.endswith(":FLST") for u in ups):
+                continue
             # A vendor the plan pages already named (Giuseppe, Minerva…) is a
             # vendor route, never "Expedition" read off the list name.
             vlab = self.vendor_label.get(list_fid)
@@ -768,11 +783,17 @@ class ObtainIndex:
                         lp.setdefault(f"Source: {src}", []).extend(ps)
 
         if plan:
-            gold = self.gv.route_for_plan(plan["fid"])
-            if gold:
-                _put(routes, "Gold Bullion",
-                     ["Drops: Plan only"] + gold,
-                     tradeable=item.get("tradeable"), drop="N/A")
+            # One entry per gold vendor (Face Breaker: Mortimer, then Minerva),
+            # each with its own Vendor / Cost - gold_vendor.routes_for_plan.
+            for n, gold in enumerate(self.gv.routes_for_plan(plan["fid"])):
+                if n == 0:
+                    _put(routes, "Gold Bullion", ["Drops: Plan only"] + gold,
+                         tradeable=item.get("tradeable"), drop="N/A")
+                    continue
+                at = max(i for i, r in enumerate(routes) if r["route"] == "Gold Bullion")
+                routes.insert(at + 1, {"route": "Gold Bullion", "populated": True,
+                                       "lines": ["Drops: Plan only"] + gold,
+                                       "tradeable": item.get("tradeable"), "dropRate": "N/A"})
 
         # A legacy copy next to a live re-issue (Survival_AssaultRifle_
         # WhistleInTheDark beside the Daily Ops version): repair-only, nothing
@@ -1058,3 +1079,68 @@ if __name__ == "__main__":
                 print(f"    [{r['route']}]")
                 for ln in r["lines"]:
                     print(f"        {ln}")
+
+
+def stamp_vendor_layout(items, idx):
+    """Stamps routes read like the Gold Bullion block (Duchess, 24 Oct 2026):
+    Drops / Plan / Vendor (name - place) / Cost, never "Source: Giuseppe
+    (Expeditions vendor) - 100.0000%". The vendor and place come from
+    build_stamps_json.STAMP_VENDORS (the Stamps page's own table, keyed on the
+    vendor's leveled list); the price is the plan BOOK's DATA_Value, which is
+    what a stamp vendor charges (build_stamps_json.index_book). Caps vendors
+    are left alone on purpose: their price moves with Charisma and perks.
+    Runs before uwa_rates, so the vendor line gets no "100%"."""
+    try:
+        import build_stamps_json as _bs
+        vendors = _bs.STAMP_VENDORS
+    except Exception:                                   # noqa: BLE001
+        return 0
+    books = (getattr(idx.gv, "_ctx", {}) or {}).get("book_by_id", {}) or {}
+    by_name = {}
+    for fid, b in books.items():
+        nm = (b.get("FULL") or "").strip()
+        if nm and not re.match(r"^(zzz|DEL_|CUT)", b.get("EDID") or "", re.I):
+            by_name.setdefault(nm.lower(), b)
+    done = 0
+    for it in items:
+        for r in it.get("obtainRoutes") or []:
+            if r.get("route") != "Stamps" or not r.get("populated"):
+                continue
+            lp = r.get("_linePaths") or {}
+            plan_ln = next((l for l in r["lines"] if l.startswith("Plan:")), "")
+            book = by_name.get(plan_ln.split(":", 1)[1].strip().lower()) if plan_ln else None
+            out, changed = [], False
+            for ln in r["lines"]:
+                if not ln.startswith("Source:"):
+                    out.append(ln)
+                    continue
+                vend = None
+                for lst, tgt in lp.get(ln, []):
+                    vend = vendors.get(idx._edid_of_list(_fid(lst)) or "")
+                    b = books.get(_fid(tgt)) if tgt else None
+                    if b and re.search(r"recipe", b.get("EDID") or "", re.I):
+                        book = b
+                    if vend:
+                        break
+                if not vend:
+                    out.append(ln)
+                    continue
+                cost = ""
+                try:
+                    cost = int(float((book or {}).get("DATA_Value") or 0))
+                except (ValueError, TypeError):
+                    cost = 0
+                out.append(f"Vendor: {vend['name']} — {vend['location']}")
+                if cost:
+                    out.append(f"Cost: {cost:,} Stamps")
+                lp.pop(ln, None)
+                changed = True
+            if changed:
+                # Drops / Plan / Vendor / Cost, the Gold Bullion order
+                head = [l for l in out if l.startswith("Drops:")]
+                plan = [l for l in out if l.startswith("Plan:")]
+                rest = [l for l in out if l not in head and l not in plan]
+                r["lines"] = head + plan + rest
+                r["dropRate"] = "N/A"
+                done += 1
+    return done
