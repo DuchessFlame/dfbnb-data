@@ -435,7 +435,10 @@ def load_seasons(repo_root):
 
 def final_text(items, seasons, log=print):
     n_plan = n_season = 0
-    sea = re.compile(r"^(Source: )Season (\d+) Scoreboard$")
+    # A rate may already sit on the line (uwa_rates runs first): "Season 8
+    # Scoreboard — 100.0000%" kept its bare name (Zeta's Revenge, 24 Oct 2026).
+    # A board reward is claimed, not rolled, so the rate goes too.
+    sea = re.compile(r"^(Source: )Season (\d+) Scoreboard(?:\s+—\s+[\d.]+%)?$")
     note = re.compile(r"(Season (\d+) Scoreboard reward)")
     for it in items:
         for r in it.get("obtainRoutes") or []:
