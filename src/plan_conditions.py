@@ -191,7 +191,10 @@ def _ref_name(ref, names=None):
         return None
     full = (ref.get("full") or "").strip()
     if full:
-        return full
+        # Nine challenges are all "Find more Abraxodyne Intel"; the count
+        # tells them apart (Duchess, 24 Oct 2026).
+        n = CHAL_COUNT.get((ref.get("fid") or "").upper()) if ref.get("sig") == "CHAL" else None
+        return f"{full} ({n:,})" if n else full
     fid = (ref.get("fid") or "").upper()
     if names and fid in names:
         return names[fid]
@@ -303,6 +306,7 @@ def _is_own(ref_fid, name, own):
 
 
 PLAN_NAMES = {}     # COBJ FormID -> the name of the plan that teaches it
+CHAL_COUNT = {}     # CHAL FormID -> how many it asks for (TNAM), when > 1
 
 
 def sentence(cond, names=None, own=None):
@@ -463,6 +467,7 @@ class ConditionIndex:
                     self.parents.setdefault(e["ref"], []).append((lid, e))
         self._anc_cache = {}
         self._load_cobj_names(tsv_dir, newest)
+        self._load_chal_counts(tsv_dir, newest)
 
     # -- loading ------------------------------------------------------------
     def _pick(self, pattern, tsv_dir, newest):
@@ -532,6 +537,24 @@ class ConditionIndex:
     def _is_first_match(self, lid):
         flags = (self.lists.get((lid or "").upper()) or {}).get("flags") or ""
         return len(flags) > 6 and flags[6] == "1"
+
+    def _load_chal_counts(self, tsv_dir, newest):
+        """CHAL FormID -> its required count (TNAM), for challenge names."""
+        try:
+            path = self._pick("CHAL_Export_*.tsv", tsv_dir, newest)
+        except Exception:                               # noqa: BLE001
+            path = None
+        if not path:
+            return
+        with open(path, encoding="utf-8", errors="replace", newline="") as f:
+            for row in csv.DictReader(f, delimiter="\t"):
+                fid = (row.get("FormID") or "").strip().upper()
+                try:
+                    n = int(float((row.get("TNAM") or "0").strip() or 0))
+                except ValueError:
+                    n = 0
+                if fid and n > 1:
+                    CHAL_COUNT[fid] = n
 
     def _load_cobj_names(self, tsv_dir, newest):
         """COBJ FormID -> the name of the thing it crafts.

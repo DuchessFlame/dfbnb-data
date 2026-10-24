@@ -1205,15 +1205,21 @@ def craft_mod_routes(items, channel):
                 # Say what the reader does: the source hands out the parent
                 # (its plan or its unlock), and owning that is what lets you
                 # craft this mod onto it (Duchess, 17 Oct 2026).
-                lines = [f"Drops: Unlocks this mod — get the {par['name']} here, "
-                         f"then craft the mod onto it at a Weapon Workbench"]
-                lines += [l for l in src_r["lines"] if not l.startswith("Drops:")]
+                # Option B (Duchess, 24 Oct 2026): say what the source really
+                # hands out (the parent's own Drops line), and put the mod in
+                # a note.
+                mod = re.sub(rf"^{re.escape(par['name'])}\s*", "", it.get("name") or "").strip() \
+                    or it.get("name")
+                lines = list(src_r["lines"])
+                lines.append(f"Note: Comes with the {mod} mod. Craft it onto the "
+                             f"{par['name']} at a Weapon Workbench.")
                 dst.update({"populated": True, "lines": lines,
                             "tradeable": src_r.get("tradeable"), "dropRate": src_r.get("dropRate")})
                 if src_r.get("paths"):
                     dst["paths"] = list(src_r["paths"])
                 if src_r.get("_linePaths"):
                     dst["_linePaths"] = {k: list(v) for k, v in src_r["_linePaths"].items()}
+            it["modOf"] = par["name"]     # route labels read the parent's unlock wording
             it["howToObtain"] = f"Craft: mod for the {par['name']} (" + par.get("howToObtain", "") + ")"
             # A mod has no WEAP of its own, so its type read "Unknown": it is
             # the parent's weapon type (Cosmic Knife -> Combat Knife · Melee).
@@ -1258,13 +1264,33 @@ def attach_conditions(items, channel):
         own = it.get("_rosterList") or own_lists.get(key) or OWN_LIST_ALIAS.get(key)
         ways = find_events.tops(own) if own else []
         own_fid = ed2fid.get(own or "", "")
+        prev = None                     # (route, source lines, list fids) of the entry before
         for r in it.get("obtainRoutes") or []:
             paths = r.pop("paths", None) or []
             if not r.get("populated"):
                 continue
             stats["routes"] += 1
+            srcs = tuple(re.sub(r"\s+—\s+[\d.]+%.*$", "", l) for l in r.get("lines") or []
+                         if l.startswith("Source:"))
+            plan_fid = (it.get("planFormId") or "").upper()
+            if (not paths and plan_fid and prev and prev[0] == r.get("route")
+                    and set(srcs) <= set(prev[1]) and prev[2]
+                    and any(l.startswith("Drops: Plan only") for l in r.get("lines") or [])):
+                # The plan's own entry beside the weapon's (Mechanic's Best
+                # Friend, Sole Survivor: Daily Ops): same sources, so the same
+                # lists - read the gates with the plan BOOK as the target
+                # instead of printing "Not checked".
+                paths = [[lf, plan_fid] for lf in prev[2]]
+            prev = (r.get("route"), srcs, [p[0] for p in paths if p and p[0]])
             text = " ".join(r.get("lines") or []).lower()
-            if "no longer obtainable" in text:
+            # A Legacy note beside live sources (Disorderly Conduct: Daily Ops
+            # + "Survival mode version - no longer obtainable") must not wipe
+            # the live sources' conditions - only a route with nothing else.
+            live_text = " ".join(l for l in r.get("lines") or []
+                                 if not l.startswith("Legacy:")).lower()
+            if "no longer obtainable" in live_text or (
+                    "no longer obtainable" in text
+                    and not any(l.startswith("Source:") for l in r.get("lines") or [])):
                 r["conditions"], r["conditionsChecked"] = [], True
                 continue
             lines, skipped, checked = [], 0, False
@@ -1280,7 +1306,7 @@ def attach_conditions(items, channel):
                 if m:
                     lines.append(f"Only at {m.group(2)} reputation with the {m.group(1)} or higher")
                     checked = True
-                if re.search(r"rotating stock", rl, re.I):
+                if re.search(r"rotating stock|^Vendor:\s*Minerva\b", rl, re.I):
                     lines.append("Only in the weeks the vendor has it in stock")
                     checked = True
             for list_fid, target in paths:
@@ -1879,6 +1905,10 @@ def build_channel(channel, dist_dir):
     # Player-facing route names: raid encounters, event kinds, raid plans,
     # Scoreboard crafting unlocks — all read from the files (uwa_route_labels).
     uwa_route_labels.apply(all_items, _labels)
+    # Seasonal-only quest sources say so (Disturbed Grave - The Slasher).
+    uwa_route_labels.quest_availability(all_items, os.path.dirname(pick("GMRW_Export_*.tsv", channel) or ""))
+    # Stamps routes in the vendor layout with their stamp price (24 Oct 2026).
+    print(f"  stamp vendor routes with Vendor / Cost: {uwa_obtain.stamp_vendor_layout(all_items, obtain_idx)}")
     # Drop rate on every source line with a leveled list behind it - rng76's
     # numbers, the same engine as the plan pages (uwa_rates.py, 17 Oct 2026).
     _lv = pick("LVLI_Export_*_LVLI_Entries.tsv", channel)

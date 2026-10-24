@@ -67,9 +67,29 @@ Plan / Vendor / Cost / Reputation.
 """
 
 import csv
+import math
 import re
 
 import tsv_source
+
+try:   # Minerva's own page owns these two facts; read them, don't copy them.
+    from build_minerva import MINERVA_DISCOUNT, CUT_LIST_SUBSTRINGS as _MINERVA_CUT, \
+        BIG_SALE_MAP as _BIG_SALE
+except Exception:                                   # noqa: BLE001
+    MINERVA_DISCOUNT, _MINERVA_CUT, _BIG_SALE = 0.75, [], {}
+_MINERVA_LIST_NO = re.compile(r"Minerva_LLS_GoldVendor_(\d+)$", re.I)
+
+
+def _minerva_list_text(list_edids):
+    """'List 21 (Emporium), List 24 (Big Sale)' - the numbers Minerva's own
+    page and calculator use (BS02_SpecialVendor_Minerva_LLS_GoldVendor_NN)."""
+    nums = {int(m.group(1)) for e in list_edids
+            for m in [_MINERVA_LIST_NO.search(e or "")] if m}
+    # Each Emporium week's stock is on sale again in that cycle's Big Sale
+    # (build_minerva.BIG_SALE_MAP - the Minerva page does the same).
+    nums = sorted(nums | {_BIG_SALE[n] for n in nums if n in _BIG_SALE})
+    big = set(_BIG_SALE.values())
+    return ", ".join(f"List {n} ({'Big Sale' if n in big else 'Emporium'})" for n in nums)
 
 # Where each gold vendor stands. Static: these are fixed NPCs at fixed
 # settlements, not something the exports carry.
@@ -78,7 +98,7 @@ VENDOR_LOCATIONS = {
     "Mortimer": "Crater",
     "Molly":    "Foundation",
     "Reginald": "Whitespring Refuge",
-    "Minerva":  "travelling vendor — rotating stock",
+    "Minerva":  "travelling vendor",
 }
 
 # W05_LLV_GoldVendor_Settler_Samuel_6_Ally -> faction / vendor / rank
@@ -217,10 +237,29 @@ class GoldVendorIndex:
         self.details_for_plan(plan_form_id)
         return self._route_for_plan(_fid(plan_form_id))
 
+    def routes_for_plan(self, plan_form_id):
+        """One Gold Bullion line block per vendor that sells the plan BOOK:
+        the ranked faction vendor first, then Minerva when she stocks it too
+        (Face Breaker). [] when no gold vendor sells it."""
+        self.details_for_plan(plan_form_id)
+        fid = _fid(plan_form_id)
+        first = self._route_for_plan(fid)
+        if not first:
+            return []
+        out = [first]
+        d = self._plans.get(fid) or {}
+        if d.get("minerva_cost"):
+            out.append(self._lines(dict(d, vendor="Minerva", faction="", rank="",
+                                        cost=d["minerva_cost"])))
+        return out
+
     def _route_for_plan(self, plan_fid):
         d = self._plans.get(plan_fid)
         if not d:
             return []
+        return self._lines(d)
+
+    def _lines(self, d):
         lines = []
         if d["plan_name"]:
             lines.append(f"Plan: {d['plan_name']}")
@@ -228,6 +267,8 @@ class GoldVendorIndex:
             loc = VENDOR_LOCATIONS.get(d["vendor"], "")
             lines.append(f"Vendor: {d['vendor']} — {loc}" if loc
                          else f"Vendor: {d['vendor']}")
+        if d["vendor"] == "Minerva" and d.get("minerva_lists"):
+            lines.append(f"Stock: {d['minerva_lists']}")
         if d["cost"]:
             lines.append(f"Cost: {_thousands(d['cost'])} Gold Bullion")
         if d["rank"]:
@@ -489,6 +530,28 @@ def _resolve_plan(plan_fid, stocked, book_by_id, glob_val, glob_edid):
                 cost = str(int(float(raw)))
             except (ValueError, TypeError):
                 cost = raw
+        if not cost:
+            # No BVGO override: a gold vendor charges the plan's own value
+            # (DATA_Value) - the same rule build_minerva.parse_gold_price uses.
+            # Piercing Love (Mortimer) had no Cost line for want of this.
+            try:
+                v = int(float(b.get("DATA_Value") or 0))
+                cost = str(v) if v > 0 else ""
+            except (ValueError, TypeError):
+                cost = ""
+
+        # Minerva as well as a ranked vendor (Face Breaker: Mortimer AND
+        # Minerva). Each is its own entry on the page, with its own price -
+        # Minerva sells at MINERVA_DISCOUNT of the normal price.
+        minerva_lists = [e for _, e in stocked[plan_fid]
+                         if _MINERVA_RE.search(e) and not any(c in e for c in _MINERVA_CUT)]
+        minerva_cost = ""
+        if minerva_lists and cost:
+            minerva_cost = str(math.floor(int(cost) * MINERVA_DISCOUNT + 0.5))
+        if vendor == "Minerva":
+            if not minerva_lists:          # only cut backlog lists stock it
+                return None, edid
+            cost = minerva_cost
 
         return {
             "plan_fid":   plan_fid,
@@ -503,6 +566,9 @@ def _resolve_plan(plan_fid, stocked, book_by_id, glob_val, glob_edid):
             "list_edid":  list_edid,
             "price_fid":  price_fid,
             "price_edid": price_edid,
+            # Minerva too, when a ranked vendor is the main entry
+            "minerva_cost": minerva_cost if (minerva_lists and vendor != "Minerva") else "",
+            "minerva_lists": _minerva_list_text(minerva_lists),
         }, ""
 
 

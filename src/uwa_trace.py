@@ -213,6 +213,16 @@ class Tracer:
                     out[fid] = (r.get("FULL") or "").strip().strip('"')
             return out
         self.cont, self.npc, self.chal = names("CONT_Export_*.tsv"), names("NPC_Export_*.tsv"), names("CHAL_Export_*.tsv")
+        # The required count tells same-named challenges apart ("Find more
+        # Abraxodyne Intel (145)", Duchess 24 Oct 2026).
+        for r in self._rows("CHAL_Export_*.tsv"):
+            fid = _f(r.get("FormID"))
+            try:
+                n = int(float((r.get("TNAM") or "0").strip() or 0))
+            except ValueError:
+                n = 0
+            if fid in self.chal and self.chal[fid] and n > 1:
+                self.chal[fid] = f"{self.chal[fid]} ({n:,})"
         # An enemy only DROPS what its death-item list (INAM) gives. A list the
         # NPC references any other way (inventory, outfit - crLLI_Burn_
         # BountyHunt_Weapon_Ranged_Flatliner on Gentle Gary) is the weapon it
@@ -628,7 +638,11 @@ def apply(items, tracer, names=None, obtain_idx=None, hand_only=(), log=print):
             _put(routes, route, f"Source: {lab}", path, it.get("tradeable"))
             shown += " " + lab.lower()
         for l in it.pop("_legacyNote", None) or []:
-            home = next((r for r in routes if r.get("populated")), None)
+            # Beside the live source lines, never on a vendor's Plan/Cost block
+            # (Mechanic's Best Friend had it under Minerva).
+            home = next((r for r in routes if r.get("populated")
+                         and any(x.startswith("Source:") for x in r["lines"])), None) \
+                or next((r for r in routes if r.get("populated")), None)
             if home and l not in home["lines"]:
                 home["lines"].append(l)
         # summary line, game-file sources first
@@ -688,7 +702,9 @@ def apply(items, tracer, names=None, obtain_idx=None, hand_only=(), log=print):
             if any(l in r["lines"] for r in live):
                 continue
             if live:
-                live[0]["lines"].append(l)
+                home = next((r for r in live if any(x.startswith("Source:") for x in r["lines"])),
+                            live[0])
+                home["lines"].append(l)
             else:
                 r = next(x for x in routes if x["route"] == "Events & Activities")
                 r.update({"populated": True, "dropRate": "N/A", "tradeable": it.get("tradeable"),
