@@ -147,6 +147,11 @@ except Exception:                                    # pragma: no cover
 def _humanize(edid):
     if not edid:
         return None
+    # Legendary enemy star keywords (EpicCreature_Rank4Keyword) read as
+    # editor shorthand ("Only from Epic Creature Rank4 Keyword", 24 Oct 2026).
+    m = re.match(r"^EpicCreature_Rank(\d)Keyword$", str(edid), re.I)
+    if m:
+        return f"legendary enemies of rank {m.group(1)} (of 5 ranks in the game files)"
     # Location keywords read as data-miner shorthand ("Only in Loc Theme
     # Asylum", Oct 2026). LocTheme* marks a place dressed in a theme, LocType*
     # the kind of place it is.
@@ -193,8 +198,10 @@ def _ref_name(ref, names=None):
     if full:
         # Nine challenges are all "Find more Abraxodyne Intel"; the count
         # tells them apart (Duchess, 24 Oct 2026).
-        n = CHAL_COUNT.get((ref.get("fid") or "").upper()) if ref.get("sig") == "CHAL" else None
-        return f"{full} ({n:,})" if n else full
+        if ref.get("sig") == "CHAL":
+            import chal_names
+            return chal_names.display(full, CHAL_COUNT.get((ref.get("fid") or "").upper(), 0))
+        return full
     fid = (ref.get("fid") or "").upper()
     if names and fid in names:
         return names[fid]
@@ -554,7 +561,7 @@ class ConditionIndex:
                 except ValueError:
                     n = 0
                 if fid and n > 1:
-                    CHAL_COUNT[fid] = n
+                    CHAL_COUNT[fid] = n     # rendered by chal_names.display
 
     def _load_cobj_names(self, tsv_dir, newest):
         """COBJ FormID -> the name of the thing it crafts.

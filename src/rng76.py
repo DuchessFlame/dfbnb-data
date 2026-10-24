@@ -31,6 +31,17 @@ Core formula (rng-76):
     pick_weight = apriori with ChanceNone stripped out
     cn_factor   = (1 - actual_list_CN/100) × (1 - actual_entry_CN/100)
     ChanceNone values resolved through GLOB/CURV lookups (0-100 scale)
+
+Per-entry curve tables (25 Oct 2026):
+  A tier GLOB in an entry's LVOC is read through THAT entry's curve table
+  (LVOT). LVLI_Math's last column, EntryChanceNoneCurveTable, carries it
+  (written by "!!!Wordpress - ExportLVLIToCSV.pas"). Before that column the
+  engine could only borrow the list's curve (CURV _Refs list the LISTS using
+  a curve), which went wrong whenever a list's entries used different curves
+  or none: Government Aid Drop's weapons entry (Tier_Guaranteed, no curve)
+  was read through its armour entry's Container_Item3_ChanceNone curve and
+  came out "always nothing". With an older export (no column) the old
+  borrowing is used exactly as before. Details: resolve_chance_none().
 """
 
 from __future__ import annotations
@@ -1761,10 +1772,18 @@ class Rng76Resolver:
         Handles GLOB/CURV resolution including:
           - Direct GLOB values (FLTV is the ChanceNone)
           - GLOB as tier index into CURV table → Curve(X=FLTV) = Y ChanceNone
-          - LVLI→CURV mapping for indirect curve references
+          - The entry's own curve table (LVOT, Math column
+            ``EntryChanceNoneCurveTable``) for a tier GLOB in LVOC
+          - LVLI→CURV mapping for indirect curve references (only when the
+            export has no ``EntryChanceNoneCurveTable`` column)
           - ChanceNoneCurve field holding a GLOB ref (not actual curve)
 
         Priority (matches game engine behaviour):
+          0. Entry rows, when the Math export carries
+             ``EntryChanceNoneCurveTable`` (ExportLVLIToCSV.pas, 25 Oct 2026):
+             the tier GLOB in LVOC goes through THAT entry's LVOT curve; an
+             entry with a blank LVOT has no curve, so the GLOB value is the
+             ChanceNone itself. See "Per-entry curve tables" below.
           1. CURV-column GLOB with LVLI→CURV mapping → tier into curve → Y
           2. Real CURV + GLOB → GLOB FLTV as X into curve → Y
           3. <prefix>ChanceNoneResolved (if non-zero and no curve path)
@@ -1773,9 +1792,35 @@ class Rng76Resolver:
           6. 0.0 (= 100% drop chance)
 
         Returns ChanceNone as 0-100 (e.g. 90.0 = 90% nothing, 10% drop).
+
+        Per-entry curve tables (25 Oct 2026, Duchess approved the change)
+        -----------------------------------------------------------------
+        LVOT (the curve table) is per ENTRY, and one list can mix entries
+        with and without it. Before the LVLI export carried LVOT, step 1's
+        LVLI→CURV mapping was the only way to find a curve (CURV _Refs list
+        the LISTS that use a curve, not the entries), so the list's curve was
+        applied to every tier GLOB in the list. Checked in SeventySix.esm:
+        Container_Loot_DropCrate_Govt01 (Government Aid Drop) has LVOT
+        Container_Item3_ChanceNone on its armour and water entries only; its
+        weapon and mod-plan entries carry LVOC Tier_Guaranteed (0) and NO
+        LVOT. The mapping ran Tier_Guaranteed through Container_Item3_
+        ChanceNone (X 0 → Y 100), so "guaranteed" became "always nothing" and
+        The Dragon showed 0% from the crate. Now:
+          - column present, LVOT set   → Curve_LVOT(X = GLOB FLTV) = ChanceNone
+          - column present, LVOT blank → no curve: the list's curve is NOT
+            borrowed; the entry resolves exactly like any entry without a
+            curve (Resolved, then the GLOB FLTV)
+          - column absent (older export) → the old LVLI→CURV mapping (step 1)
+        The interpolation and every formula are unchanged; only where the
+        curve comes from changed. The list-level path (field_prefix "List")
+        is unchanged - lists keep their own LVCT curve.
         """
         glob_ref = (math_row.get(f"{field_prefix}ChanceNoneGlobal") or "").strip()
         curv_ref = (math_row.get(f"{field_prefix}ChanceNoneCurve") or "").strip()
+        # Per-entry LVOT (see docstring). None = the export has no column.
+        entry_table = math_row.get(f"{field_prefix}ChanceNoneCurveTable")
+        if entry_table is not None:
+            entry_table = entry_table.strip()
 
         # Detect MinLvl GLOBs misplaced in the ChanceNone slot by xEdit.
         # These set the minimum player level for the entry, NOT a chance of
@@ -1816,7 +1861,18 @@ class Rng76Resolver:
             # interpolate GLOB FLTV (X) → Y = actual ChanceNone.
             if not has_pts and curv_fid:
                 tier_fltv = self.globs.value(curv_fid)
-                if tier_fltv is not None:
+                if tier_fltv is not None and entry_table is not None:
+                    # The export says which curve THIS entry uses (or none).
+                    table_fid = glob_formid_from_lvli_field(entry_table) if entry_table else None
+                    if table_fid and self.curvs is not None and table_fid in self.curvs.points:
+                        y = self.curvs.interpolate(table_fid, tier_fltv)
+                        if y is not None:
+                            return y
+                    # No LVOT on this entry (or its points are missing):
+                    # do NOT borrow the list's curve. Fall through to the
+                    # same steps as an entry that never had a curve
+                    # (Resolved, then the GLOB value itself).
+                if tier_fltv is not None and entry_table is None:
                     lvli_fid = (math_row.get("LVLI_FormID") or "").strip()
                     if self.curvs and lvli_fid:
                         mapped_curv = self.curvs.curv_for_lvli(lvli_fid)
@@ -1827,6 +1883,10 @@ class Rng76Resolver:
                     # No mapped curve found — fall back to GLOB value
                     if glob_fltv is None:
                         glob_fltv = tier_fltv
+                elif tier_fltv is not None and glob_fltv is None:
+                    # Per-entry LVOT export, no curve for this entry: the
+                    # GLOB value is the ChanceNone (old fallback, unchanged).
+                    glob_fltv = tier_fltv
 
         # Fall back to xEdit's pre-computed Resolved value (skip when a
         # MinLvl GLOB contaminated it — the Resolved value would be the

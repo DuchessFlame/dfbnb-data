@@ -35,6 +35,7 @@ USAGE
 from __future__ import annotations
 
 import json
+import chal_names
 import os
 import re
 import sys
@@ -192,7 +193,8 @@ def challenge_names() -> dict:
         path = None
     if not path:
         return {}
-    return {(r.get("EDID") or "").strip().upper(): (r.get("FULL") or "").strip()
+    # chal_names.display: the required count goes on the name (24 Oct 2026)
+    return {(r.get("EDID") or "").strip().upper(): chal_names.display(r.get("FULL"), r.get("TNAM"))
             for r in read_tsv(path) if (r.get("EDID") or "").strip()}
 
 

@@ -181,6 +181,9 @@ const endTime = normaliseTime12h(r.EndTime, startTime || "12:00 PM");
       phase: (r.Phase ?? "").trim() || null,
       subtitle: (r.Subtitle ?? "").trim() || null,
       ownCard: /^(y|yes|true|1)$/i.test((r.OwnCard ?? "").trim()),
+      // Discord channel name (no #) Brewmaster points to in his #general-chat
+      // "event has started" post, e.g. fallout-76-news-events-and-guides.
+      channel: (r.Channel ?? "").trim().replace(/^#/, "") || null,
     });
   }
 

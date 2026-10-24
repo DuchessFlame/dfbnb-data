@@ -334,11 +334,24 @@ class ObtainIndex:
                 # The required count (TNAM) tells the tiers apart: nine
                 # Abraxodyne challenges are all "Find more Abraxodyne Intel"
                 # (Duchess, 24 Oct 2026: "Find more Abraxodyne Intel (145)").
-                try:
-                    need = int(float(_q(r.get("TNAM")) or 0))
-                except (ValueError, TypeError):
-                    need = 0
-                chal_full[_fid(r.get("FormID"))] = f"{full} ({need:,})" if need > 1 else full
+                import chal_names
+                chal_full[_fid(r.get("FormID"))] = chal_names.display(full, _q(r.get("TNAM")))
+        quest_full = {}
+        for r in _rows(self._pick("QUST2_Export_*_Quests.tsv")):
+            t = _q(r.get("FULL"))
+            if t and "<" not in t and "[" not in t:
+                quest_full[_fid(r.get("FormID"))] = t
+        # The quest whose own Reward stage links the reward record - the only
+        # join that is always right (GMRW Ref columns can list a second quest:
+        # Hells Eagles' reward row also points at Custodial Compulsions).
+        gmrw_quest = {}
+        rq = self._pick("QUST2_Export_*_RewardQuests.tsv")
+        for r in (_rows(rq) if rq else []):
+            if _q(r.get("RowKind")) == "Reward":
+                g = _q(r.get("Link")).split(":")
+                t = clean = _q(r.get("QuestName"))
+                if len(g) > 1 and t and "<" not in t and "[" not in t:
+                    gmrw_quest.setdefault(g[1], t)
         self.reward_chal = {}               # GMRW edid -> challenge name
         for r in _rows(self._pick("GMRW_Export_*.tsv")):
             item = _fid(r.get("RewardedItem"))
@@ -346,7 +359,19 @@ class ObtainIndex:
                 continue
             ed = _q(r.get("EDID"))
             bucket = self.dead_rewards if _is_dead(ed) else self.rewards
-            bucket[item].append((ed, _q(r.get("ParentQuestDisplay"))))
+            # The QUST the reward record belongs to (its Ref columns) names it;
+            # ParentQuestDisplay can be another quest's title (Hells Eagles'
+            # reward row says "Custodial Compulsions"; Dangerous Pastimes' says
+            # "Neurological Warfare").
+            disp = gmrw_quest.get(ed) or _q(r.get("ParentQuestDisplay"))
+            for k, v in ([] if ed in gmrw_quest else r.items()):
+                v = _q(v or "")
+                if (k or "").startswith("Ref") and v.endswith(":QUST"):
+                    t = quest_full.get(_fid(v.split(":")[0]))
+                    if t:
+                        disp = t
+                        break
+            bucket[item].append((ed, disp))
             for k, v in r.items():
                 v = _q(v or "")
                 if (k or "").startswith("Ref") and v.endswith(":CHAL"):
@@ -575,6 +600,11 @@ class ObtainIndex:
             # zzzQuestRewards_LLS_Weapon_SkylineValley and read "Expedition -
             # 100%"). A list nobody references at all is left to the rules below.
             ups = self.parents.get(list_fid, ())
+            # Nothing references it at all: it is an orphan, and naming it from
+            # its EditorID ("DailyOps_LL_Weapon_Melee_TheGutter" -> "Daily Ops -
+            # 100%") would be a guess (24 Oct 2026).
+            if not ups:
+                continue
             if ups and all(_is_dead(u.rpartition(":")[0]) or ROSTER_LIST.search(u.rpartition(":")[0])
                            or u.endswith(":FLST") for u in ups):
                 continue
@@ -599,8 +629,57 @@ class ObtainIndex:
                 label = "Opening a " + PK_SEP.join(pk)
             if not route:
                 continue
-            out.append((route, label or self._pretty(shown), what, list_fid, fid))
+            # Rate from the list the game actually rolls, not the inner one the
+            # record sits in: The Fixer's plan sits in E01B_Encryptid_LLS_Weapons
+            # (1 in 2) but Encryptid rolls that list at 20% (E01B_Encryptid_LL_
+            # Quest_Reward, ChanceNone 80) - the page said 50%, the files 10%.
+            # Only when every way up stays under this same source label.
+            tops = self._entry_tops(list_fid)
+            named = {l2 for t in tops for _r2, l2, *_x in self._reward_lines(t, what)}
+            usable = named and not any("<" in n or not n for n in named) and label != "Daily Ops"
+            if tops and usable and len(named) > 1 and all(self._reward_lines(t, what) for t in tops):
+                # The ways up are DIFFERENT quests: name each by its own reward
+                # record (The Fixer's AC side-quest plan list is paid by Hells
+                # Eagles, Custodial Compulsions and Regent of the Dead - not
+                # "Atlantic City: The Human Condition", read off the EditorID).
+                for t in tops:
+                    for r2, l2, _w, _n, _t in self._reward_lines(t, what):
+                        out.append((r2, l2, what, t, fid))
+            elif tops and all(self._classify(self._edid_of_list(t))[1] in ("", label)
+                              or self._source_label(t, self._edid_of_list(t))[1] == label
+                              for t in tops):
+                for t in tops:
+                    out.append((route, label or self._pretty(shown), what, t, fid))
+            else:
+                out.append((route, label or self._pretty(shown), what, list_fid, fid))
         return out
+
+    def _entry_tops(self, list_fid, depth=6):
+        """The lists above list_fid that the game rolls directly (something other
+        than a leveled list holds them - a reward record, NPC, container, magic
+        effect, quest). [] when list_fid itself is one, or nothing live is above."""
+        def live_ups(lf):
+            return [r for r in sorted(self.parents.get(lf, ()))
+                    if not _is_dead(r.rpartition(":")[0]) and not ROSTER_LIST.search(r.rpartition(":")[0])
+                    and not r.endswith(":FLST")]
+        if any(not r.endswith(":LVLI") for r in live_ups(list_fid)):
+            return []
+        tops, seen, todo = [], {list_fid}, [(list_fid, 0)]
+        while todo:
+            lf, d = todo.pop(0)
+            ups = live_ups(lf)
+            if lf != list_fid and any(not r.endswith(":LVLI") for r in ups):
+                tops.append(lf)
+                continue
+            if d >= depth:
+                continue
+            for r in ups:
+                ed = r.rpartition(":")[0]
+                pf = self.list_fid.get(ed)
+                if pf and pf not in seen:
+                    seen.add(pf)
+                    todo.append((pf, d + 1))
+        return tops
 
     def _challenge_name(self, ed):
         """The challenge's own title, or — when its CHAL is not in the export
@@ -665,7 +744,13 @@ class ObtainIndex:
                 continue
             m = re.match(r"^\s*(Event|Activity)\s*:\s*(.+)$", name)
             route, label = ("Events & Activities", m.group(2)) if m else ("Quests", name)
-            out.append((route, label, "weapon", list_fid, list_fid))
+            # Held by the quest itself (a script property / alias, no reward
+            # record): the quest's script decides IF it spawns, so the list's
+            # own "100%" is not the chance (Meteorite Sword <- Breach and
+            # Clear's LL_MTR05_RareWeapon, beside a 0.25 chance GLOB). No list
+            # path, so no rate is printed; a note says why.
+            out.append((route, label, "weapon", None, list_fid))
+            self._script_spawn.add((route, label))
         for pf, pe in sorted(self.owners.get(list_fid, ())):
             if ROSTER_LIST.search(pe) or _is_dead(pe):
                 continue
@@ -744,6 +829,7 @@ class ObtainIndex:
         # their base Plasma Gun, because this read only ran for items with no
         # source at all (Duchess, 12 Oct 2026).
         own_hits = []
+        self._script_spawn = set()
         for le in item.get("_rosterLists") or []:
             lf = self.list_fid.get(le)
             if lf:
@@ -773,6 +859,9 @@ class ObtainIndex:
                 lines.append(f"Source: {src}")
             if plan and "plan" in g["what"]:
                 lines.append(f"Plan: {plan['name']}")
+            for src in g["sources"]:
+                if (route, src) in getattr(self, "_script_spawn", ()):
+                    lines.append(SCRIPT_NOTE)
             _put(routes, route, lines,
                  tradeable=item.get("tradeable"), drop="N/A")
             for entry in routes:
@@ -1144,3 +1233,334 @@ def stamp_vendor_layout(items, idx):
                 r["dropRate"] = "N/A"
                 done += 1
     return done
+
+
+def prize_terminal_costs(items, idx, tsv_dir):
+    """Prize terminal sources say what they cost (Duchess, 24 Oct 2026).
+
+    Read from the terminal's own menu (TERM export: ITEM rows):
+      "Camden Whacker - 50 tokens"  + condition GetItemCount(token) >= 50
+          -> the row names the item: Cost: 50 Mr. Fuzzy Tokens
+      "Jackpot Haul! - 100 Tokens" (Hornwright claim token exchange)
+          -> the row names the haul whose leveled list holds the item
+             (MTR08_LL_04_MineHaulJackpot): Cost: 100 Claim Tokens (Jackpot Haul!)
+    The currency is the one the source line already names ("spend Claim Tokens").
+    """
+    import glob
+    paths = [p for p in glob.glob(os.path.join(tsv_dir, "TERM_Export_*.tsv"))
+             if "_Placements" not in p and "_Quests" not in p]
+    if not paths:
+        return 0
+    menu = []                      # (term edid, text, cost)
+    for r in _rows(max(paths, key=os.path.getmtime)):
+        if "ITEM" not in (_q(r.get("Row")), _q(r.get("ItemType"))):
+            continue
+        text = _q(r.get("Text")) or _q(r.get("Display"))
+        m = re.match(r"^(.+?)\s+-\s+([\d,]+)\s+tokens?\b", text, re.I)
+        if not m:
+            continue
+        menu.append((_q(r.get("TERM_EDID")), m.group(1).strip(), int(m.group(2).replace(",", ""))))
+    n = 0
+    for it in items:
+        names = {_norm(x) for x in [it.get("name")] + list(it.get("aka") or []) if x}
+        for r in it.get("obtainRoutes") or []:
+            if not r.get("populated"):
+                continue
+            lp = r.get("_linePaths") or {}
+            out = []
+            for ln in r["lines"]:
+                out.append(ln)
+                m = re.match(r"^Source: Prize terminal \(spend (.+?)\)", ln)
+                if not m:
+                    continue
+                cur = m.group(1)
+                hit = next(((t, c) for _e, t, c in menu if _norm(t) in names), None)
+                if not hit:
+                    lists = {idx._edid_of_list(_fid(p[0])).lower() for p in lp.get(ln, []) if p and p[0]}
+                    hit = next(((t, c) for _e, t, c in menu
+                                if re.sub(r"[^a-z]", "", t.split()[0].lower())
+                                and any(re.sub(r"[^a-z]", "", t.split()[0].lower()) in l for l in lists)),
+                               None)
+                    if hit:
+                        out.append(f"Cost: {hit[1]:,} {cur} ({hit[0]})")
+                        n += 1
+                    continue
+                out.append(f"Cost: {hit[1]:,} {cur}")
+                n += 1
+            r["lines"] = out
+    return n
+
+
+SCRIPT_NOTE = ("Note: Handed out by the quest's own script rather than a reward list, "
+               "so the chance is set in that script and is not in the game files.")
+
+
+def _script_chances(tsv_dir):
+    """QUST2_Export_*_ScriptProps.tsv (tools/export_from_esm.py QUSTSP) ->
+    {quest name: [(script, {prop: (fid, edid, sig, globvalue)})]}."""
+    import csv
+    import glob as _g
+    files = [p for p in _g.glob(os.path.join(tsv_dir or "", "QUST2_Export_*_ScriptProps.tsv"))]
+    out = {}
+    if not files:
+        return out
+    with open(max(files, key=os.path.getmtime), encoding="utf-8", errors="replace", newline="") as f:
+        by = {}
+        for r in csv.DictReader(f, delimiter="\t", quoting=csv.QUOTE_NONE):
+            if r.get("Type") != "obj":
+                continue
+            fid, ed, sig = (r.get("Value") or "::").split(":", 2)
+            k = ((r.get("QuestName") or "").strip(), r.get("QuestEDID"), r.get("Script"))
+            by.setdefault(k, {})[r.get("Property") or ""] = (fid, ed, sig, r.get("GlobValue") or "")
+    for (qn, qe, sc), props in by.items():
+        out.setdefault(qn, []).append((qe, sc, props))
+    return out
+
+
+def _words(s):
+    s = re.sub(r"([a-z])([A-Z])", r"\1 \2", s or "")
+    return {w.lower() for w in re.split(r"[^A-Za-z]+", s) if len(w) > 2}
+
+
+def script_chance(label, item_fids, rates, chances):
+    """The chance a quest's own script hands an item out, read from the
+    script's properties: the item's list (an LVLI property whose tree holds
+    the item) and the chance GLOB beside it in the same script. A GLOB of 1
+    or less is a fraction (MTR05_Breach_RareItemPercentChance 0.25 sits with
+    MTR05_Breach_PercentContainersOpeningPerBatch 0.2 - the share of
+    containers per batch - so these "percent" globals are fractions); above 1
+    it is a percentage (SQ_UltraciteScorchedChance 25).
+    Returns (rate 0-1, glob edid, glob value) or None when the files do not
+    pin it to one list + one chance."""
+    if not rates or not chances:
+        return None
+    found = []
+    for qn, rows in chances.items():
+        if not (qn == label or qn.endswith(": " + label)):
+            continue
+        for qe, sc, props in rows:
+            lists = [(pn, v) for pn, v in props.items() if v[2] == "LVLI"
+                     and item_fids & rates._leaves(v[0])]
+            globs = [(pn, v) for pn, v in props.items() if v[2] == "GLOB"
+                     and re.search(r"chance", v[1], re.I) and v[3]]
+            if len(lists) != 1 or not globs:
+                continue
+            lp, lv = lists[0]
+            if len(globs) > 1:
+                lw = _words(lp) | _words(lv[1])
+                globs = [g for g in globs if _words(g[1][1]) & lw - {"mtr", "chance", "percent"}]
+            if len(globs) != 1:
+                continue
+            g = globs[0][1]
+            try:
+                c = float(g[3])
+            except ValueError:
+                continue
+            c = c if c <= 1 else c / 100.0
+            y = rates.yields(lv[0])
+            found.append((c * y, g[1], g[3]))
+    return found[0] if len(set(f[0] for f in found)) == 1 and found else None
+
+
+def script_spawn_notes(items, rates=None, tsv_dir=None):
+    """After uwa_rates: a source the quest's script hands out (uwa_trace
+    _scriptQuests / ObtainIndex._script_spawn). When the script's own
+    properties name the item's list and a chance GLOB (QUST2 _ScriptProps),
+    the line gets that rate and a note saying where it comes from; otherwise
+    no percentage and a note saying why. Runs last, so no later pass puts the
+    list's own 100% back."""
+    chances = _script_chances(tsv_dir) if tsv_dir else {}
+    n = 0
+    for it in items:
+        labs = set(it.pop("_scriptQuests", None) or [])
+        done = set()
+        fids = {_fid(x) for x in (it.get("formId"), *(it.get("variantFormIds") or [])) if x}
+        for r in it.get("obtainRoutes") or []:
+            if not r.get("populated") or not labs:
+                continue
+            if any(l.startswith("Drops: Unlocks") for l in r["lines"]):
+                continue
+            for i, ln in enumerate(list(r["lines"])):
+                m = re.match(r"^Source: (.+?)(\s+—\s+[\d.]+%)?$", ln)
+                if not (m and m.group(1) in labs):
+                    continue
+                sc = script_chance(m.group(1), fids, rates, chances)
+                if not sc:
+                    continue
+                rate, ged, gval = sc
+                r["lines"][i] = f"Source: {m.group(1)} — {rate * 100:.4f}%"
+                note = (f"Note: Rolled by the {('activity' if 'Activity' in ln or r['route'].startswith('Events') else 'quest')}'s own script, not a reward list - "
+                        f"{ged} = {gval} in the game files, a {rate * 100:g}% chance each time.")
+                if SCRIPT_NOTE in r["lines"]:
+                    r["lines"].remove(SCRIPT_NOTE)
+                if note not in r["lines"]:
+                    r["lines"].append(note)
+                done.add(r["lines"][i])
+                labs.discard(m.group(1))
+                n += 1
+        for r in it.get("obtainRoutes") or []:
+            if not r.get("populated"):
+                continue
+            if any(l.startswith("Drops: Unlocks") for l in r["lines"]):
+                continue          # a crafting unlock is not a spawn
+            hit = False
+            for i, ln in enumerate(r["lines"]):
+                if ln in done:
+                    continue
+                m = re.match(r"^Source: (.+?)(\s+—\s+[\d.]+%)?$", ln)
+                if m and (m.group(1) in labs or SCRIPT_NOTE in r["lines"]):
+                    if m.group(1) in labs or (SCRIPT_NOTE in r["lines"] and m.group(2)):
+                        r["lines"][i] = f"Source: {m.group(1)}"
+                        hit = True
+            if hit and SCRIPT_NOTE not in r["lines"]:
+                r["lines"].append(SCRIPT_NOTE)
+            n += hit
+    return n
+
+
+def dedupe_same_source(items):
+    """Two Source lines backed by exactly the same lists are one source named
+    twice (Slasher Axe: "Bounty hunt target" and "Enemy drop: The Reborn
+    Pint-Sized Slasher" - the Reborn Slasher IS the bounty target). Keep the
+    line that names the enemy / place; drop the generic one. Before uwa_rates."""
+    n = 0
+    for it in items:
+        for r in it.get("obtainRoutes") or []:
+            lp = r.get("_linePaths") or {}
+            src = [l for l in r.get("lines") or [] if l.startswith("Source:") and lp.get(l)]
+            key = {}
+            for l in src:
+                k = tuple(sorted(tuple(map(str, p)) for p in lp[l]))
+                key.setdefault(k, []).append(l)
+            for k, ls in key.items():
+                # Only a generic holder name beside the line that names the
+                # same enemy. Lines that share lists on purpose stay (Daily Ops
+                # ranks, Enclave activities sharing one pool, safes and trunks).
+                named = [l for l in ls if l.startswith("Source: Enemy drop:")]
+                if not named:
+                    continue
+                for l in ls:
+                    if re.match(r"^Source: (Bounty hunt target|Legendary enemy drop)$", l):
+                        r["lines"].remove(l)
+                        lp.pop(l, None)
+                        n += 1
+    return n
+
+
+def choice_reward_notes(items, idx, tsv_dir):
+    """A quest that hands out ONE of several rewards depending on a choice
+    (Field Testing: side with Colin -> Mind Over Matter, Marty -> The Farmhand)
+    says so instead of a bare 100% on both (24 Oct 2026). Read from the reward
+    record: its rewards are gated by GetValue tiers and each list is named for
+    its choice (BS01_MQ03_FieldTesting_LL_Quest_Reward_Colin / _Marty)."""
+    import glob
+    paths = glob.glob(os.path.join(tsv_dir, "GMRW_Export_*.tsv"))
+    if not paths:
+        return 0
+    by_gmrw = defaultdict(list)          # GMRW edid -> [(list edid, tier func)]
+    list_gmrw = {}
+    for r in _rows(max(paths, key=os.path.getmtime)):
+        it = _q(r.get("RewardedItem")).split(":")
+        if len(it) < 3 or it[2] != "LVLI":
+            continue
+        by_gmrw[_q(r.get("EDID"))].append((it[1], _q(r.get("TierConditionFunc"))))
+        list_gmrw[it[1]] = _q(r.get("EDID"))
+    n = 0
+    for it in items:
+        for r in it.get("obtainRoutes") or []:
+            if not r.get("populated"):
+                continue
+            lp = r.get("_linePaths") or {}
+            notes = []
+            for ln, ps in lp.items():
+                quest = re.sub(r"\s+—\s+[\d.]+%$", "", ln[8:]) if ln.startswith("Source: ") else ""
+                for p in ps:
+                    if not p or not p[0]:
+                        continue
+                    # the line's OWN list and the lists right above it - not the
+                    # unique's list, which every line of the item shares
+                    own = idx._edid_of_list(_fid(p[0]))
+                    cands = [own] + [u.rpartition(":")[0] for u in idx.parents.get(_fid(p[0]), ())]
+                    for le in cands:
+                        g = list_gmrw.get(le)
+                        if not g:
+                            continue
+                        sibs = [(l, f) for l, f in by_gmrw[g] if f == "GetValue"]
+                        if len(sibs) < 2 or le not in [l for l, _f in sibs]:
+                            continue
+                        who = le.rsplit("_", 1)[-1]
+                        others = [l.rsplit("_", 1)[-1] for l, _f in sibs if l != le]
+                        others = [o for o in others if o.lower() not in ("reward", "rewards")]
+                        # a person's name (Colin, Marty) - not a tier or rank
+                        # (Daily Ops Tier01/Tier02 use the same GetValue gate)
+                        name_rx = r"^[A-Z][a-z]{2,}$"
+                        if not others or who.lower() in ("reward", "rewards", "tier") \
+                                or not re.match(name_rx, who) \
+                                or not all(re.match(name_rx, o) for o in others):
+                            continue
+                        notes.append(f"Note: {quest} is a choice - you get this if you side with "
+                                     f"{who}; siding with {', '.join(others)} gives a different reward.")
+            for nt in dict.fromkeys(notes):
+                if nt not in r["lines"]:
+                    r["lines"].append(nt)
+                    n += 1
+    return n
+
+
+def atom_shop_routes(items, atom_shop_path):
+    """Atom Shop / Limited Time Bundle entries from dist/atom_shop.json (the
+    Atom Shop page's own data): a store item or bundle that holds a unique's
+    crafting entitlement (ENTM "..._ENTM_Weapons_<Name>") is a way to get it.
+    Cold Shoulder: the "Cold Shoulder Starter Bundle" (1,000 Atoms, Add-ons
+    store) holds SCORE_S12_ENTM_Weapons_ColdShoulder. Store listings and
+    prices are not in the game files, so they live in the Atom Shop data and
+    every page reads them from there (24 Oct 2026)."""
+    import json as _json
+    try:
+        shop = _json.load(open(atom_shop_path, encoding="utf-8"))
+    except (OSError, ValueError):
+        return 0
+
+    def edids(x):
+        out = {x.get("edid") or ""}
+        out |= set(x.get("relatedEdids") or [])
+        for b in x.get("bundleItems") or x.get("items") or []:
+            out.add(b.get("edid") or "")
+        return {e for e in out if e}
+
+    offers = [("Atom Shop", x, edids(x)) for x in shop.get("items") or []]
+    offers += [("Limited Time Bundle", x, edids(x)) for x in shop.get("ltb") or []]
+    n = 0
+    for it in items:
+        key = _norm(it.get("name"))
+        if not key:
+            continue
+        rx = re.compile(r"_ENTM_(Weapons?|Armou?r|Outfit)_" + re.escape(key) + r"$", re.I)
+        for route, offer, eds in offers:
+            if not any(rx.search(_norm_keep_us(e)) for e in eds):
+                continue
+            r = next((r for r in it.get("obtainRoutes") or [] if r.get("route") == route), None)
+            if r is None:
+                continue
+            bench = "Armor Workbench" if (it.get("kind") or "").lower().startswith("armo") else "Weapon Workbench"
+            lines = [f"Drops: Unlocks crafting ({bench})", f"Source: {offer['name']}"]
+            if offer.get("atoms"):
+                lines.append(f"Cost: {int(offer['atoms']):,} Atoms")
+            if offer.get("store"):
+                lines.append(f"Note: In the Atom Shop's {offer['store']} store.")
+            if route == "Limited Time Bundle":
+                lines.append("Note: A real-money platform bundle (Steam / PlayStation / Xbox), not an Atom Shop item.")
+            if r.get("populated") and any(l == f"Source: {offer['name']}" for l in r.get("lines") or []):
+                continue
+            if r.get("populated"):
+                r["lines"] += lines
+            else:
+                r.update({"populated": True, "lines": lines, "tradeable": False,
+                          "dropRate": "N/A", "conditions": [], "conditionsChecked": True})
+            n += 1
+    return n
+
+
+def _norm_keep_us(s):
+    """EditorID with only letters, digits and underscores, for the ENTM match."""
+    return re.sub(r"[^A-Za-z0-9_]", "", str(s or ""))

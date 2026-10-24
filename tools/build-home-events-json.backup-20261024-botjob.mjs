@@ -1,0 +1,258 @@
+// tools/build-home-events-json.mjs
+import fs from "fs";
+import path from "path";
+
+function readText(p) {
+  return fs.readFileSync(p, "utf8");
+}
+
+function ensureDir(p) {
+  fs.mkdirSync(p, { recursive: true });
+}
+
+function parseTSV(tsvText) {
+  const lines = tsvText
+    .replace(/\r\n/g, "\n")
+    .replace(/\r/g, "\n")
+    .split("\n")
+    .filter((l) => l.trim().length > 0);
+
+  if (!lines.length) return [];
+
+  const header = lines[0].split("\t").map((h) => h.trim());
+  const rows = [];
+
+  for (let i = 1; i < lines.length; i++) {
+    const parts = lines[i].split("\t");
+    const row = {};
+    for (let c = 0; c < header.length; c++) {
+      row[header[c]] = (parts[c] ?? "").trim();
+    }
+    rows.push(row);
+  }
+  return rows;
+}
+
+function normaliseDate(d) {
+  const v = (d ?? "").trim();
+
+  // Already ISO
+  if (/^\d{4}-\d{2}-\d{2}$/.test(v)) return v;
+
+  // Match d/m/yyyy or dd/mm/yyyy
+  const m = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(v);
+  if (m) {
+    const day = m[1].padStart(2, "0");
+    const month = m[2].padStart(2, "0");
+    const year = m[3];
+    return `${year}-${month}-${day}`;
+  }
+
+  return v;
+}
+
+function isValidISODate(d) {
+  return /^\d{4}-\d{2}-\d{2}$/.test(d);
+}
+
+function normaliseTime12h(t, fallback) {
+  const v = (t ?? "").trim();
+  const fb = (fallback ?? "").trim();
+
+  if (!v) return fb || "12:00 PM";
+
+  // "H:MM AM/PM" or "HH:MM AM/PM"
+  const m = /^(\d{1,2}):(\d{2})\s*([AP]M)$/i.exec(v);
+  if (!m) return fb || "12:00 PM";
+
+  const hh = Number(m[1]);
+  const mm = Number(m[2]);
+  const ap = m[3].toUpperCase();
+
+  if (hh < 1 || hh > 12) return fb || "12:00 PM";
+  if (mm < 0 || mm > 59) return fb || "12:00 PM";
+
+  return `${hh}:${String(mm).padStart(2, "0")} ${ap}`;
+}
+
+function required(row, field, ctx) {
+  const v = (row[field] ?? "").trim();
+  if (!v) throw new Error(`${ctx}: missing required field "${field}"`);
+  return v;
+}
+
+function toIntOrNull(v) {
+  const s = (v ?? "").trim();
+  if (!s) return null;
+  const n = Number.parseInt(s, 10);
+  return Number.isFinite(n) ? n : null;
+}
+
+// Default label for a guide link when none is supplied in the TSV.
+// "...-all-rewards" pages are reward galleries; everything else is a guide.
+function inferGuideLabel(url) {
+  return /-all-rewards\/?$/.test((url ?? "").trim()) ? "Event Rewards" : "Event Guide";
+}
+
+// Parse the optional "Guides" column into an ordered array of { label, url }.
+// Syntax: "Label|https://url ;; Label2|https://url2"
+//   - links are separated by " ;; "
+//   - a link may omit "Label|" and just be a bare URL (label is then inferred)
+// Falls back to the legacy single "Url" column when "Guides" is empty.
+function parseGuides(guidesRaw, urlRaw) {
+  const guides = [];
+  const raw = (guidesRaw ?? "").trim();
+
+  if (raw) {
+    for (const part of raw.split(";;")) {
+      const seg = part.trim();
+      if (!seg) continue;
+      const bar = seg.indexOf("|");
+      let label;
+      let url;
+      if (bar === -1) {
+        url = seg;
+        label = inferGuideLabel(url);
+      } else {
+        label = seg.slice(0, bar).trim();
+        url = seg.slice(bar + 1).trim();
+        if (!label) label = inferGuideLabel(url);
+      }
+      if (url) guides.push({ label, url });
+    }
+  } else {
+    // Legacy single-link events: leave the label blank so the renderer keeps
+    // its existing badge-aware default ("Event Guide" / "Minerva's List" /
+    // "Watch Live"). Only the Guides column carries explicit labels.
+    const u = (urlRaw ?? "").trim();
+    if (u) guides.push({ label: "", url: u });
+  }
+
+  return guides;
+}
+
+function buildEvents(tsvRows) {
+  const events = [];
+
+  for (const r of tsvRows) {
+    const id = required(r, "Id", "events.tsv");
+    const title = required(r, "Title", `events.tsv:${id}`);
+    const type = required(r, "Type", `events.tsv:${id}`);
+   const startRaw = required(r, "StartDate", `events.tsv:${id}`);
+    const endRaw = required(r, "EndDate", `events.tsv:${id}`);
+
+    const start = normaliseDate(startRaw);
+    const end = normaliseDate(endRaw);
+
+  const startTime = normaliseTime12h(r.StartTime, "12:00 PM");
+const endTime = normaliseTime12h(r.EndTime, startTime || "12:00 PM");
+
+    const url = (r.Url ?? "").trim();
+    const badge = (r.Badge ?? "").trim();
+    const notes = (r.Notes ?? "").trim();
+
+    const guides = parseGuides(r.Guides, url);
+
+    if (!isValidISODate(start)) throw new Error(`events.tsv:${id} StartDate must be YYYY-MM-DD, got "${start}"`);
+    if (!isValidISODate(end)) throw new Error(`events.tsv:${id} EndDate must be YYYY-MM-DD, got "${end}"`);
+
+    events.push({
+      id,
+      title,
+      type,
+      startDate: start,
+      startTime,
+      endDate: end,
+      endTime,
+      // Legacy single-link field, kept for backward compatibility.
+      // Points at the first guide so existing renderers keep working.
+      url: (guides[0] && guides[0].url) || url || null,
+      // New: ordered list of guide links rendered as pills under the event.
+      guides,
+      badge: badge || null,
+      notes: notes || null,
+      sort: toIntOrNull(r.Sort),
+      // Grouping (added 24 Oct 2026): a row with a Parent id is drawn as a
+      // phase inside its parent event's card on the home page. Phase is the
+      // short label ("Phase 1", "Finale"), Subtitle says what you actually do,
+      // and OwnCard = yes also keeps the row as its own card (e.g. Spooky
+      // Scorched, a stand-alone event that is also a Slasher phase).
+      parent: (r.Parent ?? "").trim() || null,
+      phase: (r.Phase ?? "").trim() || null,
+      subtitle: (r.Subtitle ?? "").trim() || null,
+      ownCard: /^(y|yes|true|1)$/i.test((r.OwnCard ?? "").trim()),
+    });
+  }
+
+  // Stable ordering: sort (asc, nulls last) then startDate then title
+  events.sort((a, b) => {
+    const as = a.sort ?? 999999;
+    const bs = b.sort ?? 999999;
+    if (as !== bs) return as - bs;
+    if (a.startDate !== b.startDate) return a.startDate.localeCompare(b.startDate);
+    return a.title.localeCompare(b.title);
+  });
+
+  return events;
+}
+
+// Minerva deterministic config (anchor-based, no scraping)
+// You compute dates at runtime, so the JSON only needs the anchor and rules.
+const minervaConfig = {
+  timezone: "America/New_York",
+  rollover: { timeLocal: "12:00:00" },
+anchor: {
+  startDate: "2026-02-05",
+  location: "The Whitespring",
+  inventoryList: 24,
+},
+
+rules: {
+  cycleWeeks: 4,
+  weekStartWeekday: "MON",
+
+  // Inclusive day counts
+  normalDurationDays: 3,   // Mon..Wed
+  bigSaleDurationDays: 5,  // Thu..Mon
+
+  // Real location rotation
+  locationOrder: ["Foundation", "The Crater", "Fort Atlas", "The Whitespring"],
+
+  // Big Sale lists are divisible by 4 (4,8,12,16,20,24)
+  bigSaleEvery: 4,
+
+  // Start-to-start gaps (days)
+  normalStartGapDays: 7,     // Mon -> Mon
+  preBigSaleGapDays: 10,     // Mon -> Thu
+  postBigSaleGapDays: 11,    // Thu -> next Mon week
+},
+
+};
+
+function main() {
+  const repoRoot = process.cwd();
+
+  const inPath = path.join(repoRoot, "src", "home", "events.tsv");
+  const outDir = path.join(repoRoot, "dist");
+  const outPath = path.join(outDir, "home-events.json");
+
+  const tsv = readText(inPath);
+  const rows = parseTSV(tsv);
+
+  const events = buildEvents(rows);
+
+  const payload = {
+    schemaVersion: 2,
+    timezone: "America/New_York",
+    rollover: { timeLocal: "12:00:00" },
+    generatedAt: new Date().toISOString(),
+    minerva: minervaConfig,
+    events,
+  };
+
+  ensureDir(outDir);
+  fs.writeFileSync(outPath, JSON.stringify(payload, null, 2) + "\n", "utf8");
+  console.log(`Wrote ${outPath} (${events.length} events)`);
+}
+
+main();

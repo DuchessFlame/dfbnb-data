@@ -233,6 +233,12 @@ CONFIRMED_CUT_SOURCE_PATTERNS = (
     # its own between underscores.
     (re.compile(r"(?:^|_)p62(?:_|$)", re.I),
      "The Drifter", "The Drifter is cut content"),
+    # Designer practice quests (QDL<name>_LessonNN). QDLBarbara_Lesson06 is
+    # titled "Event: A Feast Fit for a King" and rewards the Kingfisher, but
+    # nothing starts it and its location global is DebugBarbaraFLocation
+    # (Duchess, 24 Oct 2026: "this event doesn't exist").
+    (re.compile(r"^QDL[A-Za-z]+_Lesson\d+", re.I),
+     "a designer practice quest", "designer practice quests are not in the game"),
 )
 
 
@@ -1889,7 +1895,9 @@ class UnlockIndex:
                     title = (r.get("FULL") or "").strip()
                     self._chal_rows.append(((r.get("EDID") or "").strip(), title))
                     if ce and title and usable_quest_name(title):
-                        self._chal_names[ce] = _clean_name(title)
+                        # the required count goes on the name (chal_names, 24 Oct 2026)
+                        import chal_names
+                        self._chal_names[ce] = chal_names.display(_clean_name(title), r.get("TNAM"))
 
         self._quest_edid_full = []
         qf = newest("QUEST_Export_*.tsv", tsv_root)

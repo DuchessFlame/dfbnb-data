@@ -732,6 +732,7 @@ def _load_recipe_plans(data_dir: str) -> Dict[str, str]:
     book_path = _newest_export(data_dir, "BOOK_Export_*.tsv", exclude="_Locations")
     cobj_path = _newest_export(data_dir, "COBJ_Export_*.tsv")
     books: Dict[str, str] = {}
+    chal_idx = None
     if book_path:
         for r in _read_tsv(book_path):
             fid = (r.get("FormID") or "").strip().upper()
@@ -753,6 +754,12 @@ def _load_recipe_plans(data_dir: str) -> Dict[str, str]:
             g_edid = (r.get("GNAM_EDID") or "")
             g_full = (r.get("GNAM_FULL") or "").strip()
             if g_full and "challenge" in g_edid.lower():
+                # the required count goes on the name (chal_names, 24 Oct 2026)
+                if chal_idx is None:
+                    import chal_names
+                    chal_path = _newest_export(data_dir, "CHAL_Export_*.tsv")
+                    chal_idx = chal_names.Index(chal_path)
+                g_full = chal_idx.with_count(g_full, fid=gnam)
                 out[edid] = f"Unlocked by the challenge: {g_full}"
     _PLAN_CACHE[data_dir] = out
     return out

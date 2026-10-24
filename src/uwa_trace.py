@@ -179,6 +179,12 @@ class Tracer:
         # Prize terminals: the currency you spend there is a MISC that names
         # the terminal in its Refs and shares its content code
         # (MTR04_MrFuzzyToken -> MTR04_RedeemSubTerminal at Camden Park).
+        # Quests whose alias CREATES a weapon/armour (ALCO): a guaranteed quest
+        # item (Grant's Saber), not a script-rolled spawn.
+        self.alias_creators = set()
+        for r in self._rows("QUST2_Export_*_ItemAliases.tsv"):
+            if re.search(r"ALCO=[0-9A-Fa-f]{8}:[^:;]*:(WEAP|ARMO)\b", r.get("Links") or ""):
+                self.alias_creators.add((r.get("QuestEDID") or "").strip().strip('"'))
         self.term_currency = defaultdict(list)    # TERM edid -> [currency FULL]
         for r in self._rows("MISC_Export_*.tsv"):
             ed, full = (r.get("EDID") or "").strip('"'), (r.get("FULL") or "").strip().strip('"')
@@ -215,14 +221,11 @@ class Tracer:
         self.cont, self.npc, self.chal = names("CONT_Export_*.tsv"), names("NPC_Export_*.tsv"), names("CHAL_Export_*.tsv")
         # The required count tells same-named challenges apart ("Find more
         # Abraxodyne Intel (145)", Duchess 24 Oct 2026).
+        import chal_names
         for r in self._rows("CHAL_Export_*.tsv"):
             fid = _f(r.get("FormID"))
-            try:
-                n = int(float((r.get("TNAM") or "0").strip() or 0))
-            except ValueError:
-                n = 0
-            if fid in self.chal and self.chal[fid] and n > 1:
-                self.chal[fid] = f"{self.chal[fid]} ({n:,})"
+            if fid in self.chal and self.chal[fid]:
+                self.chal[fid] = chal_names.display(self.chal[fid], r.get("TNAM"))
         # An enemy only DROPS what its death-item list (INAM) gives. A list the
         # NPC references any other way (inventory, outfit - crLLI_Burn_
         # BountyHunt_Weapon_Ranged_Flatliner on Gentle Gary) is the weapon it
@@ -561,6 +564,12 @@ def apply(items, tracer, names=None, obtain_idx=None, hand_only=(), log=print):
                 groups[h["list"]].append((lab[12:], [h["list"], h["own"]]))
                 continue
             found.append((route, lab, [h["list"], h["own"]]))
+            if (h.get("sig") == "QUST" and h.get("depth", 9) == 0
+                    and (h.get("edid") or "") not in tracer.alias_creators):
+                # The quest holds the list itself (a script property / alias,
+                # no reward record): its script decides whether it spawns, so
+                # the list's own chance is not the drop rate (Meteorite Sword).
+                it.setdefault("_scriptQuests", []).append(lab)
         for route, lab in tracer.entitlement_routes(tokens):
             found.append((route, lab, None))
         for lf, enemies in groups.items():
@@ -595,7 +604,12 @@ def apply(items, tracer, names=None, obtain_idx=None, hand_only=(), log=print):
                     r.update({"populated": False, "lines": [], "tradeable": None, "dropRate": None})
             report["replaced"].append((it.get("name"), hand_how))
         for r in routes:
-            if r.get("populated") and any("no longer obtainable" in l.lower() for l in r["lines"]):
+            # Only a route that is NOTHING but the retired note is cleared; a
+            # route with live sources keeps them (The Gutter lost its Daily
+            # Ops and Mutated package plan sources here, 24 Oct 2026).
+            if r.get("populated") and any("no longer obtainable" in l.lower() for l in r["lines"]) \
+                    and not any(l.startswith("Source:") and "no longer obtainable" not in l.lower()
+                                for l in r["lines"]):
                 # The old version really is gone — keep saying so, beside the
                 # sources that hand the item out today.
                 kept = [l for l in r["lines"] if l.lower().startswith("legacy:")]

@@ -180,7 +180,21 @@ class Labels:
         return False
 
 
+def _events_out_of_quests(it, changed):
+    """The other way round: "Event: Encryptid" filed under Quests (The Fixer's
+    plan) belongs in Events & Activities."""
+    _move(it, changed, "Quests", "Events & Activities",
+          r"^Source: (Event|Public Event|Activity|Seasonal Event): ",
+          lambda l: re.sub(r"^Source: Event: ", "Source: Public Event: ", l),
+          "event moved out of Quests")
+
+
 def _quests_out_of_events(it, changed):
+    _move(it, changed, "Events & Activities", "Quests", r"^Source: (Quest|Daily): ",
+          lambda l: re.sub(r"^Source: Quest: ", "Source: ", l), "quest moved out of Events")
+
+
+def _move(it, changed, src_route, dst_route, rx, rename, tag):
     """A quest or a daily is not an event (Duchess, 24 Oct 2026: Oathbreaker
     showed "Daily: Heart of the Enemy" and "Quest: Over and Out" under Events
     & Activities). Their Source lines move to a Quests entry - "Quest: " is
@@ -190,20 +204,27 @@ def _quests_out_of_events(it, changed):
     routes = it.get("obtainRoutes") or []
     moved = []                         # (source route, lines to move)
     for r in routes:
-        if r.get("route") != "Events & Activities" or not r.get("populated"):
+        if r.get("route") != src_route or not r.get("populated"):
             continue
-        go = [l for l in r["lines"] if re.match(r"^Source: (Quest|Daily): ", l)]
+        go = [l for l in r["lines"] if re.match(rx, l)]
         if go:
             moved.append((r, go))
     for r, go in moved:
         lp = r.get("_linePaths") or {}
         drops = next((l for l in r["lines"] if l.startswith("Drops:")), "")
         new_lines, new_lp = [], {}
+        moved_paths = []
         for l in go:
-            nl = re.sub(r"^Source: Quest: ", "Source: ", l)
+            nl = rename(l)
             new_lines.append(nl)
             if l in lp:
                 new_lp[nl] = lp.pop(l)
+                moved_paths += [p for p in new_lp[nl] if p not in moved_paths]
+        # the lists behind the moved lines go with them, so drop conditions
+        # (read after this step) belong to the right entry
+        if r.get("paths") is not None and moved_paths:
+            keep = [p for p in r["paths"] if p not in moved_paths]
+            r["paths"] = keep
         r["lines"] = [l for l in r["lines"] if l not in go]
         if not any(l.startswith("Source:") for l in r["lines"]):
             # nothing left under Events: the entry itself is the quest's
@@ -213,26 +234,27 @@ def _quests_out_of_events(it, changed):
                 r.pop("conditions", None)
         rest = [l for l in r["lines"] if not l.startswith(("Drops:", "Source:"))] \
             if r.get("populated") else []
-        q_idx = [i for i, x in enumerate(routes) if x.get("route") == "Quests"]
+        q_idx = [i for i, x in enumerate(routes) if x.get("route") == dst_route]
         same = next((routes[i] for i in q_idx if routes[i].get("populated")
                      and drops in routes[i]["lines"]), None)
         if same is not None:
             at = max(i for i, l in enumerate(same["lines"]) if l.startswith(("Drops:", "Source:")))
             same["lines"][at + 1:at + 1] = [l for l in new_lines if l not in same["lines"]]
             same.setdefault("_linePaths", {}).update(new_lp)
+            same.setdefault("paths", []).extend(p for p in moved_paths if p not in same["paths"])
         else:
-            entry = {"route": "Quests", "populated": True,
+            entry = {"route": dst_route, "populated": True,
                      "lines": [drops] + new_lines + [l for l in rest if l.startswith("Plan:")],
                      "tradeable": r.get("tradeable"), "dropRate": r.get("dropRate") or "",
                      "conditions": list(r.get("conditions") or []),
                      "conditionsChecked": r.get("conditionsChecked", True),
-                     "_linePaths": new_lp}
+                     "_linePaths": new_lp, "paths": list(moved_paths)}
             blank = next((i for i in q_idx if not routes[i].get("populated")), None)
             if blank is not None:
                 routes[blank] = entry
             else:
                 routes.insert(max(q_idx) + 1 if q_idx else len(routes), entry)
-        changed["quest moved out of Events"].append(f"{it['name']}: {', '.join(new_lines)}")
+        changed[tag].append(f"{it['name']}: {', '.join(new_lines)}")
 
 
 def apply(items, labels, log=print):
@@ -289,6 +311,7 @@ def apply(items, labels, log=print):
             # "Activity: Breach and Clear")
             r["lines"] = list(dict.fromkeys(lines))
         _quests_out_of_events(it, changed)
+        _events_out_of_quests(it, changed)
         # one-line summary and refs follow the new names
         for old, new in renames.items():
             for k in ("howToObtain", "sourceRef"):

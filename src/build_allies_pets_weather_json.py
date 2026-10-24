@@ -39,6 +39,7 @@ from patchlog_utils import write_patchlog_feed
 import tsv_source          # one resolver for every export selection
 import camp_config       # hand-maintained tables live in data/camp/*.json
 import gold_vendor       # generative Gold Bullion route (ENTM -> vendor plan)
+import chal_names        # challenge names carry their required count
 
 _CFG_WEATHER_STATIONS = camp_config.load("weather_stations")
 _CFG_ALLIES = camp_config.load("allies")
@@ -3401,7 +3402,8 @@ _FC_CHAL_NAME = {}
 for _row in _fc_stream(FC_CHAL_PATH if _fc_want_chal else None):
     _fid = (_row.get("FormID") or "").upper()
     if _fid in _fc_want_chal:
-        _FC_CHAL_NAME[_fid] = (_row.get("FULL") or "").strip()
+        # chal_names.display: the required count goes on the name (24 Oct 2026)
+        _FC_CHAL_NAME[_fid] = chal_names.display(_row.get("FULL"), _row.get("TNAM"))
 
 
 def _fc_main_image(etdi, edid, season_num, folder=_FC_FOLDER):
