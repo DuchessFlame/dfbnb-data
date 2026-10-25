@@ -56,6 +56,7 @@ straight from the game files, so these no longer need xEdit:
     COBJ    COBJ_Export_<Month>_<Year>.tsv + COBJ2_Export_<Month>_<Year>.tsv  (ExportCOBJToTSV.pas;
             COBJ2 = learn method, learn chance, conditions, first condition quest)
     CONT    CONT_Export_<Month>_<Year>.tsv          (ExportCONTToTSV.pas: containers)
+    ENCH    ENCH_Export_<Month>_<Year>.tsv          (ExportENCHToTSV.pas: enchantments)
     TERMPL  TERM_Export_<Month>_<Year>_Placements.tsv  (ExportTERMToTSV.pas _Placements;
             the main TERM file and _Quests are tools/export_term_from_esm.py)
     REFR    REFR_Placements_<Month>_<Year>.tsv  (ExportREFRPlacementsToTSV.pas per base:
@@ -66,7 +67,7 @@ Every xEdit .pas above stays working as the manual backup.
 Coordinates are correctly rounded; xEdit's own text can differ by one in the last
 decimal place (X/Y/Z) and RotZ by 0.0001 - accepted, readers place by X/Y.
 
-GLOB, AVIF, KYWD, CURV, MISC, NPC, ARMO2, AVTR, BOOK, COBJ and CONT list every record that points at each row ("Referenced By"),
+GLOB, AVIF, KYWD, CURV, MISC, NPC, ARMO2, AVTR, BOOK, COBJ, CONT and ENCH list every record that points at each row ("Referenced By"),
 worked out by esm_refs.py in one ~40 s scan (needs numpy). Known gap: xEdit
 stops reading some quests part-way through their objective/alias conditions, so
 its lists leave out those quests; these lists include them. (The CURV XCRI and
@@ -1429,6 +1430,71 @@ def exp_cont(esm):
     for b, k, p, x in rows:
         out.append("\t".join(b + k + [""] * (mk - len(k)) + [str(len(p))] + [v for t in p for v in t]
                              + [""] * (3 * (mp - len(p))) + [str(len(x))] + x + [""] * (mr - len(x))))
+    return out
+
+
+# ------------------------------------------------------------- ENCH ------
+ENCH_TYPES = {6: "Enchantment", 12: "Staff Enchantment"}
+
+
+def exp_ench(esm):
+    """ExportENCHToTSV.pas - enchantments: ENIT (Flags, Cast / Target / Enchant Type,
+    Charge Time), per effect MGEF FormID + EDID, Magnitude, Area, Duration, curve
+    (CVT0) and the actor value the curve is keyed on (MAGA), then Referenced By.
+    ENIT_EnchantCost / ENIT_EnchantAmount stay blank: the .pas asks for 'Enchant Cost'
+    and 'Amount', which aren't xEdit's field names ('Enchantment Cost' / 'Enchantment
+    Amount'). Globals_Count is always 0 (ENCH has no PRPS)."""
+    def ed(f):
+        return _ccell(esm.edid_of(f))
+
+    rows = []
+    for r in R.xedit_order(esm, "ENCH"):
+        e = r.first("ENIT")
+        en = [""] * 7
+        if e and len(e) >= 28:
+            _cost, fl, ct, _amt, tt, et, ch = struct.unpack_from("<iIIiIIf", e)
+            en = [_flag_bits(fl), _enum(CAST_TYPE, ct), _enum(TARGET_TYPE, tt), ENCH_TYPES.get(et, str(et)),
+                  C.fmt_float(ch), "", ""]
+        effs = []
+        for k, v in r.subs:
+            if k == "EFID":
+                effs.append({"EFID": v})
+            elif effs and k in ("EFIT", "CVT0", "MAGA"):
+                effs[-1].setdefault(k, v)
+        cells = []
+        for x in effs:
+            m = _u32(x["EFID"])
+            fid_ed = ["%08X" % m, ed(m)] if _lk(esm, m) else ["", ""]
+            mag = area = dur = ""
+            efit = x.get("EFIT")
+            # EFIT layout follows the record's form version: from version 170 a leading
+            # u32 comes before Magnitude, Area, Duration (16 or 24 bytes); older records
+            # (12 bytes, or 24 at versions 156-164) start with Magnitude.
+            if efit and len(efit) >= 16 and r.version >= 170:
+                _id, mg, ar, du = struct.unpack_from("<IfII", efit)
+                mag, area, dur = C.fmt_float(mg), str(ar), str(du)
+            elif efit and len(efit) >= 12:
+                mg, ar, du = struct.unpack_from("<fII", efit)
+                mag, area, dur = C.fmt_float(mg), str(ar), str(du)
+            cv = _u32(x.get("CVT0"))
+            ma = _u32(x.get("MAGA"))
+            cells.append(fid_ed + [mag, area, dur, ed(cv) if _lk(esm, cv) else "",
+                                   "%08X" % ma if ma else "", ed(ma) if _lk(esm, ma) else ""])
+        refs = _refcells(esm, r.fid)
+        rows.append((["%08X" % r.fid, _ccell(r.edid), _ccell(esm.lstring(r.full))] + en + [str(len(cells))],
+                     cells, refs))
+    me = max((len(x[1]) for x in rows), default=0)
+    mr = max((len(x[2]) for x in rows), default=0)
+    head = (["ENCH_FormID", "ENCH_EDID", "ENCH_FULL", "ENIT_Flags", "ENIT_CastType", "ENIT_TargetType",
+             "ENIT_EnchantType", "ENIT_ChargeTime", "ENIT_EnchantCost", "ENIT_EnchantAmount", "Effects_Count"]
+            + [c % i for i in range(1, me + 1)
+               for c in ("Effect_%d_MGEF_FID", "Effect_%d_MGEF_EID", "Effect_%d_Magnitude", "Effect_%d_Area",
+                         "Effect_%d_Duration", "Effect_%d_CURV_EID", "Effect_%d_MAGA_FID", "Effect_%d_MAGA_EID")]
+            + ["Globals_Count", "ReferencedByCount"] + ["Ref_%d" % i for i in range(1, mr + 1)])
+    out = ["\t".join(head)]
+    for b, c, x in rows:
+        out.append("\t".join(b + [v for t in c for v in t] + [""] * (8 * (me - len(c))) + ["0", str(len(x))]
+                             + x + [""] * (mr - len(x))))
     return out
 
 
@@ -3513,7 +3579,7 @@ def _lore_notes(esm):
     return out + [x for _, x in rows]
 
 
-NEEDS_REFS = {"ARMO2", "AVTR", "BOOK", "BOOK2", "COBJ", "CONT", "ALCH", "QUST2", "LVLI", "GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "ECAT", "CNDF", "LSCR", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
+NEEDS_REFS = {"ARMO2", "AVTR", "BOOK", "BOOK2", "COBJ", "CONT", "ENCH", "ALCH", "QUST2", "LVLI", "GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "ECAT", "CNDF", "LSCR", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
 # exports that need Referenced By for more than their own records
 REF_TARGETS = {"ARMO2": armo2_ref_targets, "BOOK2": book2_ref_targets, "NPC2": npc2_ref_targets, "MISC2": misc2_ref_targets, "ACTI2": acti2_ref_targets}
 
@@ -3559,6 +3625,7 @@ EXPORTS = {
     "BOOK2": (["BOOK"], "BOOK2_Export", exp_book2),
     "COBJ": (["COBJ"], "COBJ_Export", exp_cobj),
     "CONT": (["CONT"], "CONT_Export", exp_cont),
+    "ENCH": (["ENCH"], "ENCH_Export", exp_ench),
     "REFR": (["ACTI"], "REFR_Placements", exp_refr_placements),
     "LORE": (["NOTE", "BOOK"], "ALLYDLG_Export", exp_lore),
 }

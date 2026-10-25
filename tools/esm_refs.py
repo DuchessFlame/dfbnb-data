@@ -130,6 +130,17 @@ def _is_ref(rules, sig, sub, rel, field, tsig):
     #     HIDE_co_Lead_* recipes make one lead (BOOK) from another (25 Oct 2026).
     if sig == "COBJ" and ((sub == "CNAM" and rel == 0) or (sub == "FVPA" and rel % 12 == 0)):
         return True
+    #   OBTS (object template combination, any record): a property whose value type
+    #     is FormID,Int (4) or FormID,Float (6) holds a form in Value 1. Properties
+    #     follow the includes: Include Count u32, Property Count u32, 7 bytes, Default,
+    #     u8 keyword count + FormIDs, 2 bytes, 7-byte includes, then 24-byte properties
+    #     (type, function, property, Value 1, Value 2, curve). MTR04_EmployeeSecurityBot
+    #     -> an ENCH (25 Oct 2026).
+    if sub == "OBTS" and len(field) >= 18:
+        inc, prop = struct.unpack_from("<II", field, 0)
+        p = 16 + field[15] * 4 + 2 + inc * 7
+        if p <= rel < p + prop * 24 and (rel - p) % 24 == 12 and field[p + (rel - p) // 24 * 24] in (4, 6):
+            return True
     bys = rules.get((sig, sub, "size"))
     if bys is not None and len(field) in bys:  # rule for this exact subrecord size
         return tsig in bys[len(field)].get(rel, ())
