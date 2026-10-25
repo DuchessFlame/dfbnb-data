@@ -48,8 +48,8 @@ straight from the game files, so these no longer need xEdit:
     TERMPL  TERM_Export_<Month>_<Year>_Placements.tsv  (ExportTERMToTSV.pas _Placements;
             the main TERM file and _Quests are tools/export_term_from_esm.py)
     REFR    REFR_Placements_<Month>_<Year>.tsv  (ExportREFRPlacementsToTSV.pas per base:
-            masks, graves, dig sites, treasure-map mounds, any base already in a
-            REFR_Placements file, plus --bases)
+            masks, graves, dig sites, Brain in a Jar, treasure-map mounds, any base
+            already in a REFR_Placements file, plus --bases)
 
 Every xEdit .pas above stays working as the manual backup.
 Coordinates are correctly rounded; xEdit's own text can differ by one in the last
@@ -1586,10 +1586,11 @@ def exp_refrlvli(esm):
 
 # ------------------------------------------------------- REFR_Placements --
 # Base records whose placements the site reads (see the .pas header): the Pint-Sized
-# Slasher masks, the Disturbed Graves, the U-Mine-It dig sites and the treasure-map
-# mounds (every ACTI named TreasureMapMoundActivatorNN). Any other base already in
+# Slasher masks, the Disturbed Graves, the U-Mine-It dig sites, the Brain in a Jar
+# collectables (Skyline Valley) and the treasure-map mounds (every ACTI named
+# TreasureMapMoundActivatorNN). Any other base already in
 # a REFR_Placements file in the output folder is refreshed too, and --bases adds more.
-REFR_BASES = [0x008E069E, 0x008F1672, 0x000355A1]
+REFR_BASES = [0x008E069E, 0x008F1672, 0x000355A1, 0x008ABB18]
 REFR_BASE_EDID_RE = re.compile(r"^TreasureMapMoundActivator\d+$")
 
 
