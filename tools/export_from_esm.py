@@ -57,6 +57,7 @@ straight from the game files, so these no longer need xEdit:
             COBJ2 = learn method, learn chance, conditions, first condition quest)
     CONT    CONT_Export_<Month>_<Year>.tsv          (ExportCONTToTSV.pas: containers)
     ENCH    ENCH_Export_<Month>_<Year>.tsv          (ExportENCHToTSV.pas: enchantments)
+    ENTM    ENTM_Export_<Month>_<Year>.tsv          (ExportENTMToTSV.pas: entitlements)
     TERMPL  TERM_Export_<Month>_<Year>_Placements.tsv  (ExportTERMToTSV.pas _Placements;
             the main TERM file and _Quests are tools/export_term_from_esm.py)
     REFR    REFR_Placements_<Month>_<Year>.tsv  (ExportREFRPlacementsToTSV.pas per base:
@@ -67,7 +68,7 @@ Every xEdit .pas above stays working as the manual backup.
 Coordinates are correctly rounded; xEdit's own text can differ by one in the last
 decimal place (X/Y/Z) and RotZ by 0.0001 - accepted, readers place by X/Y.
 
-GLOB, AVIF, KYWD, CURV, MISC, NPC, ARMO2, AVTR, BOOK, COBJ, CONT and ENCH list every record that points at each row ("Referenced By"),
+GLOB, AVIF, KYWD, CURV, MISC, NPC, ARMO2, AVTR, BOOK, COBJ, CONT, ENCH and ENTM list every record that points at each row ("Referenced By"),
 worked out by esm_refs.py in one ~40 s scan (needs numpy). Known gap: xEdit
 stops reading some quests part-way through their objective/alias conditions, so
 its lists leave out those quests; these lists include them. (The CURV XCRI and
@@ -1495,6 +1496,50 @@ def exp_ench(esm):
     for b, c, x in rows:
         out.append("\t".join(b + [v for t in c for v in t] + [""] * (8 * (me - len(c))) + ["0", str(len(x))]
                              + x + [""] * (mr - len(x))))
+    return out
+
+
+# ------------------------------------------------------------- ENTM ------
+ENTM_MAX_REFS = 64
+
+
+def exp_entm(esm):
+    """ExportENTMToTSV.pas - entitlements (Atom Shop / Fallout 1st / season items):
+    names, XALG flags, keywords, storefront image path / preview / loadout, Referenced By
+    (| joined, capped at 64 with a "...+N more" tail) and the confirm images (ECIL).
+    ECIL quirk kept on purpose: the .pas joins the images with char(ECIL_SEP), which
+    comes out empty, so every image lands in ECIL_1 run together ('A_C1.ddsA_C2.dds')
+    and ECIL_2.. stay blank; build_allies_pets_weather_json.py splits them on '.dds'."""
+    def txt(sub):
+        v = r.first(sub)
+        return _ccell(_zstr(v)) if v is not None else ""
+
+    rows = []
+    for r in R.xedit_order(esm, "ENTM"):
+        xa = r.first("XALG")
+        xalg = ""
+        if xa:
+            bits = struct.unpack("<Q", xa[:8].ljust(8, b"\0"))[0]
+            xalg = "|".join(XALG_FLAGS[i] for i in range(32) if bits >> i & 1)
+        kw = r.first("KWDA") or b""
+        kws = [("%08X:%s:%s" % (k, _ccell(esm.edid_of(k)), esm.sig_of(k))) if _lk(esm, k)
+               else _ccell(esm.link_edit_value(k)) for k in sorted(struct.unpack_from("<%dI" % (len(kw) // 4), kw))]
+        lg = r.first("ETLG")
+        etlg = _ccell(esm.link_edit_value(_u32(lg))) if lg and len(lg) >= 4 else ""
+        refs = [_ccell(x) for x in _refcells(esm, r.fid)]
+        ref = "|".join(refs[:ENTM_MAX_REFS])
+        if len(refs) > ENTM_MAX_REFS:
+            ref += "|...+%d more" % (len(refs) - ENTM_MAX_REFS)
+        ecil = [_ccell(_zstr(v)) for v in r.all("ECIL")]
+        rows.append(["%08X" % r.fid, _ccell(r.edid), _ccell(esm.lstring(r.full)), _ccell(esm.lstring(r.first("DESC"))),
+                     _ccell(esm.lstring(r.first("NNAM"))), xalg, "|".join(kws), txt("SWFI"), txt("BEVA"),
+                     txt("ETIP"), txt("ETDI"), etlg, ref, str(len(ecil)), "".join(ecil)])
+    me = max((int(x[13]) for x in rows), default=0)
+    out = ["\t".join(["FormID", "EDID", "FULL", "DESC", "NNAM", "XALG_Flags", "KEYWORDS", "SWFI", "BEVA",
+                      "ETIP", "ETDI", "ETLG", "ReferencedBy", "ECIL_Count"] + ["ECIL_%d" % i for i in range(1, me + 1)])]
+    for x in rows:
+        cells = [x[14]] if me else []
+        out.append("\t".join(x[:14] + cells + [""] * (me - len(cells))))
     return out
 
 
@@ -3579,7 +3624,7 @@ def _lore_notes(esm):
     return out + [x for _, x in rows]
 
 
-NEEDS_REFS = {"ARMO2", "AVTR", "BOOK", "BOOK2", "COBJ", "CONT", "ENCH", "ALCH", "QUST2", "LVLI", "GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "ECAT", "CNDF", "LSCR", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
+NEEDS_REFS = {"ARMO2", "AVTR", "BOOK", "BOOK2", "COBJ", "CONT", "ENCH", "ENTM", "ALCH", "QUST2", "LVLI", "GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "ECAT", "CNDF", "LSCR", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
 # exports that need Referenced By for more than their own records
 REF_TARGETS = {"ARMO2": armo2_ref_targets, "BOOK2": book2_ref_targets, "NPC2": npc2_ref_targets, "MISC2": misc2_ref_targets, "ACTI2": acti2_ref_targets}
 
@@ -3626,6 +3671,7 @@ EXPORTS = {
     "COBJ": (["COBJ"], "COBJ_Export", exp_cobj),
     "CONT": (["CONT"], "CONT_Export", exp_cont),
     "ENCH": (["ENCH"], "ENCH_Export", exp_ench),
+    "ENTM": (["ENTM"], "ENTM_Export", exp_entm),
     "REFR": (["ACTI"], "REFR_Placements", exp_refr_placements),
     "LORE": (["NOTE", "BOOK"], "ALLYDLG_Export", exp_lore),
 }
