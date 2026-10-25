@@ -53,6 +53,8 @@ straight from the game files, so these no longer need xEdit:
     AVTR    AVTR_Export_<Month>_<Year>.tsv          (ExportAVTRToTSV.pas: player icons)
     BOOK    BOOK_Export_<Month>_<Year>.tsv + _Locations  (ExportBOOKToTSV.pas)
     BOOK2   BOOK2_Export_<Month>_<Year>.tsv         (ExportBOOK2ToCSV.pas: note placements)
+    COBJ    COBJ_Export_<Month>_<Year>.tsv + COBJ2_Export_<Month>_<Year>.tsv  (ExportCOBJToTSV.pas;
+            COBJ2 = learn method, learn chance, conditions, first condition quest)
     TERMPL  TERM_Export_<Month>_<Year>_Placements.tsv  (ExportTERMToTSV.pas _Placements;
             the main TERM file and _Quests are tools/export_term_from_esm.py)
     REFR    REFR_Placements_<Month>_<Year>.tsv  (ExportREFRPlacementsToTSV.pas per base:
@@ -1312,6 +1314,77 @@ def exp_book(esm):
     for a, k, b, x in rows:
         out.append("\t".join(a + k + [""] * (mk - len(k)) + b + x + [""] * (mr - len(x))))
     return {"": out, "_Locations": locs}
+
+
+# ------------------------------------------------------------- COBJ ------
+COBJ_LEARN = ["Learned when picked up or by script", "Learned by scrapping", "Learned when ingested",
+              "Known by default or when conditions are met", "Learned from plan", "Learned from challenge"]
+
+
+def exp_cobj(esm):
+    """ExportCOBJToTSV.pas - recipes (main file: created object, workbench keyword,
+    recipe book, FNAM keywords, FVPA Component:Count:CurveTable, Referenced By flat +
+    padded) and COBJ2 (learn method, learn chance, conditions, first quest a
+    condition points at). COBJ2 is a sibling prefix so COBJ_Export_* globs skip it."""
+    import esm_refs
+
+    def link3(sub):
+        v = r.first(sub)
+        f = _u32(v) if v else None
+        if not _lk(esm, f):
+            return ["", "", ""]
+        return ["%08X" % f, esm.edid_of(f), _ccell(esm.full_of(f))]
+
+    rows, cond = [], ["\t".join(["COBJ_FormID", "COBJ_EDID", "CNAM_FormID", "CNAM_EDID", "LRNM_LearnMethod",
+                                 "LRNC_LearnChance", "CondCount", "Conditions", "Quest_FormID", "Quest_EDID",
+                                 "Quest_FULL"])]
+    for r in R.xedit_order(esm, "COBJ"):
+        fid, ed = "%08X" % r.fid, _ccell(r.edid)
+        cn = link3("CNAM")
+        fn = r.first("FNAM") or b""
+        # xEdit sorts FNAM and FVPA by FormID (component FormID for FVPA)
+        kws = [_ccell(esm.edid_of(k)) for k in sorted(struct.unpack_from("<%dI" % (len(fn) // 4), fn))
+               if _lk(esm, k)]
+        fv = r.first("FVPA") or b""
+        comps = []
+        for c, n, cu in sorted((struct.unpack_from("<III", fv, o) for o in range(0, len(fv) - 11, 12)),
+                               key=lambda t: t[0]):
+            name = _ccell(esm.edid_of(c)) if _lk(esm, c) else _ccell(esm.link_edit_value(c))
+            if not name:
+                continue
+            comps.append("%s:%d:%s" % (name, n, _ccell(esm.edid_of(cu)) if _lk(esm, cu) else ""))
+        refs = [_ccell(x) for x in _refcells(esm, r.fid)]
+        rows.append(([fid, ed] + cn + link3("BNAM") + link3("GNAM")
+                     + ["|".join(kws), "|".join(comps), "|".join(refs), str(len(refs))], refs))
+        # ---- COBJ2
+        lv = r.first("LRNM")
+        lrnm = (COBJ_LEARN[lv[0]] if lv[0] < len(COBJ_LEARN) else str(lv[0])) if lv else ""
+        lc = r.first("LRNC")
+        lrnc = ""
+        if lc and len(lc) >= 4:
+            g = _u32(lc)
+            lrnc = _ccell(_linkcell(esm, g)) if _lk(esm, g) else _ccell(esm.link_edit_value(g))
+        ctx = C.Ctx(esm, r)
+        conds, quest = [], None
+        for ctda, c1, c2 in C.conditions(r):
+            one = _ccell(C.pas_cond(ctx, ctda, c1, c2, clean=_ccell))
+            if one:
+                conds.append(one)
+            if quest is None:
+                for o in sorted(esm_refs._ctda_offsets(ctda)):
+                    q = struct.unpack_from("<I", ctda, o)[0]
+                    if _lk(esm, q) and esm.sig_of(q) == "QUST":
+                        quest = q
+                        break
+        qc = ["%08X" % quest, esm.edid_of(quest), _ccell(esm.full_of(quest))] if quest else ["", "", ""]
+        cond.append("\t".join([fid, ed, cn[0], cn[1], lrnm, lrnc, str(len(conds)), " ; ".join(conds)] + qc))
+    mr = max((len(x) for _b, x in rows), default=0)
+    out = ["\t".join(["COBJ_FormID", "COBJ_EDID", "CNAM_FormID", "CNAM_EDID", "CNAM_FULL", "BNAM_FormID",
+                      "BNAM_EDID", "BNAM_FULL", "GNAM_FormID", "GNAM_EDID", "GNAM_FULL", "FNAM_Keywords", "FVPA",
+                      "ReferencedBy_Flat", "ReferencedByCount"] + ["Ref_%d" % i for i in range(1, mr + 1)])]
+    for b, x in rows:
+        out.append("\t".join(b + x + [""] * (mr - len(x))))
+    return {"COBJ": out, "COBJ2": cond}
 
 
 # ------------------------------------------------------------- NPC_ ------
@@ -3395,7 +3468,7 @@ def _lore_notes(esm):
     return out + [x for _, x in rows]
 
 
-NEEDS_REFS = {"ARMO2", "AVTR", "BOOK", "BOOK2", "ALCH", "QUST2", "LVLI", "GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "ECAT", "CNDF", "LSCR", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
+NEEDS_REFS = {"ARMO2", "AVTR", "BOOK", "BOOK2", "COBJ", "ALCH", "QUST2", "LVLI", "GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "ECAT", "CNDF", "LSCR", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
 # exports that need Referenced By for more than their own records
 REF_TARGETS = {"ARMO2": armo2_ref_targets, "BOOK2": book2_ref_targets, "NPC2": npc2_ref_targets, "MISC2": misc2_ref_targets, "ACTI2": acti2_ref_targets}
 
@@ -3439,9 +3512,13 @@ EXPORTS = {
     "AVTR": (["AVTR"], "AVTR_Export", exp_avtr),
     "BOOK": (["BOOK"], "BOOK_Export", exp_book),
     "BOOK2": (["BOOK"], "BOOK2_Export", exp_book2),
+    "COBJ": (["COBJ"], "COBJ_Export", exp_cobj),
     "REFR": (["ACTI"], "REFR_Placements", exp_refr_placements),
     "LORE": (["NOTE", "BOOK"], "ALLYDLG_Export", exp_lore),
 }
+
+# exports whose files have different prefixes: {export: {result key: file prefix}}
+PREFIX_FILES = {"COBJ": {"COBJ": "COBJ_Export", "COBJ2": "COBJ2_Export"}}
 
 # PTS file names carry the date only (no time) for these, like their .pas
 DATE_ONLY_PTS = {"REFRLVLI", "REFR"}
@@ -3492,14 +3569,16 @@ def main(argv=None):
         result = fn(esm)
         # one file, or {suffix: lines} for exports that write several files
         files = result if isinstance(result, dict) else {"": result}
-        base = R.out_name(prefix, channel)[:-4]
+        stamp = R.out_name(prefix, channel)[len(prefix):-4]   # _October_2026 / _PTS_2026-10-25_1615
         if channel == "PTS" and w in DATE_ONLY_PTS:
-            base = base[:-5]   # drop the _HHMM
+            stamp = stamp[:-5]   # drop the _HHMM
         for suffix, lines in files.items():
             if len(lines) <= 1:
                 print("  %-7s no records found - nothing written" % (w + suffix))
                 continue
-            path = os.path.join(out_dir, base + suffix + ".tsv")
+            # a key in PREFIX_FILES names a whole prefix (COBJ writes COBJ_Export_* and COBJ2_Export_*)
+            name = (PREFIX_FILES[w][suffix] + stamp) if w in PREFIX_FILES else (prefix + stamp + suffix)
+            path = os.path.join(out_dir, name + ".tsv")
             R.write_tsv(path, lines)
             if not a.no_ledger:
                 R.append_ledger(channel, path)
