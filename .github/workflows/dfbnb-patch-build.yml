@@ -1255,6 +1255,13 @@ jobs:
       - name: Build Recommended Food Buff Calculator JSON
         run: python src/build_food_buff_calculator_json.py --data-dir tsv --outdir dist
 
+      # --- BUFFS GUIDE PAGES (BnB Buffs: alcohol, chems, food, nuka-cola, bobbleheads, magazines, mutations) ---
+      # Outputs dist/buff_guides/<page>.json + shared.json for df-bnb-buffs.js (guide mode).
+      # MUST run after Build Buffs JSON and the Food Buff Calculator above (it reads both).
+      # Needs tsv/BUFFCOND / MESGTXT / CONTITEMS_Export_*.tsv (tools/esm_buff_guides_extract.py on the PC).
+      - name: Build Buffs Guide Pages JSON
+        run: python src/build_buff_guides_json.py --data-dir tsv --outdir dist
+
       # --- FISHING ---
       # Reads FISH/GLOB/LVLI TSVs directly and emits dist/fishing.json with
       # fish metadata, spawn rate tables per bait type, axolotl monthly
