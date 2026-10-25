@@ -1492,6 +1492,67 @@ def exp_refrlvli(esm):
     return {("" if i == 0 else "_Part%d" % (i + 1)): p for i, p in enumerate(parts)}
 
 
+# ------------------------------------------------------------- TERM _Placements --
+def _any_edid(esm, fid):
+    if not fid:
+        return ""
+    if esm.exists(fid):
+        return esm.edid_of(fid) or ""
+    w = esm.world_record(fid)
+    return (w[1].edid or "") if w else ""
+
+
+def exp_term_placements(esm):
+    """ExportTERMToTSV.pas, _Placements file: where the token-exchange terminals
+    stand (EDID has "Redeem", or "Exchange" and "Terminal"). One row per placed
+    REFR of the terminal itself, or of a terminal whose menu opens it (Mr. Fuzzy's
+    prize list is a sub-menu of the Camden Park machine). Location = the first
+    LCTN that references the placement, else its cell's XLCN.
+    The main TERM file and _Quests are tools/export_term_from_esm.py."""
+    import esm_refs
+    exch = [r for r in R.xedit_order(esm, "TERM")
+            if "Redeem" in (r.edid or "") or ("Exchange" in (r.edid or "") and "Terminal" in (r.edid or ""))]
+    ex_ids = {r.fid for r in exch}
+    pats = {struct.pack("<I", f) for f in ex_ids}
+    openers = {t.fid for t in esm.records["TERM"]
+               if t.fid not in ex_ids and any(p in v for _k, v in t.subs for p in pats)}
+    refby, refinfo = esm_refs.referenced_by(esm, ex_ids | openers, referrers={"REFR", "TERM"})
+    rows = []          # (term, placed, ref)
+    for t in exch:
+        for rb in refby.get(t.fid, ()):
+            sig = refinfo[rb][0]
+            if sig == "REFR":
+                rows.append((t.fid, t.fid, rb))
+            elif sig == "TERM":
+                for rr in refby.get(rb, ()):
+                    if refinfo[rr][0] == "REFR":
+                        rows.append((t.fid, rb, rr))
+    refs = {r for _t, _p, r in rows}
+    pos = _ref_positions(esm, refs)
+    locby, _li = esm_refs.referenced_by(esm, refs, referrers={"LCTN"}) if refs else ({}, {})
+    out = ["TERM_FormID\tTERM_EDID\tPlaced_FormID\tPlaced_EDID\tRef_FormID\tWorldspace_EDID\tCell_EDID\t"
+           "X\tY\tZ\tLocation_FormID\tLocation_EDID"]
+    for t, pl, rf in rows:
+        hit = esm._world.get(rf) if esm._world else None
+        cell, wrld = (hit[2], hit[3]) if hit else (0, 0)
+        x = y = z = ""
+        d = pos.get(rf)
+        if d and len(d) >= 12:
+            px, py, pz = struct.unpack_from("<3f", d)
+            # exact value, correctly rounded - xEdit's own text can differ by
+            # 0.000001 in the last place (as for NPC2 / MISC2 / ACTI2 / REFRLVLI)
+            x, y, z = C.fmt_float(px), C.fmt_float(py), C.fmt_float(pz)
+        loc = next(iter(locby.get(rf, ())), 0)
+        if not loc and cell:
+            cw = esm.world_record(cell)
+            xl = cw[1].first("XLCN") if cw else None
+            loc = struct.unpack_from("<I", xl, 0)[0] if xl and len(xl) >= 4 else 0
+        out.append("\t".join(["%08X" % t, cc(esm.edid_of(t)), "%08X" % pl, cc(esm.edid_of(pl)), "%08X" % rf,
+                              cc(_any_edid(esm, wrld)), cc(_any_edid(esm, cell)), x, y, z,
+                              ("%08X" % loc) if loc else "", cc(_any_edid(esm, loc))]))
+    return {"_Placements": out}
+
+
 # exports whose rows list "Referenced By" - one shared scan covers them all
 # ------------------------------------------------------------- QUST2 _RewardQuests --
 def exp_qust2_rq(esm):
@@ -2627,6 +2688,7 @@ EXPORTS = {
     "LVLI": (["LVLI", "GLOB"], "LVLI_Export", exp_lvli),
     "QUST2": (["QUST"], "QUST2_Export", exp_qust2),
     "ALLYDLG": (["QUST"], "ALLYDLG_Export", exp_allydlg),
+    "TERMPL": (["TERM"], "TERM_Export", exp_term_placements),
     "LORE": (["NOTE", "BOOK"], "ALLYDLG_Export", exp_lore),
 }
 

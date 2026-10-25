@@ -130,7 +130,9 @@ def referenced_by(esm, targets, chunk=48 << 20, referrers=None):
     """{target fid: sorted [referrer fid]}, and {referrer fid: (sig, edid)}.
     referrers: optional set of record types (e.g. {"REFR"}) - only those are scanned."""
     rules = _rules()
-    tsig = {t: esm.sig_of(t) for t in targets}
+    # A placed reference (REFR / ACHR ... in the world data) has no entry in the
+    # main index; the learned rules call that whole class "W".
+    tsig = {t: (esm.sig_of(t) or ("W" if esm.world_record(t) is not None else "")) for t in targets}
     tarr = np.array(sorted(targets), dtype="<u4")
     found = {}
     info = {}

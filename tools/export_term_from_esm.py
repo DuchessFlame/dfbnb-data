@@ -20,8 +20,9 @@ Only TERM records whose EDID starts with --prefix (default X01X_PlayerTerminal)
 are exported, plus anything those menus link to.
 
 Oct 2026: also the token-exchange terminals (EDID has "Redeem", or "Exchange"+"Terminal")
-for the Currency pages. NOT YET HERE: the .pas also writes ..._Placements.tsv (where those
-terminals stand). Run the .pas for that file.
+for the Currency pages. Their ..._Placements.tsv (where those terminals stand) comes from
+tools/export_from_esm.py TERMPL (25 Oct 2026; part of the normal patch-day run). The .pas
+still writes the same file as the manual backup.
 
 TSV SCHEMA (shared with the .pas — keep both in step)
 -----------------------------------------------------
