@@ -9,6 +9,7 @@
   "BOOK": "BOOK_Export_October_2026.tsv",
   "GMRW": "GMRW_Export_October_2026.tsv",
   "COBJ": "COBJ_Export_October_2026.tsv",
+  "CNDF": "CNDF_Export_October_2026.tsv",
   "LVLI_List": "LVLI_Export_October_2026_LVLI_List.tsv",
   "LVLI_Entries": "LVLI_Export_October_2026_LVLI_Entries.tsv",
   "LVLI_Refs": "LVLI_Export_October_2026_LVLI_Refs.tsv",
@@ -32,13 +33,14 @@
   "moved_to_cut_content": 14
  },
  "counts": {
-  "total": 6,
+  "total": 7,
   "unobtainable": 4,
-  "broken_item": 2,
+  "broken_item": 3,
   "conf_check": 6,
+  "conf_strong": 1,
   "confirmed": 0,
   "titles": 0,
-  "plans": 6
+  "plans": 7
  },
  "items": [
   {
@@ -296,6 +298,90 @@
    "confirmed": false,
    "first_seen": "2026-09-23",
    "is_new": false
+  },
+  {
+   "id": "005D0F04",
+   "name": "Plan: The Gutter",
+   "kind": "plan",
+   "severity": "broken_item",
+   "bugs": [
+    {
+     "kind": "wrong_item",
+     "strong": true,
+     "title": "Teaches the wrong item",
+     "records": [
+      {
+       "form_id": "005D9D18",
+       "edid": "co_Weapon_Melee_DLC01_AssaultronBlade_TheGutter",
+       "type": "COBJ"
+      },
+      {
+       "form_id": "0047B7F2",
+       "edid": "_DELETE_Note",
+       "type": "BOOK"
+      },
+      {
+       "form_id": "005E6F9E",
+       "edid": "DLC01_AssaultronBlade_TheGutter",
+       "type": "WEAP"
+      },
+      {
+       "form_id": "005DAE95",
+       "edid": "co_mod_AssaultronBlade_Weapon_Paint_TheGutter",
+       "type": "COBJ"
+      }
+     ],
+     "should_teach": "The Gutter",
+     "teaches": "The Gutter Paint",
+     "old_recipe": "co_Weapon_Melee_DLC01_AssaultronBlade_TheGutter",
+     "stale_checks": [
+      "DailyOps_AllChaseRareRecipesKnown_Condition",
+      "MPE_AllChaseUltraRareRecipesKnown_Condition"
+     ],
+     "summary": "Reading this plan should let you craft The Gutter, but it unlocks The Gutter Paint instead.",
+     "detail": "This plan should teach you to craft The Gutter, but it teaches The Gutter Paint instead. The Gutter's own crafting recipe (co_Weapon_Melee_DLC01_AssaultronBlade_TheGutter) was left behind: it no longer makes anything and it is unlocked by a deleted record (_DELETE_Note), so there is no way to learn to craft The Gutter. These game checks still look for that old recipe, so they can never pass: DailyOps_AllChaseRareRecipesKnown_Condition, MPE_AllChaseUltraRareRecipesKnown_Condition."
+    }
+   ],
+   "still_from": [
+    "Daily Ops - High Chase Rare",
+    "Minerva (Gold Bullion vendor)",
+    "Mutated Public Events - Ultra Rare Plans"
+   ],
+   "technical": {
+    "plan": {
+     "form_id": "005D0F04",
+     "edid": "Recipe_Weapon_Melee_AssaultronBlade_TheGutter",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "005DAE95",
+      "edid": "co_mod_AssaultronBlade_Weapon_Paint_TheGutter",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "005D982A",
+      "edid": "mod_AssaultronBlade_Weapon_Paint_TheGutter",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "strong",
+   "confirmed": false,
+   "first_seen": "2026-10-25",
+   "is_new": true,
+   "report": {
+    "title": "Plan: The Gutter teaches The Gutter Paint instead of the crafting recipe for The Gutter",
+    "description": "This plan should teach you to craft The Gutter, but it teaches The Gutter Paint instead. The Gutter's own crafting recipe (co_Weapon_Melee_DLC01_AssaultronBlade_TheGutter) was left behind: it no longer makes anything and it is unlocked by a deleted record (_DELETE_Note), so there is no way to learn to craft The Gutter. These game checks still look for that old recipe, so they can never pass: DailyOps_AllChaseRareRecipesKnown_Condition, MPE_AllChaseUltraRareRecipesKnown_Condition.",
+    "steps": "1. Get Plan: The Gutter (Daily Ops - High Chase Rare / Minerva (Gold Bullion vendor) / Mutated Public Events - Ultra Rare Plans)\n2. Learn the plan\n3. Go to a Weapons Workbench and look for The Gutter",
+    "expected": "Learning Plan: The Gutter unlocks crafting The Gutter.",
+    "actual": "It unlocks The Gutter Paint. The Gutter can't be crafted, and there is no other way to learn it.",
+    "dept": "System Design",
+    "cause": "The plan's recipe was switched to The Gutter Paint. The Gutter's own recipe (co_Weapon_Melee_DLC01_AssaultronBlade_TheGutter) now makes nothing and is unlocked by a deleted record. Pointing the plan back at the recipe for The Gutter should fix it. These condition forms still check the old recipe, so they can never pass for anyone: DailyOps_AllChaseRareRecipesKnown_Condition, MPE_AllChaseUltraRareRecipesKnown_Condition.\n\nRecords: Recipe_Weapon_Melee_AssaultronBlade_TheGutter [BOOK:005D0F04], co_Weapon_Melee_DLC01_AssaultronBlade_TheGutter [COBJ:005D9D18], _DELETE_Note [BOOK:0047B7F2], DLC01_AssaultronBlade_TheGutter [WEAP:005E6F9E], co_mod_AssaultronBlade_Weapon_Paint_TheGutter [COBJ:005DAE95]",
+    "filename": "bethesda-bug-report-the-gutter-wrong-item.txt"
+   }
   }
  ],
  "parked_lists": [
