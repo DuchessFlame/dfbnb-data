@@ -45,6 +45,7 @@ straight from the game files, so these no longer need xEdit:
             (the other five files of ExportQUST2ToTSV.pas)
     ALLYDLG ALLYDLG_Export_<Month>_<Year>_Quests/_Topics/_Lines/_Scenes
             (ExportCampAllyDialogToTSV.pas; _Lore is LORE above)
+    ALCH    ALCH_Export_<Month>_<Year>.tsv + _Effects  (ExportALCHToTSV.pas)
     TERMPL  TERM_Export_<Month>_<Year>_Placements.tsv  (ExportTERMToTSV.pas _Placements;
             the main TERM file and _Quests are tools/export_term_from_esm.py)
     REFR    REFR_Placements_<Month>_<Year>.tsv  (ExportREFRPlacementsToTSV.pas per base:
@@ -59,7 +60,8 @@ GLOB, AVIF, KYWD, CURV, MISC and NPC list every record that points at each row (
 worked out by esm_refs.py in one ~40 s scan (needs numpy). Known gap: xEdit
 stops reading some quests part-way through their objective/alias conditions, so
 its lists leave out those quests; these lists include them. (The CURV XCRI and
-KYWD gaps were closed on 25 Oct 2026: CELL XCRI and PACK PTDA are read by layout.)
+KYWD gaps were closed on 25 Oct 2026: CELL XCRI and PACK PTDA are read by layout;
+also QUST QOTM, EXPL DATA placed object, PERK EPFD type 9, DMGT DSES/DSEB, LVLI LVIG.)
 
 Conditions are shown exactly as xEdit shows them (esm_conditions.py, built from
 xEdit's own definitions in xedit_functions.py). Links to placed references, cells
@@ -765,6 +767,108 @@ def exp_misc(esm):
         rows.append((["%08X" % r.fid, cc(r.edid), cc(esm.lstring(r.full)), _kw_sorted(esm, r.first("KWDA")),
                       value, weight, "|".join(mcqp), str(len(refs))], refs))
     return _pad_refs(rows, ["FormID", "EDID", "FULL", "Keywords", "Value", "Weight", "MCQP", "ReferencedByCount"])
+
+
+# ------------------------------------------------------------- ALCH ------
+def _flag_bits(v):
+    """xEdit's edit value of an unnamed flags field: one 0/1 per bit, lowest bit first,
+    up to the highest set bit ("11011" = bits 0, 1, 3, 4). No bits set: 64 zeros
+    (as xEdit writes it, like LVLI's LVLF)."""
+    if not v:
+        return "0" * 64
+    out = ""
+    while v:
+        out += "1" if v & 1 else "0"
+        v >>= 1
+    return out
+
+
+def _dtrim(s):
+    """Delphi Trim: strips every character up to space (control bytes too) from both ends."""
+    i, j = 0, len(s)
+    while i < j and s[i] <= " ":
+        i += 1
+    while j > i and s[j - 1] <= " ":
+        j -= 1
+    return s[i:j]
+
+
+def exp_alch(esm):
+    """ExportALCHToTSV.pas - ingestibles (main file: keywords, ENIT, Referenced By,
+    keywords and refs padded) and _Effects (one row per effect, in file order).
+    ENIT (33 bytes): Value i32, Flags u32, Addiction, Addiction Chance f32, Consume
+    Sound, Health curve, Spoiled item, Is Canned u8, Canned base.
+    EFIT (16 bytes): Effect ID u32, Magnitude f32, Area u32, Duration u32."""
+    def lk(fid):
+        return fid if fid and esm.exists(fid) else None
+
+    def trip(fid):
+        f = lk(fid)
+        return [_hex(f), cc(esm.edid_of(f)), cc(esm.full_of(f))] if f else ["", "", ""]
+
+    rows, eff = [], []
+    for r in R.xedit_order(esm, "ALCH"):
+        fid, ed = "%08X" % r.fid, cc(r.edid)
+        d = r.first("DATA")
+        weight = C.fmt_float(struct.unpack_from("<f", d)[0]) if d and len(d) >= 4 else ""
+        kws, flat = [], []
+        kw = r.first("KWDA") or b""
+        for k in sorted(struct.unpack_from("<%dI" % (len(kw) // 4), kw)):   # xEdit sorts KWDA
+            if lk(k):
+                kws.append(cc(_linkcell(esm, k)))
+                flat.append(cc(esm.edid_of(k)) + "[%08X]" % k)
+            else:
+                kws.append("")
+        e = r.first("ENIT")
+        en = ["", ""] + [""] * 3 + [""] + [""] * 9 + [""] + [""] * 3
+        value = ""
+        if e and len(e) >= 33:
+            v, fl, add, ch, snd, hp, sp = struct.unpack_from("<iIIfIII", e, 0)
+            canned = e[28]
+            cb = struct.unpack_from("<I", e, 29)[0]
+            value = str(v)
+            en = ([str(v), _flag_bits(fl)] + trip(add) + [C.fmt_float(ch)] + trip(snd) + trip(hp) + trip(sp)
+                  + ["True" if canned else "False"] + trip(cb))
+        refs = _refcells(esm, r.fid)
+        base = [fid, ed, cc(esm.lstring(r.full)), cc(esm.lstring(r.first("DESC"))), weight, value,
+                _dtrim(cc(esm.lstring(r.first("DNAM")))), " | ".join(flat)]
+        rows.append((base, kws, en + [" | ".join(refs)], refs))
+        # effects: EFID starts each one; MAGG / DURG / EIES / CODG / CODV belong to the last EFID
+        effs = []
+        for k, v in r.subs:
+            if k == "EFID":
+                effs.append({"EFID": v})
+            elif effs and k in ("EFIT", "MAGG", "DURG", "EIES", "CODG", "CODV"):
+                effs[-1].setdefault(k, v)
+        for i, x in enumerate(effs):
+            efit = x.get("EFIT")
+            ei = ["", "", "", "", ""]
+            if efit and len(efit) >= 16:
+                a, m, ar, du = struct.unpack_from("<IfII", efit)
+                ei = [str(a), C.fmt_float(m), str(ar), str(du), ""]
+            codv = x.get("CODV")
+            eff.append("\t".join([fid, ed, str(len(effs)), str(i)] + trip(_u32(x["EFID"])) + ei
+                                 + trip(_u32(x.get("MAGG"))) + trip(_u32(x.get("DURG")))
+                                 + trip(_u32(x.get("EIES"))) + trip(_u32(x.get("CODG")))
+                                 + [str(struct.unpack_from("<I", codv)[0]) if codv and len(codv) >= 4 else ""]))
+    mk = max((len(k) for _b, k, _e, _r in rows), default=0)
+    mr = max((len(x) for _b, _k, _e, x in rows), default=0)
+    head = (["ALCH_FormID", "ALCH_EDID", "FULL", "DESC", "Weight", "Value", "DNAM_AddictionName", "Keywords_Flat"]
+            + ["Keyword_%d" % i for i in range(1, mk + 1)]
+            + ["ENIT_Value", "ENIT_Flags", "ENIT_Addiction_FormID", "ENIT_Addiction_EDID", "ENIT_Addiction_FULL",
+               "ENIT_AddictionChance", "ENIT_ConsumeSound_FormID", "ENIT_ConsumeSound_EDID", "ENIT_ConsumeSound_FULL",
+               "ENIT_HealthCurve_FormID", "ENIT_HealthCurve_EDID", "ENIT_HealthCurve_FULL",
+               "ENIT_SpoiledItem_FormID", "ENIT_SpoiledItem_EDID", "ENIT_SpoiledItem_FULL", "ENIT_IsCanned",
+               "ENIT_CannedBase_FormID", "ENIT_CannedBase_EDID", "ENIT_CannedBase_FULL", "Refs_Flat"]
+            + ["Ref_%d" % i for i in range(1, mr + 1)])
+    out = ["\t".join(head)]
+    for b, k, en, x in rows:
+        out.append("\t".join(b + k + [""] * (mk - len(k)) + en + x + [""] * (mr - len(x))))
+    eh = ("ALCH_FormID\tALCH_EDID\tEffectCount\tEffectIndex\tMGEF_FormID\tMGEF_EDID\tMGEF_FULL\t"
+          "EFIT_EffectID\tEFIT_Magnitude\tEFIT_Area\tEFIT_Duration\tEFIT_Unknown\t"
+          "MAGG_GLOB_FormID\tMAGG_GLOB_EDID\tMAGG_GLOB_FULL\tDURG_GLOB_FormID\tDURG_GLOB_EDID\tDURG_GLOB_FULL\t"
+          "EIES_FormID\tEIES_EDID\tEIES_FULL\tCODG_GLOB_FormID\tCODG_GLOB_EDID\tCODG_GLOB_FULL\tCODV_CooldownValue")
+    return {"": out, "_Effects": [eh] + eff}
 
 
 # ------------------------------------------------------------- NPC_ ------
@@ -1838,6 +1942,10 @@ def _qust_tree(r):
                 log["subs"].append((k, v))
             continue
         if mode == "obj":
+            if k == "QOST":
+                # new objective field (PTS build 211, Oct 2026: one after every FNAM).
+                # Not exported; skipped so the targets after it are still read.
+                continue
             if k == "QSTA":
                 tg = {"QSTA": v, "conds": [], "subs": []}
                 ob["targets"].append(tg)
@@ -2808,7 +2916,7 @@ def _lore_notes(esm):
     return out + [x for _, x in rows]
 
 
-NEEDS_REFS = {"QUST2", "LVLI", "GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "ECAT", "CNDF", "LSCR", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
+NEEDS_REFS = {"ALCH", "QUST2", "LVLI", "GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "ECAT", "CNDF", "LSCR", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
 # exports that need Referenced By for more than their own records
 REF_TARGETS = {"NPC2": npc2_ref_targets, "MISC2": misc2_ref_targets, "ACTI2": acti2_ref_targets}
 
@@ -2846,6 +2954,7 @@ EXPORTS = {
     "QUST2": (["QUST"], "QUST2_Export", exp_qust2),
     "ALLYDLG": (["QUST"], "ALLYDLG_Export", exp_allydlg),
     "TERMPL": (["TERM"], "TERM_Export", exp_term_placements),
+    "ALCH": (["ALCH"], "ALCH_Export", exp_alch),
     "REFR": (["ACTI"], "REFR_Placements", exp_refr_placements),
     "LORE": (["NOTE", "BOOK"], "ALLYDLG_Export", exp_lore),
 }
