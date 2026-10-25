@@ -228,6 +228,11 @@ class Esm:
                             elif ss == b"XXXX":
                                 break
                             p += 6 + ln
+                    # A FormID can appear twice in the file (44 ATXO records share their
+                    # FormIDs with DFOBs further on). xEdit keeps the first one it
+                    # loads, so the index does too (25 Oct 2026).
+                    if fid in index:
+                        continue
                     index[fid] = (sig.decode(), ed.rstrip(b"\0").decode("utf-8", "replace"), rec_off)
                     if fullv is not None:
                         self._full[fid] = fullv
