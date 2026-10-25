@@ -8,8 +8,9 @@ confirmed rows only) into
 
     C:\\Users\\Duche\\OneDrive\\Guides and Stuff\\.Bethesda Bug Reports
 
-where Brewmaster picks it up. A report already in the folder is never written
-again or overwritten, so it is safe to run any time.
+where Brewmaster picks it up. A plan already reported (its FormID appears in any
+.txt in the folder, including hand-written reports) is skipped, and nothing
+is ever overwritten, so it is safe to run any time.
 
 Player details (username, Buid, platform, patch, mule) come from
 data/local/reporter.json, which is git-ignored because the repo is public.
@@ -55,6 +56,16 @@ def main(argv=None):
         sys.exit(f"[bug_reports] folder not found: {a.out}")
 
     have = set(os.listdir(a.out))
+    # every report already in the folder, hand-written ones too: a plan whose
+    # FormID is in one of them has been reported and is never sent again
+    seen_text = ""
+    for h in have:
+        if h.lower().endswith(".txt"):
+            try:
+                with open(os.path.join(a.out, h), encoding="utf-8", errors="replace") as f:
+                    seen_text += f.read().upper() + "\n"
+            except OSError:
+                pass
     wrote = skipped = 0
     for it in doc.get("items", []):
         rep = it.get("report")
@@ -62,7 +73,8 @@ def main(argv=None):
             continue
         name = rep["filename"]
         stem = name[:-4]
-        if any(h == name or h.startswith(stem + " -") for h in have):
+        if any(h == name or h.startswith(stem + " -") for h in have) or \
+                (it.get("id") and it["id"].upper() in seen_text):
             skipped += 1
             continue
         text = bug_report_text.render(rep, player)
