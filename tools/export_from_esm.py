@@ -48,6 +48,8 @@ straight from the game files, so these no longer need xEdit:
     ALCH    ALCH_Export_<Month>_<Year>.tsv + _Effects  (ExportALCHToTSV.pas)
     ARMO    ARMO_Export_<Month>_<Year>_SLOTS/_ARMOUR/_ObjectTemplate.tsv  (ExportARMOToCSV.pas;
             keyword columns filled since 25 Oct 2026 - every older xEdit ARMO export left them empty)
+    ARMO2   ARMO2_Underarmour_<Month>_<Year>.tsv + _Slots + _Mods  (ExportARMO2UnderarmourToTSV.pas,
+            underarmour only; _Mods carries each installed OMOD's includes and properties)
     TERMPL  TERM_Export_<Month>_<Year>_Placements.tsv  (ExportTERMToTSV.pas _Placements;
             the main TERM file and _Quests are tools/export_term_from_esm.py)
     REFR    REFR_Placements_<Month>_<Year>.tsv  (ExportREFRPlacementsToTSV.pas per base:
@@ -58,7 +60,7 @@ Every xEdit .pas above stays working as the manual backup.
 Coordinates are correctly rounded; xEdit's own text can differ by one in the last
 decimal place (X/Y/Z) and RotZ by 0.0001 - accepted, readers place by X/Y.
 
-GLOB, AVIF, KYWD, CURV, MISC and NPC list every record that points at each row ("Referenced By"),
+GLOB, AVIF, KYWD, CURV, MISC, NPC and ARMO2 list every record that points at each row ("Referenced By"),
 worked out by esm_refs.py in one ~40 s scan (needs numpy). Known gap: xEdit
 stops reading some quests part-way through their objective/alias conditions, so
 its lists leave out those quests; these lists include them. (The CURV XCRI and
@@ -1021,6 +1023,160 @@ def exp_armo(esm):
         armour.append("\t".join(a + k + [""] * (mk - len(k)) + b + ap + [""] * (ma - len(ap)) + c + m
                                 + [""] * (mm - len(m))))
     return {"_SLOTS": slots, "_ARMOUR": armour, "_ObjectTemplate": ot}
+
+
+# ------------------------------------------------------------ ARMO2 ------
+ARMO2_MAX_REFS, ARMO2_MAX_SLOT = 30, 12
+# OMOD property names (xEdit FO76, Form Type ARMO). Only these two are in today's
+# underarmour mods; any other id prints a warning so its xEdit name can be added.
+OMOD_ARMO_PROPS = {3: "Keywords", 10: "Actor Values"}
+
+
+def _q2(s):
+    """The ARMO2 .pas Q(): quotes doubled, tab / CR / LF to spaces."""
+    return (s or "").replace('"', '""').replace("\t", " ").replace("\r", " ").replace("\n", " ")
+
+
+def _armo2_kw_list(esm, raw, only_ma=False):
+    """BuildKeywordList / BuildModTargetKWDs: EDID[FORMID], ' | ' joined, in xEdit's FormID order."""
+    out = []
+    for k in sorted(struct.unpack_from("<%dI" % (len(raw) // 4), raw)):
+        if _lk(esm, k):
+            if only_ma and not esm.edid_of(k).lower().startswith("ma_"):
+                continue
+            out.append("%s[%08X]" % (esm.edid_of(k), k))
+        elif not only_ma:
+            out.append(esm.link_edit_value(k))
+    return " | ".join(out)
+
+
+def _omod_data(v):
+    """FO76 OMOD DATA: Include Count u32, Property Count u32, 2 x u8, Form Type (4 chars),
+    2 x u8, Attach Point FormID, Attach Parent Slots (u32 count + FormIDs), Items (u32
+    count + FormIDs), Includes (7 bytes each), Properties (24 bytes each)."""
+    inc, prop = struct.unpack_from("<II", v)
+    ap = struct.unpack_from("<I", v, 16)[0]
+    p = 20
+    for _ in range(2):
+        n = struct.unpack_from("<I", v, p)[0]
+        p += 4 + 4 * n
+    incs = []
+    for _ in range(inc):
+        incs.append(struct.unpack_from("<I", v, p)[0])
+        p += 7
+    props = []
+    for _ in range(prop):
+        props.append(struct.unpack_from("<BxxxBxxxHxxIII", v, p))
+        p += 24
+    return ap, incs, props
+
+
+_ARMO2_WARNED = set()
+
+
+def _omod_prop(esm, vt, _fn, pid, v1, v2, ct):
+    """_PropOneLine: Property=Value1[:Value2][@Curve Table]."""
+    name = OMOD_ARMO_PROPS.get(pid)
+    if name is None:
+        name = "Property#%d" % pid
+        if pid not in _ARMO2_WARNED:
+            _ARMO2_WARNED.add(pid)
+            print("  ARMO2: OMOD property id %d has no xEdit name yet - add it to OMOD_ARMO_PROPS" % pid)
+    f2 = struct.unpack("<f", struct.pack("<I", v2))[0]
+    if vt in (4, 6):        # FormID,Int / FormID,Float
+        s1 = ("%s[%s:%08X]" % (esm.edid_of(v1), esm.sig_of(v1), v1)) if _lk(esm, v1) else esm.link_edit_value(v1)
+        s2 = str(v2) if vt == 4 else C.fmt_float(f2)
+    else:
+        if ("vt", vt) not in _ARMO2_WARNED:
+            _ARMO2_WARNED.add(("vt", vt))
+            print("  ARMO2: OMOD value type %d not checked against xEdit yet" % vt)
+        s1 = C.fmt_float(struct.unpack("<f", struct.pack("<I", v1))[0]) if vt == 1 else str(v1)
+        s2 = ""
+    out = name + "=" + s1
+    if s2:
+        out += ":" + s2
+    return out + "@" + (esm.edid_of(ct) if _lk(esm, ct) else esm.link_edit_value(ct))
+
+
+def _armo2_slots(esm, r):
+    appr = r.first("APPR") or b""
+    slots = []
+    for k in sorted(struct.unpack_from("<%dI" % (len(appr) // 4), appr))[:ARMO2_MAX_SLOT]:
+        if _lk(esm, k):
+            slots.append(("%08X" % k, esm.edid_of(k), esm.full_of(k)))
+        else:
+            slots.append(("", esm.link_edit_value(k), ""))
+    return slots
+
+
+def _is_underarmour(r, slots):
+    flat = " | ".join(e + ":" + n for _f, e, n in slots).lower()
+    ed = r.edid.lower()
+    return "underarmor_style" in flat or "underarmor" in ed or "under_armor" in ed
+
+
+def armo2_ref_targets(esm):
+    return {r.fid for r in esm.records["ARMO"] if _is_underarmour(r, _armo2_slots(esm, r))}
+
+
+def exp_armo2(esm):
+    """ExportARMO2UnderarmourToTSV.pas (underarmour only, the default answer to its
+    second prompt): garments (keywords, ma_ mod-target keywords, slots, Referenced By
+    capped at 30 columns), _Slots (one row per attach slot) and _Mods (one row per
+    OMOD a combination installs, with that mod's includes and properties)."""
+    omods = {r.fid: r for r in esm.records["OMOD"]}
+    main = ["\t".join(["ARMO_FormID", "ARMO_EDID", "ARMO_FULL", "DATA_Value", "DATA_Weight", "DATA_Health",
+                       "DAMA_Flat", "KWDA_Count", "KWDA_Flat", "ModTarget_KWDs", "SlotCount", "Slots_Flat",
+                       "ComboCount", "ReferencedByCount"] + ["Ref_%d" % i for i in range(1, ARMO2_MAX_REFS + 1)])]
+    slot_rows = ["ARMO_FormID\tARMO_EDID\tSlotIndex\tAttachPoint_FormID\tAttachPoint_EDID\tAttachPoint_Name"]
+    mods = ["\t".join(["ARMO_FormID", "ARMO_EDID", "ComboIndex", "Combo_FULL", "Combo_Default", "IncludeIndex",
+                       "OMOD_FormID", "OMOD_EDID", "OMOD_FULL", "OMOD_AttachPoint_EDID", "OMOD_MNAM_Flat",
+                       "OMOD_IncludeCount", "OMOD_Includes_Flat", "OMOD_PropertyCount", "OMOD_Props_Flat"])]
+    for r in R.xedit_order(esm, "ARMO"):
+        slots = _armo2_slots(esm, r)
+        if not _is_underarmour(r, slots):
+            continue
+        fid, ed = "%08X" % r.fid, r.edid
+        for i, (sf, se, sn) in enumerate(slots):
+            slot_rows.append("\t".join([fid, ed, str(i), sf, se, _q2(sn)]))
+        n_mod = 0
+        _obte, combos = _obt_combos(r)
+        for ci, (_obtf, cfull, obts) in enumerate(combos):
+            if obts is None:
+                continue
+            _inc, _prop, _lmin, _lmax, dflt, incs = _obts(obts)
+            for ii, (m, _api, _opt, _dua) in enumerate(incs):
+                om = omods.get(m)
+                cells = ["", "", "", "", "", "0", "", "0", ""]
+                if om is not None:
+                    ap, oincs, props = _omod_data(om.first("DATA") or b"\0" * 28)
+                    inc_flat = " | ".join(("%s[OMOD:%08X]" % (esm.edid_of(x), x)) if _lk(esm, x)
+                                          else esm.link_edit_value(x) for x in oincs)
+                    mn = om.first("MNAM")
+                    cells = ["%08X" % m, om.edid, _q2(esm.lstring(om.full)), _q2(esm.link_edit_value(ap)),
+                             _q2(_armo2_kw_list(esm, mn)) if mn is not None else "", str(len(oincs)),
+                             _q2(inc_flat), str(len(props)),
+                             _q2(" | ".join(_omod_prop(esm, *pr) for pr in props))]
+                mods.append("\t".join([fid, ed, str(ci), _q2(esm.lstring(cfull) if cfull else ""),
+                                       _xbool(dflt), str(ii)] + cells))
+                n_mod += 1
+        d = r.first("DATA")
+        data = ["", "", ""]
+        if d and len(d) >= 12:
+            v, w, h = struct.unpack_from("<ifI", d)
+            data = [str(v), C.fmt_float(w), str(h)]
+        kwda = r.first("KWDA")
+        refs = _refcells(esm, r.fid)
+        main.append("\t".join([fid, ed, _q2(esm.lstring(r.full))] + data + [
+            "",   # DAMA_Flat: no underarmour has DAMA (checked 25 Oct 2026, live + PTS)
+            str(len(kwda) // 4) if kwda else "0",
+            _q2(_armo2_kw_list(esm, kwda)) if kwda else "",
+            _q2(_armo2_kw_list(esm, kwda, only_ma=True)) if kwda else "",
+            str(len(slots)), _q2(" | ".join(e + ":" + n for _f, e, n in slots)),
+            str(n_mod), str(len(refs))] + refs[:ARMO2_MAX_REFS] + [""] * (ARMO2_MAX_REFS - len(refs[:ARMO2_MAX_REFS]))))
+        if r.first("DAMA"):
+            print("  ARMO2: %s has DAMA - DAMA_Flat is not written yet, add it" % ed)
+    return {"": main, "_Slots": slot_rows, "_Mods": mods}
 
 
 # ------------------------------------------------------------- NPC_ ------
@@ -3068,9 +3224,9 @@ def _lore_notes(esm):
     return out + [x for _, x in rows]
 
 
-NEEDS_REFS = {"ALCH", "QUST2", "LVLI", "GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "ECAT", "CNDF", "LSCR", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
+NEEDS_REFS = {"ARMO2", "ALCH", "QUST2", "LVLI", "GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "ECAT", "CNDF", "LSCR", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
 # exports that need Referenced By for more than their own records
-REF_TARGETS = {"NPC2": npc2_ref_targets, "MISC2": misc2_ref_targets, "ACTI2": acti2_ref_targets}
+REF_TARGETS = {"ARMO2": armo2_ref_targets, "NPC2": npc2_ref_targets, "MISC2": misc2_ref_targets, "ACTI2": acti2_ref_targets}
 
 EXPORTS = {
     # key: (record types to load, file prefix, function)
@@ -3108,6 +3264,7 @@ EXPORTS = {
     "TERMPL": (["TERM"], "TERM_Export", exp_term_placements),
     "ALCH": (["ALCH"], "ALCH_Export", exp_alch),
     "ARMO": (["ARMO"], "ARMO_Export", exp_armo),
+    "ARMO2": (["ARMO", "OMOD"], "ARMO2_Underarmour", exp_armo2),
     "REFR": (["ACTI"], "REFR_Placements", exp_refr_placements),
     "LORE": (["NOTE", "BOOK"], "ALLYDLG_Export", exp_lore),
 }
