@@ -50,6 +50,7 @@ straight from the game files, so these no longer need xEdit:
             keyword columns filled since 25 Oct 2026 - every older xEdit ARMO export left them empty)
     ARMO2   ARMO2_Underarmour_<Month>_<Year>.tsv + _Slots + _Mods  (ExportARMO2UnderarmourToTSV.pas,
             underarmour only; _Mods carries each installed OMOD's includes and properties)
+    AVTR    AVTR_Export_<Month>_<Year>.tsv          (ExportAVTRToTSV.pas: player icons)
     TERMPL  TERM_Export_<Month>_<Year>_Placements.tsv  (ExportTERMToTSV.pas _Placements;
             the main TERM file and _Quests are tools/export_term_from_esm.py)
     REFR    REFR_Placements_<Month>_<Year>.tsv  (ExportREFRPlacementsToTSV.pas per base:
@@ -60,7 +61,7 @@ Every xEdit .pas above stays working as the manual backup.
 Coordinates are correctly rounded; xEdit's own text can differ by one in the last
 decimal place (X/Y/Z) and RotZ by 0.0001 - accepted, readers place by X/Y.
 
-GLOB, AVIF, KYWD, CURV, MISC, NPC and ARMO2 list every record that points at each row ("Referenced By"),
+GLOB, AVIF, KYWD, CURV, MISC, NPC, ARMO2 and AVTR list every record that points at each row ("Referenced By"),
 worked out by esm_refs.py in one ~40 s scan (needs numpy). Known gap: xEdit
 stops reading some quests part-way through their objective/alias conditions, so
 its lists leave out those quests; these lists include them. (The CURV XCRI and
@@ -1177,6 +1178,37 @@ def exp_armo2(esm):
         if r.first("DAMA"):
             print("  ARMO2: %s has DAMA - DAMA_Flat is not written yet, add it" % ed)
     return {"": main, "_Slots": slot_rows, "_Mods": mods}
+
+
+# ------------------------------------------------------------- AVTR ------
+AVTR_MAX_REFS = 64
+
+
+def exp_avtr(esm):
+    """ExportAVTRToTSV.pas - player icons: XALG flags, icon texture (SWFI), the
+    entitlement that unlocks it (RENT; blank = unlocked by default) and Referenced By
+    (| joined, capped at 64 with a "...+N more" tail)."""
+    out = ["FormID\tEDID\tFULL\tXALG_Flags\tSWFI\tRENT_FormID\tRENT_EDID\tRENT_FULL\tReferencedBy"]
+    for r in R.xedit_order(esm, "AVTR"):
+        xa = r.first("XALG")
+        xalg = ""
+        if xa:
+            bits = struct.unpack("<Q", xa[:8].ljust(8, b"\0"))[0]
+            xalg = "|".join(XALG_FLAGS[i] for i in range(32) if bits >> i & 1)
+        rent = ["", "", ""]
+        rv = r.first("RENT")
+        if rv and len(rv) >= 4:
+            e = struct.unpack_from("<I", rv)[0]
+            if _lk(esm, e):
+                rent = ["%08X" % e, _ccell(esm.edid_of(e)), _ccell(esm.full_of(e))]
+        refs = _refcells(esm, r.fid)
+        ref = "|".join(refs[:AVTR_MAX_REFS])
+        if len(refs) > AVTR_MAX_REFS:
+            ref += "|...+%d more" % (len(refs) - AVTR_MAX_REFS)
+        out.append("\t".join(["%08X" % r.fid, _ccell(r.edid), _ccell(esm.lstring(r.full)), xalg,
+                              _ccell(_zstr(r.first("SWFI"))) if r.first("SWFI") is not None else ""]
+                             + rent + [ref]))
+    return out
 
 
 # ------------------------------------------------------------- NPC_ ------
@@ -3224,7 +3256,7 @@ def _lore_notes(esm):
     return out + [x for _, x in rows]
 
 
-NEEDS_REFS = {"ARMO2", "ALCH", "QUST2", "LVLI", "GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "ECAT", "CNDF", "LSCR", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
+NEEDS_REFS = {"ARMO2", "AVTR", "ALCH", "QUST2", "LVLI", "GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "ECAT", "CNDF", "LSCR", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
 # exports that need Referenced By for more than their own records
 REF_TARGETS = {"ARMO2": armo2_ref_targets, "NPC2": npc2_ref_targets, "MISC2": misc2_ref_targets, "ACTI2": acti2_ref_targets}
 
@@ -3265,6 +3297,7 @@ EXPORTS = {
     "ALCH": (["ALCH"], "ALCH_Export", exp_alch),
     "ARMO": (["ARMO"], "ARMO_Export", exp_armo),
     "ARMO2": (["ARMO", "OMOD"], "ARMO2_Underarmour", exp_armo2),
+    "AVTR": (["AVTR"], "AVTR_Export", exp_avtr),
     "REFR": (["ACTI"], "REFR_Placements", exp_refr_placements),
     "LORE": (["NOTE", "BOOK"], "ALLYDLG_Export", exp_lore),
 }
