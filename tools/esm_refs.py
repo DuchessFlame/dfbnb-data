@@ -130,6 +130,12 @@ def _is_ref(rules, sig, sub, rel, field, tsig):
     #     HIDE_co_Lead_* recipes make one lead (BOOK) from another (25 Oct 2026).
     if sig == "COBJ" and ((sub == "CNAM" and rel == 0) or (sub == "FVPA" and rel % 12 == 0)):
         return True
+    #   DFOB DATA (Default Object): xEdit lists a FISH there (FishingFallbackFish_DO ->
+    #     BrookSilverside), which the learned rules never saw. Not every type: xEdit's
+    #     October ENTM export leaves out UTILITY_ENTM_ItemDisableEntitlement_DO, so the
+    #     learned type list stands and only FISH is added (25 Oct 2026).
+    if sig == "DFOB" and sub == "DATA" and rel == 0 and tsig == "FISH":
+        return True
     #   OBTS (object template combination, any record): a property whose value type
     #     is FormID,Int (4) or FormID,Float (6) holds a form in Value 1. Properties
     #     follow the includes: Include Count u32, Property Count u32, 7 bytes, Default,

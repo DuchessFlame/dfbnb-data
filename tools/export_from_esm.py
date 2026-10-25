@@ -58,6 +58,7 @@ straight from the game files, so these no longer need xEdit:
     CONT    CONT_Export_<Month>_<Year>.tsv          (ExportCONTToTSV.pas: containers)
     ENCH    ENCH_Export_<Month>_<Year>.tsv          (ExportENCHToTSV.pas: enchantments)
     ENTM    ENTM_Export_<Month>_<Year>.tsv          (ExportENTMToTSV.pas: entitlements)
+    FISH    FISH_Export_<Month>_<Year>.tsv          (!!!Wordpress - ExportFISHToTSV.pas: fish stats, rewards, sounds)
     TERMPL  TERM_Export_<Month>_<Year>_Placements.tsv  (ExportTERMToTSV.pas _Placements;
             the main TERM file and _Quests are tools/export_term_from_esm.py)
     REFR    REFR_Placements_<Month>_<Year>.tsv  (ExportREFRPlacementsToTSV.pas per base:
@@ -68,7 +69,7 @@ Every xEdit .pas above stays working as the manual backup.
 Coordinates are correctly rounded; xEdit's own text can differ by one in the last
 decimal place (X/Y/Z) and RotZ by 0.0001 - accepted, readers place by X/Y.
 
-GLOB, AVIF, KYWD, CURV, MISC, NPC, ARMO2, AVTR, BOOK, COBJ, CONT, ENCH and ENTM list every record that points at each row ("Referenced By"),
+GLOB, AVIF, KYWD, CURV, MISC, NPC, ARMO2, AVTR, BOOK, COBJ, CONT, ENCH, ENTM and FISH list every record that points at each row ("Referenced By"),
 worked out by esm_refs.py in one ~40 s scan (needs numpy). Known gap: xEdit
 stops reading some quests part-way through their objective/alias conditions, so
 its lists leave out those quests; these lists include them. (The CURV XCRI and
@@ -1431,6 +1432,48 @@ def exp_cont(esm):
     for b, k, p, x in rows:
         out.append("\t".join(b + k + [""] * (mk - len(k)) + [str(len(p))] + [v for t in p for v in t]
                              + [""] * (3 * (mp - len(p))) + [str(len(x))] + x + [""] * (mr - len(x))))
+    return out
+
+
+# ------------------------------------------------------------- FISH ------
+FISH_FLOATS = ("FISP", "FIDS", "FIES")
+FISH_BYTES = ("FIHS", "FILS")
+FISH_FLOATS2 = ("FIHD", "FILD", "FIJS", "FIHJ", "FILJ", "FILA", "FIHA")
+FISH_LINKS = ("FIRI", "FIEX", "FISD", "FISU")
+
+
+def exp_fish(esm):
+    """!!!Wordpress - ExportFISHToTSV.pas - fishing: keywords (FormID:EDID:SIG, FormID
+    order as xEdit sorts KWDA), the fish stats, the reward / splash / sound links as
+    xEdit edit values (FIRI keeps 'EDID "Name" [SIG:FormID]'; the axolotl build reads
+    the quoted name) and Referenced By, each padded to the widest row."""
+    def num(r, s, fmt):
+        d = r.first(s)
+        if not d:
+            return ""
+        return str(d[0]) if fmt == "b" else C.fmt_float(struct.unpack_from("<f", d)[0])
+
+    def link(r, s):
+        d = r.first(s)
+        return _ccell(esm.link_edit_value(_u32(d))) if d and len(d) >= 4 else ""
+
+    rows = []
+    for r in R.xedit_order(esm, "FISH"):
+        kw = r.first("KWDA") or b""
+        kws = [_ccell(_linkcell(esm, k)) if _lk(esm, k) else _ccell(esm.link_edit_value(k))
+               for k in sorted(struct.unpack_from("<%dI" % (len(kw) // 4), kw))]
+        vals = ([num(r, s, "f") for s in FISH_FLOATS] + [num(r, s, "b") for s in FISH_BYTES]
+                + [num(r, s, "f") for s in FISH_FLOATS2] + [link(r, s) for s in FISH_LINKS])
+        refs = [_ccell(x) for x in _refcells(esm, r.fid)]
+        rows.append((["%08X" % r.fid, _ccell(r.edid), _ccell(esm.lstring(r.full)), str(len(kws))], kws, vals, refs))
+    mk = max((len(x[1]) for x in rows), default=0)
+    mr = max((len(x[3]) for x in rows), default=0)
+    head = (["FormID", "EDID", "FULL", "KeywordCount"] + ["KW%d" % i for i in range(1, mk + 1)]
+            + list(FISH_FLOATS + FISH_BYTES + FISH_FLOATS2 + FISH_LINKS)
+            + ["ReferencedByCount"] + ["Ref%d" % i for i in range(1, mr + 1)])
+    out = ["\t".join(head)]
+    for b, k, v, x in rows:
+        out.append("\t".join(b + k + [""] * (mk - len(k)) + v + [str(len(x))] + x + [""] * (mr - len(x))))
     return out
 
 
@@ -3624,7 +3667,7 @@ def _lore_notes(esm):
     return out + [x for _, x in rows]
 
 
-NEEDS_REFS = {"ARMO2", "AVTR", "BOOK", "BOOK2", "COBJ", "CONT", "ENCH", "ENTM", "ALCH", "QUST2", "LVLI", "GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "ECAT", "CNDF", "LSCR", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
+NEEDS_REFS = {"ARMO2", "AVTR", "BOOK", "BOOK2", "COBJ", "CONT", "ENCH", "ENTM", "FISH", "ALCH", "QUST2", "LVLI", "GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "ECAT", "CNDF", "LSCR", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
 # exports that need Referenced By for more than their own records
 REF_TARGETS = {"ARMO2": armo2_ref_targets, "BOOK2": book2_ref_targets, "NPC2": npc2_ref_targets, "MISC2": misc2_ref_targets, "ACTI2": acti2_ref_targets}
 
@@ -3672,6 +3715,7 @@ EXPORTS = {
     "CONT": (["CONT"], "CONT_Export", exp_cont),
     "ENCH": (["ENCH"], "ENCH_Export", exp_ench),
     "ENTM": (["ENTM"], "ENTM_Export", exp_entm),
+    "FISH": (["FISH"], "FISH_Export", exp_fish),
     "REFR": (["ACTI"], "REFR_Placements", exp_refr_placements),
     "LORE": (["NOTE", "BOOK"], "ALLYDLG_Export", exp_lore),
 }
