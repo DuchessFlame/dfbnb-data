@@ -60,6 +60,18 @@ straight from the game files, so these no longer need xEdit:
     ENTM    ENTM_Export_<Month>_<Year>.tsv          (ExportENTMToTSV.pas: entitlements)
     FISH    FISH_Export_<Month>_<Year>.tsv          (!!!Wordpress - ExportFISHToTSV.pas: fish stats, rewards, sounds)
     FLST    FLST_Export_<Month>_<Year>_List / _Entries / _Refs.tsv  (!!!Wordpress - ExportFLSTToCSV.pas: form lists)
+    FURN    FURN_Export_<Month>_<Year>_FURN / _Refs.tsv  (!!!Wordpress - ExportFURNToTSV.pas: furniture)
+    GMRW    GMRW_Export_<Month>_<Year>.tsv          (!!!Wordpress - ExportGMRWToTSV.pas: game rewards)
+    KEYM    KEYM_Export_<Month>_<Year>.tsv / _Locations  (!!!Wordpress - ExportKEYMToTSV.pas: keys)
+    LGDI    LGDI_Export_<Month>_<Year>.tsv / _Mods  (!!!Wordpress - ExportLGDIToTSV.pas: legendary item lists)
+    LCTN    LCTN_Export_<Month>_<Year>_LCTN / _LCSR / _Refs.tsv  (!!!Wordpress - ExportLCTNToTSV.pas: locations)
+    MGEF    MGEF_Export_<Month>_<Year>.tsv          (!!!Wordpress - ExportMGEFToTSV.pas: magic effects)
+    NOTE    NOTE_Export_<Month>_<Year>.tsv          (!!!Wordpress - ExportNOTEToTSV.pas: holotapes)
+    PCRD    PCRD_Export_<Month>_<Year>.tsv          (!!!Wordpress - ExportPCRDToTSV.pas: perk cards)
+    PERKEP  PERKEP_Export_<Month>_<Year>.tsv        (!!!Wordpress - ExportPERKEntryPointsToTSV.pas: perk effects)
+    QUEST   QUEST_Export_<Month>_<Year>.tsv         (!!!Wordpress - ExportQUESTToCSV.pas: quests, rewards, party crashers)
+    CELL    SurvivalTentInteriors_Export_<Month>_<Year>.tsv  (!!!Wordpress - ExportSurvivalTentInteriorsToTSV.pas)
+    WTHR    WTHR_Export_<Month>_<Year>_WTHR / _Refs.tsv  (!!!Wordpress - ExportWTHRToTSV.pas: weathers)
     TERMPL  TERM_Export_<Month>_<Year>_Placements.tsv  (ExportTERMToTSV.pas _Placements;
             the main TERM file and _Quests are tools/export_term_from_esm.py)
     REFR    REFR_Placements_<Month>_<Year>.tsv  (ExportREFRPlacementsToTSV.pas per base:
@@ -70,7 +82,7 @@ Every xEdit .pas above stays working as the manual backup.
 Coordinates are correctly rounded; xEdit's own text can differ by one in the last
 decimal place (X/Y/Z) and RotZ by 0.0001 - accepted, readers place by X/Y.
 
-GLOB, AVIF, KYWD, CURV, MISC, NPC, ARMO2, AVTR, BOOK, COBJ, CONT, ENCH, ENTM, FISH and FLST list every record that points at each row ("Referenced By"),
+GLOB, AVIF, KYWD, CURV, MISC, NPC, ARMO2, AVTR, BOOK, COBJ, CONT, ENCH, ENTM, FISH, FLST, FURN, GMRW, KEYM, LGDI, LCTN, MGEF, NOTE, PCRD, QUEST (GMRW only) and WTHR list every record that points at each row ("Referenced By"),
 worked out by esm_refs.py in one ~40 s scan (needs numpy). Known gap: xEdit
 stops reading some quests part-way through their objective/alias conditions, so
 its lists leave out those quests; these lists include them. (The CURV XCRI and
@@ -1260,6 +1272,33 @@ def _book_loc_from_name(s):
     return "", ""
 
 
+def _placed_location(esm, fid):
+    """The BOOK / KEYM .pas _Locations columns (LocationName, LocationSource, QuestName):
+    placed copies (REFR) in Referenced By order, test cells only as a last resort, and
+    the first quest that points at the record (its name, else its EDID)."""
+    name = src = fb_name = fb_src = ""
+    quest = None
+    for h in esm.refby.get(fid, ()):
+        sig = esm.refinfo[h][0]
+        if sig == "QUST" and quest is None:
+            qf = _dtrim(esm.full_of(h))
+            quest = _clean_loc(qf) if qf else _clean_loc(esm.edid_of(h))
+            if not quest:
+                quest = None
+        if sig != "REFR" or name:
+            continue
+        n, s = _book_loc_from_name(esm.link_edit_value(h))
+        if not n:
+            continue
+        if not _is_test_cell(n):
+            name, src = n, s
+        elif not fb_name:
+            fb_name, fb_src = n, s
+    if not name:
+        name, src = fb_name, fb_src
+    return name, src, quest or ""
+
+
 def exp_book(esm):
     """ExportBOOKToTSV.pas - books / notes / plans (main file: keywords and Referenced
     By, each padded) and _Locations (where a placed copy lies, and the first quest
@@ -1288,28 +1327,7 @@ def exp_book(esm):
                       value, weight, _flag_bits(dn[0]) if dn else "", ev("INAM"),
                       _flag_bits(struct.unpack_from("<I", bt)[0]) if bt and len(bt) >= 4 else "", ev("BVGO"),
                       str(len(refs))], refs))
-        # _Locations: placed copies in Referenced By order, test cells only as a last resort
-        name = src = fb_name = fb_src = ""
-        quest = None
-        for h in esm.refby.get(r.fid, ()):
-            sig = esm.refinfo[h][0]
-            if sig == "QUST" and quest is None:
-                qf = _dtrim(esm.full_of(h))
-                quest = _clean_loc(qf) if qf else _clean_loc(esm.edid_of(h))
-                if not quest:
-                    quest = None
-            if sig != "REFR" or name:
-                continue
-            n, s = _book_loc_from_name(esm.link_edit_value(h))
-            if not n:
-                continue
-            if not _is_test_cell(n):
-                name, src = n, s
-            elif not fb_name:
-                fb_name, fb_src = n, s
-        if not name:
-            name, src = fb_name, fb_src
-        locs.append("\t".join([fid, ed, name, src, quest or ""]))
+        locs.append("\t".join([fid, ed] + list(_placed_location(esm, r.fid))))
     mk = max((len(x[1]) for x in rows), default=0)
     mr = max((len(x[3]) for x in rows), default=0)
     head = (["FormID", "EDID", "FULL", "DESC", "KeywordCount"] + ["KW%d" % i for i in range(1, mk + 1)]
@@ -1531,6 +1549,1080 @@ def exp_flst(esm):
     out_r = ["\t".join(["FLST_FormID", "FLST_EDID", "ReferencedByCount"] + ["Ref_%d" % i for i in range(1, mr + 1)])]
     out_r += ["\t".join(b + c + [""] * (mr - len(c))) for b, c in refrows]
     return {"_List": out_l, "_Entries": [head_e] + entries, "_Refs": out_r}
+
+
+# ------------------------------------------------------------- GMRW ------
+GMRW_MAX_ITEMS = 10
+GMRW_MAX_REFS = 20
+GMRW_MEMBERS = {"NAM7", "NAM9", "XPCT", "ESRE", "QRCO", "QRCX", "NAM8", "QRLI", "QRLR", "QRRI", "QSRD", "CENT",
+                "CTDA", "ITME"}
+GMRW_WARNED = set()
+
+
+def _comma_text(items):
+    """Delphi TStringList.CommaText: an item with a space, comma, quote or control
+    character goes in double quotes (quotes doubled); items joined with commas."""
+    out = []
+    for x in items:
+        if x == "" or any(c <= " " or c in ',"' for c in x):
+            out.append('"' + x.replace('"', '""') + '"')
+        else:
+            out.append(x)
+    return ",".join(out)
+
+
+def exp_gmrw(esm):
+    """!!!Wordpress - ExportGMRWToTSV.pas - game rewards: one row per rewarded item
+    (max 10) of every reward in the Rewards List (a reward runs up to its ITME marker),
+    with the reward's XP / caps globals, curve, currency, legendary list / rank, the
+    first condition's tier, the conditions three ways and Referenced By (max 20)."""
+    def ref_str(fid):
+        ed, sg = esm.edid_of(fid), esm.sig_of(fid)
+        return "%08X" % fid + (":" + _ccell(ed) if _ccell(ed) else "") + (":" + sg if sg else "")
+
+    def link_str(d):
+        if not d or len(d) < 4:
+            return ""
+        f = _u32(d)
+        return ref_str(f) if f and esm.exists(f) else ""
+
+    out = ["\t".join(["FormID", "EDID", "ParentQuestDisplay", "ParentQuestLink", "RewardsCount", "RewardIndex",
+                       "RewardedItemIndex", "RewardedItem", "RewardedItemCount", "NAM7_XPGlobal", "NAM8_CapsGlobal",
+                       "XPCT_XPCurveTable", "QRCO_CurrencyObject", "QRLI_LegendaryItemRewardList",
+                       "QRLR_LegendaryItemRewardRank", "QRRI_LegendaryRankRandom", "TierLabel",
+                       "TierConditionFunc", "TierConditionValue", "Conditions", "ConditionGlobs",
+                       "ReferencedByCount"] + ["Ref%d" % i for i in range(1, GMRW_MAX_REFS + 1)]
+                      + ["ConditionsFull"])]
+    for r in R.xedit_order(esm, "GMRW"):
+        ctx = C.Ctx(esm, r)
+        an = r.first("ANAM")
+        pq = _u32(an) if an and len(an) >= 4 else 0
+        pdisp = plink = ""
+        if pq and esm.exists(pq):
+            pdisp = _ccell(esm.full_of(pq)) or _ccell(esm.edid_of(pq))
+            plink = ref_str(pq)
+        # rewards: xEdit fills one reward until a field it already has comes round
+        # again (QSRD / CTDA lists only while they run on), which then starts the next.
+        # So ITME doesn't close a reward: a NAM7 after it still joins that reward, and
+        # every repeated CENT starts a new one (SHELS01: 8 rewards).
+        rewards, cur, seen, last, started = [], None, set(), None, False
+        for k, v in r.subs:
+            if k == "RWDS":
+                started = True
+                continue
+            if not started:
+                continue
+            key = "CTDA" if k in ("CIS1", "CIS2") else k
+            if key not in GMRW_MEMBERS:
+                if k not in GMRW_WARNED:
+                    GMRW_WARNED.add(k)
+                    print("  GMRW: %s after the rewards in %s - not a reward field yet; check with xEdit" % (k, r.edid))
+                continue
+            repeat = key in seen and not (key in ("QSRD", "CTDA") and last == key)
+            if cur is None or repeat:
+                cur, seen = [], set()
+                rewards.append(cur)
+            cur.append((k, v))
+            seen.add(key)
+            last = key
+        refs = [_ccell("%08X" % x + (":" + esm.refinfo[x][1] if esm.refinfo[x][1] else "") + ":" + esm.refinfo[x][0])
+                for x in esm.refby.get(r.fid, ())][:GMRW_MAX_REFS]
+        base = ["%08X" % r.fid, _ccell(r.edid), pdisp, plink, str(len(rewards))]
+        tail_refs = [str(len(refs))] + refs + [""] * (GMRW_MAX_REFS - len(refs))
+
+        def emit(ri, qi, item, cnt, cols, full):
+            out.append("\t".join(base + [str(ri), str(qi), item, cnt] + cols + tail_refs + [full]))
+
+        if not rewards:
+            emit(0, 0, "", "", [""] * 12, "")
+            continue
+        for ri, rw in enumerate(rewards):
+            def one(sig):
+                return next((v for k, v in rw if k == sig), None)
+            qrlr = one("QRLR")
+            cols = [link_str(one("NAM7")), link_str(one("NAM8")), link_str(one("XPCT")), link_str(one("QRCO")),
+                    link_str(one("QRLI")), str(_u32(qrlr)) if qrlr and len(qrlr) >= 4 else "",
+                    ""]   # QRRI: the .pas path 'QRRI - QRRI' never resolves in xEdit
+            conds = []
+            for k, v in rw:
+                if k == "CTDA":
+                    conds.append([v, None, None])
+                elif k == "CIS1" and conds:
+                    conds[-1][1] = v.rstrip(b"\0").decode("utf-8", "replace")
+                elif k == "CIS2" and conds:
+                    conds[-1][2] = v.rstrip(b"\0").decode("utf-8", "replace")
+            simple, globs, fulls = [], [], []
+            tier = ["", "", ""]
+            for ci, (ctda, c1, c2) in enumerate(conds):
+                els, _ref = C.elements(ctx, ctda, c1, c2)
+                byname = {}
+                for nm, val in els:
+                    byname.setdefault(nm, val)
+                fn = _ccell(byname.get("Function", ""))
+                valf = _ccell(byname.get("Comparison Value - Float", ""))
+                op = _ccell(byname.get("Type", ""))
+                simple.append(_ccell(fn + " " + op + " " + valf))
+                if ctda[0] & 4:
+                    g = _u32(ctda[4:8])
+                    if g and esm.exists(g):
+                        globs.append(ref_str(g))
+                if ci == 0:
+                    label = ""
+                    if "getpubliceventhasmutation" in fn.lower():
+                        label = "mutated"
+                    elif "getvmquestvariableunique" in fn.lower() or "getvmscriptvariable" in fn.lower():
+                        try:
+                            fv = float(valf)
+                        except ValueError:
+                            fv = 0.0
+                        label = "gold" if fv >= 2.9 else "silver" if fv >= 1.9 else "bronze" if fv >= 0.9 else ""
+                    tier = [label, fn, valf]
+                # ConditionsFull: RunOn.Function(<every other non-empty element>) Type Comparison;
+                # the 9th element (Reference / its unused slot) is left out, as the .pas does
+                cmp = byname.get("Comparison Value - Float", byname.get("Comparison Value - Global", ""))
+                params = []
+                for i, (nm, val) in enumerate(els):
+                    val = val.strip(" ")
+                    if not val or i == 8 or nm in ("Type", "Function", "Run On", "Comparison Value - Float",
+                                                   "Comparison Value - Global"):
+                        continue
+                    params.append(val)
+                run_on = byname.get("Run On", "")
+                fulls.append(_ccell((run_on + "." if run_on else "") + byname.get("Function", "") + "("
+                                    + ", ".join(params) + ") " + byname.get("Type", "") + " " + cmp))
+            cols += tier + [_comma_text(simple), _comma_text(globs)]
+            full = "|".join(fulls)
+            items = [v for k, v in rw if k == "QSRD"][:GMRW_MAX_ITEMS]
+            if not items:
+                emit(ri, 0, "", "", cols, full)
+            for qi, q in enumerate(items):
+                f, n = struct.unpack_from("<Ii", q)
+                emit(ri, qi, ref_str(f) if f and esm.exists(f) else "", str(n), cols, full)
+    return out
+
+
+# ------------------------------------------------------------- KEYM ------
+def exp_keym(esm):
+    """!!!Wordpress - ExportKEYMToTSV.pas - keys: the BOOK columns without the four
+    book-only ones (DNAM / INAM / BTOF / BVGO), and the same _Locations file."""
+    def ev(r, sub):
+        v = r.first(sub)
+        return _ccell(esm.link_edit_value(_u32(v))) if v and len(v) >= 4 else ""
+
+    rows = []
+    locs = ["KEYM_FormID\tKEYM_EDID\tLocationName\tLocationSource\tQuestName"]
+    for r in R.xedit_order(esm, "KEYM"):
+        fid, ed = "%08X" % r.fid, _ccell(r.edid)
+        kw = r.first("KWDA") or b""
+        kws = [("%08X:%s:%s" % (k, esm.edid_of(k), esm.sig_of(k))) if _lk(esm, k) else _ccell(esm.link_edit_value(k))
+               for k in sorted(struct.unpack_from("<%dI" % (len(kw) // 4), kw))]
+        d = r.first("DATA")
+        value = weight = ""
+        if d and len(d) >= 8:
+            v, w = struct.unpack_from("<if", d)
+            value, weight = str(v), C.fmt_float(w)
+        refs = _refcells(esm, r.fid)
+        rows.append(([fid, ed, _ccell(esm.lstring(r.full)), _ccell(esm.lstring(r.first("DESC"))), str(len(kws))], kws,
+                     [ev(r, "PTRN"), _ccell(_zstr(r.first("MODL"))) if r.first("MODL") is not None else "",
+                      ev(r, "VCRY"), value, weight, str(len(refs))], refs))
+        locs.append("\t".join([fid, ed] + list(_placed_location(esm, r.fid))))
+    mk = max((len(x[1]) for x in rows), default=0)
+    mr = max((len(x[3]) for x in rows), default=0)
+    head = (["FormID", "EDID", "FULL", "DESC", "KeywordCount"] + ["KW%d" % i for i in range(1, mk + 1)]
+            + ["PTRN", "Model", "VCRY", "DATA_Value", "DATA_Weight", "ReferencedByCount"]
+            + ["Ref%d" % i for i in range(1, mr + 1)])
+    out = ["\t".join(head)]
+    for a_, k, b_, x in rows:
+        out.append("\t".join(a_ + k + [""] * (mk - len(k)) + b_ + x + [""] * (mr - len(x))))
+    return {"": out, "_Locations": locs}
+
+
+# ------------------------------------------------------------- LGDI ------
+LGDI_MAX_REFS = 30
+LGDI_STAR = ["First Star Slot", "Second Star Slot", "Third Star Slot", "Fourth Star Slot", "Fifth Star Slot"]
+LGDI_POOL_SIGS = {"LVLI", "OMOD", "FLST", "GLOB", "CURV", "LVLO"}
+
+
+def _omod_links(esm, rec):
+    """Every FormID an OMOD's elements link to, in xEdit's element order: the record
+    itself first (xEdit's LinksTo of a main record is the record), then each subrecord
+    in file order - DATA read field by field (attach point, attach parent slots, items,
+    includes, then each property's Value 1 when it holds a form and its curve table),
+    any other subrecord through the Referenced By field rules."""
+    import esm_refs
+    rules = esm_refs._rules()
+    out = [rec.fid]
+    for k, v in rec.subs:
+        if k == "DATA" and len(v) >= 28:
+            inc, prop = struct.unpack_from("<II", v)
+            out.append(struct.unpack_from("<I", v, 16)[0])
+            p = 20
+            for _ in range(2):
+                n = struct.unpack_from("<I", v, p)[0]
+                out += list(struct.unpack_from("<%dI" % n, v, p + 4))
+                p += 4 + 4 * n
+            for _ in range(inc):
+                out.append(struct.unpack_from("<I", v, p)[0])
+                p += 7
+            for _ in range(prop):
+                vt, _fn, _pid, v1, _v2, ct = struct.unpack_from("<BxxxBxxxHxxIII", v, p)
+                if vt in (4, 6):
+                    out.append(v1)
+                out.append(ct)
+                p += 24
+            continue
+        for o in range(0, len(v) - 3):
+            f = struct.unpack_from("<I", v, o)[0]
+            if f and esm.exists(f) and esm_refs._is_ref(rules, "OMOD", k, o, v, esm.sig_of(f)):
+                out.append(f)
+    return out
+
+
+def exp_lgdi(esm):
+    """!!!Wordpress - ExportLGDIToTSV.pas - legendary item lists: main file (scrip cost,
+    currency, applicable item list, model, preview transform, legendary template,
+    include / exclude filters, star-slot mods, Referenced By: count of all, the first 30
+    listed) and _Mods (one row per star-slot mod with its mod pool: every leveled list /
+    mod / form list / global / curve the mod collection's elements link to, de-duplicated).
+    Like the .pas, '"' is doubled in the text columns and nothing else is cleaned."""
+    def q(x):
+        return x.replace('"', '""')
+
+    def full(f):
+        return esm.full_of(f)
+
+    def resolve(d):
+        """ResolveRef: EDID "FULL" [SIG:FormID] of a linked record, else xEdit's edit value."""
+        if not d or len(d) < 4:
+            return ""
+        f = _u32(d)
+        if f and esm.exists(f):
+            return '%s "%s" [%s:%08X]' % (esm.edid_of(f), full(f), esm.sig_of(f), f)
+        return esm.link_edit_value(f)
+
+    omods = {r.fid: r for r in esm.records.get("OMOD", [])}
+    main = ["\t".join(["LGDI_FormID", "LGDI_EDID", "FULL", "ScripCost", "ValueCurrency",
+                        "ApplicableItemList_FormID", "ApplicableItemList_EDID", "ApplicableItemList_FULL", "Model",
+                        "PreviewTransform", "LegendaryTemplate", "IncludeFilters", "ExcludeFilters", "LegModCount",
+                        "LegMods_Flat", "ReferencedByCount"] + ["Ref_%d" % i for i in range(1, LGDI_MAX_REFS + 1)])]
+    mods = ["\t".join(["LGDI_FormID", "LGDI_EDID", "ModIndex", "StarSlot", "OMOD_FormID", "OMOD_EDID", "OMOD_FULL",
+                        "ModPool_Refs"])]
+    for r in R.xedit_order(esm, "LGDI"):
+        fid, ed = "%08X" % r.fid, r.edid or ""
+        dt = r.first("DATA")
+        scrip = str(_u32(dt)) if dt and len(dt) >= 4 else ""
+        an = r.first("ANAM")
+        a_fid = a_ed = a_full = ""
+        if an and len(an) >= 4:
+            af = _u32(an)
+            if af and esm.exists(af):
+                a_fid, a_ed, a_full = "%08X" % af, esm.edid_of(af), full(af)
+            else:
+                a_ed = esm.link_edit_value(af)
+        mo = r.first("MODL")
+        model = mo.rstrip(b"\0").decode("utf-8", "replace") if mo else ""
+        bn = r.first("BNAM") or b""
+        flat = []
+        for i in range(len(bn) // 8):
+            slot, of = struct.unpack_from("<II", bn, i * 8)
+            star = LGDI_STAR[slot] if slot < len(LGDI_STAR) else "<Unknown: %d>" % slot
+            o_fid = o_ed = o_full = pool = ""
+            if of and esm.exists(of):
+                o_fid, o_ed, o_full = "%08X" % of, esm.edid_of(of), full(of)
+                acc = []
+                orec = omods.get(of)
+                for f in (_omod_links(esm, orec) if orec else [of]):
+                    if not (f and esm.exists(f)) or esm.sig_of(f) not in LGDI_POOL_SIGS:
+                        continue
+                    h = "%08X" % f
+                    if h in " | ".join(acc):       # the .pas de-dupes with Pos(FormID, acc)
+                        continue
+                    acc.append("%s [%s:%s]" % (esm.edid_of(f), esm.sig_of(f), h))
+                pool = " | ".join(acc)
+            else:
+                o_ed = esm.link_edit_value(of)
+            mods.append("\t".join([fid, ed, str(i), q(star), o_fid, o_ed, q(o_full), q(pool)]))
+            flat.append(star + "=" + o_ed + (" [OMOD:%s]" % o_fid if o_fid else ""))
+        refs = ["%08X:%s:%s" % (x, esm.refinfo[x][1], esm.refinfo[x][0]) for x in esm.refby.get(r.fid, ())]
+        shown = refs[:LGDI_MAX_REFS]
+        main.append("\t".join([fid, ed, q(esm.lstring(r.full)), scrip, q(resolve(r.first("VCRY"))), a_fid, a_ed,
+                                q(a_full), q(model), q(resolve(r.first("PTRN"))), q(resolve(r.first("ENAM"))),
+                                # Include / Exclude Filters: blank in xEdit too. No LGDI has CNAM; the
+                                # one DNAM (zzzCOMP_..._RESTRICT, 12 bytes: NULL, 0x11, NULL) isn't a
+                                # form list xEdit can walk, so the .pas finds nothing to list.
+                                "", "", str(len(bn) // 8),
+                                q(" | ".join(flat)), str(len(refs))] + shown + [""] * (LGDI_MAX_REFS - len(shown))))
+    return {"": main, "_Mods": mods}
+
+
+# ------------------------------------------------------------- LCTN ------
+LCTN_TYPES = {0: "None", 1: "Raid", 8: "Power Plant", 9: "Workshop"}
+_LCTN_WARNED = set()
+
+
+def _pas_unresolved(fid):
+    """GetEditValue of a FormID xEdit can't resolve (no spaces inside the < >)."""
+    return "[%08X] <Error: Could not be resolved>" % fid
+
+
+def exp_lctn(esm):
+    """!!!Wordpress - ExportLCTNToTSV.pas - locations, three files: _LCTN (keywords,
+    PRPS, DATA, parent location FormID:EDID:FULL, radius, actor fade, colour),
+    _LCSR (master special references, sorted by the placed reference's FormID as xEdit
+    sorts them: location ref type, reference and its xEdit name, world / cell, grid)
+    and _Refs (Referenced By)."""
+    def ed(f):
+        return _ccell(esm.edid_of(f))
+
+    def ev(f):
+        if not f:
+            return esm.link_edit_value(0)
+        if esm.exists(f) or esm.world_record(f) is not None:
+            return _ccell(esm.link_edit_value(f))
+        return _pas_unresolved(f)
+
+    rows, lcsr, refrows = [], [], []
+    want = set()
+    for r in esm.records.get("LCTN", []):
+        ls = r.first("LCSR") or b""
+        for i in range(len(ls) // 16):
+            want.update(struct.unpack_from("<III", ls, i * 16)[1:])
+    esm.prefetch_world(want)
+    lcsr.append("\t".join(["LCTN_FormID", "LCTN_EDID", "LCSR_Index", "LocRefType_FormID", "LocRefType_EDID",
+                            "Ref_FormID", "Ref_Display", "WorldCell", "GridX", "GridY"]))
+    for r in R.xedit_order(esm, "LCTN"):
+        fid, edid = "%08X" % r.fid, _ccell(r.edid)
+        kw = r.first("KWDA") or b""
+        kws = [("%08X:%s:%s" % (k, esm.edid_of(k), esm.sig_of(k))) if _lk(esm, k) else _ccell(esm.link_edit_value(k))
+               for k in sorted(struct.unpack_from("<%dI" % (len(kw) // 4), kw))]
+        pr = r.first("PRPS") or b""
+        props = []
+        for av, val, cv in sorted((struct.unpack_from("<IfI", pr, i * 12) for i in range(len(pr) // 12)),
+                                  key=lambda x: x[0]):
+            a = ed(av) if _lk(esm, av) else _ccell(esm.link_edit_value(av))
+            c = ed(cv) if _lk(esm, cv) else _ccell(esm.link_edit_value(cv))
+            props.append([a, C.fmt_float(val), "" if c.startswith("NULL") else c])
+        d = r.first("DATA")
+        data = [""] * 5
+        if d and len(d) >= 8:
+            ui, ub, mn, lt, mx = struct.unpack_from("<IBBBB", d)
+            tn = LCTN_TYPES.get(lt)
+            if tn is None:
+                if lt not in _LCTN_WARNED:
+                    _LCTN_WARNED.add(lt)
+                    print("  LCTN: location type %d has no xEdit name yet - check against an xEdit run" % lt)
+                tn = "<Unknown: %d>" % lt
+            data = [str(ui), str(ub), str(mn), tn, str(mx)]
+        pn = r.first("PNAM")
+        pnam = ""
+        if pn and len(pn) >= 4:
+            pf = _u32(pn)
+            pnam = ("%08X:%s:%s" % (pf, esm.edid_of(pf), _ccell(esm.full_of(pf)))) if _lk(esm, pf) else ev(pf)
+
+        def flt(sub):
+            v = r.first(sub)
+            return C.fmt_float(struct.unpack_from("<f", v)[0]) if v and len(v) >= 4 else ""
+        # CNAM (Color) is a struct: its edit value is empty in xEdit
+        rows.append(([fid, edid, _ccell(esm.lstring(r.full)), str(len(kws))], kws, props,
+                     data + [pnam, flt("RNAM"), flt("ANAM"), ""]))
+        ls = r.first("LCSR") or b""
+        ents = sorted((struct.unpack_from("<IIIhh", ls, i * 16) for i in range(len(ls) // 16)), key=lambda x: x[1])
+        for i, (lt, ref, wc, gy, gx) in enumerate(ents):
+            if _lk(esm, lt):
+                lt_f, lt_e = "%08X" % lt, esm.edid_of(lt)
+            else:
+                lt_f, lt_e = ev(lt), ""
+            if ref and esm.world_record(ref) is not None:
+                rf, rd = "%08X" % ref, _ccell(esm.link_edit_value(ref))
+            else:
+                rf, rd = "", ev(ref)
+            lcsr.append("\t".join([fid, edid, str(i), lt_f, lt_e, rf, rd, ev(wc), str(gx), str(gy)]))
+        refrows.append(([fid, edid], _refcells(esm, r.fid)))
+    mk = max((len(x[1]) for x in rows), default=0)
+    mp = max((len(x[2]) for x in rows), default=0)
+    head = (["LCTN_FormID", "LCTN_EDID", "LCTN_FULL", "KeywordCount"] + ["KW_%d" % i for i in range(1, mk + 1)]
+            + ["PropCount"] + [c % i for i in range(1, mp + 1) for c in ("Prop_%d_AV", "Prop_%d_Val", "Prop_%d_Curve")]
+            + ["DATA_UnknownInt", "DATA_UnknownByte", "DATA_MinLocationLevel", "DATA_LocationType",
+               "DATA_MaxLocationLevel", "PNAM_ParentLocation", "RNAM_WorldLocationRadius", "ANAM_ActorFadeMult",
+               "CNAM_Color"])
+    out = ["\t".join(head)]
+    for b, k, p_, t in rows:
+        out.append("\t".join(b + k + [""] * (mk - len(k)) + [str(len(p_))] + [v for x in p_ for v in x]
+                              + [""] * (3 * (mp - len(p_))) + t))
+    mr = max((len(x[1]) for x in refrows), default=0)
+    rout = ["\t".join(["LCTN_FormID", "LCTN_EDID", "ReferencedByCount"] + ["Ref_%d" % i for i in range(1, mr + 1)])]
+    for b, x in refrows:
+        rout.append("\t".join(b + [str(len(x))] + [_ccell(y) for y in x] + [""] * (mr - len(x))))
+    return {"_LCTN": out, "_LCSR": lcsr, "_Refs": rout}
+
+
+# ------------------------------------------------------------- MGEF ------
+# Checked against her October 2026 xEdit export (every value the game uses today).
+# Indices not in use yet carry Fallout 4's name and print a warning when they turn up.
+MGEF_ARCHETYPES = {0: "Value Modifier", 1: "Script", 2: "Dispel", 4: "Absorb", 5: "Dual Value Modifier", 6: "Calm",
+                   7: "Demoralize", 8: "Frenzy", 9: "Disarm", 11: "Invisibility", 12: "Light", 18: "Summon Creature",
+                   20: "Player Fear", 21: "Paralysis", 25: "Guide", 26: "Damage Item", 28: "Cure Addiction",
+                   31: "Stimpak", 33: "Stagger", 34: "Peak Value Modifier", 35: "Cloak", 36: "Unknown 36",
+                   37: "Slow Time", 40: "Spawn Hazard", 45: "Damage", 47: "Permanent Reanimate", 48: "Jetpack",
+                   49: "Chameleon", 50: "Grow Flora", 51: "Corpse Highlight", 52: "Stunned"}
+MGEF_ARCHETYPES_UNCHECKED = {3: "Cure Disease", 10: "Command Summoned", 13: "Darkness", 14: "Nighteye", 15: "Lock",
+                             16: "Open", 17: "Bound Weapon", 19: "Detect Life", 22: "Reanimate", 23: "Soul Trap",
+                             24: "Turn Undead", 27: "Cure Paralysis", 29: "Cure Poison", 30: "Concussion",
+                             32: "Accumulate Magnitude", 38: "Rally", 39: "Enhance Weapon", 41: "Etherealize",
+                             42: "Banish", 43: "Spawn Scripted Ref", 44: "Disguise", 46: "Immunity"}
+MGEF_CASTING = ["Constant Effect", "Fire and Forget", "Concentration", "Scroll"]
+MGEF_DELIVERY = ["Self", "Contact", "Aimed", "Target Actor", "Target Location"]
+MGEF_SOUND = ["Loud", "Normal", "Silent", "Very Loud", "Quiet"]
+MGEF_CHECKED = {"casting type": 3, "delivery": 4}   # indices below these seen in xEdit's export
+_MGEF_WARNED = set()
+
+
+def _mgef_enum(names, i, what):
+    if isinstance(names, dict):
+        v = names.get(i)
+        if v is None:
+            v = MGEF_ARCHETYPES_UNCHECKED.get(i, "<Unknown: %d>" % i)
+            if (what, i) not in _MGEF_WARNED:
+                _MGEF_WARNED.add((what, i))
+                print("  MGEF: %s %d (%s) not checked against xEdit yet" % (what, i, v))
+        return v
+    if 0 <= i < len(names):
+        if i >= MGEF_CHECKED.get(what, len(names)) and (what, i) not in _MGEF_WARNED:
+            _MGEF_WARNED.add((what, i))
+            print("  MGEF: %s %d (%s) not checked against xEdit yet" % (what, i, names[i]))
+        return names[i]
+    return "<Unknown: %d>" % i
+
+
+def exp_mgef(esm):
+    """!!!Wordpress - ExportMGEFToTSV.pas - magic effects: DNAM, the DATA fields (FO76's
+    160-byte DATA: Fallout 4's layout with an extra u32 at 4 - Base Cost sits at 8),
+    VMAD scripts and
+    Referenced By. Columns the .pas asks for by a name FO76Edit doesn't use (Flags2,
+    Magic Skill, Min Skill Level, Spellmaking Area / Casting Time, Casting Art, Dual
+    Casting Art / Scale, Enchant Art, Hit / Enchant Visuals, Script AI Data) are blank
+    in xEdit and here."""
+    rows, refrows, _lc = _scriptable(esm, "MGEF")
+
+    def ev(f):
+        return _ccell(esm.link_edit_value(f))
+
+    def edid_cell(f):
+        """FieldCellValue: the linked record's EDID; NULL / unresolved -> ''."""
+        if f and esm.exists(f):
+            return _ccell(esm.edid_of(f))
+        t = _ccell(esm.link_edit_value(f))
+        return "" if "NULL - Null Reference" in t else t
+
+    head = ["MGEF_FormID", "EDID", "FULL", "DNAM_MagicItemDescription", "DATA_Flags", "DATA_Flags2", "BaseCost",
+            "Unused", "MagicSkillRaw", "ResistValue", "CounterEffectCount", "CastingLight", "TaperWeight",
+            "HitShader", "EnchantShader", "MinSkillLevel", "Spellmaking_Area", "CastingTime", "TaperCurve",
+            "TaperDuration", "SecondAVWeight", "Archetype", "ActorValue", "Projectile", "Explosion", "CastingType",
+            "Delivery", "CastingArt", "HitEffectArt", "ImpactData", "SkillUsageMultiplier", "DualCastingArt",
+            "DualCastingScale", "EnchantArt", "HitVisuals", "EnchantVisuals", "EquipAbility", "ImageSpaceModifier",
+            "PerkToApply", "CastingSoundLevel", "ScriptAI_Score", "ScriptAI_DelayTime", "ScriptAI_Unknown",
+            "VMAD_ScriptCount", "VMAD_Scripts", "ReferencedByCount"]
+    body = []
+    for (r, fid, ed, full, _xa, _kw, _pr, vc, vm), (_f, _e, refs) in zip(rows, refrows):
+        d = r.first("DATA") or b""
+        cols = [""] * 39
+        if len(d) >= 148:
+            u = lambda o: struct.unpack_from("<I", d, o)[0]
+            f = lambda o: C.fmt_float(struct.unpack_from("<f", d, o)[0])
+            cols = [_flag_bits(u(0)), "", f(8), C.hexbytes(d[26:28]), "", ev(u(20)),
+                    str(struct.unpack_from("<H", d, 24)[0]), ev(u(28)), f(32), ev(u(36)), ev(u(40)), "", "", "",
+                    f(56), f(60), f(64), _mgef_enum(MGEF_ARCHETYPES, u(68), "archetype"), edid_cell(u(72)),
+                    edid_cell(u(76)), edid_cell(u(80)), _mgef_enum(MGEF_CASTING, u(84), "casting type"),
+                    _mgef_enum(MGEF_DELIVERY, u(88), "delivery"), "", edid_cell(u(100)), edid_cell(u(104)),
+                    f(108), "", "", "", "", "", edid_cell(u(132)), edid_cell(u(136)), edid_cell(u(140)),
+                    _mgef_enum(MGEF_SOUND, u(144), "sound level"), "", "", ""]
+        body.append(([fid, _ccell(ed), _ccell(full), _ccell(esm.lstring(r.first("DNAM")))] + cols
+                     + [str(vc), vm, str(len(refs))], refs))
+    mr = max((len(x[1]) for x in body), default=0)
+    out = ["\t".join(head + ["Ref_%d" % i for i in range(1, mr + 1)])]
+    for b, x in body:
+        out.append("\t".join(b + x + [""] * (mr - len(x))))
+    return out
+
+
+# ------------------------------------------------------------- NOTE ------
+NOTE_TYPES = ["Sound", "Voice", "Program", "Terminal"]
+
+
+def exp_note(esm):
+    """!!!Wordpress - ExportNOTEToTSV.pas - holotapes: type, model, value / weight,
+    preview transform, pickup / putdown sounds, program file, keywords, Referenced By.
+    VCRY / SNAM / DIQO are read in the .pas with ElementByPath(rec, 'VCRY'), which
+    FO76Edit never resolves, so those nine columns are blank in xEdit and here."""
+    def ev(r, sub):
+        v = r.first(sub)
+        return _ccell(esm.link_edit_value(_u32(v))) if v and len(v) >= 4 else ""
+
+    rows = []
+    for r in R.xedit_order(esm, "NOTE"):
+        dn = r.first("DNAM")
+        dtype = (NOTE_TYPES[dn[0]] if dn[0] < len(NOTE_TYPES) else "<Unknown: %d>" % dn[0]) if dn else ""
+        d = r.first("DATA")
+        value = weight = ""
+        if d and len(d) >= 8:
+            v, w = struct.unpack_from("<if", d)
+            value, weight = str(v), C.fmt_float(w)
+        kw = r.first("KWDA") or b""
+        kws = [("%08X:%s:%s" % (k, _ccell(esm.edid_of(k)), esm.sig_of(k))) if _lk(esm, k)
+               else _ccell(esm.link_edit_value(k)) for k in sorted(struct.unpack_from("<%dI" % (len(kw) // 4), kw))]
+        refs = [_ccell(x) for x in _refcells(esm, r.fid)]
+        rows.append((["%08X" % r.fid, _ccell(r.edid), _ccell(esm.lstring(r.full)), dtype,
+                      _ccell(_zstr(r.first("MODL"))) if r.first("MODL") is not None else "",
+                      _ccell(_zstr(r.first("ICON"))) if r.first("ICON") is not None else "", value, weight,
+                      "", "", ev(r, "PTRN"), ev(r, "YNAM"), ev(r, "ZNAM"), "", "", "", "", "", "",
+                      _ccell(_zstr(r.first("PNAM"))) if r.first("PNAM") is not None else "", str(len(kws))], kws, refs))
+    mk = max((len(x[1]) for x in rows), default=0)
+    mr = max((len(x[2]) for x in rows), default=0)
+    head = (["NOTE_FormID", "NOTE_EDID", "FULL", "DNAM_Type", "Model", "ICON", "DATA_Value", "DATA_Weight",
+             "VCRY_FormID", "VCRY_EDID", "PTRN", "YNAM_PickupSound", "ZNAM_PutdownSound", "SNAM_Scene_FormID",
+             "SNAM_Scene_EDID", "SNAM_Scene_FULL", "DIQO_Quest_FormID", "DIQO_Quest_EDID", "DIQO_Quest_FULL",
+             "PNAM_ProgramFile", "KeywordCount"] + ["KW_%d" % i for i in range(1, mk + 1)]
+            + ["ReferencedByCount"] + ["Ref_%d" % i for i in range(1, mr + 1)])
+    out = ["\t".join(head)]
+    for b, k, x in rows:
+        out.append("\t".join(b + k + [""] * (mk - len(k)) + [str(len(x))] + x + [""] * (mr - len(x))))
+    return out
+
+
+# ------------------------------------------------------------- PCRD ------
+PCRD_SPECIAL = ["Strength", "Perception", "Endurance", "Charisma", "Intelligence", "Agility", "Luck", "Unknown"]
+PCRD_RACE = ["None", "Human", "Ghoul"]
+
+
+def exp_pcrd(esm):
+    """!!!Wordpress - ExportPCRDToTSV.pas - perk cards: form version, description, male /
+    female names, flags, DATA (value, min level, SPECIAL, race restriction), the cost
+    global, sound, every rank (card rank, male / female perk FormID:EDID:FULL; PRKE ...
+    PRKF), flat and expanded, and Referenced By."""
+    def trip(f):
+        return ["%08X" % f, _ccell(esm.edid_of(f)), _ccell(esm.full_of(f))] if f and esm.exists(f) else []
+
+    def enum(names, i):
+        return names[i] if i < len(names) else "<Unknown: %d>" % i
+
+    rows = []
+    for r in R.xedit_order(esm, "PCRD"):
+        top, ranks, cur = {}, [], None
+        for k, v in r.subs:
+            if k == "PRKE":
+                cur = {}
+                continue
+            if k == "PRKF":
+                if cur is not None:
+                    ranks.append(cur)
+                cur = None
+                continue
+            tgt = cur if cur is not None else top
+            tgt.setdefault(k, v)
+        d = top.get("DATA") or b""
+        dv = dm = ds = dr = ""
+        if len(d) >= 7:
+            dv = C.fmt_float(struct.unpack_from("<f", d)[0])
+            dm, ds, dr = str(d[4]), enum(PCRD_SPECIAL, d[5]), enum(PCRD_RACE, d[6])
+        pc = top.get("PCDV")
+        pcdv = trip(_u32(pc)) if pc and len(pc) >= 4 else []
+        pcdv = pcdv or ["", "", ""]
+        sn = top.get("SNAM")
+        snd = ""
+        if sn and len(sn) >= 4 and _lk(esm, _u32(sn)):
+            f = _u32(sn)
+            snd = "%08X:%s:%s" % (f, _ccell(esm.edid_of(f)), esm.sig_of(f))
+        an = top.get("ANAM")
+        flags = _flag_bits(_u32(an)) if an and len(an) >= 4 else ""
+        rk = []
+        for e_ in ranks:
+            cr = str(e_["DATA"][0]) if e_.get("DATA") else ""
+            m = trip(_u32(e_["MNAM"])) if e_.get("MNAM") and len(e_["MNAM"]) >= 4 else []
+            fm = trip(_u32(e_["FNAM"])) if e_.get("FNAM") and len(e_["FNAM"]) >= 4 else []
+            rk.append((cr, m, fm))
+        flat = " || ".join("%s|%s|%s" % (cr, ":".join(m), ":".join(fm)) for cr, m, fm in rk)
+        refs = [_ccell(x) for x in _refcells(esm, r.fid)]
+        base = ["%08X" % r.fid, _ccell(r.edid), str(r.version), _ccell(esm.lstring(top.get("DESC"))),
+                _ccell(_zstr(top.get("MNAM"))) if top.get("MNAM") is not None else "",
+                _ccell(_zstr(top.get("FNAM"))) if top.get("FNAM") is not None else "", flags, dv, dm, ds, dr]
+        rows.append((base + pcdv + [snd, str(len(rk)), flat, str(len(refs))], rk, refs))
+    mk = max((len(x[1]) for x in rows), default=0)
+    mr = max((len(x[2]) for x in rows), default=0)
+    head = ["PCRD_FormID", "PCRD_EDID", "FormVersion", "DESC", "MNAM_MaleName", "FNAM_FemaleName",
+            "ANAM_PerkCardFlags", "DATA_Value", "DATA_MinLevel", "DATA_Special", "DATA_RaceRestriction",
+            "PCDV_GLOB_FormID", "PCDV_GLOB_EDID", "PCDV_GLOB_FULL", "SNAM_Sound", "RankCount", "Ranks_Flat",
+            "ReferencedByCount"]
+    for i in range(1, mk + 1):
+        head += ["Rank_%d_CardRank" % i] + ["Rank_%d_%s_%s" % (i, g, c) for g in ("MalePerk", "FemalePerk")
+                                            for c in ("FormID", "EDID", "FULL")]
+    head += ["Ref_%d" % i for i in range(1, mr + 1)]
+    out = ["\t".join(head)]
+    for b, rk, x in rows:
+        line = list(b)
+        for cr, m, fm in rk:
+            line += [cr] + (m or ["", "", ""]) + (fm or ["", "", ""])
+        line += [""] * (7 * (mk - len(rk)))
+        out.append("\t".join(line + x + [""] * (mr - len(x))))
+    return out
+
+
+# ------------------------------------------------------------- PERKEP ------
+# Names read off her October 2026 xEdit export (every entry point the game uses
+# today). An index xEdit has no name for shows as its number, as 211 / 212 do.
+PERKEP_ENTRY_POINTS = {0: 'Mod Breath Timer', 1: 'Mod My Critical Hit Chance',
+                      2: 'Mod My Critical Hit Damage Mult', 3: 'Mod Mine Explode Chance',
+                      4: 'Mod Incoming Limb Damage', 6: 'Mod Recovered Health', 8: 'Mod Buy Prices',
+                      9: 'Add Leveled List On Death', 11: 'Mod Addiction Chance', 14: 'Activate',
+                      15: 'Ignore Running During Detection', 18: 'Mod Sneak Attack Mult', 22: 'Mod Exp',
+                      23: 'Mod Move Camp Cost', 25: 'Mod Workshop Build Cost', 26: 'Mod Bashing Damage',
+                      27: 'Mod Power Attack Action Points', 28: 'Mod Power Attack Damage',
+                      29: 'Mod Spell Magnitude', 30: 'Mod Spell Duration', 32: 'Mod Armor Weight',
+                      33: 'Mod Incoming Stagger', 35: 'Mod Weapon Attack Damage', 36: 'Mod Incoming Weapon Damage',
+                      37: 'Mod Target Damage Resistance', 39: 'Mod Percent Blocked',
+                      41: 'Mod Incoming Spell Magnitude', 42: 'Mod Incoming Spell Duration',
+                      44: 'Mod Ricochet Chance', 45: 'Mod Ricochet Damage', 47: 'Mod Detection Light',
+                      48: 'Mod Detection Movement', 49: 'Mod Scrap Reward Mult', 51: 'Apply Combat Hit Spell',
+                      56: 'Mod VATS Critical Cost', 57: 'Mod Detection Sneak Skill', 58: 'Mod Falling Damage',
+                      59: 'Mod Lockpick Sweet Spot', 60: 'Mod Sell Prices', 61: 'Mod VATS Attacker Accuracy',
+                      62: 'Set Player Gate Lockpick', 65: 'Set Lockpicks Unbreakable',
+                      67: 'Apply Weapon Swing Spell', 68: 'Mod Commanded Actor Limit', 69: 'Apply Sneaking Spell',
+                      76: 'Mod Outgoing Explosion Limb Damage', 79: 'Mod VATS Attack Action Points',
+                      80: 'Mod Reflect Damage Chance', 82: 'Mod Kill Experience', 85: 'Mod Armor Rating',
+                      87: 'Mod ingredients harvested', 91: 'Mod Auto Lockpicking Chance',
+                      92: 'Mod Auto Hacking Chance', 93: 'Mod Typed Weapon Attack Damage',
+                      94: 'Mod Typed Incoming Weapon Damage', 95: 'Mod Charisma Challenge Chance',
+                      96: 'Mod Sprint AP Drain Rate', 97: 'Mod Drawn Weapon Weight Speed Effect',
+                      98: 'Set Player Gate Hacking', 99: 'Mod Player Explosion Damage',
+                      100: 'Mod Player Explosion Scale', 101: 'Set Rads To Health Mult',
+                      102: 'Mod Actor Scope Stability', 103: 'Mod Actor Grenade Speed Mult',
+                      105: 'Mod VATS Penetration Min Visibility', 106: 'Mod Rads for Rad Health Max',
+                      107: 'Mod VATS Player AP On Kill Chance', 108: 'Set VATS Fill Critical Bar On Hit',
+                      109: 'Mod VATS Concentrated Fire Chance Bonus', 110: 'Mod Crafting Dupe Chance',
+                      112: 'Mod Typed Spell Magnitude', 113: 'Mod Typed Incoming Spell Magnitude',
+                      114: 'Set VATS Gun-Fu', 115: 'Mod Outgoing Limb Damage',
+                      116: 'Mod Restore Action Cost Value', 117: 'Mod VATS Splash Damage',
+                      118: 'Mod Incoming Battery Damage', 119: 'Mod VATS Critical Charge', 121: 'Mod Exp Speech',
+                      123: 'Mod VATS Hit Chance', 124: 'Mod Incoming Explosion Damage',
+                      125: 'Mod Ammo Health Mult', 126: 'Mod Hacking Guesses', 127: 'Mod Terminal Lockout Time',
+                      128: 'Set Undetectable', 130: 'Mod Outgoing Limb Bash Damage', 134: 'Mod Cone-of-fire Mult',
+                      135: 'Mod VATS Concentrated Fire Damage Mult', 136: 'Apply Bloody Mess Spell',
+                      137: 'Iron-Sights Activate', 138: 'Mod VATS Critical Fill Chance On Use',
+                      141: 'Mod Gun Range Mult', 142: 'Mod Scope Hold Breath AP Drain Mult',
+                      146: 'Set Can Explode Pants', 148: 'Mod VATS Gun-Fu 2nd Target Dmg Mult',
+                      149: 'Mod VATS Gun-Fu 3rd Target Dmg Mult', 150: 'Mod VATS Gun-Fu 4th+ Target Dmg Mult',
+                      151: 'Mod VATS Blitz Max Distance', 152: 'Set VATS Blitz Max Dmg Mult',
+                      153: 'Mod VATS Blitz Dmg Bonus Dist', 155: 'Mod Evasion Chance', 158: 'Mod Item Weight',
+                      159: 'Set Alt Revive Item', 160: 'Mod VATS Splash Damage Radius', 162: 'Mod Bleedout Time',
+                      163: 'Mod Item Condition Loss', 164: 'Mod Crafting Creation Recipe Level',
+                      165: 'Mod Workshop Repair Cost', 166: 'Mod Item Repair Mult',
+                      167: 'Mod Weapon DMG Bonus Mult', 168: 'Mod Mysterious Stranger Chance',
+                      169: 'Mod Item Spawn Count', 170: 'Apply Weapon Attack Spell', 172: 'Mod Ammo Used Count',
+                      173: 'Apply Combat Melee Spell', 174: 'Mod Barter Charisma',
+                      175: 'Mod Mysterious Savior Chance', 176: 'Mod Item Repair Condition',
+                      177: 'Mod Crafting Return Quantity', 178: 'Mod Damaged Condition Regen Delay',
+                      179: 'Set Consume Revive Item', 181: 'Mod Wanted Timer Mult', 182: 'Auto Fill Weapon Clip',
+                      183: 'Mod Fast Travel Cost', 184: 'Apply Friendly Hit Spell', 185: 'Set VATS Target Limbs',
+                      186: 'Set Team Medic', 187: 'Apply On Kill Spell', 188: 'Set Damage on Consecutive Hits',
+                      189: 'Mod Damage on Consecutive Hits', 190: 'Mod Max Consecutive Hits Allowed',
+                      191: 'Mod Crafted Item Bonus Health', 193: 'Apply Combat Hit Spell Taken',
+                      194: 'Apply On Death Spell', 195: 'Mod Max Barter Currency',
+                      196: 'Mod Body Part Damage Mult', 197: 'Apply On Kill Participation Spell',
+                      198: 'Is Next Clip Last Shot', 199: 'Instant Reload Clip On Bash',
+                      200: 'Mod Attack Damage On Striking Appendage',
+                      201: 'Apply Spell On Actor When Limb Crippled', 202: 'Mod Rads to Health Mult', 203: 'Mod Rads to Radshield Mult',
+                      204: 'Mod Weak Body Part Damage Mult', 205: 'Mod Projectile Bounce Count',
+                      206: 'Mod NPC Normalized Min Level', 207: 'Mod NPC Normalized Max level',
+                      208: 'Mod NPC Normalized Level', 210: 'Mod Ammo Spender Max Reload Stack Mult'}
+PERKEP_FUNCTIONS = {1: "Set Value", 2: "Add Value", 3: "Multiply Value", 4: "Add Range To Value",
+                    5: "Add Actor Value Mult", 6: "Absolute Value", 7: "Negative Absolute Value", 8: "Add Leveled List",
+                    9: "Add Activate Choice", 10: "Select Spell", 11: "Select Text", 12: "Set to Actor Value Mult",
+                    13: "Multiply Actor Value Mult", 14: "Multiply 1 + Actor Value Mult", 15: "Set Text",
+                    16: "Select Item"}
+PERKEP_FUNCTIONS_CHECKED = {1, 2, 3, 5, 6, 8, 9, 10, 12, 13, 14, 16}
+PERKEP_EPFT = {1: "Float", 3: "Leveled List", 4: "Activate Choice", 5: "Spell Item", 8: "Actor Value and Value",
+               9: "Item"}
+PERKEP_TYPES = {0: "Quest", 1: "Ability", 2: "Entry Point"}
+PERKEP_SCRIPT_FLAGS = ["Run Immediately", "Replace Default"]
+_PERKEP_WARNED = set()
+
+
+def _perkep_warn(what):
+    if what not in _PERKEP_WARNED:
+        _PERKEP_WARNED.add(what)
+        print("  PERKEP: %s - check that row against an xEdit run" % what)
+
+
+def exp_perkep(esm):
+    """!!!Wordpress - ExportPERKEntryPointsToTSV.pas - one row per perk effect (PRKE ...
+    PRKF), in xEdit's order (sorted by rank, type, then DATA): type, rank, entry point /
+    function / value or ability, the conditions ([tab N] Function(params) Type Value, |)
+    and Raw - every leaf of the effect, 'Name=Value', joined ' ;; ' (links as EDID [SIG:FormID])."""
+    def ref_text(f):
+        if f and esm.exists(f):
+            return "%s [%s:%08X]" % (_ccell(esm.edid_of(f)), esm.sig_of(f), f)
+        w = esm.world_record(f) if f else None
+        if w is not None:
+            return "%s [%s:%08X]" % (_ccell(w[1].edid), w[0], f)
+        return _ccell(esm.link_edit_value(f))
+
+    def ctda_leaves(r, ctda, c1, c2):
+        """The CTDA's leaves under FO76Edit's names: an actor-value parameter is
+        'Actor Value', others 'Parameter #n'; links as EDID [SIG:FormID]."""
+        from xedit_functions import FUNCTIONS
+        els, _ref = C.elements(C.Ctx(esm, r), ctda, c1, c2)
+        t = ctda[0]
+        func = struct.unpack_from("<H", ctda, 8)[0]
+        desc = FUNCTIONS.get(func)
+        run_on = struct.unpack_from("<I", ctda, 20)[0]
+        out = [("Type", els[0][1]), ("Unused", els[1][1])]
+        cv = struct.unpack_from("<I", ctda, 4)[0]
+        out.append(("Comparison Value", ref_text(cv) if t & 4 else els[2][1]))
+        out += [("Function", els[3][1]), ("Unused", els[4][1])]
+        for n, (off, el) in enumerate(((12, els[5]), (16, els[6]))):
+            pt = desc[1 + n] if desc else None
+            raw = struct.unpack_from("<I", ctda, off)[0]
+            name = "Actor Value" if pt == 4 else "Parameter #%d" % (n + 1)
+            val = el[1]
+            if pt is not None and (pt >= 22 or pt == 4) and el[0].startswith("Parameter") and raw \
+                    and (esm.exists(raw) or esm.world_record(raw) is not None):
+                val = ref_text(raw)
+            out.append((name, val))
+        out.append(("Run On", els[7][1]))
+        ref = struct.unpack_from("<I", ctda, 24)[0]
+        out.append(("Reference", ref_text(ref) if run_on == 2 else str(ref)))
+        if len(ctda) >= 32:
+            out.append(("Parameter #3", str(struct.unpack_from("<i", ctda, 28)[0])))
+        return out
+
+    hdr = ["PERK_FormID", "PERK_EDID", "EffectIndex", "EffectType", "Rank", "Priority", "EntryPoint", "Function",
+           "Value", "Ability_FormID", "Ability_EDID", "ConditionCount", "Conditions", "Raw"]
+    out = ["\t".join(hdr)]
+    for r in R.xedit_order(esm, "PERK"):
+        effs, cur = [], None
+        for k, v in r.subs:
+            if k == "PRKE":
+                cur = [(k, v)]
+                continue
+            if k == "PRKF":
+                if cur is not None:
+                    effs.append(cur)
+                cur = None
+                continue
+            if cur is not None:
+                cur.append((k, v))
+
+        def first(ef, k):
+            return next((v for kk, v in ef if kk == k), None)
+        def sort_key(ef):
+            pk, d = first(ef, "PRKE"), first(ef, "DATA") or b""
+            dk = (_u32(d.ljust(4, b"\0")),) if pk[0] == 1 else tuple(d)   # an ability sorts by FormID
+            return (pk[1] if len(pk) > 1 else 0, pk[0], dk)
+        effs.sort(key=sort_key)   # xEdit: rank, then type, then DATA
+        for i, ef in enumerate(effs):
+            pk = first(ef, "PRKE")
+            typ = PERKEP_TYPES.get(pk[0], str(pk[0]))
+            rank = str(pk[1]) if len(pk) > 1 else ""
+            leaves = [("Type", typ), ("Rank", rank)]
+            ep = fn = val = ab_f = ab_e = ""
+            d = first(ef, "DATA")
+            if pk[0] == 2 and d and len(d) >= 4:
+                ep = PERKEP_ENTRY_POINTS.get(d[0])
+                if ep is None:
+                    ep = str(d[0])
+                    if d[0] not in (211, 212):
+                        _perkep_warn("entry point %d has no name" % d[0])
+                fn = PERKEP_FUNCTIONS.get(d[1], str(d[1]))
+                if d[1] not in PERKEP_FUNCTIONS_CHECKED:
+                    _perkep_warn("function %d (%s) not checked" % (d[1], fn))
+                leaves += [("Entry Point", ep), ("Function", fn), ("Perk Condition Tab Count", str(d[2])),
+                           ("Unknown", C.hexbytes(d[3:4]))]
+            elif pk[0] == 1 and d and len(d) >= 4:
+                af = _u32(d)
+                leaves.append(("Ability", ref_text(af)))
+                if af and esm.exists(af):
+                    ab_f, ab_e = "%08X" % af, _ccell(esm.edid_of(af))
+            elif d is not None:
+                _perkep_warn("effect type %d not checked" % pk[0])
+            conds = []
+            tab = None
+            cis = {}   # CTDA position -> (CIS1, CIS2): the strings follow their CTDA
+            last = None
+            for n_, (k, v) in enumerate(ef):
+                if k == "CTDA":
+                    last = n_
+                    cis[n_] = [None, None]
+                elif k in ("CIS1", "CIS2") and last is not None:
+                    cis[last][0 if k == "CIS1" else 1] = _zstr(v)
+            for n_ctda, (k, v) in enumerate(ef):
+                if k == "PRKC":
+                    tab = v[0]
+                    leaves.append(("PRKC - Run On (Tab Index)", str(tab)))
+                elif k == "CTDA":
+                    cl = ctda_leaves(r, v, *cis[n_ctda])
+                    leaves += cl
+                    if tab is not None:
+                        fnm = next(x for n_, x in cl if n_ == "Function")
+                        cmpv = next(x for n_, x in cl if n_ == "Comparison Value")
+                        ps = [x for n_, x in cl if n_.startswith("Parameter #") and x not in ("00 00 00 00", "-1", "0")]
+                        conds.append("[tab %d] %s(%s) %s %s" % (tab, fnm, ", ".join(ps), cl[0][1], cmpv))
+                elif k in ("CIS1", "CIS2"):
+                    leaves.append(("%s - Parameter #%s" % (k, k[3]), _ccell(_zstr(v))))
+            et = first(ef, "EPFT")
+            if et is not None:
+                et = et[0]
+                etn = PERKEP_EPFT.get(et)
+                if etn is None:
+                    _perkep_warn("EPFT %d has no name" % et); etn = str(et)
+                leaves.append(("EPFT - Type", etn))
+                eb = first(ef, "EPFB")
+                if eb is not None:
+                    leaves.append(("EPFB - Perk Entry ID (unique)", str(struct.unpack_from("<H", eb)[0])))
+                fd, f2, f3, f4 = first(ef, "EPFD"), first(ef, "EPF2"), first(ef, "EPF3"), first(ef, "EPF4")
+                if et in (1, 8):
+                    if fd is not None and len(fd) >= 4:
+                        val = C.fmt_float(struct.unpack_from("<f", fd)[0])
+                        leaves.append(("Float", val))
+                    if et == 1 and f2 is not None:
+                        leaves.append(("Curve Table", ref_text(_u32(f2))))
+                    if et == 8 and f3 is not None:
+                        leaves.append(("Actor Value", ref_text(_u32(f3))))
+                    if f4 is not None:
+                        leaves.append(("EPF4 - Actor value 2", ref_text(_u32(f4))))
+                elif et == 5:
+                    if fd is not None:
+                        leaves.append(("Spell", ref_text(_u32(fd))))
+                    if f2 is not None:
+                        leaves.append(("EPF2 - Unknown Spell Value", str(_u32(f2))))
+                elif et == 3:
+                    if fd is not None:
+                        leaves.append(("Leveled Item", ref_text(_u32(fd))))
+                elif et == 9:
+                    if fd is not None:
+                        f = _u32(fd)
+                        leaves.append(("Ingestible", ref_text(f)))   # xEdit's name, whatever the form
+                elif et == 4:
+                    if f2 is not None:
+                        leaves.append(("Button Label", _ccell(esm.lstring(f2))))
+                    if f3 is not None:
+                        fl = struct.unpack_from("<H", f3)[0] if len(f3) >= 2 else 0
+                        if fl:
+                            if fl >> len(PERKEP_SCRIPT_FLAGS):
+                                _perkep_warn("script flag bits %X" % fl)
+                            for b, n_ in enumerate(PERKEP_SCRIPT_FLAGS):
+                                if fl >> b & 1:
+                                    leaves.append((n_, "1"))
+                        else:
+                            leaves.append(("Script Flags", _flag_bits(0)))
+            raw = " ;; ".join("%s=%s" % (n_, _ccell(v_)) for n_, v_ in leaves if _ccell(v_) != "")
+            out.append("\t".join(["%08X" % r.fid, _ccell(r.edid), str(i), typ, rank, "", ep, fn, val, ab_f, ab_e,
+                                   str(len(conds)), " | ".join(conds), raw]))
+    return out
+
+
+# ------------------------------------------------------------- QUEST ------
+QUEST_TYPES = ["None", "Primary", "Secondary", "Side Quest", "Server", "Daily", "Public Event", "Miscellaneous",
+               "Event", "Daily Ops", "Expedition", "Module", "Caravan", "Raid"]   # others show as the number, as in xEdit
+QUEST_MAX_REWARDS = QUEST_MAX_GMRW = QUEST_MAX_CRASHERS = 10
+
+
+def exp_quest(esm):
+    """!!!Wordpress - ExportQUESTToCSV.pas - quests: name, description, quest type,
+    location, public-event Possible Rewards (PEWI icon | PEWR description), the first 10
+    GMRW that point at the quest, party crashers (from the quest's scripts: an Array of
+    Struct property with CreatureToSpawn / SpawnChance / PartyCrasherSpawnMessage, or a
+    plain PartyCrasher property) and whether an E07B Invaders take-over script is on it."""
+    def id_ed(f):
+        ed = _ccell(esm.edid_of(f))
+        return "%08X" % f + (":" + ed if ed else "")
+
+    head = (["FormID", "EDID", "FULL - Name", "DESC - Description", "Quest Type", "LNAM - Location"]
+            + ["Reward%d" % i for i in range(QUEST_MAX_REWARDS)] + ["GMRWRef%d" % i for i in range(QUEST_MAX_GMRW)]
+            + ["PartyCrasherCount"] + ["PartyCrasher_NPC_%d" % i for i in range(QUEST_MAX_CRASHERS)]
+            + ["PartyCrasher_GLOB_%d" % i for i in range(QUEST_MAX_CRASHERS)] + ["PartyCrasher_MESG", "InvadersTakeOver"])
+    out = ["\t".join(head)]
+    for r in R.xedit_order(esm, "QUST"):
+        d = r.first("DATA")
+        qt = ""
+        if d and len(d) >= 4:
+            n = d[len(d) - 4]
+            qt = QUEST_TYPES[n] if n < len(QUEST_TYPES) else str(n)
+        ln = r.first("LNAM")
+        lnam = _ccell(esm.link_edit_value(_u32(ln))) if ln and len(ln) >= 4 else ""
+        # Possible Rewards: PEWI icon + PEWR description pairs (a repeat starts the next)
+        rewards, cur = [], None
+        for k, v in r.subs:
+            if k in ("PEWI", "PEWR"):
+                if cur is None or k in cur:
+                    cur = {}
+                    rewards.append(cur)
+                cur[k] = _ccell(_zstr(v)) if k == "PEWI" else _ccell(esm.lstring(v))
+        rw = []
+        for x in rewards[:QUEST_MAX_REWARDS]:
+            rw.append(" | ".join(t for t in (x.get("PEWI", ""), x.get("PEWR", "")) if t))
+        rw += [""] * (QUEST_MAX_REWARDS - len(rw))
+        gm = [id_ed(x) for x in esm.refby.get(r.fid, ()) if esm.refinfo[x][0] == "GMRW"][:QUEST_MAX_GMRW]
+        gm += [""] * (QUEST_MAX_GMRW - len(gm))
+        npcs, globs, mesg, dnpc, dglob, invaders = [], [], "", "", "", False
+        vm = r.first("VMAD")
+        if vm:
+            try:
+                rd = _VmadReader(vm)
+                scripts = rd.scripts()
+            except Exception:
+                scripts, rd = [], None
+            for sn, ps in sorted(scripts, key=lambda x: _xedit_text_key(x[0])):
+                if "e07b_invaders" in sn.lower() and "eventtak" in sn.lower():
+                    invaders = True
+                for pn, v in sorted(ps, key=lambda x: _xedit_text_key(x[0])):
+                    pl, sl = pn.lower(), sn.lower()
+                    want = ("spawnlist" in pl or rd.types.get((sn, pn)) == 17 or "partycrasher" in pl
+                            or "partycrasher" in sl)
+                    if want and v[0] == "structarr":
+                        for st in v[1]:
+                            if len(npcs) >= QUEST_MAX_CRASHERS:
+                                break
+                            nv = gv = ""
+                            for mn, _mt, mv in st:
+                                if mn not in ("CreatureToSpawn", "SpawnChance", "PartyCrasherSpawnMessage"):
+                                    continue
+                                if mv[0] != "obj" or not esm.exists(mv[1]):
+                                    continue
+                                sg = esm.sig_of(mv[1])
+                                if mn == "CreatureToSpawn" and sg == "NPC_":
+                                    nv = id_ed(mv[1])
+                                if mn == "SpawnChance" and sg == "GLOB":
+                                    gv = id_ed(mv[1])
+                                if mn == "PartyCrasherSpawnMessage" and sg == "MESG" and not mesg:
+                                    mesg = id_ed(mv[1])
+                            if (nv or gv) and len(npcs) < QUEST_MAX_CRASHERS:
+                                npcs.append(nv); globs.append(gv)
+                        continue
+                    if ("partycrasher" in pl or "partycrasher" in sl) and v[0] == "obj" and esm.exists(v[1]):
+                        sg = esm.sig_of(v[1])
+                        if sg == "NPC_" and not dnpc:
+                            dnpc = id_ed(v[1])
+                        if sg == "GLOB" and not dglob:
+                            dglob = id_ed(v[1])
+                        if sg == "MESG" and not mesg:
+                            mesg = id_ed(v[1])
+        if not npcs and (dnpc or dglob):
+            npcs, globs = [dnpc], [dglob]
+        line = (["%08X" % r.fid, _ccell(r.edid), _ccell(esm.lstring(r.full)), _ccell(esm.lstring(r.first("DESC"))),
+                 qt, lnam] + rw + gm + [str(len(npcs))] + npcs + [""] * (QUEST_MAX_CRASHERS - len(npcs))
+                + globs + [""] * (QUEST_MAX_CRASHERS - len(globs)) + [mesg, "1" if invaders else "0"])
+        out.append("\t".join(line))
+    return out
+
+
+# --------------------------------------------------------------- CELL ------
+# Older tent storage cells that don't follow the PackIn*SurvivalTent* name (two have
+# no EDID at all), as in the .pas allow-list.
+TENT_LEGACY_CELLS = {0x0062173C, 0x006EABA3, 0x0067A2B7, 0x00697592, 0x00782570}
+
+
+def _tent_cells(esm):
+    """[(cell fid, EDID, [temporary REFR fids in file order])] for every survival-tent
+    storage cell, in file order. One pass over the CELL / WRLD groups."""
+    import zlib
+    unpack = struct.unpack_from
+    cells, temp = [], {}
+    with open(esm.esm_path, "rb") as f:
+        size = os.path.getsize(esm.esm_path)
+
+        def walk(end, tgroup):
+            while f.tell() < end:
+                hdr = f.read(24)
+                ds = unpack("<I", hdr, 4)[0]
+                if hdr[:4] == b"GRUP":
+                    gt = unpack("<i", hdr, 12)[0]
+                    lab = unpack("<I", hdr, 8)[0]
+                    walk(f.tell() + ds - 24, lab if gt == 9 else (None if gt in (6, 8) else tgroup))
+                    continue
+                fid = unpack("<I", hdr, 12)[0]
+                if hdr[:4] == b"CELL":
+                    flags = unpack("<I", hdr, 8)[0]
+                    data = f.read(ds)
+                    if flags & 0x40000:
+                        data = zlib.decompress(data[4:])
+                    ed = ""
+                    if data[:4] == b"EDID":
+                        ed = data[6:6 + unpack("<H", data, 4)[0]].rstrip(b"\0").decode("utf-8", "replace")
+                    if (ed.startswith("PackIn") and "SurvivalTent" in ed) or fid in TENT_LEGACY_CELLS:
+                        cells.append((fid, ed))
+                    continue
+                if tgroup is not None and hdr[:4] == b"REFR":
+                    temp.setdefault(tgroup, []).append(fid)
+                f.seek(ds, 1)
+
+        f.seek(24 + struct.unpack("<I", f.read(24)[4:8])[0])
+        while f.tell() < size:
+            hdr = f.read(24)
+            ds = unpack("<I", hdr, 4)[0]
+            if hdr[8:12] in (b"CELL", b"WRLD"):
+                walk(f.tell() + ds - 24, None)
+            else:
+                f.seek(ds - 24, 1)
+    return [(c, ed, temp.get(c, [])) for c, ed in cells]
+
+
+def exp_cell(esm):
+    """!!!Wordpress - ExportSurvivalTentInteriorsToTSV.pas - one row per survival-tent
+    storage cell (EDID PackIn*SurvivalTent*, or the legacy allow-list): the PKIN that
+    points at it, the ENTM that points at that PKIN, and every placed ACTI / FURN / CONT
+    in its Temporary group (refr|SIG|base|EDID|FULL; '|' in a name becomes '/')."""
+    import esm_refs
+    cells = _tent_cells(esm)
+    pk_refs, _i = esm_refs.referenced_by(esm, {c for c, _e, _t in cells}, referrers={"PKIN"})
+    pkins = {c: v[0] for c, v in pk_refs.items() if v}
+    en_refs, _i = esm_refs.referenced_by(esm, set(pkins.values()), referrers={"ENTM"}) if pkins else ({}, None)
+    esm.prefetch_world([x for _c, _e, t in cells for x in t])
+
+    def cc(x):
+        return _ccell(x).replace("|", "/")
+
+    rows = []
+    for c, ed, temp in reversed(cells):
+        pk = pkins.get(c)
+        en = (en_refs.get(pk) or [None])[0] if pk else None
+        items = []
+        for rf in temp:
+            w = esm.world_record(rf)
+            nm = w[1].first("NAME") if w else None
+            base = _u32(nm) if nm and len(nm) >= 4 else 0
+            sg = esm.sig_of(base) if base else ""
+            if sg not in ("ACTI", "FURN", "CONT"):
+                continue
+            items.append("|".join(["%08X" % rf, sg, "%08X" % base, cc(esm.edid_of(base)), cc(esm.full_of(base))]))
+        rows.append(["%08X" % c, cc(ed), "%08X" % pk if pk else "", cc(esm.edid_of(pk)) if pk else "",
+                     "%08X" % en if en else "", cc(esm.edid_of(en)) if en else "",
+                     cc(esm.full_of(en)) if en else "", str(len(items))] + [items])
+    mi = max((len(x[-1]) for x in rows), default=0)
+    out = ["\t".join(["CELL_FormID", "CELL_EDID", "PKIN_FormID", "PKIN_EDID", "ENTM_FormID", "ENTM_EDID", "ENTM_FULL",
+                       "ItemCount"] + ["Item_%d" % i for i in range(1, mi + 1)])]
+    for r_ in rows:
+        out.append("\t".join(r_[:-1] + r_[-1] + [""] * (mi - len(r_[-1]))))
+    return out
+
+
+# --------------------------------------------------------------- WTHR ------
+def exp_wthr(esm):
+    """!!!Wordpress - ExportWTHRToTSV.pas - weathers: keywords (FormID:EDID:SIG, sorted as
+    xEdit sorts KWDA) in _WTHR, Referenced By in _Refs."""
+    rows, refrows = [], []
+    for r in R.xedit_order(esm, "WTHR"):
+        fid, ed = "%08X" % r.fid, _ccell(r.edid)
+        kw = r.first("KWDA") or b""
+        kws = [("%08X:%s:%s" % (k, _ccell(esm.edid_of(k)), esm.sig_of(k))) if _lk(esm, k)
+               else _ccell(esm.link_edit_value(k)) for k in sorted(struct.unpack_from("<%dI" % (len(kw) // 4), kw))]
+        rows.append(([fid, ed, str(len(kws))], kws))
+        refrows.append(([fid, ed], [_ccell(x) for x in _refcells(esm, r.fid)]))
+    mk = max((len(x[1]) for x in rows), default=0)
+    mr = max((len(x[1]) for x in refrows), default=0)
+    out = ["\t".join(["WTHR_FormID", "WTHR_EDID", "KeywordCount"] + ["KW_%d" % i for i in range(1, mk + 1)])]
+    out += ["\t".join(b + k + [""] * (mk - len(k))) for b, k in rows]
+    rout = ["\t".join(["WTHR_FormID", "WTHR_EDID", "ReferencedByCount"] + ["Ref_%d" % i for i in range(1, mr + 1)])]
+    rout += ["\t".join(b + [str(len(x))] + x + [""] * (mr - len(x))) for b, x in refrows]
+    return {"_WTHR": out, "_Refs": rout}
 
 
 # ------------------------------------------------------------- ENCH ------
@@ -2101,6 +3193,7 @@ class _VmadReader:
 
     def __init__(self, d):
         self.d, self.p = d, 0
+        self.types = {}   # (script, property) -> property type (17 = Array of Struct)
 
     def u8(self):
         v = self.d[self.p]; self.p += 1; return v
@@ -2135,7 +3228,7 @@ class _VmadReader:
         if t == 5:
             return ("bool", self.u8())
         if t == 7:
-            self.struct(fmt); return ("struct",)
+            return ("struct", self.struct(fmt))
         if t == 11:
             return ("arr", [self.obj(fmt) for _ in range(self.u32())])
         if t == 12:
@@ -2152,17 +3245,19 @@ class _VmadReader:
         if t == 16:
             self.p += 4; return ("none",)
         if t == 17:
-            for _ in range(self.u32()):
-                self.struct(fmt)
-            return ("structarr",)
+            return ("structarr", [self.struct(fmt) for _ in range(self.u32())])
         return ("none",)
 
     def __skip(self, n):
         self.p += n
 
     def struct(self, fmt):
+        """[(member name, type, value)] of one struct."""
+        out = []
         for _ in range(self.u32()):
-            self.s(); t = self.u8(); self.u8(); self.value(t, fmt)
+            n = self.s(); t = self.u8(); self.u8()
+            out.append((n, t, self.value(t, fmt)))
+        return out
 
     def scripts(self):
         self.u16(); fmt = struct.unpack_from("<h", self.d, 2)[0]; self.p = 4
@@ -2173,6 +3268,7 @@ class _VmadReader:
             for _ in range(self.u16()):
                 pn = self.s(); t = self.u8(); self.u8()
                 props.append((pn, self.value(t, fmt)))
+                self.types[(name, pn)] = t
             out.append((name, props))
         return out
 
@@ -2229,8 +3325,12 @@ def _dial_index(esm):
     return out
 
 
-def exp_acti(esm):
-    """ExportACTIToTSV.pas - _ACTI (flags, keywords, properties, scripts) and _Refs."""
+def _scriptable(esm, sig):
+    """The parts the ACTI and FURN .pas share, per record in xEdit order: FormID, EDID,
+    FULL, XALG flags, keywords (FormID:EDID:SIG, sorted), PRPS (AV EDID, value, curve),
+    VMAD script count + packed scripts (Script::Prop=Value##...), and Referenced By.
+    Returns ([(record, fid, ed, full, xalg, kws, props, vcount, vmad)], [(fid, ed, refs)],
+    link_cell) - link_cell gives FormID:EDID:SIG of anything that resolves, else None."""
     esm.world_record(0)
     dial = _dial_index(esm)
 
@@ -2239,8 +3339,8 @@ def exp_acti(esm):
         if not fid:
             return None
         if fid in esm.index:
-            sig, ed = esm.index[fid][:2]
-            return "%08X:%s:%s" % (fid, _pas_clean(ed), sig)
+            sg, ed = esm.index[fid][:2]
+            return "%08X:%s:%s" % (fid, _pas_clean(ed), sg)
         if fid in dial:
             return "%08X:%s:DIAL" % (fid, _pas_clean(dial[fid]))
         w = esm._world.get(fid)
@@ -2277,7 +3377,7 @@ def exp_acti(esm):
         return ""
 
     rows, refrows = [], []
-    for r in R.xedit_order(esm, "ACTI"):
+    for r in R.xedit_order(esm, sig):
         fid = "%08X" % r.fid
         ed = _pas_clean(r.edid)
         full = _pas_clean(esm.lstring(r.full))
@@ -2286,8 +3386,6 @@ def exp_acti(esm):
         if xa:
             bits = struct.unpack("<Q", xa[:8].ljust(8, b"\0"))[0]
             xalg = "|".join(XALG_FLAGS[i] for i in range(32) if bits >> i & 1)
-        ai = r.first("AIID")
-        aiid = "" if ai is None else ("True" if ai[0] else "False")
         kws = []
         kw = r.first("KWDA")
         if kw:
@@ -2320,31 +3418,135 @@ def exp_acti(esm):
                     continue
                 for pn, v in sorted(ps, key=lambda p: _xedit_text_key(p[0])):
                     entries.append(sn + "::" + _vmad_clean(pn) + "=" + vval(v))
-        rows.append((fid, ed, full, xalg, aiid, kws, props, vcount, "##".join(entries)))
+        rows.append((r, fid, ed, full, xalg, kws, props, vcount, "##".join(entries)))
         refs = ["%08X:%s:%s" % (x, _pas_clean(esm.refinfo[x][1]), esm.refinfo[x][0])
                 for x in esm.refby.get(r.fid, ())]
         refrows.append((fid, ed, refs))
+    return rows, refrows, link_cell
 
+
+def _scriptable_files(rows, refrows, sig, mid_cols, mid, tail_cols, tail):
+    """Write the _<SIG> and _Refs files: FormID / EDID / FULL / XALG_Flags, mid columns,
+    keywords, properties, VMAD, tail columns. mid(row) / tail(row) give the values."""
     mk = max((len(x[5]) for x in rows), default=0)
     mp = max((len(x[6]) for x in rows), default=0)
-    head = ["ACTI_FormID", "ACTI_EDID", "ACTI_FULL", "XALG_Flags", "CanBeInstanced", "KeywordCount"]
+    head = [sig + "_FormID", sig + "_EDID", sig + "_FULL", "XALG_Flags"] + mid_cols + ["KeywordCount"]
     head += ["KW_%d" % i for i in range(1, mk + 1)] + ["PropCount"]
     for i in range(1, mp + 1):
         head += ["Prop_%d_AV" % i, "Prop_%d_Val" % i, "Prop_%d_Curve" % i]
-    head += ["VMAD_ScriptCount", "VMAD_Scripts"]
+    head += ["VMAD_ScriptCount", "VMAD_Scripts"] + tail_cols
     out = ["\t".join(head)]
-    for fid, ed, full, xalg, aiid, kws, props, vc, vm in rows:
-        line = [fid, ed, full, xalg, aiid, str(len(kws))] + kws + [""] * (mk - len(kws)) + [str(len(props))]
+    for row in rows:
+        _r, fid, ed, full, xalg, kws, props, vc, vm = row
+        line = [fid, ed, full, xalg] + mid(row) + [str(len(kws))] + kws + [""] * (mk - len(kws)) + [str(len(props))]
         for p in props:
             line += list(p)
         line += ["", "", ""] * (mp - len(props))
-        line += [str(vc), vm]
+        line += [str(vc), vm] + tail(row)
         out.append("\t".join(line))
     mr = max((len(x[2]) for x in refrows), default=0)
-    rout = ["\t".join(["ACTI_FormID", "ACTI_EDID", "ReferencedByCount"] + ["Ref_%d" % i for i in range(1, mr + 1)])]
+    rout = ["\t".join([sig + "_FormID", sig + "_EDID", "ReferencedByCount"] + ["Ref_%d" % i for i in range(1, mr + 1)])]
     for fid, ed, refs in refrows:
         rout.append("\t".join([fid, ed, str(len(refs))] + refs + [""] * (mr - len(refs))))
-    return {"_ACTI": out, "_Refs": rout}
+    return {"_" + sig: out, "_Refs": rout}
+
+
+def exp_acti(esm):
+    """ExportACTIToTSV.pas - _ACTI (flags, keywords, properties, scripts) and _Refs."""
+    rows, refrows, _lc = _scriptable(esm, "ACTI")
+
+    def aiid(row):
+        ai = row[0].first("AIID")
+        return ["" if ai is None else ("True" if ai[0] else "False")]
+    return _scriptable_files(rows, refrows, "ACTI", ["CanBeInstanced"], aiid, [], lambda row: [])
+
+
+# ------------------------------------------------------------- FURN ------
+FURN_BENCH = {0: "None", 1: "Create Object", 2: "Weapons", 3: "Enchanting (unused)",
+              4: "Enchanting Experiment (unused)", 5: "Alchemy", 6: "Alchemy Experiment (unused)",
+              7: "Armor", 8: "Power Armor", 9: "Robot Mod"}
+FURN_MNAM = (["Interaction Point %d" % i for i in range(22)]
+             + ["Allow Awake Sound", "Enter With Weapon Drawn", "Play Anim When Full", "Disables Activation",
+                "Is Perch", "Must Exit to Talk", "Use Static Avoid Node", "Unknown 29", "Has Model?",
+                "Is Sleep Furniture"])
+FURN_FNPR_TYPE = {0: "Unknown 0", 1: "Sit", 2: "Lay", 4: "Lean"}
+FURN_ENTRY = ["Front", "Behind", "Right", "Left", "Up"]
+_FURN_WARNED = set()
+
+
+def _furn_warn(what):
+    if what not in _FURN_WARNED:
+        _FURN_WARNED.add(what)
+        print("  FURN: %s has no xEdit name yet - check that row against an xEdit run" % what)
+
+
+def exp_furn(esm):
+    """!!!Wordpress - ExportFURNToTSV.pas (v4) - _FURN and _Refs. The ACTI columns
+    (no CanBeInstanced) plus KNAM, WBDT (Bench Type / Uses Skill), MNAM flags, NAM1,
+    FNPR marker parameters, Markers (ENAM / NAM0 / FNMK) and XMRK at the end, written
+    the .pas way: struct fields Name=Value;..., array entries ##, set flags |."""
+    rows, refrows, link_cell = _scriptable(esm, "FURN")
+
+    def leaf_link(fid):
+        if fid is None:
+            return ""
+        lc = link_cell(fid)
+        return lc if lc is not None else _vmad_clean(esm.link_edit_value(fid))
+
+    def tail(row):
+        r = row[0]
+        kn = r.first("KNAM")
+        knam = leaf_link(_u32(kn)) if kn and len(kn) >= 4 else ""
+        wb = r.first("WBDT")
+        wbdt = ""
+        if wb:
+            parts = []
+            if len(wb) >= 1:
+                bt = FURN_BENCH.get(wb[0])
+                if bt is None:
+                    _furn_warn("bench type %d" % wb[0]); bt = "<Unknown: %d>" % wb[0]
+                parts.append("Bench Type=" + bt)
+            if len(wb) >= 2:
+                parts.append("Uses Skill=" + ("True" if wb[1] else "False"))
+            wbdt = ";".join(parts)
+        mn = r.first("MNAM")
+        mnam = ""
+        if mn:
+            v = _u32(mn.ljust(4, b"\0"))
+            mnam = "|".join(FURN_MNAM[i] for i in range(32) if v >> i & 1) if v else _flag_bits(0)
+        n1 = r.first("NAM1")
+        nam1 = leaf_link(_u32(n1)) if n1 and len(n1) >= 4 else ""
+        fn = []
+        for d in r.all("FNPR"):
+            t, ep = struct.unpack_from("<HH", d)
+            tn = FURN_FNPR_TYPE.get(t)
+            if tn is None:
+                _furn_warn("FNPR type %d" % t); tn = "<Unknown: %d>" % t
+            if ep:
+                if ep >> len(FURN_ENTRY):
+                    _furn_warn("FNPR entry point bits %X" % ep)
+                eps = ",".join("%s:1" % FURN_ENTRY[i] for i in range(len(FURN_ENTRY)) if ep >> i & 1)
+            else:
+                eps = _flag_bits(0)
+            fn.append("Type=%s;Entry Points=%s" % (tn, eps))
+        # Markers: ENAM starts each entry; NAM0 (2 unknown bytes + Disabled Points flags), FNMK keyword
+        marks, cur = [], None
+        for k, d in r.subs:
+            if k == "ENAM":
+                cur = ["ENAM=%d" % struct.unpack_from("<i", d)[0]]
+                marks.append(cur)
+            elif k == "NAM0" and cur is not None and len(d) >= 4:
+                dp = struct.unpack_from("<H", d, 2)[0]
+                cur.append("NAM0=Unknown:%s,Disabled Points:%s" % (d[:2].hex(" ").upper(), _flag_bits(dp)))
+            elif k == "FNMK" and cur is not None and len(d) >= 4:
+                cur.append("FNMK=" + leaf_link(_u32(d)))
+        xm = r.first("XMRK")
+        xmrk = _vmad_clean(xm.rstrip(b"\0").decode("utf-8", "replace")) if xm else ""
+        return [knam, wbdt, mnam, nam1, "##".join(fn), "##".join(";".join(m) for m in marks), xmrk]
+
+    return _scriptable_files(rows, refrows, "FURN", [], lambda row: [],
+                             ["KNAM_InteractionKeyword", "WBDT_BenchType", "MNAM_Flags", "NAM1_AssociatedForm",
+                              "FNPR_MarkerParameters", "Markers", "XMRK_MarkerModel"], tail)
 
 
 # ---------------------------------------------------------- REFRLVLI ------
@@ -3723,7 +4925,7 @@ def _lore_notes(esm):
     return out + [x for _, x in rows]
 
 
-NEEDS_REFS = {"ARMO2", "AVTR", "BOOK", "BOOK2", "COBJ", "CONT", "ENCH", "ENTM", "FISH", "FLST", "ALCH", "QUST2", "LVLI", "GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "ECAT", "CNDF", "LSCR", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
+NEEDS_REFS = {"ARMO2", "AVTR", "BOOK", "BOOK2", "COBJ", "CONT", "ENCH", "ENTM", "FISH", "FLST", "FURN", "GMRW", "KEYM", "LGDI", "LCTN", "MGEF", "NOTE", "PCRD", "QUEST", "WTHR", "ALCH", "QUST2", "LVLI", "GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "ECAT", "CNDF", "LSCR", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
 # exports that need Referenced By for more than their own records
 REF_TARGETS = {"ARMO2": armo2_ref_targets, "BOOK2": book2_ref_targets, "NPC2": npc2_ref_targets, "MISC2": misc2_ref_targets, "ACTI2": acti2_ref_targets}
 
@@ -3773,6 +4975,18 @@ EXPORTS = {
     "ENTM": (["ENTM"], "ENTM_Export", exp_entm),
     "FISH": (["FISH"], "FISH_Export", exp_fish),
     "FLST": (["FLST"], "FLST_Export", exp_flst),
+    "FURN": (["FURN"], "FURN_Export", exp_furn),
+    "GMRW": (["GMRW"], "GMRW_Export", exp_gmrw),
+    "KEYM": (["KEYM"], "KEYM_Export", exp_keym),
+    "LGDI": (["LGDI", "OMOD"], "LGDI_Export", exp_lgdi),
+    "LCTN": (["LCTN"], "LCTN_Export", exp_lctn),
+    "MGEF": (["MGEF"], "MGEF_Export", exp_mgef),
+    "NOTE": (["NOTE"], "NOTE_Export", exp_note),
+    "PCRD": (["PCRD"], "PCRD_Export", exp_pcrd),
+    "PERKEP": (["PERK"], "PERKEP_Export", exp_perkep),
+    "QUEST": (["QUST"], "QUEST_Export", exp_quest),
+    "CELL": (["PKIN", "ENTM"], "SurvivalTentInteriors_Export", exp_cell),
+    "WTHR": (["WTHR"], "WTHR_Export", exp_wthr),
     "REFR": (["ACTI"], "REFR_Placements", exp_refr_placements),
     "LORE": (["NOTE", "BOOK"], "ALLYDLG_Export", exp_lore),
 }
