@@ -1785,6 +1785,9 @@ def _q2_vmad(raw):
         rd = _VmadReader(raw)
         scripts = rd.scripts()
         names = sorted((n for n, _p in scripts), key=_xedit_text_key)
+    except Exception:                                     # noqa: BLE001
+        return [], "", []
+    try:
         frag_file, frags = "", []
         if rd.p < len(raw):
             rd.u8()
@@ -1801,7 +1804,7 @@ def _q2_vmad(raw):
         frags.sort(key=lambda f: (f[0], f[1]))
         return names, frag_file, frags
     except Exception:                                     # noqa: BLE001
-        return [], "", []
+        return names, "", []          # not a quest's fragment layout (INFO, SCEN)
 
 
 def _q2_kind(full):
@@ -2193,6 +2196,298 @@ def _lore_walk(esm):
     return dials, infos, scens
 
 
+def _quest_children(esm):
+    """{quest FormID: [(sig, fid, subs)]} in xEdit's ChildGroup order (the
+    quest's own child group: DIAL topics and SCEN scenes as they sit in the
+    file) and {DIAL FormID: [(INFO fid, subs)]} from each topic's child group."""
+    import zlib as _zlib
+    kids, infos = {}, {}
+    with open(esm.esm_path, "rb") as f:
+        size = os.path.getsize(esm.esm_path)
+
+        def walk(end, gtype, gparent):
+            while f.tell() < end:
+                hdr = f.read(24)
+                sig = hdr[:4]
+                ds = struct.unpack("<I", hdr[4:8])[0]
+                if sig == b"GRUP":
+                    lab = struct.unpack("<I", hdr[8:12])[0]
+                    gt = struct.unpack("<i", hdr[12:16])[0]
+                    walk(f.tell() + ds - 24, gt, lab)
+                    continue
+                fl, fid = struct.unpack("<II", hdr[8:16])
+                if sig not in (b"DIAL", b"INFO", b"SCEN"):
+                    f.seek(ds, 1)
+                    continue
+                data = f.read(ds)
+                if fl & 0x40000:
+                    data = _zlib.decompress(data[4:])
+                subs = R._parse_subs(data)
+                if sig == b"INFO":
+                    if gtype == 7:
+                        infos.setdefault(gparent, []).append((fid, subs))
+                elif gtype == 10:
+                    kids.setdefault(gparent, []).append((sig.decode(), fid, subs))
+
+        f.seek(0)
+        h = f.read(24)
+        f.seek(24 + struct.unpack("<I", h[4:8])[0])
+        while f.tell() < size:
+            g = f.read(24)
+            gs = struct.unpack("<I", g[4:8])[0]
+            st = f.tell() - 24
+            if g[8:12] == b"QUST":
+                walk(st + gs, 0, 0)
+            f.seek(st + gs)
+    return kids, infos
+
+
+# ------------------------------------------------------------- ALLYDLG -----
+# ExportCampAllyDialogToTSV.pas: _Quests, _Topics, _Lines, _Scenes for CAMP
+# ally quests (the _Lore / _LoreNotes files are the LORE export above).
+_AD_INFO_FLAGS = dict(enumerate(
+    ["Start Scene on End", "Random", "Say Once", "Requires Player Activation", "Info Refusal",
+     "Random End", "End Running Scene", "ForceGreet Hello", "Player Address", "Force Subtitle",
+     "Can Move While Greeting", "No LIP File", "Requires post-processing", "Audio Output Override",
+     "Has Capture", "Unknown 15", "Unknown 16", "Unknown 17", "Unknown 18", "Unknown 19", "Unknown 20"]))
+_AD_SCENE_FLAGS = dict(enumerate(
+    ["Begin on Quest Start", "Stop on Quest End", "Show All Text", "Repeat Conditions While True",
+     "Interruptible", "Unknown 5", "Prevent Player Exit Dialogue", "Unknown 7", "Unknown 8", "Unknown 9",
+     "Unknown 10", "Disable Dialogue Camera", "No Follower Idle Chatter", "Unknown 13", "Unknown 14"]))
+_AD_CATEGORIES = ["Player", "Command", "Scene", "Combat", "Detection", "Miscellaneous", "Unknown 6", "Unknown 7"]
+# wbDialogueSubtypeEnum. A name used by more than one code reads "Name@<code as int>"
+# after its first use - xEdit's way of keeping enum values apart ("Custom@1313162067" = SCEN).
+_AD_SUBTYPES = [("CUST", "Custom"), ("PFGT", "Force Greet"), ("RUMO", "Rumors"), ("FVDL", "Custom"),
+    ("INTI", "Call"), ("FLAT", "Follow"), ("BRIB", "Move"), ("ASKG", "Attack"), ("GIFF", "Inspect"),
+    ("ASKF", "Retrieve"), ("STAY", "Stay"), ("RELE", "Release"), ("SHRE", "Show Relationships"),
+    ("FRJT", "Reject"), ("HEAL", "Heal"), ("ASSI", "Assign"), ("ENTE", "Enter"), ("SCEN", "Custom"),
+    ("SHOW", "Show"), ("AGRE", "Agree"), ("REFU", "Refuse"), ("FEXT", "Exit Favor State"),
+    ("MREF", "Moral Refusal"), ("TRAD", "Trade"), ("PRJT", "Pathing Refusal"), ("ATCK", "Attack"),
+    ("POAT", "Power Attack"), ("BASH", "Bash"), ("HIT_", "Hit"), ("FLEE", "Flee"), ("BLED", "Bleed Out"),
+    ("AVTH", "Avoid Threat"), ("DETH", "Death"), ("BLOC", "Block"), ("TAUT", "Taunt"),
+    ("THGR", "Throw Grenade"), ("ALKL", "Ally Killed"), ("ORFB", "Order Fallback"), ("ORAV", "Order Move Up"),
+    ("ORFL", "Order Flank"), ("ORTC", "Order Take Cover"), ("FLBK", "Retreat"), ("RQST", "Cover Me"),
+    ("BGST", "Suppressive Fire"), ("CRIL", "Crippled Limb"), ("PATT", "Paired Attack"), ("STEA", "Steal"),
+    ("YIEL", "Yield"), ("ACYI", "Accept Yield"), ("PICC", "Pickpocket Combat"), ("ASSA", "Assault"),
+    ("MURD", "Murder"), ("ASNC", "Assault NC"), ("MUNC", "Murder NC"), ("PICN", "Pickpocket NC"),
+    ("STFN", "Steal From NC"), ("TRAN", "Trespass Against NC"), ("TRES", "Trespass"), ("WTCR", "UNUSED01"),
+    ("VPSS", "Voice Power Start Short"), ("VPSL", "Voice Power Start Long"), ("VPES", "Voice Power End Short"),
+    ("VPEL", "Voice Power End Long"), ("ALIL", "Alert Idle"), ("LOIL", "Lost Idle"), ("NOTA", "Normal To Alert"),
+    ("NOTC", "Normal To Combat"), ("NOTL", "Normal To Lost"), ("ALTN", "Alert To Normal"),
+    ("ALTC", "Alert To Combat"), ("COTN", "Combat To Normal"), ("COLO", "Combat To Lost"),
+    ("LOTN", "Lost To Normal"), ("LOTC", "Lost To Combat"), ("DFDA", "Detect Friend Die"),
+    ("SERU", "Service Refusal"), ("REPA", "Repair"), ("TRAV", "Travel"), ("TRAI", "Training"),
+    ("BAEX", "Barter Exit"), ("REEX", "Repair Exit"), ("RECH", "Recharge"), ("RCEX", "Recharge Exit"),
+    ("TREX", "Training Exit"), ("OBCO", "Observe Combat"), ("NOTI", "Notice Corpse"), ("TITG", "Time To Go"),
+    ("GBYE", "Goodbye"), ("HELO", "Hello"), ("SWMW", "Swing Melee Weapon"), ("FIWE", "Shoot Bow"),
+    ("ZKEY", "Z Key Object"), ("JUMP", "Jump"), ("KNOO", "Knock Over Object"), ("DEOB", "Destroy Object"),
+    ("STOF", "Standon Furniture"), ("LOOB", "Locked Object"), ("PICT", "Pickpocket Topic"),
+    ("PURS", "Pursue Idle Topic"), ("IDAT", "Shared Info"), ("SCCH", "Scene Choice"),
+    ("PCPS", "Player Cast Projectile Spell"), ("PCSS", "Player Cast Self Spell"), ("PCSH", "Player Shout"),
+    ("IDLE", "Idle"), ("BREA", "Enter Sprint Breath"), ("ENBZ", "Enter Bow Zoom Breath"),
+    ("EXBZ", "Exit Bow Zoom Breath"), ("ACAC", "Actor Collidewith Actor"), ("PIRN", "Playerin Iron Sights"),
+    ("OUTB", "Outof Breath"), ("GRNT", "Combat Grunt"), ("LWBS", "Leave Water Breath"),
+    ("IMPT", "Impatient Positive"), ("IMNG", "Impatient Negative"), ("IMNU", "Impatient Neutral"),
+    ("IMQU", "Impatient Question"), ("WFPI", "Waiting For Player Input"), ("GREE", "Greeting"),
+    ("PADR", "Player Activate Door"), ("PATR", "Player Activate Terminals"), ("PAFU", "Player Activate Furniture"),
+    ("PAAC", "Player Activate Activators"), ("PACO", "Player Activate Container"),
+    ("PAFI", "Player Aquire Featured Item")]
+_AD_SUBTYPE_NAME = {}
+_seen_names = set()
+for _code, _nm in _AD_SUBTYPES:
+    _v = struct.unpack("<I", _code.encode("ascii"))[0]
+    _AD_SUBTYPE_NAME[_v] = _nm if _nm not in _seen_names else "%s@%d" % (_nm, _v)
+    _seen_names.add(_nm)
+_AD_INFO_LINKS = ("TPIC", "PNAM", "DNAM", "GNAM", "TSCE", "ANAM", "SNAM", "TCLT")
+
+
+def _ad_segment_after(s, marker):
+    p = s.lower().find(marker.lower())
+    if p < 0:
+        return ""
+    return s[p + len(marker):].split("_", 1)[0]
+
+
+def _ad_ally_name(edid):
+    """AllyNameFromEdid."""
+    for m in ("_Quest_Camp_Lite_", "_Quest_Intro_Lite_", "_Quest_Camp_Full_", "_Quest_Camp_Ally_",
+              "_Quest_Ally_", "COMP_Conversation_", "COMP_Dialogue_"):
+        r = _ad_segment_after(edid, m)
+        if r:
+            return r
+    if "liteally" in edid.lower():
+        return edid.rsplit("_", 1)[-1]
+    r = _ad_segment_after(edid, "COMP_")
+    if r and not any(w in r.lower() for w in ("quest", "conversation", "dialogue")):
+        return r
+    return edid.rsplit("_", 1)[-1]
+
+
+def _ad_rule(edid, scripts, alias_names):
+    """AllyMatchRule (EXTRA_INCLUDE / EXTRA_EXCLUDE are empty in the .pas)."""
+    e, sc = edid.lower(), scripts.lower()
+    if any(t in e for t in ("do_not_export", "template_", "comp_rq_", "comp_re_", "playerconnect")):
+        return ""
+    if any(t in e for t in ("camp_lite", "camplite", "liteally", "quest_camp_ally")):
+        return "EDID-CampLite"
+    if any(t in e for t in ("comp_quest_ally", "comp_quest_camp", "comp_ally")):
+        return "EDID-CompAlly"
+    if "liteallyscript" in sc:
+        return "Script-LiteAlly"
+    if any(t in sc for t in ("shutdownonallycleanup", "comp_rq_dialoguevariable", "allyquestscript")):
+        return "Script-CompAlly"
+    if ("comp" in e or "camp" in e) and any(
+            n.lower() == "ally" or n.lower().startswith("ally_") or n.lower().startswith("liteally")
+            for n in alias_names):
+        return "Alias-Ally"
+    return ""
+
+
+def _ad_conds(ctx, subs, stop=None):
+    conds = []
+    for k, v in subs:
+        if stop and k in stop:
+            break
+        if k == "CTDA":
+            conds.append([v, None, None])
+        elif k in ("CIS1", "CIS2") and conds:
+            conds[-1][1 if k == "CIS1" else 2] = v.rstrip(b"\0").decode("utf-8", "replace")
+    return _q2_conds(ctx, conds)
+
+
+def exp_allydlg(esm):
+    kids, infos = _quest_children(esm)
+    quests, topics, lines, scenes = [], [], [], []
+    seen = set()
+    for r in R.xedit_order(esm, "QUST"):
+        ed = cc(r.edid)
+        head = dict(_qust_tree(r)["head"])
+        names, _ff, _fr = _q2_vmad(head.get("VMAD"))
+        scripts = " ; ".join(cc(n) for n in names if n)
+        tree = _qust_tree(r)
+        arows = _q2_alias_rows(esm, r, tree)
+        rule = _ad_rule(ed, scripts, [n for _i, _a, _id, n, _k in arows])
+        if not rule:
+            continue
+        ally = _ad_ally_name(ed)
+        qfid = "%08X" % r.fid
+        named = {int(aid): name for _i, _a, aid, name, k in arows if aid and name and k != "RefCol"}
+        ctx = C.Ctx(esm, r, named)
+        tcount = scount = icount = lcount = 0
+        for sig, fid, subs in kids.get(r.fid, []):
+            sd = dict(subs)
+            if sig == "DIAL":
+                tfid, ted = "%08X" % fid, cc(_str(sd.get("EDID")))
+                prompt = cc(esm.lstring(sd.get("FULL")))
+                sn = sd.get("SNAM")
+                sub = ""
+                dat = sd.get("DATA") or b""
+                if sn and len(sn) >= 4:
+                    v = struct.unpack("<I", sn[:4])[0]
+                    sub = _AD_SUBTYPE_NAME.get(v, str(v))
+                cat = (_AD_CATEGORIES[dat[1]] if len(dat) > 1 and dat[1] < len(_AD_CATEGORIES)
+                       else (str(dat[1]) if len(dat) > 1 else ""))
+                pri = sd.get("PNAM")
+                br = sd.get("BNAM")
+                ic = lc = 0
+                for io, (ifid, isubs) in enumerate(infos.get(fid, [])):
+                    key = "%08X" % ifid
+                    if key in seen:
+                        continue
+                    seen.add(key)
+                    ic += 1
+                    isd = dict(isubs)
+                    ien = isd.get("ENAM") or b""
+                    iflags = ""
+                    if ien:
+                        fv = int.from_bytes(ien[:4] if len(ien) >= 8 else ien[:2], "little")
+                        parts = [_AD_INFO_FLAGS[b] for b in range(32) if fv >> b & 1 and b in _AD_INFO_FLAGS]
+                        parts.append("Reset Hours")
+                        if len(ien) >= 8:
+                            parts.append("Unknown")
+                        iflags = " ; ".join(parts)
+                    iconds = _ad_conds(ctx, isubs)
+                    rn = isd.get("RNAM")
+                    iprompt = cc(esm.lstring(rn)) if rn else ""
+                    an = isd.get("ANAM")
+                    speaker = _q2_linkcell(esm, struct.unpack_from("<I", an, 0)[0]) if an and len(an) == 4 else ""
+                    tc = isd.get("TCLT")
+                    linkto = _q2_linkcell(esm, struct.unpack_from("<I", tc, 0)[0]) if tc and len(tc) >= 4 else ""
+                    pn = isd.get("PNAM")
+                    prev = _q2_linkcell(esm, struct.unpack_from("<I", pn, 0)[0]) if pn and len(pn) >= 4 else ""
+                    links = [x for x in ("Topic=" + _q2_linkcell(esm, fid) if _q2_linkcell(esm, fid) else "",
+                                         "FormID=%08X:%s:INFO" % (ifid, cc(_str(isd.get("EDID"))))) if x]
+                    for k, v in isubs:
+                        if k in _AD_INFO_LINKS and len(v) == 4:
+                            c = _q2_linkcell(esm, struct.unpack_from("<I", v, 0)[0])
+                            if c:
+                                links.append("%s=%s" % (k, c))
+                    links = " ; ".join(cc(x) for x in links[:_Q2_MAX_LINKS])
+                    inames, _f, _g = _q2_vmad(isd.get("VMAD"))
+                    iscripts = " ; ".join(cc(n) for n in inames if n)
+                    resps, cur = [], None
+                    for k, v in isubs:
+                        if k == "TRDA":
+                            cur = {}
+                            resps.append(cur)
+                        elif cur is not None and k in ("NAM1", "NAM2", "NAM3"):
+                            cur.setdefault(k, v)
+                    base = [qfid, ed, ally, str(tcount), tfid, ted, prompt, str(io), key, cc(_str(isd.get("EDID")))]
+                    tail = [speaker, iflags, iconds, linkto, prev, links, iscripts]
+                    if not resps:
+                        # No Responses: the .pas falls back to the first child whose
+                        # name says "response" - the ENAM "Response flags" struct -
+                        # and writes one empty line per member (Flags, Reset Hours,
+                        # Unknown). Without ENAM either, one row.
+                        n_empty = (3 if len(ien) >= 8 else 2) if ien else 1
+                        for ri in range(n_empty):
+                            lines.append("\t".join(base + [str(ri) if ien else "", "", iprompt, "", ""] + tail))
+                        lc += n_empty
+                        continue
+                    for ri, rs in enumerate(resps[:24]):
+                        lines.append("\t".join(base + [str(ri), cc(esm.lstring(rs.get("NAM1"))), iprompt,
+                                                      cc(_str(rs.get("NAM2"))), cc(_str(rs.get("NAM3")))] + tail))
+                        lc += 1
+                topics.append("\t".join([qfid, ed, ally, str(tcount), tfid, ted, prompt, sub, cat,
+                                         _lvli_float(pri) if pri else "", "",
+                                         _q2_linkcell(esm, struct.unpack_from("<I", br, 0)[0]) if br else "",
+                                         str(ic), str(lc)]))
+                tcount += 1
+                icount += ic
+                lcount += lc
+            elif sig == "SCEN":
+                fl = next((v for k, v in subs if k == "FNAM"), None)
+                flv = int.from_bytes(fl[:4], "little") if fl else 0
+                phases = sum(1 for k, _v in subs if k == "HNAM") // 2
+                # actors: an ALID followed by its LNAM flags (action ALIDs aren't)
+                actors = [struct.unpack_from("<i", v, 0)[0] for n_, (k, v) in enumerate(subs)
+                          if k == "ALID" and len(v) >= 4 and n_ + 1 < len(subs) and subs[n_ + 1][0] == "LNAM"]
+                snames, _f, _g = _q2_vmad(sd.get("VMAD"))
+                scenes.append("\t".join([qfid, ed, ally, "%08X" % fid, cc(_str(sd.get("EDID"))),
+                                         _q2_flags(flv, _AD_SCENE_FLAGS), str(phases), str(len(actors)),
+                                         " ; ".join(ctx.alias_text(a) for a in actors),
+                                         _ad_conds(ctx, subs, stop=("HNAM",)),
+                                         " ; ".join(cc(n) for n in snames if n)]))
+                scount += 1
+        dat = head.get("DATA") or b""
+        flags_v = int.from_bytes(dat[:8], "little") if len(dat) >= 20 else (int.from_bytes(dat[:4], "little") if dat else 0)
+        pri = dat[8] if len(dat) >= 20 else (dat[4] if len(dat) > 4 else None)
+        quests.append("\t".join([qfid, ed, ally, cc(esm.lstring(head.get("FULL"))), rule,
+                                 _q2_flags(flags_v, _Q2_QUEST_FLAGS), "" if pri is None else str(pri),
+                                 str(tcount), str(icount), str(lcount), str(scount), scripts, "SeventySix.esm"]))
+    return {
+        "_Quests": ["QuestFormID\tQuestEDID\tAllyGuess\tQuestName\tMatchRule\tQuestFlags\tPriority\t"
+                    "TopicCount\tInfoCount\tLineCount\tSceneCount\tScripts\tSourceFile"] + quests,
+        "_Topics": ["QuestFormID\tQuestEDID\tAllyGuess\tTopicOrder\tTopicFormID\tTopicEDID\tTopicPrompt\t"
+                    "TopicSubtype\tTopicCategory\tTopicPriority\tTopicFlags\tBranch\tInfoCount\tLineCount"] + topics,
+        "_Lines": ["QuestFormID\tQuestEDID\tAllyGuess\tTopicOrder\tTopicFormID\tTopicEDID\tTopicPrompt\t"
+                   "InfoOrder\tInfoFormID\tInfoEDID\tResponseIndex\tResponseText\tPlayerPrompt\tScriptNotes\t"
+                   "Edits\tSpeaker\tInfoFlags\tConditions\tLinkTo\tPrevInfo\tLinks\tScripts"] + lines,
+        "_Scenes": ["QuestFormID\tQuestEDID\tAllyGuess\tSceneFormID\tSceneEDID\tSceneFlags\tPhaseCount\t"
+                    "ActorCount\tActorAliases\tConditions\tScripts"] + scenes,
+    }
+
+
 def exp_lore(esm):
     """ExportCampAllyDialogToTSV.pas, _Lore file: the spoken lines of every
     radio / holotape / broadcast quest (EditorID says so) and of every scene a
@@ -2331,6 +2626,7 @@ EXPORTS = {
     "QUSTSP": (["QUST", "GLOB"], "QUST2_Export", exp_qust_sp),
     "LVLI": (["LVLI", "GLOB"], "LVLI_Export", exp_lvli),
     "QUST2": (["QUST"], "QUST2_Export", exp_qust2),
+    "ALLYDLG": (["QUST"], "ALLYDLG_Export", exp_allydlg),
     "LORE": (["NOTE", "BOOK"], "ALLYDLG_Export", exp_lore),
 }
 

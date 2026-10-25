@@ -95,6 +95,8 @@ class Ctx:
 
     def alias_text(self, n):
         name = self.alias_names.get(n, "") if self.alias_names is not None else ""
+        if n == -1:
+            return "None"          # xEdit's alias combo for "no alias"
         return ("%03d %s" % (n, name)).strip() if n >= 0 else str(n)
 
     def owner_quest(self):
