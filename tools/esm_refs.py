@@ -113,6 +113,16 @@ def _is_ref(rules, sig, sub, rel, field, tsig):
     if sig == "PACK" and sub == "PTDA" and rel == 4 and len(field) >= 8 \
             and struct.unpack_from("<I", field, 0)[0] in (0, 1):
         return True
+    #     Types 2 Object Type, 4 Ref Alias, 5 Interrupt Data and 6 Self hold a number,
+    #     not a FormID: XPD_Pitt01_Hex_Obj_A01_Sit's alias 357 (0x165) is no link to
+    #     HelpManualXBox, and xEdit doesn't list it (25 Oct 2026).
+    if sig == "PACK" and sub == "PTDA" and rel == 4 and len(field) >= 8 \
+            and struct.unpack_from("<I", field, 0)[0] in (2, 4, 5, 6):
+        return False
+    #   LOUT LMML (loadout map marker list): an FLST the learned rules never saw
+    #     there (ATX_Loadout_50Boost -> LevelBoostMapMarkers, 25 Oct 2026).
+    if sig == "LOUT" and sub == "LMML" and rel == 0:
+        return True
     #   EXPL DATA offset 16 (Placed Object): whatever the explosion leaves behind,
     #     any record type (Storm_SE09_ChickenExplosion -> an ALCH, 25 Oct 2026).
     if sig == "EXPL" and sub == "DATA" and rel == 16 and len(field) >= 20:
@@ -129,6 +139,22 @@ def _is_ref(rules, sig, sub, rel, field, tsig):
     #     any base object. The learned rules never saw a BOOK there; PTS build 211's
     #     HIDE_co_Lead_* recipes make one lead (BOOK) from another (25 Oct 2026).
     if sig == "COBJ" and ((sub == "CNAM" and rel == 0) or (sub == "FVPA" and rel % 12 == 0)):
+        return True
+    #   DFOB DATA (Default Object): xEdit lists a FISH there (FishingFallbackFish_DO ->
+    #     BrookSilverside), which the learned rules never saw. Not every type: xEdit's
+    #     October ENTM export leaves out UTILITY_ENTM_ItemDisableEntitlement_DO, so the
+    #     learned type list stands and only FISH is added (25 Oct 2026).
+    if sig == "DFOB" and sub == "DATA" and rel == 0 and tsig == "FISH":
+        return True
+    #   DOBJ DNAM (Default Object Manager): 8-byte pairs, a 4-letter use code then a
+    #     FormID of any type (DOBJ 00000800 -> HelpManualPC FLST, test_FurnitureTester
+    #     NPC_); the learned rules had no DOBJ at all (25 Oct 2026).
+    if sig == "DOBJ" and sub == "DNAM" and rel % 8 == 4:
+        return True
+    #   MGEF DATA offset 12 (Associated Item): any type, by archetype; the learned
+    #     rules saw DMGT / KYWD / LIGH / SPEL / STHD only. W05_TurboFert_Magiceffect
+    #     -> an FLST (25 Oct 2026).
+    if sig == "MGEF" and sub == "DATA" and rel == 12:
         return True
     #   OBTS (object template combination, any record): a property whose value type
     #     is FormID,Int (4) or FormID,Float (6) holds a form in Value 1. Properties

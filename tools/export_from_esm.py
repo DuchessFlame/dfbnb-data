@@ -58,6 +58,8 @@ straight from the game files, so these no longer need xEdit:
     CONT    CONT_Export_<Month>_<Year>.tsv          (ExportCONTToTSV.pas: containers)
     ENCH    ENCH_Export_<Month>_<Year>.tsv          (ExportENCHToTSV.pas: enchantments)
     ENTM    ENTM_Export_<Month>_<Year>.tsv          (ExportENTMToTSV.pas: entitlements)
+    FISH    FISH_Export_<Month>_<Year>.tsv          (!!!Wordpress - ExportFISHToTSV.pas: fish stats, rewards, sounds)
+    FLST    FLST_Export_<Month>_<Year>_List / _Entries / _Refs.tsv  (!!!Wordpress - ExportFLSTToCSV.pas: form lists)
     TERMPL  TERM_Export_<Month>_<Year>_Placements.tsv  (ExportTERMToTSV.pas _Placements;
             the main TERM file and _Quests are tools/export_term_from_esm.py)
     REFR    REFR_Placements_<Month>_<Year>.tsv  (ExportREFRPlacementsToTSV.pas per base:
@@ -68,7 +70,7 @@ Every xEdit .pas above stays working as the manual backup.
 Coordinates are correctly rounded; xEdit's own text can differ by one in the last
 decimal place (X/Y/Z) and RotZ by 0.0001 - accepted, readers place by X/Y.
 
-GLOB, AVIF, KYWD, CURV, MISC, NPC, ARMO2, AVTR, BOOK, COBJ, CONT, ENCH and ENTM list every record that points at each row ("Referenced By"),
+GLOB, AVIF, KYWD, CURV, MISC, NPC, ARMO2, AVTR, BOOK, COBJ, CONT, ENCH, ENTM, FISH and FLST list every record that points at each row ("Referenced By"),
 worked out by esm_refs.py in one ~40 s scan (needs numpy). Known gap: xEdit
 stops reading some quests part-way through their objective/alias conditions, so
 its lists leave out those quests; these lists include them. (The CURV XCRI and
@@ -1432,6 +1434,103 @@ def exp_cont(esm):
         out.append("\t".join(b + k + [""] * (mk - len(k)) + [str(len(p))] + [v for t in p for v in t]
                              + [""] * (3 * (mp - len(p))) + [str(len(x))] + x + [""] * (mr - len(x))))
     return out
+
+
+# ------------------------------------------------------------- FISH ------
+FISH_FLOATS = ("FISP", "FIDS", "FIES")
+FISH_BYTES = ("FIHS", "FILS")
+FISH_FLOATS2 = ("FIHD", "FILD", "FIJS", "FIHJ", "FILJ", "FILA", "FIHA")
+FISH_LINKS = ("FIRI", "FIEX", "FISD", "FISU")
+
+
+def exp_fish(esm):
+    """!!!Wordpress - ExportFISHToTSV.pas - fishing: keywords (FormID:EDID:SIG, FormID
+    order as xEdit sorts KWDA), the fish stats, the reward / splash / sound links as
+    xEdit edit values (FIRI keeps 'EDID "Name" [SIG:FormID]'; the axolotl build reads
+    the quoted name) and Referenced By, each padded to the widest row."""
+    def num(r, s, fmt):
+        d = r.first(s)
+        if not d:
+            return ""
+        return str(d[0]) if fmt == "b" else C.fmt_float(struct.unpack_from("<f", d)[0])
+
+    def link(r, s):
+        d = r.first(s)
+        return _ccell(esm.link_edit_value(_u32(d))) if d and len(d) >= 4 else ""
+
+    rows = []
+    for r in R.xedit_order(esm, "FISH"):
+        kw = r.first("KWDA") or b""
+        kws = [_ccell(_linkcell(esm, k)) if _lk(esm, k) else _ccell(esm.link_edit_value(k))
+               for k in sorted(struct.unpack_from("<%dI" % (len(kw) // 4), kw))]
+        vals = ([num(r, s, "f") for s in FISH_FLOATS] + [num(r, s, "b") for s in FISH_BYTES]
+                + [num(r, s, "f") for s in FISH_FLOATS2] + [link(r, s) for s in FISH_LINKS])
+        refs = [_ccell(x) for x in _refcells(esm, r.fid)]
+        rows.append((["%08X" % r.fid, _ccell(r.edid), _ccell(esm.lstring(r.full)), str(len(kws))], kws, vals, refs))
+    mk = max((len(x[1]) for x in rows), default=0)
+    mr = max((len(x[3]) for x in rows), default=0)
+    head = (["FormID", "EDID", "FULL", "KeywordCount"] + ["KW%d" % i for i in range(1, mk + 1)]
+            + list(FISH_FLOATS + FISH_BYTES + FISH_FLOATS2 + FISH_LINKS)
+            + ["ReferencedByCount"] + ["Ref%d" % i for i in range(1, mr + 1)])
+    out = ["\t".join(head)]
+    for b, k, v, x in rows:
+        out.append("\t".join(b + k + [""] * (mk - len(k)) + v + [str(len(x))] + x + [""] * (mr - len(x))))
+    return out
+
+
+# ------------------------------------------------------------- FLST ------
+def _flst_target(esm, fid):
+    """(sig, EDID, FULL) of a form-list entry as xEdit's LinksTo sees it, or None
+    when the FormID resolves to nothing (xEdit then writes empty cells)."""
+    if not fid:
+        return None
+    if esm.exists(fid):
+        return esm.sig_of(fid), esm.edid_of(fid), esm.full_of(fid)
+    w = esm.world_record(fid)   # placed references (REFR / ACHR ...) live in the world data
+    if w is None:
+        return None
+    sig, rec, _cell, _wrld = w
+    # a placed reference's FULL sits inside its Map Marker block, which the .pas's
+    # top-level 'FULL' path never reaches: blank, as in xEdit. Cells and worldspaces
+    # have a top-level FULL of their own.
+    return sig, rec.edid or "", esm.lstring(rec.first("FULL")) if sig in ("CELL", "WRLD") else ""
+
+
+def exp_flst(esm):
+    """!!!Wordpress - ExportFLSTToCSV.pas (v4) - form lists, three files:
+    _List (one row per list, Entry_1..N as FormID:EDID:SIG, file order),
+    _Entries (one row per entry; a list with no entries gets one row, index 0)
+    and _Refs (Referenced By of the list itself, Ref_1..N)."""
+    lists, entries, refrows = [], [], []
+    head_e = "\t".join(["FLST_FormID", "FLST_EDID", "FLST_FULL", "EntryIndex", "Entry_Sig",
+                        "Entry_FormID", "Entry_EDID", "Entry_FULL"])
+    for r in R.xedit_order(esm, "FLST"):
+        fid, ed, full = "%08X" % r.fid, _ccell(r.edid), _ccell(esm.lstring(r.full))
+        ln = r.first("LNAM")
+        fids = [x for v in r.all("LNAM") for x in struct.unpack_from("<%dI" % (len(v) // 4), v)] if ln else []
+        cells = []
+        for i, f in enumerate(fids):
+            t = _flst_target(esm, f)
+            if t is None:
+                cells.append("")
+                entries.append("\t".join([fid, ed, full, str(i), "", "", "", ""]))
+            else:
+                sg, te, tf = t
+                cells.append("%08X:%s:%s" % (f, _ccell(te), sg))
+                entries.append("\t".join([fid, ed, full, str(i), sg, "%08X" % f, _ccell(te), _ccell(tf)]))
+        if not fids:
+            entries.append("\t".join([fid, ed, full, "0", "", "", "", ""]))
+        lists.append(([fid, ed, full, str(len(fids))], cells))
+        refs = [_ccell(x) for x in _refcells(esm, r.fid)]
+        refrows.append(([fid, ed, str(len(refs))], refs))
+    me = max((len(c) for _b, c in lists), default=0)
+    mr = max((len(c) for _b, c in refrows), default=0)
+    out_l = ["\t".join(["FLST_FormID", "FLST_EDID", "FLST_FULL", "EntryCount"]
+                       + ["Entry_%d" % i for i in range(1, me + 1)])]
+    out_l += ["\t".join(b + c + [""] * (me - len(c))) for b, c in lists]
+    out_r = ["\t".join(["FLST_FormID", "FLST_EDID", "ReferencedByCount"] + ["Ref_%d" % i for i in range(1, mr + 1)])]
+    out_r += ["\t".join(b + c + [""] * (mr - len(c))) for b, c in refrows]
+    return {"_List": out_l, "_Entries": [head_e] + entries, "_Refs": out_r}
 
 
 # ------------------------------------------------------------- ENCH ------
@@ -3624,7 +3723,7 @@ def _lore_notes(esm):
     return out + [x for _, x in rows]
 
 
-NEEDS_REFS = {"ARMO2", "AVTR", "BOOK", "BOOK2", "COBJ", "CONT", "ENCH", "ENTM", "ALCH", "QUST2", "LVLI", "GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "ECAT", "CNDF", "LSCR", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
+NEEDS_REFS = {"ARMO2", "AVTR", "BOOK", "BOOK2", "COBJ", "CONT", "ENCH", "ENTM", "FISH", "FLST", "ALCH", "QUST2", "LVLI", "GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "ECAT", "CNDF", "LSCR", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
 # exports that need Referenced By for more than their own records
 REF_TARGETS = {"ARMO2": armo2_ref_targets, "BOOK2": book2_ref_targets, "NPC2": npc2_ref_targets, "MISC2": misc2_ref_targets, "ACTI2": acti2_ref_targets}
 
@@ -3672,6 +3771,8 @@ EXPORTS = {
     "CONT": (["CONT"], "CONT_Export", exp_cont),
     "ENCH": (["ENCH"], "ENCH_Export", exp_ench),
     "ENTM": (["ENTM"], "ENTM_Export", exp_entm),
+    "FISH": (["FISH"], "FISH_Export", exp_fish),
+    "FLST": (["FLST"], "FLST_Export", exp_flst),
     "REFR": (["ACTI"], "REFR_Placements", exp_refr_placements),
     "LORE": (["NOTE", "BOOK"], "ALLYDLG_Export", exp_lore),
 }
