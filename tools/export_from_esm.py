@@ -1573,6 +1573,354 @@ def exp_qust_sp(esm):
     return {"_ScriptProps": out}
 
 
+# ------------------------------------------------------------- QUST2 tree --
+# ExportQUST2ToTSV.pas walks xEdit's element tree. The same tree from the raw
+# subrecords:  stages (INDX, then one QSDT per log entry), objectives (QOBJ,
+# then a QSTA per target), aliases (ALST / ALLS ... ALED; a bare ALCS + ALMI
+# is its own element - the collection marker for the alias after it).
+_QLOG_SUBS = {"QSDT", "CTDA", "CIS1", "CIS2", "NAM2", "SCFC", "CNAM", "NAM0", "QRWD", "QUIM",
+              "QRWT", "QQSK", "QQSV"}
+_QOBJ_SUBS = {"FNAM", "QOTM", "SNAM", "NAM1", "SCCM", "PBLT", "PBRT", "NNAM"}
+
+
+def _qust_tree(r):
+    head, stages, objs, aliases = [], [], [], []
+    st = log = ob = tg = al = None
+    mode = "head"
+    for k, v in r.subs:
+        if k == "INDX":
+            mode, st, log = "stage", {"INDX": v, "logs": []}, None
+            stages.append(st)
+            continue
+        if k == "QOBJ":
+            mode, ob, tg = "obj", {"QOBJ": v, "subs": [], "targets": []}, None
+            objs.append(ob)
+            continue
+        if k in ("ALST", "ALLS"):
+            mode, al = "alias", {"kind": k, "id": v, "subs": [], "conds": [], "marker": False}
+            aliases.append(al)
+            continue
+        if k == "ALCS":
+            mode = "aliases"
+            aliases.append({"kind": k, "id": v, "subs": [], "conds": [], "marker": True})
+            continue
+        if k == "ANAM" and mode != "alias":
+            mode = "aliases"
+            head.append((k, v))
+            continue
+        if mode == "stage" and k in _QLOG_SUBS:
+            if k == "QSDT" or log is None:
+                log = {"subs": [], "conds": []}
+                st["logs"].append(log)
+            if k == "CTDA":
+                log["conds"].append([v, None, None])
+            elif k in ("CIS1", "CIS2") and log["conds"]:
+                log["conds"][-1][1 if k == "CIS1" else 2] = v.rstrip(b"\0").decode("utf-8", "replace")
+            else:
+                log["subs"].append((k, v))
+            continue
+        if mode == "obj":
+            if k == "QSTA":
+                tg = {"QSTA": v, "conds": [], "subs": []}
+                ob["targets"].append(tg)
+                continue
+            if tg is not None and k in ("CTDA", "CIS1", "CIS2"):
+                if k == "CTDA":
+                    tg["conds"].append([v, None, None])
+                elif tg["conds"]:
+                    tg["conds"][-1][1 if k == "CIS1" else 2] = v.rstrip(b"\0").decode("utf-8", "replace")
+                continue
+            if k in _QOBJ_SUBS and tg is None:
+                ob["subs"].append((k, v))
+                continue
+            if tg is not None and k in _QOBJ_SUBS:
+                tg["subs"].append((k, v))
+                continue
+            mode = "tail"
+        if mode == "alias":
+            if k == "ALED":
+                mode = "aliases"
+                continue
+            if k == "CTDA":
+                al["conds"].append([v, None, None])
+            elif k in ("CIS1", "CIS2") and al["conds"]:
+                al["conds"][-1][1 if k == "CIS1" else 2] = v.rstrip(b"\0").decode("utf-8", "replace")
+            else:
+                al["subs"].append((k, v))
+            continue
+        if mode == "aliases" and k == "ALMI" and aliases and aliases[-1]["marker"]:
+            aliases[-1]["subs"].append((k, v))
+            continue
+        head.append((k, v))
+        if mode not in ("head",):
+            mode = "tail"
+    return {"head": head, "stages": stages, "objs": objs, "aliases": aliases}
+
+
+# ------------------------------------------------------------- QUST2 -------
+# The other five ExportQUST2ToTSV.pas files: _Quests, _Stages, _Objectives,
+# _Aliases (quests whose name starts with an event prefix) and _ItemAliases
+# (every alias that creates an item, every quest).
+# Flag names and link labels were learned from the October 2026 xEdit files
+# (tools learned them the way xedit_ref_fields.json was learned) and checked
+# against xEdit's wbDefinitionsFO76 for the bits no exported quest uses.
+_Q2_PREFIXES = [("Enclave Activity:", "Enclave Activity"), ("Activity:", "Activity"),
+                ("Event:", "Event"), ("Daily Op:", "Daily Op"), ("Uplink:", "Daily Op"),
+                ("Decryption:", "Daily Op"), ("Daily:", "Daily"), ("Expedition:", "Expedition"),
+                ("Atlantic City:", "Expedition"), ("The Pitt:", "Expedition")]
+_Q2_QUEST_FLAGS = {0: "Start Game Enabled", 1: "Completed", 2: "Add Idle Topic To Hello",
+                   3: "Allow Repeat Stages", 4: "Starts Enabled", 5: "Displayed In HUD", 6: "Failed",
+                   7: "Stage Wait", 8: "Run Once", 9: "Exclude from dialogue export",
+                   10: "Warn on Alias Fill Failed", 11: "Tracked By UI", 12: "Repeats Conditions",
+                   13: "Keep Instance Data", 14: "Want Dormant", 15: "Has Dialogue Data",
+                   16: "Unique Instance", 17: "Sharable", 18: "Always Tracked", 19: "Holotape Only",
+                   20: "Saves Completion",  # 21 'Unused 21': xEdit hides it
+                   22: "Unique Per Player", 23: "Can Be Rejected When Active",
+                   24: "Uses Custom Expire Time", 25: "Not Autotracked", 26: "Disable Event Announcement",
+                   27: "Kick All Players From Instance on Shutdown", 28: "Disable Greeting Precheck",
+                   29: "Incrementing Timer", 30: "Is Random Encounter",
+                   31: "Not Tracked In UI After Completed"}
+_Q2_STAGE_FLAGS = {0: "Done", 1: "Run On Start", 2: "Run On Stop", 3: "Keep Instance Data From Here On",
+                   4: "Timer End", 5: "Start Timer", 6: "Checkpoint"}
+_Q2_LOG_FLAGS = {0: "Complete Quest", 1: "Fail Quest"}
+_Q2_OBJ_FLAGS = {0: "ORed With Previous", 1: "No Stats Tracking", 2: "Unknown 3", 3: "Uses Timer"}
+_Q2_ALIAS_FLAGS = dict(enumerate(
+    ["Reserves Location/Reference", "Optional", "Quest Object", "Allow Reuse in Quest", "Allow Dead",
+     "Matching Ref - In Loaded Area", "Essential", "Allow Disabled", "Stores Text", "Allow Reserved",
+     "Protected", "Forced by Aliases", "Allow Destroyed", "Matching Ref - Closest", "Uses Stored Text",
+     "Initially Disabled", "Allow Cleared", "Clear Names When Removed", "Matching Ref - Actors Only",
+     "Create Ref - Temp", "External Alias - Linked", "No Pickpocket",
+     "Can Apply Data To Non-Aliased Refs", "Is Companion", "Optional All Scenes"]))
+_Q2_ALIAS_FLAGS.update({b: "Unknown %d" % b for b in range(25, 42)})
+_Q2_QUEST_TYPES = ["None", "Primary", "Secondary", "Side Quest", "Server", "Daily", "Public Event",
+                   "Miscellaneous", "Event", "Daily Ops", "Expedition", "Module", "Caravan", "Raid"]
+# fields whose FormID xEdit's CollectLinks writes as TAG=link (learned)
+_Q2_LOG_LINKS = ("NAM0", "QRWD", "QUIM")
+_Q2_ALIAS_LINKS = {"ALFR", "ALUA", "ALRT", "ALFL", "ALFC", "ALPC", "ALCO", "ALSP", "ALFF", "ALFV",
+                   "ALDN", "VTCK", "ECOR", "ALEQ", "ALDI", "NAM7"}
+_Q2_MAX_LINKS, _Q2_MAX_CONDS, _Q2_MAX_GMRW = 16, 16, 8
+
+
+def _q2_flags(v, names):
+    """FlagsNamed: the names of the set bits xEdit defines, ' ; '-joined; with
+    none of them set but some bit set, the raw bit string (objective bit 4)."""
+    if not v:
+        return ""
+    out = [names[b] for b in range(64) if v >> b & 1 and b in names]
+    return " ; ".join(out) if out else _xedit_bits(v)
+
+
+def _q2_cond(ctx, ctda, cis1, cis2):
+    """QUST2 .pas BuildCondFromCTDA: Type|Comp|Function|<other non-empty elements>|RunOn|RefLink.
+    Alias parameters / Quest Alias read like xEdit ("002 Player") - Ctx.alias_names."""
+    els, ref = C.elements(ctx, ctda, cis1, cis2)
+    d, params = {}, []
+    for name, val in els:
+        low = name.lower()
+        val = cc(val)
+        if low in ("type", "comparison value - float", "comparison value - global", "function", "run on"):
+            d[low] = val
+            continue
+        if val == "":
+            continue
+        params.append(val)
+    comp = d.get("comparison value - float", d.get("comparison value - global", ""))
+    esm = ctx.esm
+    refcell = "%08X:%s:%s" % (ref, esm.edid_of(ref), esm.sig_of(ref)) if ref and esm.exists(ref) else ""
+    return "|".join([d["type"], comp, d["function"], "|".join(params), d["run on"], cc(refcell)])
+
+
+def _q2_conds(ctx, conds):
+    return " ; ".join(c for c in (_q2_cond(ctx, *x) for x in conds[:_Q2_MAX_CONDS]) if c)
+
+
+def _q2_linkcell(esm, fid):
+    if not fid:
+        return ""
+    if esm.exists(fid):
+        return "%08X:%s:%s" % (fid, esm.edid_of(fid), esm.sig_of(fid))
+    w = esm.world_record(fid)          # placed references (ALFR) live in the world data
+    if w is not None:
+        return "%08X:%s:%s" % (fid, w[1].edid or "", w[0])
+    return ""
+
+
+_Q2_SORTED = {"ALFC"}   # xEdit sorts this repeated field by FormID (ALPC stays in file order)
+
+
+def _q2_links(esm, subs, fields, arrays=()):
+    # runs of a sorted repeated field come out in FormID order
+    subs = list(subs)
+    i = 0
+    while i < len(subs):
+        j = i
+        while j < len(subs) and subs[j][0] == subs[i][0]:
+            j += 1
+        if subs[i][0] in _Q2_SORTED and j - i > 1:
+            subs[i:j] = sorted(subs[i:j], key=lambda kv: struct.unpack_from("<I", kv[1], 0)[0])
+        i = j
+    out = []
+    for k, v in subs:
+        if k in fields and len(v) >= 4:
+            c = _q2_linkcell(esm, struct.unpack_from("<I", v, 0)[0])
+            if c:
+                out.append("%s=%s" % (k, c))
+        elif k in arrays:
+            stride = 8 if k == "ALLA" else 4
+            fids = [struct.unpack_from("<I", v, o)[0] for o in range(0, len(v) - 3, stride)]
+            if k == "KWDA":
+                fids.sort()            # xEdit's Keywords array is sorted by FormID
+            for f in fids:
+                c = _q2_linkcell(esm, f)
+                if c:
+                    out.append("Keyword=" + c)
+    return " ; ".join(cc(x) for x in out[:_Q2_MAX_LINKS])
+
+
+def _q2_vmad(raw):
+    """(script names in xEdit's sorted order, fragment script name, [(stage, index, fragment name)])."""
+    if not raw:
+        return [], "", []
+    try:
+        rd = _VmadReader(raw)
+        scripts = rd.scripts()
+        names = sorted((n for n, _p in scripts), key=_xedit_text_key)
+        frag_file, frags = "", []
+        if rd.p < len(raw):
+            rd.u8()
+            n = rd.u16()
+            frag_file = rd.s()
+            if frag_file:
+                rd.u8()
+                fmt = struct.unpack_from("<h", raw, 2)[0]
+                for _ in range(rd.u16()):
+                    rd.s(); t = rd.u8(); rd.u8(); rd.value(t, fmt)
+            for _ in range(n):
+                st = rd.u32(); ix = rd.u32(); rd.u8(); rd.s()
+                frags.append((st, ix, rd.s()))
+        frags.sort(key=lambda f: (f[0], f[1]))
+        return names, frag_file, frags
+    except Exception:                                     # noqa: BLE001
+        return [], "", []
+
+
+def _q2_kind(full):
+    low = full.lower()
+    for pre, kind in _Q2_PREFIXES:
+        if low.startswith(pre.lower()):
+            return kind
+    return ""
+
+
+def _q2_alias_rows(esm, r, tree):
+    """[(index, alias dict, id, name, kind)] for the real aliases, like Process()."""
+    out, pending = [], ""
+    for i, al in enumerate(tree["aliases"]):
+        aid = str(struct.unpack_from("<I", al["id"], 0)[0]) if len(al["id"]) >= 4 else ""
+        if al["marker"]:
+            pending = aid
+            continue
+        kind = "Ref" if al["kind"] == "ALST" else "Loc"
+        if pending:
+            if pending == aid:
+                kind = "RefCol"
+            pending = ""
+        name = cc(_str(dict(al["subs"]).get("ALID")))
+        out.append((i, al, aid, name, kind))
+    return out
+
+
+def exp_qust2(esm):
+    quests, stages, objs, aliases, items = [], [], [], [], []
+    for r in R.xedit_order(esm, "QUST"):
+        full = cc(esm.lstring(r.first("FULL")))
+        tree = _qust_tree(r)
+        qfid, ed = "%08X" % r.fid, cc(r.edid)
+        ctx = C.Ctx(esm, r)
+        arows = _q2_alias_rows(esm, r, tree)
+        for i, al, aid, name, kind in arows:
+            links = _q2_links(esm, al["subs"], _Q2_ALIAS_LINKS, ("KWDA", "ALLA"))
+            if "ALCO=" not in links:
+                continue
+            fn = dict(al["subs"]).get("FNAM")
+            items.append("\t".join([qfid, ed, full, str(i), name,
+                                    _q2_flags(int.from_bytes(fn, "little") if fn else 0, _Q2_ALIAS_FLAGS),
+                                    links]))
+        kind = _q2_kind(full)
+        if not kind:
+            continue
+        # xEdit's alias combo finds named aliases, not collections ("045")
+        named = {int(aid): name for _i, _a, aid, name, k in arows if aid and name and k != "RefCol"}
+        ctx = C.Ctx(esm, r, named)
+        head = dict(tree["head"])
+        names, frag_file, frags = _q2_vmad(head.get("VMAD"))
+        qline = qfid + "\t" + ed + "\t" + full
+        for i, al, aid, name, akind in arows:
+            fn = dict(al["subs"]).get("FNAM")
+            aliases.append("\t".join([qline, str(i), aid, name, "Alias", akind,
+                                      _q2_flags(int.from_bytes(fn, "little") if fn else 0, _Q2_ALIAS_FLAGS),
+                                      _q2_links(esm, al["subs"], _Q2_ALIAS_LINKS, ("KWDA", "ALLA")),
+                                      _q2_conds(ctx, al["conds"]), ""]))
+        alias_names = {int(aid): name for _i, _a, aid, name, _k in arows if aid and name}
+        for st in sorted(tree["stages"], key=lambda s: struct.unpack_from("<H", s["INDX"], 0)[0]):
+            sidx = struct.unpack_from("<H", st["INDX"], 0)[0]
+            sfl = _q2_flags(st["INDX"][2] if len(st["INDX"]) > 2 else 0, _Q2_STAGE_FLAGS)
+            fr = " ; ".join(f[2] or "Stage %d Item %d" % (f[0], f[1]) for f in frags if f[0] == sidx)
+            if not st["logs"]:
+                stages.append("\t".join([qline, str(sidx), sfl, "", "", "", "", fr, "", ""]))
+                continue
+            for j, lg in enumerate(st["logs"]):
+                ls = dict(lg["subs"])
+                q = ls.get("QSDT")
+                nq = ls.get("NAM0")
+                stages.append("\t".join([qline, str(sidx), sfl, str(j),
+                                         _q2_flags(q[0] if q else 0, _Q2_LOG_FLAGS),
+                                         cc(esm.lstring(ls.get("CNAM"))),
+                                         _q2_linkcell(esm, struct.unpack_from("<I", nq, 0)[0]) if nq else "",
+                                         fr, _q2_conds(ctx, lg["conds"]),
+                                         _q2_links(esm, lg["subs"], _Q2_LOG_LINKS)]))
+        for ob in tree["objs"]:
+            os_ = dict(ob["subs"])
+            oidx = str(struct.unpack_from("<H", ob["QOBJ"], 0)[0])
+            fn = os_.get("FNAM")
+            ofl = _q2_flags(struct.unpack_from("<I", fn, 0)[0] if fn else 0, _Q2_OBJ_FLAGS)
+            otext = cc(esm.lstring(os_.get("NNAM")))
+            if not ob["targets"]:
+                objs.append("\t".join([qline, oidx, ofl, otext, "", "", "", "", "", ""]))
+                continue
+            for k, tg in enumerate(ob["targets"]):
+                a = struct.unpack_from("<i", tg["QSTA"], 0)[0]
+                an = alias_names.get(a, "")
+                aid = ctx.alias_text(a)
+                objs.append("\t".join([qline, oidx, ofl, otext, str(k), aid, an, "",
+                                       _q2_conds(ctx, tg["conds"]), ""]))
+        loc = head.get("LNAM")
+        gm = [c for c in _refcells(esm, r.fid) if c.endswith(":GMRW")][:_Q2_MAX_GMRW]
+        dat = head.get("DATA") or b""
+        qt = dat[16] if len(dat) > 16 else None
+        flags_v = int.from_bytes(dat[:8], "little") if len(dat) >= 20 else (int.from_bytes(dat[:4], "little") if dat else 0)
+        pri = dat[8] if len(dat) >= 20 else (dat[4] if len(dat) > 4 else None)
+        quests.append("\t".join([qline, kind, cc(esm.lstring(head.get("DESC"))),
+                                 (_Q2_QUEST_TYPES[qt] if qt is not None and qt < len(_Q2_QUEST_TYPES) else ("" if qt is None else str(qt))),
+                                 _q2_flags(flags_v, _Q2_QUEST_FLAGS), "" if pri is None else str(pri),
+                                 cc(esm.link_edit_value(struct.unpack_from("<I", loc, 0)[0])) if loc else "",
+                                 str(len(tree["stages"])), str(len(tree["objs"])), str(len(arows)),
+                                 " ; ".join(cc(n) for n in names if n), cc(frag_file), " ; ".join(gm),
+                                 "SeventySix.esm"]))
+    return {
+        "_Quests": ["FormID\tEDID\tFULL\tKind\tDESC\tQuestType\tFlags\tPriority\tLocation\tStageCount\t"
+                    "ObjectiveCount\tAliasCount\tScripts\tFragmentFile\tGMRWRefs\tSourceFile"] + quests,
+        "_Stages": ["QuestFormID\tQuestEDID\tQuestName\tStageIndex\tStageFlags\tLogEntryIndex\tLogFlags\t"
+                    "LogText\tNextQuest\tFragments\tConditions\tLinks"] + stages,
+        "_Objectives": ["QuestFormID\tQuestEDID\tQuestName\tObjectiveIndex\tObjectiveFlags\tObjectiveText\t"
+                        "TargetIndex\tTargetAliasID\tTargetAliasName\tTargetFlags\tTargetConditions\t"
+                        "TargetLinks"] + objs,
+        "_Aliases": ["QuestFormID\tQuestEDID\tQuestName\tAliasIndex\tAliasID\tAliasName\tAliasLabel\t"
+                     "AliasKind\tAliasFlags\tFillLinks\tConditions\tScripts"] + aliases,
+        "_ItemAliases": ["QuestFormID\tQuestEDID\tQuestName\tAliasIndex\tAliasName\tAliasFlags\tLinks"] + items,
+    }
+
+
 # ------------------------------------------------------------- LVLI ------
 # ExportLVLIToCSV.pas: _LVLI_List, _LVLI_Entries, _LVLI_Refs, _LVLI_Math.
 # Two record layouts exist in the game file:
@@ -1947,7 +2295,7 @@ def _lore_notes(esm):
     return out + [x for _, x in rows]
 
 
-NEEDS_REFS = {"LVLI", "GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "ECAT", "CNDF", "LSCR", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
+NEEDS_REFS = {"QUST2", "LVLI", "GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "ECAT", "CNDF", "LSCR", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
 # exports that need Referenced By for more than their own records
 REF_TARGETS = {"NPC2": npc2_ref_targets, "MISC2": misc2_ref_targets, "ACTI2": acti2_ref_targets}
 
@@ -1982,6 +2330,7 @@ EXPORTS = {
     "QUST2RQ": (["QUST"], "QUST2_Export", exp_qust2_rq),
     "QUSTSP": (["QUST", "GLOB"], "QUST2_Export", exp_qust_sp),
     "LVLI": (["LVLI", "GLOB"], "LVLI_Export", exp_lvli),
+    "QUST2": (["QUST"], "QUST2_Export", exp_qust2),
     "LORE": (["NOTE", "BOOK"], "ALLYDLG_Export", exp_lore),
 }
 
