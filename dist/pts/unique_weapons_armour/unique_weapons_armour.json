@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "generated": "2026-10-24T22:13:50Z",
-  "channel": "pts",
+  "generated": "2026-10-25T00:32:43Z",
+  "channel": "live",
   "count": 134,
   "counts": {
     "weapon": 120,
@@ -2562,17 +2562,10 @@
         },
         {
           "route": "Atom Shop",
-          "populated": true,
-          "lines": [
-            "Drops: Unlocks crafting (Weapon Workbench)",
-            "Source: Cold Shoulder Starter Bundle",
-            "Cost: 1,000 Atoms",
-            "Note: In the Atom Shop's Add-ons store."
-          ],
-          "tradeable": false,
-          "dropRate": "N/A",
-          "conditions": [],
-          "conditionsChecked": true
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
         },
         {
           "route": "Limited Time Bundle",
@@ -6326,10 +6319,10 @@
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
-      "howToObtain": "Quest: Forging a Legend",
-      "sourceType": "Quest",
-      "sourceRef": "Forging a Legend",
-      "questName": "Forging a Legend",
+      "howToObtain": "No source found in the game files",
+      "sourceType": "Unknown",
+      "sourceRef": "",
+      "questName": "",
       "craftable": false,
       "planName": "",
       "tradeable": true,
@@ -6394,15 +6387,10 @@
         },
         {
           "route": "Quests",
-          "populated": true,
-          "lines": [
-            "Drops: Ready-made weapon",
-            "Source: Forging a Legend"
-          ],
-          "tradeable": true,
-          "dropRate": "N/A",
-          "conditions": [],
-          "conditionsChecked": false
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
         },
         {
           "route": "Challenges",
@@ -6417,6 +6405,7 @@
       ],
       "planFormId": "",
       "repairOnly": true,
+      "unreleased": true,
       "imageSameAsBase": true
     },
     {
@@ -13620,6 +13609,13 @@
       },
       "starEffects": [
         {
+          "star": 1,
+          "name": "Random",
+          "edid": "",
+          "formId": "",
+          "fixed": false
+        },
+        {
           "star": 2,
           "name": "Random",
           "edid": "",
@@ -18070,13 +18066,16 @@
       "sourceType": "Quest",
       "sourceRef": "The Eye of the Storm",
       "questName": "The Eye of the Storm",
-      "craftable": true,
+      "craftable": false,
       "planName": "",
       "tradeable": true,
       "formId": "0072DF0B",
       "edid": "Stormcutter",
       "inCurrentExport": true,
       "isCut": false,
+      "discoveredBy": [
+        "official"
+      ],
       "uniqueMods": [],
       "namedOnly": true,
       "obtainRoutes": [
@@ -18724,14 +18723,13 @@
       "sourceType": "Quest",
       "sourceRef": "A Matter of Matter",
       "questName": "A Matter of Matter",
-      "craftable": false,
+      "craftable": true,
       "planName": "",
       "tradeable": true,
       "formId": "0072DF0B",
       "edid": "Stormcutter",
       "inCurrentExport": true,
       "isCut": false,
-      "confirmedByGameFiles": false,
       "uniqueMods": [
         {
           "name": "V63-Z Custom",
@@ -18819,10 +18817,7 @@
           "dropRate": null
         }
       ],
-      "recordIds": [],
-      "aka": [
-        "V63-Z"
-      ]
+      "recordIds": []
     },
     {
       "id": "gatlinglaser",
