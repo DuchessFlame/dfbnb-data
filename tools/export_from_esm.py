@@ -1573,6 +1573,225 @@ def exp_qust_sp(esm):
     return {"_ScriptProps": out}
 
 
+# ------------------------------------------------------------- LVLI ------
+# ExportLVLIToCSV.pas: _LVLI_List, _LVLI_Entries, _LVLI_Refs, _LVLI_Math.
+# Two record layouts exist in the game file:
+#   old - LVLD (chance none byte) / LVLM, and a 12-byte LVLO holding level,
+#         reference and count. xEdit's paths for LVOV/LVIV/LVLV find nothing
+#         there, so those columns are blank, exactly like the .pas.
+#   new - a 4-byte LVLO (reference) followed by its own LVOV / LVOG / LVOC /
+#         LVOT / LVIV / LVIG / LVIT / LVLV / LVLG / LVLT / COED / CTDA.
+# The MinLvl GLOBs in the LVOG column are real: Bethesda stores them in LVOG
+# (see the MinLvl trap in rng76.py), not an export bug.
+_LVLO_FIELDS = ("LVOV", "LVOG", "LVOC", "LVOT", "LVIV", "LVIG", "LVIT", "LVLV",
+                "LVLG", "LVLT", "COED", "CTDA", "CIS1", "CIS2", "LVUD")
+
+
+def _delphi_float(v):
+    """Delphi FloatToStr: general format, 15 significant digits."""
+    if v == 0:
+        return "0"
+    t = "%.15g" % v
+    if "e" in t:
+        m, e = t.split("e")
+        n = int(e)
+        t = "%sE%s%d" % (m, "-" if n < 0 else "", abs(n))
+    return t
+
+
+def _lvli_link(esm, raw):
+    """GetLinkFromPath: FormID:EDID:SIG, or xEdit's edit value when it links to nothing."""
+    if raw is None or len(raw) < 4:
+        return ""
+    fid = struct.unpack("<I", raw[:4])[0]
+    if fid and esm.exists(fid):
+        return "%08X:%s:%s" % (fid, esm.edid_of(fid), esm.sig_of(fid))
+    # this .pas reads GetEditValue on the bare field: "<Error: ...>", no spaces
+    return cc(esm.link_edit_value(fid)).replace("< Error: Could not be resolved >",
+                                                 "<Error: Could not be resolved>")
+
+
+def _lvli_float(raw):
+    return C.fmt_float(struct.unpack("<f", raw[:4])[0]) if raw is not None and len(raw) >= 4 else ""
+
+
+def _lvli_cond(ctx, ctda, cis1, cis2):
+    """The LVLI .pas BuildCondFromCTDA: RunOn.Function(params) <Type> <Comparison>.
+    Params are every other non-empty element except Reference (the slot after
+    Run On, which xEdit names Reference) and the comparison value."""
+    els, _ref = C.elements(ctx, ctda, cis1, cis2)
+    d, params, after_run_on = {}, [], False
+    for name, val in els:
+        low = name.lower()
+        if after_run_on:
+            after_run_on = False
+            continue                      # the Reference slot
+        if low == "run on":
+            d[low] = val
+            after_run_on = True
+            continue
+        if low in ("type", "function") or low.startswith("comparison value"):
+            d[low if not low.startswith("comparison value") else "cmp"] = val
+            continue
+        if val == "":
+            continue
+        params.append(val)
+    run_on = d.get("run on", "")
+    out = (run_on + "." if run_on else "") + d.get("function", "") + "(" + ", ".join(params) + ")"
+    # OpFromType gets xEdit's 8-character Type bits, which match none of its
+    # words, so it hands them back unchanged.
+    return cc(out + " " + d.get("type", "") + " " + d.get("cmp", ""))
+
+
+def _lvli_rand_chance(conds):
+    """The .pas CondChanceFromRandomPercent, character for character."""
+    p = 1.0
+    for s in conds:
+        s2 = s.lower()
+        if "getrandompercent" not in s2:
+            continue
+        num = ""
+        for ch in reversed(s2):
+            if "0" <= ch <= "9":
+                num = ch + num
+            elif num:
+                break
+        if num:
+            n = float(num)
+            if ">=" in s2 or ")>" in s2 or "> " in s2:
+                p *= (100.0 - n) / 100.0
+            elif "<=" in s2 or "<" in s2:
+                p *= n / 100.0
+    return min(1.0, max(0.0, p))
+
+
+def _lvli_glob_value(esm, cell):
+    """ResolveGlobValue: the GLOB's FLTV edit value, '' when not a GLOB."""
+    if not cell or cell.rsplit(":", 1)[-1] != "GLOB":
+        return ""
+    try:
+        g = esm.get(int(cell.split(":")[0], 16))
+    except ValueError:
+        return ""
+    f = g.first("FLTV") if g else None
+    return C.fmt_float(struct.unpack("<f", f[:4])[0]) if f and len(f) >= 4 else ""
+
+
+def _to_float(s):
+    try:
+        return float(s.strip())
+    except (ValueError, AttributeError):
+        return None
+
+
+def exp_lvli(esm):
+    lists, ents, refs, maths = [], [], [], []
+    for r in R.xedit_order(esm, "LVLI"):
+        fid = "%08X" % r.fid
+        ed = cc(r.edid)
+        ctx = C.Ctx(esm, r)
+        head, entries, cur = {}, [], None
+        list_conds = []
+        for k, v in r.subs:
+            if k == "LVLO":
+                cur = {"LVLO": v, "CTDA": []}
+                entries.append(cur)
+            elif cur is not None and k in _LVLO_FIELDS:
+                if k == "CTDA":
+                    cur["CTDA"].append([v, None, None])
+                elif k in ("CIS1", "CIS2"):
+                    if cur["CTDA"]:
+                        cur["CTDA"][-1][1 if k == "CIS1" else 2] = v.rstrip(b"\0").decode("utf-8", "replace")
+                else:
+                    cur.setdefault(k, v)
+            elif cur is None and k in ("CTDA", "CIS1", "CIS2"):
+                if k == "CTDA":
+                    list_conds.append([v, None, None])
+                elif k in ("CIS1", "CIS2") and list_conds:
+                    list_conds[-1][1 if k == "CIS1" else 2] = v.rstrip(b"\0").decode("utf-8", "replace")
+            else:
+                # list-level fields, including the ones stored after the
+                # entries (LVSG epic chance, DIQO, ENLT, MODL ...)
+                head.setdefault(k, v)
+        flags = head.get("LVLF")
+        fv = int.from_bytes(flags, "little") if flags else None
+        if fv is None:
+            fstr = ""
+        elif fv == 0:
+            fstr = "0" * 64
+        else:
+            fstr = _xedit_bits(fv)
+        llct = head.get("LLCT")
+        lconds = [_lvli_cond(ctx, *c) for c in list_conds]
+        lvcv = _lvli_float(head.get("LVCV"))
+        lvlg = _lvli_link(esm, head.get("LVLG"))
+        lvct = _lvli_link(esm, head.get("LVCT"))
+        lvsg = head.get("LVSG")
+        diqo = head.get("DIQO")
+        lists.append(([fid, ed, cc(esm.lstring(r.first("FULL"))), fstr,
+                       str(llct[0]) if llct else "", str(len(entries)),
+                       lvcv, lvlg, lvct,
+                       _lvli_float(head.get("LVMV")), _lvli_link(esm, head.get("LVMG")),
+                       _lvli_link(esm, head.get("LVMT")), "",
+                       cc(esm.link_edit_value(struct.unpack("<I", lvsg[:4])[0])) if lvsg and len(lvsg) >= 4 else "",
+                       _lvli_link(esm, diqo), "", str(len(lconds))], lconds))
+        rc = _refcells(esm, r.fid)
+        refs.append(([fid, ed, str(len(rc))], rc))
+        if not entries:
+            continue
+        lcn = _lvli_glob_value(esm, lvlg) if lvlg else ""
+        if lcn == "" and lvcv != "":
+            lcn = lvcv.strip()
+        lcnv = _to_float(lcn)
+        lcnv = min(100.0, max(0.0, lcnv if lcnv is not None else 0.0))
+        lpres = 1.0 - lcnv / 100.0
+        for i, e in enumerate(entries):
+            lvlo = e["LVLO"]
+            refraw = lvlo[4:8] if len(lvlo) >= 12 else lvlo[:4]
+            ref = _lvli_link(esm, refraw)
+            conds = [_lvli_cond(ctx, *c) for c in e["CTDA"]]
+            cnv = _lvli_float(e.get("LVOV"))
+            cng = _lvli_link(esm, e.get("LVOG"))
+            cnc = _lvli_link(esm, e.get("LVOC"))
+            ents.append(([fid, ed, str(i), ref, "", cnv, cng, cnc,
+                          _lvli_float(e.get("LVIV")), _lvli_link(esm, e.get("LVIG")), _lvli_link(esm, e.get("LVIT")),
+                          _lvli_float(e.get("LVLV")), _lvli_link(esm, e.get("LVLG")), _lvli_link(esm, e.get("LVLT")),
+                          str(len(conds))], conds))
+            ecn = _lvli_glob_value(esm, cng) if cng else ""
+            if ecn == "" and cnv != "":
+                ecn = cnv.strip()
+            ecnv = _to_float(ecn)
+            ecnv = min(100.0, max(0.0, ecnv if ecnv is not None else 0.0))
+            cond_ch = _lvli_rand_chance(conds)
+            rsig = ref.rsplit(":", 1)[-1] if ":" in ref else ""
+            maths.append("\t".join([fid, ed, fstr, str(len(entries)), str(i), ref, rsig,
+                                    ref.split(":")[0] if rsig == "LVLI" else "",
+                                    lvcv, lvlg, lvct, lcn, cnv, cng, cnc, ecn,
+                                    _delphi_float(cond_ch),
+                                    _delphi_float(lpres * (1.0 - ecnv / 100.0)),
+                                    _delphi_float(lpres * (1.0 - ecnv / 100.0) * cond_ch),
+                                    _lvli_link(esm, e.get("LVOT"))]))
+    math_head = ("LVLI_FormID\tLVLI_EDID\tLVLF_Flags\tEntryCount\tEntryIndex\tLVLO_Reference\tRefSig\t"
+                 "SubLVLI_FormID\tListChanceNoneValue\tListChanceNoneGlobal\tListChanceNoneCurve\t"
+                 "ListChanceNoneResolved\tEntryChanceNoneValue\tEntryChanceNoneGlobal\tEntryChanceNoneCurve\t"
+                 "EntryChanceNoneResolved\tEntryCondChance_RandomPercent\tEntryPresenceChance\t"
+                 "EntryAprioriChance_NoSublist\tEntryChanceNoneCurveTable")
+    return {
+        "_LVLI_List": _pad_conds(lists, ["LVLI_FormID", "LVLI_EDID", "LVLI_FULL", "LVLF_Flags", "LLCT_Count",
+                                         "EntryCount", "LVCV_ChanceNoneValue", "LVLG_ChanceNoneGlobal",
+                                         "LVCT_ChanceNoneCurve", "LVMV_MaxValue", "LVMG_MaxGlobal", "LVMT_MaxCurve",
+                                         "LLKC_FilterKeywordChances", "LVSG_EpicLootChance", "DIQO_Quest",
+                                         "LIMC_MarkerColor", "ListCondCount"], "ListCond"),
+        "_LVLI_Entries": _pad_conds(ents, ["LVLI_FormID", "LVLI_EDID", "EntryIndex", "LVLO_Reference",
+                                           "COED_ExtraData", "LVOV_ChanceNoneValue", "LVOG_ChanceNoneGlobal",
+                                           "LVOC_ChanceNoneCurve", "LVIV_Quantity", "LVIG_QuantityGlobal",
+                                           "LVIT_QuantityCurve", "LVLV_MinimumLevel", "LVLG_MinimumLevelGlobal",
+                                           "LVLT_MinimumLevelCurve", "CondCount"]),
+        "_LVLI_Refs": _pad_refs(refs, ["LVLI_FormID", "LVLI_EDID", "ReferencedByCount"]),
+        "_LVLI_Math": [math_head] + maths,
+    }
+
+
 # ------------------------------------------------------------- ALLYDLG _Lore --
 _LORE_QUEST_RX = None
 
@@ -1728,7 +1947,7 @@ def _lore_notes(esm):
     return out + [x for _, x in rows]
 
 
-NEEDS_REFS = {"GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "ECAT", "CNDF", "LSCR", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
+NEEDS_REFS = {"LVLI", "GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "ECAT", "CNDF", "LSCR", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
 # exports that need Referenced By for more than their own records
 REF_TARGETS = {"NPC2": npc2_ref_targets, "MISC2": misc2_ref_targets, "ACTI2": acti2_ref_targets}
 
@@ -1762,6 +1981,7 @@ EXPORTS = {
     "REFRLVLI": (["LVLI"], "REFRLVLI_Placements", exp_refrlvli),
     "QUST2RQ": (["QUST"], "QUST2_Export", exp_qust2_rq),
     "QUSTSP": (["QUST", "GLOB"], "QUST2_Export", exp_qust_sp),
+    "LVLI": (["LVLI", "GLOB"], "LVLI_Export", exp_lvli),
     "LORE": (["NOTE", "BOOK"], "ALLYDLG_Export", exp_lore),
 }
 

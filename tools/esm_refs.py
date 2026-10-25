@@ -95,6 +95,24 @@ def _is_ref(rules, sig, sub, rel, field, tsig):
             return rel in vmad.formid_offsets(sig, field)
         except Exception:
             pass
+    # Two fields xEdit defines as plain FormIDs, so it lists whatever record the
+    # number happens to be - the learned rules only saw some record types there:
+    #   CELL XCRI (precombined meshes): 16-byte header (mesh count at 0,
+    #     reference count at 8), 8 bytes per mesh, then 8 bytes per reference
+    #     with the FormID first. Any number in a reference slot that equals a
+    #     leveled list / curve / keyword FormID shows up in xEdit's Referenced
+    #     By (LostHomeExt03 -> three recipe lists). Slots inside the mesh block
+    #     are hashes, not FormIDs.
+    #   PACK PTDA (package target): type 0 Specific Reference / 1 Object ID
+    #     holds a FormID of any type (XPD_AC01_SalSit -> LL_Drink_Alcohol_Wine).
+    if sig == "CELL" and sub == "XCRI" and len(field) >= 16:
+        start = 16 + 8 * struct.unpack_from("<I", field, 0)[0]
+        if rel >= start and (rel - start) % 8 == 0:
+            return True
+        # anywhere else: the learned rule, unchanged
+    if sig == "PACK" and sub == "PTDA" and rel == 4 and len(field) >= 8 \
+            and struct.unpack_from("<I", field, 0)[0] in (0, 1):
+        return True
     bys = rules.get((sig, sub, "size"))
     if bys is not None and len(field) in bys:  # rule for this exact subrecord size
         return tsig in bys[len(field)].get(rel, ())
