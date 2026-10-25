@@ -41,7 +41,7 @@ jobs:
           python3 -c "
           import json
           d = json.load(open('dist/about.json'))
-          required = ['vault-legends','community-groups','contact','follow','support-my-work']
+          required = ['vault-legends','community-groups','work-with-me','follow','support-my-work','privacy-policy','terms-of-service']
           for k in required:
               assert k in d, f'Missing key {k!r}'
               assert 'title' in d[k] and 'subtitle' in d[k], f'{k!r} missing title/subtitle'

@@ -18,7 +18,9 @@ Usage:
   python src/render_game_model.py --data "D:\steamlibrary\steamapps\common\Fallout 76 Playtest\Data" \
       --form 008ABB18 --out brain_in_a_jar.png
   python src/render_game_model.py --data ... --nif meshes\setdressing\...\thing.nif --out thing.png
-Options: --size 1024  --yaw 30  --pitch 18  --no-effects  --avif
+Options: --size 1024  --yaw 30  --pitch 18  --no-effects  --no-swap  --avif
+Material swaps (the record's MODS -> MSWP) are applied, so Glowing bobbleheads and each
+magazine's own cover render right (25 Oct 2026).
 Needs: numpy, pillow, numba (pip install numba).
 
 Not handled yet: weapon mods (OMOD attach points), armour on a body, ENTM storefront
@@ -176,14 +178,51 @@ def model_for(esm, form=None, edid=None):
             d = buf[o + 24:o + 24 + sz]
             if struct.unpack_from("<I", buf, o + 8)[0] & 0x40000:
                 d = zlib.decompress(d[4:])
-            ed = mod = None
+            ed = mod = mods = None
             for st, v in _subs(d):
                 if st == b"EDID": ed = v.rstrip(b"\0").decode("latin1")
                 elif st == b"MODL" and mod is None: mod = v.rstrip(b"\0").decode("latin1")
+                elif st == b"MODS" and mods is None and len(v) >= 4: mods = struct.unpack_from("<I", v)[0]
             if (want is not None and fid == want) or (edid and ed == edid):
-                return t.decode(), f"{fid:08X}", ed, mod
+                return t.decode(), f"{fid:08X}", ed, mod, mods
         o += 24 + sz
     return None
+
+
+def record_subs(esm, fid):
+    """All subrecords of one record by FormID (int)."""
+    buf = open(esm, "rb").read()
+    o, L = 24 + struct.unpack_from("<I", buf, 4)[0], len(buf)
+    while o < L:
+        t = buf[o:o + 4]; sz = struct.unpack_from("<I", buf, o + 4)[0]
+        if t == b"GRUP":
+            o += 24; continue
+        if struct.unpack_from("<I", buf, o + 12)[0] == fid:
+            d = buf[o + 24:o + 24 + sz]
+            if struct.unpack_from("<I", buf, o + 8)[0] & 0x40000:
+                d = zlib.decompress(d[4:])
+            return t.decode(), list(_subs(d))
+        o += 24 + sz
+    return None, []
+
+
+def _matkey(p):
+    p = (p or "").replace("/", "\\").lower()
+    return p[10:] if p.startswith("materials\\") else p
+
+
+def material_swaps(esm, mods_fid):
+    """MSWP (Material Swap, the record's MODS): original material -> replacement (BNAM -> SNAM).
+    This is how one bobblehead / magazine mesh gets its Glowing look or its own cover."""
+    if not mods_fid:
+        return {}
+    sig, subs = record_subs(esm, mods_fid)
+    out, cur = {}, None
+    for st, v in subs:
+        if st == b"BNAM": cur = v.rstrip(b"\0").decode("latin1")
+        elif st == b"SNAM" and cur is not None:
+            out[_matkey(cur)] = v.rstrip(b"\0").decode("latin1"); cur = None
+    return out
 
 # ───────────────────────────── NIF (Fallout 76, bsver 155) ─────────────────────────────
 
@@ -449,14 +488,17 @@ def main():
     ap.add_argument("--yaw", type=float, default=30.0)
     ap.add_argument("--pitch", type=float, default=18.0)
     ap.add_argument("--no-effects", action="store_true")
+    ap.add_argument("--no-swap", action="store_true", help="ignore the record's material swap (MODS)")
     a = ap.parse_args()
     ba2 = BA2Index(a.data)
     nif_path = a.nif
+    swaps = {}
     if not nif_path:
         rec = model_for(os.path.join(a.data, "SeventySix.esm"), a.form, a.edid)
         if not rec or not rec[3]:
             sys.exit(f"No model found for {a.form or a.edid}")
-        print(f"{rec[0]} {rec[1]} {rec[2]} -> {rec[3]}")
+        swaps = material_swaps(os.path.join(a.data, "SeventySix.esm"), rec[4]) if not a.no_swap else {}
+        print(f"{rec[0]} {rec[1]} {rec[2]} -> {rec[3]}" + (f"  (material swap {rec[4]:08X}: {len(swaps)} materials)" if swaps else ""))
         nif_path = rec[3]
     raw = ba2.read(nif_path)
     if not raw:
@@ -466,6 +508,10 @@ def main():
     textures = {}
     for q in parts:
         mat, kind, texset = nif.material(q["shader"])
+        if mat and _matkey(mat) in swaps:
+            sw = swaps[_matkey(mat)]
+            mat = sw if sw.lower().startswith("materials") else "Materials\\" + sw
+            kind = "effect" if mat.lower().endswith(".bgem") else kind
         q["kind"], q["material"] = kind or "lit", mat
         diffuse, _info = material_textures(ba2, mat)
         q["texture"] = diffuse or texset

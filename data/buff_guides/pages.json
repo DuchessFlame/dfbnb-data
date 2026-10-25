@@ -1,0 +1,324 @@
+{
+  "_readme": "Words for the seven Buffs guide pages (build_buff_guides_json.py). WORDS ONLY - every number comes from the game files through a {token}. Page tokens: {dur} {curator_dur} {curator_mult} {collectors_list} {collectors_pieces} {both_dur} {party1} {party2} {fiend} {fiend_pct} {carn} {carn_super} {herb} {herb_super} {classfreak} {count}. Note tokens (per item): {fx0} first buff's number, {perkpct:PERK_EDID} how much the perk changes it in %, {mgefpct:MGEF_EDID} that effect's magnitude in %, {mgefx:MGEF_EDID} 1 / (1 - magnitude). Notes: [\"note\" | \"bug\", text], keyed by the item's EDID (Glowing bobbleheads use the normal one's note). guides: {\"id\": guide_index id} or {\"children_of\": parent id, \"strip\": [title prefixes to cut]}. perkbar: which perks the finder's perk bar shows (curator, collectors, party, fiend, sin, classfreak).",
+  "pages": {
+    "alcohol": {
+      "url": "/bnb/buffs/alcohol/alcohol-buffs/",
+      "title": "Buffs - Alcohol Buffs",
+      "blurb": "Every beer, spirit and wine and what it really does, straight from the game files. Find the best drink for your build, compare up to three side by side, or open any drink for its buffs, side effects and when it works.",
+      "copy": {
+        "noun": "drink",
+        "nouns": "drinks",
+        "Noun": "Drink",
+        "Nouns": "Drinks"
+      },
+      "count": "There are currently {count} alcoholic drinks.",
+      "basics_title": "Alcohol basics",
+      "basics": [
+        "Most drinks have a chance to make you addicted to alcohol. The chance is shown with each drink.",
+        "Party Boy / Party Girl (Luck) multiplies the good effects of alcohol: ×{party1} at rank 1, ×{party2} at the top rank.",
+        "Drinks with the same kind of buff replace each other. Drinks with different buffs stack."
+      ],
+      "guides_title": "Useful pages",
+      "guides": [
+        {
+          "id": "bnb-buffs-food-recommended-calculator"
+        },
+        {
+          "id": "bnb-buffs-food-farming-planner"
+        }
+      ],
+      "perkbar": [
+        "party"
+      ],
+      "notes": {}
+    },
+    "chems": {
+      "url": "/bnb/buffs/chems/chem-buffs/",
+      "title": "Buffs - Chem Buffs",
+      "blurb": "Every chem and serum and what it really does, straight from the game files. Find the best chem for your build, compare up to three side by side, or open any chem for its buffs, side effects and when it works.",
+      "copy": {
+        "noun": "chem",
+        "nouns": "chems",
+        "Noun": "Chem",
+        "Nouns": "Chems"
+      },
+      "count": "There are currently {count} chems and serums.",
+      "basics_title": "Chem basics",
+      "basics": [
+        "Most chems have a chance to make you addicted. The chance is shown with each chem.",
+        "Chem Fiend (Luck) makes chems last {fiend_pct}% longer.",
+        "Chems with the same kind of buff replace each other. Chems with different buffs stack."
+      ],
+      "guides_title": "Useful pages",
+      "guides": [
+        {
+          "id": "bnb-buffs-food-recommended-calculator"
+        },
+        {
+          "id": "bnb-buffs-food-farming-planner"
+        }
+      ],
+      "perkbar": [
+        "fiend"
+      ],
+      "notes": {}
+    },
+    "food": {
+      "url": "/bnb/buffs/food/food-buffs/",
+      "title": "Buffs - Food Buffs",
+      "blurb": "Every food, drink, tea, juice, sweet and gum and what it really does, straight from the game files. Find the best food for your build, compare up to three side by side, or open any dish for its buffs, side effects and when it works.",
+      "copy": {
+        "noun": "food",
+        "nouns": "foods",
+        "Noun": "Food",
+        "Nouns": "Foods"
+      },
+      "count": "There are currently {count} foods and drinks.",
+      "basics_title": "Food basics",
+      "basics": [
+        "Carnivore doubles the buffs from meat dishes (×{carn}, ×{carn_super} with Strange In Numbers in a team) and takes away the buffs from vegetable dishes.",
+        "Herbivore doubles the buffs from vegetable, herb and fruit dishes (×{herb}, ×{herb_super} with Strange In Numbers in a team) and takes away the buffs from meat dishes.",
+        "Herb and fruit dishes are Hybrid: a Carnivore still gets the normal buff, and a Herbivore gets it doubled.",
+        "Dishes with the same kind of buff replace each other. Dishes with different buffs stack.",
+        "Rad-X stops your mutations while it lasts, so Carnivore and Herbivore stop working too."
+      ],
+      "guides_title": "Useful pages",
+      "guides": [
+        {
+          "id": "bnb-buffs-food-recommended-calculator"
+        },
+        {
+          "id": "bnb-buffs-food-farming-planner"
+        }
+      ],
+      "perkbar": [
+        "sin"
+      ],
+      "notes": {}
+    },
+    "nuka-cola": {
+      "url": "/bnb/buffs/nuka-cola-products/nuka-cola-product-buffs/",
+      "title": "Buffs - Nuka Cola Product Buffs",
+      "blurb": "Every Nuka-Cola product and what it really does, straight from the game files. Find the best one for your build, compare up to three side by side, or open any of them for its buffs, side effects and when it works.",
+      "copy": {
+        "noun": "Nuka-Cola product",
+        "nouns": "Nuka-Cola products",
+        "Noun": "Nuka-Cola product",
+        "Nouns": "Nuka-Cola products"
+      },
+      "count": "There are currently {count} Nuka-Cola products.",
+      "basics_title": "Nuka-Cola basics",
+      "basics": [
+        "Most Nuka-Cola products give you radiation. The amount is shown with each one.",
+        "Products with the same kind of buff replace each other. Products with different buffs stack."
+      ],
+      "guides_title": "Where to find them",
+      "guides": [
+        {
+          "children_of": "bnb-tc-farming-nuka-cola",
+          "strip": [
+            " Locations"
+          ]
+        }
+      ],
+      "perkbar": [],
+      "notes": {}
+    },
+    "bobbleheads": {
+      "url": "/bnb/buffs/bobbleheads/bobblehead-buffs/",
+      "title": "Buffs - Bobblehead Buffs",
+      "blurb": "Every bobblehead and what it really does, straight from the game files. Find the best one for your build, compare up to three side by side, or open any bobblehead for what it does, which weapons it works with and when it works.",
+      "copy": {
+        "noun": "bobblehead",
+        "nouns": "bobbleheads",
+        "Noun": "Bobblehead",
+        "Nouns": "Bobbleheads"
+      },
+      "count": "There are currently {count} bobbleheads (plus the Glowing versions, which do exactly the same).",
+      "basics_title": "Bobblehead basics",
+      "basics": [
+        "Every bobblehead lasts {dur}.",
+        "The Curator perk card (Intelligence) makes it last {curator_dur}.",
+        "Collector's legendary armour adds time for every piece you wear: {collectors_list}.",
+        "With Curator and {collectors_pieces} pieces of Collector's it lasts {both_dur} (we haven't confirmed in game that the two stack).",
+        "You can only have one bobblehead active. Using another one (Glowing ones included) replaces it.",
+        "It stacks with food, a chem, a drink and your magazine.",
+        "Glowing bobbleheads do exactly the same as the normal ones."
+      ],
+      "guides_title": "Where to find them",
+      "guides": [
+        {
+          "id": "df-farming-consumables-bobbleheads-location-guide"
+        },
+        {
+          "children_of": "df-sc-farming-consumables-bobbleheads",
+          "match": " - ",
+          "strip": [
+            "Bobbleheads Location Guide - "
+          ]
+        },
+        {
+          "id": "df-collectables-bobbleheads-checklist"
+        },
+        {
+          "id": "df-lifetime-bobbleheads"
+        }
+      ],
+      "perkbar": [
+        "curator",
+        "collectors"
+      ],
+      "notes": {
+        "Bobblehead_Repair_Potion": [
+          "note",
+          "The game says fusion cores last {perkpct:Bobblehead_RepairPerk}% longer, but that part only works on a Gatling Laser's fusion cores. It also does something the description doesn't mention: Power Armour drains its fusion core {mgefpct:Bobblehead_ReducePABatteryDamageRate_Effect}% slower, so a core lasts about {mgefx:Bobblehead_ReducePABatteryDamageRate_Effect} times as long."
+        ]
+      }
+    },
+    "magazines": {
+      "url": "/bnb/buffs/magazines/magazine-buffs/",
+      "title": "Buffs - Magazine Buffs",
+      "blurb": "Every magazine issue and what it really does, straight from the game files. Find the best one for your build, compare up to three side by side, or open any issue for what it does and when it works.",
+      "copy": {
+        "noun": "magazine",
+        "nouns": "magazines",
+        "Noun": "Magazine",
+        "Nouns": "Magazines"
+      },
+      "count": "There are currently {count} magazines.",
+      "basics_title": "Magazine basics",
+      "basics": [
+        "Every magazine lasts {dur}.",
+        "The Curator perk card (Intelligence) makes it last {curator_dur}.",
+        "Collector's legendary armour adds time for every piece you wear: {collectors_list}.",
+        "With Curator and {collectors_pieces} pieces of Collector's it lasts {both_dur} (we haven't confirmed in game that the two stack).",
+        "You can only have one magazine active. Reading another one replaces it.",
+        "It stacks with food, a chem, a drink and your bobblehead."
+      ],
+      "guides_title": "Where to find them",
+      "guides": [
+        {
+          "id": "df-farming-consumables-magazines-location-guide"
+        },
+        {
+          "children_of": "df-sc-farming-consumables-magazines",
+          "match": " - ",
+          "strip": [
+            "Magazines Location Guide - "
+          ]
+        },
+        {
+          "id": "df-collectables-magazines-checklist"
+        },
+        {
+          "id": "df-lifetime-magazines"
+        }
+      ],
+      "perkbar": [
+        "curator",
+        "collectors"
+      ],
+      "notes": {
+        "Magazine_GunsAndBullets07_Potion": [
+          "bug",
+          "The game says +{fx0}% Unscoped Weapon Damage, but in the game files this magazine has no weapon check at all, so it boosts every weapon you use: scoped, melee and thrown too. A bug report has been sent to Bethesda."
+        ],
+        "Magazine_LiveAndLove05_Potion": [
+          "note",
+          "Its Luck buff only works while you have a drink active (any beer, spirit or wine). Drinking doesn't remove the magazine."
+        ],
+        "Magazine_AwesomeTales03_Potion": [
+          "note",
+          "The Health Regen only works while you are swimming. Breathe Underwater works all the time. The pickup message says you swim faster, but the game files give health regen while swimming instead."
+        ],
+        "Magazine_Backwoodsman07_Potion": [
+          "bug",
+          "The game says -{fx0}% disease chance from food and drink, but the game files only cut it by {perkpct:Magazine_Backwoodsman07Perk}%. A bug report has been written for Bethesda."
+        ],
+        "Magazine_AwesomeTales07_Potion": [
+          "note",
+          "The pickup message still has an old number. The page shows what the game really gives. A bug report has been written for Bethesda."
+        ],
+        "Magazine_AwesomeTales10_Potion": [
+          "note",
+          "The pickup message still has an old number. The page shows what the game really gives. A bug report has been written for Bethesda."
+        ],
+        "Magazine_GrognakTheBarbarian03_Potion": [
+          "note",
+          "The pickup message still has an old number. The page shows what the game really gives. A bug report has been written for Bethesda."
+        ],
+        "Magazine_GrognakTheBarbarian09_Potion": [
+          "note",
+          "The pickup message still has an old number. The page shows what the game really gives. A bug report has been written for Bethesda."
+        ],
+        "Magazine_GrognakTheBarbarian10_Potion": [
+          "note",
+          "The pickup message still has an old number. The page shows what the game really gives. A bug report has been written for Bethesda."
+        ],
+        "Magazine_GunsAndBullets06_Potion": [
+          "note",
+          "The pickup message still has an old number. The page shows what the game really gives. A bug report has been written for Bethesda."
+        ],
+        "Magazine_LiveAndLove01_Potion": [
+          "note",
+          "The pickup message still has an old number. The page shows what the game really gives. A bug report has been written for Bethesda."
+        ],
+        "Magazine_LiveAndLove06_Potion": [
+          "note",
+          "The pickup message still has an old number. The page shows what the game really gives. A bug report has been written for Bethesda."
+        ],
+        "Magazine_TeslaScience06_Potion": [
+          "note",
+          "The pickup message still has an old number. The page shows what the game really gives. A bug report has been written for Bethesda."
+        ],
+        "Magazine_USCovertOps01_Potion": [
+          "note",
+          "The pickup message still has an old number. The page shows what the game really gives. A bug report has been written for Bethesda."
+        ],
+        "Magazine_GrognakTheBarbarian08_Potion": [
+          "note",
+          "The pickup message describes an older version of this magazine. Today it gives what's shown here. A bug report has been written for Bethesda."
+        ],
+        "Magazine_ScoutsLife03_Potion": [
+          "note",
+          "The pickup message describes an older version of this magazine. Today it gives what's shown here. A bug report has been written for Bethesda."
+        ],
+        "Magazine_ScoutsLife09_Potion": [
+          "note",
+          "The pickup message describes an older version of this magazine. Today it gives what's shown here. A bug report has been written for Bethesda."
+        ],
+        "Magazine_AwesomeTales06_Potion": [
+          "note",
+          "The pickup message describes an older version of this magazine. Today it gives what's shown here. A bug report has been written for Bethesda."
+        ]
+      }
+    },
+    "mutations": {
+      "url": "/bnb/buffs/mutations/mutation-buffs/",
+      "title": "Buffs - Mutation Buffs",
+      "blurb": "Every mutation and what it really does, good and bad, straight from the game files. Find the best mutations for your build, compare up to three side by side, or open any mutation for its buffs, its downsides and when they work.",
+      "copy": {
+        "noun": "mutation",
+        "nouns": "mutations",
+        "Noun": "Mutation",
+        "Nouns": "Mutations"
+      },
+      "count": "There are currently {count} mutations.",
+      "basics_title": "Mutation basics",
+      "basics": [
+        "Mutations last until you cure them (RadAway can remove them unless you have Starched Genes).",
+        "Class Freak (Luck) makes the bad effects smaller: {classfreak}.",
+        "Strange In Numbers (Charisma) makes the good effects stronger while you are in a team with another mutated player.",
+        "Rad-X stops all your mutations, good and bad, while it lasts.",
+        "A serum gives you the mutation."
+      ],
+      "guides_title": "",
+      "guides": [],
+      "perkbar": [
+        "sin",
+        "classfreak"
+      ],
+      "notes": {}
+    }
+  }
+}

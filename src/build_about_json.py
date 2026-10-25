@@ -20,7 +20,9 @@ Output:
       "community-groups":  { "title": ..., "subtitle": ..., ... },
       "work-with-me":      { ... },   # was "contact" until Aug 2026
       "follow":            { ... },
-      "support-my-work":   { ... }
+      "support-my-work":   { ... },
+      "privacy-policy":    { "title": ..., "subtitle": ..., "sections": [...] },
+      "terms-of-service":  { "title": ..., "subtitle": ..., "sections": [...] }
     }
 
 Usage:
@@ -209,7 +211,7 @@ WORK_WITH_ME = {
 # policy changes, update the "Last updated" date in the subtitle too.
 PRIVACY_POLICY = {
     "title": "About - Privacy Policy",
-    "subtitle": "Last updated: 23 October 2026",
+    "subtitle": "Last updated: 25 October 2026",
     "sections": [
         {
             "title": "",
@@ -372,6 +374,53 @@ PRIVACY_POLICY = {
             ),
         },
         {
+            "title": "If you’re in the EU or UK",
+            "html": (
+                "<p>If you live in the European Union or the United Kingdom, "
+                "these extra details apply to you.</p>"
+                "<h3>Who is responsible for your information</h3>"
+                "<p>DuchessFlame, the person who runs this website and its bots, "
+                "based in Western Australia. You can reach us at the email "
+                "address in “Contact” below.</p>"
+                "<h3>Why we’re allowed to use it</h3>"
+                "<ul>"
+                "<li><strong>To give you what you asked for:</strong> your "
+                "account, the community tools, and answers to your messages and "
+                "reports.</li>"
+                "<li><strong>Our legitimate interests:</strong> running, "
+                "securing and improving the website, the tools and the bots, and "
+                "keeping the community safe, including moderation.</li>"
+                "<li><strong>Your consent:</strong> for anything optional you "
+                "choose to give us, such as extra profile details. You can take "
+                "your consent back at any time.</li>"
+                "<li><strong>The law:</strong> where we have to keep or share "
+                "information to follow it.</li>"
+                "</ul>"
+                "<h3>Your rights</h3>"
+                "<p>You can ask us to:</p>"
+                "<ul>"
+                "<li>give you a copy of the information we hold about you,</li>"
+                "<li>correct it,</li>"
+                "<li>delete it,</li>"
+                "<li>stop or limit how we use it, or object to how we use it,</li>"
+                "<li>send it to you in a format you can take somewhere else.</li>"
+                "</ul>"
+                "<p>Email us to do any of these. We’ll answer within one "
+                "month.</p>"
+                "<h3>Information stored outside the EU and UK</h3>"
+                "<p>We’re based in Australia, and the services we use (our web "
+                "host, Discord, Anthropic and Google) may store or process "
+                "information in other countries, including Australia and the "
+                "United States. We rely on the protections these services provide "
+                "for sending information between countries.</p>"
+                "<h3>Complaints</h3>"
+                "<p>You have the right to complain to the data protection "
+                "authority where you live (in the UK, the Information "
+                "Commissioner’s Office). We’d appreciate the chance to sort it "
+                "out with you first, so please email us.</p>"
+            ),
+        },
+        {
             "title": "Children",
             "html": (
                 "<p>Fallout 76 is rated for mature audiences, and Discord requires "
@@ -392,6 +441,185 @@ PRIVACY_POLICY = {
             "html": (
                 "<p>For questions or privacy requests, email "
                 "<a href=\"mailto:duchessflame3215@gmail.com?subject=Privacy%20request\">"
+                "duchessflame3215@gmail.com</a> or use the Contact tab on this "
+                "website.</p>"
+            ),
+        },
+    ],
+}
+
+
+# Terms of Service — written guide (flat prose), same shape and renderer as
+# the Privacy Policy (renderWrittenGuide in df-bnb-about.js). Added 25 Oct 2026
+# (Duchess: needed for the bots' Google app check). Edit the wording here, not
+# in the JS. When the terms change, update the "Last updated" date too.
+TERMS_OF_SERVICE = {
+    "title": "About - Terms of Service",
+    "subtitle": "Last updated: 25 October 2026",
+    "sections": [
+        {
+            "title": "",
+            "html": (
+                "<p>These terms cover theduchessflame.com (including the Buffs n "
+                "Brew pages), the Buffs n Brew community tools and the "
+                "DuchessFlame Discord bots (Brewmaster and Mia Matthews Flame). "
+                "By using any of them, you agree to these terms. If you don’t "
+                "agree, please don’t use them. In these terms, “we”, “us” and "
+                "“DuchessFlame” mean the person who runs this website and its "
+                "bots.</p>"
+                "<p>How we handle your information is explained in our "
+                "<a href=\"../privacy-policy/\">Privacy Policy</a>.</p>"
+            ),
+        },
+        {
+            "title": "A fan site",
+            "html": (
+                "<p>This is a fan-made community site. It is not made, endorsed "
+                "or supported by Bethesda, ZeniMax or Microsoft. Fallout and "
+                "Fallout 76 are trademarks of their owners, and the game’s "
+                "names, pictures and data belong to them. We use them to make "
+                "guides for players.</p>"
+            ),
+        },
+        {
+            "title": "Using the guides and tools",
+            "html": (
+                "<ul>"
+                "<li>The guides, checklists, calculators and tools are free to "
+                "use.</li>"
+                "<li>We work hard to keep them right, but Fallout 76 changes with "
+                "every update, so some information may be out of date or wrong. "
+                "Please check anything important in the game.</li>"
+                "<li>Your checklist and tracker progress is a handy record for "
+                "you. Some of it is saved only in your browser and can be lost if "
+                "you clear it, so don’t rely on it as your only copy.</li>"
+                "</ul>"
+            ),
+        },
+        {
+            "title": "Your account",
+            "html": (
+                "<ul>"
+                "<li>Keep your login details private. You are responsible for "
+                "what happens on your account.</li>"
+                "<li>Use a username and details that aren’t offensive and don’t "
+                "pretend to be someone else.</li>"
+                "<li>You can close your account at any time, or ask us to do it "
+                "for you.</li>"
+                "</ul>"
+            ),
+        },
+        {
+            "title": "Community rules",
+            "html": (
+                "<p>When you use the website, the community tools or our Discord "
+                "server, please:</p>"
+                "<ul>"
+                "<li>Be respectful. No harassment, bullying, hate speech or "
+                "threats.</li>"
+                "<li>Don’t post spam, scams, phishing links or anything "
+                "harmful.</li>"
+                "<li>Don’t post other people’s private information.</li>"
+                "<li>Don’t try to break into, overload or interfere with the "
+                "website, the tools or the bots.</li>"
+                "<li>Follow Discord’s own rules and Bethesda’s rules for Fallout "
+                "76.</li>"
+                "</ul>"
+                "<p>We may remove posts, messages or accounts that break these "
+                "rules.</p>"
+            ),
+        },
+        {
+            "title": "Things you send us",
+            "html": (
+                "<p>When you send us bug reports, suggestions, screenshots or "
+                "other content, you confirm you’re allowed to share it, and you "
+                "let us use it to fix and improve the guides, tools and "
+                "bots.</p>"
+            ),
+        },
+        {
+            "title": "Our Discord bots",
+            "html": (
+                "<ul>"
+                "<li><strong>Brewmaster</strong> answers questions, runs commands "
+                "and helps with moderation in our Discord server.</li>"
+                "<li>The bots’ replies are automatic and can get things wrong, "
+                "so please don’t rely on them for anything important.</li>"
+                "<li>Don’t try to trick the bots into ignoring their rules, "
+                "opening links, or sharing private information. Messages like "
+                "that may be flagged to our moderators.</li>"
+                "<li>We may limit or block anyone’s use of the bots if they misuse "
+                "them.</li>"
+                "</ul>"
+            ),
+        },
+        {
+            "title": "Mia Matthews Flame and Google services",
+            "html": (
+                "<p>Mia Matthews Flame is a personal assistant app used only by "
+                "the owner of DuchessFlame, with her own Google accounts. It is "
+                "not offered to the public, and no one else may sign in to it or "
+                "connect a Google account to it.</p>"
+                "<p>How it uses Gmail and Google Calendar data is explained in "
+                "the “Google user data” section of our "
+                "<a href=\"../privacy-policy/\">Privacy Policy</a>. Its use of "
+                "Google user data follows the "
+                "<a href=\"https://developers.google.com/terms/api-services-user-data-policy\" "
+                "target=\"_blank\" rel=\"noopener\">Google API Services User Data "
+                "Policy</a>, including the Limited Use requirements.</p>"
+            ),
+        },
+        {
+            "title": "Our content",
+            "html": (
+                "<p>The guides, checklists, calculators, words and pictures we "
+                "make belong to DuchessFlame. You’re welcome to link to them and "
+                "share them. Please ask before copying whole guides or data sets "
+                "to post somewhere else.</p>"
+            ),
+        },
+        {
+            "title": "Links to other sites",
+            "html": (
+                "<p>Some pages link to other websites and services. We don’t "
+                "control them and aren’t responsible for what they contain or "
+                "how they handle your information.</p>"
+            ),
+        },
+        {
+            "title": "No guarantees",
+            "html": (
+                "<p>The website, tools and bots are provided as they are. They "
+                "may change, have mistakes, or be unavailable at times, and we "
+                "may stop any of them at any time.</p>"
+                "<p>As far as the law allows, we are not responsible for any "
+                "loss that comes from using them, including lost game items, "
+                "caps or progress. Nothing in these terms takes away rights you "
+                "have under the Australian Consumer Law that can’t be "
+                "excluded.</p>"
+            ),
+        },
+        {
+            "title": "Changes to these terms",
+            "html": (
+                "<p>If we change these terms, we’ll update the date at the top of "
+                "this page. If you keep using the website, tools or bots after a "
+                "change, you accept the new terms.</p>"
+            ),
+        },
+        {
+            "title": "Law",
+            "html": (
+                "<p>These terms are governed by the laws of Western Australia, "
+                "Australia.</p>"
+            ),
+        },
+        {
+            "title": "Contact",
+            "html": (
+                "<p>For questions about these terms, email "
+                "<a href=\"mailto:duchessflame3215@gmail.com?subject=Terms%20of%20Service\">"
                 "duchessflame3215@gmail.com</a> or use the Contact tab on this "
                 "website.</p>"
             ),
@@ -442,6 +670,9 @@ def build(src_dir: Path) -> dict:
     # Privacy Policy — written guide (sections of H2 + HTML prose).
     about["privacy-policy"] = PRIVACY_POLICY
 
+    # Terms of Service — written guide, same shape as the Privacy Policy.
+    about["terms-of-service"] = TERMS_OF_SERVICE
+
     # Other /about/ pages — placeholder until content is added.
     # Each is keyed by URL slug; the JS module dispatches by slug.
     for slug, title in [
@@ -478,6 +709,7 @@ def main() -> int:
     print(f"  support-my-work    actions: {len(data['support-my-work']['actions'])}")
     print(f"  work-with-me       actions: {len(data['work-with-me']['actions'])}")
     print(f"  privacy-policy     sections: {len(data['privacy-policy']['sections'])}")
+    print(f"  terms-of-service   sections: {len(data['terms-of-service']['sections'])}")
     print(f"  follow             subtitle={data['follow']['subtitle'][:48]!r}...")
     for k in ("community-groups",):
         print(f"  {k:<18} title={data[k]['title']!r}, subtitle={data[k]['subtitle']!r}")

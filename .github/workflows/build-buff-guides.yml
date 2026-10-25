@@ -1,0 +1,79 @@
+name: Build Buffs Guide Pages
+
+# Builds the data for the seven BnB Buffs guide pages
+#   /bnb/buffs/alcohol/alcohol-buffs/  /bnb/buffs/chems/chem-buffs/  /bnb/buffs/food/food-buffs/
+#   /bnb/buffs/nuka-cola-products/nuka-cola-product-buffs/  /bnb/buffs/bobbleheads/bobblehead-buffs/
+#   /bnb/buffs/magazines/magazine-buffs/  /bnb/buffs/mutations/mutation-buffs/
+# Output: dist/buff_guides/<page>.json + dist/buff_guides/shared.json (df-bnb-buffs.js, guide mode).
+# Runs Build Buffs JSON and the Food Buff Calculator first, because it reads both.
+# Game-file extras (BUFFCOND / MESGTXT / CONTITEMS) come from tools/esm_buff_guides_extract.py,
+# run on the PC after a patch. The full patch / PTS builds also run it.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - 'tsv/ALCH_*.tsv'
+      - 'tsv/MGEF_*.tsv'
+      - 'tsv/MGEFKW_*.tsv'
+      - 'tsv/PERKEP_*.tsv'
+      - 'tsv/PERK_*.tsv'
+      - 'tsv/SPEL_*.tsv'
+      - 'tsv/WEAP_*.tsv'
+      - 'tsv/AVIF_*.tsv'
+      - 'tsv/CNDF_*.tsv'
+      - 'tsv/BUFFCOND_*.tsv'
+      - 'tsv/MESGTXT_*.tsv'
+      - 'tsv/CONTITEMS_*.tsv'
+      - 'tsv/guide_index.tsv'
+      - 'data/buff_guides/**'
+      - 'data/food_buff_calculator/**'
+      - 'src/build_buff_guides_json.py'
+      - 'src/build_food_buff_calculator_json.py'
+      - 'src/build_buffs_json.py'
+      - '.github/workflows/build-buff-guides.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-buff-guides
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Build Buffs JSON
+        run: python src/build_buffs_json.py --data-dir tsv --outdir dist
+
+      - name: Build Recommended Food Buff Calculator JSON
+        run: python src/build_food_buff_calculator_json.py --data-dir tsv --outdir dist
+
+      - name: Build Buffs Guide Pages JSON
+        run: python src/build_buff_guides_json.py --data-dir tsv --outdir dist
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dist/buff_guides dist/buffs dist/buffs.json dist/calculators/food_buff_calculator.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "Build Buffs guide pages data"
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push origin main && exit 0
+            sleep 5
+          done
+          exit 1
