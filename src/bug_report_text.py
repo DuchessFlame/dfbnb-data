@@ -82,6 +82,11 @@ def fields_for(item):
         cause, dept = "", "System Design"
     detail = bug.get("detail") or bug.get("text") or bug.get("summary") or ""
     recs = _records(bug)
+    plan = (item.get("technical") or {}).get("plan") or {}
+    if plan.get("form_id") and plan["form_id"] not in recs:
+        # the plan's FormID is always in the report, so the PC tool can tell a
+        # plan was already reported (by hand or by an earlier run)
+        recs = f"{plan['edid']} [{plan['type']}:{plan['form_id']}]" + (", " + recs if recs else "")
     if recs:
         cause = (cause + "\n\nRecords: " + recs).strip()
     return {"title": title, "description": detail, "steps": steps,
