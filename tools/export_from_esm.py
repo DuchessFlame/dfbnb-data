@@ -52,6 +52,12 @@ straight from the game files, so these no longer need xEdit:
             underarmour only; _Mods carries each installed OMOD's includes and properties)
     AVTR    AVTR_Export_<Month>_<Year>.tsv          (ExportAVTRToTSV.pas: player icons)
     BOOK    BOOK_Export_<Month>_<Year>.tsv + _Locations  (ExportBOOKToTSV.pas)
+    BOOK2   BOOK2_Export_<Month>_<Year>.tsv         (ExportBOOK2ToCSV.pas: note placements)
+    COBJ    COBJ_Export_<Month>_<Year>.tsv + COBJ2_Export_<Month>_<Year>.tsv  (ExportCOBJToTSV.pas;
+            COBJ2 = learn method, learn chance, conditions, first condition quest)
+    CONT    CONT_Export_<Month>_<Year>.tsv          (ExportCONTToTSV.pas: containers)
+    ENCH    ENCH_Export_<Month>_<Year>.tsv          (ExportENCHToTSV.pas: enchantments)
+    ENTM    ENTM_Export_<Month>_<Year>.tsv          (ExportENTMToTSV.pas: entitlements)
     TERMPL  TERM_Export_<Month>_<Year>_Placements.tsv  (ExportTERMToTSV.pas _Placements;
             the main TERM file and _Quests are tools/export_term_from_esm.py)
     REFR    REFR_Placements_<Month>_<Year>.tsv  (ExportREFRPlacementsToTSV.pas per base:
@@ -62,7 +68,7 @@ Every xEdit .pas above stays working as the manual backup.
 Coordinates are correctly rounded; xEdit's own text can differ by one in the last
 decimal place (X/Y/Z) and RotZ by 0.0001 - accepted, readers place by X/Y.
 
-GLOB, AVIF, KYWD, CURV, MISC, NPC, ARMO2, AVTR and BOOK list every record that points at each row ("Referenced By"),
+GLOB, AVIF, KYWD, CURV, MISC, NPC, ARMO2, AVTR, BOOK, COBJ, CONT, ENCH and ENTM list every record that points at each row ("Referenced By"),
 worked out by esm_refs.py in one ~40 s scan (needs numpy). Known gap: xEdit
 stops reading some quests part-way through their objective/alias conditions, so
 its lists leave out those quests; these lists include them. (The CURV XCRI and
@@ -1313,6 +1319,230 @@ def exp_book(esm):
     return {"": out, "_Locations": locs}
 
 
+# ------------------------------------------------------------- COBJ ------
+COBJ_LEARN = ["Learned when picked up or by script", "Learned by scrapping", "Learned when ingested",
+              "Known by default or when conditions are met", "Learned from plan", "Learned from challenge"]
+
+
+def exp_cobj(esm):
+    """ExportCOBJToTSV.pas - recipes (main file: created object, workbench keyword,
+    recipe book, FNAM keywords, FVPA Component:Count:CurveTable, Referenced By flat +
+    padded) and COBJ2 (learn method, learn chance, conditions, first quest a
+    condition points at). COBJ2 is a sibling prefix so COBJ_Export_* globs skip it."""
+    import esm_refs
+
+    def link3(sub):
+        v = r.first(sub)
+        f = _u32(v) if v else None
+        if not _lk(esm, f):
+            return ["", "", ""]
+        return ["%08X" % f, esm.edid_of(f), _ccell(esm.full_of(f))]
+
+    rows, cond = [], ["\t".join(["COBJ_FormID", "COBJ_EDID", "CNAM_FormID", "CNAM_EDID", "LRNM_LearnMethod",
+                                 "LRNC_LearnChance", "CondCount", "Conditions", "Quest_FormID", "Quest_EDID",
+                                 "Quest_FULL"])]
+    for r in R.xedit_order(esm, "COBJ"):
+        fid, ed = "%08X" % r.fid, _ccell(r.edid)
+        cn = link3("CNAM")
+        fn = r.first("FNAM") or b""
+        # xEdit sorts FNAM and FVPA by FormID (component FormID for FVPA)
+        kws = [_ccell(esm.edid_of(k)) for k in sorted(struct.unpack_from("<%dI" % (len(fn) // 4), fn))
+               if _lk(esm, k)]
+        fv = r.first("FVPA") or b""
+        comps = []
+        for c, n, cu in sorted((struct.unpack_from("<III", fv, o) for o in range(0, len(fv) - 11, 12)),
+                               key=lambda t: t[0]):
+            name = _ccell(esm.edid_of(c)) if _lk(esm, c) else _ccell(esm.link_edit_value(c))
+            if not name:
+                continue
+            comps.append("%s:%d:%s" % (name, n, _ccell(esm.edid_of(cu)) if _lk(esm, cu) else ""))
+        refs = [_ccell(x) for x in _refcells(esm, r.fid)]
+        rows.append(([fid, ed] + cn + link3("BNAM") + link3("GNAM")
+                     + ["|".join(kws), "|".join(comps), "|".join(refs), str(len(refs))], refs))
+        # ---- COBJ2
+        lv = r.first("LRNM")
+        lrnm = (COBJ_LEARN[lv[0]] if lv[0] < len(COBJ_LEARN) else str(lv[0])) if lv else ""
+        lc = r.first("LRNC")
+        lrnc = ""
+        if lc and len(lc) >= 4:
+            g = _u32(lc)
+            lrnc = _ccell(_linkcell(esm, g)) if _lk(esm, g) else _ccell(esm.link_edit_value(g))
+        ctx = C.Ctx(esm, r)
+        conds, quest = [], None
+        for ctda, c1, c2 in C.conditions(r):
+            one = _ccell(C.pas_cond(ctx, ctda, c1, c2, clean=_ccell))
+            if one:
+                conds.append(one)
+            if quest is None:
+                for o in sorted(esm_refs._ctda_offsets(ctda)):
+                    q = struct.unpack_from("<I", ctda, o)[0]
+                    if _lk(esm, q) and esm.sig_of(q) == "QUST":
+                        quest = q
+                        break
+        qc = ["%08X" % quest, esm.edid_of(quest), _ccell(esm.full_of(quest))] if quest else ["", "", ""]
+        cond.append("\t".join([fid, ed, cn[0], cn[1], lrnm, lrnc, str(len(conds)), " ; ".join(conds)] + qc))
+    mr = max((len(x) for _b, x in rows), default=0)
+    out = ["\t".join(["COBJ_FormID", "COBJ_EDID", "CNAM_FormID", "CNAM_EDID", "CNAM_FULL", "BNAM_FormID",
+                      "BNAM_EDID", "BNAM_FULL", "GNAM_FormID", "GNAM_EDID", "GNAM_FULL", "FNAM_Keywords", "FVPA",
+                      "ReferencedBy_Flat", "ReferencedByCount"] + ["Ref_%d" % i for i in range(1, mr + 1)])]
+    for b, x in rows:
+        out.append("\t".join(b + x + [""] * (mr - len(x))))
+    return {"COBJ": out, "COBJ2": cond}
+
+
+# ------------------------------------------------------------- CONT ------
+def exp_cont(esm):
+    """ExportCONTToTSV.pas - containers: harvest global (HGLB), keywords, PRPS
+    properties (AV | value | curve, three columns each) and Referenced By, padded."""
+    def ed(f):
+        return _ccell(esm.edid_of(f))
+
+    def lc(f):
+        return "%08X:%s:%s" % (f, ed(f), esm.sig_of(f))
+
+    rows = []
+    for r in R.xedit_order(esm, "CONT"):
+        hg = r.first("HGLB")
+        hglb = ""
+        if hg and len(hg) >= 4:
+            g = _u32(hg)
+            hglb = ed(g) if _lk(esm, g) else _ccell(esm.link_edit_value(g))
+        kw = r.first("KWDA") or b""
+        kws = [lc(k) if _lk(esm, k) else _ccell(esm.link_edit_value(k))
+               for k in sorted(struct.unpack_from("<%dI" % (len(kw) // 4), kw))]   # xEdit sorts KWDA
+        pr = r.first("PRPS") or b""
+        props = []
+        for av, val, cv in sorted((struct.unpack_from("<IfI", pr, i * 12) for i in range(len(pr) // 12)),
+                                  key=lambda x: x[0]):   # PRPS sorted by Actor Value, as in NPC
+            a = ed(av) if _lk(esm, av) else _ccell(esm.link_edit_value(av))
+            c = ed(cv) if _lk(esm, cv) else _ccell(esm.link_edit_value(cv))
+            props.append([a, C.fmt_float(val), c])
+        refs = [_ccell(x) for x in _refcells(esm, r.fid)]
+        rows.append(([("%08X" % r.fid), _ccell(r.edid), _ccell(esm.lstring(r.full)), hglb, str(len(kws))],
+                     kws, props, refs))
+    mk = max((len(x[1]) for x in rows), default=0)
+    mp = max((len(x[2]) for x in rows), default=0)
+    mr = max((len(x[3]) for x in rows), default=0)
+    head = (["FormID", "EDID", "FULL", "HGLB", "KeywordCount"] + ["KW%d" % i for i in range(1, mk + 1)]
+            + ["PropertyCount"] + [c % i for i in range(1, mp + 1)
+                                   for c in ("Prop_%d_AV", "Prop_%d_Val", "Prop_%d_Curve")]
+            + ["ReferencedByCount"] + ["Ref_%d" % i for i in range(1, mr + 1)])
+    out = ["\t".join(head)]
+    for b, k, p, x in rows:
+        out.append("\t".join(b + k + [""] * (mk - len(k)) + [str(len(p))] + [v for t in p for v in t]
+                             + [""] * (3 * (mp - len(p))) + [str(len(x))] + x + [""] * (mr - len(x))))
+    return out
+
+
+# ------------------------------------------------------------- ENCH ------
+ENCH_TYPES = {6: "Enchantment", 12: "Staff Enchantment"}
+
+
+def exp_ench(esm):
+    """ExportENCHToTSV.pas - enchantments: ENIT (Flags, Cast / Target / Enchant Type,
+    Charge Time), per effect MGEF FormID + EDID, Magnitude, Area, Duration, curve
+    (CVT0) and the actor value the curve is keyed on (MAGA), then Referenced By.
+    ENIT_EnchantCost / ENIT_EnchantAmount stay blank: the .pas asks for 'Enchant Cost'
+    and 'Amount', which aren't xEdit's field names ('Enchantment Cost' / 'Enchantment
+    Amount'). Globals_Count is always 0 (ENCH has no PRPS)."""
+    def ed(f):
+        return _ccell(esm.edid_of(f))
+
+    rows = []
+    for r in R.xedit_order(esm, "ENCH"):
+        e = r.first("ENIT")
+        en = [""] * 7
+        if e and len(e) >= 28:
+            _cost, fl, ct, _amt, tt, et, ch = struct.unpack_from("<iIIiIIf", e)
+            en = [_flag_bits(fl), _enum(CAST_TYPE, ct), _enum(TARGET_TYPE, tt), ENCH_TYPES.get(et, str(et)),
+                  C.fmt_float(ch), "", ""]
+        effs = []
+        for k, v in r.subs:
+            if k == "EFID":
+                effs.append({"EFID": v})
+            elif effs and k in ("EFIT", "CVT0", "MAGA"):
+                effs[-1].setdefault(k, v)
+        cells = []
+        for x in effs:
+            m = _u32(x["EFID"])
+            fid_ed = ["%08X" % m, ed(m)] if _lk(esm, m) else ["", ""]
+            mag = area = dur = ""
+            efit = x.get("EFIT")
+            # EFIT layout follows the record's form version: from version 170 a leading
+            # u32 comes before Magnitude, Area, Duration (16 or 24 bytes); older records
+            # (12 bytes, or 24 at versions 156-164) start with Magnitude.
+            if efit and len(efit) >= 16 and r.version >= 170:
+                _id, mg, ar, du = struct.unpack_from("<IfII", efit)
+                mag, area, dur = C.fmt_float(mg), str(ar), str(du)
+            elif efit and len(efit) >= 12:
+                mg, ar, du = struct.unpack_from("<fII", efit)
+                mag, area, dur = C.fmt_float(mg), str(ar), str(du)
+            cv = _u32(x.get("CVT0"))
+            ma = _u32(x.get("MAGA"))
+            cells.append(fid_ed + [mag, area, dur, ed(cv) if _lk(esm, cv) else "",
+                                   "%08X" % ma if ma else "", ed(ma) if _lk(esm, ma) else ""])
+        refs = _refcells(esm, r.fid)
+        rows.append((["%08X" % r.fid, _ccell(r.edid), _ccell(esm.lstring(r.full))] + en + [str(len(cells))],
+                     cells, refs))
+    me = max((len(x[1]) for x in rows), default=0)
+    mr = max((len(x[2]) for x in rows), default=0)
+    head = (["ENCH_FormID", "ENCH_EDID", "ENCH_FULL", "ENIT_Flags", "ENIT_CastType", "ENIT_TargetType",
+             "ENIT_EnchantType", "ENIT_ChargeTime", "ENIT_EnchantCost", "ENIT_EnchantAmount", "Effects_Count"]
+            + [c % i for i in range(1, me + 1)
+               for c in ("Effect_%d_MGEF_FID", "Effect_%d_MGEF_EID", "Effect_%d_Magnitude", "Effect_%d_Area",
+                         "Effect_%d_Duration", "Effect_%d_CURV_EID", "Effect_%d_MAGA_FID", "Effect_%d_MAGA_EID")]
+            + ["Globals_Count", "ReferencedByCount"] + ["Ref_%d" % i for i in range(1, mr + 1)])
+    out = ["\t".join(head)]
+    for b, c, x in rows:
+        out.append("\t".join(b + [v for t in c for v in t] + [""] * (8 * (me - len(c))) + ["0", str(len(x))]
+                             + x + [""] * (mr - len(x))))
+    return out
+
+
+# ------------------------------------------------------------- ENTM ------
+ENTM_MAX_REFS = 64
+
+
+def exp_entm(esm):
+    """ExportENTMToTSV.pas - entitlements (Atom Shop / Fallout 1st / season items):
+    names, XALG flags, keywords, storefront image path / preview / loadout, Referenced By
+    (| joined, capped at 64 with a "...+N more" tail) and the confirm images (ECIL).
+    ECIL quirk kept on purpose: the .pas joins the images with char(ECIL_SEP), which
+    comes out empty, so every image lands in ECIL_1 run together ('A_C1.ddsA_C2.dds')
+    and ECIL_2.. stay blank; build_allies_pets_weather_json.py splits them on '.dds'."""
+    def txt(sub):
+        v = r.first(sub)
+        return _ccell(_zstr(v)) if v is not None else ""
+
+    rows = []
+    for r in R.xedit_order(esm, "ENTM"):
+        xa = r.first("XALG")
+        xalg = ""
+        if xa:
+            bits = struct.unpack("<Q", xa[:8].ljust(8, b"\0"))[0]
+            xalg = "|".join(XALG_FLAGS[i] for i in range(32) if bits >> i & 1)
+        kw = r.first("KWDA") or b""
+        kws = [("%08X:%s:%s" % (k, _ccell(esm.edid_of(k)), esm.sig_of(k))) if _lk(esm, k)
+               else _ccell(esm.link_edit_value(k)) for k in sorted(struct.unpack_from("<%dI" % (len(kw) // 4), kw))]
+        lg = r.first("ETLG")
+        etlg = _ccell(esm.link_edit_value(_u32(lg))) if lg and len(lg) >= 4 else ""
+        refs = [_ccell(x) for x in _refcells(esm, r.fid)]
+        ref = "|".join(refs[:ENTM_MAX_REFS])
+        if len(refs) > ENTM_MAX_REFS:
+            ref += "|...+%d more" % (len(refs) - ENTM_MAX_REFS)
+        ecil = [_ccell(_zstr(v)) for v in r.all("ECIL")]
+        rows.append(["%08X" % r.fid, _ccell(r.edid), _ccell(esm.lstring(r.full)), _ccell(esm.lstring(r.first("DESC"))),
+                     _ccell(esm.lstring(r.first("NNAM"))), xalg, "|".join(kws), txt("SWFI"), txt("BEVA"),
+                     txt("ETIP"), txt("ETDI"), etlg, ref, str(len(ecil)), "".join(ecil)])
+    me = max((int(x[13]) for x in rows), default=0)
+    out = ["\t".join(["FormID", "EDID", "FULL", "DESC", "NNAM", "XALG_Flags", "KEYWORDS", "SWFI", "BEVA",
+                      "ETIP", "ETDI", "ETLG", "ReferencedBy", "ECIL_Count"] + ["ECIL_%d" % i for i in range(1, me + 1)])]
+    for x in rows:
+        cells = [x[14]] if me else []
+        out.append("\t".join(x[:14] + cells + [""] * (me - len(cells))))
+    return out
+
+
 # ------------------------------------------------------------- NPC_ ------
 def _lk(esm, fid):
     """xEdit LinksTo: the record, or nothing when the FormID can't be resolved."""
@@ -1606,22 +1836,33 @@ def npc2_ref_targets(esm):
 # ------------------------------------------------------ MISC2 / ACTI2 ------
 # The "second pass" placement exports: every placed copy of a target set, also one
 # or two hops through a container / activator / leveled list that holds it.
-# Sets: (slug, test on FormID / EDID) per record type.
+# Sets: (slug, test on FormID / EDID / record) per record type.
+def _is_note_book(r):
+    """ExportBOOK2ToCSV.pas IsNoteBook: the model path names a note. (Its other test,
+    a MiscNote01 / MiscNote02 / MiscNote03_Torn keyword, adds no book: those names are
+    preview transforms (TRNS, the BOOK PTRN), and the .pas reads a top-level KWDA that
+    FO76 keeps inside the Keywords block. Checked 25 Oct 2026: 0 books on live.)"""
+    m = r.first("MODL")
+    return m is not None and "note" in _zstr(m).lower()
+
+
 PLACEMENT_SETS = {
     # ExportMISC2ToCSV.pas
     "MISC": [("pint-sized-slasher-masks",
-              lambda fid, ed: fid == 0x008E069E or "sdow_slasherclue" in ed.lower())],
+              lambda fid, ed, r: fid == 0x008E069E or "sdow_slasherclue" in ed.lower())],
     # ExportACTI2ToCSV.pas: the Treasure Map mounds, not the TEMP / DEBUG ones
     "ACTI": [("treasure-maps",
-              lambda fid, ed: "treasuremapmoundactivator" in ed.lower()
+              lambda fid, ed, r: "treasuremapmoundactivator" in ed.lower()
               and "temp" not in ed.lower() and "debug" not in ed.lower())],
+    # ExportBOOK2ToCSV.pas: every note (the Notes checklist)
+    "BOOK": [("notes", lambda fid, ed, r: _is_note_book(r))],
 }
 PLACEMENT_HOLDERS = {"CONT", "ACTI", "FURN", "MSTT", "SCOL", "STAT", "NPC_", "LVLI"}
 
 
 def _placement_set(sig, r):
     for slug, test in PLACEMENT_SETS[sig]:
-        if test(r.fid, r.edid):
+        if test(r.fid, r.edid, r):
             return slug
     return ""
 
@@ -1632,6 +1873,7 @@ def _placement_targets(sig):
 
 misc2_ref_targets = _placement_targets("MISC")
 acti2_ref_targets = _placement_targets("ACTI")
+book2_ref_targets = _placement_targets("BOOK")
 
 
 def _set_placements(esm, sig):
@@ -1654,6 +1896,25 @@ def _set_placements(esm, sig):
             esm.refinfo.update(info)
             scanned.add(fid)
         return esm.refby.get(fid, ())
+
+    def prefetch(fids):
+        # holders found on the way, a whole level at a time: one extra scan per level
+        need = {f for f in fids if f not in esm.refby and f not in scanned}
+        if need:
+            more, info = esm_refs.referenced_by(esm, need)
+            esm.refby.update(more)
+            esm.refinfo.update(info)
+            scanned.update(need)
+
+    level = {r.fid for r in esm.records[sig] if _placement_set(sig, r)}
+    scanned.update(level)   # the main scan covered them (a record with no referrers has no refby entry)
+    for depth in (1, 2):
+        level = {rf for t in level for rf in esm.refby.get(t, ())
+                 if rf in esm.refinfo and esm.refinfo[rf][0] in PLACEMENT_HOLDERS}
+        t0 = time.time()
+        prefetch(level)
+        if level:
+            print("  %s: Referenced By for %d holders in %.0fs" % (sig, len(level), time.time() - t0))
 
     for r in R.xedit_order(esm, sig):
         slug = _placement_set(sig, r)
@@ -1704,6 +1965,11 @@ def exp_misc2(esm):
 def exp_acti2(esm):
     """ExportACTI2ToCSV.pas - placements of the ACTI sets (Treasure Map dig mounds)."""
     return _set_placements(esm, "ACTI")
+
+
+def exp_book2(esm):
+    """ExportBOOK2ToCSV.pas - placements of every note (the Notes checklist)."""
+    return _set_placements(esm, "BOOK")
 
 
 # ------------------------------------------------------------- ACTI ------
@@ -3358,9 +3624,9 @@ def _lore_notes(esm):
     return out + [x for _, x in rows]
 
 
-NEEDS_REFS = {"ARMO2", "AVTR", "BOOK", "ALCH", "QUST2", "LVLI", "GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "ECAT", "CNDF", "LSCR", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
+NEEDS_REFS = {"ARMO2", "AVTR", "BOOK", "BOOK2", "COBJ", "CONT", "ENCH", "ENTM", "ALCH", "QUST2", "LVLI", "GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "ECAT", "CNDF", "LSCR", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
 # exports that need Referenced By for more than their own records
-REF_TARGETS = {"ARMO2": armo2_ref_targets, "NPC2": npc2_ref_targets, "MISC2": misc2_ref_targets, "ACTI2": acti2_ref_targets}
+REF_TARGETS = {"ARMO2": armo2_ref_targets, "BOOK2": book2_ref_targets, "NPC2": npc2_ref_targets, "MISC2": misc2_ref_targets, "ACTI2": acti2_ref_targets}
 
 EXPORTS = {
     # key: (record types to load, file prefix, function)
@@ -3401,9 +3667,17 @@ EXPORTS = {
     "ARMO2": (["ARMO", "OMOD"], "ARMO2_Underarmour", exp_armo2),
     "AVTR": (["AVTR"], "AVTR_Export", exp_avtr),
     "BOOK": (["BOOK"], "BOOK_Export", exp_book),
+    "BOOK2": (["BOOK"], "BOOK2_Export", exp_book2),
+    "COBJ": (["COBJ"], "COBJ_Export", exp_cobj),
+    "CONT": (["CONT"], "CONT_Export", exp_cont),
+    "ENCH": (["ENCH"], "ENCH_Export", exp_ench),
+    "ENTM": (["ENTM"], "ENTM_Export", exp_entm),
     "REFR": (["ACTI"], "REFR_Placements", exp_refr_placements),
     "LORE": (["NOTE", "BOOK"], "ALLYDLG_Export", exp_lore),
 }
+
+# exports whose files have different prefixes: {export: {result key: file prefix}}
+PREFIX_FILES = {"COBJ": {"COBJ": "COBJ_Export", "COBJ2": "COBJ2_Export"}}
 
 # PTS file names carry the date only (no time) for these, like their .pas
 DATE_ONLY_PTS = {"REFRLVLI", "REFR"}
@@ -3454,14 +3728,16 @@ def main(argv=None):
         result = fn(esm)
         # one file, or {suffix: lines} for exports that write several files
         files = result if isinstance(result, dict) else {"": result}
-        base = R.out_name(prefix, channel)[:-4]
+        stamp = R.out_name(prefix, channel)[len(prefix):-4]   # _October_2026 / _PTS_2026-10-25_1615
         if channel == "PTS" and w in DATE_ONLY_PTS:
-            base = base[:-5]   # drop the _HHMM
+            stamp = stamp[:-5]   # drop the _HHMM
         for suffix, lines in files.items():
             if len(lines) <= 1:
                 print("  %-7s no records found - nothing written" % (w + suffix))
                 continue
-            path = os.path.join(out_dir, base + suffix + ".tsv")
+            # a key in PREFIX_FILES names a whole prefix (COBJ writes COBJ_Export_* and COBJ2_Export_*)
+            name = (PREFIX_FILES[w][suffix] + stamp) if w in PREFIX_FILES else (prefix + stamp + suffix)
+            path = os.path.join(out_dir, name + ".tsv")
             R.write_tsv(path, lines)
             if not a.no_ledger:
                 R.append_ledger(channel, path)
