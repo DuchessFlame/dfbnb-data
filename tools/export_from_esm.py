@@ -39,11 +39,27 @@ straight from the game files, so these no longer need xEdit:
             backup and still writes all six)
     QUSTSP  QUST2_Export_<Month>_<Year>_ScriptProps.tsv  (quest script properties:
             reward lists and chance GLOBs a quest's script rolls itself)
+    LVLI    LVLI_Export_<Month>_<Year>_LVLI_List/_Entries/_Refs/_Math.tsv  (ExportLVLIToCSV.pas;
+            _Math carries EntryChanceNoneCurveTable, the per-entry LVOT rng76 reads)
+    QUST2   QUST2_Export_<Month>_<Year>_Quests/_Stages/_Objectives/_Aliases/_ItemAliases
+            (the other five files of ExportQUST2ToTSV.pas)
+    ALLYDLG ALLYDLG_Export_<Month>_<Year>_Quests/_Topics/_Lines/_Scenes
+            (ExportCampAllyDialogToTSV.pas; _Lore is LORE above)
+    TERMPL  TERM_Export_<Month>_<Year>_Placements.tsv  (ExportTERMToTSV.pas _Placements;
+            the main TERM file and _Quests are tools/export_term_from_esm.py)
+    REFR    REFR_Placements_<Month>_<Year>.tsv  (ExportREFRPlacementsToTSV.pas per base:
+            masks, graves, dig sites, treasure-map mounds, any base already in a
+            REFR_Placements file, plus --bases)
+
+Every xEdit .pas above stays working as the manual backup.
+Coordinates are correctly rounded; xEdit's own text can differ by one in the last
+decimal place (X/Y/Z) and RotZ by 0.0001 - accepted, readers place by X/Y.
 
 GLOB, AVIF, KYWD, CURV, MISC and NPC list every record that points at each row ("Referenced By"),
 worked out by esm_refs.py in one ~40 s scan (needs numpy). Known gap: xEdit
 stops reading some quests part-way through their objective/alias conditions, so
-its lists leave out those quests; these lists include them.
+its lists leave out those quests; these lists include them. (The CURV XCRI and
+KYWD gaps were closed on 25 Oct 2026: CELL XCRI and PACK PTDA are read by layout.)
 
 Conditions are shown exactly as xEdit shows them (esm_conditions.py, built from
 xEdit's own definitions in xedit_functions.py). Links to placed references, cells
@@ -54,7 +70,7 @@ Run on the PC with the game installed:
     python tools\export_from_esm.py                 every export, LIVE  -> tsv\
     python tools\export_from_esm.py --pts           every export, PTS   -> tsv\pts\
     python tools\export_from_esm.py GMST EMOT       just those
-Options: --data "<Data folder>"  --out "<folder>"  --no-ledger
+Options: --data "<Data folder>"  --out "<folder>"  --no-ledger  --bases FID,FID (REFR)
 Each file written adds a line to tsv\_exports.tsv, like the .pas scripts do.
 """
 from __future__ import annotations
