@@ -164,8 +164,8 @@
             "prompt": "",
             "lines": [
               {
-                "text": "My thermal imaging is telling me that you're looking hotter than usual baby.",
-                "condition": "HasKeyword: SURV_EffectTypeDisease"
+                "text": "I appreciate your continued support darling. Feel free to buy another autograph sometime.",
+                "condition": "GetItemCount: S16_Adelaide_Note_Autograph \"Adelaide's Autograph\""
               },
               {
                 "text": "My thermal imaging is telling me that you're hotter than usual... Concerningly so... Hmm, you should probably see a doctor.",
@@ -234,10 +234,6 @@
                 "note": "Player has a camera equipped"
               },
               {
-                "text": "I appreciate your continued support darling. Feel free to buy another autograph sometime.",
-                "condition": "GetItemCount: S16_Adelaide_Note_Autograph \"Adelaide's Autograph\""
-              },
-              {
                 "text": "What are you holding? They look... familiar.",
                 "condition": "GetEquipped: AssaultronHead \"Scrap Assaultron Head\"",
                 "note": "Player is using an Assaultron's head as a weapon"
@@ -248,6 +244,10 @@
               {
                 "text": "These stars are my bright lights now.",
                 "condition": "GetGlobalValue: GameHour"
+              },
+              {
+                "text": "My thermal imaging is telling me that you're looking hotter than usual baby.",
+                "condition": "HasKeyword: SURV_EffectTypeDisease"
               }
             ]
           },
@@ -3560,7 +3560,7 @@
                     "note": "Dad joke"
                   },
                   {
-                    "text": "Squawk-a-mol�! Yeah? No? Okay. Well, anyway, there are lots of Mole Rats here.",
+                    "text": "Squawk-a-molé! Yeah? No? Okay. Well, anyway, there are lots of Mole Rats here.",
                     "condition": "GetValue: RQ_FlavorVariable_Enemies",
                     "note": "Dad joke, seems proud of himself."
                   },
@@ -8902,12 +8902,15 @@
                 "note": "Francis forgets to mute while moving stuff on his desk. His voice can sound off-mic, like he's facing away"
               },
               {
+                "text": "Cambot Nine, live on the scene! Hmm. Live at the scene! On? At?",
+                "note": "Practicing to himself, trying to decide how to say it."
+              },
+              {
                 "text": "*Sneeze* Uh... I-i-i-interference detected!",
                 "condition": "GetValue: Cambot_PlayerKnowsTheTruth"
               },
               {
-                "text": "Cambot Nine, live on the scene! Hmm. Live at the scene! On? At?",
-                "note": "Practicing to himself, trying to decide how to say it."
+                "text": "Too bad I reverse so slowly. So much good footage is lost when fleeing."
               },
               {
                 "text": "Y-you're watching Galaxy News! Come on Francis, you can do better than that.",
@@ -8920,9 +8923,6 @@
               },
               {
                 "text": "I wish more TVs survived the War."
-              },
-              {
-                "text": "Too bad I reverse so slowly. So much good footage is lost when fleeing."
               },
               {
                 "text": "That \"Rose\" lady from the radio... Perhaps I could visit her for an interview."
@@ -8980,14 +8980,14 @@
                 "text": "I've got an assignment if you're ready."
               },
               {
+                "text": "Success!",
+                "condition": "GetValue: Cambot_CompletedIntroduction"
+              },
+              {
                 "text": "How's my favorite photographer? Ready for your next job?"
               },
               {
                 "text": "Got your camera? We've got work to do."
-              },
-              {
-                "text": "Success!",
-                "condition": "GetValue: Cambot_CompletedIntroduction"
               },
               {
                 "text": "Is my color balance off or are you looking a bit green?",
@@ -9593,7 +9593,7 @@
             ]
           },
           {
-            "prompt": "What about an expos� on inefficiencies and delays at the Charleston DMV?",
+            "prompt": "What about an exposé on inefficiencies and delays at the Charleston DMV?",
             "lines": [
               {
                 "text": "Scanning pitch for interesting ideas...",
@@ -21269,7 +21269,7 @@
                 "condition": "GetValue: BS02_AV_BrotherhoodLeaderDead, GetValue: BS02_AV_BrotherhoodLeaderFinal"
               },
               {
-                "text": "Maybe that's na�ve of me. I just hope it's the last time something like this happens.",
+                "text": "Maybe that's naïve of me. I just hope it's the last time something like this happens.",
                 "condition": "GetValue: BS02_AV_BrotherhoodLeaderDead, GetValue: BS02_AV_BrotherhoodLeaderFinal"
               },
               {
@@ -29944,7 +29944,7 @@
       },
       "dialog": {
         "topicCount": 50,
-        "lineCount": 154,
+        "lineCount": 151,
         "questFormId": "007FDC0D",
         "questEdid": "ATX_COMP_Quest_Camp_Lite_Dottie",
         "topics": [
@@ -30657,18 +30657,6 @@
                 "text": "Hey! Don't take pictures! These secrets are secret for a reason.",
                 "condition": "GetEquipped: Camera_SnapMatic \"ProSnap Deluxe Camera\", GetValue: Dottie_CompletedIntroduction",
                 "note": "Context: Player is holding a Camera"
-              },
-              {
-                "text": "Nice try Government agent, but I'm not talking to you.",
-                "note": "Context: Non-owning Player tries talking to them."
-              },
-              {
-                "text": "I don't know you. You don't know me. Let's keep it that way.",
-                "note": "Context: Non Owning Player tries to talk to them"
-              },
-              {
-                "text": "Impressive. If I didn't know better I would have thought you were actually alive.",
-                "note": "Context: Non-Owning Player tries to talk to her"
               }
             ]
           },
@@ -32868,9 +32856,6 @@
             "prompt": "",
             "lines": [
               {
-                "text": "Damn, I could really use another hit from that pipe. If I could just remember where it was..."
-              },
-              {
                 "text": "What I wouldn't give for a tato pie."
               },
               {
@@ -32887,10 +32872,6 @@
                 "note": "Said to self. Special emphasis on \"day trip\". Insinuating he's going to go take some Daytripper drugs."
               },
               {
-                "text": "Go to Appalachia they said. \"You'll have a blast\" they said. Didn't realize they were literally still dropping nukes on themselves.",
-                "note": "To self."
-              },
-              {
                 "text": "I don't mind when they throw tatos. It's the grenades I worry about."
               },
               {
@@ -32898,20 +32879,24 @@
                 "note": "Trying out a new joke he's read but doesn't know what a kangaroo is so doesn't get the joke"
               },
               {
-                "text": "(Sigh) Mondays. Is it Monday? Feels like a Monday."
-              },
-              {
                 "text": "There once was a man from Nantucket, he... no wait how'd it go again? Nah, fuck it.",
                 "note": "Trying to remember the limerick. Coincidentally ends up rhyming."
+              },
+              {
+                "text": "Go to Appalachia they said. \"You'll have a blast\" they said. Didn't realize they were literally still dropping nukes on themselves.",
+                "note": "To self."
+              },
+              {
+                "text": "Damn, I could really use another hit from that pipe. If I could just remember where it was..."
+              },
+              {
+                "text": "(Sigh) Mondays. Is it Monday? Feels like a Monday."
               }
             ]
           },
           {
             "prompt": "",
             "lines": [
-              {
-                "text": "Hello, sunshine."
-              },
               {
                 "text": "I heard there's some kind of dance party over at Point Pleasant. Might pop some Day Tripper, check it out later. I just hope it doesn't get weird.",
                 "condition": "GetGlobalValue: LCP_E07A_Mothman"
@@ -32940,6 +32925,11 @@
               {
                 "text": "You look like you could eat a fat sandwich. You find one you let me know!",
                 "condition": "GetValue: SURV_Hunger"
+              },
+              {
+                "text": "Damn. Eat something already. You're making me hungry!",
+                "condition": "GetValue: SURV_Hunger",
+                "note": "Emphasis on \"me"
               },
               {
                 "text": "Oh, I'm walkin' here!",
@@ -33004,13 +32994,11 @@
                 "condition": "WornHasKeyword: ObjectTypeClothing"
               },
               {
-                "text": "Damn. Eat something already. You're making me hungry!",
-                "condition": "GetValue: SURV_Hunger",
-                "note": "Emphasis on \"me"
-              },
-              {
                 "text": "Good God! You okay? When they say break a leg they don't mean that literally you know?",
                 "condition": "GetHealthPercentage"
+              },
+              {
+                "text": "Hello, sunshine."
               }
             ]
           },
@@ -33018,12 +33006,8 @@
             "prompt": "",
             "lines": [
               {
-                "text": "Hey hey!",
-                "condition": "GetValue: JoeyBello_CompletedIntroduction",
-                "note": "As if starting a stage performance"
-              },
-              {
-                "text": "Hey chief!"
+                "text": "How you doing?",
+                "note": "Not like Joey from Friends."
               },
               {
                 "text": "Yeah, whatya want?"
@@ -33041,8 +33025,9 @@
                 "text": "There's my favorite Appalachian!"
               },
               {
-                "text": "How you doin'?",
-                "note": "the classic NJ line"
+                "text": "Hey hey!",
+                "condition": "GetValue: JoeyBello_CompletedIntroduction",
+                "note": "As if starting a stage performance"
               },
               {
                 "text": "You lookin' for a put-down or a pick-me-up? Oh!"
@@ -33054,11 +33039,14 @@
                 "text": "What's shakin', bacon?"
               },
               {
-                "text": "How you doing?",
-                "note": "Not like Joey from Friends."
+                "text": "Hey chief!"
               },
               {
                 "text": "Who loves ya, baby?"
+              },
+              {
+                "text": "How you doin'?",
+                "note": "the classic NJ line"
               }
             ]
           },
@@ -33311,6 +33299,9 @@
                 "text": "Make yourself aware of my wares. Heh heh."
               },
               {
+                "text": "Ah, looking for a little a \"pick-me-up\"?"
+              },
+              {
                 "text": "See anything you like?"
               },
               {
@@ -33320,16 +33311,13 @@
                 "text": "You break it, you buy it."
               },
               {
-                "text": "Don't low-ball me. I know what got here."
-              },
-              {
-                "text": "Ah, looking for a little a \"pick-me-up\"?"
-              },
-              {
                 "text": "Well allow me to assist you with some uh...assistance."
               },
               {
                 "text": "First one's free! Wait, nope. Forget it, you didn't hear that."
+              },
+              {
+                "text": "Don't low-ball me. I know what got here."
               }
             ]
           },
@@ -33440,11 +33428,11 @@
             "prompt": "Fuck you too!",
             "lines": [
               {
-                "text": "Whoa! The language on you.",
-                "note": "Faux shock. He's in on the joke"
+                "text": "Fuggedaboutit!"
               },
               {
-                "text": "Fuggedaboutit!"
+                "text": "Whoa! The language on you.",
+                "note": "Faux shock. He's in on the joke"
               },
               {
                 "text": "You kiss your mother with that mouth?"
@@ -33492,6 +33480,11 @@
                 "text": "Your family tree must have been a cactus 'cause you're a real prick."
               },
               {
+                "text": "You're so dumb when you were a baby your dad gave you an \"I'm S.P.E.C.A.L.\" book. That's \"special\" without the I for intelligence, dummy.",
+                "condition": "GetValue: Intelligence \"Intelligence\"",
+                "note": "SPECAL pronounced \"speckle"
+              },
+              {
                 "text": "You must have a real open mind, 'cause I can hear the wind whistling through your ears.",
                 "condition": "GetValue: Intelligence \"Intelligence\""
               },
@@ -33520,16 +33513,10 @@
                 "condition": "GetValue: Perception \"Perception\""
               },
               {
-                "text": "You're so dumb when you were a baby your dad gave you an \"I'm S.P.E.C.A.L.\" book. That's \"special\" without the I for intelligence, dummy.",
-                "condition": "GetValue: Intelligence \"Intelligence\"",
-                "note": "SPECAL pronounced \"speckle"
+                "text": "You're so ugly you make me wanna quit drinking just in case I ever start seeing two of youse!"
               },
               {
-                "text": "Your stench is so bad you make me wish I was a ghoul just so I didn't have a nose."
-              },
-              {
-                "text": "You're so stupid it takes you an entire hour to make Instamash.",
-                "condition": "GetValue: Intelligence \"Intelligence\""
+                "text": "If being ugly was a crime you'd be on the most wanted list. And given your looks it'd probably be the first time anybody's ever wanted you."
               },
               {
                 "text": "I heard you was strong but I guess they were talking about your stench! Pee-yoo. Your breath would make onions cry!",
@@ -33544,9 +33531,6 @@
                 "condition": "GetValue: Strength \"Strength\""
               },
               {
-                "text": "You're so ugly you make me wanna quit drinking just in case I ever start seeing two of youse!"
-              },
-              {
                 "text": "You're so fat when they need a new nuke code they just get you to hop on a scale. Ha-hoh! Boom!",
                 "condition": "GetValue: Strength \"Strength\""
               },
@@ -33554,10 +33538,14 @@
                 "text": "You're so uncivilized the only culture you've got is mold."
               },
               {
-                "text": "If being ugly was a crime you'd be on the most wanted list. And given your looks it'd probably be the first time anybody's ever wanted you."
+                "text": "Your stench is so bad you make me wish I was a ghoul just so I didn't have a nose."
               },
               {
                 "text": "I never forget a face, but in your case I wish I could make an exception. Yours looks like it caught fire and someone put it out with a tire iron."
+              },
+              {
+                "text": "You're so stupid it takes you an entire hour to make Instamash.",
+                "condition": "GetValue: Intelligence \"Intelligence\""
               }
             ]
           },
@@ -34014,6 +34002,10 @@
             "prompt": "",
             "lines": [
               {
+                "text": "You ever run into these Mothman Cultist whackadoos?",
+                "note": "Said like a late night comedian setup"
+              },
+              {
                 "text": "You meet these guys, \"The Brotherhood of Steel\"?",
                 "note": "Said like a late night comedian setup"
               },
@@ -34025,7 +34017,7 @@
                 "text": "I've started picking up who's who when it comes to your local flavors of Raider."
               },
               {
-                "text": "You ever run into these Mothman Cultist whackadoos?",
+                "text": "There's this settlement calling themselves \"Foundation\".",
                 "note": "Said like a late night comedian setup"
               },
               {
@@ -34034,10 +34026,6 @@
               },
               {
                 "text": "What's the deal with robots?",
-                "note": "Said like a late night comedian setup"
-              },
-              {
-                "text": "There's this settlement calling themselves \"Foundation\".",
                 "note": "Said like a late night comedian setup"
               },
               {
@@ -34085,9 +34073,6 @@
             "prompt": "",
             "lines": [
               {
-                "text": "Growing up I never did learn what the word \"apocalypse\" meant. Oh well, it's not like it's the end of the world."
-              },
-              {
                 "text": "If you've got four drinks in one hand and another 3 in the other what have you got? Alcoholism. Badum-bump!"
               },
               {
@@ -34095,6 +34080,9 @@
               },
               {
                 "text": "You hear about that junkie that got addicted to soap? He's clean now."
+              },
+              {
+                "text": "A friend of mine stared selling fireworks, grenades, missiles, and TNT. Y'know he says business is booming."
               },
               {
                 "text": "What has broken arms, broken legs, and lies at the bottom of a pier? People who tell jokes about the mafia. Ay-ay-ay!",
@@ -34142,9 +34130,6 @@
                 "text": "What's the worst thing a prison guard can find at a party? An open bar."
               },
               {
-                "text": "You hear that Santatron has a new comedy act? Yeah, it sleighs. Ho ho ho haha!"
-              },
-              {
                 "text": "Why'd the snitch feel nervous around calendars? Cause his days were numbered. Bada-boom!"
               },
               {
@@ -34152,9 +34137,6 @@
               },
               {
                 "text": "You hear the one about the drum set that fell off the roof? Badum-tss! Heh."
-              },
-              {
-                "text": "A friend of mine stared selling fireworks, grenades, missiles, and TNT. Y'know he says business is booming."
               },
               {
                 "text": "Why'd the mafia put a hit out on the mime? He had to be silenced."
@@ -34186,6 +34168,12 @@
               },
               {
                 "text": "Why'd the robot cross the road? It was programmed to be a chicken. Baw-cawk!"
+              },
+              {
+                "text": "Growing up I never did learn what the word \"apocalypse\" meant. Oh well, it's not like it's the end of the world."
+              },
+              {
+                "text": "You hear that Santatron has a new comedy act? Yeah, it sleighs. Ho ho ho haha!"
               }
             ]
           },
@@ -34966,7 +34954,7 @@
                 "text": "If you get lost out there in the Wasteland, you can always use the sky as a map. Winds may change, but the north star will never lead you astray."
               },
               {
-                "text": "I drink red wine when I'm studying planets, because it reminds me of Mars. White wine is for the stars. When I'm doing both? A ros�."
+                "text": "I drink red wine when I'm studying planets, because it reminds me of Mars. White wine is for the stars. When I'm doing both? A rosé."
               },
               {
                 "text": "When Maria Mitchell discovered her comet, she had to publish her discovery using her father's name. That's the boy's club at work for you."
@@ -35945,7 +35933,7 @@
                 "note": "Releaved that the player is not an idiot."
               },
               {
-                "text": "Perhaps you'd like to be my assistant. Or, even better, my prot�g�."
+                "text": "Perhaps you'd like to be my assistant. Or, even better, my protégé."
               }
             ]
           },
@@ -40749,17 +40737,13 @@
       },
       "dialog": {
         "topicCount": 48,
-        "lineCount": 160,
+        "lineCount": 157,
         "questFormId": "009346C1",
         "questEdid": "ATX_COMP_Quest_Camp_Lite_MrMoore",
         "topics": [
           {
             "prompt": "",
             "lines": [
-              {
-                "text": "Hello there!",
-                "condition": "GetValue: MrMoore_CompletedIntroduction"
-              },
               {
                 "text": "Help me help you with a better future."
               },
@@ -40793,18 +40777,6 @@
                 "text": "How can I help you today?"
               },
               {
-                "text": "Are you interested in buying vault space? No? Then go away.",
-                "note": "Rude. A non-owning player tries to talk to the him."
-              },
-              {
-                "text": "Scram kid, I'm trying to make a sale.",
-                "note": "Rude. A non-owning player tries to talk to the him."
-              },
-              {
-                "text": "I'm sorry, Vault-Tec has standards. Please, take the hint.",
-                "note": "A bit rude. A non-owning player tries to talk to the him."
-              },
-              {
                 "text": "What now?"
               },
               {
@@ -40823,6 +40795,10 @@
               },
               {
                 "text": "This couldn't wait?"
+              },
+              {
+                "text": "Hello there!",
+                "condition": "GetValue: MrMoore_CompletedIntroduction"
               }
             ]
           },
@@ -41057,7 +41033,7 @@
             ]
           },
           {
-            "prompt": "Hate to break it to you but the bombs already dropped.",
+            "prompt": "Hate to break it to you, but the bombs already dropped.",
             "lines": [
               {
                 "text": "Believe you me, those were merely the fireworks leading up to the main event!"
@@ -41161,6 +41137,10 @@
                 "note": "Context: Player is on chems."
               },
               {
+                "text": "Oh. Hi.",
+                "note": "Awkward, like running into someone you don't want to talk to."
+              },
+              {
                 "text": "Have you heard the good word? That word is: \"Safety\". Let's talk about it."
               },
               {
@@ -41233,10 +41213,6 @@
                 "text": "Looks like someone is ready for the vault!",
                 "condition": "WornHasKeyword: VaultSuitKeyword",
                 "note": "Context: Player is wearing a vault suit."
-              },
-              {
-                "text": "Oh. Hi.",
-                "note": "Awkward, like running into someone you don't want to talk to."
               },
               {
                 "text": "Don't mind me. Just dissociating."
@@ -55762,7 +55738,7 @@
                 "note": "A sort of prayer for himself."
               },
               {
-                "text": "Gather sticks under new moon. Check.� Bind them with entrails. Check. Cleanse tools with incense... Should that say \"Insects\"?",
+                "text": "Gather sticks under new moon. Check.  Bind them with entrails. Check. Cleanse tools with incense... Should that say \"Insects\"?",
                 "note": "Sounds like he is reading from a to-do list."
               },
               {
@@ -58524,10 +58500,10 @@
                 "note": "Matter-of-fact, using a term she hasn't heard since the early days of her restaurant career"
               },
               {
-                "text": "I found some recipes at a place called Toxic Larry's Meat n' Go. But I won't be eating any of the�food I found there."
+                "text": "I found some recipes at a place called Toxic Larry's Meat n' Go. But I won't be eating any of the food I found there."
               },
               {
-                "text": "I wonder if mutations change your food preferences. Not that I'd want to find out�personally, mind you.",
+                "text": "I wonder if mutations change your food preferences. Not that I'd want to find out personally, mind you.",
                 "note": "Genuinely curious"
               },
               {
@@ -59278,7 +59254,7 @@
                 "note": "Happy, slightly surprised this worked"
               },
               {
-                "text": "My latest creation is an Angler tartare with crispy tato chips. Bon App�tit.",
+                "text": "My latest creation is an Angler tartare with crispy tato chips. Bon Appétit.",
                 "note": "Pleased with what she made"
               },
               {
