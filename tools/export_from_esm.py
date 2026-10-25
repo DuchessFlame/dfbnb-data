@@ -51,6 +51,7 @@ straight from the game files, so these no longer need xEdit:
     ARMO2   ARMO2_Underarmour_<Month>_<Year>.tsv + _Slots + _Mods  (ExportARMO2UnderarmourToTSV.pas,
             underarmour only; _Mods carries each installed OMOD's includes and properties)
     AVTR    AVTR_Export_<Month>_<Year>.tsv          (ExportAVTRToTSV.pas: player icons)
+    BOOK    BOOK_Export_<Month>_<Year>.tsv + _Locations  (ExportBOOKToTSV.pas)
     TERMPL  TERM_Export_<Month>_<Year>_Placements.tsv  (ExportTERMToTSV.pas _Placements;
             the main TERM file and _Quests are tools/export_term_from_esm.py)
     REFR    REFR_Placements_<Month>_<Year>.tsv  (ExportREFRPlacementsToTSV.pas per base:
@@ -61,12 +62,13 @@ Every xEdit .pas above stays working as the manual backup.
 Coordinates are correctly rounded; xEdit's own text can differ by one in the last
 decimal place (X/Y/Z) and RotZ by 0.0001 - accepted, readers place by X/Y.
 
-GLOB, AVIF, KYWD, CURV, MISC, NPC, ARMO2 and AVTR list every record that points at each row ("Referenced By"),
+GLOB, AVIF, KYWD, CURV, MISC, NPC, ARMO2, AVTR and BOOK list every record that points at each row ("Referenced By"),
 worked out by esm_refs.py in one ~40 s scan (needs numpy). Known gap: xEdit
 stops reading some quests part-way through their objective/alias conditions, so
 its lists leave out those quests; these lists include them. (The CURV XCRI and
 KYWD gaps were closed on 25 Oct 2026: CELL XCRI and PACK PTDA are read by layout;
-also QUST QOTM, EXPL DATA placed object, PERK EPFD type 9, DMGT DSES/DSEB, LVLI LVIG.)
+also QUST QOTM, EXPL DATA placed object, PERK EPFD type 9, DMGT DSES/DSEB, LVLI LVIG,
+and COBJ CNAM / FVPA of any base object.)
 
 Conditions are shown exactly as xEdit shows them (esm_conditions.py, built from
 xEdit's own definitions in xedit_functions.py). Links to placed references, cells
@@ -1209,6 +1211,106 @@ def exp_avtr(esm):
                               _ccell(_zstr(r.first("SWFI"))) if r.first("SWFI") is not None else ""]
                              + rent + [ref]))
     return out
+
+
+# ------------------------------------------------------------- BOOK ------
+def _clean_loc(s):
+    """The BOOK .pas CleanLocName: CleanCell, ':' to spaces, Trim."""
+    return _dtrim(_ccell(s).replace(":", " "))
+
+
+def _is_test_cell(s):
+    u = s.upper()
+    return "TEST" in u or "DEBUG" in u or "QASMOKE" in u or u == "QA"
+
+
+def _book_loc_from_name(s):
+    """LocViaNameParse on a placed reference's xEdit Name() (= its link text):
+    after the first ' in ', an exterior cell gives its EDID token (ExtCell), an
+    interior cell the first quoted name (NameParse)."""
+    p = s.find(" in ")
+    if p < 0:
+        return "", ""
+    after = s[p + 4:]
+    q, cb = after.find('"'), after.find("[CELL:")
+    if cb >= 0 and (q < 0 or cb < q):
+        sp = after.find(" ")
+        if sp > 0:
+            tok = after[:sp]
+        elif cb > 0:
+            tok = after[:cb - 1]
+        else:
+            tok = ""
+        tok = _dtrim(tok)
+        return (tok, "ExtCell") if tok else ("", "")
+    if q >= 0:
+        j = after.find('"', q + 1)
+        if j >= 0:
+            tok = _clean_loc(after[q + 1:j])
+            if tok:
+                return tok, "NameParse"
+    return "", ""
+
+
+def exp_book(esm):
+    """ExportBOOKToTSV.pas - books / notes / plans (main file: keywords and Referenced
+    By, each padded) and _Locations (where a placed copy lies, and the first quest
+    that points at it). The .pas's container walk never reaches a CELL (a REFR's
+    container is a GRUP), so every location comes from the name parse, as here."""
+    def ev(sub):
+        v = r.first(sub)
+        return _ccell(esm.link_edit_value(struct.unpack_from("<I", v)[0])) if v and len(v) >= 4 else ""
+
+    rows = []
+    locs = ["BOOK_FormID\tBOOK_EDID\tLocationName\tLocationSource\tQuestName"]
+    for r in R.xedit_order(esm, "BOOK"):
+        fid, ed = "%08X" % r.fid, _ccell(r.edid)
+        kw = r.first("KWDA") or b""
+        kws = [("%08X:%s:%s" % (k, esm.edid_of(k), esm.sig_of(k))) if _lk(esm, k) else _ccell(esm.link_edit_value(k))
+               for k in sorted(struct.unpack_from("<%dI" % (len(kw) // 4), kw))]   # xEdit sorts KWDA
+        d = r.first("DATA")
+        value = weight = ""
+        if d and len(d) >= 8:
+            v, w = struct.unpack_from("<if", d)
+            value, weight = str(v), C.fmt_float(w)
+        dn, bt = r.first("DNAM"), r.first("BTOF")
+        refs = _refcells(esm, r.fid)
+        rows.append(([fid, ed, _ccell(esm.lstring(r.full)), _ccell(esm.lstring(r.first("DESC"))), str(len(kws))], kws,
+                     [ev("PTRN"), _ccell(_zstr(r.first("MODL"))) if r.first("MODL") is not None else "", ev("VCRY"),
+                      value, weight, _flag_bits(dn[0]) if dn else "", ev("INAM"),
+                      _flag_bits(struct.unpack_from("<I", bt)[0]) if bt and len(bt) >= 4 else "", ev("BVGO"),
+                      str(len(refs))], refs))
+        # _Locations: placed copies in Referenced By order, test cells only as a last resort
+        name = src = fb_name = fb_src = ""
+        quest = None
+        for h in esm.refby.get(r.fid, ()):
+            sig = esm.refinfo[h][0]
+            if sig == "QUST" and quest is None:
+                qf = _dtrim(esm.full_of(h))
+                quest = _clean_loc(qf) if qf else _clean_loc(esm.edid_of(h))
+                if not quest:
+                    quest = None
+            if sig != "REFR" or name:
+                continue
+            n, s = _book_loc_from_name(esm.link_edit_value(h))
+            if not n:
+                continue
+            if not _is_test_cell(n):
+                name, src = n, s
+            elif not fb_name:
+                fb_name, fb_src = n, s
+        if not name:
+            name, src = fb_name, fb_src
+        locs.append("\t".join([fid, ed, name, src, quest or ""]))
+    mk = max((len(x[1]) for x in rows), default=0)
+    mr = max((len(x[3]) for x in rows), default=0)
+    head = (["FormID", "EDID", "FULL", "DESC", "KeywordCount"] + ["KW%d" % i for i in range(1, mk + 1)]
+            + ["PTRN", "Model", "VCRY", "DATA_Value", "DATA_Weight", "DNAM_Flags", "INAM", "BTOF", "BVGO",
+               "ReferencedByCount"] + ["Ref%d" % i for i in range(1, mr + 1)])
+    out = ["\t".join(head)]
+    for a, k, b, x in rows:
+        out.append("\t".join(a + k + [""] * (mk - len(k)) + b + x + [""] * (mr - len(x))))
+    return {"": out, "_Locations": locs}
 
 
 # ------------------------------------------------------------- NPC_ ------
@@ -3256,7 +3358,7 @@ def _lore_notes(esm):
     return out + [x for _, x in rows]
 
 
-NEEDS_REFS = {"ARMO2", "AVTR", "ALCH", "QUST2", "LVLI", "GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "ECAT", "CNDF", "LSCR", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
+NEEDS_REFS = {"ARMO2", "AVTR", "BOOK", "ALCH", "QUST2", "LVLI", "GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "ECAT", "CNDF", "LSCR", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
 # exports that need Referenced By for more than their own records
 REF_TARGETS = {"ARMO2": armo2_ref_targets, "NPC2": npc2_ref_targets, "MISC2": misc2_ref_targets, "ACTI2": acti2_ref_targets}
 
@@ -3298,6 +3400,7 @@ EXPORTS = {
     "ARMO": (["ARMO"], "ARMO_Export", exp_armo),
     "ARMO2": (["ARMO", "OMOD"], "ARMO2_Underarmour", exp_armo2),
     "AVTR": (["AVTR"], "AVTR_Export", exp_avtr),
+    "BOOK": (["BOOK"], "BOOK_Export", exp_book),
     "REFR": (["ACTI"], "REFR_Placements", exp_refr_placements),
     "LORE": (["NOTE", "BOOK"], "ALLYDLG_Export", exp_lore),
 }

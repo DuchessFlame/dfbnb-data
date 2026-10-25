@@ -125,6 +125,11 @@ def _is_ref(rules, sig, sub, rel, field, tsig):
     #     LVIG (an AVIF as well as a GLOB): AVIF links xEdit lists (25 Oct 2026).
     if rel == 0 and ((sig == "DMGT" and sub in ("DSES", "DSEB")) or (sig == "LVLI" and sub == "LVIG")):
         return True
+    #   COBJ CNAM (created object) and FVPA components (12 bytes each, FormID first):
+    #     any base object. The learned rules never saw a BOOK there; PTS build 211's
+    #     HIDE_co_Lead_* recipes make one lead (BOOK) from another (25 Oct 2026).
+    if sig == "COBJ" and ((sub == "CNAM" and rel == 0) or (sub == "FVPA" and rel % 12 == 0)):
+        return True
     bys = rules.get((sig, sub, "size"))
     if bys is not None and len(field) in bys:  # rule for this exact subrecord size
         return tsig in bys[len(field)].get(rel, ())
