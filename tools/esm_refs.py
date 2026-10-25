@@ -95,7 +95,7 @@ def _is_ref(rules, sig, sub, rel, field, tsig):
             return rel in vmad.formid_offsets(sig, field)
         except Exception:
             pass
-    # Two fields xEdit defines as plain FormIDs, so it lists whatever record the
+    # Fields xEdit defines as plain FormIDs, so it lists whatever record the
     # number happens to be - the learned rules only saw some record types there:
     #   CELL XCRI (precombined meshes): 16-byte header (mesh count at 0,
     #     reference count at 8), 8 bytes per mesh, then 8 bytes per reference
@@ -112,6 +112,18 @@ def _is_ref(rules, sig, sub, rel, field, tsig):
         # anywhere else: the learned rule, unchanged
     if sig == "PACK" and sub == "PTDA" and rel == 4 and len(field) >= 8 \
             and struct.unpack_from("<I", field, 0)[0] in (0, 1):
+        return True
+    #   EXPL DATA offset 16 (Placed Object): whatever the explosion leaves behind,
+    #     any record type (Storm_SE09_ChickenExplosion -> an ALCH, 25 Oct 2026).
+    if sig == "EXPL" and sub == "DATA" and rel == 16 and len(field) >= 20:
+        return True
+    #   QUST QOTM (objective timer): a GLOB; the learned rules never saw the field.
+    #     241 quest -> global links in GLOB's Referenced By (25 Oct 2026).
+    if sig == "QUST" and sub == "QOTM" and rel == 0:
+        return True
+    #   DMGT DSES / DSEB (status-effect recovery / build-up actor value) and LVLI
+    #     LVIG (an AVIF as well as a GLOB): AVIF links xEdit lists (25 Oct 2026).
+    if rel == 0 and ((sig == "DMGT" and sub in ("DSES", "DSEB")) or (sig == "LVLI" and sub == "LVIG")):
         return True
     bys = rules.get((sig, sub, "size"))
     if bys is not None and len(field) in bys:  # rule for this exact subrecord size
@@ -169,7 +181,14 @@ def referenced_by(esm, targets, chunk=48 << 20, referrers=None):
                 sub, a, z = sp[i]
                 if rel + 4 > z:
                     continue
-                if _is_ref(rules, sig, sub, rel - a, data[a:z], tsig[t]):
+                hit = _is_ref(rules, sig, sub, rel - a, data[a:z], tsig[t])
+                # PERK EPFD with entry-point function type (EPFT) 9 holds a form of any
+                # type (PlayerPerk -> an ALCH, 25 Oct 2026); the learned rule only saw
+                # SPEL / LVLI there. EPFT is the nearest earlier EPFT subrecord.
+                if not hit and sig == "PERK" and sub == "EPFD" and rel == a and z - a == 4:
+                    ep = next((data[x] for ss, x, _y in reversed(sp[:i]) if ss == "EPFT"), None)
+                    hit = ep == 9
+                if hit:
                     found.setdefault(t, set()).add(fid)
                     if fid not in info:
                         ed = next((data[x:y] for ss, x, y in sp if ss == "EDID"), b"")

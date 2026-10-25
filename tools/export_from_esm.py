@@ -45,11 +45,14 @@ straight from the game files, so these no longer need xEdit:
             (the other five files of ExportQUST2ToTSV.pas)
     ALLYDLG ALLYDLG_Export_<Month>_<Year>_Quests/_Topics/_Lines/_Scenes
             (ExportCampAllyDialogToTSV.pas; _Lore is LORE above)
+    ALCH    ALCH_Export_<Month>_<Year>.tsv + _Effects  (ExportALCHToTSV.pas)
+    ARMO    ARMO_Export_<Month>_<Year>_SLOTS/_ARMOUR/_ObjectTemplate.tsv  (ExportARMOToCSV.pas;
+            keyword columns filled since 25 Oct 2026 - every older xEdit ARMO export left them empty)
     TERMPL  TERM_Export_<Month>_<Year>_Placements.tsv  (ExportTERMToTSV.pas _Placements;
             the main TERM file and _Quests are tools/export_term_from_esm.py)
     REFR    REFR_Placements_<Month>_<Year>.tsv  (ExportREFRPlacementsToTSV.pas per base:
-            masks, graves, dig sites, treasure-map mounds, any base already in a
-            REFR_Placements file, plus --bases)
+            masks, graves, dig sites, Brain in a Jar, treasure-map mounds, any base
+            already in a REFR_Placements file, plus --bases)
 
 Every xEdit .pas above stays working as the manual backup.
 Coordinates are correctly rounded; xEdit's own text can differ by one in the last
@@ -59,7 +62,8 @@ GLOB, AVIF, KYWD, CURV, MISC and NPC list every record that points at each row (
 worked out by esm_refs.py in one ~40 s scan (needs numpy). Known gap: xEdit
 stops reading some quests part-way through their objective/alias conditions, so
 its lists leave out those quests; these lists include them. (The CURV XCRI and
-KYWD gaps were closed on 25 Oct 2026: CELL XCRI and PACK PTDA are read by layout.)
+KYWD gaps were closed on 25 Oct 2026: CELL XCRI and PACK PTDA are read by layout;
+also QUST QOTM, EXPL DATA placed object, PERK EPFD type 9, DMGT DSES/DSEB, LVLI LVIG.)
 
 Conditions are shown exactly as xEdit shows them (esm_conditions.py, built from
 xEdit's own definitions in xedit_functions.py). Links to placed references, cells
@@ -765,6 +769,258 @@ def exp_misc(esm):
         rows.append((["%08X" % r.fid, cc(r.edid), cc(esm.lstring(r.full)), _kw_sorted(esm, r.first("KWDA")),
                       value, weight, "|".join(mcqp), str(len(refs))], refs))
     return _pad_refs(rows, ["FormID", "EDID", "FULL", "Keywords", "Value", "Weight", "MCQP", "ReferencedByCount"])
+
+
+# ------------------------------------------------------------- ALCH ------
+def _flag_bits(v):
+    """xEdit's edit value of an unnamed flags field: one 0/1 per bit, lowest bit first,
+    up to the highest set bit ("11011" = bits 0, 1, 3, 4). No bits set: 64 zeros
+    (as xEdit writes it, like LVLI's LVLF)."""
+    if not v:
+        return "0" * 64
+    out = ""
+    while v:
+        out += "1" if v & 1 else "0"
+        v >>= 1
+    return out
+
+
+def _dtrim(s):
+    """Delphi Trim: strips every character up to space (control bytes too) from both ends."""
+    i, j = 0, len(s)
+    while i < j and s[i] <= " ":
+        i += 1
+    while j > i and s[j - 1] <= " ":
+        j -= 1
+    return s[i:j]
+
+
+def exp_alch(esm):
+    """ExportALCHToTSV.pas - ingestibles (main file: keywords, ENIT, Referenced By,
+    keywords and refs padded) and _Effects (one row per effect, in file order).
+    ENIT (33 bytes): Value i32, Flags u32, Addiction, Addiction Chance f32, Consume
+    Sound, Health curve, Spoiled item, Is Canned u8, Canned base.
+    EFIT (16 bytes): Effect ID u32, Magnitude f32, Area u32, Duration u32."""
+    def lk(fid):
+        return fid if fid and esm.exists(fid) else None
+
+    def trip(fid):
+        f = lk(fid)
+        return [_hex(f), cc(esm.edid_of(f)), cc(esm.full_of(f))] if f else ["", "", ""]
+
+    rows, eff = [], []
+    for r in R.xedit_order(esm, "ALCH"):
+        fid, ed = "%08X" % r.fid, cc(r.edid)
+        d = r.first("DATA")
+        weight = C.fmt_float(struct.unpack_from("<f", d)[0]) if d and len(d) >= 4 else ""
+        kws, flat = [], []
+        kw = r.first("KWDA") or b""
+        for k in sorted(struct.unpack_from("<%dI" % (len(kw) // 4), kw)):   # xEdit sorts KWDA
+            if lk(k):
+                kws.append(cc(_linkcell(esm, k)))
+                flat.append(cc(esm.edid_of(k)) + "[%08X]" % k)
+            else:
+                kws.append("")
+        e = r.first("ENIT")
+        en = ["", ""] + [""] * 3 + [""] + [""] * 9 + [""] + [""] * 3
+        value = ""
+        if e and len(e) >= 33:
+            v, fl, add, ch, snd, hp, sp = struct.unpack_from("<iIIfIII", e, 0)
+            canned = e[28]
+            cb = struct.unpack_from("<I", e, 29)[0]
+            value = str(v)
+            en = ([str(v), _flag_bits(fl)] + trip(add) + [C.fmt_float(ch)] + trip(snd) + trip(hp) + trip(sp)
+                  + ["True" if canned else "False"] + trip(cb))
+        refs = _refcells(esm, r.fid)
+        base = [fid, ed, cc(esm.lstring(r.full)), cc(esm.lstring(r.first("DESC"))), weight, value,
+                _dtrim(cc(esm.lstring(r.first("DNAM")))), " | ".join(flat)]
+        rows.append((base, kws, en + [" | ".join(refs)], refs))
+        # effects: EFID starts each one; MAGG / DURG / EIES / CODG / CODV belong to the last EFID
+        effs = []
+        for k, v in r.subs:
+            if k == "EFID":
+                effs.append({"EFID": v})
+            elif effs and k in ("EFIT", "MAGG", "DURG", "EIES", "CODG", "CODV"):
+                effs[-1].setdefault(k, v)
+        for i, x in enumerate(effs):
+            efit = x.get("EFIT")
+            ei = ["", "", "", "", ""]
+            if efit and len(efit) >= 16:
+                a, m, ar, du = struct.unpack_from("<IfII", efit)
+                ei = [str(a), C.fmt_float(m), str(ar), str(du), ""]
+            codv = x.get("CODV")
+            eff.append("\t".join([fid, ed, str(len(effs)), str(i)] + trip(_u32(x["EFID"])) + ei
+                                 + trip(_u32(x.get("MAGG"))) + trip(_u32(x.get("DURG")))
+                                 + trip(_u32(x.get("EIES"))) + trip(_u32(x.get("CODG")))
+                                 + [str(struct.unpack_from("<I", codv)[0]) if codv and len(codv) >= 4 else ""]))
+    mk = max((len(k) for _b, k, _e, _r in rows), default=0)
+    mr = max((len(x) for _b, _k, _e, x in rows), default=0)
+    head = (["ALCH_FormID", "ALCH_EDID", "FULL", "DESC", "Weight", "Value", "DNAM_AddictionName", "Keywords_Flat"]
+            + ["Keyword_%d" % i for i in range(1, mk + 1)]
+            + ["ENIT_Value", "ENIT_Flags", "ENIT_Addiction_FormID", "ENIT_Addiction_EDID", "ENIT_Addiction_FULL",
+               "ENIT_AddictionChance", "ENIT_ConsumeSound_FormID", "ENIT_ConsumeSound_EDID", "ENIT_ConsumeSound_FULL",
+               "ENIT_HealthCurve_FormID", "ENIT_HealthCurve_EDID", "ENIT_HealthCurve_FULL",
+               "ENIT_SpoiledItem_FormID", "ENIT_SpoiledItem_EDID", "ENIT_SpoiledItem_FULL", "ENIT_IsCanned",
+               "ENIT_CannedBase_FormID", "ENIT_CannedBase_EDID", "ENIT_CannedBase_FULL", "Refs_Flat"]
+            + ["Ref_%d" % i for i in range(1, mr + 1)])
+    out = ["\t".join(head)]
+    for b, k, en, x in rows:
+        out.append("\t".join(b + k + [""] * (mk - len(k)) + en + x + [""] * (mr - len(x))))
+    eh = ("ALCH_FormID\tALCH_EDID\tEffectCount\tEffectIndex\tMGEF_FormID\tMGEF_EDID\tMGEF_FULL\t"
+          "EFIT_EffectID\tEFIT_Magnitude\tEFIT_Area\tEFIT_Duration\tEFIT_Unknown\t"
+          "MAGG_GLOB_FormID\tMAGG_GLOB_EDID\tMAGG_GLOB_FULL\tDURG_GLOB_FormID\tDURG_GLOB_EDID\tDURG_GLOB_FULL\t"
+          "EIES_FormID\tEIES_EDID\tEIES_FULL\tCODG_GLOB_FormID\tCODG_GLOB_EDID\tCODG_GLOB_FULL\tCODV_CooldownValue")
+    return {"": out, "_Effects": [eh] + eff}
+
+
+# ------------------------------------------------------------- ARMO ------
+# BOD2 First Person Flags: bit n is biped slot 30+n (xEdit's FO76 names)
+ARMO_BIPED = ["Hair Top", "Hair Long", "FaceGen Head", "BODY", "L Hand", "R Hand",
+              "[U] Torso", "[U] L Arm", "[U] R Arm", "[U] L Leg", "[U] R Leg",
+              "[A] Torso", "[A] L Arm", "[A] R Arm", "[A] L Leg", "[A] R Leg",
+              "Headband", "Eyes", "Beard", "Mouth", "Neck", "Ring", "Scalp", "Decapitation",
+              "Backpack", "EyeOfRa", "Unnamed", "Coverall", "Unnamed", "Shield", "Pipboy", "FX"]
+ARMO_DAMA = ["dtEnergy", "dtFire", "dtCryo", "dtPoison", "dtRadiationExposure", "dtPhysical"]
+# Keywords (_SLOTS Keywords_EDID_Flat: sorted EDIDs, | joined; _ARMOUR KeywordCount +
+# KW1..KWn: FormID:EDID:SIG in FormID order). The .pas always meant to write them,
+# but until 25 Oct 2026 its keyword paths never found FO76's KWDA (nested in the
+# Keywords struct), so every xEdit ARMO export up to October 2026 has an empty
+# Flat column, KeywordCount 0 and no KW columns. Duchess, 25 Oct 2026: fill them;
+# the .pas now finds KWDA too (ResolveKWDA, as in the BOOK .pas). False = the old output.
+ARMO_KEYWORDS = True
+
+
+def _ccell(s):
+    """The .pas CleanCell: CR/LF/tab to spaces, then Delphi Trim."""
+    return _dtrim(cc(s))
+
+
+def _obt_combos(r):
+    """Object Template (OBTE ... STOP): [(OBTF, FULL raw, OBTS raw)] in file order, and the OBTE count."""
+    # xEdit fills a combination until a member repeats: an OBTS with no OBTF / FULL
+    # before it takes the OBTF / FULL that follow it (00425D51: Mk2 lands on combination 0).
+    combos, obte, inside = [], None, False
+    for k, v in r.subs:
+        if k == "OBTE":
+            inside, obte = True, struct.unpack_from("<I", v)[0] if len(v) >= 4 else 0
+        elif not inside:
+            continue
+        elif k == "STOP":
+            inside = False
+        elif k in ("OBTF", "FULL", "OBTS"):
+            if not combos or k in combos[-1]:
+                combos.append({})
+            combos[-1][k] = v
+    return obte, [(c.get("OBTF"), c.get("FULL"), c.get("OBTS")) for c in combos]
+
+
+def _obts(v):
+    """OBTS: Include Count u32, Property Count u32, Level Min u8, -, Level Max u8, -, ID s16,
+    Default bool, Keywords (u8 count + FormIDs), Min Level For Ranks u8, Alt Levels Per Tier u8,
+    Includes (Mod FormID, Attach Point Index u8, Optional bool, Don't Use All bool), Properties."""
+    inc, prop = struct.unpack_from("<II", v)
+    lmin, lmax, dflt, nkw = v[8], v[10], v[14], v[15]
+    p = 16 + nkw * 4 + 2
+    incs = []
+    for i in range(inc):
+        if p + 7 > len(v):
+            break
+        incs.append((struct.unpack_from("<I", v, p)[0], v[p + 4], v[p + 5], v[p + 6]))
+        p += 7
+    return inc, prop, lmin, lmax, dflt, incs
+
+
+def _xbool(b):
+    return "True" if b else "False"
+
+
+def exp_armo(esm):
+    """ExportARMOToCSV.pas - armour: _SLOTS (biped slots + sorted keyword EDIDs), _ARMOUR
+    (DATA, DAMA resistances, attach slots, durability curves, ARMA models; dynamic columns
+    padded to the widest record) and _ObjectTemplate (one row per OMOD include)."""
+    def edid_or_text(fid):
+        return esm.edid_of(fid) if _lk(esm, fid) else _ccell(esm.link_edit_value(fid))
+
+    slots = ["ARMO_FormID\tARMO_EDID\tARMO_FULL\tBOD2_FirstPersonFlags\tBOD2_FirstPersonFlagLabels\tKeywords_EDID_Flat"]
+    ot = ["\t".join(["ARMO_FormID", "ARMO_EDID", "ARMO_FULL", "OBTE_Count", "CombinationIndex", "OBTF_EditorOnly",
+                     "Combination_FULL", "OBTS_IncludeCount", "OBTS_PropertyCount", "OBTS_LevelMin", "OBTS_LevelMax",
+                     "OBTS_Default", "IncludeIndex", "Include_Mod", "Include_AttachPointIndex", "Include_Optional",
+                     "Include_DontUseAll"])]
+    rows = []
+    for r in R.xedit_order(esm, "ARMO"):
+        fid, ed, full = "%08X" % r.fid, _ccell(r.edid), _ccell(esm.lstring(r.full))
+        # --- _SLOTS
+        b = r.first("BOD2")
+        bits = struct.unpack_from("<I", b)[0] if b and len(b) >= 4 else 0
+        on = [i for i in range(32) if bits >> i & 1]
+        kwda = r.first("KWDA") or b""
+        slots.append("\t".join([fid, ed, full, "|".join(str(30 + i) for i in on),
+                                "|".join(ARMO_BIPED[i] for i in on),
+                                _kw_sorted(esm, kwda) if ARMO_KEYWORDS else ""]))
+        # --- _ARMOUR
+        kws = []
+        if ARMO_KEYWORDS:
+            for k in sorted(struct.unpack_from("<%dI" % (len(kwda) // 4), kwda)):   # xEdit sorts KWDA
+                kws.append(_linkcell(esm, k) if _lk(esm, k) else _ccell(esm.link_edit_value(k)))
+        d = r.first("DATA")
+        data = ["", "", ""]
+        if d and len(d) >= 12:
+            v, w, h = struct.unpack_from("<ifI", d)
+            data = [str(v), C.fmt_float(w), str(h)]
+        dama = r.first("DAMA") or b""
+        ents = [struct.unpack_from("<III", dama, i) for i in range(0, len(dama) - 11, 12)]
+        res = []
+        for dt in ARMO_DAMA:
+            hit = next((e for e in ents if _lk(esm, e[0]) and esm.edid_of(e[0]).lower() == dt.lower()), None)
+            res += [str(hit[1]), edid_or_text(hit[2])] if hit else ["", ""]
+        appr = r.first("APPR") or b""
+        apprs = []
+        for k in sorted(struct.unpack_from("<%dI" % (len(appr) // 4), appr)):   # xEdit sorts APPR by FormID
+            apprs.append(esm.edid_of(k) + ":" + _ccell(esm.full_of(k)) if _lk(esm, k)
+                         else _ccell(esm.link_edit_value(k)))
+        cvt = []
+        for s in ("CVT1", "CVT2", "CVT3"):
+            v = r.first(s)
+            cvt.append(edid_or_text(struct.unpack_from("<I", v)[0]) if v and len(v) >= 4 else "")
+        mods = []   # Models: INDX + MODL per entry, file order
+        for k, v in r.subs:
+            if k == "INDX":
+                mods.append("")
+            elif k == "MODL":
+                m = struct.unpack_from("<I", v)[0]
+                cell = "%s:%08X" % (esm.edid_of(m), m) if _lk(esm, m) else _ccell(esm.link_edit_value(m))
+                if mods and mods[-1] == "":
+                    mods[-1] = cell
+                else:
+                    mods.append(cell)
+        kwn = len(kws)
+        rows.append(([fid, ed, full, str(kwn)], kws, data + res + [str(len(apprs))], apprs, cvt + [str(len(mods))],
+                     [x.replace("\t", " ") for x in mods]))
+        # --- _ObjectTemplate
+        obte, combos = _obt_combos(r)
+        for ci, (obtf, cfull, obts) in enumerate(combos):
+            if obts is None:
+                continue
+            inc, prop, lmin, lmax, dflt, incs = _obts(obts)
+            for ii, (m, api, opt, dua) in enumerate(incs):
+                ot.append("\t".join([fid, ed, full, str(obte), str(ci), "", esm.lstring(cfull) if cfull else "",
+                                     str(inc), str(prop), str(lmin), str(lmax), _xbool(dflt), str(ii),
+                                     esm.link_edit_value(m), str(api), _xbool(opt), _xbool(dua)]))
+    mk = max((len(x[1]) for x in rows), default=0)
+    ma = max((len(x[3]) for x in rows), default=0)
+    mm = max((len(x[5]) for x in rows), default=0)
+    head = (["ARMO_FormID", "ARMO_EDID", "ARMO_FULL", "KeywordCount"] + ["KW%d" % i for i in range(1, mk + 1)]
+            + ["DATA_Value", "DATA_Weight", "DATA_Health"]
+            + [x for n in ("Energy", "Fire", "Cryo", "Poison", "Rad", "Physical")
+               for x in ("DAMA_%s_Amount" % n, "DAMA_%s_Curve" % n)]
+            + ["APPR_SlotCount"] + ["APPR_%d" % i for i in range(1, ma + 1)]
+            + ["CVT1_DurabilityMin", "CVT2_CondDmgScaleFactor", "CVT3_DurabilityMax", "ModelCount"]
+            + ["Model%d" % i for i in range(1, mm + 1)])
+    armour = ["\t".join(head)]
+    for a, k, b, ap, c, m in rows:
+        armour.append("\t".join(a + k + [""] * (mk - len(k)) + b + ap + [""] * (ma - len(ap)) + c + m
+                                + [""] * (mm - len(m))))
+    return {"_SLOTS": slots, "_ARMOUR": armour, "_ObjectTemplate": ot}
 
 
 # ------------------------------------------------------------- NPC_ ------
@@ -1586,10 +1842,11 @@ def exp_refrlvli(esm):
 
 # ------------------------------------------------------- REFR_Placements --
 # Base records whose placements the site reads (see the .pas header): the Pint-Sized
-# Slasher masks, the Disturbed Graves, the U-Mine-It dig sites and the treasure-map
-# mounds (every ACTI named TreasureMapMoundActivatorNN). Any other base already in
+# Slasher masks, the Disturbed Graves, the U-Mine-It dig sites, the Brain in a Jar
+# collectables (Skyline Valley) and the treasure-map mounds (every ACTI named
+# TreasureMapMoundActivatorNN). Any other base already in
 # a REFR_Placements file in the output folder is refreshed too, and --bases adds more.
-REFR_BASES = [0x008E069E, 0x008F1672, 0x000355A1]
+REFR_BASES = [0x008E069E, 0x008F1672, 0x000355A1, 0x008ABB18]
 REFR_BASE_EDID_RE = re.compile(r"^TreasureMapMoundActivator\d+$")
 
 
@@ -1837,6 +2094,10 @@ def _qust_tree(r):
                 log["subs"].append((k, v))
             continue
         if mode == "obj":
+            if k == "QOST":
+                # new objective field (PTS build 211, Oct 2026: one after every FNAM).
+                # Not exported; skipped so the targets after it are still read.
+                continue
             if k == "QSTA":
                 tg = {"QSTA": v, "conds": [], "subs": []}
                 ob["targets"].append(tg)
@@ -2807,7 +3068,7 @@ def _lore_notes(esm):
     return out + [x for _, x in rows]
 
 
-NEEDS_REFS = {"QUST2", "LVLI", "GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "ECAT", "CNDF", "LSCR", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
+NEEDS_REFS = {"ALCH", "QUST2", "LVLI", "GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "ECAT", "CNDF", "LSCR", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
 # exports that need Referenced By for more than their own records
 REF_TARGETS = {"NPC2": npc2_ref_targets, "MISC2": misc2_ref_targets, "ACTI2": acti2_ref_targets}
 
@@ -2845,6 +3106,8 @@ EXPORTS = {
     "QUST2": (["QUST"], "QUST2_Export", exp_qust2),
     "ALLYDLG": (["QUST"], "ALLYDLG_Export", exp_allydlg),
     "TERMPL": (["TERM"], "TERM_Export", exp_term_placements),
+    "ALCH": (["ALCH"], "ALCH_Export", exp_alch),
+    "ARMO": (["ARMO"], "ARMO_Export", exp_armo),
     "REFR": (["ACTI"], "REFR_Placements", exp_refr_placements),
     "LORE": (["NOTE", "BOOK"], "ALLYDLG_Export", exp_lore),
 }
