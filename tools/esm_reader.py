@@ -12,6 +12,7 @@ from __future__ import annotations
 import datetime
 import math
 import os
+import re
 import struct
 import zlib
 
@@ -91,11 +92,15 @@ def main_full(subs):
     return None
 
 
+_UNSET = object()
+
+
 class Record:
-    __slots__ = ("sig", "fid", "subs", "flags", "version")
+    __slots__ = ("sig", "fid", "subs", "flags", "version", "_full")
 
     def __init__(self, sig, fid, subs, flags=0, version=0):
         self.sig, self.fid, self.subs, self.flags, self.version = sig, fid, subs, flags, version
+        self._full = _UNSET
 
     def first(self, sub):
         for k, v in self.subs:
@@ -108,7 +113,10 @@ class Record:
 
     @property
     def full(self):
-        return main_full(self.subs)
+        # worked out once: a big cell record is asked for its name thousands of times
+        if self._full is _UNSET:
+            self._full = main_full(self.subs)
+        return self._full
 
     @property
     def edid(self):
@@ -283,6 +291,9 @@ class Esm:
         if fid not in self.index:
             w = self.world_record(fid)
             if w is None:
+                if fid & 0xFFFFFF < 0x800:
+                    # xEdit: a low object ID may be one of the engine's own forms
+                    return "[%08X] <Warning: Could not be resolved, but is possibly hardcoded in the engine>" % fid
                 return "[%08X] < Error: Could not be resolved >" % fid
             return self._world_edit_value(fid, w)
         sig, ed = self.index[fid][:2]
@@ -333,6 +344,32 @@ class Esm:
             walk(size, None, None)
         return res
 
+    def prefetch_world(self, fids):
+        """Read many world records (and the cells they stand in) in one pass, in file
+        order, with one open file - much faster than world_record() one by one when an
+        export names thousands of placed references."""
+        if self._world is None:
+            self._world = self._walk_world()
+        want = set()
+        for fid in fids:
+            hit = self._world.get(fid)
+            if hit is not None and fid not in self._world_cache:
+                want.add(fid)
+                if hit[2] is not None and hit[2] not in self._world_cache:
+                    want.add(hit[2])
+        todo = sorted(((self._world[f][1], f) for f in want if f in self._world))
+        with open(self.esm_path, "rb") as f:
+            for off, fid in todo:
+                f.seek(off)
+                hdr = f.read(24)
+                ds = struct.unpack("<I", hdr[4:8])[0]
+                flags = struct.unpack("<I", hdr[8:12])[0]
+                data = f.read(ds)
+                if flags & 0x40000:
+                    data = zlib.decompress(data[4:])
+                self._world_cache[fid] = Record(hdr[:4].decode(), fid, _parse_subs(data), flags,
+                                                struct.unpack("<H", hdr[20:22])[0])
+
     def _read_at(self, off):
         with open(self.esm_path, "rb") as f:
             f.seek(off)
@@ -368,9 +405,16 @@ class Esm:
         name = rec.first("NAME")
         base_fid = struct.unpack("<I", name[:4])[0] if name else 0
         info = "Places " + (self.link_edit_value(base_fid) if name else "")
-        if cell:
-            info += " in " + self._cell_edit_value(cell)
         cw = self.world_record(cell) if cell else None
+        if cell:
+            cev = self._cell_edit_value(cell)
+            # In a placed reference's name, an exterior cell's grid sits inside the
+            # "(in WORLD ...)":  ... VTecAgCenterExt02 [CELL:00263FBE] (in APPALACHIA ... at -29,5)
+            # (a link to the cell itself keeps "(in WORLD ...) at -29,5").
+            m = re.match(r"^(.*)\) at (-?\d+,-?\d+)$", cev)
+            if m:
+                cev = m.group(1) + " at " + m.group(2) + ")"
+            info += " in " + cev
         if cw is not None and cw[1].flags & 0x400:  # persistent cell: add the grid the ref stands in
             d = rec.first("DATA")
             if d and len(d) >= 8:

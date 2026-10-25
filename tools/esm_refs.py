@@ -87,6 +87,10 @@ def _subs(data):
     return out
 
 
+SAME_FIELDS_AS = {"INGR": "ALCH"}
+PLACED_LIKE_REFR = {"PGRE", "PMIS", "PARW", "PBEA", "PFLA", "PCON", "PBAR", "PHZD"}
+
+
 def _is_ref(rules, sig, sub, rel, field, tsig):
     if sub == "CTDA":
         return rel in _ctda_offsets(field)
@@ -105,6 +109,11 @@ def _is_ref(rules, sig, sub, rel, field, tsig):
     #     are hashes, not FormIDs.
     #   PACK PTDA (package target): type 0 Specific Reference / 1 Object ID
     #     holds a FormID of any type (XPD_AC01_SalSit -> LL_Drink_Alcohol_Wine).
+    #     An XCRI over 65,535 bytes (stored behind an XXXX size record) gives no links
+    #     in xEdit: EasternRegionalPen01's 148 KB XCRI holds 003CB4B7 thirteen times,
+    #     but xEdit's MTR_LodeBaring02_MineEmergencyRecorder (NOTE) lists no CELL.
+    if sig == "CELL" and sub == "XCRI" and len(field) > 0xFFFF:
+        return False
     if sig == "CELL" and sub == "XCRI" and len(field) >= 16:
         start = 16 + 8 * struct.unpack_from("<I", field, 0)[0]
         if rel >= start and (rel - start) % 8 == 0:
@@ -151,6 +160,12 @@ def _is_ref(rules, sig, sub, rel, field, tsig):
     #     NPC_); the learned rules had no DOBJ at all (25 Oct 2026).
     if sig == "DOBJ" and sub == "DNAM" and rel % 8 == 4:
         return True
+    #   LVLI LVLO (12-byte entry: level, item, count) and GMRW QSRD (rewarded item,
+    #     count): the item is any type. The learned rules missed KEYM in both
+    #     (RSVP02_Container_Safe_Reward, Burn_SQ04_CacheKey1Reward; 25 Oct 2026).
+    if (sig == "LVLI" and sub == "LVLO" and len(field) == 12 and rel == 4) or \
+            (sig == "GMRW" and sub == "QSRD" and rel == 0):
+        return True
     #   MGEF DATA offset 12 (Associated Item): any type, by archetype; the learned
     #     rules saw DMGT / KYWD / LIGH / SPEL / STHD only. W05_TurboFert_Magiceffect
     #     -> an FLST (25 Oct 2026).
@@ -167,6 +182,16 @@ def _is_ref(rules, sig, sub, rel, field, tsig):
         p = 16 + field[15] * 4 + 2 + inc * 7
         if p <= rel < p + prop * 24 and (rel - p) % 24 == 12 and field[p + (rel - p) // 24 * 24] in (4, 6):
             return True
+    # Placed projectiles / hazards / grenades ... (PGRE, PHZD, PMIS ...) are REFRs with
+    # another signature and the same fields; the learned rules mostly saw REFR, so a
+    # field they have no rule for uses the REFR rule (PHZD / PGRE XEZN -> the
+    # encounter-zone LCTN, LocForestPoseidonEnergyLocation, 25 Oct 2026).
+    if sig in PLACED_LIKE_REFR and (sig, sub) not in rules and (sig, sub, "size") not in rules:
+        sig = "REFR"
+    #   INGR (ingredient) has the same effect fields as ALCH; the learned rules have no
+    #   INGR at all (CopperPipe EFID -> RestoreHealthFood MGEF, 25 Oct 2026).
+    if sig in SAME_FIELDS_AS and (sig, sub) not in rules and (sig, sub, "size") not in rules:
+        sig = SAME_FIELDS_AS[sig]
     bys = rules.get((sig, sub, "size"))
     if bys is not None and len(field) in bys:  # rule for this exact subrecord size
         return tsig in bys[len(field)].get(rel, ())
