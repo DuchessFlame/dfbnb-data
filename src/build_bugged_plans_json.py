@@ -31,6 +31,15 @@ name. Each one is the generalised form of a bug already confirmed by hand:
               nothing.
   wrong_tier  The plan names one tier (Standard/Treated/.../Shielded, Light/
               Sturdy/Heavy, Mk N) and the recipe it unlocks makes another.
+  wrong_item  The plan is named after a live weapon/armour piece, but it teaches
+              something else (e.g. a paint), and that item's own recipe has been
+              left behind: it makes nothing, or its unlock is a deleted record.
+              Also lists every game check (CNDF "has learned all...") that still
+              looks for the old recipe, since nobody can learn it any more.
+              (The Gutter, Sept 2026: Plan: The Gutter moved to the Gutter Paint;
+              co_Weapon_Melee_DLC01_AssaultronBlade_TheGutter makes nothing and is
+              unlocked by _DELETE_Note; Daily Ops + MPE "all rare known" still
+              check it.)
   scrap_cut   A scrap-to-learn mod (COBJ creates an OMOD, GNAM is a WEAP/ARMO)
               whose weapon/armour is cut, so there is nothing to scrap.
 
@@ -89,6 +98,7 @@ import rng76                           # noqa: E402
 import plan_sources                    # noqa: E402
 import plan_unlocks                    # noqa: E402
 import switched_off_starts             # noqa: E402
+import bug_report_text                 # noqa: E402
 
 RX_REF_COL = re.compile(r"^Ref_?\d+$")
 RX_COND_COL = re.compile(r"^Cond\d+$")
@@ -186,6 +196,27 @@ def tier_marks(text):
     return out
 
 
+# ── recipe stems (wrong_item) ────────────────────────────────────────────────
+# A plan BOOK and the recipe it teaches share an EditorID tail:
+#   Recipe_Weapon_Melee_AssaultronBlade_TheGutter
+#   co_Weapon_Melee_DLC01_AssaultronBlade_TheGutter
+RX_RECIPE_PREFIX = re.compile(r"^(recipe|co)_", re.I)
+RX_DLC_TOKEN = re.compile(r"(^|_)dlc\d+(?=_)", re.I)
+RX_DELETED = re.compile(r"(^|_)(delete|deleted|del)(_|$)", re.I)
+RX_PLAN_WORD = re.compile(r"^\s*(plan|recipe)\s*:\s*", re.I)
+
+
+def recipe_stem(edid):
+    s = RX_RECIPE_PREFIX.sub("", (edid or "").strip())
+    s = RX_DLC_TOKEN.sub("", s)
+    return s.strip("_").lower()
+
+
+def dead_unlock(edid):
+    e = (edid or "").strip()
+    return bool(e) and (bool(RX_DELETED.search(e)) or is_dev(e))
+
+
 # ── main scan ────────────────────────────────────────────────────────────────
 class Scan:
     def __init__(self, root):
@@ -261,6 +292,7 @@ class Scan:
         self.cobj = {}
         self.cobj_by_gnam = collections.defaultdict(list)
         self.cobj_by_cnam = collections.defaultdict(list)
+        self.cobj_by_stem = collections.defaultdict(list)
         for d, crefs, _ in rows(self._f("COBJ", "COBJ_Export_*.tsv")):
             fid = (d.get("COBJ_FormID") or "").strip().upper()
             if not fid:
@@ -274,10 +306,29 @@ class Scan:
                  "gnam_full": (d.get("GNAM_FULL") or "").strip(),
                  "refs": [split_ref(x) for x in crefs]}
             self.cobj[fid] = c
+            self.cobj_by_stem[recipe_stem(c["edid"])].append(c)
             if c["gnam"]:
                 self.cobj_by_gnam[c["gnam"]].append(c)
             if c["cnam"]:
                 self.cobj_by_cnam[c["cnam"]].append(c)
+
+        # live weapons / armour by name (wrong_item)
+        self.item_by_full = collections.defaultdict(list)
+        for fid, sig in self.sig.items():
+            if sig in ("WEAP", "ARMO") and self.full.get(fid) and not is_dev(self.edid.get(fid)):
+                self.item_by_full[self.full[fid].lower()].append(fid)
+
+        # CNDF "has learned recipe" checks (wrong_item): COBJ -> [CNDF edid]
+        self.cndf_checks = collections.defaultdict(list)
+        for d, _, conds in rows(self._f("CNDF", "CNDF_Export_*.tsv")):
+            ce = (d.get("EDID") or "").strip()
+            if not ce or is_dev(ce):
+                continue
+            for c in conds:
+                if "HasLearnedRecipe" in c:
+                    for cf in re.findall(r"\[COBJ:([0-9A-Fa-f]{8})\]", c):
+                        if ce not in self.cndf_checks[cf.upper()]:
+                            self.cndf_checks[cf.upper()].append(ce)
 
         # LVLI
         self.lvli = {}
@@ -626,6 +677,12 @@ class Scan:
                                              self.rec(c["cnam"], c["cnam_edid"], self.sig.get(c["cnam"], ""))]})
                     severity = severity or "broken_item"
 
+            # wrong_item
+            wi = self.wrong_item(b, cobjs)
+            if wi:
+                bugs.append(wi)
+                severity = severity or "broken_item"
+
             if not bugs:
                 continue
             out.append({
@@ -642,6 +699,53 @@ class Scan:
                 },
             })
         return out
+
+    def wrong_item(self, b, cobjs):
+        """The plan is named after a live weapon/armour piece but teaches
+        something else, and that piece's own recipe (same EditorID tail) was left
+        behind -- it makes nothing, or a deleted record unlocks it. Nothing is
+        matched by name list; every fact comes from the exports."""
+        want = RX_PLAN_WORD.sub("", b["full"] or "").strip()
+        if not want or not cobjs:
+            return None
+        targets = self.item_by_full.get(want.lower())
+        if not targets:
+            return None
+        if any((c["cnam_full"] or "").strip().lower() == want.lower() or c["cnam"] in targets
+               for c in cobjs):
+            return None                       # it does teach the item itself
+        mine = {c["fid"] for c in cobjs}
+        for old in self.cobj_by_stem.get(recipe_stem(b["edid"]), []):
+            if old["fid"] in mine or old["gnam"] == b["fid"]:
+                continue
+            if not (dead_unlock(old["gnam_edid"]) or not old["cnam"]):
+                continue
+            if old["cnam"] and old["cnam"] not in targets:
+                continue
+            taught = ", ".join(sorted({c["cnam_full"] or c["cnam_edid"] for c in cobjs})) or "something else"
+            why = []
+            if not old["cnam"]:
+                why.append("it no longer makes anything")
+            if dead_unlock(old["gnam_edid"]):
+                why.append(f"it is unlocked by a deleted record ({old['gnam_edid']})")
+            checks = self.cndf_checks.get(old["fid"], [])
+            text = (f"This plan should teach you to craft {want}, but it teaches {taught} instead. "
+                    f"{want}'s own crafting recipe ({old['edid']}) was left behind: "
+                    f"{' and '.join(why)}, so there is no way to learn to craft {want}.")
+            if checks:
+                text += (" These game checks still look for that old recipe, so they can never "
+                         "pass: " + ", ".join(checks) + ".")
+            recs = [self.rec(old["fid"], old["edid"], "COBJ")]
+            if old["gnam"]:
+                recs.append(self.rec(old["gnam"], old["gnam_edid"], self.sig.get(old["gnam"], "BOOK")))
+            recs += [self.rec(t, self.edid.get(t, ""), self.sig.get(t, "")) for t in targets[:2]]
+            recs += [self.rec(c["fid"], c["edid"], "COBJ") for c in cobjs]
+            return {"kind": "wrong_item", "strong": True,
+                    "title": "Teaches the wrong item",
+                    "text": text, "records": recs,
+                    "should_teach": want, "teaches": taught,
+                    "old_recipe": old["edid"], "stale_checks": checks}
+        return None
 
     def _cond_text(self, conds):
         out = []
@@ -771,6 +875,9 @@ class Scan:
             return bug["text"]
         if k == "scrap_cut":
             return bug["text"]
+        if k == "wrong_item":
+            return (f"Reading this plan should let you craft {bug['should_teach']}, but it unlocks "
+                    f"{bug['teaches']} instead.")
         return bug.get("text", "")
 
     # -------------------------------------------------------------- titles
@@ -1090,7 +1197,7 @@ def main(argv=None):
     s.analyse_reach()
     items = s.scan_plans() + s.scan_scrap() + s.scan_titles()
     items, held_back = gate(s, items, a.master)
-    STRONG = {"shadowed", "never_rolls", "wrong_tier"}
+    STRONG = {"shadowed", "never_rolls", "wrong_tier", "wrong_item"}
     for it in items:
         for bug in it["bugs"]:
             bug["summary"] = s.summary(it, bug)
@@ -1122,6 +1229,12 @@ def main(argv=None):
         old = prev_items.get(x["id"])
         x["first_seen"] = (old or {}).get("first_seen") or today
         x["is_new"] = bool(prev_items) and old is None
+        # Bethesda bug report text (strong or confirmed rows only). The PC tool
+        # tools/write_bug_reports.py turns it into a .txt in .Bethesda Bug
+        # Reports, where Brewmaster picks it up. No player details here.
+        rep = bug_report_text.fields_for(x)
+        if rep:
+            x["report"] = rep
     cur_ids = {x["id"] for x in items}
     fixed = [{"id": i, "name": o["name"], "fixed_on": today} for i, o in prev_items.items()
              if i not in cur_ids and i not in {h["id"] for h in hidden} and i not in moved_cut]
