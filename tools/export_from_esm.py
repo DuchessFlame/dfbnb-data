@@ -55,6 +55,7 @@ straight from the game files, so these no longer need xEdit:
     BOOK2   BOOK2_Export_<Month>_<Year>.tsv         (ExportBOOK2ToCSV.pas: note placements)
     COBJ    COBJ_Export_<Month>_<Year>.tsv + COBJ2_Export_<Month>_<Year>.tsv  (ExportCOBJToTSV.pas;
             COBJ2 = learn method, learn chance, conditions, first condition quest)
+    CONT    CONT_Export_<Month>_<Year>.tsv          (ExportCONTToTSV.pas: containers)
     TERMPL  TERM_Export_<Month>_<Year>_Placements.tsv  (ExportTERMToTSV.pas _Placements;
             the main TERM file and _Quests are tools/export_term_from_esm.py)
     REFR    REFR_Placements_<Month>_<Year>.tsv  (ExportREFRPlacementsToTSV.pas per base:
@@ -65,7 +66,7 @@ Every xEdit .pas above stays working as the manual backup.
 Coordinates are correctly rounded; xEdit's own text can differ by one in the last
 decimal place (X/Y/Z) and RotZ by 0.0001 - accepted, readers place by X/Y.
 
-GLOB, AVIF, KYWD, CURV, MISC, NPC, ARMO2, AVTR and BOOK list every record that points at each row ("Referenced By"),
+GLOB, AVIF, KYWD, CURV, MISC, NPC, ARMO2, AVTR, BOOK, COBJ and CONT list every record that points at each row ("Referenced By"),
 worked out by esm_refs.py in one ~40 s scan (needs numpy). Known gap: xEdit
 stops reading some quests part-way through their objective/alias conditions, so
 its lists leave out those quests; these lists include them. (The CURV XCRI and
@@ -1385,6 +1386,50 @@ def exp_cobj(esm):
     for b, x in rows:
         out.append("\t".join(b + x + [""] * (mr - len(x))))
     return {"COBJ": out, "COBJ2": cond}
+
+
+# ------------------------------------------------------------- CONT ------
+def exp_cont(esm):
+    """ExportCONTToTSV.pas - containers: harvest global (HGLB), keywords, PRPS
+    properties (AV | value | curve, three columns each) and Referenced By, padded."""
+    def ed(f):
+        return _ccell(esm.edid_of(f))
+
+    def lc(f):
+        return "%08X:%s:%s" % (f, ed(f), esm.sig_of(f))
+
+    rows = []
+    for r in R.xedit_order(esm, "CONT"):
+        hg = r.first("HGLB")
+        hglb = ""
+        if hg and len(hg) >= 4:
+            g = _u32(hg)
+            hglb = ed(g) if _lk(esm, g) else _ccell(esm.link_edit_value(g))
+        kw = r.first("KWDA") or b""
+        kws = [lc(k) if _lk(esm, k) else _ccell(esm.link_edit_value(k))
+               for k in sorted(struct.unpack_from("<%dI" % (len(kw) // 4), kw))]   # xEdit sorts KWDA
+        pr = r.first("PRPS") or b""
+        props = []
+        for av, val, cv in sorted((struct.unpack_from("<IfI", pr, i * 12) for i in range(len(pr) // 12)),
+                                  key=lambda x: x[0]):   # PRPS sorted by Actor Value, as in NPC
+            a = ed(av) if _lk(esm, av) else _ccell(esm.link_edit_value(av))
+            c = ed(cv) if _lk(esm, cv) else _ccell(esm.link_edit_value(cv))
+            props.append([a, C.fmt_float(val), c])
+        refs = [_ccell(x) for x in _refcells(esm, r.fid)]
+        rows.append(([("%08X" % r.fid), _ccell(r.edid), _ccell(esm.lstring(r.full)), hglb, str(len(kws))],
+                     kws, props, refs))
+    mk = max((len(x[1]) for x in rows), default=0)
+    mp = max((len(x[2]) for x in rows), default=0)
+    mr = max((len(x[3]) for x in rows), default=0)
+    head = (["FormID", "EDID", "FULL", "HGLB", "KeywordCount"] + ["KW%d" % i for i in range(1, mk + 1)]
+            + ["PropertyCount"] + [c % i for i in range(1, mp + 1)
+                                   for c in ("Prop_%d_AV", "Prop_%d_Val", "Prop_%d_Curve")]
+            + ["ReferencedByCount"] + ["Ref_%d" % i for i in range(1, mr + 1)])
+    out = ["\t".join(head)]
+    for b, k, p, x in rows:
+        out.append("\t".join(b + k + [""] * (mk - len(k)) + [str(len(p))] + [v for t in p for v in t]
+                             + [""] * (3 * (mp - len(p))) + [str(len(x))] + x + [""] * (mr - len(x))))
+    return out
 
 
 # ------------------------------------------------------------- NPC_ ------
@@ -3468,7 +3513,7 @@ def _lore_notes(esm):
     return out + [x for _, x in rows]
 
 
-NEEDS_REFS = {"ARMO2", "AVTR", "BOOK", "BOOK2", "COBJ", "ALCH", "QUST2", "LVLI", "GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "ECAT", "CNDF", "LSCR", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
+NEEDS_REFS = {"ARMO2", "AVTR", "BOOK", "BOOK2", "COBJ", "CONT", "ALCH", "QUST2", "LVLI", "GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "ECAT", "CNDF", "LSCR", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
 # exports that need Referenced By for more than their own records
 REF_TARGETS = {"ARMO2": armo2_ref_targets, "BOOK2": book2_ref_targets, "NPC2": npc2_ref_targets, "MISC2": misc2_ref_targets, "ACTI2": acti2_ref_targets}
 
@@ -3513,6 +3558,7 @@ EXPORTS = {
     "BOOK": (["BOOK"], "BOOK_Export", exp_book),
     "BOOK2": (["BOOK"], "BOOK2_Export", exp_book2),
     "COBJ": (["COBJ"], "COBJ_Export", exp_cobj),
+    "CONT": (["CONT"], "CONT_Export", exp_cont),
     "REFR": (["ACTI"], "REFR_Placements", exp_refr_placements),
     "LORE": (["NOTE", "BOOK"], "ALLYDLG_Export", exp_lore),
 }
