@@ -64,12 +64,40 @@ def fmt_float(v):
     return "%.6f" % v
 
 
-class Ctx:
-    """What a condition needs from the record that owns it."""
+# xEdit wbConditionEventToStr: Parameter #1 of GetEventData is a function
+# (low 16 bits) and an event member (high 16 bits), shown "GetValue:Value2".
+EVENT_FUNCTIONS = ["GetIsID", "IsInList", "GetValue", "HasKeyword", "GetItemValue"]
+EVENT_MEMBERS = {0x0000: "None", 0x314F: "CreatedObject", 0x3146: "Form", 0x3147: "Global",
+                 0x3149: "Identifier", 0x314B: "Keyword1", 0x324B: "Keyword2", 0x334B: "Keyword3",
+                 0x314C: "Location1", 0x324C: "Location2", 0x334C: "Location3", 0x3150: "Player1",
+                 0x3250: "Player2", 0x3251: "Quest", 0x3152: "Reference1", 0x3252: "Reference2",
+                 0x3352: "Reference3", 0x3156: "Value1", 0x3256: "Value2", 0x7FFFFFFF: "All"}
 
-    def __init__(self, esm, rec):
+
+def _enum_or_num(names, i):
+    if isinstance(names, dict):
+        return names.get(i, str(i))
+    return names[i] if 0 <= i < len(names) else str(i)
+
+
+class Ctx:
+    """What a condition needs from the record that owns it.
+
+    alias_names: {alias id: name} of the owning quest, when the caller has it
+    (QUST2). Alias parameters and Quest Alias then read like xEdit's alias
+    combo: "002 Player", or "045" when the name isn't found. Left None, they
+    stay plain numbers (the exports already checked against xEdit that way)."""
+
+    def __init__(self, esm, rec, alias_names=None):
         self.esm, self.rec = esm, rec
         self.param1_fid = 0
+        self.alias_names = alias_names
+
+    def alias_text(self, n):
+        name = self.alias_names.get(n, "") if self.alias_names is not None else ""
+        if n == -1:
+            return "None"          # xEdit's alias combo for "no alias"
+        return ("%03d %s" % (n, name)).strip() if n >= 0 else str(n)
 
     def owner_quest(self):
         """Quest used when a Quest parameter is NULL (xEdit's wbConditionQuestOverlay)."""
@@ -99,8 +127,12 @@ def _param(ctx, union, raw, cis):
     if union == 5:
         return esm.link_edit_value(u)
     if union == 6:
+        if ctx.alias_names is not None:
+            return ctx.alias_text(s)
         UNKNOWN.append(("alias", u))
         return str(s)
+    if union == 8:  # ptEvent
+        return _enum_or_num(EVENT_FUNCTIONS, u & 0xFFFF) + ":" + _enum_or_num(EVENT_MEMBERS, u >> 16)
     if union == 9:
         return str(u)
     if union == 10:  # quest stage of the quest that owns this record
@@ -112,7 +144,7 @@ def _param(ctx, union, raw, cis):
         if isinstance(names, dict):
             return names.get(s, str(s))
         return names[s] if 0 <= s < len(names) and names[s] else str(s)
-    if 12 <= union <= 22 or union == 8:
+    if 12 <= union <= 22:
         UNKNOWN.append(("enum%d" % union, u))
         return str(u)
     if union in (PT_ACTOR + 1, PT_REFERENCE + 1) and u == 0:
@@ -163,8 +195,11 @@ def elements(ctx, ctda, cis1=None, cis2=None):
     if len(ctda) >= 32:
         p3 = struct.unpack_from("<i", ctda, 28)[0]
         if run_on == 5:
-            UNKNOWN.append(("alias3", p3))
-            out.append(("Quest Alias", str(p3)))
+            if ctx.alias_names is not None:
+                out.append(("Quest Alias", ctx.alias_text(p3)))
+            else:
+                UNKNOWN.append(("alias3", p3))
+                out.append(("Quest Alias", str(p3)))
         elif run_on == 7:
             out.append(("Event Data", EVENT_DATA.get(p3, str(p3))))
         else:
@@ -237,16 +272,20 @@ def quest_stages(esm, qfid):
     q = esm.get(qfid) if qfid else None
     if q is not None and q.sig == "QUST":
         res = {}
-        cur, got = None, False
+        # xEdit reads the FIRST log entry's text only: a stage whose first
+        # entry has no CNAM shows just its number, even when a later entry
+        # has text (GQ_Horde stage 200).
+        cur, logs = None, 0
         for k, v in q.subs:
             if k == "INDX":
-                cur, got = struct.unpack("<H", v[:2])[0], False
+                cur, logs = struct.unpack("<H", v[:2])[0], 0
                 res.setdefault(cur, "")
             elif k in ("QOBJ", "ANAM", "ALST", "ALLS", "ALCS"):
                 cur = None
-            elif k == "CNAM" and cur is not None and not got:
+            elif k == "QSDT" and cur is not None:
+                logs += 1
+            elif k == "CNAM" and cur is not None and logs <= 1 and not res[cur]:
                 res[cur] = esm.lstring(v).strip()
-                got = True
     _STAGES[qfid] = res
     return res
 

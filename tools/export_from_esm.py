@@ -39,11 +39,27 @@ straight from the game files, so these no longer need xEdit:
             backup and still writes all six)
     QUSTSP  QUST2_Export_<Month>_<Year>_ScriptProps.tsv  (quest script properties:
             reward lists and chance GLOBs a quest's script rolls itself)
+    LVLI    LVLI_Export_<Month>_<Year>_LVLI_List/_Entries/_Refs/_Math.tsv  (ExportLVLIToCSV.pas;
+            _Math carries EntryChanceNoneCurveTable, the per-entry LVOT rng76 reads)
+    QUST2   QUST2_Export_<Month>_<Year>_Quests/_Stages/_Objectives/_Aliases/_ItemAliases
+            (the other five files of ExportQUST2ToTSV.pas)
+    ALLYDLG ALLYDLG_Export_<Month>_<Year>_Quests/_Topics/_Lines/_Scenes
+            (ExportCampAllyDialogToTSV.pas; _Lore is LORE above)
+    TERMPL  TERM_Export_<Month>_<Year>_Placements.tsv  (ExportTERMToTSV.pas _Placements;
+            the main TERM file and _Quests are tools/export_term_from_esm.py)
+    REFR    REFR_Placements_<Month>_<Year>.tsv  (ExportREFRPlacementsToTSV.pas per base:
+            masks, graves, dig sites, treasure-map mounds, any base already in a
+            REFR_Placements file, plus --bases)
+
+Every xEdit .pas above stays working as the manual backup.
+Coordinates are correctly rounded; xEdit's own text can differ by one in the last
+decimal place (X/Y/Z) and RotZ by 0.0001 - accepted, readers place by X/Y.
 
 GLOB, AVIF, KYWD, CURV, MISC and NPC list every record that points at each row ("Referenced By"),
 worked out by esm_refs.py in one ~40 s scan (needs numpy). Known gap: xEdit
 stops reading some quests part-way through their objective/alias conditions, so
-its lists leave out those quests; these lists include them.
+its lists leave out those quests; these lists include them. (The CURV XCRI and
+KYWD gaps were closed on 25 Oct 2026: CELL XCRI and PACK PTDA are read by layout.)
 
 Conditions are shown exactly as xEdit shows them (esm_conditions.py, built from
 xEdit's own definitions in xedit_functions.py). Links to placed references, cells
@@ -54,13 +70,14 @@ Run on the PC with the game installed:
     python tools\export_from_esm.py                 every export, LIVE  -> tsv\
     python tools\export_from_esm.py --pts           every export, PTS   -> tsv\pts\
     python tools\export_from_esm.py GMST EMOT       just those
-Options: --data "<Data folder>"  --out "<folder>"  --no-ledger
+Options: --data "<Data folder>"  --out "<folder>"  --no-ledger  --bases FID,FID (REFR)
 Each file written adds a line to tsv\_exports.tsv, like the .pas scripts do.
 """
 from __future__ import annotations
 
 import argparse
 import math
+import re
 import os
 import struct
 import sys
@@ -1072,14 +1089,16 @@ acti2_ref_targets = _placement_targets("ACTI")
 
 
 def _set_placements(esm, sig):
-    """The .pas never finds the cell or worldspace (it climbs the record's parents for
-    a CELL record, which a placed reference never has), so those columns, and the
-    location columns built from them, are always blank - kept blank here to match."""
+    """worldspace / cell are EditorIDs; loc_name is the cell's name (CellFULL), else the
+    worldspace's name or EditorID (WRLDName), else the cell's EditorID (CellEDID) -
+    the .pas rule. Older xEdit runs left these blank (it never found the cell); the
+    .pas now finds it with RefCell / CellWorld. Filled since Duchess's call, 21 Oct 2026."""
     import esm_refs
     out = ["set\titem_formid\tedid\tname\tsection\tworldspace\tcell\tx\ty\tz\tref_formid\tholder\tloc_name\tloc_source"]
     esm.world_record(0)
     scanned = getattr(esm, "_placement_scanned", set())
     esm._placement_scanned = scanned
+    rows = []
 
     def refs_of(fid):
         if fid not in esm.refby and fid not in scanned:
@@ -1110,13 +1129,24 @@ def _set_placements(esm, sig):
                         d = w[1].first("DATA")
                         if d and len(d) >= 12:
                             x, y, z = (C.fmt_float(v) for v in struct.unpack_from("<3f", d))
-                        out.append("\t".join([slug, fid, ed, full, sig, "", "", x, y, z,
-                                              "%08X" % rf, holder, "", ""]))
+                        rows.append((rf, [slug, fid, ed, full, sig, "", "", x, y, z,
+                                          "%08X" % rf, holder, "", ""]))
                         continue
                 if depth < 2 and rs in PLACEMENT_HOLDERS:
                     walk(rf, holder or esm.refinfo[rf][1], depth + 1)
 
         walk(r.fid, "", 0)
+    pl = _Places(esm, {rf for rf, _c in rows})
+    for rf, c in rows:
+        we, _wf, ce, _cf, cn, _le, _ln = pl.cols(rf)
+        c[5], c[6] = we, ce
+        if cn:
+            c[12], c[13] = cn, "CellFULL"
+        elif we:
+            c[12], c[13] = (pl.world_name(rf) or we), "WRLDName"
+        elif ce:
+            c[12], c[13] = ce, "CellEDID"
+        out.append("\t".join(c))
     return out
 
 
@@ -1452,14 +1482,73 @@ def _ref_positions(esm, fids):
     return out
 
 
+def _world_recs(esm, fids):
+    """{fid: Record} for many CELL / WRLD / REFR records, read in one pass (sorted by
+    offset) like _ref_positions - per-record opens are far too slow on the PC."""
+    import zlib
+    esm.world_record(0)
+    offs = sorted((esm._world[f][1], f) for f in fids if f in esm._world)
+    out = {}
+    with open(esm.esm_path, "rb") as fh:
+        for off, f in offs:
+            fh.seek(off)
+            hdr = fh.read(24)
+            ds = struct.unpack_from("<I", hdr, 4)[0]
+            data = fh.read(ds)
+            if struct.unpack_from("<I", hdr, 8)[0] & 0x40000:
+                data = zlib.decompress(data[4:])
+            out[f] = R.Record(hdr[:4].decode(), f, R._parse_subs(data), struct.unpack_from("<I", hdr, 8)[0])
+    return out
+
+
+class _Places:
+    """Worldspace, cell and the cell's Location for placed refs - the columns the
+    REFR placements .pas means to fill (it now finds the cell with RefCell /
+    CellWorld, as the NPC2 vendor .pas does). Duchess's call, 21 Oct 2026: fill them.
+    cols(rf) -> (WorldspaceEDID, WorldspaceFormID, CellEDID, CellFormID,
+                 CellName, LocationEDID, LocationName)"""
+
+    def __init__(self, esm, refs):
+        self.esm = esm
+        esm.world_record(0)
+        w = esm._world
+        cells = {w[r][2] for r in refs if r in w and w[r][2]}
+        wrlds = {w[r][3] for r in refs if r in w and w[r][3]}
+        self.recs = _world_recs(esm, cells | wrlds)
+
+    def cols(self, rf):
+        esm = self.esm
+        hit = esm._world.get(rf)
+        if not hit:
+            return ("",) * 7
+        _sig, _off, cell, wrld = hit
+        we = wf = ce = cf = cn = le = ln = ""
+        if wrld:
+            wr = self.recs.get(wrld)
+            we, wf = cc(wr.edid if wr else ""), "%08X" % wrld
+        if cell:
+            cr = self.recs.get(cell)
+            ce, cf = cc(cr.edid if cr else ""), "%08X" % cell
+            if cr:
+                cn = cc(esm.lstring(cr.first("FULL")))
+                xl = _u32(cr.first("XLCN"))
+                if xl and esm.exists(xl):
+                    le, ln = cc(esm.edid_of(xl)), cc(esm.full_of(xl))
+        return we, wf, ce, cf, cn, le, ln
+
+    def world_name(self, rf):
+        hit = self.esm._world.get(rf)
+        wr = self.recs.get(hit[3]) if hit and hit[3] else None
+        return cc(self.esm.lstring(wr.first("FULL"))) if wr else ""
+
+
 REFRLVLI_PART_BYTES = 40000000   # the .pas MAX_PART_BYTES: keeps each file well under GitHub's 50 MB warning
 
 
 def exp_refrlvli(esm):
     """ExportREFRPlacementsToTSV.pas run over the whole Leveled Item group: every
     placed reference (REFR) of a leveled list - the LPI_ "lying in the world" spots.
-    Like the .pas, the worldspace / cell / location columns stay blank (its re-anchor
-    step never finds the cell). The .pas also carries over rows for lists missing
+    Worldspace / cell / location columns are filled (_Places). The .pas also carries over rows for lists missing
     from the run; a full run here covers every list, so nothing is carried over."""
     import esm_refs
     targets = {r.fid for r in esm.records["LVLI"]}
@@ -1467,7 +1556,9 @@ def exp_refrlvli(esm):
     head = ("BaseFormID\tBaseEDID\tBaseName\tRefFormID\tRefEDID\tWorldspaceEDID\tWorldspaceFormID\t"
             "CellEDID\tCellFormID\tX\tY\tZ\tRotZ\tCellName\tLocationEDID\tLocationName")
     recs = R.xedit_order(esm, "LVLI")
-    pos = _ref_positions(esm, {rf for v in refby.values() for rf in v})
+    allrefs = {rf for v in refby.values() for rf in v}
+    pos = _ref_positions(esm, allrefs)
+    pl = _Places(esm, allrefs)
     rows = []
     for r in recs:
         bf, be, bn = "%08X" % r.fid, cc(r.edid), cc(esm.lstring(r.full))
@@ -1478,8 +1569,9 @@ def exp_refrlvli(esm):
                 px, py, pz, _a, _b, rzr = struct.unpack_from("<6f", d)
                 x, y, z = C.fmt_float(px), C.fmt_float(py), C.fmt_float(pz)
                 rz = _rot_deg(rzr)
-            rows.append("\t".join([bf, be, bn, "%08X" % rf, cc(refinfo[rf][1]), "", "", "", "",
-                                   x, y, z, rz, "", "", ""]))
+            we, wf, ce, cf, cn, le, ln = pl.cols(rf)
+            rows.append("\t".join([bf, be, bn, "%08X" % rf, cc(refinfo[rf][1]), we, wf, ce, cf,
+                                   x, y, z, rz, cn, le, ln]))
     # split into parts of at most REFRLVLI_PART_BYTES, header on each (sizes as the .pas counts them)
     parts, cur, size = [], [head], len(head) + 2
     for ln in rows:
@@ -1490,6 +1582,131 @@ def exp_refrlvli(esm):
         size += len(ln) + 2
     parts.append(cur)
     return {("" if i == 0 else "_Part%d" % (i + 1)): p for i, p in enumerate(parts)}
+
+
+# ------------------------------------------------------- REFR_Placements --
+# Base records whose placements the site reads (see the .pas header): the Pint-Sized
+# Slasher masks, the Disturbed Graves, the U-Mine-It dig sites and the treasure-map
+# mounds (every ACTI named TreasureMapMoundActivatorNN). Any other base already in
+# a REFR_Placements file in the output folder is refreshed too, and --bases adds more.
+REFR_BASES = [0x008E069E, 0x008F1672, 0x000355A1]
+REFR_BASE_EDID_RE = re.compile(r"^TreasureMapMoundActivator\d+$")
+
+
+def _refr_bases(esm):
+    import glob as _glob
+    want = list(REFR_BASES)
+    want += sorted(f for f, v in esm.index.items() if v[0] == "ACTI" and REFR_BASE_EDID_RE.match(v[1] or ""))
+    for path in sorted(_glob.glob(os.path.join(getattr(esm, "out_dir", "") or ".", "REFR_Placements_*.tsv"))):
+        try:
+            with open(path, encoding="utf-8", errors="replace") as fh:
+                next(fh, None)
+                for ln in fh:
+                    c = ln.split("\t", 1)[0].strip()
+                    if re.fullmatch(r"[0-9A-Fa-f]{8}", c):
+                        want.append(int(c, 16))
+        except OSError:
+            pass
+    want += list(getattr(esm, "extra_bases", ()) or ())
+    seen, out = set(), []
+    for f in want:
+        if f not in seen and esm.exists(f):
+            seen.add(f)
+            out.append(f)
+    return out
+
+
+def exp_refr_placements(esm):
+    """ExportREFRPlacementsToTSV.pas, per-base file REFR_Placements_<Month>_<Year>.tsv:
+    one row per placed reference (REFR) of each base record in _refr_bases, with its
+    worldspace, cell and the cell's Location (_Places). The .pas merges one run per
+    base into the month's file; here every base is exported in one go, so the file
+    is written whole. Coordinates: correctly rounded, as REFRLVLI."""
+    import esm_refs
+    bases = _refr_bases(esm)
+    refby, refinfo = esm_refs.referenced_by(esm, set(bases), referrers={"REFR"})
+    head = ("BaseFormID\tBaseEDID\tBaseName\tRefFormID\tRefEDID\tWorldspaceEDID\tWorldspaceFormID\t"
+            "CellEDID\tCellFormID\tX\tY\tZ\tRotZ\tCellName\tLocationEDID\tLocationName")
+    allrefs = {rf for v in refby.values() for rf in v}
+    pos = _ref_positions(esm, allrefs)
+    pl = _Places(esm, allrefs)
+    out = [head]
+    for b in bases:
+        bf, be, bn = "%08X" % b, cc(esm.edid_of(b)), cc(esm.full_of(b))
+        for rf in refby.get(b, ()):
+            if refinfo[rf][0] != "REFR":
+                continue
+            x = y = z = rz = ""
+            d = pos.get(rf)
+            if d and len(d) >= 24:
+                px, py, pz, _a, _b, rzr = struct.unpack_from("<6f", d)
+                x, y, z = C.fmt_float(px), C.fmt_float(py), C.fmt_float(pz)
+                rz = _rot_deg(rzr)
+            we, wf, ce, cf, cn, le, ln = pl.cols(rf)
+            out.append("\t".join([bf, be, bn, "%08X" % rf, cc(refinfo[rf][1]), we, wf, ce, cf,
+                                   x, y, z, rz, cn, le, ln]))
+    return out
+
+
+# ------------------------------------------------------------- TERM _Placements --
+def _any_edid(esm, fid):
+    if not fid:
+        return ""
+    if esm.exists(fid):
+        return esm.edid_of(fid) or ""
+    w = esm.world_record(fid)
+    return (w[1].edid or "") if w else ""
+
+
+def exp_term_placements(esm):
+    """ExportTERMToTSV.pas, _Placements file: where the token-exchange terminals
+    stand (EDID has "Redeem", or "Exchange" and "Terminal"). One row per placed
+    REFR of the terminal itself, or of a terminal whose menu opens it (Mr. Fuzzy's
+    prize list is a sub-menu of the Camden Park machine). Location = the first
+    LCTN that references the placement, else its cell's XLCN.
+    The main TERM file and _Quests are tools/export_term_from_esm.py."""
+    import esm_refs
+    exch = [r for r in R.xedit_order(esm, "TERM")
+            if "Redeem" in (r.edid or "") or ("Exchange" in (r.edid or "") and "Terminal" in (r.edid or ""))]
+    ex_ids = {r.fid for r in exch}
+    pats = {struct.pack("<I", f) for f in ex_ids}
+    openers = {t.fid for t in esm.records["TERM"]
+               if t.fid not in ex_ids and any(p in v for _k, v in t.subs for p in pats)}
+    refby, refinfo = esm_refs.referenced_by(esm, ex_ids | openers, referrers={"REFR", "TERM"})
+    rows = []          # (term, placed, ref)
+    for t in exch:
+        for rb in refby.get(t.fid, ()):
+            sig = refinfo[rb][0]
+            if sig == "REFR":
+                rows.append((t.fid, t.fid, rb))
+            elif sig == "TERM":
+                for rr in refby.get(rb, ()):
+                    if refinfo[rr][0] == "REFR":
+                        rows.append((t.fid, rb, rr))
+    refs = {r for _t, _p, r in rows}
+    pos = _ref_positions(esm, refs)
+    locby, _li = esm_refs.referenced_by(esm, refs, referrers={"LCTN"}) if refs else ({}, {})
+    out = ["TERM_FormID\tTERM_EDID\tPlaced_FormID\tPlaced_EDID\tRef_FormID\tWorldspace_EDID\tCell_EDID\t"
+           "X\tY\tZ\tLocation_FormID\tLocation_EDID"]
+    for t, pl, rf in rows:
+        hit = esm._world.get(rf) if esm._world else None
+        cell, wrld = (hit[2], hit[3]) if hit else (0, 0)
+        x = y = z = ""
+        d = pos.get(rf)
+        if d and len(d) >= 12:
+            px, py, pz = struct.unpack_from("<3f", d)
+            # exact value, correctly rounded - xEdit's own text can differ by
+            # 0.000001 in the last place (as for NPC2 / MISC2 / ACTI2 / REFRLVLI)
+            x, y, z = C.fmt_float(px), C.fmt_float(py), C.fmt_float(pz)
+        loc = next(iter(locby.get(rf, ())), 0)
+        if not loc and cell:
+            cw = esm.world_record(cell)
+            xl = cw[1].first("XLCN") if cw else None
+            loc = struct.unpack_from("<I", xl, 0)[0] if xl and len(xl) >= 4 else 0
+        out.append("\t".join(["%08X" % t, cc(esm.edid_of(t)), "%08X" % pl, cc(esm.edid_of(pl)), "%08X" % rf,
+                              cc(_any_edid(esm, wrld)), cc(_any_edid(esm, cell)), x, y, z,
+                              ("%08X" % loc) if loc else "", cc(_any_edid(esm, loc))]))
+    return {"_Placements": out}
 
 
 # exports whose rows list "Referenced By" - one shared scan covers them all
@@ -1573,6 +1790,576 @@ def exp_qust_sp(esm):
     return {"_ScriptProps": out}
 
 
+# ------------------------------------------------------------- QUST2 tree --
+# ExportQUST2ToTSV.pas walks xEdit's element tree. The same tree from the raw
+# subrecords:  stages (INDX, then one QSDT per log entry), objectives (QOBJ,
+# then a QSTA per target), aliases (ALST / ALLS ... ALED; a bare ALCS + ALMI
+# is its own element - the collection marker for the alias after it).
+_QLOG_SUBS = {"QSDT", "CTDA", "CIS1", "CIS2", "NAM2", "SCFC", "CNAM", "NAM0", "QRWD", "QUIM",
+              "QRWT", "QQSK", "QQSV"}
+_QOBJ_SUBS = {"FNAM", "QOTM", "SNAM", "NAM1", "SCCM", "PBLT", "PBRT", "NNAM"}
+
+
+def _qust_tree(r):
+    head, stages, objs, aliases = [], [], [], []
+    st = log = ob = tg = al = None
+    mode = "head"
+    for k, v in r.subs:
+        if k == "INDX":
+            mode, st, log = "stage", {"INDX": v, "logs": []}, None
+            stages.append(st)
+            continue
+        if k == "QOBJ":
+            mode, ob, tg = "obj", {"QOBJ": v, "subs": [], "targets": []}, None
+            objs.append(ob)
+            continue
+        if k in ("ALST", "ALLS"):
+            mode, al = "alias", {"kind": k, "id": v, "subs": [], "conds": [], "marker": False}
+            aliases.append(al)
+            continue
+        if k == "ALCS":
+            mode = "aliases"
+            aliases.append({"kind": k, "id": v, "subs": [], "conds": [], "marker": True})
+            continue
+        if k == "ANAM" and mode != "alias":
+            mode = "aliases"
+            head.append((k, v))
+            continue
+        if mode == "stage" and k in _QLOG_SUBS:
+            if k == "QSDT" or log is None:
+                log = {"subs": [], "conds": []}
+                st["logs"].append(log)
+            if k == "CTDA":
+                log["conds"].append([v, None, None])
+            elif k in ("CIS1", "CIS2") and log["conds"]:
+                log["conds"][-1][1 if k == "CIS1" else 2] = v.rstrip(b"\0").decode("utf-8", "replace")
+            else:
+                log["subs"].append((k, v))
+            continue
+        if mode == "obj":
+            if k == "QSTA":
+                tg = {"QSTA": v, "conds": [], "subs": []}
+                ob["targets"].append(tg)
+                continue
+            if tg is not None and k in ("CTDA", "CIS1", "CIS2"):
+                if k == "CTDA":
+                    tg["conds"].append([v, None, None])
+                elif tg["conds"]:
+                    tg["conds"][-1][1 if k == "CIS1" else 2] = v.rstrip(b"\0").decode("utf-8", "replace")
+                continue
+            if k in _QOBJ_SUBS and tg is None:
+                ob["subs"].append((k, v))
+                continue
+            if tg is not None and k in _QOBJ_SUBS:
+                tg["subs"].append((k, v))
+                continue
+            mode = "tail"
+        if mode == "alias":
+            if k == "ALED":
+                mode = "aliases"
+                continue
+            if k == "CTDA":
+                al["conds"].append([v, None, None])
+            elif k in ("CIS1", "CIS2") and al["conds"]:
+                al["conds"][-1][1 if k == "CIS1" else 2] = v.rstrip(b"\0").decode("utf-8", "replace")
+            else:
+                al["subs"].append((k, v))
+            continue
+        if mode == "aliases" and k == "ALMI" and aliases and aliases[-1]["marker"]:
+            aliases[-1]["subs"].append((k, v))
+            continue
+        head.append((k, v))
+        if mode not in ("head",):
+            mode = "tail"
+    return {"head": head, "stages": stages, "objs": objs, "aliases": aliases}
+
+
+# ------------------------------------------------------------- QUST2 -------
+# The other five ExportQUST2ToTSV.pas files: _Quests, _Stages, _Objectives,
+# _Aliases (quests whose name starts with an event prefix) and _ItemAliases
+# (every alias that creates an item, every quest).
+# Flag names and link labels were learned from the October 2026 xEdit files
+# (tools learned them the way xedit_ref_fields.json was learned) and checked
+# against xEdit's wbDefinitionsFO76 for the bits no exported quest uses.
+_Q2_PREFIXES = [("Enclave Activity:", "Enclave Activity"), ("Activity:", "Activity"),
+                ("Event:", "Event"), ("Daily Op:", "Daily Op"), ("Uplink:", "Daily Op"),
+                ("Decryption:", "Daily Op"), ("Daily:", "Daily"), ("Expedition:", "Expedition"),
+                ("Atlantic City:", "Expedition"), ("The Pitt:", "Expedition")]
+_Q2_QUEST_FLAGS = {0: "Start Game Enabled", 1: "Completed", 2: "Add Idle Topic To Hello",
+                   3: "Allow Repeat Stages", 4: "Starts Enabled", 5: "Displayed In HUD", 6: "Failed",
+                   7: "Stage Wait", 8: "Run Once", 9: "Exclude from dialogue export",
+                   10: "Warn on Alias Fill Failed", 11: "Tracked By UI", 12: "Repeats Conditions",
+                   13: "Keep Instance Data", 14: "Want Dormant", 15: "Has Dialogue Data",
+                   16: "Unique Instance", 17: "Sharable", 18: "Always Tracked", 19: "Holotape Only",
+                   20: "Saves Completion",  # 21 'Unused 21': xEdit hides it
+                   22: "Unique Per Player", 23: "Can Be Rejected When Active",
+                   24: "Uses Custom Expire Time", 25: "Not Autotracked", 26: "Disable Event Announcement",
+                   27: "Kick All Players From Instance on Shutdown", 28: "Disable Greeting Precheck",
+                   29: "Incrementing Timer", 30: "Is Random Encounter",
+                   31: "Not Tracked In UI After Completed"}
+_Q2_STAGE_FLAGS = {0: "Done", 1: "Run On Start", 2: "Run On Stop", 3: "Keep Instance Data From Here On",
+                   4: "Timer End", 5: "Start Timer", 6: "Checkpoint"}
+_Q2_LOG_FLAGS = {0: "Complete Quest", 1: "Fail Quest"}
+_Q2_OBJ_FLAGS = {0: "ORed With Previous", 1: "No Stats Tracking", 2: "Unknown 3", 3: "Uses Timer"}
+_Q2_ALIAS_FLAGS = dict(enumerate(
+    ["Reserves Location/Reference", "Optional", "Quest Object", "Allow Reuse in Quest", "Allow Dead",
+     "Matching Ref - In Loaded Area", "Essential", "Allow Disabled", "Stores Text", "Allow Reserved",
+     "Protected", "Forced by Aliases", "Allow Destroyed", "Matching Ref - Closest", "Uses Stored Text",
+     "Initially Disabled", "Allow Cleared", "Clear Names When Removed", "Matching Ref - Actors Only",
+     "Create Ref - Temp", "External Alias - Linked", "No Pickpocket",
+     "Can Apply Data To Non-Aliased Refs", "Is Companion", "Optional All Scenes"]))
+_Q2_ALIAS_FLAGS.update({b: "Unknown %d" % b for b in range(25, 42)})
+_Q2_QUEST_TYPES = ["None", "Primary", "Secondary", "Side Quest", "Server", "Daily", "Public Event",
+                   "Miscellaneous", "Event", "Daily Ops", "Expedition", "Module", "Caravan", "Raid"]
+# fields whose FormID xEdit's CollectLinks writes as TAG=link (learned)
+_Q2_LOG_LINKS = ("NAM0", "QRWD", "QUIM")
+_Q2_ALIAS_LINKS = {"ALFR", "ALUA", "ALRT", "ALFL", "ALFC", "ALPC", "ALCO", "ALSP", "ALFF", "ALFV",
+                   "ALDN", "VTCK", "ECOR", "ALEQ", "ALDI", "NAM7"}
+_Q2_MAX_LINKS, _Q2_MAX_CONDS, _Q2_MAX_GMRW = 16, 16, 8
+
+
+def _q2_flags(v, names):
+    """FlagsNamed: the names of the set bits xEdit defines, ' ; '-joined; with
+    none of them set but some bit set, the raw bit string (objective bit 4)."""
+    if not v:
+        return ""
+    out = [names[b] for b in range(64) if v >> b & 1 and b in names]
+    return " ; ".join(out) if out else _xedit_bits(v)
+
+
+def _q2_cond(ctx, ctda, cis1, cis2):
+    """QUST2 .pas BuildCondFromCTDA: Type|Comp|Function|<other non-empty elements>|RunOn|RefLink.
+    Alias parameters / Quest Alias read like xEdit ("002 Player") - Ctx.alias_names."""
+    els, ref = C.elements(ctx, ctda, cis1, cis2)
+    d, params = {}, []
+    for name, val in els:
+        low = name.lower()
+        val = cc(val)
+        if low in ("type", "comparison value - float", "comparison value - global", "function", "run on"):
+            d[low] = val
+            continue
+        if val == "":
+            continue
+        params.append(val)
+    comp = d.get("comparison value - float", d.get("comparison value - global", ""))
+    esm = ctx.esm
+    refcell = "%08X:%s:%s" % (ref, esm.edid_of(ref), esm.sig_of(ref)) if ref and esm.exists(ref) else ""
+    return "|".join([d["type"], comp, d["function"], "|".join(params), d["run on"], cc(refcell)])
+
+
+def _q2_conds(ctx, conds):
+    return " ; ".join(c for c in (_q2_cond(ctx, *x) for x in conds[:_Q2_MAX_CONDS]) if c)
+
+
+def _q2_linkcell(esm, fid):
+    if not fid:
+        return ""
+    if esm.exists(fid):
+        return "%08X:%s:%s" % (fid, esm.edid_of(fid), esm.sig_of(fid))
+    w = esm.world_record(fid)          # placed references (ALFR) live in the world data
+    if w is not None:
+        return "%08X:%s:%s" % (fid, w[1].edid or "", w[0])
+    return ""
+
+
+_Q2_SORTED = {"ALFC"}   # xEdit sorts this repeated field by FormID (ALPC stays in file order)
+
+
+def _q2_links(esm, subs, fields, arrays=()):
+    # runs of a sorted repeated field come out in FormID order
+    subs = list(subs)
+    i = 0
+    while i < len(subs):
+        j = i
+        while j < len(subs) and subs[j][0] == subs[i][0]:
+            j += 1
+        if subs[i][0] in _Q2_SORTED and j - i > 1:
+            subs[i:j] = sorted(subs[i:j], key=lambda kv: struct.unpack_from("<I", kv[1], 0)[0])
+        i = j
+    out = []
+    for k, v in subs:
+        if k in fields and len(v) >= 4:
+            c = _q2_linkcell(esm, struct.unpack_from("<I", v, 0)[0])
+            if c:
+                out.append("%s=%s" % (k, c))
+        elif k in arrays:
+            stride = 8 if k == "ALLA" else 4
+            fids = [struct.unpack_from("<I", v, o)[0] for o in range(0, len(v) - 3, stride)]
+            if k == "KWDA":
+                fids.sort()            # xEdit's Keywords array is sorted by FormID
+            for f in fids:
+                c = _q2_linkcell(esm, f)
+                if c:
+                    out.append("Keyword=" + c)
+    return " ; ".join(cc(x) for x in out[:_Q2_MAX_LINKS])
+
+
+def _q2_vmad(raw):
+    """(script names in xEdit's sorted order, fragment script name, [(stage, index, fragment name)])."""
+    if not raw:
+        return [], "", []
+    try:
+        rd = _VmadReader(raw)
+        scripts = rd.scripts()
+        names = sorted((n for n, _p in scripts), key=_xedit_text_key)
+    except Exception:                                     # noqa: BLE001
+        return [], "", []
+    try:
+        frag_file, frags = "", []
+        if rd.p < len(raw):
+            rd.u8()
+            n = rd.u16()
+            frag_file = rd.s()
+            if frag_file:
+                rd.u8()
+                fmt = struct.unpack_from("<h", raw, 2)[0]
+                for _ in range(rd.u16()):
+                    rd.s(); t = rd.u8(); rd.u8(); rd.value(t, fmt)
+            for _ in range(n):
+                st = rd.u32(); ix = rd.u32(); rd.u8(); rd.s()
+                frags.append((st, ix, rd.s()))
+        frags.sort(key=lambda f: (f[0], f[1]))
+        return names, frag_file, frags
+    except Exception:                                     # noqa: BLE001
+        return names, "", []          # not a quest's fragment layout (INFO, SCEN)
+
+
+def _q2_kind(full):
+    low = full.lower()
+    for pre, kind in _Q2_PREFIXES:
+        if low.startswith(pre.lower()):
+            return kind
+    return ""
+
+
+def _q2_alias_rows(esm, r, tree):
+    """[(index, alias dict, id, name, kind)] for the real aliases, like Process()."""
+    out, pending = [], ""
+    for i, al in enumerate(tree["aliases"]):
+        aid = str(struct.unpack_from("<I", al["id"], 0)[0]) if len(al["id"]) >= 4 else ""
+        if al["marker"]:
+            pending = aid
+            continue
+        kind = "Ref" if al["kind"] == "ALST" else "Loc"
+        if pending:
+            if pending == aid:
+                kind = "RefCol"
+            pending = ""
+        name = cc(_str(dict(al["subs"]).get("ALID")))
+        out.append((i, al, aid, name, kind))
+    return out
+
+
+def exp_qust2(esm):
+    quests, stages, objs, aliases, items = [], [], [], [], []
+    for r in R.xedit_order(esm, "QUST"):
+        full = cc(esm.lstring(r.first("FULL")))
+        tree = _qust_tree(r)
+        qfid, ed = "%08X" % r.fid, cc(r.edid)
+        ctx = C.Ctx(esm, r)
+        arows = _q2_alias_rows(esm, r, tree)
+        for i, al, aid, name, kind in arows:
+            links = _q2_links(esm, al["subs"], _Q2_ALIAS_LINKS, ("KWDA", "ALLA"))
+            if "ALCO=" not in links:
+                continue
+            fn = dict(al["subs"]).get("FNAM")
+            items.append("\t".join([qfid, ed, full, str(i), name,
+                                    _q2_flags(int.from_bytes(fn, "little") if fn else 0, _Q2_ALIAS_FLAGS),
+                                    links]))
+        kind = _q2_kind(full)
+        if not kind:
+            continue
+        # xEdit's alias combo finds named aliases, not collections ("045")
+        named = {int(aid): name for _i, _a, aid, name, k in arows if aid and name and k != "RefCol"}
+        ctx = C.Ctx(esm, r, named)
+        head = dict(tree["head"])
+        names, frag_file, frags = _q2_vmad(head.get("VMAD"))
+        qline = qfid + "\t" + ed + "\t" + full
+        for i, al, aid, name, akind in arows:
+            fn = dict(al["subs"]).get("FNAM")
+            aliases.append("\t".join([qline, str(i), aid, name, "Alias", akind,
+                                      _q2_flags(int.from_bytes(fn, "little") if fn else 0, _Q2_ALIAS_FLAGS),
+                                      _q2_links(esm, al["subs"], _Q2_ALIAS_LINKS, ("KWDA", "ALLA")),
+                                      _q2_conds(ctx, al["conds"]), ""]))
+        alias_names = {int(aid): name for _i, _a, aid, name, _k in arows if aid and name}
+        for st in sorted(tree["stages"], key=lambda s: struct.unpack_from("<H", s["INDX"], 0)[0]):
+            sidx = struct.unpack_from("<H", st["INDX"], 0)[0]
+            sfl = _q2_flags(st["INDX"][2] if len(st["INDX"]) > 2 else 0, _Q2_STAGE_FLAGS)
+            fr = " ; ".join(f[2] or "Stage %d Item %d" % (f[0], f[1]) for f in frags if f[0] == sidx)
+            if not st["logs"]:
+                stages.append("\t".join([qline, str(sidx), sfl, "", "", "", "", fr, "", ""]))
+                continue
+            for j, lg in enumerate(st["logs"]):
+                ls = dict(lg["subs"])
+                q = ls.get("QSDT")
+                nq = ls.get("NAM0")
+                stages.append("\t".join([qline, str(sidx), sfl, str(j),
+                                         _q2_flags(q[0] if q else 0, _Q2_LOG_FLAGS),
+                                         cc(esm.lstring(ls.get("CNAM"))),
+                                         _q2_linkcell(esm, struct.unpack_from("<I", nq, 0)[0]) if nq else "",
+                                         fr, _q2_conds(ctx, lg["conds"]),
+                                         _q2_links(esm, lg["subs"], _Q2_LOG_LINKS)]))
+        for ob in tree["objs"]:
+            os_ = dict(ob["subs"])
+            oidx = str(struct.unpack_from("<H", ob["QOBJ"], 0)[0])
+            fn = os_.get("FNAM")
+            ofl = _q2_flags(struct.unpack_from("<I", fn, 0)[0] if fn else 0, _Q2_OBJ_FLAGS)
+            otext = cc(esm.lstring(os_.get("NNAM")))
+            if not ob["targets"]:
+                objs.append("\t".join([qline, oidx, ofl, otext, "", "", "", "", "", ""]))
+                continue
+            for k, tg in enumerate(ob["targets"]):
+                a = struct.unpack_from("<i", tg["QSTA"], 0)[0]
+                an = alias_names.get(a, "")
+                aid = ctx.alias_text(a)
+                objs.append("\t".join([qline, oidx, ofl, otext, str(k), aid, an, "",
+                                       _q2_conds(ctx, tg["conds"]), ""]))
+        loc = head.get("LNAM")
+        gm = [c for c in _refcells(esm, r.fid) if c.endswith(":GMRW")][:_Q2_MAX_GMRW]
+        dat = head.get("DATA") or b""
+        qt = dat[16] if len(dat) > 16 else None
+        flags_v = int.from_bytes(dat[:8], "little") if len(dat) >= 20 else (int.from_bytes(dat[:4], "little") if dat else 0)
+        pri = dat[8] if len(dat) >= 20 else (dat[4] if len(dat) > 4 else None)
+        quests.append("\t".join([qline, kind, cc(esm.lstring(head.get("DESC"))),
+                                 (_Q2_QUEST_TYPES[qt] if qt is not None and qt < len(_Q2_QUEST_TYPES) else ("" if qt is None else str(qt))),
+                                 _q2_flags(flags_v, _Q2_QUEST_FLAGS), "" if pri is None else str(pri),
+                                 cc(esm.link_edit_value(struct.unpack_from("<I", loc, 0)[0])) if loc else "",
+                                 str(len(tree["stages"])), str(len(tree["objs"])), str(len(arows)),
+                                 " ; ".join(cc(n) for n in names if n), cc(frag_file), " ; ".join(gm),
+                                 "SeventySix.esm"]))
+    return {
+        "_Quests": ["FormID\tEDID\tFULL\tKind\tDESC\tQuestType\tFlags\tPriority\tLocation\tStageCount\t"
+                    "ObjectiveCount\tAliasCount\tScripts\tFragmentFile\tGMRWRefs\tSourceFile"] + quests,
+        "_Stages": ["QuestFormID\tQuestEDID\tQuestName\tStageIndex\tStageFlags\tLogEntryIndex\tLogFlags\t"
+                    "LogText\tNextQuest\tFragments\tConditions\tLinks"] + stages,
+        "_Objectives": ["QuestFormID\tQuestEDID\tQuestName\tObjectiveIndex\tObjectiveFlags\tObjectiveText\t"
+                        "TargetIndex\tTargetAliasID\tTargetAliasName\tTargetFlags\tTargetConditions\t"
+                        "TargetLinks"] + objs,
+        "_Aliases": ["QuestFormID\tQuestEDID\tQuestName\tAliasIndex\tAliasID\tAliasName\tAliasLabel\t"
+                     "AliasKind\tAliasFlags\tFillLinks\tConditions\tScripts"] + aliases,
+        "_ItemAliases": ["QuestFormID\tQuestEDID\tQuestName\tAliasIndex\tAliasName\tAliasFlags\tLinks"] + items,
+    }
+
+
+# ------------------------------------------------------------- LVLI ------
+# ExportLVLIToCSV.pas: _LVLI_List, _LVLI_Entries, _LVLI_Refs, _LVLI_Math.
+# Two record layouts exist in the game file:
+#   old - LVLD (chance none byte) / LVLM, and a 12-byte LVLO holding level,
+#         reference and count. xEdit's paths for LVOV/LVIV/LVLV find nothing
+#         there, so those columns are blank, exactly like the .pas.
+#   new - a 4-byte LVLO (reference) followed by its own LVOV / LVOG / LVOC /
+#         LVOT / LVIV / LVIG / LVIT / LVLV / LVLG / LVLT / COED / CTDA.
+# The MinLvl GLOBs in the LVOG column are real: Bethesda stores them in LVOG
+# (see the MinLvl trap in rng76.py), not an export bug.
+_LVLO_FIELDS = ("LVOV", "LVOG", "LVOC", "LVOT", "LVIV", "LVIG", "LVIT", "LVLV",
+                "LVLG", "LVLT", "COED", "CTDA", "CIS1", "CIS2", "LVUD")
+
+
+def _delphi_float(v):
+    """Delphi FloatToStr: general format, 15 significant digits."""
+    if v == 0:
+        return "0"
+    t = "%.15g" % v
+    if "e" in t:
+        m, e = t.split("e")
+        n = int(e)
+        t = "%sE%s%d" % (m, "-" if n < 0 else "", abs(n))
+    return t
+
+
+def _lvli_link(esm, raw):
+    """GetLinkFromPath: FormID:EDID:SIG, or xEdit's edit value when it links to nothing."""
+    if raw is None or len(raw) < 4:
+        return ""
+    fid = struct.unpack("<I", raw[:4])[0]
+    if fid and esm.exists(fid):
+        return "%08X:%s:%s" % (fid, esm.edid_of(fid), esm.sig_of(fid))
+    # this .pas reads GetEditValue on the bare field: "<Error: ...>", no spaces
+    return cc(esm.link_edit_value(fid)).replace("< Error: Could not be resolved >",
+                                                 "<Error: Could not be resolved>")
+
+
+def _lvli_float(raw):
+    return C.fmt_float(struct.unpack("<f", raw[:4])[0]) if raw is not None and len(raw) >= 4 else ""
+
+
+def _lvli_cond(ctx, ctda, cis1, cis2):
+    """The LVLI .pas BuildCondFromCTDA: RunOn.Function(params) <Type> <Comparison>.
+    Params are every other non-empty element except Reference (the slot after
+    Run On, which xEdit names Reference) and the comparison value."""
+    els, _ref = C.elements(ctx, ctda, cis1, cis2)
+    d, params, after_run_on = {}, [], False
+    for name, val in els:
+        low = name.lower()
+        if after_run_on:
+            after_run_on = False
+            continue                      # the Reference slot
+        if low == "run on":
+            d[low] = val
+            after_run_on = True
+            continue
+        if low in ("type", "function") or low.startswith("comparison value"):
+            d[low if not low.startswith("comparison value") else "cmp"] = val
+            continue
+        if val == "":
+            continue
+        params.append(val)
+    run_on = d.get("run on", "")
+    out = (run_on + "." if run_on else "") + d.get("function", "") + "(" + ", ".join(params) + ")"
+    # OpFromType gets xEdit's 8-character Type bits, which match none of its
+    # words, so it hands them back unchanged.
+    return cc(out + " " + d.get("type", "") + " " + d.get("cmp", ""))
+
+
+def _lvli_rand_chance(conds):
+    """The .pas CondChanceFromRandomPercent, character for character."""
+    p = 1.0
+    for s in conds:
+        s2 = s.lower()
+        if "getrandompercent" not in s2:
+            continue
+        num = ""
+        for ch in reversed(s2):
+            if "0" <= ch <= "9":
+                num = ch + num
+            elif num:
+                break
+        if num:
+            n = float(num)
+            if ">=" in s2 or ")>" in s2 or "> " in s2:
+                p *= (100.0 - n) / 100.0
+            elif "<=" in s2 or "<" in s2:
+                p *= n / 100.0
+    return min(1.0, max(0.0, p))
+
+
+def _lvli_glob_value(esm, cell):
+    """ResolveGlobValue: the GLOB's FLTV edit value, '' when not a GLOB."""
+    if not cell or cell.rsplit(":", 1)[-1] != "GLOB":
+        return ""
+    try:
+        g = esm.get(int(cell.split(":")[0], 16))
+    except ValueError:
+        return ""
+    f = g.first("FLTV") if g else None
+    return C.fmt_float(struct.unpack("<f", f[:4])[0]) if f and len(f) >= 4 else ""
+
+
+def _to_float(s):
+    try:
+        return float(s.strip())
+    except (ValueError, AttributeError):
+        return None
+
+
+def exp_lvli(esm):
+    lists, ents, refs, maths = [], [], [], []
+    for r in R.xedit_order(esm, "LVLI"):
+        fid = "%08X" % r.fid
+        ed = cc(r.edid)
+        ctx = C.Ctx(esm, r)
+        head, entries, cur = {}, [], None
+        list_conds = []
+        for k, v in r.subs:
+            if k == "LVLO":
+                cur = {"LVLO": v, "CTDA": []}
+                entries.append(cur)
+            elif cur is not None and k in _LVLO_FIELDS:
+                if k == "CTDA":
+                    cur["CTDA"].append([v, None, None])
+                elif k in ("CIS1", "CIS2"):
+                    if cur["CTDA"]:
+                        cur["CTDA"][-1][1 if k == "CIS1" else 2] = v.rstrip(b"\0").decode("utf-8", "replace")
+                else:
+                    cur.setdefault(k, v)
+            elif cur is None and k in ("CTDA", "CIS1", "CIS2"):
+                if k == "CTDA":
+                    list_conds.append([v, None, None])
+                elif k in ("CIS1", "CIS2") and list_conds:
+                    list_conds[-1][1 if k == "CIS1" else 2] = v.rstrip(b"\0").decode("utf-8", "replace")
+            else:
+                # list-level fields, including the ones stored after the
+                # entries (LVSG epic chance, DIQO, ENLT, MODL ...)
+                head.setdefault(k, v)
+        flags = head.get("LVLF")
+        fv = int.from_bytes(flags, "little") if flags else None
+        if fv is None:
+            fstr = ""
+        elif fv == 0:
+            fstr = "0" * 64
+        else:
+            fstr = _xedit_bits(fv)
+        llct = head.get("LLCT")
+        lconds = [_lvli_cond(ctx, *c) for c in list_conds]
+        lvcv = _lvli_float(head.get("LVCV"))
+        lvlg = _lvli_link(esm, head.get("LVLG"))
+        lvct = _lvli_link(esm, head.get("LVCT"))
+        lvsg = head.get("LVSG")
+        diqo = head.get("DIQO")
+        lists.append(([fid, ed, cc(esm.lstring(r.first("FULL"))), fstr,
+                       str(llct[0]) if llct else "", str(len(entries)),
+                       lvcv, lvlg, lvct,
+                       _lvli_float(head.get("LVMV")), _lvli_link(esm, head.get("LVMG")),
+                       _lvli_link(esm, head.get("LVMT")), "",
+                       cc(esm.link_edit_value(struct.unpack("<I", lvsg[:4])[0])) if lvsg and len(lvsg) >= 4 else "",
+                       _lvli_link(esm, diqo), "", str(len(lconds))], lconds))
+        rc = _refcells(esm, r.fid)
+        refs.append(([fid, ed, str(len(rc))], rc))
+        if not entries:
+            continue
+        lcn = _lvli_glob_value(esm, lvlg) if lvlg else ""
+        if lcn == "" and lvcv != "":
+            lcn = lvcv.strip()
+        lcnv = _to_float(lcn)
+        lcnv = min(100.0, max(0.0, lcnv if lcnv is not None else 0.0))
+        lpres = 1.0 - lcnv / 100.0
+        for i, e in enumerate(entries):
+            lvlo = e["LVLO"]
+            refraw = lvlo[4:8] if len(lvlo) >= 12 else lvlo[:4]
+            ref = _lvli_link(esm, refraw)
+            conds = [_lvli_cond(ctx, *c) for c in e["CTDA"]]
+            cnv = _lvli_float(e.get("LVOV"))
+            cng = _lvli_link(esm, e.get("LVOG"))
+            cnc = _lvli_link(esm, e.get("LVOC"))
+            ents.append(([fid, ed, str(i), ref, "", cnv, cng, cnc,
+                          _lvli_float(e.get("LVIV")), _lvli_link(esm, e.get("LVIG")), _lvli_link(esm, e.get("LVIT")),
+                          _lvli_float(e.get("LVLV")), _lvli_link(esm, e.get("LVLG")), _lvli_link(esm, e.get("LVLT")),
+                          str(len(conds))], conds))
+            ecn = _lvli_glob_value(esm, cng) if cng else ""
+            if ecn == "" and cnv != "":
+                ecn = cnv.strip()
+            ecnv = _to_float(ecn)
+            ecnv = min(100.0, max(0.0, ecnv if ecnv is not None else 0.0))
+            cond_ch = _lvli_rand_chance(conds)
+            rsig = ref.rsplit(":", 1)[-1] if ":" in ref else ""
+            maths.append("\t".join([fid, ed, fstr, str(len(entries)), str(i), ref, rsig,
+                                    ref.split(":")[0] if rsig == "LVLI" else "",
+                                    lvcv, lvlg, lvct, lcn, cnv, cng, cnc, ecn,
+                                    _delphi_float(cond_ch),
+                                    _delphi_float(lpres * (1.0 - ecnv / 100.0)),
+                                    _delphi_float(lpres * (1.0 - ecnv / 100.0) * cond_ch),
+                                    _lvli_link(esm, e.get("LVOT"))]))
+    math_head = ("LVLI_FormID\tLVLI_EDID\tLVLF_Flags\tEntryCount\tEntryIndex\tLVLO_Reference\tRefSig\t"
+                 "SubLVLI_FormID\tListChanceNoneValue\tListChanceNoneGlobal\tListChanceNoneCurve\t"
+                 "ListChanceNoneResolved\tEntryChanceNoneValue\tEntryChanceNoneGlobal\tEntryChanceNoneCurve\t"
+                 "EntryChanceNoneResolved\tEntryCondChance_RandomPercent\tEntryPresenceChance\t"
+                 "EntryAprioriChance_NoSublist\tEntryChanceNoneCurveTable")
+    return {
+        "_LVLI_List": _pad_conds(lists, ["LVLI_FormID", "LVLI_EDID", "LVLI_FULL", "LVLF_Flags", "LLCT_Count",
+                                         "EntryCount", "LVCV_ChanceNoneValue", "LVLG_ChanceNoneGlobal",
+                                         "LVCT_ChanceNoneCurve", "LVMV_MaxValue", "LVMG_MaxGlobal", "LVMT_MaxCurve",
+                                         "LLKC_FilterKeywordChances", "LVSG_EpicLootChance", "DIQO_Quest",
+                                         "LIMC_MarkerColor", "ListCondCount"], "ListCond"),
+        "_LVLI_Entries": _pad_conds(ents, ["LVLI_FormID", "LVLI_EDID", "EntryIndex", "LVLO_Reference",
+                                           "COED_ExtraData", "LVOV_ChanceNoneValue", "LVOG_ChanceNoneGlobal",
+                                           "LVOC_ChanceNoneCurve", "LVIV_Quantity", "LVIG_QuantityGlobal",
+                                           "LVIT_QuantityCurve", "LVLV_MinimumLevel", "LVLG_MinimumLevelGlobal",
+                                           "LVLT_MinimumLevelCurve", "CondCount"]),
+        "_LVLI_Refs": _pad_refs(refs, ["LVLI_FormID", "LVLI_EDID", "ReferencedByCount"]),
+        "_LVLI_Math": [math_head] + maths,
+    }
+
+
 # ------------------------------------------------------------- ALLYDLG _Lore --
 _LORE_QUEST_RX = None
 
@@ -1624,6 +2411,298 @@ def _lore_walk(esm):
                 walk(st + gs, 0, 0)
             f.seek(st + gs)
     return dials, infos, scens
+
+
+def _quest_children(esm):
+    """{quest FormID: [(sig, fid, subs)]} in xEdit's ChildGroup order (the
+    quest's own child group: DIAL topics and SCEN scenes as they sit in the
+    file) and {DIAL FormID: [(INFO fid, subs)]} from each topic's child group."""
+    import zlib as _zlib
+    kids, infos = {}, {}
+    with open(esm.esm_path, "rb") as f:
+        size = os.path.getsize(esm.esm_path)
+
+        def walk(end, gtype, gparent):
+            while f.tell() < end:
+                hdr = f.read(24)
+                sig = hdr[:4]
+                ds = struct.unpack("<I", hdr[4:8])[0]
+                if sig == b"GRUP":
+                    lab = struct.unpack("<I", hdr[8:12])[0]
+                    gt = struct.unpack("<i", hdr[12:16])[0]
+                    walk(f.tell() + ds - 24, gt, lab)
+                    continue
+                fl, fid = struct.unpack("<II", hdr[8:16])
+                if sig not in (b"DIAL", b"INFO", b"SCEN"):
+                    f.seek(ds, 1)
+                    continue
+                data = f.read(ds)
+                if fl & 0x40000:
+                    data = _zlib.decompress(data[4:])
+                subs = R._parse_subs(data)
+                if sig == b"INFO":
+                    if gtype == 7:
+                        infos.setdefault(gparent, []).append((fid, subs))
+                elif gtype == 10:
+                    kids.setdefault(gparent, []).append((sig.decode(), fid, subs))
+
+        f.seek(0)
+        h = f.read(24)
+        f.seek(24 + struct.unpack("<I", h[4:8])[0])
+        while f.tell() < size:
+            g = f.read(24)
+            gs = struct.unpack("<I", g[4:8])[0]
+            st = f.tell() - 24
+            if g[8:12] == b"QUST":
+                walk(st + gs, 0, 0)
+            f.seek(st + gs)
+    return kids, infos
+
+
+# ------------------------------------------------------------- ALLYDLG -----
+# ExportCampAllyDialogToTSV.pas: _Quests, _Topics, _Lines, _Scenes for CAMP
+# ally quests (the _Lore / _LoreNotes files are the LORE export above).
+_AD_INFO_FLAGS = dict(enumerate(
+    ["Start Scene on End", "Random", "Say Once", "Requires Player Activation", "Info Refusal",
+     "Random End", "End Running Scene", "ForceGreet Hello", "Player Address", "Force Subtitle",
+     "Can Move While Greeting", "No LIP File", "Requires post-processing", "Audio Output Override",
+     "Has Capture", "Unknown 15", "Unknown 16", "Unknown 17", "Unknown 18", "Unknown 19", "Unknown 20"]))
+_AD_SCENE_FLAGS = dict(enumerate(
+    ["Begin on Quest Start", "Stop on Quest End", "Show All Text", "Repeat Conditions While True",
+     "Interruptible", "Unknown 5", "Prevent Player Exit Dialogue", "Unknown 7", "Unknown 8", "Unknown 9",
+     "Unknown 10", "Disable Dialogue Camera", "No Follower Idle Chatter", "Unknown 13", "Unknown 14"]))
+_AD_CATEGORIES = ["Player", "Command", "Scene", "Combat", "Detection", "Miscellaneous", "Unknown 6", "Unknown 7"]
+# wbDialogueSubtypeEnum. A name used by more than one code reads "Name@<code as int>"
+# after its first use - xEdit's way of keeping enum values apart ("Custom@1313162067" = SCEN).
+_AD_SUBTYPES = [("CUST", "Custom"), ("PFGT", "Force Greet"), ("RUMO", "Rumors"), ("FVDL", "Custom"),
+    ("INTI", "Call"), ("FLAT", "Follow"), ("BRIB", "Move"), ("ASKG", "Attack"), ("GIFF", "Inspect"),
+    ("ASKF", "Retrieve"), ("STAY", "Stay"), ("RELE", "Release"), ("SHRE", "Show Relationships"),
+    ("FRJT", "Reject"), ("HEAL", "Heal"), ("ASSI", "Assign"), ("ENTE", "Enter"), ("SCEN", "Custom"),
+    ("SHOW", "Show"), ("AGRE", "Agree"), ("REFU", "Refuse"), ("FEXT", "Exit Favor State"),
+    ("MREF", "Moral Refusal"), ("TRAD", "Trade"), ("PRJT", "Pathing Refusal"), ("ATCK", "Attack"),
+    ("POAT", "Power Attack"), ("BASH", "Bash"), ("HIT_", "Hit"), ("FLEE", "Flee"), ("BLED", "Bleed Out"),
+    ("AVTH", "Avoid Threat"), ("DETH", "Death"), ("BLOC", "Block"), ("TAUT", "Taunt"),
+    ("THGR", "Throw Grenade"), ("ALKL", "Ally Killed"), ("ORFB", "Order Fallback"), ("ORAV", "Order Move Up"),
+    ("ORFL", "Order Flank"), ("ORTC", "Order Take Cover"), ("FLBK", "Retreat"), ("RQST", "Cover Me"),
+    ("BGST", "Suppressive Fire"), ("CRIL", "Crippled Limb"), ("PATT", "Paired Attack"), ("STEA", "Steal"),
+    ("YIEL", "Yield"), ("ACYI", "Accept Yield"), ("PICC", "Pickpocket Combat"), ("ASSA", "Assault"),
+    ("MURD", "Murder"), ("ASNC", "Assault NC"), ("MUNC", "Murder NC"), ("PICN", "Pickpocket NC"),
+    ("STFN", "Steal From NC"), ("TRAN", "Trespass Against NC"), ("TRES", "Trespass"), ("WTCR", "UNUSED01"),
+    ("VPSS", "Voice Power Start Short"), ("VPSL", "Voice Power Start Long"), ("VPES", "Voice Power End Short"),
+    ("VPEL", "Voice Power End Long"), ("ALIL", "Alert Idle"), ("LOIL", "Lost Idle"), ("NOTA", "Normal To Alert"),
+    ("NOTC", "Normal To Combat"), ("NOTL", "Normal To Lost"), ("ALTN", "Alert To Normal"),
+    ("ALTC", "Alert To Combat"), ("COTN", "Combat To Normal"), ("COLO", "Combat To Lost"),
+    ("LOTN", "Lost To Normal"), ("LOTC", "Lost To Combat"), ("DFDA", "Detect Friend Die"),
+    ("SERU", "Service Refusal"), ("REPA", "Repair"), ("TRAV", "Travel"), ("TRAI", "Training"),
+    ("BAEX", "Barter Exit"), ("REEX", "Repair Exit"), ("RECH", "Recharge"), ("RCEX", "Recharge Exit"),
+    ("TREX", "Training Exit"), ("OBCO", "Observe Combat"), ("NOTI", "Notice Corpse"), ("TITG", "Time To Go"),
+    ("GBYE", "Goodbye"), ("HELO", "Hello"), ("SWMW", "Swing Melee Weapon"), ("FIWE", "Shoot Bow"),
+    ("ZKEY", "Z Key Object"), ("JUMP", "Jump"), ("KNOO", "Knock Over Object"), ("DEOB", "Destroy Object"),
+    ("STOF", "Standon Furniture"), ("LOOB", "Locked Object"), ("PICT", "Pickpocket Topic"),
+    ("PURS", "Pursue Idle Topic"), ("IDAT", "Shared Info"), ("SCCH", "Scene Choice"),
+    ("PCPS", "Player Cast Projectile Spell"), ("PCSS", "Player Cast Self Spell"), ("PCSH", "Player Shout"),
+    ("IDLE", "Idle"), ("BREA", "Enter Sprint Breath"), ("ENBZ", "Enter Bow Zoom Breath"),
+    ("EXBZ", "Exit Bow Zoom Breath"), ("ACAC", "Actor Collidewith Actor"), ("PIRN", "Playerin Iron Sights"),
+    ("OUTB", "Outof Breath"), ("GRNT", "Combat Grunt"), ("LWBS", "Leave Water Breath"),
+    ("IMPT", "Impatient Positive"), ("IMNG", "Impatient Negative"), ("IMNU", "Impatient Neutral"),
+    ("IMQU", "Impatient Question"), ("WFPI", "Waiting For Player Input"), ("GREE", "Greeting"),
+    ("PADR", "Player Activate Door"), ("PATR", "Player Activate Terminals"), ("PAFU", "Player Activate Furniture"),
+    ("PAAC", "Player Activate Activators"), ("PACO", "Player Activate Container"),
+    ("PAFI", "Player Aquire Featured Item")]
+_AD_SUBTYPE_NAME = {}
+_seen_names = set()
+for _code, _nm in _AD_SUBTYPES:
+    _v = struct.unpack("<I", _code.encode("ascii"))[0]
+    _AD_SUBTYPE_NAME[_v] = _nm if _nm not in _seen_names else "%s@%d" % (_nm, _v)
+    _seen_names.add(_nm)
+_AD_INFO_LINKS = ("TPIC", "PNAM", "DNAM", "GNAM", "TSCE", "ANAM", "SNAM", "TCLT")
+
+
+def _ad_segment_after(s, marker):
+    p = s.lower().find(marker.lower())
+    if p < 0:
+        return ""
+    return s[p + len(marker):].split("_", 1)[0]
+
+
+def _ad_ally_name(edid):
+    """AllyNameFromEdid."""
+    for m in ("_Quest_Camp_Lite_", "_Quest_Intro_Lite_", "_Quest_Camp_Full_", "_Quest_Camp_Ally_",
+              "_Quest_Ally_", "COMP_Conversation_", "COMP_Dialogue_"):
+        r = _ad_segment_after(edid, m)
+        if r:
+            return r
+    if "liteally" in edid.lower():
+        return edid.rsplit("_", 1)[-1]
+    r = _ad_segment_after(edid, "COMP_")
+    if r and not any(w in r.lower() for w in ("quest", "conversation", "dialogue")):
+        return r
+    return edid.rsplit("_", 1)[-1]
+
+
+def _ad_rule(edid, scripts, alias_names):
+    """AllyMatchRule (EXTRA_INCLUDE / EXTRA_EXCLUDE are empty in the .pas)."""
+    e, sc = edid.lower(), scripts.lower()
+    if any(t in e for t in ("do_not_export", "template_", "comp_rq_", "comp_re_", "playerconnect")):
+        return ""
+    if any(t in e for t in ("camp_lite", "camplite", "liteally", "quest_camp_ally")):
+        return "EDID-CampLite"
+    if any(t in e for t in ("comp_quest_ally", "comp_quest_camp", "comp_ally")):
+        return "EDID-CompAlly"
+    if "liteallyscript" in sc:
+        return "Script-LiteAlly"
+    if any(t in sc for t in ("shutdownonallycleanup", "comp_rq_dialoguevariable", "allyquestscript")):
+        return "Script-CompAlly"
+    if ("comp" in e or "camp" in e) and any(
+            n.lower() == "ally" or n.lower().startswith("ally_") or n.lower().startswith("liteally")
+            for n in alias_names):
+        return "Alias-Ally"
+    return ""
+
+
+def _ad_conds(ctx, subs, stop=None):
+    conds = []
+    for k, v in subs:
+        if stop and k in stop:
+            break
+        if k == "CTDA":
+            conds.append([v, None, None])
+        elif k in ("CIS1", "CIS2") and conds:
+            conds[-1][1 if k == "CIS1" else 2] = v.rstrip(b"\0").decode("utf-8", "replace")
+    return _q2_conds(ctx, conds)
+
+
+def exp_allydlg(esm):
+    kids, infos = _quest_children(esm)
+    quests, topics, lines, scenes = [], [], [], []
+    seen = set()
+    for r in R.xedit_order(esm, "QUST"):
+        ed = cc(r.edid)
+        head = dict(_qust_tree(r)["head"])
+        names, _ff, _fr = _q2_vmad(head.get("VMAD"))
+        scripts = " ; ".join(cc(n) for n in names if n)
+        tree = _qust_tree(r)
+        arows = _q2_alias_rows(esm, r, tree)
+        rule = _ad_rule(ed, scripts, [n for _i, _a, _id, n, _k in arows])
+        if not rule:
+            continue
+        ally = _ad_ally_name(ed)
+        qfid = "%08X" % r.fid
+        named = {int(aid): name for _i, _a, aid, name, k in arows if aid and name and k != "RefCol"}
+        ctx = C.Ctx(esm, r, named)
+        tcount = scount = icount = lcount = 0
+        for sig, fid, subs in kids.get(r.fid, []):
+            sd = dict(subs)
+            if sig == "DIAL":
+                tfid, ted = "%08X" % fid, cc(_str(sd.get("EDID")))
+                prompt = cc(esm.lstring(sd.get("FULL")))
+                sn = sd.get("SNAM")
+                sub = ""
+                dat = sd.get("DATA") or b""
+                if sn and len(sn) >= 4:
+                    v = struct.unpack("<I", sn[:4])[0]
+                    sub = _AD_SUBTYPE_NAME.get(v, str(v))
+                cat = (_AD_CATEGORIES[dat[1]] if len(dat) > 1 and dat[1] < len(_AD_CATEGORIES)
+                       else (str(dat[1]) if len(dat) > 1 else ""))
+                pri = sd.get("PNAM")
+                br = sd.get("BNAM")
+                ic = lc = 0
+                for io, (ifid, isubs) in enumerate(infos.get(fid, [])):
+                    key = "%08X" % ifid
+                    if key in seen:
+                        continue
+                    seen.add(key)
+                    ic += 1
+                    isd = dict(isubs)
+                    ien = isd.get("ENAM") or b""
+                    iflags = ""
+                    if ien:
+                        fv = int.from_bytes(ien[:4] if len(ien) >= 8 else ien[:2], "little")
+                        parts = [_AD_INFO_FLAGS[b] for b in range(32) if fv >> b & 1 and b in _AD_INFO_FLAGS]
+                        parts.append("Reset Hours")
+                        if len(ien) >= 8:
+                            parts.append("Unknown")
+                        iflags = " ; ".join(parts)
+                    iconds = _ad_conds(ctx, isubs)
+                    rn = isd.get("RNAM")
+                    iprompt = cc(esm.lstring(rn)) if rn else ""
+                    an = isd.get("ANAM")
+                    speaker = _q2_linkcell(esm, struct.unpack_from("<I", an, 0)[0]) if an and len(an) == 4 else ""
+                    tc = isd.get("TCLT")
+                    linkto = _q2_linkcell(esm, struct.unpack_from("<I", tc, 0)[0]) if tc and len(tc) >= 4 else ""
+                    pn = isd.get("PNAM")
+                    prev = _q2_linkcell(esm, struct.unpack_from("<I", pn, 0)[0]) if pn and len(pn) >= 4 else ""
+                    links = [x for x in ("Topic=" + _q2_linkcell(esm, fid) if _q2_linkcell(esm, fid) else "",
+                                         "FormID=%08X:%s:INFO" % (ifid, cc(_str(isd.get("EDID"))))) if x]
+                    for k, v in isubs:
+                        if k in _AD_INFO_LINKS and len(v) == 4:
+                            c = _q2_linkcell(esm, struct.unpack_from("<I", v, 0)[0])
+                            if c:
+                                links.append("%s=%s" % (k, c))
+                    links = " ; ".join(cc(x) for x in links[:_Q2_MAX_LINKS])
+                    inames, _f, _g = _q2_vmad(isd.get("VMAD"))
+                    iscripts = " ; ".join(cc(n) for n in inames if n)
+                    resps, cur = [], None
+                    for k, v in isubs:
+                        if k == "TRDA":
+                            cur = {}
+                            resps.append(cur)
+                        elif cur is not None and k in ("NAM1", "NAM2", "NAM3"):
+                            cur.setdefault(k, v)
+                    base = [qfid, ed, ally, str(tcount), tfid, ted, prompt, str(io), key, cc(_str(isd.get("EDID")))]
+                    tail = [speaker, iflags, iconds, linkto, prev, links, iscripts]
+                    if not resps:
+                        # No Responses: the .pas falls back to the first child whose
+                        # name says "response" - the ENAM "Response flags" struct -
+                        # and writes one empty line per member (Flags, Reset Hours,
+                        # Unknown). Without ENAM either, one row.
+                        n_empty = (3 if len(ien) >= 8 else 2) if ien else 1
+                        for ri in range(n_empty):
+                            lines.append("\t".join(base + [str(ri) if ien else "", "", iprompt, "", ""] + tail))
+                        lc += n_empty
+                        continue
+                    for ri, rs in enumerate(resps[:24]):
+                        lines.append("\t".join(base + [str(ri), cc(esm.lstring(rs.get("NAM1"))), iprompt,
+                                                      cc(_str(rs.get("NAM2"))), cc(_str(rs.get("NAM3")))] + tail))
+                        lc += 1
+                topics.append("\t".join([qfid, ed, ally, str(tcount), tfid, ted, prompt, sub, cat,
+                                         _lvli_float(pri) if pri else "", "",
+                                         _q2_linkcell(esm, struct.unpack_from("<I", br, 0)[0]) if br else "",
+                                         str(ic), str(lc)]))
+                tcount += 1
+                icount += ic
+                lcount += lc
+            elif sig == "SCEN":
+                fl = next((v for k, v in subs if k == "FNAM"), None)
+                flv = int.from_bytes(fl[:4], "little") if fl else 0
+                phases = sum(1 for k, _v in subs if k == "HNAM") // 2
+                # actors: an ALID followed by its LNAM flags (action ALIDs aren't)
+                actors = [struct.unpack_from("<i", v, 0)[0] for n_, (k, v) in enumerate(subs)
+                          if k == "ALID" and len(v) >= 4 and n_ + 1 < len(subs) and subs[n_ + 1][0] == "LNAM"]
+                snames, _f, _g = _q2_vmad(sd.get("VMAD"))
+                scenes.append("\t".join([qfid, ed, ally, "%08X" % fid, cc(_str(sd.get("EDID"))),
+                                         _q2_flags(flv, _AD_SCENE_FLAGS), str(phases), str(len(actors)),
+                                         " ; ".join(ctx.alias_text(a) for a in actors),
+                                         _ad_conds(ctx, subs, stop=("HNAM",)),
+                                         " ; ".join(cc(n) for n in snames if n)]))
+                scount += 1
+        dat = head.get("DATA") or b""
+        flags_v = int.from_bytes(dat[:8], "little") if len(dat) >= 20 else (int.from_bytes(dat[:4], "little") if dat else 0)
+        pri = dat[8] if len(dat) >= 20 else (dat[4] if len(dat) > 4 else None)
+        quests.append("\t".join([qfid, ed, ally, cc(esm.lstring(head.get("FULL"))), rule,
+                                 _q2_flags(flags_v, _Q2_QUEST_FLAGS), "" if pri is None else str(pri),
+                                 str(tcount), str(icount), str(lcount), str(scount), scripts, "SeventySix.esm"]))
+    return {
+        "_Quests": ["QuestFormID\tQuestEDID\tAllyGuess\tQuestName\tMatchRule\tQuestFlags\tPriority\t"
+                    "TopicCount\tInfoCount\tLineCount\tSceneCount\tScripts\tSourceFile"] + quests,
+        "_Topics": ["QuestFormID\tQuestEDID\tAllyGuess\tTopicOrder\tTopicFormID\tTopicEDID\tTopicPrompt\t"
+                    "TopicSubtype\tTopicCategory\tTopicPriority\tTopicFlags\tBranch\tInfoCount\tLineCount"] + topics,
+        "_Lines": ["QuestFormID\tQuestEDID\tAllyGuess\tTopicOrder\tTopicFormID\tTopicEDID\tTopicPrompt\t"
+                   "InfoOrder\tInfoFormID\tInfoEDID\tResponseIndex\tResponseText\tPlayerPrompt\tScriptNotes\t"
+                   "Edits\tSpeaker\tInfoFlags\tConditions\tLinkTo\tPrevInfo\tLinks\tScripts"] + lines,
+        "_Scenes": ["QuestFormID\tQuestEDID\tAllyGuess\tSceneFormID\tSceneEDID\tSceneFlags\tPhaseCount\t"
+                    "ActorCount\tActorAliases\tConditions\tScripts"] + scenes,
+    }
 
 
 def exp_lore(esm):
@@ -1728,7 +2807,7 @@ def _lore_notes(esm):
     return out + [x for _, x in rows]
 
 
-NEEDS_REFS = {"GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "ECAT", "CNDF", "LSCR", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
+NEEDS_REFS = {"QUST2", "LVLI", "GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "ECAT", "CNDF", "LSCR", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
 # exports that need Referenced By for more than their own records
 REF_TARGETS = {"NPC2": npc2_ref_targets, "MISC2": misc2_ref_targets, "ACTI2": acti2_ref_targets}
 
@@ -1762,11 +2841,16 @@ EXPORTS = {
     "REFRLVLI": (["LVLI"], "REFRLVLI_Placements", exp_refrlvli),
     "QUST2RQ": (["QUST"], "QUST2_Export", exp_qust2_rq),
     "QUSTSP": (["QUST", "GLOB"], "QUST2_Export", exp_qust_sp),
+    "LVLI": (["LVLI", "GLOB"], "LVLI_Export", exp_lvli),
+    "QUST2": (["QUST"], "QUST2_Export", exp_qust2),
+    "ALLYDLG": (["QUST"], "ALLYDLG_Export", exp_allydlg),
+    "TERMPL": (["TERM"], "TERM_Export", exp_term_placements),
+    "REFR": (["ACTI"], "REFR_Placements", exp_refr_placements),
     "LORE": (["NOTE", "BOOK"], "ALLYDLG_Export", exp_lore),
 }
 
 # PTS file names carry the date only (no time) for these, like their .pas
-DATE_ONLY_PTS = {"REFRLVLI"}
+DATE_ONLY_PTS = {"REFRLVLI", "REFR"}
 
 
 def main(argv=None):
@@ -1776,6 +2860,7 @@ def main(argv=None):
     ap.add_argument("--data", help="game Data folder (default: the live or PTS install)")
     ap.add_argument("--out", help="output folder (default: tsv\\ or tsv\\pts\\)")
     ap.add_argument("--no-ledger", action="store_true", help="don't add lines to tsv\\_exports.tsv")
+    ap.add_argument("--bases", default="", help="REFR: extra base FormIDs, comma separated (e.g. 008E069E,008F1672)")
     a = ap.parse_args(argv)
 
     which = [w.upper() for w in a.which] or list(EXPORTS)
@@ -1794,6 +2879,8 @@ def main(argv=None):
     esm = R.Esm(data, sigs)
     print("  loaded in %.0fs" % (time.time() - t0))
     esm.refby, esm.refinfo = {}, {}
+    esm.out_dir = out_dir
+    esm.extra_bases = [int(b, 16) for b in a.bases.replace(" ", "").split(",") if b]
     ref_exports = [w for w in which if w in NEEDS_REFS]
     if ref_exports:
         import esm_refs
