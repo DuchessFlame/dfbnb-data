@@ -1089,14 +1089,16 @@ acti2_ref_targets = _placement_targets("ACTI")
 
 
 def _set_placements(esm, sig):
-    """The .pas never finds the cell or worldspace (it climbs the record's parents for
-    a CELL record, which a placed reference never has), so those columns, and the
-    location columns built from them, are always blank - kept blank here to match."""
+    """worldspace / cell are EditorIDs; loc_name is the cell's name (CellFULL), else the
+    worldspace's name or EditorID (WRLDName), else the cell's EditorID (CellEDID) -
+    the .pas rule. Older xEdit runs left these blank (it never found the cell); the
+    .pas now finds it with RefCell / CellWorld. Filled since Duchess's call, 21 Oct 2026."""
     import esm_refs
     out = ["set\titem_formid\tedid\tname\tsection\tworldspace\tcell\tx\ty\tz\tref_formid\tholder\tloc_name\tloc_source"]
     esm.world_record(0)
     scanned = getattr(esm, "_placement_scanned", set())
     esm._placement_scanned = scanned
+    rows = []
 
     def refs_of(fid):
         if fid not in esm.refby and fid not in scanned:
@@ -1127,13 +1129,24 @@ def _set_placements(esm, sig):
                         d = w[1].first("DATA")
                         if d and len(d) >= 12:
                             x, y, z = (C.fmt_float(v) for v in struct.unpack_from("<3f", d))
-                        out.append("\t".join([slug, fid, ed, full, sig, "", "", x, y, z,
-                                              "%08X" % rf, holder, "", ""]))
+                        rows.append((rf, [slug, fid, ed, full, sig, "", "", x, y, z,
+                                          "%08X" % rf, holder, "", ""]))
                         continue
                 if depth < 2 and rs in PLACEMENT_HOLDERS:
                     walk(rf, holder or esm.refinfo[rf][1], depth + 1)
 
         walk(r.fid, "", 0)
+    pl = _Places(esm, {rf for rf, _c in rows})
+    for rf, c in rows:
+        we, _wf, ce, _cf, cn, _le, _ln = pl.cols(rf)
+        c[5], c[6] = we, ce
+        if cn:
+            c[12], c[13] = cn, "CellFULL"
+        elif we:
+            c[12], c[13] = (pl.world_name(rf) or we), "WRLDName"
+        elif ce:
+            c[12], c[13] = ce, "CellEDID"
+        out.append("\t".join(c))
     return out
 
 
@@ -1469,14 +1482,73 @@ def _ref_positions(esm, fids):
     return out
 
 
+def _world_recs(esm, fids):
+    """{fid: Record} for many CELL / WRLD / REFR records, read in one pass (sorted by
+    offset) like _ref_positions - per-record opens are far too slow on the PC."""
+    import zlib
+    esm.world_record(0)
+    offs = sorted((esm._world[f][1], f) for f in fids if f in esm._world)
+    out = {}
+    with open(esm.esm_path, "rb") as fh:
+        for off, f in offs:
+            fh.seek(off)
+            hdr = fh.read(24)
+            ds = struct.unpack_from("<I", hdr, 4)[0]
+            data = fh.read(ds)
+            if struct.unpack_from("<I", hdr, 8)[0] & 0x40000:
+                data = zlib.decompress(data[4:])
+            out[f] = R.Record(hdr[:4].decode(), f, R._parse_subs(data), struct.unpack_from("<I", hdr, 8)[0])
+    return out
+
+
+class _Places:
+    """Worldspace, cell and the cell's Location for placed refs - the columns the
+    REFR placements .pas means to fill (it now finds the cell with RefCell /
+    CellWorld, as the NPC2 vendor .pas does). Duchess's call, 21 Oct 2026: fill them.
+    cols(rf) -> (WorldspaceEDID, WorldspaceFormID, CellEDID, CellFormID,
+                 CellName, LocationEDID, LocationName)"""
+
+    def __init__(self, esm, refs):
+        self.esm = esm
+        esm.world_record(0)
+        w = esm._world
+        cells = {w[r][2] for r in refs if r in w and w[r][2]}
+        wrlds = {w[r][3] for r in refs if r in w and w[r][3]}
+        self.recs = _world_recs(esm, cells | wrlds)
+
+    def cols(self, rf):
+        esm = self.esm
+        hit = esm._world.get(rf)
+        if not hit:
+            return ("",) * 7
+        _sig, _off, cell, wrld = hit
+        we = wf = ce = cf = cn = le = ln = ""
+        if wrld:
+            wr = self.recs.get(wrld)
+            we, wf = cc(wr.edid if wr else ""), "%08X" % wrld
+        if cell:
+            cr = self.recs.get(cell)
+            ce, cf = cc(cr.edid if cr else ""), "%08X" % cell
+            if cr:
+                cn = cc(esm.lstring(cr.first("FULL")))
+                xl = _u32(cr.first("XLCN"))
+                if xl and esm.exists(xl):
+                    le, ln = cc(esm.edid_of(xl)), cc(esm.full_of(xl))
+        return we, wf, ce, cf, cn, le, ln
+
+    def world_name(self, rf):
+        hit = self.esm._world.get(rf)
+        wr = self.recs.get(hit[3]) if hit and hit[3] else None
+        return cc(self.esm.lstring(wr.first("FULL"))) if wr else ""
+
+
 REFRLVLI_PART_BYTES = 40000000   # the .pas MAX_PART_BYTES: keeps each file well under GitHub's 50 MB warning
 
 
 def exp_refrlvli(esm):
     """ExportREFRPlacementsToTSV.pas run over the whole Leveled Item group: every
     placed reference (REFR) of a leveled list - the LPI_ "lying in the world" spots.
-    Like the .pas, the worldspace / cell / location columns stay blank (its re-anchor
-    step never finds the cell). The .pas also carries over rows for lists missing
+    Worldspace / cell / location columns are filled (_Places). The .pas also carries over rows for lists missing
     from the run; a full run here covers every list, so nothing is carried over."""
     import esm_refs
     targets = {r.fid for r in esm.records["LVLI"]}
@@ -1484,7 +1556,9 @@ def exp_refrlvli(esm):
     head = ("BaseFormID\tBaseEDID\tBaseName\tRefFormID\tRefEDID\tWorldspaceEDID\tWorldspaceFormID\t"
             "CellEDID\tCellFormID\tX\tY\tZ\tRotZ\tCellName\tLocationEDID\tLocationName")
     recs = R.xedit_order(esm, "LVLI")
-    pos = _ref_positions(esm, {rf for v in refby.values() for rf in v})
+    allrefs = {rf for v in refby.values() for rf in v}
+    pos = _ref_positions(esm, allrefs)
+    pl = _Places(esm, allrefs)
     rows = []
     for r in recs:
         bf, be, bn = "%08X" % r.fid, cc(r.edid), cc(esm.lstring(r.full))
@@ -1495,8 +1569,9 @@ def exp_refrlvli(esm):
                 px, py, pz, _a, _b, rzr = struct.unpack_from("<6f", d)
                 x, y, z = C.fmt_float(px), C.fmt_float(py), C.fmt_float(pz)
                 rz = _rot_deg(rzr)
-            rows.append("\t".join([bf, be, bn, "%08X" % rf, cc(refinfo[rf][1]), "", "", "", "",
-                                   x, y, z, rz, "", "", ""]))
+            we, wf, ce, cf, cn, le, ln = pl.cols(rf)
+            rows.append("\t".join([bf, be, bn, "%08X" % rf, cc(refinfo[rf][1]), we, wf, ce, cf,
+                                   x, y, z, rz, cn, le, ln]))
     # split into parts of at most REFRLVLI_PART_BYTES, header on each (sizes as the .pas counts them)
     parts, cur, size = [], [head], len(head) + 2
     for ln in rows:
@@ -1543,9 +1618,8 @@ def _refr_bases(esm):
 
 def exp_refr_placements(esm):
     """ExportREFRPlacementsToTSV.pas, per-base file REFR_Placements_<Month>_<Year>.tsv:
-    one row per placed reference (REFR) of each base record in _refr_bases. Like the
-    .pas, the worldspace / cell / location columns stay blank (its re-anchor step
-    never finds the cell; the readers place rows by X/Y). The .pas merges one run per
+    one row per placed reference (REFR) of each base record in _refr_bases, with its
+    worldspace, cell and the cell's Location (_Places). The .pas merges one run per
     base into the month's file; here every base is exported in one go, so the file
     is written whole. Coordinates: correctly rounded, as REFRLVLI."""
     import esm_refs
@@ -1553,7 +1627,9 @@ def exp_refr_placements(esm):
     refby, refinfo = esm_refs.referenced_by(esm, set(bases), referrers={"REFR"})
     head = ("BaseFormID\tBaseEDID\tBaseName\tRefFormID\tRefEDID\tWorldspaceEDID\tWorldspaceFormID\t"
             "CellEDID\tCellFormID\tX\tY\tZ\tRotZ\tCellName\tLocationEDID\tLocationName")
-    pos = _ref_positions(esm, {rf for v in refby.values() for rf in v})
+    allrefs = {rf for v in refby.values() for rf in v}
+    pos = _ref_positions(esm, allrefs)
+    pl = _Places(esm, allrefs)
     out = [head]
     for b in bases:
         bf, be, bn = "%08X" % b, cc(esm.edid_of(b)), cc(esm.full_of(b))
@@ -1566,8 +1642,9 @@ def exp_refr_placements(esm):
                 px, py, pz, _a, _b, rzr = struct.unpack_from("<6f", d)
                 x, y, z = C.fmt_float(px), C.fmt_float(py), C.fmt_float(pz)
                 rz = _rot_deg(rzr)
-            out.append("\t".join([bf, be, bn, "%08X" % rf, cc(refinfo[rf][1]), "", "", "", "",
-                                   x, y, z, rz, "", "", ""]))
+            we, wf, ce, cf, cn, le, ln = pl.cols(rf)
+            out.append("\t".join([bf, be, bn, "%08X" % rf, cc(refinfo[rf][1]), we, wf, ce, cf,
+                                   x, y, z, rz, cn, le, ln]))
     return out
 
 
