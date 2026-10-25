@@ -61,6 +61,7 @@ from __future__ import annotations
 
 import argparse
 import math
+import re
 import os
 import struct
 import sys
@@ -1492,6 +1493,68 @@ def exp_refrlvli(esm):
     return {("" if i == 0 else "_Part%d" % (i + 1)): p for i, p in enumerate(parts)}
 
 
+# ------------------------------------------------------- REFR_Placements --
+# Base records whose placements the site reads (see the .pas header): the Pint-Sized
+# Slasher masks, the Disturbed Graves, the U-Mine-It dig sites and the treasure-map
+# mounds (every ACTI named TreasureMapMoundActivatorNN). Any other base already in
+# a REFR_Placements file in the output folder is refreshed too, and --bases adds more.
+REFR_BASES = [0x008E069E, 0x008F1672, 0x000355A1]
+REFR_BASE_EDID_RE = re.compile(r"^TreasureMapMoundActivator\d+$")
+
+
+def _refr_bases(esm):
+    import glob as _glob
+    want = list(REFR_BASES)
+    want += sorted(f for f, v in esm.index.items() if v[0] == "ACTI" and REFR_BASE_EDID_RE.match(v[1] or ""))
+    for path in sorted(_glob.glob(os.path.join(getattr(esm, "out_dir", "") or ".", "REFR_Placements_*.tsv"))):
+        try:
+            with open(path, encoding="utf-8", errors="replace") as fh:
+                next(fh, None)
+                for ln in fh:
+                    c = ln.split("\t", 1)[0].strip()
+                    if re.fullmatch(r"[0-9A-Fa-f]{8}", c):
+                        want.append(int(c, 16))
+        except OSError:
+            pass
+    want += list(getattr(esm, "extra_bases", ()) or ())
+    seen, out = set(), []
+    for f in want:
+        if f not in seen and esm.exists(f):
+            seen.add(f)
+            out.append(f)
+    return out
+
+
+def exp_refr_placements(esm):
+    """ExportREFRPlacementsToTSV.pas, per-base file REFR_Placements_<Month>_<Year>.tsv:
+    one row per placed reference (REFR) of each base record in _refr_bases. Like the
+    .pas, the worldspace / cell / location columns stay blank (its re-anchor step
+    never finds the cell; the readers place rows by X/Y). The .pas merges one run per
+    base into the month's file; here every base is exported in one go, so the file
+    is written whole. Coordinates: correctly rounded, as REFRLVLI."""
+    import esm_refs
+    bases = _refr_bases(esm)
+    refby, refinfo = esm_refs.referenced_by(esm, set(bases), referrers={"REFR"})
+    head = ("BaseFormID\tBaseEDID\tBaseName\tRefFormID\tRefEDID\tWorldspaceEDID\tWorldspaceFormID\t"
+            "CellEDID\tCellFormID\tX\tY\tZ\tRotZ\tCellName\tLocationEDID\tLocationName")
+    pos = _ref_positions(esm, {rf for v in refby.values() for rf in v})
+    out = [head]
+    for b in bases:
+        bf, be, bn = "%08X" % b, cc(esm.edid_of(b)), cc(esm.full_of(b))
+        for rf in refby.get(b, ()):
+            if refinfo[rf][0] != "REFR":
+                continue
+            x = y = z = rz = ""
+            d = pos.get(rf)
+            if d and len(d) >= 24:
+                px, py, pz, _a, _b, rzr = struct.unpack_from("<6f", d)
+                x, y, z = C.fmt_float(px), C.fmt_float(py), C.fmt_float(pz)
+                rz = _rot_deg(rzr)
+            out.append("\t".join([bf, be, bn, "%08X" % rf, cc(refinfo[rf][1]), "", "", "", "",
+                                   x, y, z, rz, "", "", ""]))
+    return out
+
+
 # ------------------------------------------------------------- TERM _Placements --
 def _any_edid(esm, fid):
     if not fid:
@@ -2689,11 +2752,12 @@ EXPORTS = {
     "QUST2": (["QUST"], "QUST2_Export", exp_qust2),
     "ALLYDLG": (["QUST"], "ALLYDLG_Export", exp_allydlg),
     "TERMPL": (["TERM"], "TERM_Export", exp_term_placements),
+    "REFR": (["ACTI"], "REFR_Placements", exp_refr_placements),
     "LORE": (["NOTE", "BOOK"], "ALLYDLG_Export", exp_lore),
 }
 
 # PTS file names carry the date only (no time) for these, like their .pas
-DATE_ONLY_PTS = {"REFRLVLI"}
+DATE_ONLY_PTS = {"REFRLVLI", "REFR"}
 
 
 def main(argv=None):
@@ -2703,6 +2767,7 @@ def main(argv=None):
     ap.add_argument("--data", help="game Data folder (default: the live or PTS install)")
     ap.add_argument("--out", help="output folder (default: tsv\\ or tsv\\pts\\)")
     ap.add_argument("--no-ledger", action="store_true", help="don't add lines to tsv\\_exports.tsv")
+    ap.add_argument("--bases", default="", help="REFR: extra base FormIDs, comma separated (e.g. 008E069E,008F1672)")
     a = ap.parse_args(argv)
 
     which = [w.upper() for w in a.which] or list(EXPORTS)
@@ -2721,6 +2786,8 @@ def main(argv=None):
     esm = R.Esm(data, sigs)
     print("  loaded in %.0fs" % (time.time() - t0))
     esm.refby, esm.refinfo = {}, {}
+    esm.out_dir = out_dir
+    esm.extra_bases = [int(b, 16) for b in a.bases.replace(" ", "").split(",") if b]
     ref_exports = [w for w in which if w in NEEDS_REFS]
     if ref_exports:
         import esm_refs
