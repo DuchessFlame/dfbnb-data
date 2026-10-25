@@ -52,6 +52,7 @@ straight from the game files, so these no longer need xEdit:
             underarmour only; _Mods carries each installed OMOD's includes and properties)
     AVTR    AVTR_Export_<Month>_<Year>.tsv          (ExportAVTRToTSV.pas: player icons)
     BOOK    BOOK_Export_<Month>_<Year>.tsv + _Locations  (ExportBOOKToTSV.pas)
+    BOOK2   BOOK2_Export_<Month>_<Year>.tsv         (ExportBOOK2ToCSV.pas: note placements)
     TERMPL  TERM_Export_<Month>_<Year>_Placements.tsv  (ExportTERMToTSV.pas _Placements;
             the main TERM file and _Quests are tools/export_term_from_esm.py)
     REFR    REFR_Placements_<Month>_<Year>.tsv  (ExportREFRPlacementsToTSV.pas per base:
@@ -1606,22 +1607,33 @@ def npc2_ref_targets(esm):
 # ------------------------------------------------------ MISC2 / ACTI2 ------
 # The "second pass" placement exports: every placed copy of a target set, also one
 # or two hops through a container / activator / leveled list that holds it.
-# Sets: (slug, test on FormID / EDID) per record type.
+# Sets: (slug, test on FormID / EDID / record) per record type.
+def _is_note_book(r):
+    """ExportBOOK2ToCSV.pas IsNoteBook: the model path names a note. (Its other test,
+    a MiscNote01 / MiscNote02 / MiscNote03_Torn keyword, adds no book: those names are
+    preview transforms (TRNS, the BOOK PTRN), and the .pas reads a top-level KWDA that
+    FO76 keeps inside the Keywords block. Checked 25 Oct 2026: 0 books on live.)"""
+    m = r.first("MODL")
+    return m is not None and "note" in _zstr(m).lower()
+
+
 PLACEMENT_SETS = {
     # ExportMISC2ToCSV.pas
     "MISC": [("pint-sized-slasher-masks",
-              lambda fid, ed: fid == 0x008E069E or "sdow_slasherclue" in ed.lower())],
+              lambda fid, ed, r: fid == 0x008E069E or "sdow_slasherclue" in ed.lower())],
     # ExportACTI2ToCSV.pas: the Treasure Map mounds, not the TEMP / DEBUG ones
     "ACTI": [("treasure-maps",
-              lambda fid, ed: "treasuremapmoundactivator" in ed.lower()
+              lambda fid, ed, r: "treasuremapmoundactivator" in ed.lower()
               and "temp" not in ed.lower() and "debug" not in ed.lower())],
+    # ExportBOOK2ToCSV.pas: every note (the Notes checklist)
+    "BOOK": [("notes", lambda fid, ed, r: _is_note_book(r))],
 }
 PLACEMENT_HOLDERS = {"CONT", "ACTI", "FURN", "MSTT", "SCOL", "STAT", "NPC_", "LVLI"}
 
 
 def _placement_set(sig, r):
     for slug, test in PLACEMENT_SETS[sig]:
-        if test(r.fid, r.edid):
+        if test(r.fid, r.edid, r):
             return slug
     return ""
 
@@ -1632,6 +1644,7 @@ def _placement_targets(sig):
 
 misc2_ref_targets = _placement_targets("MISC")
 acti2_ref_targets = _placement_targets("ACTI")
+book2_ref_targets = _placement_targets("BOOK")
 
 
 def _set_placements(esm, sig):
@@ -1654,6 +1667,25 @@ def _set_placements(esm, sig):
             esm.refinfo.update(info)
             scanned.add(fid)
         return esm.refby.get(fid, ())
+
+    def prefetch(fids):
+        # holders found on the way, a whole level at a time: one extra scan per level
+        need = {f for f in fids if f not in esm.refby and f not in scanned}
+        if need:
+            more, info = esm_refs.referenced_by(esm, need)
+            esm.refby.update(more)
+            esm.refinfo.update(info)
+            scanned.update(need)
+
+    level = {r.fid for r in esm.records[sig] if _placement_set(sig, r)}
+    scanned.update(level)   # the main scan covered them (a record with no referrers has no refby entry)
+    for depth in (1, 2):
+        level = {rf for t in level for rf in esm.refby.get(t, ())
+                 if rf in esm.refinfo and esm.refinfo[rf][0] in PLACEMENT_HOLDERS}
+        t0 = time.time()
+        prefetch(level)
+        if level:
+            print("  %s: Referenced By for %d holders in %.0fs" % (sig, len(level), time.time() - t0))
 
     for r in R.xedit_order(esm, sig):
         slug = _placement_set(sig, r)
@@ -1704,6 +1736,11 @@ def exp_misc2(esm):
 def exp_acti2(esm):
     """ExportACTI2ToCSV.pas - placements of the ACTI sets (Treasure Map dig mounds)."""
     return _set_placements(esm, "ACTI")
+
+
+def exp_book2(esm):
+    """ExportBOOK2ToCSV.pas - placements of every note (the Notes checklist)."""
+    return _set_placements(esm, "BOOK")
 
 
 # ------------------------------------------------------------- ACTI ------
@@ -3358,9 +3395,9 @@ def _lore_notes(esm):
     return out + [x for _, x in rows]
 
 
-NEEDS_REFS = {"ARMO2", "AVTR", "BOOK", "ALCH", "QUST2", "LVLI", "GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "ECAT", "CNDF", "LSCR", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
+NEEDS_REFS = {"ARMO2", "AVTR", "BOOK", "BOOK2", "ALCH", "QUST2", "LVLI", "GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "ECAT", "CNDF", "LSCR", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
 # exports that need Referenced By for more than their own records
-REF_TARGETS = {"ARMO2": armo2_ref_targets, "NPC2": npc2_ref_targets, "MISC2": misc2_ref_targets, "ACTI2": acti2_ref_targets}
+REF_TARGETS = {"ARMO2": armo2_ref_targets, "BOOK2": book2_ref_targets, "NPC2": npc2_ref_targets, "MISC2": misc2_ref_targets, "ACTI2": acti2_ref_targets}
 
 EXPORTS = {
     # key: (record types to load, file prefix, function)
@@ -3401,6 +3438,7 @@ EXPORTS = {
     "ARMO2": (["ARMO", "OMOD"], "ARMO2_Underarmour", exp_armo2),
     "AVTR": (["AVTR"], "AVTR_Export", exp_avtr),
     "BOOK": (["BOOK"], "BOOK_Export", exp_book),
+    "BOOK2": (["BOOK"], "BOOK2_Export", exp_book2),
     "REFR": (["ACTI"], "REFR_Placements", exp_refr_placements),
     "LORE": (["NOTE", "BOOK"], "ALLYDLG_Export", exp_lore),
 }
