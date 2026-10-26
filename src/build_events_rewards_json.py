@@ -772,6 +772,11 @@ def _clean_custom_name(raw_value):
     if not raw_value:
         return None
     v = raw_value.strip()
+    # A mod with no in-game name arrives as its humanised EDID
+    # ("custom HolyFire Effect" from mod_custom_HolyFire_Effect). That is a
+    # developer label, never the item's name.
+    if re.match(r"^custom\s", v):
+        return None
     v = re.sub(r"(?i)\s*(?:custom\s*mod|custom\s*name|special\s*effect|paint)$", "", v).strip()
     if not v:
         return None
@@ -796,13 +801,40 @@ def _apply_custom_prefix(cur_name, custom_prefix):
     if norm_prefix in norm_name:
         return cur_name
     if norm_name in norm_prefix:
-        return custom_prefix
+        return custom_prefix  # name is substring of prefix (e.g. "Shovel" in "Cursed Shovel")
+    # Already renamed by an earlier pass with a shorter form of the same custom
+    # name: "Cryptid Jawbone Combat Knife" + "Cryptid Jawbone Knife" must not
+    # become "Cryptid Jawbone Knife Cryptid Jawbone Combat Knife".
+    _pw = re.findall(r"[a-z0-9']+", custom_prefix.lower())
+    _nw = re.findall(r"[a-z0-9']+", cur_name.lower())
+    if len(_pw) >= 2 and _nw[:len(_pw) - 1] == _pw[:-1]:
+        return cur_name
     return f"{custom_prefix} {cur_name}"
+
+def _refine_custom_prefix(prefix, candidates, slots, item_name, had_nameless):
+    """Second pass on the picked custom-mod name.
+
+    When the only custom mod had no in-game name (mod_custom_HolyFire_Effect,
+    mod_custom_OguaGauntlet_Effect) the variant is still named by its custom
+    paint: "Holy Fire Paint" -> "Holy Fire".
+    """
+    if prefix:
+        return prefix
+    if had_nameless:
+        for s in slots:
+            v = str(s.get("value") or "").strip()
+            if str(s.get("label") or "").lower() == "appearance" and re.search(r"(?i)\spaint$", v):
+                name = re.sub(r"(?i)\s*paint$", "", v).strip()
+                if name:
+                    return name
+    return None
+
 
 
 def _filter_and_clean_modslots(slots, item_name=None):
     """Filter junk mods and extract custom name prefix."""
     cleaned = []
+    had_nameless = False
     custom_candidates = []
     for s in slots:
         label = s.get("label", "")
@@ -813,6 +845,8 @@ def _filter_and_clean_modslots(slots, item_name=None):
             cname = _clean_custom_name(value)
             if cname:
                 custom_candidates.append(cname)
+            elif re.match(r"^custom\s", str(value).strip()):
+                had_nameless = True
             continue
         cleaned.append(s)
     custom_prefix = None
@@ -822,6 +856,7 @@ def _filter_and_clean_modslots(slots, item_name=None):
             custom_prefix = min(good, key=len) if len(good) > 1 else good[0]
         else:
             custom_prefix = custom_candidates[0]
+    custom_prefix = _refine_custom_prefix(custom_prefix, custom_candidates, cleaned, item_name, had_nameless)
     return cleaned, custom_prefix
 
 

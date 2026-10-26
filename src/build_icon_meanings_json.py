@@ -36,8 +36,10 @@ AWR_IMG = "/wp-content/uploads/guide-images/specials-&-stats/awareness-bar-meani
 # Examples from the keyword references
 # --------------------------------------------------------------------------
 def newest(pattern):
-    files = glob.glob(os.path.join(TSV, pattern))
-    return max(files, key=os.path.getmtime) if files else None
+    # newest by the date in the file name (tsv_source): in CI every file shares the
+    # checkout time, so an mtime sort picks at random
+    import tsv_source
+    return tsv_source.newest(pattern, required=False)
 
 SKIP_NAME = re.compile(r"^(zzz|cut_|test|del_)|testsmoke|ui text dummy|\bspell\b|^npc |\bself$|^\s*$", re.I)
 CAMEL = re.compile(r"^[A-Z][a-z]+[A-Z][A-Za-z]*$|^(?=[A-Z]*\d)[A-Z0-9]{3,5} ")
@@ -282,11 +284,16 @@ def hud_page(refs):
 # --------------------------------------------------------------------------
 SKULL_SKIP = re.compile(r"^(zzz|DEL_Template|HTO_Template|CUT_|Test)", re.I)
 
+def newest_main_npc():
+    """The newest NPC_Export main file (not _PRPS / _Refs)."""
+    import tsv_source
+    return tsv_source.newest("NPC_Export_*.tsv", exclude=("_PRPS", "_Refs"), required=False)
+
+
 def encounter_skulls():
     """Enemies the game gives a fixed Encounter Skull (NPC PRPS EncounterSkullIndex 1-3)."""
     prps, npc = newest("NPC_Export_*_PRPS.tsv"), None
-    files = [f for f in glob.glob(os.path.join(TSV, "NPC_Export_*.tsv")) if not re.search(r"_(PRPS|Refs)\.tsv$", f)]
-    npc = max(files, key=os.path.getmtime) if files else None
+    npc = newest_main_npc()
     out = {1: [], 2: [], 3: []}
     if not prps or not npc:
         return out

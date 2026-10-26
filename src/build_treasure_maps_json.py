@@ -487,6 +487,11 @@ def _clean_custom_name(raw_value):
     if not raw_value:
         return None
     v = raw_value.strip()
+    # A mod with no in-game name arrives as its humanised EDID
+    # ("custom HolyFire Effect" from mod_custom_HolyFire_Effect). That is a
+    # developer label, never the item's name.
+    if re.match(r"^custom\s", v):
+        return None
     v = re.sub(r"(?i)\s*(?:custom\s*mod|custom\s*name|special\s*effect|paint)$", "", v).strip()
     if not v:
         return None
@@ -512,8 +517,34 @@ def _apply_custom_prefix(cur_name, custom_prefix):
     if norm_prefix in norm_name:
         return cur_name
     if norm_name in norm_prefix:
-        return custom_prefix
+        return custom_prefix  # name is substring of prefix (e.g. "Shovel" in "Cursed Shovel")
+    # Already renamed by an earlier pass with a shorter form of the same custom
+    # name: "Cryptid Jawbone Combat Knife" + "Cryptid Jawbone Knife" must not
+    # become "Cryptid Jawbone Knife Cryptid Jawbone Combat Knife".
+    _pw = re.findall(r"[a-z0-9']+", custom_prefix.lower())
+    _nw = re.findall(r"[a-z0-9']+", cur_name.lower())
+    if len(_pw) >= 2 and _nw[:len(_pw) - 1] == _pw[:-1]:
+        return cur_name
     return f"{custom_prefix} {cur_name}"
+
+def _refine_custom_prefix(prefix, candidates, slots, item_name, had_nameless):
+    """Second pass on the picked custom-mod name.
+
+    When the only custom mod had no in-game name (mod_custom_HolyFire_Effect,
+    mod_custom_OguaGauntlet_Effect) the variant is still named by its custom
+    paint: "Holy Fire Paint" -> "Holy Fire".
+    """
+    if prefix:
+        return prefix
+    if had_nameless:
+        for s in slots:
+            v = str(s.get("value") or "").strip()
+            if str(s.get("label") or "").lower() == "appearance" and re.search(r"(?i)\spaint$", v):
+                name = re.sub(r"(?i)\s*paint$", "", v).strip()
+                if name:
+                    return name
+    return None
+
 
 
 _JUNK_OMOD_DESCS = {"no customization", ""}
@@ -524,6 +555,7 @@ def _filter_and_clean_modslots(slots, item_name=None):
     Returns (cleaned_slots, custom_prefix_or_None, custom_description_or_None).
     """
     cleaned = []
+    had_nameless = False
     custom_slots = []
     custom_omod_fids = []
     for s in slots:
@@ -535,6 +567,8 @@ def _filter_and_clean_modslots(slots, item_name=None):
             cname = _clean_custom_name(value)
             if cname:
                 custom_slots.append((cname, value, s))
+            elif re.match(r"^custom\s", str(value).strip()):
+                had_nameless = True
             ofid = s.get("omod_fid", "")
             if ofid:
                 custom_omod_fids.append(ofid)
@@ -555,15 +589,23 @@ def _filter_and_clean_modslots(slots, item_name=None):
         best_idx = min(good_idxs, key=_name_score)
         custom_prefix = custom_slots[best_idx][0]
         chosen_idx = best_idx
+        _refined = _refine_custom_prefix(custom_prefix, [c[0] for c in custom_slots], slots, item_name, had_nameless)
+        if _refined and _refined != custom_prefix:
+            custom_prefix = _refined
+            chosen_idx = next((k for k, c in enumerate(custom_slots) if c[0] == _refined), chosen_idx)
         _EFFECT_STRIP = re.compile(r"(?i)\s*(?:special\s*effect|custom\s*mod|custom\s*name|paint)\s*$")
         for i, (cname, raw_val, slot) in enumerate(custom_slots):
             if i == chosen_idx:
                 continue
             display = _EFFECT_STRIP.sub("", raw_val).strip() or raw_val.strip()
-            if custom_prefix and display.lower() == custom_prefix.lower():
+            if custom_prefix and (display.lower() == custom_prefix.lower()
+                                  or custom_prefix.lower().startswith(display.lower() + " ")):
                 continue
             cleaned.append({"label": "Custom", "value": display,
                             "omod_fid": slot.get("omod_fid", "")})
+
+    if not custom_prefix:
+        custom_prefix = _refine_custom_prefix(None, [], cleaned, item_name, had_nameless)
 
     custom_desc = None
     for ofid in custom_omod_fids:

@@ -975,6 +975,11 @@ def _clean_custom_name(raw_value):
     if not raw_value:
         return None
     v = raw_value.strip()
+    # A mod with no in-game name arrives as its humanised EDID
+    # ("custom HolyFire Effect" from mod_custom_HolyFire_Effect). That is a
+    # developer label, never the item's name.
+    if re.match(r"^custom\s", v):
+        return None
     # Strip common suffixes: "Custom Mod", "Custom Name", "Special Effect", "Paint"
     v = re.sub(r"(?i)\s*(?:custom\s*mod|custom\s*name|special\s*effect|paint)$", "", v).strip()
     if not v:
@@ -1006,7 +1011,33 @@ def _apply_custom_prefix(cur_name, custom_prefix):
         return cur_name  # prefix already present in name
     if norm_name in norm_prefix:
         return custom_prefix  # name is substring of prefix (e.g. "Shovel" in "Cursed Shovel")
+    # Already renamed by an earlier pass with a shorter form of the same custom
+    # name: "Cryptid Jawbone Combat Knife" + "Cryptid Jawbone Knife" must not
+    # become "Cryptid Jawbone Knife Cryptid Jawbone Combat Knife".
+    _pw = re.findall(r"[a-z0-9']+", custom_prefix.lower())
+    _nw = re.findall(r"[a-z0-9']+", cur_name.lower())
+    if len(_pw) >= 2 and _nw[:len(_pw) - 1] == _pw[:-1]:
+        return cur_name
     return f"{custom_prefix} {cur_name}"
+
+def _refine_custom_prefix(prefix, candidates, slots, item_name, had_nameless):
+    """Second pass on the picked custom-mod name.
+
+    When the only custom mod had no in-game name (mod_custom_HolyFire_Effect,
+    mod_custom_OguaGauntlet_Effect) the variant is still named by its custom
+    paint: "Holy Fire Paint" -> "Holy Fire".
+    """
+    if prefix:
+        return prefix
+    if had_nameless:
+        for s in slots:
+            v = str(s.get("value") or "").strip()
+            if str(s.get("label") or "").lower() == "appearance" and re.search(r"(?i)\spaint$", v):
+                name = re.sub(r"(?i)\s*paint$", "", v).strip()
+                if name:
+                    return name
+    return None
+
 
 
 _JUNK_OMOD_DESCS = {"no customization", ""}
@@ -1020,6 +1051,7 @@ def _filter_and_clean_modslots(slots, item_name=None):
     custom_description comes from the OMOD DESC field for the custom mod(s).
     """
     cleaned = []
+    had_nameless = False
     custom_slots = []            # (cleaned_name, raw_value, original_slot) triples
     custom_omod_fids = []        # collect OMOD FormIDs for description lookup
     for s in slots:
@@ -1033,6 +1065,8 @@ def _filter_and_clean_modslots(slots, item_name=None):
             cname = _clean_custom_name(value)
             if cname:
                 custom_slots.append((cname, value, s))
+            elif re.match(r"^custom\s", str(value).strip()):
+                had_nameless = True
             # Collect OMOD FormID for description lookup
             ofid = s.get("omod_fid", "")
             if ofid:
@@ -1063,6 +1097,10 @@ def _filter_and_clean_modslots(slots, item_name=None):
         best_idx = min(good_idxs, key=_name_score)
         custom_prefix = custom_slots[best_idx][0]
         chosen_idx = best_idx
+        _refined = _refine_custom_prefix(custom_prefix, [c[0] for c in custom_slots], slots, item_name, had_nameless)
+        if _refined and _refined != custom_prefix:
+            custom_prefix = _refined
+            chosen_idx = next((k for k, c in enumerate(custom_slots) if c[0] == _refined), chosen_idx)
         # Keep effect OMODs (all custom slots EXCEPT the chosen name) as visible rows.
         # Strip "Special Effect" / "Custom Mod" suffixes for clean display values.
         _EFFECT_STRIP = re.compile(r"(?i)\s*(?:special\s*effect|custom\s*mod|custom\s*name|paint)\s*$")
@@ -1071,10 +1109,14 @@ def _filter_and_clean_modslots(slots, item_name=None):
                 continue
             display = _EFFECT_STRIP.sub("", raw_val).strip() or raw_val.strip()
             # Skip if display value is same as weapon name (redundant)
-            if custom_prefix and display.lower() == custom_prefix.lower():
+            if custom_prefix and (display.lower() == custom_prefix.lower()
+                                  or custom_prefix.lower().startswith(display.lower() + " ")):
                 continue
             cleaned.append({"label": "Custom", "value": display,
                             "omod_fid": slot.get("omod_fid", "")})
+
+    if not custom_prefix:
+        custom_prefix = _refine_custom_prefix(None, [], cleaned, item_name, had_nameless)
 
     # Look up OMOD descriptions for the custom mod(s)
     # Pick the longest non-junk description (most informative)
@@ -5417,6 +5459,22 @@ try:
 except Exception as _e:  # images are never fatal
     print("  [WARN] image index skipped: {}".format(_e))
 
+DIST_DIR.mkdir(parents=True, exist_ok=True)
+PATCHLOG_DIR.mkdir(parents=True, exist_ok=True)
+
+with open(DIST_DIR / "activities_rewards.json", "w", encoding="utf-8") as f:
+    json.dump({"events": events}, f, separators=(",", ":"))
+write_patchlog_feed(
+    dist_dir=str(_REPO_ROOT / "dist"),
+    feed_name="patchlog_latest_df_activities.json",
+    current_items=events,
+    key_field="questFormID",
+    name_field="name,gameName",
+    compare_fields=["name", "gameName", "rewards", "pools"],
+    prev_json_path="dist/activities/activities_rewards.json",
+    items_extractor=lambda d: d.get("events", []),
+)
+
 # Min level on every weapon / armour reward. Every WEAP and ARMO record
 # carries EILV - the item levels it exists at (Urban Scout chest 40|50,
 # Missile Launcher 20|30|40|50). The lowest is the item's Min level, shown
@@ -5475,17 +5533,11 @@ if not _MIN_LEVELS:
     print("  [WARN] no EILV levels found in WEAP/ARMO exports - Min level left blank")
 # by_page shares its item dicts with events, and the events feed drives the
 # patch log - a new field there would list every activity as "changed". So the
-# events feed + patch log get a copy taken before the stamp.
-import copy as _copy
-_events_unstamped = _copy.deepcopy(events)
+# stamp runs AFTER the events feed + patch log are written (no copy: a deep
+# copy of events runs the build out of memory).
 _ml_count = _stamp_min_levels(by_page)
 print(f"  Min level stamped on {_ml_count} weapon/armour reward entries ({len(_MIN_LEVELS)} records with EILV)")
 
-DIST_DIR.mkdir(parents=True, exist_ok=True)
-PATCHLOG_DIR.mkdir(parents=True, exist_ok=True)
-
-with open(DIST_DIR / "activities_rewards.json", "w", encoding="utf-8") as f:
-    json.dump({"events": _events_unstamped}, f, separators=(",", ":"))
 with open(DIST_DIR / "activities_rewards_by_page.json", "w", encoding="utf-8") as f:
     json.dump({"byPage": by_page}, f, separators=(",", ":"))
 
@@ -5496,15 +5548,5 @@ with open(DIST_DIR / "activities_rewards_by_page.json", "w", encoding="utf-8") a
 # above once the slice-aware df-bnb-activities.js is live everywhere.
 write_by_page_slices(DIST_DIR, by_page, name="activities")
 
-write_patchlog_feed(
-    dist_dir=str(_REPO_ROOT / "dist"),
-    feed_name="patchlog_latest_df_activities.json",
-    current_items=_events_unstamped,
-    key_field="questFormID",
-    name_field="name,gameName",
-    compare_fields=["name", "gameName", "rewards", "pools"],
-    prev_json_path="dist/activities/activities_rewards.json",
-    items_extractor=lambda d: d.get("events", []),
-)
 
 print(f"Activities Rewards build complete. events={len(events)} byPage={len(by_page)}")

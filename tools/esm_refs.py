@@ -91,6 +91,29 @@ SAME_FIELDS_AS = {"INGR": "ALCH"}
 PLACED_LIKE_REFR = {"PGRE", "PMIS", "PARW", "PBEA", "PFLA", "PCON", "PBAR", "PHZD"}
 
 
+def _omod_data_offsets(d):
+    """Byte offsets of the FormIDs in an OMOD DATA subrecord (FO76 form version 107+)."""
+    out = set()
+    try:
+        inc, prop = struct.unpack_from("<II", d, 0)
+        out.add(16)
+        n = struct.unpack_from("<I", d, 20)[0]
+        out.update(24 + 4 * i for i in range(n))
+        p = 24 + 4 * n
+        p += 4 + 8 * struct.unpack_from("<I", d, p)[0]
+        for _ in range(inc):
+            out.add(p)
+            p += 7
+        for _ in range(prop):
+            if d[p] in (4, 6):
+                out.add(p + 12)
+            out.add(p + 20)
+            p += 24
+    except (struct.error, IndexError):
+        pass
+    return out
+
+
 def _is_ref(rules, sig, sub, rel, field, tsig):
     if sub == "CTDA":
         return rel in _ctda_offsets(field)
@@ -173,6 +196,20 @@ def _is_ref(rules, sig, sub, rel, field, tsig):
     #     -> an FLST (25 Oct 2026).
     if sig == "MGEF" and sub == "DATA" and rel == 12:
         return True
+    #   BOOK DNAM: Flags (u8), then "Teaches" at offset 1 - an Actor Value (flag 0x01),
+    #     Spell (0x04) or Perk (0x10). The learned rules never saw that unaligned slot:
+    #     PerkMagMassSurgicalJournal01..09 -> the perk 0008E3A5, which xEdit lists (26 Oct 2026).
+    if sig == "BOOK" and sub == "DNAM" and rel == 1 and len(field) >= 5 and field[0] & 0x15:
+        return True
+    #   OMOD DATA, read by layout (26 Oct 2026). The learned rule allowed a FormID at any
+    #     byte, so a 4-byte window straddling two fields counted: an include of an
+    #     OMOD 0079xxxx put Bot_RoseNanny_FrontArmor (00007976) in 32 mods' Referenced
+    #     By, which xEdit doesn't list. FormIDs sit only at: Attach Point (16), the
+    #     Attach Parent Slots, each include's Mod (7-byte includes), and per 24-byte
+    #     property Value 1 when the value type is FormID,Int / FormID,Float (4 / 6)
+    #     and the Curve Table (+20). Items are byte pairs, not FormIDs.
+    if sig == "OMOD" and sub == "DATA" and len(field) >= 28:
+        return rel in _omod_data_offsets(field)
     #   OBTS (object template combination, any record): a property whose value type
     #     is FormID,Int (4) or FormID,Float (6) holds a form in Value 1. Properties
     #     follow the includes: Include Count u32, Property Count u32, 7 bytes, Default,
