@@ -21,9 +21,12 @@ through the same shared functions the farming pages use:
   Collectrons /       build_farming_used_for._patch_camp_producers
   Resource Generators
   Containers          build_farming_used_for.container_types (rng76)
-  Creatures           the meat doc's death-drop lists, cleaned: empty pools are
-                      dropped, and the extra-meat pool is named for the perk that
-                      turns it on (Butcher's Bounty)
+  Inventory           what the creature drops when killed, one column per variant
+                      whose drops differ: Meat & Bits, Plans, Junk, Ammo
+                      (creature_inventory.build_inventory, rng76 + plan_master)
+  Creatures           every creature in the game that drops THIS page's own meat
+                      and bits, other species included
+                      (creature_inventory.build_creatures, rng76)
   Events & Activities the creature's own events + the meat's reward pools (rng76)
   Treasure Maps       treasure_map_sources (rng76)
   Vendors             build_farming_used_for.build_vendor_list (NPC2 vendor master)
@@ -50,6 +53,7 @@ if HERE not in sys.path:
     sys.path.insert(0, HERE)
 
 import build_farming_used_for as B
+import creature_inventory as CI
 import farming_spawns_sources as sources
 import perk_ranks
 import rng76
@@ -190,6 +194,19 @@ def _load_quest_names():
     return out
 
 
+def event_of(edid, quests):
+    """'The Mothman Equinox' for an event-only death list (E07A_Mothman_LLD_...),
+    read from the QUEST export; '' for an ordinary list."""
+    m = re.match(r"^(.*?)_LLD_", edid or "")
+    if m:
+        parts = m.group(1).split("_")
+        for i in range(len(parts), 0, -1):
+            q = quests.get("_".join(parts[:i]))
+            if q:
+                return q
+    return ""
+
+
 def flat_drops(drops, quests):
     """One flat list of what the creature drops — item + % — with no pools and
     no per-list headings. A drop from an event-only death list (its EDID starts
@@ -246,20 +263,40 @@ def _slot(a, b, key):
     return (a or {}).get(key) or (b or {}).get(key) or ""
 
 
-def convert_regions(meat_doc, keep, keep_markers, creature):
+def _spawn_label(sp, creature):
+    """What is standing there: the creature variant, or "<Creature> Nest" for a
+    nest (a looted container, not a live creature)."""
+    if (sp.get("source_type") or "") == "nest":
+        return f"{creature} Nest"
+    return sp.get("variant") or creature
+
+
+def _route_sort(items, order, key):
+    """Put items in the walking-route order from data/spawn_route_order.tsv;
+    anything the route doesn't name keeps its place behind the named ones."""
+    if not order:
+        return items
+    pos = {k: i for i, k in enumerate(order)}
+    return sorted(items, key=lambda x: pos.get(key(x), len(pos)))
+
+
+def convert_regions(meat_doc, keep, keep_markers, creature, route=None):
     by_region = {r["region"]: r for r in (meat_doc.get("fixed_spawns") or {}).get("regions", [])}
+    route = route or {"markers": {}, "spawns": {}}
     out = []
     for name in ALL_REGIONS:
         reg = by_region.get(name) or {"region": name, "locations": []}
         locs = []
-        for loc in reg.get("locations", []):
-            spawns = loc.get("spawns") or []
-            variants = collections.Counter(
-                (sp.get("variant") or creature) for sp in spawns)
+        for loc in _route_sort(reg.get("locations", []), route["markers"].get(name),
+                               lambda l: l.get("marker")):
+            spawns = _route_sort(loc.get("spawns") or [],
+                                 route["spawns"].get((name, loc.get("marker"))),
+                                 lambda s: s.get("ref"))
+            variants = collections.Counter(_spawn_label(sp, creature) for sp in spawns)
             seen = collections.Counter()
             new_spawns = []
             for sp in spawns:
-                v = sp.get("variant") or creature
+                v = _spawn_label(sp, creature)
                 seen[v] += 1
                 label = f"{v} #{seen[v]}" if variants[v] > 1 else v
                 k = keep.get(sp.get("ref"))
@@ -374,6 +411,9 @@ def build_one(meat_path, ctx):
         doc["map_ext"] = ex["map_ext"]
     if ex.get("full_map"):
         doc["full_map"] = doc["map_base"] + ex["full_map"]
+    # A note for the top card, written by Duchess (e.g. the fissure-site timing).
+    if ex.get("intro_note"):
+        doc["intro_note"] = ex["intro_note"]
     # The gallery (art, interior cell maps) still waits for
     # data/meat_spawn_maps_live.txt — a gallery thumb has no check of its own.
     if slug in ctx["maps_live"]:
@@ -399,8 +439,19 @@ def build_one(meat_path, ctx):
                        else m["name"] for m in meats)
     # Just the drop line — the variant / level / HP summary was dropped on request.
     note = f"Every {creature} you kill drops {yields}."
+    # Inventory (what this creature drops) + Creatures (who drops this creature's
+    # meat and bits). The old flat drop list is kept in `items` only as a fallback
+    # for a renderer that predates `rows`.
+    lists = [{"form_id": l.get("form_id"), "edid": l.get("edid")}
+             for l in (md.get("drops") or {}).get("lists", []) if l.get("form_id")]
+    doc["inventory"] = CI.build_inventory(
+        ctx["inv"], lists, base_name=creature,
+        event_note=lambda e: ("only during " + event_of(e, ctx["quests"]))
+        if event_of(e, ctx["quests"]) else "")
+    own = CI.own_items(ctx["inv"], slug, md.get("meat_items"))
     doc["drop_rates"] = collections.OrderedDict([
-        ("creatures", {"note": "", "items": flat_drops(drops, ctx["quests"])}),
+        ("creatures", {"note": "", "rows": CI.build_creatures(ctx["inv"], own),
+                       "items": flat_drops(drops, ctx["quests"])}),
         ("collectrons", None),
         ("resource_generators", None),
     ])
@@ -411,6 +462,13 @@ def build_one(meat_path, ctx):
     if isinstance(cont, dict) and isinstance(cont.get("types"), list):
         cont["types"] = [t for t in cont["types"]
                          if not re.match(r"(?i)^(test|qa|debug)\b", t.get("name") or "")]
+    # Everything that can come out of the creature's own containers (nests,
+    # pre-placed corpses, guano piles), not just the chance of its meat.
+    loot = CI.container_loot(ctx["inv"], creature)
+    if loot:
+        if not isinstance(doc["drop_rates"].get("containers"), dict):
+            doc["drop_rates"]["containers"] = {"types": []}
+        doc["drop_rates"]["containers"]["loot"] = loot
     if tips is not None:
         doc["farming_tips"] = tips
     doc["used_for"] = used_for
@@ -434,7 +492,9 @@ def build_one(meat_path, ctx):
     doc["random_encounters"] = list(md.get("random_encounters") or [])
     B._patch_random_encounters(doc)
 
-    doc["regions"] = convert_regions(md, keep, keep_markers, creature)
+    from spawns_engine import route_order
+    doc["regions"] = convert_regions(md, keep, keep_markers, creature,
+                                     route_order.load("meat-" + slug))
     doc["chance_spawns"] = convert_chance(md)
     n = doc["chance_spawns"]["total_markers"]
     if n:
@@ -476,6 +536,7 @@ def load_ctx():
         "maps_live": _maps_live(),
         "extras": _extras(),
         "quests": _load_quest_names(),
+        "inv": CI.Ctx(data),
     }
 
 

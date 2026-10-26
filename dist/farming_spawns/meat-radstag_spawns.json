@@ -62,6 +62,20 @@
      "rate_display": "100%",
      "note": "only drops during The Mothman Equinox"
     }
+   ],
+   "rows": [
+    {
+     "creature": "Radstag",
+     "item": "Radstag Hide",
+     "rate_display": "100%",
+     "note": ""
+    },
+    {
+     "creature": "Radstag",
+     "item": "Radstag Meat",
+     "rate_display": "100%",
+     "note": ""
+    }
    ]
   },
   "collectrons": {
@@ -204,7 +218,43 @@
      "rate": 0.0030000000000000027,
      "rate_display": "0.3%"
     }
-   ]
+   ],
+   "loot": {
+    "columns": [
+     "Radstag Buck / Radstag Doe"
+    ],
+    "groups": [
+     {
+      "name": "Meat & Bits",
+      "note": "",
+      "rows": [
+       {
+        "name": "Radstag Hide",
+        "form_id": "0022B626",
+        "note": "",
+        "cells": [
+         {
+          "rate_display": "100%",
+          "note": ""
+         }
+        ]
+       },
+       {
+        "name": "Radstag Meat",
+        "form_id": "0004A14F",
+        "note": "",
+        "cells": [
+         {
+          "rate_display": "100%",
+          "note": ""
+         }
+        ]
+       }
+      ],
+      "sub": false
+     }
+    ]
+   }
   }
  },
  "farming_tips": {
@@ -3627,5 +3677,63 @@
  "breakdown_lead": "Spawns here:",
  "treasure_maps": {
   "maps": []
+ },
+ "inventory": {
+  "columns": [
+   "Radstag",
+   "Albino Radstag (only during The Mothman Equinox)"
+  ],
+  "groups": [
+   {
+    "name": "Meat & Bits",
+    "note": "",
+    "rows": [
+     {
+      "name": "Radstag Hide",
+      "form_id": "0022B626",
+      "note": "",
+      "cells": [
+       {
+        "rate_display": "100%",
+        "note": ""
+       },
+       null
+      ]
+     },
+     {
+      "name": "Radstag Meat",
+      "form_id": "0004A14F",
+      "note": "",
+      "cells": [
+       {
+        "rate_display": "100%",
+        "note": ""
+       },
+       null
+      ]
+     }
+    ],
+    "sub": false
+   },
+   {
+    "name": "Junk",
+    "note": "",
+    "rows": [
+     {
+      "name": "Albino Radstag Blood",
+      "form_id": "0061D14C",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "100%",
+        "note": ""
+       }
+      ]
+     }
+    ],
+    "sub": true
+   }
+  ]
  }
 }
