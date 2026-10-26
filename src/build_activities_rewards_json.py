@@ -5417,11 +5417,75 @@ try:
 except Exception as _e:  # images are never fatal
     print("  [WARN] image index skipped: {}".format(_e))
 
+# Min level on every weapon / armour reward. Every WEAP and ARMO record
+# carries EILV - the item levels it exists at (Urban Scout chest 40|50,
+# Missile Launcher 20|30|40|50). The lowest is the item's Min level, shown
+# in the legendary block's "Min level" tile. EILV_Levels is written by the
+# WEAP + ARMO xEdit exports; EILV_Level is the fallback (WEAP first entry /
+# ARMO min). Read straight from the exports so it follows every patch + PTS.
+def _eilv_min(row):
+    vals = []
+    for part in str(row.get("EILV_Levels") or "").split("|"):
+        part = part.strip()
+        if part.isdigit():
+            vals.append(int(part))
+    if not vals:
+        one = str(row.get("EILV_Level") or "").strip()
+        if one.isdigit():
+            vals.append(int(one))
+    return min(vals) if vals else None
+
+
+def _load_min_levels():
+    out = {}
+    try:
+        weap_base = read_tsv(newest("tsv/WEAP_Export_*_Base.tsv"))
+    except FileNotFoundError:
+        weap_base = []
+    for _rows, _fid_col in ((weap_base, "WEAP_FormID"), (ARMO, "ARMO_FormID")):
+        for _r in _rows:
+            _fid = str(_r.get(_fid_col) or "").strip().upper()
+            _lv = _eilv_min(_r)
+            if _fid and _lv is not None:
+                out[_fid] = _lv
+    return out
+
+
+_MIN_LEVELS = _load_min_levels()
+
+
+def _stamp_min_levels(node):
+    """Add minLevel to every reward item dict whose formid is a WEAP/ARMO."""
+    n = 0
+    if isinstance(node, dict):
+        fid = str(node.get("formid") or "").strip().upper()
+        if fid and node.get("name") and fid in _MIN_LEVELS and node.get("minLevel") is None:
+            node["minLevel"] = _MIN_LEVELS[fid]
+            n += 1
+        for v in node.values():
+            if isinstance(v, (dict, list)):
+                n += _stamp_min_levels(v)
+    elif isinstance(node, list):
+        for v in node:
+            n += _stamp_min_levels(v)
+    return n
+
+
+if not _MIN_LEVELS:
+    print("  [WARN] no EILV levels found in WEAP/ARMO exports - Min level left blank")
+# by_page shares its item dicts with events, and the events feed drives the
+# patch log - a new field there would list every activity as "changed". So the
+# events feed + patch log get a copy taken before the stamp.
+import copy as _copy
+_events_unstamped = _copy.deepcopy(events)
+_ml_count = _stamp_min_levels(by_page)
+print(f"  Min level stamped on {_ml_count} weapon/armour reward entries ({len(_MIN_LEVELS)} records with EILV)")
+
 DIST_DIR.mkdir(parents=True, exist_ok=True)
 PATCHLOG_DIR.mkdir(parents=True, exist_ok=True)
 
 with open(DIST_DIR / "activities_rewards.json", "w", encoding="utf-8") as f:
-    json.dump({"events": events}, f, separators=(",", ":"))
+    json.dump({"events": _events_unstamped}, f, separators=(",", ":"))
 with open(DIST_DIR / "activities_rewards_by_page.json", "w", encoding="utf-8") as f:
     json.dump({"byPage": by_page}, f, separators=(",", ":"))
 
@@ -5435,7 +5499,7 @@ write_by_page_slices(DIST_DIR, by_page, name="activities")
 write_patchlog_feed(
     dist_dir=str(_REPO_ROOT / "dist"),
     feed_name="patchlog_latest_df_activities.json",
-    current_items=events,
+    current_items=_events_unstamped,
     key_field="questFormID",
     name_field="name,gameName",
     compare_fields=["name", "gameName", "rewards", "pools"],
