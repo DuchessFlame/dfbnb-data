@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated": "2026-10-25T08:46:12.993480+00:00",
+  "generated": "2026-10-25T22:58:55.817606+00:00",
   "count": 53,
   "slots": [
     "ap_armor_Lining",
@@ -8,7 +8,7 @@
   ],
   "new_pill": {
     "mode": "vs-live",
-    "newest": "BOOK_Export_PTS_2026-10-25_1528.tsv",
+    "newest": "BOOK_Export_PTS_2026-10-25_1808.tsv",
     "baseline": "BOOK_Export_October_2026.tsv",
     "count": 0
   },
@@ -381,20 +381,6 @@
             },
             {
               "route": "Activity: Powering Up",
-              "source_type": "event-quest",
-              "rate": 0.0010834512,
-              "rate_display": "0.1083%",
-              "lvli": [
-                "0086A8C0"
-              ],
-              "quest_reward": true,
-              "kind": "event",
-              "conditions": [
-                "Only in Cranberry Bog"
-              ]
-            },
-            {
-              "route": "Activity: Riding Shotgun",
               "source_type": "event-quest",
               "rate": 0.0010834512,
               "rate_display": "0.1083%",
@@ -824,21 +810,6 @@
               "quest_reward": true,
               "kind": "event",
               "conditions": []
-            },
-            {
-              "route": "One of Us",
-              "source_type": "event-quest",
-              "rate": 0.0002166903,
-              "rate_display": "0.0217%",
-              "lvli": [
-                "003D5818"
-              ],
-              "quest_reward": true,
-              "kind": "quest",
-              "conditions": [
-                "Only in Cranberry Bog"
-              ],
-              "quest_guide": "000293A3"
             },
             {
               "route": "Footlocker",
@@ -1400,6 +1371,7 @@
                 16,
                 17,
                 18,
+                31,
                 32,
                 33,
                 34,
@@ -1408,7 +1380,7 @@
                 37,
                 38,
                 39,
-                40,
+                41,
                 42,
                 43,
                 44,
@@ -1416,7 +1388,8 @@
                 46,
                 47,
                 48,
-                49,
+                68,
+                69,
                 70,
                 71,
                 72,
@@ -1430,16 +1403,15 @@
                 80,
                 81,
                 82,
-                83,
                 84,
-                86,
-                87,
-                88
+                85,
+                86
               ]
             },
             {
               "label": "Enemies",
               "routes": [
+                49,
                 50,
                 51,
                 52,
@@ -1457,10 +1429,9 @@
                 64,
                 65,
                 66,
-                67,
-                89,
-                90,
-                91
+                87,
+                88,
+                89
               ]
             },
             {
@@ -1481,9 +1452,8 @@
                 28,
                 29,
                 30,
-                31,
-                41,
-                68
+                40,
+                67
               ]
             },
             {
@@ -1493,8 +1463,7 @@
                 4,
                 5,
                 14,
-                69,
-                85
+                83
               ]
             }
           ],
@@ -1708,7 +1677,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Cranberry Bog"
                 ]
@@ -1760,7 +1729,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Cranberry Bog"
                 ]
@@ -1812,7 +1781,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Cranberry Bog"
                 ]
@@ -1890,7 +1859,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Cranberry Bog"
                 ]
@@ -1942,7 +1911,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Cranberry Bog"
                 ]
@@ -1968,11 +1937,64 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Cranberry Bog"
                 ]
               }
+            },
+            {
+              "route": "Activity: Riding Shotgun",
+              "source_type": "event-quest",
+              "rate": 0.0010834512,
+              "rate_display": "0.1083%",
+              "lvli": [
+                "0086A8C0"
+              ],
+              "quest_reward": true,
+              "kind": "event",
+              "conditions": [
+                "Only in Cranberry Bog"
+              ],
+              "retired_because": [
+                "activity is not played in that region"
+              ],
+              "region_detail": {
+                "played_in": [
+                  "Savage Divide"
+                ],
+                "via": "game files",
+                "conditions": [
+                  "Only in Cranberry Bog"
+                ]
+              }
+            },
+            {
+              "route": "One of Us",
+              "source_type": "event-quest",
+              "rate": 0.0002166903,
+              "rate_display": "0.0217%",
+              "lvli": [
+                "003D5818"
+              ],
+              "quest_reward": true,
+              "kind": "quest",
+              "conditions": [
+                "Only in Cranberry Bog"
+              ],
+              "retired_because": [
+                "activity is not played in that region"
+              ],
+              "region_detail": {
+                "played_in": [
+                  "Savage Divide"
+                ],
+                "via": "game files",
+                "conditions": [
+                  "Only in Cranberry Bog"
+                ]
+              },
+              "quest_guide": "000293A3"
             }
           ],
           "source_tag": "Fixed",
@@ -2355,20 +2377,6 @@
             },
             {
               "route": "Activity: Powering Up",
-              "source_type": "event-quest",
-              "rate": 0.0010834512,
-              "rate_display": "0.1083%",
-              "lvli": [
-                "0086A8C0"
-              ],
-              "quest_reward": true,
-              "kind": "event",
-              "conditions": [
-                "Only in Cranberry Bog"
-              ]
-            },
-            {
-              "route": "Activity: Riding Shotgun",
               "source_type": "event-quest",
               "rate": 0.0010834512,
               "rate_display": "0.1083%",
@@ -2798,21 +2806,6 @@
               "quest_reward": true,
               "kind": "event",
               "conditions": []
-            },
-            {
-              "route": "One of Us",
-              "source_type": "event-quest",
-              "rate": 0.0002166903,
-              "rate_display": "0.0217%",
-              "lvli": [
-                "003D5818"
-              ],
-              "quest_reward": true,
-              "kind": "quest",
-              "conditions": [
-                "Only in Cranberry Bog"
-              ],
-              "quest_guide": "000293A3"
             },
             {
               "route": "Footlocker",
@@ -3374,6 +3367,7 @@
                 16,
                 17,
                 18,
+                31,
                 32,
                 33,
                 34,
@@ -3382,7 +3376,7 @@
                 37,
                 38,
                 39,
-                40,
+                41,
                 42,
                 43,
                 44,
@@ -3390,7 +3384,8 @@
                 46,
                 47,
                 48,
-                49,
+                68,
+                69,
                 70,
                 71,
                 72,
@@ -3404,16 +3399,15 @@
                 80,
                 81,
                 82,
-                83,
                 84,
-                86,
-                87,
-                88
+                85,
+                86
               ]
             },
             {
               "label": "Enemies",
               "routes": [
+                49,
                 50,
                 51,
                 52,
@@ -3431,10 +3425,9 @@
                 64,
                 65,
                 66,
-                67,
-                89,
-                90,
-                91
+                87,
+                88,
+                89
               ]
             },
             {
@@ -3455,9 +3448,8 @@
                 28,
                 29,
                 30,
-                31,
-                41,
-                68
+                40,
+                67
               ]
             },
             {
@@ -3467,8 +3459,7 @@
                 4,
                 5,
                 14,
-                69,
-                85
+                83
               ]
             }
           ],
@@ -3682,7 +3673,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Cranberry Bog"
                 ]
@@ -3734,7 +3725,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Cranberry Bog"
                 ]
@@ -3786,7 +3777,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Cranberry Bog"
                 ]
@@ -3864,7 +3855,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Cranberry Bog"
                 ]
@@ -3916,7 +3907,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Cranberry Bog"
                 ]
@@ -3942,11 +3933,64 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Cranberry Bog"
                 ]
               }
+            },
+            {
+              "route": "Activity: Riding Shotgun",
+              "source_type": "event-quest",
+              "rate": 0.0010834512,
+              "rate_display": "0.1083%",
+              "lvli": [
+                "0086A8C0"
+              ],
+              "quest_reward": true,
+              "kind": "event",
+              "conditions": [
+                "Only in Cranberry Bog"
+              ],
+              "retired_because": [
+                "activity is not played in that region"
+              ],
+              "region_detail": {
+                "played_in": [
+                  "Savage Divide"
+                ],
+                "via": "game files",
+                "conditions": [
+                  "Only in Cranberry Bog"
+                ]
+              }
+            },
+            {
+              "route": "One of Us",
+              "source_type": "event-quest",
+              "rate": 0.0002166903,
+              "rate_display": "0.0217%",
+              "lvli": [
+                "003D5818"
+              ],
+              "quest_reward": true,
+              "kind": "quest",
+              "conditions": [
+                "Only in Cranberry Bog"
+              ],
+              "retired_because": [
+                "activity is not played in that region"
+              ],
+              "region_detail": {
+                "played_in": [
+                  "Savage Divide"
+                ],
+                "via": "game files",
+                "conditions": [
+                  "Only in Cranberry Bog"
+                ]
+              },
+              "quest_guide": "000293A3"
             }
           ],
           "source_tag": "Fixed",
@@ -4329,20 +4373,6 @@
             },
             {
               "route": "Activity: Powering Up",
-              "source_type": "event-quest",
-              "rate": 0.0010834512,
-              "rate_display": "0.1083%",
-              "lvli": [
-                "0086A8C0"
-              ],
-              "quest_reward": true,
-              "kind": "event",
-              "conditions": [
-                "Only in Cranberry Bog"
-              ]
-            },
-            {
-              "route": "Activity: Riding Shotgun",
               "source_type": "event-quest",
               "rate": 0.0010834512,
               "rate_display": "0.1083%",
@@ -4772,21 +4802,6 @@
               "quest_reward": true,
               "kind": "event",
               "conditions": []
-            },
-            {
-              "route": "One of Us",
-              "source_type": "event-quest",
-              "rate": 0.0002166903,
-              "rate_display": "0.0217%",
-              "lvli": [
-                "003D5818"
-              ],
-              "quest_reward": true,
-              "kind": "quest",
-              "conditions": [
-                "Only in Cranberry Bog"
-              ],
-              "quest_guide": "000293A3"
             },
             {
               "route": "Footlocker",
@@ -5348,6 +5363,7 @@
                 16,
                 17,
                 18,
+                31,
                 32,
                 33,
                 34,
@@ -5356,7 +5372,7 @@
                 37,
                 38,
                 39,
-                40,
+                41,
                 42,
                 43,
                 44,
@@ -5364,7 +5380,8 @@
                 46,
                 47,
                 48,
-                49,
+                68,
+                69,
                 70,
                 71,
                 72,
@@ -5378,16 +5395,15 @@
                 80,
                 81,
                 82,
-                83,
                 84,
-                86,
-                87,
-                88
+                85,
+                86
               ]
             },
             {
               "label": "Enemies",
               "routes": [
+                49,
                 50,
                 51,
                 52,
@@ -5405,10 +5421,9 @@
                 64,
                 65,
                 66,
-                67,
-                89,
-                90,
-                91
+                87,
+                88,
+                89
               ]
             },
             {
@@ -5429,9 +5444,8 @@
                 28,
                 29,
                 30,
-                31,
-                41,
-                68
+                40,
+                67
               ]
             },
             {
@@ -5441,8 +5455,7 @@
                 4,
                 5,
                 14,
-                69,
-                85
+                83
               ]
             }
           ],
@@ -5656,7 +5669,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Cranberry Bog"
                 ]
@@ -5708,7 +5721,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Cranberry Bog"
                 ]
@@ -5760,7 +5773,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Cranberry Bog"
                 ]
@@ -5838,7 +5851,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Cranberry Bog"
                 ]
@@ -5890,7 +5903,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Cranberry Bog"
                 ]
@@ -5916,11 +5929,64 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Cranberry Bog"
                 ]
               }
+            },
+            {
+              "route": "Activity: Riding Shotgun",
+              "source_type": "event-quest",
+              "rate": 0.0010834512,
+              "rate_display": "0.1083%",
+              "lvli": [
+                "0086A8C0"
+              ],
+              "quest_reward": true,
+              "kind": "event",
+              "conditions": [
+                "Only in Cranberry Bog"
+              ],
+              "retired_because": [
+                "activity is not played in that region"
+              ],
+              "region_detail": {
+                "played_in": [
+                  "Savage Divide"
+                ],
+                "via": "game files",
+                "conditions": [
+                  "Only in Cranberry Bog"
+                ]
+              }
+            },
+            {
+              "route": "One of Us",
+              "source_type": "event-quest",
+              "rate": 0.0002166903,
+              "rate_display": "0.0217%",
+              "lvli": [
+                "003D5818"
+              ],
+              "quest_reward": true,
+              "kind": "quest",
+              "conditions": [
+                "Only in Cranberry Bog"
+              ],
+              "retired_because": [
+                "activity is not played in that region"
+              ],
+              "region_detail": {
+                "played_in": [
+                  "Savage Divide"
+                ],
+                "via": "game files",
+                "conditions": [
+                  "Only in Cranberry Bog"
+                ]
+              },
+              "quest_guide": "000293A3"
             }
           ],
           "source_tag": "Fixed",
@@ -7169,20 +7235,6 @@
               ]
             },
             {
-              "route": "Activity: Riding Shotgun",
-              "source_type": "event-quest",
-              "rate": 0.0009137812,
-              "rate_display": "0.0914%",
-              "lvli": [
-                "0086A8C0"
-              ],
-              "quest_reward": true,
-              "kind": "event",
-              "conditions": [
-                "Only in Cranberry Bog"
-              ]
-            },
-            {
               "route": "Activity: Surface to Air",
               "source_type": "event-quest",
               "rate": 0.0009137812,
@@ -7614,21 +7666,6 @@
               "quest_reward": true,
               "kind": "event",
               "conditions": []
-            },
-            {
-              "route": "One of Us",
-              "source_type": "event-quest",
-              "rate": 0.0001827562,
-              "rate_display": "0.0183%",
-              "lvli": [
-                "003D5818"
-              ],
-              "quest_reward": true,
-              "kind": "quest",
-              "conditions": [
-                "Only in Cranberry Bog or The Mire"
-              ],
-              "quest_guide": "000293A3"
             },
             {
               "route": "Footlocker",
@@ -8190,6 +8227,7 @@
                 16,
                 17,
                 18,
+                32,
                 33,
                 34,
                 35,
@@ -8199,15 +8237,16 @@
                 39,
                 40,
                 41,
-                42,
+                43,
                 44,
                 45,
                 46,
                 47,
                 48,
-                49,
+                67,
                 68,
-                69,
+                70,
+                71,
                 72,
                 73,
                 74,
@@ -8221,16 +8260,15 @@
                 82,
                 83,
                 84,
-                85,
                 86,
-                88,
-                89,
-                90
+                87,
+                88
               ]
             },
             {
               "label": "Enemies",
               "routes": [
+                49,
                 50,
                 51,
                 52,
@@ -8248,10 +8286,9 @@
                 64,
                 65,
                 66,
-                67,
-                91,
-                92,
-                93
+                89,
+                90,
+                91
               ]
             },
             {
@@ -8273,9 +8310,8 @@
                 29,
                 30,
                 31,
-                32,
-                43,
-                70
+                42,
+                69
               ]
             },
             {
@@ -8285,8 +8321,7 @@
                 4,
                 5,
                 14,
-                71,
-                87
+                85
               ]
             }
           ],
@@ -8486,7 +8521,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Cranberry Bog or The Mire"
                 ]
@@ -8538,7 +8573,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Cranberry Bog or The Mire"
                 ]
@@ -8590,7 +8625,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Cranberry Bog or The Mire"
                 ]
@@ -8642,7 +8677,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Cranberry Bog or The Mire"
                 ]
@@ -8694,7 +8729,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Cranberry Bog or The Mire"
                 ]
@@ -8720,11 +8755,64 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Cranberry Bog or The Mire"
                 ]
               }
+            },
+            {
+              "route": "Activity: Riding Shotgun",
+              "source_type": "event-quest",
+              "rate": 0.0009137812,
+              "rate_display": "0.0914%",
+              "lvli": [
+                "0086A8C0"
+              ],
+              "quest_reward": true,
+              "kind": "event",
+              "conditions": [
+                "Only in Cranberry Bog or The Mire"
+              ],
+              "retired_because": [
+                "activity is not played in that region"
+              ],
+              "region_detail": {
+                "played_in": [
+                  "Savage Divide"
+                ],
+                "via": "game files",
+                "conditions": [
+                  "Only in Cranberry Bog or The Mire"
+                ]
+              }
+            },
+            {
+              "route": "One of Us",
+              "source_type": "event-quest",
+              "rate": 0.0001827562,
+              "rate_display": "0.0183%",
+              "lvli": [
+                "003D5818"
+              ],
+              "quest_reward": true,
+              "kind": "quest",
+              "conditions": [
+                "Only in Cranberry Bog or The Mire"
+              ],
+              "retired_because": [
+                "activity is not played in that region"
+              ],
+              "region_detail": {
+                "played_in": [
+                  "Savage Divide"
+                ],
+                "via": "game files",
+                "conditions": [
+                  "Only in Cranberry Bog or The Mire"
+                ]
+              },
+              "quest_guide": "000293A3"
             }
           ],
           "source_tag": "Fixed",
@@ -9186,7 +9274,7 @@
               "quest_reward": true,
               "kind": "event",
               "conditions": [
-                "Only in Cranberry Bog"
+                "Only in Savage Divide"
               ]
             },
             {
@@ -9648,7 +9736,7 @@
               "quest_reward": true,
               "kind": "quest",
               "conditions": [
-                "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
+                "Only in Savage Divide"
               ],
               "quest_guide": "000293A3"
             },
@@ -10463,7 +10551,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
                 ]
@@ -10515,7 +10603,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
                 ]
@@ -10541,7 +10629,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
                 ]
@@ -10593,7 +10681,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
                 ]
@@ -10645,7 +10733,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
                 ]
@@ -10671,7 +10759,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
                 ]
@@ -11137,7 +11225,7 @@
               "quest_reward": true,
               "kind": "event",
               "conditions": [
-                "Only in Cranberry Bog"
+                "Only in Savage Divide"
               ]
             },
             {
@@ -11599,7 +11687,7 @@
               "quest_reward": true,
               "kind": "quest",
               "conditions": [
-                "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
+                "Only in Savage Divide"
               ],
               "quest_guide": "000293A3"
             },
@@ -12414,7 +12502,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
                 ]
@@ -12466,7 +12554,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
                 ]
@@ -12492,7 +12580,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
                 ]
@@ -12544,7 +12632,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
                 ]
@@ -12596,7 +12684,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
                 ]
@@ -12622,7 +12710,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
                 ]
@@ -13103,7 +13191,7 @@
               "quest_reward": true,
               "kind": "event",
               "conditions": [
-                "Only in Cranberry Bog"
+                "Only in Savage Divide"
               ]
             },
             {
@@ -13535,7 +13623,7 @@
               "quest_reward": true,
               "kind": "quest",
               "conditions": [
-                "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
+                "Only in Savage Divide"
               ],
               "quest_guide": "000293A3"
             },
@@ -14386,7 +14474,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
                 ]
@@ -14438,7 +14526,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
                 ]
@@ -14464,7 +14552,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
                 ]
@@ -14516,7 +14604,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
                 ]
@@ -14568,7 +14656,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
                 ]
@@ -14594,7 +14682,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
                 ]
@@ -14998,7 +15086,7 @@
               "quest_reward": true,
               "kind": "event",
               "conditions": [
-                "Only in Cranberry Bog"
+                "Only in Savage Divide"
               ]
             },
             {
@@ -15460,7 +15548,7 @@
               "quest_reward": true,
               "kind": "quest",
               "conditions": [
-                "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
+                "Only in Savage Divide"
               ],
               "quest_guide": "000293A3"
             },
@@ -16253,7 +16341,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
                 ]
@@ -16305,7 +16393,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
                 ]
@@ -16331,7 +16419,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
                 ]
@@ -16383,7 +16471,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
                 ]
@@ -16435,7 +16523,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
                 ]
@@ -16461,7 +16549,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
                 ]
@@ -16875,7 +16963,7 @@
               "quest_reward": true,
               "kind": "event",
               "conditions": [
-                "Only in Cranberry Bog"
+                "Only in Savage Divide"
               ]
             },
             {
@@ -17337,7 +17425,7 @@
               "quest_reward": true,
               "kind": "quest",
               "conditions": [
-                "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
+                "Only in Savage Divide"
               ],
               "quest_guide": "000293A3"
             },
@@ -18144,7 +18232,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
                 ]
@@ -18196,7 +18284,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
                 ]
@@ -18222,7 +18310,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
                 ]
@@ -18274,7 +18362,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
                 ]
@@ -18326,7 +18414,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
                 ]
@@ -18352,7 +18440,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
                 ]
@@ -19223,20 +19311,6 @@
               ]
             },
             {
-              "route": "Activity: Riding Shotgun",
-              "source_type": "event-quest",
-              "rate": 0.0009137812,
-              "rate_display": "0.0914%",
-              "lvli": [
-                "0086A8C0"
-              ],
-              "quest_reward": true,
-              "kind": "event",
-              "conditions": [
-                "Only in Cranberry Bog"
-              ]
-            },
-            {
               "route": "Activity: Surface to Air",
               "source_type": "event-quest",
               "rate": 0.0009137812,
@@ -19668,21 +19742,6 @@
               "quest_reward": true,
               "kind": "event",
               "conditions": []
-            },
-            {
-              "route": "One of Us",
-              "source_type": "event-quest",
-              "rate": 0.0001827562,
-              "rate_display": "0.0183%",
-              "lvli": [
-                "003D5818"
-              ],
-              "quest_reward": true,
-              "kind": "quest",
-              "conditions": [
-                "Only in Cranberry Bog or The Mire"
-              ],
-              "quest_guide": "000293A3"
             },
             {
               "route": "Footlocker",
@@ -20244,6 +20303,7 @@
                 16,
                 17,
                 18,
+                32,
                 33,
                 34,
                 35,
@@ -20253,15 +20313,16 @@
                 39,
                 40,
                 41,
-                42,
+                43,
                 44,
                 45,
                 46,
                 47,
                 48,
-                49,
+                67,
                 68,
-                69,
+                70,
+                71,
                 72,
                 73,
                 74,
@@ -20275,16 +20336,15 @@
                 82,
                 83,
                 84,
-                85,
                 86,
-                88,
-                89,
-                90
+                87,
+                88
               ]
             },
             {
               "label": "Enemies",
               "routes": [
+                49,
                 50,
                 51,
                 52,
@@ -20302,10 +20362,9 @@
                 64,
                 65,
                 66,
-                67,
-                91,
-                92,
-                93
+                89,
+                90,
+                91
               ]
             },
             {
@@ -20327,9 +20386,8 @@
                 29,
                 30,
                 31,
-                32,
-                43,
-                70
+                42,
+                69
               ]
             },
             {
@@ -20339,8 +20397,7 @@
                 4,
                 5,
                 14,
-                71,
-                87
+                85
               ]
             }
           ],
@@ -20540,7 +20597,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Cranberry Bog or The Mire"
                 ]
@@ -20592,7 +20649,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Cranberry Bog or The Mire"
                 ]
@@ -20644,7 +20701,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Cranberry Bog or The Mire"
                 ]
@@ -20696,7 +20753,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Cranberry Bog or The Mire"
                 ]
@@ -20748,7 +20805,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Cranberry Bog or The Mire"
                 ]
@@ -20774,11 +20831,64 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Cranberry Bog or The Mire"
                 ]
               }
+            },
+            {
+              "route": "Activity: Riding Shotgun",
+              "source_type": "event-quest",
+              "rate": 0.0009137812,
+              "rate_display": "0.0914%",
+              "lvli": [
+                "0086A8C0"
+              ],
+              "quest_reward": true,
+              "kind": "event",
+              "conditions": [
+                "Only in Cranberry Bog or The Mire"
+              ],
+              "retired_because": [
+                "activity is not played in that region"
+              ],
+              "region_detail": {
+                "played_in": [
+                  "Savage Divide"
+                ],
+                "via": "game files",
+                "conditions": [
+                  "Only in Cranberry Bog or The Mire"
+                ]
+              }
+            },
+            {
+              "route": "One of Us",
+              "source_type": "event-quest",
+              "rate": 0.0001827562,
+              "rate_display": "0.0183%",
+              "lvli": [
+                "003D5818"
+              ],
+              "quest_reward": true,
+              "kind": "quest",
+              "conditions": [
+                "Only in Cranberry Bog or The Mire"
+              ],
+              "retired_because": [
+                "activity is not played in that region"
+              ],
+              "region_detail": {
+                "played_in": [
+                  "Savage Divide"
+                ],
+                "via": "game files",
+                "conditions": [
+                  "Only in Cranberry Bog or The Mire"
+                ]
+              },
+              "quest_guide": "000293A3"
             }
           ],
           "source_tag": "Fixed",
@@ -21399,7 +21509,7 @@
               "quest_reward": true,
               "kind": "event",
               "conditions": [
-                "Only in Cranberry Bog"
+                "Only in Savage Divide"
               ]
             },
             {
@@ -21846,7 +21956,7 @@
               "quest_reward": true,
               "kind": "quest",
               "conditions": [
-                "Only in The Forest, Ash Heap, Cranberry Bog, The Mire, Savage Divide, Toxic Valley, Skyline Valley or Burning Springs"
+                "Only in Savage Divide"
               ],
               "quest_guide": "000293A3"
             },
@@ -23984,7 +24094,7 @@
               "quest_reward": true,
               "kind": "event",
               "conditions": [
-                "Only in Cranberry Bog"
+                "Only in Savage Divide"
               ]
             },
             {
@@ -24446,7 +24556,7 @@
               "quest_reward": true,
               "kind": "quest",
               "conditions": [
-                "Only in Ash Heap, Cranberry Bog, The Mire, Savage Divide, Toxic Valley, Skyline Valley or Burning Springs"
+                "Only in Savage Divide"
               ],
               "quest_guide": "000293A3"
             },
@@ -25288,7 +25398,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Ash Heap, Cranberry Bog, The Mire, Savage Divide, Toxic Valley, Skyline Valley or Burning Springs"
                 ]
@@ -25340,7 +25450,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Ash Heap, Cranberry Bog, The Mire, Savage Divide, Toxic Valley, Skyline Valley or Burning Springs"
                 ]
@@ -25392,7 +25502,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": [
                   "Only in Ash Heap, Cranberry Bog, The Mire, Savage Divide, Toxic Valley, Skyline Valley or Burning Springs"
                 ]
@@ -27600,6 +27710,20 @@
               "conditions": []
             },
             {
+              "route": "Activity: Riding Shotgun",
+              "source_type": "event-quest",
+              "rate": 0.0001838235,
+              "rate_display": "0.0184%",
+              "lvli": [
+                "0086A8C0"
+              ],
+              "quest_reward": true,
+              "kind": "event",
+              "conditions": [
+                "Only in Savage Divide"
+              ]
+            },
+            {
               "route": "All That Glitters",
               "source_type": "event-quest",
               "rate": 0.0001838235,
@@ -27608,7 +27732,9 @@
                 "00599A7B"
               ],
               "kind": "quest",
-              "conditions": [],
+              "conditions": [
+                "Only in Savage Divide"
+              ],
               "quest_guide": "0041CB6D"
             },
             {
@@ -27659,19 +27785,6 @@
               "quest_guide": "00548B7A"
             },
             {
-              "route": "Chasing A Lead",
-              "source_type": "event-quest",
-              "rate": 0.0001838235,
-              "rate_display": "0.0184%",
-              "lvli": [
-                "0043B779"
-              ],
-              "quest_reward": true,
-              "kind": "quest",
-              "conditions": [],
-              "quest_guide": "008F362C"
-            },
-            {
               "route": "Daily: Big Fish in a Small Pond",
               "source_type": "event-quest",
               "rate": 0.0001838235,
@@ -27680,7 +27793,9 @@
                 "007DC663"
               ],
               "kind": "quest",
-              "conditions": [],
+              "conditions": [
+                "Only in Savage Divide"
+              ],
               "quest_guide": "007B95E1"
             },
             {
@@ -27696,6 +27811,20 @@
                 "Only in Savage Divide"
               ],
               "quest_guide": "0040C458"
+            },
+            {
+              "route": "Duty Calls",
+              "source_type": "event-quest",
+              "rate": 0.0001838235,
+              "rate_display": "0.0184%",
+              "lvli": [
+                "00564314"
+              ],
+              "kind": "quest",
+              "conditions": [
+                "Only in Savage Divide"
+              ],
+              "quest_guide": "0040571C"
             },
             {
               "route": "Enclave Activity: A Real Blast",
@@ -27808,6 +27937,20 @@
               "quest_guide": "004E49D9"
             },
             {
+              "route": "Overseer, Overseen",
+              "source_type": "event-quest",
+              "rate": 0.0001838235,
+              "rate_display": "0.0184%",
+              "lvli": [
+                "00599A7C"
+              ],
+              "kind": "quest",
+              "conditions": [
+                "Only in Savage Divide"
+              ],
+              "quest_guide": "003FFACF"
+            },
+            {
               "route": "Secrets Revealed",
               "source_type": "event-quest",
               "rate": 0.0001838235,
@@ -27864,48 +28007,6 @@
               "availability": "Only available for the duration of The Slasher Seasonal Content"
             },
             {
-              "route": "The Slasher: Masked Truth",
-              "source_type": "event-quest",
-              "rate": 0.0001838235,
-              "rate_display": "0.0184%",
-              "lvli": [
-                "0043B779"
-              ],
-              "quest_reward": true,
-              "kind": "quest",
-              "conditions": [],
-              "quest_guide": "008F15C1",
-              "availability": "Only available for the duration of The Slasher Seasonal Content"
-            },
-            {
-              "route": "The Slasher: Out of the Shadows",
-              "source_type": "event-quest",
-              "rate": 0.0001838235,
-              "rate_display": "0.0184%",
-              "lvli": [
-                "0043B779"
-              ],
-              "quest_reward": true,
-              "kind": "quest",
-              "conditions": [],
-              "quest_guide": "008F15C2",
-              "availability": "Only available for the duration of The Slasher Seasonal Content"
-            },
-            {
-              "route": "The Slasher: Secrets to the Grave",
-              "source_type": "event-quest",
-              "rate": 0.0001838235,
-              "rate_display": "0.0184%",
-              "lvli": [
-                "0043B779"
-              ],
-              "quest_reward": true,
-              "kind": "quest",
-              "conditions": [],
-              "quest_guide": "008F15A1",
-              "availability": "Only available for the duration of The Slasher Seasonal Content"
-            },
-            {
               "route": "Trade Secrets",
               "source_type": "event-quest",
               "rate": 0.0001838235,
@@ -27914,7 +28015,9 @@
                 "00564312"
               ],
               "kind": "quest",
-              "conditions": [],
+              "conditions": [
+                "Only in Savage Divide"
+              ],
               "quest_guide": "003F28C3"
             },
             {
@@ -28304,7 +28407,7 @@
             {
               "label": "Containers",
               "routes": [
-                36
+                35
               ]
             },
             {
@@ -28316,10 +28419,11 @@
                 6,
                 7,
                 8,
-                17,
+                9,
                 18,
                 19,
-                21
+                20,
+                22
               ]
             },
             {
@@ -28327,7 +28431,6 @@
               "routes": [
                 1,
                 2,
-                9,
                 10,
                 11,
                 12,
@@ -28335,8 +28438,8 @@
                 14,
                 15,
                 16,
-                20,
-                22,
+                17,
+                21,
                 23,
                 24,
                 25,
@@ -28348,8 +28451,7 @@
                 31,
                 32,
                 33,
-                34,
-                35
+                34
               ]
             }
           ],
@@ -28420,7 +28522,7 @@
                 "played_in": [
                   "Cranberry Bog"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -28486,7 +28588,7 @@
                 "played_in": [
                   "Cranberry Bog"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -28508,7 +28610,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -28552,7 +28654,7 @@
                 "played_in": [
                   "Cranberry Bog"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -28574,7 +28676,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -28618,7 +28720,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -28684,7 +28786,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -28706,7 +28808,7 @@
                 "played_in": [
                   "Cranberry Bog"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -28750,7 +28852,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -28772,29 +28874,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
-                "conditions": []
-              }
-            },
-            {
-              "route": "Activity: Riding Shotgun",
-              "source_type": "event-quest",
-              "rate": 0.0001838235,
-              "rate_display": "0.0184%",
-              "lvli": [
-                "0086A8C0"
-              ],
-              "quest_reward": true,
-              "kind": "event",
-              "conditions": [],
-              "retired_because": [
-                "activity is not played in that region"
-              ],
-              "region_detail": {
-                "played_in": [
-                  "Cranberry Bog"
-                ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -28816,9 +28896,32 @@
                 "played_in": [
                   "Cranberry Bog"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
+            },
+            {
+              "route": "Chasing A Lead",
+              "source_type": "event-quest",
+              "rate": 0.0001838235,
+              "rate_display": "0.0184%",
+              "lvli": [
+                "0043B779"
+              ],
+              "quest_reward": true,
+              "kind": "quest",
+              "conditions": [],
+              "retired_because": [
+                "activity is not played in that region"
+              ],
+              "region_detail": {
+                "played_in": [
+                  "Skyline Valley"
+                ],
+                "via": "game files",
+                "conditions": []
+              },
+              "quest_guide": "008F362C"
             },
             {
               "route": "Cheating Death",
@@ -28891,28 +28994,6 @@
               "quest_guide": "0054FA50"
             },
             {
-              "route": "Duty Calls",
-              "source_type": "event-quest",
-              "rate": 0.0001838235,
-              "rate_display": "0.0184%",
-              "lvli": [
-                "00564314"
-              ],
-              "kind": "quest",
-              "conditions": [],
-              "retired_because": [
-                "activity is not played in that region"
-              ],
-              "region_detail": {
-                "played_in": [
-                  "Cranberry Bog"
-                ],
-                "via": "game files",
-                "conditions": []
-              },
-              "quest_guide": "0040571C"
-            },
-            {
               "route": "Enclave Activity: Bots on Parade",
               "source_type": "event-quest",
               "rate": 0.0001838235,
@@ -28982,28 +29063,6 @@
               "quest_guide": "0041C9E6"
             },
             {
-              "route": "Overseer, Overseen",
-              "source_type": "event-quest",
-              "rate": 0.0001838235,
-              "rate_display": "0.0184%",
-              "lvli": [
-                "00599A7C"
-              ],
-              "kind": "quest",
-              "conditions": [],
-              "retired_because": [
-                "activity is not played in that region"
-              ],
-              "region_detail": {
-                "played_in": [
-                  "The Forest"
-                ],
-                "via": "game files",
-                "conditions": []
-              },
-              "quest_guide": "003FFACF"
-            },
-            {
               "route": "The Ol' Weston Shuffle",
               "source_type": "event-quest",
               "rate": 0.0001838235,
@@ -29025,6 +29084,79 @@
                 "conditions": []
               },
               "quest_guide": "0042F31B"
+            },
+            {
+              "route": "The Slasher: Masked Truth",
+              "source_type": "event-quest",
+              "rate": 0.0001838235,
+              "rate_display": "0.0184%",
+              "lvli": [
+                "0043B779"
+              ],
+              "quest_reward": true,
+              "kind": "quest",
+              "conditions": [],
+              "retired_because": [
+                "activity is not played in that region"
+              ],
+              "region_detail": {
+                "played_in": [
+                  "Ash Heap"
+                ],
+                "via": "game files",
+                "conditions": []
+              },
+              "quest_guide": "008F15C1",
+              "availability": "Only available for the duration of The Slasher Seasonal Content"
+            },
+            {
+              "route": "The Slasher: Out of the Shadows",
+              "source_type": "event-quest",
+              "rate": 0.0001838235,
+              "rate_display": "0.0184%",
+              "lvli": [
+                "0043B779"
+              ],
+              "quest_reward": true,
+              "kind": "quest",
+              "conditions": [],
+              "retired_because": [
+                "activity is not played in that region"
+              ],
+              "region_detail": {
+                "played_in": [
+                  "Cranberry Bog",
+                  "The Forest"
+                ],
+                "via": "game files",
+                "conditions": []
+              },
+              "quest_guide": "008F15C2",
+              "availability": "Only available for the duration of The Slasher Seasonal Content"
+            },
+            {
+              "route": "The Slasher: Secrets to the Grave",
+              "source_type": "event-quest",
+              "rate": 0.0001838235,
+              "rate_display": "0.0184%",
+              "lvli": [
+                "0043B779"
+              ],
+              "quest_reward": true,
+              "kind": "quest",
+              "conditions": [],
+              "retired_because": [
+                "activity is not played in that region"
+              ],
+              "region_detail": {
+                "played_in": [
+                  "The Forest"
+                ],
+                "via": "game files",
+                "conditions": []
+              },
+              "quest_guide": "008F15A1",
+              "availability": "Only available for the duration of The Slasher Seasonal Content"
             }
           ],
           "source_tag": "Vendor",
@@ -31633,6 +31765,20 @@
               "conditions": []
             },
             {
+              "route": "Activity: Riding Shotgun",
+              "source_type": "event-quest",
+              "rate": 0.0001838235,
+              "rate_display": "0.0184%",
+              "lvli": [
+                "0086A8C0"
+              ],
+              "quest_reward": true,
+              "kind": "event",
+              "conditions": [
+                "Only in Savage Divide"
+              ]
+            },
+            {
               "route": "All That Glitters",
               "source_type": "event-quest",
               "rate": 0.0001838235,
@@ -31641,7 +31787,9 @@
                 "00599A7B"
               ],
               "kind": "quest",
-              "conditions": [],
+              "conditions": [
+                "Only in Savage Divide"
+              ],
               "quest_guide": "0041CB6D"
             },
             {
@@ -31692,19 +31840,6 @@
               "quest_guide": "00548B7A"
             },
             {
-              "route": "Chasing A Lead",
-              "source_type": "event-quest",
-              "rate": 0.0001838235,
-              "rate_display": "0.0184%",
-              "lvli": [
-                "0043B779"
-              ],
-              "quest_reward": true,
-              "kind": "quest",
-              "conditions": [],
-              "quest_guide": "008F362C"
-            },
-            {
               "route": "Daily: Big Fish in a Small Pond",
               "source_type": "event-quest",
               "rate": 0.0001838235,
@@ -31713,7 +31848,9 @@
                 "007DC663"
               ],
               "kind": "quest",
-              "conditions": [],
+              "conditions": [
+                "Only in Savage Divide"
+              ],
               "quest_guide": "007B95E1"
             },
             {
@@ -31729,6 +31866,20 @@
                 "Only in Savage Divide"
               ],
               "quest_guide": "0040C458"
+            },
+            {
+              "route": "Duty Calls",
+              "source_type": "event-quest",
+              "rate": 0.0001838235,
+              "rate_display": "0.0184%",
+              "lvli": [
+                "00564314"
+              ],
+              "kind": "quest",
+              "conditions": [
+                "Only in Savage Divide"
+              ],
+              "quest_guide": "0040571C"
             },
             {
               "route": "Enclave Activity: A Real Blast",
@@ -31841,6 +31992,20 @@
               "quest_guide": "004E49D9"
             },
             {
+              "route": "Overseer, Overseen",
+              "source_type": "event-quest",
+              "rate": 0.0001838235,
+              "rate_display": "0.0184%",
+              "lvli": [
+                "00599A7C"
+              ],
+              "kind": "quest",
+              "conditions": [
+                "Only in Savage Divide"
+              ],
+              "quest_guide": "003FFACF"
+            },
+            {
               "route": "Secrets Revealed",
               "source_type": "event-quest",
               "rate": 0.0001838235,
@@ -31897,48 +32062,6 @@
               "availability": "Only available for the duration of The Slasher Seasonal Content"
             },
             {
-              "route": "The Slasher: Masked Truth",
-              "source_type": "event-quest",
-              "rate": 0.0001838235,
-              "rate_display": "0.0184%",
-              "lvli": [
-                "0043B779"
-              ],
-              "quest_reward": true,
-              "kind": "quest",
-              "conditions": [],
-              "quest_guide": "008F15C1",
-              "availability": "Only available for the duration of The Slasher Seasonal Content"
-            },
-            {
-              "route": "The Slasher: Out of the Shadows",
-              "source_type": "event-quest",
-              "rate": 0.0001838235,
-              "rate_display": "0.0184%",
-              "lvli": [
-                "0043B779"
-              ],
-              "quest_reward": true,
-              "kind": "quest",
-              "conditions": [],
-              "quest_guide": "008F15C2",
-              "availability": "Only available for the duration of The Slasher Seasonal Content"
-            },
-            {
-              "route": "The Slasher: Secrets to the Grave",
-              "source_type": "event-quest",
-              "rate": 0.0001838235,
-              "rate_display": "0.0184%",
-              "lvli": [
-                "0043B779"
-              ],
-              "quest_reward": true,
-              "kind": "quest",
-              "conditions": [],
-              "quest_guide": "008F15A1",
-              "availability": "Only available for the duration of The Slasher Seasonal Content"
-            },
-            {
               "route": "Trade Secrets",
               "source_type": "event-quest",
               "rate": 0.0001838235,
@@ -31947,7 +32070,9 @@
                 "00564312"
               ],
               "kind": "quest",
-              "conditions": [],
+              "conditions": [
+                "Only in Savage Divide"
+              ],
               "quest_guide": "003F28C3"
             },
             {
@@ -32337,7 +32462,7 @@
             {
               "label": "Containers",
               "routes": [
-                36
+                35
               ]
             },
             {
@@ -32349,10 +32474,11 @@
                 6,
                 7,
                 8,
-                17,
+                9,
                 18,
                 19,
-                21
+                20,
+                22
               ]
             },
             {
@@ -32360,7 +32486,6 @@
               "routes": [
                 1,
                 2,
-                9,
                 10,
                 11,
                 12,
@@ -32368,8 +32493,8 @@
                 14,
                 15,
                 16,
-                20,
-                22,
+                17,
+                21,
                 23,
                 24,
                 25,
@@ -32381,8 +32506,7 @@
                 31,
                 32,
                 33,
-                34,
-                35
+                34
               ]
             }
           ],
@@ -32453,7 +32577,7 @@
                 "played_in": [
                   "Cranberry Bog"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -32519,7 +32643,7 @@
                 "played_in": [
                   "Cranberry Bog"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -32541,7 +32665,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -32585,7 +32709,7 @@
                 "played_in": [
                   "Cranberry Bog"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -32607,7 +32731,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -32651,7 +32775,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -32717,7 +32841,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -32739,7 +32863,7 @@
                 "played_in": [
                   "Cranberry Bog"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -32783,7 +32907,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -32805,29 +32929,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
-                "conditions": []
-              }
-            },
-            {
-              "route": "Activity: Riding Shotgun",
-              "source_type": "event-quest",
-              "rate": 0.0001838235,
-              "rate_display": "0.0184%",
-              "lvli": [
-                "0086A8C0"
-              ],
-              "quest_reward": true,
-              "kind": "event",
-              "conditions": [],
-              "retired_because": [
-                "activity is not played in that region"
-              ],
-              "region_detail": {
-                "played_in": [
-                  "Cranberry Bog"
-                ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -32849,9 +32951,32 @@
                 "played_in": [
                   "Cranberry Bog"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
+            },
+            {
+              "route": "Chasing A Lead",
+              "source_type": "event-quest",
+              "rate": 0.0001838235,
+              "rate_display": "0.0184%",
+              "lvli": [
+                "0043B779"
+              ],
+              "quest_reward": true,
+              "kind": "quest",
+              "conditions": [],
+              "retired_because": [
+                "activity is not played in that region"
+              ],
+              "region_detail": {
+                "played_in": [
+                  "Skyline Valley"
+                ],
+                "via": "game files",
+                "conditions": []
+              },
+              "quest_guide": "008F362C"
             },
             {
               "route": "Cheating Death",
@@ -32924,28 +33049,6 @@
               "quest_guide": "0054FA50"
             },
             {
-              "route": "Duty Calls",
-              "source_type": "event-quest",
-              "rate": 0.0001838235,
-              "rate_display": "0.0184%",
-              "lvli": [
-                "00564314"
-              ],
-              "kind": "quest",
-              "conditions": [],
-              "retired_because": [
-                "activity is not played in that region"
-              ],
-              "region_detail": {
-                "played_in": [
-                  "Cranberry Bog"
-                ],
-                "via": "game files",
-                "conditions": []
-              },
-              "quest_guide": "0040571C"
-            },
-            {
               "route": "Enclave Activity: Bots on Parade",
               "source_type": "event-quest",
               "rate": 0.0001838235,
@@ -33015,28 +33118,6 @@
               "quest_guide": "0041C9E6"
             },
             {
-              "route": "Overseer, Overseen",
-              "source_type": "event-quest",
-              "rate": 0.0001838235,
-              "rate_display": "0.0184%",
-              "lvli": [
-                "00599A7C"
-              ],
-              "kind": "quest",
-              "conditions": [],
-              "retired_because": [
-                "activity is not played in that region"
-              ],
-              "region_detail": {
-                "played_in": [
-                  "The Forest"
-                ],
-                "via": "game files",
-                "conditions": []
-              },
-              "quest_guide": "003FFACF"
-            },
-            {
               "route": "The Ol' Weston Shuffle",
               "source_type": "event-quest",
               "rate": 0.0001838235,
@@ -33058,6 +33139,79 @@
                 "conditions": []
               },
               "quest_guide": "0042F31B"
+            },
+            {
+              "route": "The Slasher: Masked Truth",
+              "source_type": "event-quest",
+              "rate": 0.0001838235,
+              "rate_display": "0.0184%",
+              "lvli": [
+                "0043B779"
+              ],
+              "quest_reward": true,
+              "kind": "quest",
+              "conditions": [],
+              "retired_because": [
+                "activity is not played in that region"
+              ],
+              "region_detail": {
+                "played_in": [
+                  "Ash Heap"
+                ],
+                "via": "game files",
+                "conditions": []
+              },
+              "quest_guide": "008F15C1",
+              "availability": "Only available for the duration of The Slasher Seasonal Content"
+            },
+            {
+              "route": "The Slasher: Out of the Shadows",
+              "source_type": "event-quest",
+              "rate": 0.0001838235,
+              "rate_display": "0.0184%",
+              "lvli": [
+                "0043B779"
+              ],
+              "quest_reward": true,
+              "kind": "quest",
+              "conditions": [],
+              "retired_because": [
+                "activity is not played in that region"
+              ],
+              "region_detail": {
+                "played_in": [
+                  "Cranberry Bog",
+                  "The Forest"
+                ],
+                "via": "game files",
+                "conditions": []
+              },
+              "quest_guide": "008F15C2",
+              "availability": "Only available for the duration of The Slasher Seasonal Content"
+            },
+            {
+              "route": "The Slasher: Secrets to the Grave",
+              "source_type": "event-quest",
+              "rate": 0.0001838235,
+              "rate_display": "0.0184%",
+              "lvli": [
+                "0043B779"
+              ],
+              "quest_reward": true,
+              "kind": "quest",
+              "conditions": [],
+              "retired_because": [
+                "activity is not played in that region"
+              ],
+              "region_detail": {
+                "played_in": [
+                  "The Forest"
+                ],
+                "via": "game files",
+                "conditions": []
+              },
+              "quest_guide": "008F15A1",
+              "availability": "Only available for the duration of The Slasher Seasonal Content"
             }
           ],
           "source_tag": "Vendor",
@@ -34963,20 +35117,6 @@
               "conditions": []
             },
             {
-              "route": "Activity: Riding Shotgun",
-              "source_type": "event-quest",
-              "rate": 0.0003676471,
-              "rate_display": "0.0368%",
-              "lvli": [
-                "0086A8C0"
-              ],
-              "quest_reward": true,
-              "kind": "event",
-              "conditions": [
-                "Only in Cranberry Bog"
-              ]
-            },
-            {
               "route": "Activity: Surface to Air",
               "source_type": "event-quest",
               "rate": 0.0003676471,
@@ -34989,18 +35129,6 @@
               "conditions": [
                 "Only in Cranberry Bog"
               ]
-            },
-            {
-              "route": "All That Glitters",
-              "source_type": "event-quest",
-              "rate": 0.0003676471,
-              "rate_display": "0.0368%",
-              "lvli": [
-                "00599A7B"
-              ],
-              "kind": "quest",
-              "conditions": [],
-              "quest_guide": "0041CB6D"
             },
             {
               "route": "Ally repeatable quests (fetch)",
@@ -35036,19 +35164,6 @@
               "conditions": []
             },
             {
-              "route": "Chasing A Lead",
-              "source_type": "event-quest",
-              "rate": 0.0003676471,
-              "rate_display": "0.0368%",
-              "lvli": [
-                "0043B779"
-              ],
-              "quest_reward": true,
-              "kind": "quest",
-              "conditions": [],
-              "quest_guide": "008F362C"
-            },
-            {
               "route": "Daily: Big Fish in a Small Pond",
               "source_type": "event-quest",
               "rate": 0.0003676471,
@@ -35057,7 +35172,9 @@
                 "007DC663"
               ],
               "kind": "quest",
-              "conditions": [],
+              "conditions": [
+                "Only in Cranberry Bog"
+              ],
               "quest_guide": "007B95E1"
             },
             {
@@ -35240,20 +35357,6 @@
               "availability": "Only available for the duration of The Slasher Seasonal Content"
             },
             {
-              "route": "The Slasher: Masked Truth",
-              "source_type": "event-quest",
-              "rate": 0.0003676471,
-              "rate_display": "0.0368%",
-              "lvli": [
-                "0043B779"
-              ],
-              "quest_reward": true,
-              "kind": "quest",
-              "conditions": [],
-              "quest_guide": "008F15C1",
-              "availability": "Only available for the duration of The Slasher Seasonal Content"
-            },
-            {
               "route": "The Slasher: Out of the Shadows",
               "source_type": "event-quest",
               "rate": 0.0003676471,
@@ -35263,22 +35366,10 @@
               ],
               "quest_reward": true,
               "kind": "quest",
-              "conditions": [],
-              "quest_guide": "008F15C2",
-              "availability": "Only available for the duration of The Slasher Seasonal Content"
-            },
-            {
-              "route": "The Slasher: Secrets to the Grave",
-              "source_type": "event-quest",
-              "rate": 0.0003676471,
-              "rate_display": "0.0368%",
-              "lvli": [
-                "0043B779"
+              "conditions": [
+                "Only in Cranberry Bog"
               ],
-              "quest_reward": true,
-              "kind": "quest",
-              "conditions": [],
-              "quest_guide": "008F15A1",
+              "quest_guide": "008F15C2",
               "availability": "Only available for the duration of The Slasher Seasonal Content"
             },
             {
@@ -35290,7 +35381,9 @@
                 "00564312"
               ],
               "kind": "quest",
-              "conditions": [],
+              "conditions": [
+                "Only in Cranberry Bog"
+              ],
               "quest_guide": "003F28C3"
             },
             {
@@ -35676,7 +35769,7 @@
               "routes": [
                 3,
                 4,
-                42
+                37
               ]
             },
             {
@@ -35691,12 +35784,11 @@
                 12,
                 13,
                 14,
-                15,
+                21,
+                22,
+                23,
                 24,
-                25,
-                26,
-                27,
-                28
+                25
               ]
             },
             {
@@ -35706,14 +35798,15 @@
                 1,
                 2,
                 5,
+                15,
                 16,
                 17,
                 18,
                 19,
                 20,
-                21,
-                22,
-                23,
+                26,
+                27,
+                28,
                 29,
                 30,
                 31,
@@ -35721,12 +35814,7 @@
                 33,
                 34,
                 35,
-                36,
-                37,
-                38,
-                39,
-                40,
-                41
+                36
               ]
             }
           ],
@@ -35882,7 +35970,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -35926,7 +36014,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -35970,7 +36058,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -36036,7 +36124,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -36080,7 +36168,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -36102,9 +36190,54 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
+            },
+            {
+              "route": "Activity: Riding Shotgun",
+              "source_type": "event-quest",
+              "rate": 0.0003676471,
+              "rate_display": "0.0368%",
+              "lvli": [
+                "0086A8C0"
+              ],
+              "quest_reward": true,
+              "kind": "event",
+              "conditions": [],
+              "retired_because": [
+                "activity is not played in that region"
+              ],
+              "region_detail": {
+                "played_in": [
+                  "Savage Divide"
+                ],
+                "via": "game files",
+                "conditions": []
+              }
+            },
+            {
+              "route": "All That Glitters",
+              "source_type": "event-quest",
+              "rate": 0.0003676471,
+              "rate_display": "0.0368%",
+              "lvli": [
+                "00599A7B"
+              ],
+              "kind": "quest",
+              "conditions": [],
+              "retired_because": [
+                "activity is not played in that region"
+              ],
+              "region_detail": {
+                "played_in": [
+                  "Savage Divide",
+                  "The Mire"
+                ],
+                "via": "game files",
+                "conditions": []
+              },
+              "quest_guide": "0041CB6D"
             },
             {
               "route": "Buried Treasure",
@@ -36127,6 +36260,29 @@
                 "conditions": []
               },
               "quest_guide": "00548B7A"
+            },
+            {
+              "route": "Chasing A Lead",
+              "source_type": "event-quest",
+              "rate": 0.0003676471,
+              "rate_display": "0.0368%",
+              "lvli": [
+                "0043B779"
+              ],
+              "quest_reward": true,
+              "kind": "quest",
+              "conditions": [],
+              "retired_because": [
+                "activity is not played in that region"
+              ],
+              "region_detail": {
+                "played_in": [
+                  "Skyline Valley"
+                ],
+                "via": "game files",
+                "conditions": []
+              },
+              "quest_guide": "008F362C"
             },
             {
               "route": "Cheating Death",
@@ -36280,7 +36436,9 @@
               ],
               "region_detail": {
                 "played_in": [
-                  "The Forest"
+                  "Savage Divide",
+                  "The Forest",
+                  "Toxic Valley"
                 ],
                 "via": "game files",
                 "conditions": []
@@ -36302,7 +36460,8 @@
               ],
               "region_detail": {
                 "played_in": [
-                  "Savage Divide"
+                  "Savage Divide",
+                  "The Mire"
                 ],
                 "via": "game files",
                 "conditions": []
@@ -36324,12 +36483,62 @@
               ],
               "region_detail": {
                 "played_in": [
-                  "Savage Divide"
+                  "Savage Divide",
+                  "The Forest",
+                  "Toxic Valley"
                 ],
                 "via": "game files",
                 "conditions": []
               },
               "quest_guide": "003FBC0D"
+            },
+            {
+              "route": "The Slasher: Masked Truth",
+              "source_type": "event-quest",
+              "rate": 0.0003676471,
+              "rate_display": "0.0368%",
+              "lvli": [
+                "0043B779"
+              ],
+              "quest_reward": true,
+              "kind": "quest",
+              "conditions": [],
+              "retired_because": [
+                "activity is not played in that region"
+              ],
+              "region_detail": {
+                "played_in": [
+                  "Ash Heap"
+                ],
+                "via": "game files",
+                "conditions": []
+              },
+              "quest_guide": "008F15C1",
+              "availability": "Only available for the duration of The Slasher Seasonal Content"
+            },
+            {
+              "route": "The Slasher: Secrets to the Grave",
+              "source_type": "event-quest",
+              "rate": 0.0003676471,
+              "rate_display": "0.0368%",
+              "lvli": [
+                "0043B779"
+              ],
+              "quest_reward": true,
+              "kind": "quest",
+              "conditions": [],
+              "retired_because": [
+                "activity is not played in that region"
+              ],
+              "region_detail": {
+                "played_in": [
+                  "The Forest"
+                ],
+                "via": "game files",
+                "conditions": []
+              },
+              "quest_guide": "008F15A1",
+              "availability": "Only available for the duration of The Slasher Seasonal Content"
             }
           ],
           "source_tag": "Quest",
@@ -36862,6 +37071,20 @@
               "conditions": []
             },
             {
+              "route": "Activity: Riding Shotgun",
+              "source_type": "event-quest",
+              "rate": 0.0001838235,
+              "rate_display": "0.0184%",
+              "lvli": [
+                "0086A8C0"
+              ],
+              "quest_reward": true,
+              "kind": "event",
+              "conditions": [
+                "Only in Savage Divide"
+              ]
+            },
+            {
               "route": "All That Glitters",
               "source_type": "event-quest",
               "rate": 0.0001838235,
@@ -36870,7 +37093,9 @@
                 "00599A7B"
               ],
               "kind": "quest",
-              "conditions": [],
+              "conditions": [
+                "Only in Savage Divide"
+              ],
               "quest_guide": "0041CB6D"
             },
             {
@@ -36921,19 +37146,6 @@
               "quest_guide": "00548B7A"
             },
             {
-              "route": "Chasing A Lead",
-              "source_type": "event-quest",
-              "rate": 0.0001838235,
-              "rate_display": "0.0184%",
-              "lvli": [
-                "0043B779"
-              ],
-              "quest_reward": true,
-              "kind": "quest",
-              "conditions": [],
-              "quest_guide": "008F362C"
-            },
-            {
               "route": "Daily: Big Fish in a Small Pond",
               "source_type": "event-quest",
               "rate": 0.0001838235,
@@ -36942,7 +37154,9 @@
                 "007DC663"
               ],
               "kind": "quest",
-              "conditions": [],
+              "conditions": [
+                "Only in Savage Divide"
+              ],
               "quest_guide": "007B95E1"
             },
             {
@@ -36958,6 +37172,20 @@
                 "Only in Savage Divide"
               ],
               "quest_guide": "0040C458"
+            },
+            {
+              "route": "Duty Calls",
+              "source_type": "event-quest",
+              "rate": 0.0001838235,
+              "rate_display": "0.0184%",
+              "lvli": [
+                "00564314"
+              ],
+              "kind": "quest",
+              "conditions": [
+                "Only in Savage Divide"
+              ],
+              "quest_guide": "0040571C"
             },
             {
               "route": "Enclave Activity: A Real Blast",
@@ -37070,6 +37298,20 @@
               "quest_guide": "004E49D9"
             },
             {
+              "route": "Overseer, Overseen",
+              "source_type": "event-quest",
+              "rate": 0.0001838235,
+              "rate_display": "0.0184%",
+              "lvli": [
+                "00599A7C"
+              ],
+              "kind": "quest",
+              "conditions": [
+                "Only in Savage Divide"
+              ],
+              "quest_guide": "003FFACF"
+            },
+            {
               "route": "Secrets Revealed",
               "source_type": "event-quest",
               "rate": 0.0001838235,
@@ -37126,48 +37368,6 @@
               "availability": "Only available for the duration of The Slasher Seasonal Content"
             },
             {
-              "route": "The Slasher: Masked Truth",
-              "source_type": "event-quest",
-              "rate": 0.0001838235,
-              "rate_display": "0.0184%",
-              "lvli": [
-                "0043B779"
-              ],
-              "quest_reward": true,
-              "kind": "quest",
-              "conditions": [],
-              "quest_guide": "008F15C1",
-              "availability": "Only available for the duration of The Slasher Seasonal Content"
-            },
-            {
-              "route": "The Slasher: Out of the Shadows",
-              "source_type": "event-quest",
-              "rate": 0.0001838235,
-              "rate_display": "0.0184%",
-              "lvli": [
-                "0043B779"
-              ],
-              "quest_reward": true,
-              "kind": "quest",
-              "conditions": [],
-              "quest_guide": "008F15C2",
-              "availability": "Only available for the duration of The Slasher Seasonal Content"
-            },
-            {
-              "route": "The Slasher: Secrets to the Grave",
-              "source_type": "event-quest",
-              "rate": 0.0001838235,
-              "rate_display": "0.0184%",
-              "lvli": [
-                "0043B779"
-              ],
-              "quest_reward": true,
-              "kind": "quest",
-              "conditions": [],
-              "quest_guide": "008F15A1",
-              "availability": "Only available for the duration of The Slasher Seasonal Content"
-            },
-            {
               "route": "Trade Secrets",
               "source_type": "event-quest",
               "rate": 0.0001838235,
@@ -37176,7 +37376,9 @@
                 "00564312"
               ],
               "kind": "quest",
-              "conditions": [],
+              "conditions": [
+                "Only in Savage Divide"
+              ],
               "quest_guide": "003F28C3"
             },
             {
@@ -37562,7 +37764,7 @@
               "routes": [
                 3,
                 4,
-                37
+                36
               ]
             },
             {
@@ -37574,10 +37776,11 @@
                 7,
                 8,
                 9,
-                18,
+                10,
                 19,
                 20,
-                22
+                21,
+                23
               ]
             },
             {
@@ -37585,7 +37788,6 @@
               "routes": [
                 0,
                 1,
-                10,
                 11,
                 12,
                 13,
@@ -37593,8 +37795,8 @@
                 15,
                 16,
                 17,
-                21,
-                23,
+                18,
+                22,
                 24,
                 25,
                 26,
@@ -37606,8 +37808,7 @@
                 32,
                 33,
                 34,
-                35,
-                36
+                35
               ]
             }
           ],
@@ -37678,7 +37879,7 @@
                 "played_in": [
                   "Cranberry Bog"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -37744,7 +37945,7 @@
                 "played_in": [
                   "Cranberry Bog"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -37766,7 +37967,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -37810,7 +38011,7 @@
                 "played_in": [
                   "Cranberry Bog"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -37832,7 +38033,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -37876,7 +38077,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -37942,7 +38143,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -37964,7 +38165,7 @@
                 "played_in": [
                   "Cranberry Bog"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -38008,7 +38209,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -38030,29 +38231,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
-                "conditions": []
-              }
-            },
-            {
-              "route": "Activity: Riding Shotgun",
-              "source_type": "event-quest",
-              "rate": 0.0001838235,
-              "rate_display": "0.0184%",
-              "lvli": [
-                "0086A8C0"
-              ],
-              "quest_reward": true,
-              "kind": "event",
-              "conditions": [],
-              "retired_because": [
-                "activity is not played in that region"
-              ],
-              "region_detail": {
-                "played_in": [
-                  "Cranberry Bog"
-                ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -38074,9 +38253,32 @@
                 "played_in": [
                   "Cranberry Bog"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
+            },
+            {
+              "route": "Chasing A Lead",
+              "source_type": "event-quest",
+              "rate": 0.0001838235,
+              "rate_display": "0.0184%",
+              "lvli": [
+                "0043B779"
+              ],
+              "quest_reward": true,
+              "kind": "quest",
+              "conditions": [],
+              "retired_because": [
+                "activity is not played in that region"
+              ],
+              "region_detail": {
+                "played_in": [
+                  "Skyline Valley"
+                ],
+                "via": "game files",
+                "conditions": []
+              },
+              "quest_guide": "008F362C"
             },
             {
               "route": "Cheating Death",
@@ -38149,28 +38351,6 @@
               "quest_guide": "0054FA50"
             },
             {
-              "route": "Duty Calls",
-              "source_type": "event-quest",
-              "rate": 0.0001838235,
-              "rate_display": "0.0184%",
-              "lvli": [
-                "00564314"
-              ],
-              "kind": "quest",
-              "conditions": [],
-              "retired_because": [
-                "activity is not played in that region"
-              ],
-              "region_detail": {
-                "played_in": [
-                  "Cranberry Bog"
-                ],
-                "via": "game files",
-                "conditions": []
-              },
-              "quest_guide": "0040571C"
-            },
-            {
               "route": "Enclave Activity: Bots on Parade",
               "source_type": "event-quest",
               "rate": 0.0001838235,
@@ -38240,28 +38420,6 @@
               "quest_guide": "0041C9E6"
             },
             {
-              "route": "Overseer, Overseen",
-              "source_type": "event-quest",
-              "rate": 0.0001838235,
-              "rate_display": "0.0184%",
-              "lvli": [
-                "00599A7C"
-              ],
-              "kind": "quest",
-              "conditions": [],
-              "retired_because": [
-                "activity is not played in that region"
-              ],
-              "region_detail": {
-                "played_in": [
-                  "The Forest"
-                ],
-                "via": "game files",
-                "conditions": []
-              },
-              "quest_guide": "003FFACF"
-            },
-            {
               "route": "The Ol' Weston Shuffle",
               "source_type": "event-quest",
               "rate": 0.0001838235,
@@ -38283,6 +38441,79 @@
                 "conditions": []
               },
               "quest_guide": "0042F31B"
+            },
+            {
+              "route": "The Slasher: Masked Truth",
+              "source_type": "event-quest",
+              "rate": 0.0001838235,
+              "rate_display": "0.0184%",
+              "lvli": [
+                "0043B779"
+              ],
+              "quest_reward": true,
+              "kind": "quest",
+              "conditions": [],
+              "retired_because": [
+                "activity is not played in that region"
+              ],
+              "region_detail": {
+                "played_in": [
+                  "Ash Heap"
+                ],
+                "via": "game files",
+                "conditions": []
+              },
+              "quest_guide": "008F15C1",
+              "availability": "Only available for the duration of The Slasher Seasonal Content"
+            },
+            {
+              "route": "The Slasher: Out of the Shadows",
+              "source_type": "event-quest",
+              "rate": 0.0001838235,
+              "rate_display": "0.0184%",
+              "lvli": [
+                "0043B779"
+              ],
+              "quest_reward": true,
+              "kind": "quest",
+              "conditions": [],
+              "retired_because": [
+                "activity is not played in that region"
+              ],
+              "region_detail": {
+                "played_in": [
+                  "Cranberry Bog",
+                  "The Forest"
+                ],
+                "via": "game files",
+                "conditions": []
+              },
+              "quest_guide": "008F15C2",
+              "availability": "Only available for the duration of The Slasher Seasonal Content"
+            },
+            {
+              "route": "The Slasher: Secrets to the Grave",
+              "source_type": "event-quest",
+              "rate": 0.0001838235,
+              "rate_display": "0.0184%",
+              "lvli": [
+                "0043B779"
+              ],
+              "quest_reward": true,
+              "kind": "quest",
+              "conditions": [],
+              "retired_because": [
+                "activity is not played in that region"
+              ],
+              "region_detail": {
+                "played_in": [
+                  "The Forest"
+                ],
+                "via": "game files",
+                "conditions": []
+              },
+              "quest_guide": "008F15A1",
+              "availability": "Only available for the duration of The Slasher Seasonal Content"
             }
           ],
           "source_tag": "Quest",
@@ -41154,6 +41385,20 @@
               "conditions": []
             },
             {
+              "route": "Activity: Riding Shotgun",
+              "source_type": "event-quest",
+              "rate": 0.0001838235,
+              "rate_display": "0.0184%",
+              "lvli": [
+                "0086A8C0"
+              ],
+              "quest_reward": true,
+              "kind": "event",
+              "conditions": [
+                "Only in Savage Divide"
+              ]
+            },
+            {
               "route": "All That Glitters",
               "source_type": "event-quest",
               "rate": 0.0001838235,
@@ -41162,7 +41407,9 @@
                 "00599A7B"
               ],
               "kind": "quest",
-              "conditions": [],
+              "conditions": [
+                "Only in Savage Divide"
+              ],
               "quest_guide": "0041CB6D"
             },
             {
@@ -41213,19 +41460,6 @@
               "quest_guide": "00548B7A"
             },
             {
-              "route": "Chasing A Lead",
-              "source_type": "event-quest",
-              "rate": 0.0001838235,
-              "rate_display": "0.0184%",
-              "lvli": [
-                "0043B779"
-              ],
-              "quest_reward": true,
-              "kind": "quest",
-              "conditions": [],
-              "quest_guide": "008F362C"
-            },
-            {
               "route": "Daily: Big Fish in a Small Pond",
               "source_type": "event-quest",
               "rate": 0.0001838235,
@@ -41234,7 +41468,9 @@
                 "007DC663"
               ],
               "kind": "quest",
-              "conditions": [],
+              "conditions": [
+                "Only in Savage Divide"
+              ],
               "quest_guide": "007B95E1"
             },
             {
@@ -41250,6 +41486,20 @@
                 "Only in Savage Divide"
               ],
               "quest_guide": "0040C458"
+            },
+            {
+              "route": "Duty Calls",
+              "source_type": "event-quest",
+              "rate": 0.0001838235,
+              "rate_display": "0.0184%",
+              "lvli": [
+                "00564314"
+              ],
+              "kind": "quest",
+              "conditions": [
+                "Only in Savage Divide"
+              ],
+              "quest_guide": "0040571C"
             },
             {
               "route": "Enclave Activity: A Real Blast",
@@ -41362,6 +41612,20 @@
               "quest_guide": "004E49D9"
             },
             {
+              "route": "Overseer, Overseen",
+              "source_type": "event-quest",
+              "rate": 0.0001838235,
+              "rate_display": "0.0184%",
+              "lvli": [
+                "00599A7C"
+              ],
+              "kind": "quest",
+              "conditions": [
+                "Only in Savage Divide"
+              ],
+              "quest_guide": "003FFACF"
+            },
+            {
               "route": "Secrets Revealed",
               "source_type": "event-quest",
               "rate": 0.0001838235,
@@ -41418,48 +41682,6 @@
               "availability": "Only available for the duration of The Slasher Seasonal Content"
             },
             {
-              "route": "The Slasher: Masked Truth",
-              "source_type": "event-quest",
-              "rate": 0.0001838235,
-              "rate_display": "0.0184%",
-              "lvli": [
-                "0043B779"
-              ],
-              "quest_reward": true,
-              "kind": "quest",
-              "conditions": [],
-              "quest_guide": "008F15C1",
-              "availability": "Only available for the duration of The Slasher Seasonal Content"
-            },
-            {
-              "route": "The Slasher: Out of the Shadows",
-              "source_type": "event-quest",
-              "rate": 0.0001838235,
-              "rate_display": "0.0184%",
-              "lvli": [
-                "0043B779"
-              ],
-              "quest_reward": true,
-              "kind": "quest",
-              "conditions": [],
-              "quest_guide": "008F15C2",
-              "availability": "Only available for the duration of The Slasher Seasonal Content"
-            },
-            {
-              "route": "The Slasher: Secrets to the Grave",
-              "source_type": "event-quest",
-              "rate": 0.0001838235,
-              "rate_display": "0.0184%",
-              "lvli": [
-                "0043B779"
-              ],
-              "quest_reward": true,
-              "kind": "quest",
-              "conditions": [],
-              "quest_guide": "008F15A1",
-              "availability": "Only available for the duration of The Slasher Seasonal Content"
-            },
-            {
               "route": "Trade Secrets",
               "source_type": "event-quest",
               "rate": 0.0001838235,
@@ -41468,7 +41690,9 @@
                 "00564312"
               ],
               "kind": "quest",
-              "conditions": [],
+              "conditions": [
+                "Only in Savage Divide"
+              ],
               "quest_guide": "003F28C3"
             },
             {
@@ -41854,7 +42078,7 @@
               "routes": [
                 3,
                 4,
-                37
+                36
               ]
             },
             {
@@ -41866,10 +42090,11 @@
                 7,
                 8,
                 9,
-                18,
+                10,
                 19,
                 20,
-                22
+                21,
+                23
               ]
             },
             {
@@ -41877,7 +42102,6 @@
               "routes": [
                 0,
                 1,
-                10,
                 11,
                 12,
                 13,
@@ -41885,8 +42109,8 @@
                 15,
                 16,
                 17,
-                21,
-                23,
+                18,
+                22,
                 24,
                 25,
                 26,
@@ -41898,8 +42122,7 @@
                 32,
                 33,
                 34,
-                35,
-                36
+                35
               ]
             }
           ],
@@ -42018,7 +42241,7 @@
                 "played_in": [
                   "Cranberry Bog"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -42084,7 +42307,7 @@
                 "played_in": [
                   "Cranberry Bog"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -42106,7 +42329,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -42150,7 +42373,7 @@
                 "played_in": [
                   "Cranberry Bog"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -42172,7 +42395,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -42216,7 +42439,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -42282,7 +42505,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -42304,7 +42527,7 @@
                 "played_in": [
                   "Cranberry Bog"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -42348,7 +42571,7 @@
                 "played_in": [
                   "The Forest"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -42370,29 +42593,7 @@
                 "played_in": [
                   "Toxic Valley"
                 ],
-                "via": "page table",
-                "conditions": []
-              }
-            },
-            {
-              "route": "Activity: Riding Shotgun",
-              "source_type": "event-quest",
-              "rate": 0.0001838235,
-              "rate_display": "0.0184%",
-              "lvli": [
-                "0086A8C0"
-              ],
-              "quest_reward": true,
-              "kind": "event",
-              "conditions": [],
-              "retired_because": [
-                "activity is not played in that region"
-              ],
-              "region_detail": {
-                "played_in": [
-                  "Cranberry Bog"
-                ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
             },
@@ -42414,9 +42615,32 @@
                 "played_in": [
                   "Cranberry Bog"
                 ],
-                "via": "page table",
+                "via": "game files",
                 "conditions": []
               }
+            },
+            {
+              "route": "Chasing A Lead",
+              "source_type": "event-quest",
+              "rate": 0.0001838235,
+              "rate_display": "0.0184%",
+              "lvli": [
+                "0043B779"
+              ],
+              "quest_reward": true,
+              "kind": "quest",
+              "conditions": [],
+              "retired_because": [
+                "activity is not played in that region"
+              ],
+              "region_detail": {
+                "played_in": [
+                  "Skyline Valley"
+                ],
+                "via": "game files",
+                "conditions": []
+              },
+              "quest_guide": "008F362C"
             },
             {
               "route": "Cheating Death",
@@ -42489,28 +42713,6 @@
               "quest_guide": "0054FA50"
             },
             {
-              "route": "Duty Calls",
-              "source_type": "event-quest",
-              "rate": 0.0001838235,
-              "rate_display": "0.0184%",
-              "lvli": [
-                "00564314"
-              ],
-              "kind": "quest",
-              "conditions": [],
-              "retired_because": [
-                "activity is not played in that region"
-              ],
-              "region_detail": {
-                "played_in": [
-                  "Cranberry Bog"
-                ],
-                "via": "game files",
-                "conditions": []
-              },
-              "quest_guide": "0040571C"
-            },
-            {
               "route": "Enclave Activity: Bots on Parade",
               "source_type": "event-quest",
               "rate": 0.0001838235,
@@ -42580,28 +42782,6 @@
               "quest_guide": "0041C9E6"
             },
             {
-              "route": "Overseer, Overseen",
-              "source_type": "event-quest",
-              "rate": 0.0001838235,
-              "rate_display": "0.0184%",
-              "lvli": [
-                "00599A7C"
-              ],
-              "kind": "quest",
-              "conditions": [],
-              "retired_because": [
-                "activity is not played in that region"
-              ],
-              "region_detail": {
-                "played_in": [
-                  "The Forest"
-                ],
-                "via": "game files",
-                "conditions": []
-              },
-              "quest_guide": "003FFACF"
-            },
-            {
               "route": "The Ol' Weston Shuffle",
               "source_type": "event-quest",
               "rate": 0.0001838235,
@@ -42623,6 +42803,79 @@
                 "conditions": []
               },
               "quest_guide": "0042F31B"
+            },
+            {
+              "route": "The Slasher: Masked Truth",
+              "source_type": "event-quest",
+              "rate": 0.0001838235,
+              "rate_display": "0.0184%",
+              "lvli": [
+                "0043B779"
+              ],
+              "quest_reward": true,
+              "kind": "quest",
+              "conditions": [],
+              "retired_because": [
+                "activity is not played in that region"
+              ],
+              "region_detail": {
+                "played_in": [
+                  "Ash Heap"
+                ],
+                "via": "game files",
+                "conditions": []
+              },
+              "quest_guide": "008F15C1",
+              "availability": "Only available for the duration of The Slasher Seasonal Content"
+            },
+            {
+              "route": "The Slasher: Out of the Shadows",
+              "source_type": "event-quest",
+              "rate": 0.0001838235,
+              "rate_display": "0.0184%",
+              "lvli": [
+                "0043B779"
+              ],
+              "quest_reward": true,
+              "kind": "quest",
+              "conditions": [],
+              "retired_because": [
+                "activity is not played in that region"
+              ],
+              "region_detail": {
+                "played_in": [
+                  "Cranberry Bog",
+                  "The Forest"
+                ],
+                "via": "game files",
+                "conditions": []
+              },
+              "quest_guide": "008F15C2",
+              "availability": "Only available for the duration of The Slasher Seasonal Content"
+            },
+            {
+              "route": "The Slasher: Secrets to the Grave",
+              "source_type": "event-quest",
+              "rate": 0.0001838235,
+              "rate_display": "0.0184%",
+              "lvli": [
+                "0043B779"
+              ],
+              "quest_reward": true,
+              "kind": "quest",
+              "conditions": [],
+              "retired_because": [
+                "activity is not played in that region"
+              ],
+              "region_detail": {
+                "played_in": [
+                  "The Forest"
+                ],
+                "via": "game files",
+                "conditions": []
+              },
+              "quest_guide": "008F15A1",
+              "availability": "Only available for the duration of The Slasher Seasonal Content"
             }
           ],
           "source_tag": "Quest",

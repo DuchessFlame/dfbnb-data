@@ -87,6 +87,10 @@ def _subs(data):
     return out
 
 
+SAME_FIELDS_AS = {"INGR": "ALCH"}
+PLACED_LIKE_REFR = {"PGRE", "PMIS", "PARW", "PBEA", "PFLA", "PCON", "PBAR", "PHZD"}
+
+
 def _is_ref(rules, sig, sub, rel, field, tsig):
     if sub == "CTDA":
         return rel in _ctda_offsets(field)
@@ -107,11 +111,23 @@ def _is_ref(rules, sig, sub, rel, field, tsig):
     #     holds a FormID of any type (XPD_AC01_SalSit -> LL_Drink_Alcohol_Wine).
     if sig == "CELL" and sub == "XCRI" and len(field) >= 16:
         start = 16 + 8 * struct.unpack_from("<I", field, 0)[0]
+        # only when the slot's second u32 is 0: a pair like 003CB4B7 00000009 (thirteen of
+        # them in EasternRegionalPen01) is no link in xEdit, 00006AFA 00000000 is (26 Oct 2026)
         if rel >= start and (rel - start) % 8 == 0:
-            return True
+            return rel + 8 <= len(field) and struct.unpack_from("<I", field, rel + 4)[0] == 0
         # anywhere else: the learned rule, unchanged
     if sig == "PACK" and sub == "PTDA" and rel == 4 and len(field) >= 8 \
             and struct.unpack_from("<I", field, 0)[0] in (0, 1):
+        return True
+    #     Types 2 Object Type, 4 Ref Alias, 5 Interrupt Data and 6 Self hold a number,
+    #     not a FormID: XPD_Pitt01_Hex_Obj_A01_Sit's alias 357 (0x165) is no link to
+    #     HelpManualXBox, and xEdit doesn't list it (25 Oct 2026).
+    if sig == "PACK" and sub == "PTDA" and rel == 4 and len(field) >= 8 \
+            and struct.unpack_from("<I", field, 0)[0] in (2, 4, 5, 6):
+        return False
+    #   LOUT LMML (loadout map marker list): an FLST the learned rules never saw
+    #     there (ATX_Loadout_50Boost -> LevelBoostMapMarkers, 25 Oct 2026).
+    if sig == "LOUT" and sub == "LMML" and rel == 0:
         return True
     #   EXPL DATA offset 16 (Placed Object): whatever the explosion leaves behind,
     #     any record type (Storm_SE09_ChickenExplosion -> an ALCH, 25 Oct 2026).
@@ -130,6 +146,33 @@ def _is_ref(rules, sig, sub, rel, field, tsig):
     #     HIDE_co_Lead_* recipes make one lead (BOOK) from another (25 Oct 2026).
     if sig == "COBJ" and ((sub == "CNAM" and rel == 0) or (sub == "FVPA" and rel % 12 == 0)):
         return True
+    #   DFOB DATA (Default Object): xEdit lists a FISH there (FishingFallbackFish_DO ->
+    #     BrookSilverside), which the learned rules never saw. Not every type: xEdit's
+    #     October ENTM export leaves out UTILITY_ENTM_ItemDisableEntitlement_DO, so the
+    #     learned type list stands and only FISH is added (25 Oct 2026).
+    if sig == "DFOB" and sub == "DATA" and rel == 0 and tsig in ("FISH", "WTHR"):
+        return True
+    #   CELL XISR (interior sky / weather override): a WTHR, then 4 more bytes. The
+    #     learned rules had no XISR (41 cells -> weathers in xEdit's WTHR _Refs; the WTHR
+    #     DFOB BabylonNukeZoneWeather_DO likewise; 26 Oct 2026).
+    if sig == "CELL" and sub == "XISR" and rel == 0:
+        return True
+    #   DOBJ DNAM (Default Object Manager): 8-byte pairs, a 4-letter use code then a
+    #     FormID of any type (DOBJ 00000800 -> HelpManualPC FLST, test_FurnitureTester
+    #     NPC_); the learned rules had no DOBJ at all (25 Oct 2026).
+    if sig == "DOBJ" and sub == "DNAM" and rel % 8 == 4:
+        return True
+    #   LVLI LVLO (12-byte entry: level, item, count) and GMRW QSRD (rewarded item,
+    #     count): the item is any type. The learned rules missed KEYM in both
+    #     (RSVP02_Container_Safe_Reward, Burn_SQ04_CacheKey1Reward; 25 Oct 2026).
+    if (sig == "LVLI" and sub == "LVLO" and len(field) == 12 and rel == 4) or \
+            (sig == "GMRW" and sub == "QSRD" and rel == 0):
+        return True
+    #   MGEF DATA offset 12 (Associated Item): any type, by archetype; the learned
+    #     rules saw DMGT / KYWD / LIGH / SPEL / STHD only. W05_TurboFert_Magiceffect
+    #     -> an FLST (25 Oct 2026).
+    if sig == "MGEF" and sub == "DATA" and rel == 12:
+        return True
     #   OBTS (object template combination, any record): a property whose value type
     #     is FormID,Int (4) or FormID,Float (6) holds a form in Value 1. Properties
     #     follow the includes: Include Count u32, Property Count u32, 7 bytes, Default,
@@ -141,6 +184,16 @@ def _is_ref(rules, sig, sub, rel, field, tsig):
         p = 16 + field[15] * 4 + 2 + inc * 7
         if p <= rel < p + prop * 24 and (rel - p) % 24 == 12 and field[p + (rel - p) // 24 * 24] in (4, 6):
             return True
+    # Placed projectiles / hazards / grenades ... (PGRE, PHZD, PMIS ...) are REFRs with
+    # another signature and the same fields; the learned rules mostly saw REFR, so a
+    # field they have no rule for uses the REFR rule (PHZD / PGRE XEZN -> the
+    # encounter-zone LCTN, LocForestPoseidonEnergyLocation, 25 Oct 2026).
+    if sig in PLACED_LIKE_REFR and (sig, sub) not in rules and (sig, sub, "size") not in rules:
+        sig = "REFR"
+    #   INGR (ingredient) has the same effect fields as ALCH; the learned rules have no
+    #   INGR at all (CopperPipe EFID -> RestoreHealthFood MGEF, 25 Oct 2026).
+    if sig in SAME_FIELDS_AS and (sig, sub) not in rules and (sig, sub, "size") not in rules:
+        sig = SAME_FIELDS_AS[sig]
     bys = rules.get((sig, sub, "size"))
     if bys is not None and len(field) in bys:  # rule for this exact subrecord size
         return tsig in bys[len(field)].get(rel, ())
