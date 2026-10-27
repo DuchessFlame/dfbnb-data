@@ -298,8 +298,11 @@ class Build:
         return {
             "text": text,
             "fromFiles": bool(text and not ov.get("location")),
-            "mapImage": ov.get("mapImage") or IMAGE_DIR + slug + "-map.avif",
-            "locationImage": ov.get("locationImage") or IMAGE_DIR + slug + "-location.avif",
+            # Default names only when the file is on the server listing, so the
+            # page never asks for a picture that isn't up (no 404s); the renderer
+            # shows the "not added yet" slot for a null.
+            "mapImage": ov.get("mapImage") or on_server(IMAGE_DIR + slug + "-map.avif"),
+            "locationImage": ov.get("locationImage") or on_server(IMAGE_DIR + slug + "-location.avif"),
         }
 
     # ---------------------------------------------------------------- build
@@ -443,6 +446,20 @@ REGION_NAMES = {"the-forest": "The Forest", "forest": "The Forest", "ash-heap": 
                 "savage-divide": "Savage Divide", "the-mire": "The Mire",
                 "cranberry-bog": "Cranberry Bog", "toxic-valley": "Toxic Valley",
                 "skyline-valley": "Skyline Valley", "burning-springs": "Burning Springs"}
+
+
+_LISTING = None
+
+
+def on_server(url, listing=SERVER_LISTING):
+    """url if its file is on data/server_listing.tsv, else None."""
+    global _LISTING
+    if _LISTING is None:
+        _LISTING = set()
+        if os.path.exists(listing):
+            with open(listing, encoding="utf-8") as fh:
+                _LISTING = {line.split("\t", 1)[0].strip() for line in fh}
+    return url if url.replace("/wp-content/uploads/", "", 1) in _LISTING else None
 
 
 def lore_maps(listing=SERVER_LISTING):
