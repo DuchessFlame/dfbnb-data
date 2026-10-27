@@ -450,23 +450,38 @@ def resolve(row, rings, markers, manual, cache):
         if region or marker:
             return region, marker, "coords"
 
-    # 3) interior placement — coords are cell-local and can't be cross-referenced, but the
-    #    xEdit export captured the game location name (CELL FULL / WRLD name). Use it as the
+    # 3) Exterior Appalachia placement with no DB (CI): the committed cache, keyed by ref,
+    #    holds the coords resolution from the last local run. It must win over loc_name:
+    #    since the 25 Oct 2026 exports fill the location columns, an outdoor placement's
+    #    loc_name is just the worldspace ("Appalachia", loc_source WRLDName) or an exterior
+    #    cell name — neither is a region/marker, and taking it emptied every mask region.
+    if is_appalachia and ref in cache:
+        c = cache[ref]
+        if c.get("region") or c.get("marker"):
+            return c.get("region", ""), c.get("marker", ""), "cache"
+
+    # 4) interior placement — coords are cell-local and can't be cross-referenced, but the
+    #    export captured the game location name (CELL FULL / WRLD name). Use it as the
     #    marker so the spawn is still named (e.g. "Vault 63"); region stays blank for a hand
-    #    glance unless the name matches the manual map.
+    #    glance unless the name matches the manual map. A worldspace name (WRLDName, or the
+    #    worldspace itself) is never a place — skip it.
     loc = (row.get("loc_name") or "").strip()
+    loc_src = (row.get("loc_source") or "").strip()
+    if loc and (loc_src == "WRLDName" or loc.lower() == ws.lower()
+                or loc.lower() == "appalachia"):
+        loc = ""
     if loc:
         for e in manual.values():
             if loc == e.get("display") or loc == e.get("marker"):
                 return e["region"], e["marker"], "loc_name"
         return "", loc, "loc_name"
 
-    # 4) DB absent (CI) — fall back to the committed cache by ref FormID.
+    # 5) DB absent (CI) — fall back to the committed cache by ref FormID.
     if ref in cache:
         c = cache[ref]
         return c.get("region", ""), c.get("marker", ""), "cache"
 
-    # 5) unresolved — hand-author (no coords, no location name, no cache).
+    # 6) unresolved — hand-author (no coords, no location name, no cache).
     return "", "", "unresolved"
 
 

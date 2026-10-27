@@ -947,6 +947,20 @@ def main():
         if not slug or slug in SKIP_SETS:
             continue
         data, out_path = build_set(slug, by_set[slug])
+        # Guard (27 Oct 2026): the 25 Oct export change made every mask resolve to
+        # "Appalachia" with no region, the set built with 0 placements, and writing it
+        # over the old doc also threw away every hand-filled photo / direction (they
+        # are carried over FROM this file). A set that had placements never gets
+        # replaced by an empty one — keep the old doc and shout in the build log.
+        try:
+            _old = json.load(open(out_path, encoding="utf-8"))
+        except Exception:
+            _old = {}
+        if (_old.get("total") or 0) > 0 and not data.get("total"):
+            print(f"::warning::[collectable_spawns] {slug}: new build has 0 placements "
+                  f"(was {_old['total']}; {sum(u.get('count', 1) for u in data.get('unplaced', []))} "
+                  f"unplaced) — kept the old doc. Check the resolver / export.")
+            data = _old
         json.dump(data, open(out_path, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
         region_counts = {reg["region"]: len(reg["locations"]) for reg in data["regions"] if reg["locations"]}
         manifest_sets.append({
@@ -975,6 +989,14 @@ def main():
             print(f"[collectable_spawns] {slug}: {os.path.basename(DIG_SETS[slug])} not found — skipped.")
             continue
         ddata, dpath = build_dig_set(slug)
+        try:
+            _old = json.load(open(dpath, encoding="utf-8"))
+        except Exception:
+            _old = {}
+        if (_old.get("total") or 0) > 0 and not ddata.get("total"):
+            print(f"::warning::[collectable_spawns] {slug}: new build has 0 dig sites "
+                  f"(was {_old['total']}) — kept the old doc.")
+            ddata = _old
         json.dump(ddata, open(dpath, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
         manifest_sets.append(_manifest_entry(ddata))
         drc = {reg["region"]: len(reg["locations"]) for reg in ddata["regions"] if reg["locations"]}
