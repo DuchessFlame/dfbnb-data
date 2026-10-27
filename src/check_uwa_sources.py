@@ -25,6 +25,13 @@ import build_unique_weapons_armour_json as B   # noqa: E402
 import uwa_source_links                        # noqa: E402
 
 
+def _bare(src):
+    """'Quest: Hells Eagles - 1.3158%' -> 'hells eagles' (kind prefix + rate off)."""
+    src = re.split(r"\s+\u2014\s+", str(src))[0]
+    src = re.sub(r"^(Quest|Event|Public Event|Activity|Seasonal Event|Daily Ops|Raid):\s*", "", src.strip())
+    return src.strip().lower()
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--channel", default="live", choices=["live", "pts"])
@@ -40,8 +47,20 @@ def main():
         key = B.norm_name(it.get("name"))
         own = own_lists.get(key) or B.OWN_LIST_ALIAS.get(key)
         # Traced sources (uwa_trace) and summary tails are not quest names.
+        # Sources on a "Drops: Plan only" route hand out the PLAN, not the item, so
+        # they never reach the item's own list - not a contradiction (27 Oct 2026:
+        # The Fixer's plan from Hells Eagles / Custodial Compulsions / Regent of the
+        # Dead failed every Patch Build; the summary line drops the word "plan").
+        plan_only = set()
+        for r in it.get("obtainRoutes") or []:
+            ls = r.get("lines") or []
+            if any(l.strip() == "Drops: Plan only" for l in ls):
+                for l in ls:
+                    if l.startswith("Source: "):
+                        plan_only.add(_bare(l[len("Source: "):]))
         how = " / ".join(p for p in str(it.get("howToObtain") or "").split(" / ")
-                         if not re.match(r"^\s*(and \d+ more|Enemy drop:)", p))
+                         if not re.match(r"^\s*(and \d+ more|Enemy drop:)", p)
+                         and _bare(p) not in plan_only)
         res = links.check(how, own)
         linked += len(res["linked"])
         bad += [(it["name"], q, own) for q in res["contradicted"]]
