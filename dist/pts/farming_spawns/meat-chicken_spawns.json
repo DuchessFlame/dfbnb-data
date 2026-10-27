@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-10-25",
+  "generated": "2026-10-27",
   "source": "dist/meat/chicken.json + farming pipeline (src/build_meat_guide_docs.py)"
  },
  "set": "meat",
@@ -11,17 +11,45 @@
  "map_base": "/wp-content/uploads/guide-images/farming-meat/chicken/",
  "map_ext": ".jpg",
  "full_map": "/wp-content/uploads/guide-images/farming-meat/chicken/chicken.jpg",
+ "inventory": {
+  "columns": [
+   "Chicken"
+  ],
+  "groups": [
+   {
+    "name": "Meat & Bits",
+    "note": "",
+    "rows": [
+     {
+      "name": "Chicken Thigh",
+      "form_id": "00111967",
+      "note": "",
+      "cells": [
+       {
+        "rate_display": "100%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Intestine",
+      "form_id": "003EEA40",
+      "note": "",
+      "cells": [
+       {
+        "rate_display": "100%",
+        "note": ""
+       }
+      ]
+     }
+    ],
+    "sub": false
+   }
+  ]
+ },
  "drop_rates": {
   "creatures": {
    "note": "",
-   "items": [
-    {
-     "name": "Chicken Thigh",
-     "qty": 1,
-     "rate_display": "100%",
-     "note": ""
-    }
-   ],
    "rows": [
     {
      "creature": "Chicken",
@@ -62,6 +90,14 @@
     {
      "creature": "Thrasher",
      "item": "Intestine",
+     "rate_display": "100%",
+     "note": ""
+    }
+   ],
+   "items": [
+    {
+     "name": "Chicken Thigh",
+     "qty": 1,
      "rate_display": "100%",
      "note": ""
     }
@@ -1476,8 +1512,7 @@
   "total_markers": 1,
   "total": 3,
   "no_maps": true,
-  "lead": "Chickens can spawn at 1 location that share a spawn pool with other creatures, so a Chicken is not guaranteed there. They are listed by name only.",
-  "map_base": "/wp-content/uploads/guide-images/farming-meat/chicken/"
+  "lead": "Chickens can spawn at 1 location that share a spawn pool with other creatures, so a Chicken is not guaranteed there. They are listed by name only."
  },
  "breakdown_lead": "Spawns here:",
  "treasure_maps": {
@@ -1498,42 +1533,6 @@
       "rate_display": "5.8824%"
      }
     ]
-   }
-  ]
- },
- "inventory": {
-  "columns": [
-   "Chicken"
-  ],
-  "groups": [
-   {
-    "name": "Meat & Bits",
-    "note": "",
-    "rows": [
-     {
-      "name": "Chicken Thigh",
-      "form_id": "00111967",
-      "note": "",
-      "cells": [
-       {
-        "rate_display": "100%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Intestine",
-      "form_id": "003EEA40",
-      "note": "",
-      "cells": [
-       {
-        "rate_display": "100%",
-        "note": ""
-       }
-      ]
-     }
-    ],
-    "sub": false
    }
   ]
  }

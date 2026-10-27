@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-10-25",
+  "generated": "2026-10-27",
   "source": "dist/meat/mirelurk.json + farming pipeline (src/build_meat_guide_docs.py)"
  },
  "set": "meat",
@@ -11,17 +11,649 @@
  "map_base": "/wp-content/uploads/guide-images/farming-meat/mirelurk/",
  "map_ext": ".jpg",
  "full_map": "/wp-content/uploads/guide-images/farming-meat/mirelurk/mirelurk.jpg",
+ "inventory": {
+  "columns": [
+   "Mirelurk",
+   "Mirelurk King"
+  ],
+  "groups": [
+   {
+    "name": "Meat & Bits",
+    "note": "",
+    "rows": [
+     {
+      "name": "Mirelurk Meat",
+      "form_id": "000330FF",
+      "note": "",
+      "cells": [
+       {
+        "rate_display": "100%",
+        "note": ""
+       },
+       {
+        "rate_display": "100%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Softshell Mirelurk Meat",
+      "form_id": "00033100",
+      "note": "",
+      "cells": [
+       {
+        "rate_display": "27.66%",
+        "note": ""
+       },
+       {
+        "rate_display": "29.84%",
+        "note": ""
+       }
+      ]
+     }
+    ],
+    "sub": false
+   },
+   {
+    "name": "Ammo",
+    "note": "Ammo drops match the weapon you have equipped.",
+    "rows": [
+     {
+      "name": ".308 Round",
+      "form_id": "0001F66B",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "89.99%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": ".38 Round",
+      "form_id": "0004CE87",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "89.99%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": ".44 Round",
+      "form_id": "0009221C",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "89.99%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": ".45 Round",
+      "form_id": "0001F66A",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "89.99%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": ".50 Caliber Ball",
+      "form_id": "0000796E",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "89.99%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": ".50 Round",
+      "form_id": "0001F279",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "89.99%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "10mm Round",
+      "form_id": "0001F276",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "89.99%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "2mm Electromagnetic Cartridge",
+      "form_id": "0018ABDF",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "89.99%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "40mm Grenade Round",
+      "form_id": "001CF27D",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "79.96%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "5.56 Round",
+      "form_id": "0001F278",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "89.99%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "5mm Round",
+      "form_id": "0001F66C",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "89.99%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Alien Blaster Round",
+      "form_id": "001025AA",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "89.99%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Arrow",
+      "form_id": "005A5DD2",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "89.99%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Cannonball",
+      "form_id": "000FD11C",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "89.99%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Crossbow Bolt",
+      "form_id": "0032B235",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "89.99%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Cryo Cell",
+      "form_id": "0018ABE2",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "89.99%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Fuel",
+      "form_id": "000CAC78",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "89.99%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Fusion Cell",
+      "form_id": "000C1897",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "89.99%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Fusion Core",
+      "form_id": "00075FE4",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "6.92%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Gamma Round",
+      "form_id": "000DF279",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "89.99%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Harpoon",
+      "form_id": "001109CE",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "89.99%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Mini Nuke",
+      "form_id": "000E6B2E",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "16.48%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Missile",
+      "form_id": "000CABA3",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "51.94%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Plasma Cartridge",
+      "form_id": "0001DBB7",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "89.99%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Plasma Core",
+      "form_id": "0001EC49",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "6.92%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Railway Spike",
+      "form_id": "000FE269",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "89.99%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Shotgun Shell",
+      "form_id": "0001F673",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "89.99%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Ultracite .308 Round",
+      "form_id": "004709B4",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "89.99%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Ultracite .38 Round",
+      "form_id": "004775AF",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "89.99%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Ultracite .44 Round",
+      "form_id": "004709B5",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "89.99%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Ultracite .45 Round",
+      "form_id": "004709B6",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "89.99%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Ultracite .50 Round",
+      "form_id": "004709B7",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "89.99%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Ultracite 10mm Round",
+      "form_id": "004709B2",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "89.99%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Ultracite 2mm Electromagnetic Cartridge",
+      "form_id": "004709B3",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "89.99%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Ultracite 5.56 Round",
+      "form_id": "004709B8",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "89.99%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Ultracite 5mm Round",
+      "form_id": "004709B9",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "89.99%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Ultracite Arrow",
+      "form_id": "005A35B9",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "89.99%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Ultracite Crossbow Bolt",
+      "form_id": "004709BA",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "89.99%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Ultracite Fusion Cell",
+      "form_id": "004709BB",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "89.99%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Ultracite Fusion Core",
+      "form_id": "004709BC",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "6.92%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Ultracite Plasma Cartridge",
+      "form_id": "004709BD",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "89.99%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Ultracite Plasma Core",
+      "form_id": "004709BE",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "6.92%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Ultracite Railway Spike",
+      "form_id": "004709BF",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "89.99%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Ultracite Shotgun Shell",
+      "form_id": "004709C0",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "89.99%",
+        "note": ""
+       }
+      ]
+     }
+    ],
+    "sub": true
+   },
+   {
+    "name": "Chems",
+    "note": "",
+    "rows": [
+     {
+      "name": "Stimpak: Diluted",
+      "form_id": "003078C2",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "30.43%",
+        "note": ""
+       }
+      ]
+     }
+    ],
+    "sub": true
+   },
+   {
+    "name": "Junk",
+    "note": "",
+    "rows": [
+     {
+      "name": "Pre-War Money",
+      "form_id": "00059B02",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "2.58%",
+        "note": ""
+       }
+      ]
+     }
+    ],
+    "sub": true
+   },
+   {
+    "name": "Other",
+    "note": "",
+    "rows": [
+     {
+      "name": "Caps",
+      "form_id": "0000000F",
+      "note": "",
+      "cells": [
+       {
+        "rate_display": "14.17%",
+        "note": ""
+       },
+       {
+        "rate_display": "12.92%",
+        "note": ""
+       }
+      ]
+     }
+    ],
+    "sub": true
+   }
+  ]
+ },
  "drop_rates": {
   "creatures": {
    "note": "",
-   "items": [
-    {
-     "name": "Mirelurk Meat",
-     "qty": 1,
-     "rate_display": "100%",
-     "note": ""
-    }
-   ],
    "rows": [
     {
      "creature": "Mirelurk",
@@ -45,6 +677,14 @@
      "creature": "Mirelurk",
      "item": "Softshell Mirelurk Meat",
      "rate_display": "27.66%",
+     "note": ""
+    }
+   ],
+   "items": [
+    {
+     "name": "Mirelurk Meat",
+     "qty": 1,
+     "rate_display": "100%",
      "note": ""
     }
    ]
@@ -7097,8 +7737,7 @@
   "total_markers": 65,
   "total": 260,
   "no_maps": true,
-  "lead": "Mirelurks can spawn at 65 locations that share a spawn pool with other creatures, so a Mirelurk is not guaranteed there. They are listed by name only.",
-  "map_base": "/wp-content/uploads/guide-images/farming-meat/mirelurk/"
+  "lead": "Mirelurks can spawn at 65 locations that share a spawn pool with other creatures, so a Mirelurk is not guaranteed there. They are listed by name only."
  },
  "breakdown_lead": "Spawns here:",
  "treasure_maps": {
@@ -7119,646 +7758,6 @@
       "rate_display": "5.8824%"
      }
     ]
-   }
-  ]
- },
- "inventory": {
-  "columns": [
-   "Mirelurk",
-   "Mirelurk King"
-  ],
-  "groups": [
-   {
-    "name": "Meat & Bits",
-    "note": "",
-    "rows": [
-     {
-      "name": "Mirelurk Meat",
-      "form_id": "000330FF",
-      "note": "",
-      "cells": [
-       {
-        "rate_display": "100%",
-        "note": ""
-       },
-       {
-        "rate_display": "100%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Softshell Mirelurk Meat",
-      "form_id": "00033100",
-      "note": "",
-      "cells": [
-       {
-        "rate_display": "27.66%",
-        "note": ""
-       },
-       {
-        "rate_display": "29.84%",
-        "note": ""
-       }
-      ]
-     }
-    ],
-    "sub": false
-   },
-   {
-    "name": "Ammo",
-    "note": "Ammo drops match the weapon you have equipped.",
-    "rows": [
-     {
-      "name": ".308 Round",
-      "form_id": "0001F66B",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "89.99%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": ".38 Round",
-      "form_id": "0004CE87",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "89.99%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": ".44 Round",
-      "form_id": "0009221C",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "89.99%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": ".45 Round",
-      "form_id": "0001F66A",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "89.99%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": ".50 Caliber Ball",
-      "form_id": "0000796E",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "89.99%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": ".50 Round",
-      "form_id": "0001F279",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "89.99%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "10mm Round",
-      "form_id": "0001F276",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "89.99%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "2mm Electromagnetic Cartridge",
-      "form_id": "0018ABDF",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "89.99%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "40mm Grenade Round",
-      "form_id": "001CF27D",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "79.96%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "5.56 Round",
-      "form_id": "0001F278",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "89.99%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "5mm Round",
-      "form_id": "0001F66C",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "89.99%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Alien Blaster Round",
-      "form_id": "001025AA",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "89.99%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Arrow",
-      "form_id": "005A5DD2",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "89.99%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Cannonball",
-      "form_id": "000FD11C",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "89.99%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Crossbow Bolt",
-      "form_id": "0032B235",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "89.99%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Cryo Cell",
-      "form_id": "0018ABE2",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "89.99%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Fuel",
-      "form_id": "000CAC78",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "89.99%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Fusion Cell",
-      "form_id": "000C1897",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "89.99%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Fusion Core",
-      "form_id": "00075FE4",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "6.92%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Gamma Round",
-      "form_id": "000DF279",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "89.99%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Harpoon",
-      "form_id": "001109CE",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "89.99%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Mini Nuke",
-      "form_id": "000E6B2E",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "16.48%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Missile",
-      "form_id": "000CABA3",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "51.94%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Plasma Cartridge",
-      "form_id": "0001DBB7",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "89.99%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Plasma Core",
-      "form_id": "0001EC49",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "6.92%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Railway Spike",
-      "form_id": "000FE269",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "89.99%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Shotgun Shell",
-      "form_id": "0001F673",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "89.99%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Ultracite .308 Round",
-      "form_id": "004709B4",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "89.99%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Ultracite .38 Round",
-      "form_id": "004775AF",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "89.99%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Ultracite .44 Round",
-      "form_id": "004709B5",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "89.99%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Ultracite .45 Round",
-      "form_id": "004709B6",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "89.99%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Ultracite .50 Round",
-      "form_id": "004709B7",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "89.99%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Ultracite 10mm Round",
-      "form_id": "004709B2",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "89.99%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Ultracite 2mm Electromagnetic Cartridge",
-      "form_id": "004709B3",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "89.99%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Ultracite 5.56 Round",
-      "form_id": "004709B8",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "89.99%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Ultracite 5mm Round",
-      "form_id": "004709B9",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "89.99%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Ultracite Arrow",
-      "form_id": "005A35B9",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "89.99%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Ultracite Crossbow Bolt",
-      "form_id": "004709BA",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "89.99%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Ultracite Fusion Cell",
-      "form_id": "004709BB",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "89.99%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Ultracite Fusion Core",
-      "form_id": "004709BC",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "6.92%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Ultracite Plasma Cartridge",
-      "form_id": "004709BD",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "89.99%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Ultracite Plasma Core",
-      "form_id": "004709BE",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "6.92%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Ultracite Railway Spike",
-      "form_id": "004709BF",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "89.99%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Ultracite Shotgun Shell",
-      "form_id": "004709C0",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "89.99%",
-        "note": ""
-       }
-      ]
-     }
-    ],
-    "sub": true
-   },
-   {
-    "name": "Chems",
-    "note": "",
-    "rows": [
-     {
-      "name": "Stimpak: Diluted",
-      "form_id": "003078C2",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "30.43%",
-        "note": ""
-       }
-      ]
-     }
-    ],
-    "sub": true
-   },
-   {
-    "name": "Junk",
-    "note": "",
-    "rows": [
-     {
-      "name": "Pre-War Money",
-      "form_id": "00059B02",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "2.58%",
-        "note": ""
-       }
-      ]
-     }
-    ],
-    "sub": true
-   },
-   {
-    "name": "Other",
-    "note": "",
-    "rows": [
-     {
-      "name": "Caps",
-      "form_id": "0000000F",
-      "note": "",
-      "cells": [
-       {
-        "rate_display": "14.17%",
-        "note": ""
-       },
-       {
-        "rate_display": "12.92%",
-        "note": ""
-       }
-      ]
-     }
-    ],
-    "sub": true
    }
   ]
  }

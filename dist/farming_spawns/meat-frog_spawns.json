@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-10-25",
+  "generated": "2026-10-27",
   "source": "dist/meat/frog.json + farming pipeline (src/build_meat_guide_docs.py)"
  },
  "set": "meat",
@@ -11,23 +11,92 @@
  "map_base": "/wp-content/uploads/guide-images/farming-meat/frog/",
  "map_ext": ".jpg",
  "full_map": "/wp-content/uploads/guide-images/farming-meat/frog/frog.jpg",
+ "inventory": {
+  "columns": [
+   "Frog"
+  ],
+  "groups": [
+   {
+    "name": "Meat & Bits",
+    "note": "",
+    "rows": [
+     {
+      "name": "Frog Egg",
+      "form_id": "004FE51C",
+      "note": "",
+      "cells": [
+       {
+        "rate_display": "100%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Frog Leg",
+      "form_id": "004FE51D",
+      "note": "",
+      "cells": [
+       {
+        "rate_display": "20%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Glowing Meat",
+      "form_id": "003657E1",
+      "note": "",
+      "cells": [
+       {
+        "rate_display": "30%",
+        "note": ""
+       }
+      ]
+     }
+    ],
+    "sub": false
+   },
+   {
+    "name": "Chems",
+    "note": "",
+    "rows": [
+     {
+      "name": "Glowing Blood Pack",
+      "form_id": "00058AB4",
+      "note": "",
+      "cells": [
+       {
+        "rate_display": "21%",
+        "note": ""
+       }
+      ]
+     }
+    ],
+    "sub": true
+   },
+   {
+    "name": "Junk",
+    "note": "",
+    "rows": [
+     {
+      "name": "Uranium Ore",
+      "form_id": "00065338",
+      "note": "",
+      "cells": [
+       {
+        "rate_display": "49%",
+        "note": ""
+       }
+      ]
+     }
+    ],
+    "sub": true
+   }
+  ]
+ },
  "drop_rates": {
   "creatures": {
    "note": "",
-   "items": [
-    {
-     "name": "Frog Egg",
-     "qty": 1,
-     "rate_display": "100%",
-     "note": ""
-    },
-    {
-     "name": "Frog Leg",
-     "qty": 4,
-     "rate_display": "20%",
-     "note": ""
-    }
-   ],
    "rows": [
     {
      "creature": "Frog",
@@ -39,6 +108,20 @@
      "creature": "Frog",
      "item": "Glowing Meat",
      "rate_display": "30%",
+     "note": ""
+    }
+   ],
+   "items": [
+    {
+     "name": "Frog Egg",
+     "qty": 1,
+     "rate_display": "100%",
+     "note": ""
+    },
+    {
+     "name": "Frog Leg",
+     "qty": 4,
+     "rate_display": "20%",
      "note": ""
     }
    ]
@@ -840,89 +923,6 @@
       "rate_display": "5.8824%"
      }
     ]
-   }
-  ]
- },
- "inventory": {
-  "columns": [
-   "Frog"
-  ],
-  "groups": [
-   {
-    "name": "Meat & Bits",
-    "note": "",
-    "rows": [
-     {
-      "name": "Frog Egg",
-      "form_id": "004FE51C",
-      "note": "",
-      "cells": [
-       {
-        "rate_display": "100%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Frog Leg",
-      "form_id": "004FE51D",
-      "note": "",
-      "cells": [
-       {
-        "rate_display": "20%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Glowing Meat",
-      "form_id": "003657E1",
-      "note": "",
-      "cells": [
-       {
-        "rate_display": "30%",
-        "note": ""
-       }
-      ]
-     }
-    ],
-    "sub": false
-   },
-   {
-    "name": "Chems",
-    "note": "",
-    "rows": [
-     {
-      "name": "Glowing Blood Pack",
-      "form_id": "00058AB4",
-      "note": "",
-      "cells": [
-       {
-        "rate_display": "21%",
-        "note": ""
-       }
-      ]
-     }
-    ],
-    "sub": true
-   },
-   {
-    "name": "Junk",
-    "note": "",
-    "rows": [
-     {
-      "name": "Uranium Ore",
-      "form_id": "00065338",
-      "note": "",
-      "cells": [
-       {
-        "rate_display": "49%",
-        "note": ""
-       }
-      ]
-     }
-    ],
-    "sub": true
    }
   ]
  }

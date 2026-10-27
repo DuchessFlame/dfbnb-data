@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-10-25",
+  "generated": "2026-10-27",
   "source": "dist/meat/opossum.json + farming pipeline (src/build_meat_guide_docs.py)"
  },
  "set": "meat",
@@ -11,17 +11,45 @@
  "map_base": "/wp-content/uploads/guide-images/farming-meat/opossum/",
  "map_ext": ".jpg",
  "full_map": "/wp-content/uploads/guide-images/farming-meat/opossum/opossum.jpg",
+ "inventory": {
+  "columns": [
+   "Opossum"
+  ],
+  "groups": [
+   {
+    "name": "Meat & Bits",
+    "note": "",
+    "rows": [
+     {
+      "name": "Intestine",
+      "form_id": "003EEA40",
+      "note": "",
+      "cells": [
+       {
+        "rate_display": "100%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Opossum Meat",
+      "form_id": "004FE51A",
+      "note": "",
+      "cells": [
+       {
+        "rate_display": "100%",
+        "note": ""
+       }
+      ]
+     }
+    ],
+    "sub": false
+   }
+  ]
+ },
  "drop_rates": {
   "creatures": {
    "note": "",
-   "items": [
-    {
-     "name": "Opossum Meat",
-     "qty": 1,
-     "rate_display": "100%",
-     "note": ""
-    }
-   ],
    "rows": [
     {
      "creature": "Chicken",
@@ -62,6 +90,14 @@
     {
      "creature": "Opossum",
      "item": "Opossum Meat",
+     "rate_display": "100%",
+     "note": ""
+    }
+   ],
+   "items": [
+    {
+     "name": "Opossum Meat",
+     "qty": 1,
      "rate_display": "100%",
      "note": ""
     }
@@ -939,41 +975,5 @@
  "breakdown_lead": "Spawns here:",
  "treasure_maps": {
   "maps": []
- },
- "inventory": {
-  "columns": [
-   "Opossum"
-  ],
-  "groups": [
-   {
-    "name": "Meat & Bits",
-    "note": "",
-    "rows": [
-     {
-      "name": "Intestine",
-      "form_id": "003EEA40",
-      "note": "",
-      "cells": [
-       {
-        "rate_display": "100%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Opossum Meat",
-      "form_id": "004FE51A",
-      "note": "",
-      "cells": [
-       {
-        "rate_display": "100%",
-        "note": ""
-       }
-      ]
-     }
-    ],
-    "sub": false
-   }
-  ]
  }
 }

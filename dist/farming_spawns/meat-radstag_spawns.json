@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-10-25",
+  "generated": "2026-10-27",
   "source": "dist/meat/radstag.json + farming pipeline (src/build_meat_guide_docs.py)"
  },
  "set": "meat",
@@ -40,9 +40,81 @@
    "credit": "Image credit: DuchessFlame"
   }
  ],
+ "inventory": {
+  "columns": [
+   "Radstag",
+   "Albino Radstag (only during The Mothman Equinox)"
+  ],
+  "groups": [
+   {
+    "name": "Meat & Bits",
+    "note": "",
+    "rows": [
+     {
+      "name": "Radstag Hide",
+      "form_id": "0022B626",
+      "note": "",
+      "cells": [
+       {
+        "rate_display": "100%",
+        "note": ""
+       },
+       null
+      ]
+     },
+     {
+      "name": "Radstag Meat",
+      "form_id": "0004A14F",
+      "note": "",
+      "cells": [
+       {
+        "rate_display": "100%",
+        "note": ""
+       },
+       null
+      ]
+     }
+    ],
+    "sub": false
+   },
+   {
+    "name": "Junk",
+    "note": "",
+    "rows": [
+     {
+      "name": "Albino Radstag Blood",
+      "form_id": "0061D14C",
+      "note": "",
+      "cells": [
+       null,
+       {
+        "rate_display": "100%",
+        "note": ""
+       }
+      ]
+     }
+    ],
+    "sub": true
+   }
+  ]
+ },
  "drop_rates": {
   "creatures": {
    "note": "",
+   "rows": [
+    {
+     "creature": "Radstag",
+     "item": "Radstag Hide",
+     "rate_display": "100%",
+     "note": ""
+    },
+    {
+     "creature": "Radstag",
+     "item": "Radstag Meat",
+     "rate_display": "100%",
+     "note": ""
+    }
+   ],
    "items": [
     {
      "name": "Radstag Hide",
@@ -61,20 +133,6 @@
      "qty": 1,
      "rate_display": "100%",
      "note": "only drops during The Mothman Equinox"
-    }
-   ],
-   "rows": [
-    {
-     "creature": "Radstag",
-     "item": "Radstag Hide",
-     "rate_display": "100%",
-     "note": ""
-    },
-    {
-     "creature": "Radstag",
-     "item": "Radstag Meat",
-     "rate_display": "100%",
-     "note": ""
     }
    ]
   },
@@ -3677,63 +3735,5 @@
  "breakdown_lead": "Spawns here:",
  "treasure_maps": {
   "maps": []
- },
- "inventory": {
-  "columns": [
-   "Radstag",
-   "Albino Radstag (only during The Mothman Equinox)"
-  ],
-  "groups": [
-   {
-    "name": "Meat & Bits",
-    "note": "",
-    "rows": [
-     {
-      "name": "Radstag Hide",
-      "form_id": "0022B626",
-      "note": "",
-      "cells": [
-       {
-        "rate_display": "100%",
-        "note": ""
-       },
-       null
-      ]
-     },
-     {
-      "name": "Radstag Meat",
-      "form_id": "0004A14F",
-      "note": "",
-      "cells": [
-       {
-        "rate_display": "100%",
-        "note": ""
-       },
-       null
-      ]
-     }
-    ],
-    "sub": false
-   },
-   {
-    "name": "Junk",
-    "note": "",
-    "rows": [
-     {
-      "name": "Albino Radstag Blood",
-      "form_id": "0061D14C",
-      "note": "",
-      "cells": [
-       null,
-       {
-        "rate_display": "100%",
-        "note": ""
-       }
-      ]
-     }
-    ],
-    "sub": true
-   }
-  ]
  }
 }
