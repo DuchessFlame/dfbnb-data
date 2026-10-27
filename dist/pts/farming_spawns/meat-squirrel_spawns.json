@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-10-25",
+  "generated": "2026-10-27",
   "source": "dist/meat/squirrel.json + farming pipeline (src/build_meat_guide_docs.py)"
  },
  "set": "meat",
@@ -11,17 +11,45 @@
  "map_base": "/wp-content/uploads/guide-images/farming-meat/squirrel/",
  "map_ext": ".jpg",
  "full_map": "/wp-content/uploads/guide-images/farming-meat/squirrel/squirrel.jpg",
+ "inventory": {
+  "columns": [
+   "Squirrel"
+  ],
+  "groups": [
+   {
+    "name": "Meat & Bits",
+    "note": "",
+    "rows": [
+     {
+      "name": "Intestine",
+      "form_id": "003EEA40",
+      "note": "",
+      "cells": [
+       {
+        "rate_display": "100%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Squirrel Bits",
+      "form_id": "000366BC",
+      "note": "",
+      "cells": [
+       {
+        "rate_display": "100%",
+        "note": ""
+       }
+      ]
+     }
+    ],
+    "sub": false
+   }
+  ]
+ },
  "drop_rates": {
   "creatures": {
    "note": "",
-   "items": [
-    {
-     "name": "Squirrel Bits",
-     "qty": 1,
-     "rate_display": "100%",
-     "note": ""
-    }
-   ],
    "rows": [
     {
      "creature": "Chicken",
@@ -62,6 +90,14 @@
     {
      "creature": "Squirrel",
      "item": "Squirrel Bits",
+     "rate_display": "100%",
+     "note": ""
+    }
+   ],
+   "items": [
+    {
+     "name": "Squirrel Bits",
+     "qty": 1,
      "rate_display": "100%",
      "note": ""
     }
@@ -1720,8 +1756,7 @@
   "total_markers": 2,
   "total": 4,
   "no_maps": true,
-  "lead": "Squirrels can spawn at 2 locations that share a spawn pool with other creatures, so a Squirrel is not guaranteed there. They are listed by name only.",
-  "map_base": "/wp-content/uploads/guide-images/farming-meat/squirrel/"
+  "lead": "Squirrels can spawn at 2 locations that share a spawn pool with other creatures, so a Squirrel is not guaranteed there. They are listed by name only."
  },
  "breakdown_lead": "Spawns here:",
  "treasure_maps": {
@@ -1742,42 +1777,6 @@
       "rate_display": "5.8824%"
      }
     ]
-   }
-  ]
- },
- "inventory": {
-  "columns": [
-   "Squirrel"
-  ],
-  "groups": [
-   {
-    "name": "Meat & Bits",
-    "note": "",
-    "rows": [
-     {
-      "name": "Intestine",
-      "form_id": "003EEA40",
-      "note": "",
-      "cells": [
-       {
-        "rate_display": "100%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Squirrel Bits",
-      "form_id": "000366BC",
-      "note": "",
-      "cells": [
-       {
-        "rate_display": "100%",
-        "note": ""
-       }
-      ]
-     }
-    ],
-    "sub": false
    }
   ]
  }

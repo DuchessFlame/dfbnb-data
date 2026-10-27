@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-10-25",
+  "generated": "2026-10-27",
   "source": "dist/meat/rabbit.json + farming pipeline (src/build_meat_guide_docs.py)"
  },
  "set": "meat",
@@ -11,23 +11,56 @@
  "map_base": "/wp-content/uploads/guide-images/farming-meat/rabbit/",
  "map_ext": ".jpg",
  "full_map": "/wp-content/uploads/guide-images/farming-meat/rabbit/rabbit.jpg",
+ "inventory": {
+  "columns": [
+   "Rabbit"
+  ],
+  "groups": [
+   {
+    "name": "Meat & Bits",
+    "note": "",
+    "rows": [
+     {
+      "name": "Intestine",
+      "form_id": "003EEA40",
+      "note": "",
+      "cells": [
+       {
+        "rate_display": "100%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Rabbit Hide",
+      "form_id": "004FE51F",
+      "note": "",
+      "cells": [
+       {
+        "rate_display": "50%",
+        "note": ""
+       }
+      ]
+     },
+     {
+      "name": "Rabbit Leg",
+      "form_id": "00111966",
+      "note": "",
+      "cells": [
+       {
+        "rate_display": "100%",
+        "note": ""
+       }
+      ]
+     }
+    ],
+    "sub": false
+   }
+  ]
+ },
  "drop_rates": {
   "creatures": {
    "note": "",
-   "items": [
-    {
-     "name": "Rabbit Leg",
-     "qty": 1,
-     "rate_display": "100%",
-     "note": ""
-    },
-    {
-     "name": "Rabbit Hide",
-     "qty": 1,
-     "rate_display": "50%",
-     "note": ""
-    }
-   ],
    "rows": [
     {
      "creature": "Chicken",
@@ -75,6 +108,20 @@
      "creature": "Rabbit",
      "item": "Rabbit Leg",
      "rate_display": "100%",
+     "note": ""
+    }
+   ],
+   "items": [
+    {
+     "name": "Rabbit Leg",
+     "qty": 1,
+     "rate_display": "100%",
+     "note": ""
+    },
+    {
+     "name": "Rabbit Hide",
+     "qty": 1,
+     "rate_display": "50%",
      "note": ""
     }
    ]
@@ -1096,53 +1143,6 @@
       "rate_display": "5.8824%"
      }
     ]
-   }
-  ]
- },
- "inventory": {
-  "columns": [
-   "Rabbit"
-  ],
-  "groups": [
-   {
-    "name": "Meat & Bits",
-    "note": "",
-    "rows": [
-     {
-      "name": "Intestine",
-      "form_id": "003EEA40",
-      "note": "",
-      "cells": [
-       {
-        "rate_display": "100%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Rabbit Hide",
-      "form_id": "004FE51F",
-      "note": "",
-      "cells": [
-       {
-        "rate_display": "50%",
-        "note": ""
-       }
-      ]
-     },
-     {
-      "name": "Rabbit Leg",
-      "form_id": "00111966",
-      "note": "",
-      "cells": [
-       {
-        "rate_display": "100%",
-        "note": ""
-       }
-      ]
-     }
-    ],
-    "sub": false
    }
   ]
  }

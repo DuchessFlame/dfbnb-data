@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-10-25",
+  "generated": "2026-10-27",
   "source": "dist/meat/cat.json + farming pipeline (src/build_meat_guide_docs.py)"
  },
  "set": "meat",
@@ -11,9 +11,60 @@
  "map_base": "/wp-content/uploads/guide-images/farming-meat/cat/",
  "map_ext": ".jpg",
  "full_map": "/wp-content/uploads/guide-images/farming-meat/cat/cat.jpg",
+ "inventory": {
+  "columns": [
+   "Grey Cat"
+  ],
+  "groups": [
+   {
+    "name": "Meat & Bits",
+    "note": "",
+    "rows": [
+     {
+      "name": "Cat Meat",
+      "form_id": "000939B8",
+      "note": "",
+      "cells": [
+       {
+        "rate_display": "100%",
+        "note": ""
+       }
+      ]
+     }
+    ],
+    "sub": false
+   },
+   {
+    "name": "Junk",
+    "note": "",
+    "rows": [
+     {
+      "name": "Cotton Yarn",
+      "form_id": "00060EC0",
+      "note": "",
+      "cells": [
+       {
+        "rate_display": "100%",
+        "note": ""
+       }
+      ]
+     }
+    ],
+    "sub": true
+   }
+  ]
+ },
  "drop_rates": {
   "creatures": {
    "note": "",
+   "rows": [
+    {
+     "creature": "Grey Cat",
+     "item": "Cat Meat",
+     "rate_display": "100%",
+     "note": ""
+    }
+   ],
    "items": [
     {
      "name": "Cat Meat",
@@ -24,14 +75,6 @@
     {
      "name": "Cotton Yarn",
      "qty": 1,
-     "rate_display": "100%",
-     "note": ""
-    }
-   ],
-   "rows": [
-    {
-     "creature": "Grey Cat",
-     "item": "Cat Meat",
      "rate_display": "100%",
      "note": ""
     }
@@ -1158,49 +1201,6 @@
       "rate_display": "5.8824%"
      }
     ]
-   }
-  ]
- },
- "inventory": {
-  "columns": [
-   "Grey Cat"
-  ],
-  "groups": [
-   {
-    "name": "Meat & Bits",
-    "note": "",
-    "rows": [
-     {
-      "name": "Cat Meat",
-      "form_id": "000939B8",
-      "note": "",
-      "cells": [
-       {
-        "rate_display": "100%",
-        "note": ""
-       }
-      ]
-     }
-    ],
-    "sub": false
-   },
-   {
-    "name": "Junk",
-    "note": "",
-    "rows": [
-     {
-      "name": "Cotton Yarn",
-      "form_id": "00060EC0",
-      "note": "",
-      "cells": [
-       {
-        "rate_display": "100%",
-        "note": ""
-       }
-      ]
-     }
-    ],
-    "sub": true
    }
   ]
  }
