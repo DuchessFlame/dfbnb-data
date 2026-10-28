@@ -3635,12 +3635,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Weapon Plan Checklist",
-              "url": "/df/plan-checklists/weapon/"
-            },
-            {
               "title": "Melee",
               "url": "/bnb/builds/melee/"
+            },
+            {
+              "title": "Weapon Plan Checklist",
+              "url": "/df/plan-checklists/weapon/"
             }
           ],
           "image_url": "",
@@ -16075,23 +16075,23 @@
           "required_from_glob": false,
           "prerequisite": "",
           "conditions": [
-            "10000000|1.000000|IsTrueForConditionForm|00 00 00|00 00|WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]|00 00 00 00|0|-1|Subject|",
             "10000000|1.000000|PlayerHasQuest|00 00 00|00 00|E07A_Mothman \"Event: The Mothman Equinox\" [QUST:006173A1]|00 00 00 00|0|-1|Subject|",
             "10000000|1.000000|HasKeyword|00 00 00|00 00|ActorTypeCultist [KYWD:00571D9E]|00 00 00 00|0|-1|Target|",
+            "10000000|1.000000|CHAL_DoesTargetWeaponHaveKeyword|00 00 00|00 00|WorldPets_WeaponTypeUnarmed \"World Pets Unarmed\" [KYWD:008C90FB]|00 00 00 00|0|-1|Subject|",
             "10010000|1.000000|GetIsRace|00 00 00|00 00|HumanRace \"Human\" [RACE:00013746]|00 00 00 00|0|-1|Target|",
             "10010000|1.000000|GetIsRace|00 00 00|00 00|GhoulRace \"Ghoul\" [RACE:000EAFB6]|00 00 00 00|0|-1|Target|"
           ],
           "conditions_human": [
-            "10000000|1.000000|IsTrueForConditionForm|00 00 00|00 00|WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]|00 00 00 00|0|-1|Subject|",
             "10000000|1.000000|PlayerHasQuest|00 00 00|00 00|E07A_Mothman \"Event: The Mothman Equinox\" [QUST:006173A1]|00 00 00 00|0|-1|Subject|",
             "10000000|1.000000|HasKeyword|00 00 00|00 00|ActorTypeCultist [KYWD:00571D9E]|00 00 00 00|0|-1|Target|",
+            "10000000|1.000000|CHAL_DoesTargetWeaponHaveKeyword|00 00 00|00 00|WorldPets_WeaponTypeUnarmed \"World Pets Unarmed\" [KYWD:008C90FB]|00 00 00 00|0|-1|Subject|",
             "10010000|1.000000|GetIsRace|00 00 00|00 00|HumanRace \"Human\" [RACE:00013746]|00 00 00 00|0|-1|Target|",
             "10010000|1.000000|GetIsRace|00 00 00|00 00|GhoulRace \"Ghoul\" [RACE:000EAFB6]|00 00 00 00|0|-1|Target|"
           ],
           "conditions_display": [
-            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1",
             ".PlayerHasQuest(Event: The Mothman Equinox [QUST:006173A1]) = 1",
             "Target.HasKeyword(ActorTypeCultist [KYWD:00571D9E]) = 1",
+            ".CHAL_DoesTargetWeaponHaveKeyword(World Pets Unarmed [KYWD:008C90FB]) = 1",
             "Target.GetIsRace(Human [RACE:00013746]) = 1",
             "Target.GetIsRace(Ghoul [RACE:000EAFB6]) = 1"
           ],
@@ -16470,15 +16470,15 @@
           "prerequisite": "",
           "conditions": [
             "01000000|0.000000|HasKeyword|00 00 00|00 00|FestiveScorchedKeyword [KYWD:00630019]|00 00 00 00|0|-1|Target|",
-            "10000000|1.000000|IsTrueForConditionForm|00 00 00|00 00|WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]|00 00 00 00|0|-1|Subject|"
+            "10000000|1.000000|CHAL_DoesTargetWeaponHaveKeyword|00 00 00|00 00|WorldPets_WeaponTypeUnarmed \"World Pets Unarmed\" [KYWD:008C90FB]|00 00 00 00|0|-1|Subject|"
           ],
           "conditions_human": [
             "01000000|0.000000|HasKeyword|00 00 00|00 00|FestiveScorchedKeyword [KYWD:00630019]|00 00 00 00|0|-1|Target|",
-            "10000000|1.000000|IsTrueForConditionForm|00 00 00|00 00|WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]|00 00 00 00|0|-1|Subject|"
+            "10000000|1.000000|CHAL_DoesTargetWeaponHaveKeyword|00 00 00|00 00|WorldPets_WeaponTypeUnarmed \"World Pets Unarmed\" [KYWD:008C90FB]|00 00 00 00|0|-1|Subject|"
           ],
           "conditions_display": [
             "Target.HasKeyword(FestiveScorchedKeyword [KYWD:00630019]) = 0",
-            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
+            ".CHAL_DoesTargetWeaponHaveKeyword(World Pets Unarmed [KYWD:008C90FB]) = 1"
           ],
           "condition_items": [],
           "condition_keywords": [],
@@ -17642,15 +17642,15 @@
           "prerequisite": "",
           "conditions": [
             "10000000|1.000000|PlayerHasQuest|00 00 00|00 00|E01F_Fasnacht \"Event: Fasnacht Day\" [QUST:0049886E]|00 00 00 00|0|-1|Subject|",
-            "10000000|1.000000|IsTrueForConditionForm|00 00 00|00 00|WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]|00 00 00 00|0|-1|Subject|"
+            "10000000|1.000000|CHAL_DoesTargetWeaponHaveKeyword|00 00 00|00 00|WorldPets_WeaponTypeUnarmed \"World Pets Unarmed\" [KYWD:008C90FB]|00 00 00 00|0|-1|Subject|"
           ],
           "conditions_human": [
             "10000000|1.000000|PlayerHasQuest|00 00 00|00 00|E01F_Fasnacht \"Event: Fasnacht Day\" [QUST:0049886E]|00 00 00 00|0|-1|Subject|",
-            "10000000|1.000000|IsTrueForConditionForm|00 00 00|00 00|WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]|00 00 00 00|0|-1|Subject|"
+            "10000000|1.000000|CHAL_DoesTargetWeaponHaveKeyword|00 00 00|00 00|WorldPets_WeaponTypeUnarmed \"World Pets Unarmed\" [KYWD:008C90FB]|00 00 00 00|0|-1|Subject|"
           ],
           "conditions_display": [
             ".PlayerHasQuest(Event: Fasnacht Day [QUST:0049886E]) = 1",
-            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
+            ".CHAL_DoesTargetWeaponHaveKeyword(World Pets Unarmed [KYWD:008C90FB]) = 1"
           ],
           "condition_items": [],
           "condition_keywords": [],
@@ -30145,12 +30145,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Fishing Challenge Checklist",
-              "url": "/df/challenges/fishing/"
-            },
-            {
               "title": "Magazines Location Guide - Forest",
               "url": "/df/farming/consumables/magazines/location-guide/forest/"
+            },
+            {
+              "title": "Fishing Challenge Checklist",
+              "url": "/df/challenges/fishing/"
             }
           ],
           "image_url": "",
@@ -30252,12 +30252,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Critters Location Guide - The Mire",
-              "url": "/bnb/farming/critters/mire/"
-            },
-            {
               "title": "Fishing Challenge Checklist",
               "url": "/df/challenges/fishing/"
+            },
+            {
+              "title": "Critters Location Guide - The Mire",
+              "url": "/bnb/farming/critters/mire/"
             }
           ],
           "image_url": "",
@@ -41404,12 +41404,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Pistol",
-              "url": "/bnb/builds/pistol/"
-            },
-            {
               "title": "Burning Springs Challenge Checklist",
               "url": "/df/challenges/springs/"
+            },
+            {
+              "title": "Pistol",
+              "url": "/bnb/builds/pistol/"
             }
           ],
           "image_url": "",
@@ -46589,12 +46589,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Weapon Plan Checklist",
-              "url": "/df/plan-checklists/weapon/"
-            },
-            {
               "title": "Melee",
               "url": "/bnb/builds/melee/"
+            },
+            {
+              "title": "Weapon Plan Checklist",
+              "url": "/df/plan-checklists/weapon/"
             }
           ],
           "image_url": "",
@@ -57464,23 +57464,23 @@
           "required_from_glob": false,
           "prerequisite": "",
           "conditions": [
-            "10000000|1.000000|IsTrueForConditionForm|00 00 00|00 00|WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]|00 00 00 00|0|-1|Subject|",
             "10000000|1.000000|PlayerHasQuest|00 00 00|00 00|E07A_Mothman \"Event: The Mothman Equinox\" [QUST:006173A1]|00 00 00 00|0|-1|Subject|",
             "10000000|1.000000|HasKeyword|00 00 00|00 00|ActorTypeCultist [KYWD:00571D9E]|00 00 00 00|0|-1|Target|",
+            "10000000|1.000000|CHAL_DoesTargetWeaponHaveKeyword|00 00 00|00 00|WorldPets_WeaponTypeUnarmed \"World Pets Unarmed\" [KYWD:008C90FB]|00 00 00 00|0|-1|Subject|",
             "10010000|1.000000|GetIsRace|00 00 00|00 00|HumanRace \"Human\" [RACE:00013746]|00 00 00 00|0|-1|Target|",
             "10010000|1.000000|GetIsRace|00 00 00|00 00|GhoulRace \"Ghoul\" [RACE:000EAFB6]|00 00 00 00|0|-1|Target|"
           ],
           "conditions_human": [
-            "10000000|1.000000|IsTrueForConditionForm|00 00 00|00 00|WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]|00 00 00 00|0|-1|Subject|",
             "10000000|1.000000|PlayerHasQuest|00 00 00|00 00|E07A_Mothman \"Event: The Mothman Equinox\" [QUST:006173A1]|00 00 00 00|0|-1|Subject|",
             "10000000|1.000000|HasKeyword|00 00 00|00 00|ActorTypeCultist [KYWD:00571D9E]|00 00 00 00|0|-1|Target|",
+            "10000000|1.000000|CHAL_DoesTargetWeaponHaveKeyword|00 00 00|00 00|WorldPets_WeaponTypeUnarmed \"World Pets Unarmed\" [KYWD:008C90FB]|00 00 00 00|0|-1|Subject|",
             "10010000|1.000000|GetIsRace|00 00 00|00 00|HumanRace \"Human\" [RACE:00013746]|00 00 00 00|0|-1|Target|",
             "10010000|1.000000|GetIsRace|00 00 00|00 00|GhoulRace \"Ghoul\" [RACE:000EAFB6]|00 00 00 00|0|-1|Target|"
           ],
           "conditions_display": [
-            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1",
             ".PlayerHasQuest(Event: The Mothman Equinox [QUST:006173A1]) = 1",
             "Target.HasKeyword(ActorTypeCultist [KYWD:00571D9E]) = 1",
+            ".CHAL_DoesTargetWeaponHaveKeyword(World Pets Unarmed [KYWD:008C90FB]) = 1",
             "Target.GetIsRace(Human [RACE:00013746]) = 1",
             "Target.GetIsRace(Ghoul [RACE:000EAFB6]) = 1"
           ],
@@ -58901,15 +58901,15 @@
           "prerequisite": "",
           "conditions": [
             "10000000|1.000000|PlayerHasQuest|00 00 00|00 00|E01F_Fasnacht \"Event: Fasnacht Day\" [QUST:0049886E]|00 00 00 00|0|-1|Subject|",
-            "10000000|1.000000|IsTrueForConditionForm|00 00 00|00 00|WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]|00 00 00 00|0|-1|Subject|"
+            "10000000|1.000000|CHAL_DoesTargetWeaponHaveKeyword|00 00 00|00 00|WorldPets_WeaponTypeUnarmed \"World Pets Unarmed\" [KYWD:008C90FB]|00 00 00 00|0|-1|Subject|"
           ],
           "conditions_human": [
             "10000000|1.000000|PlayerHasQuest|00 00 00|00 00|E01F_Fasnacht \"Event: Fasnacht Day\" [QUST:0049886E]|00 00 00 00|0|-1|Subject|",
-            "10000000|1.000000|IsTrueForConditionForm|00 00 00|00 00|WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]|00 00 00 00|0|-1|Subject|"
+            "10000000|1.000000|CHAL_DoesTargetWeaponHaveKeyword|00 00 00|00 00|WorldPets_WeaponTypeUnarmed \"World Pets Unarmed\" [KYWD:008C90FB]|00 00 00 00|0|-1|Subject|"
           ],
           "conditions_display": [
             ".PlayerHasQuest(Event: Fasnacht Day [QUST:0049886E]) = 1",
-            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
+            ".CHAL_DoesTargetWeaponHaveKeyword(World Pets Unarmed [KYWD:008C90FB]) = 1"
           ],
           "condition_items": [],
           "condition_keywords": [],
@@ -97151,7 +97151,7 @@
           "scope": "Lifetime",
           "classification": "12",
           "category": "12",
-          "reward_icon": "IconCR_Recipe",
+          "reward_icon": "IconCR_Caps",
           "required_count_global": "RTSV_Collectable_Challenge_Tier1 [GLOB:008AF71B]",
           "required_from_glob": false,
           "prerequisite": "",
@@ -97165,7 +97165,7 @@
           "condition_items": [],
           "condition_keywords": [],
           "rewards": [
-            "Brain Jar Camp Item"
+            "Caps (100)"
           ],
           "reward_unknown": false,
           "is_cut": false,
@@ -104438,12 +104438,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Weapon Plan Checklist",
-              "url": "/df/plan-checklists/weapon/"
-            },
-            {
               "title": "Melee",
               "url": "/bnb/builds/melee/"
+            },
+            {
+              "title": "Weapon Plan Checklist",
+              "url": "/df/plan-checklists/weapon/"
             }
           ],
           "image_url": "",
@@ -208403,12 +208403,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Fishing Challenge Checklist",
-              "url": "/df/challenges/fishing/"
-            },
-            {
               "title": "Survival Challenge Checklist",
               "url": "/df/challenges/survival/"
+            },
+            {
+              "title": "Fishing Challenge Checklist",
+              "url": "/df/challenges/fishing/"
             }
           ],
           "image_url": "",
@@ -248681,12 +248681,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Fishing Challenge Checklist",
-              "url": "/df/challenges/fishing/"
-            },
-            {
               "title": "Magazines Location Guide - Forest",
               "url": "/df/farming/consumables/magazines/location-guide/forest/"
+            },
+            {
+              "title": "Fishing Challenge Checklist",
+              "url": "/df/challenges/fishing/"
             }
           ],
           "image_url": "",
@@ -250129,12 +250129,12 @@
           "children": [],
           "guides": [
             {
-              "title": "Pistol",
-              "url": "/bnb/builds/pistol/"
-            },
-            {
               "title": "Burning Springs Challenge Checklist",
               "url": "/df/challenges/springs/"
+            },
+            {
+              "title": "Pistol",
+              "url": "/bnb/builds/pistol/"
             }
           ],
           "image_url": "",
