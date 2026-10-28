@@ -1001,7 +1001,7 @@ PAGES = {
 
 def shared_json(S, av_slot, weapons, wrules):
     R = S.calc["rules"]
-    keep = ("questions", "base_weights", "goals", "mirror", "when_share", "damage_first", "team_play", "linked", "penalties", "show_threshold",
+    keep = ("questions", "base_weights", "goals", "mirror", "when_share", "damage_first", "team_play", "linked", "ignore_slots", "penalties", "show_threshold",
             "slots", "display_order", "exclude_items")
     spec = special_of_slot(R)
     mech = dict(S.calc["mechanics"])

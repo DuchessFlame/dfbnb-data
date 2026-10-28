@@ -47,8 +47,10 @@
                     "avoid_all", "avoid_scorched", "avoid_explosion", "avoid_melee", "avoid_energy",
                     "cryo_res", "fusion_core", "heavy_ammo"],
   "max_picks": { "food": 7, "chem": 4, "alcohol": 4, "gum": 2, "magazine": 1, "bobblehead": 1 },
-  "_base_weights_readme": "Weights every build gets (20 Oct 2026, Kat: bubblegum for hunger & thirst).",
-  "base_weights": { "hunger_thirst": 0.5 },
+  "_base_weights_readme": "Kat 28 Oct: every build wants Move Speed (0.4) and Fire Resistance (0.4, Power Armour included), Rad Resistance (0.4; not Power Armour or Ghouls) and Disease Resistance (0.4). Weights every build gets (20 Oct 2026, Kat: bubblegum for hunger & thirst).",
+  "base_weights": { "hunger_thirst": 0.5, "move_speed": 0.4, "fire_res": 0.4, "rad_res": 0.4, "disease_res": 0.4 },
+  "_ignore_slots_readme": "Kat 28 Oct: never recommended. No cryo enemies in the game; poison resistance is not worth a slot.",
+  "ignore_slots": ["cryo_res", "poison_res"],
   "_when_readme": "Magazine / bobblehead buffs whose game text names a condition (fx.w): team = only with 'In a team', sneak = only for sneaky players, night / alcohol = counted at when_share, swim = never counted (still shown).",
   "when_share": { "night": 0.5, "alcohol": 0.5 },
   "_mirror_readme": "Weapon-type crit damage (magazines) is only worth what crit damage is worth to this build: final weight = its own weight (how well it fits the weapon, 0-1) x the build's crit_dmg weight. So VATS builds value them, free aim halves them like crit_dmg.",
@@ -138,23 +140,23 @@
     "build": {
       "label": "What build are you running?",
       "options": {
-        "heavy":     { "label": "Heavy Guns",                 "ranged": true,  "weights": { "dmg_heavy": 1, "crit_heavy": 1, "dmg_unscoped": 0.8, "heavy_ammo": 0.4, "dmg_all": 1, "crit_dmg": 0.3, "dr": 0.6, "er": 0.5, "ap": 0.2 } },
-        "rifle":     { "label": "Rifleman / Sniper (semi-auto & scoped rifles)", "ranged": true, "weights": { "dmg_scoped": 0.8, "dmg_all": 1, "crit_dmg": 0.4, "dr": 0.5, "er": 0.4, "ap": 0.3 } },
-        "commando":  { "label": "Commando (auto rifles)",     "ranged": true,  "weights": { "dmg_unscoped": 0.8, "dmg_all": 1, "crit_dmg": 0.3, "dr": 0.5, "er": 0.4, "ap": 0.3 } },
-        "pistol":    { "label": "Gunslinger (pistols)",       "ranged": true,  "weights": { "dmg_unscoped": 0.8, "dmg_all": 1, "crit_dmg": 0.4, "dr": 0.5, "er": 0.4, "ap": 0.4 } },
-        "shotgun":   { "label": "Shotgunner",                 "ranged": true,  "weights": { "dmg_unscoped": 0.8, "dmg_all": 1, "crit_dmg": 0.3, "dr": 0.6, "er": 0.5, "ap": 0.3 } },
-        "melee":     { "label": "Melee",                      "ranged": false, "goals": { "melee": 1 }, "fallback_add": { "str": 1, "dmg_melee": 1 }, "weights": { "dmg_melee_weapons": 1, "crit_melee": 1, "dmg_all": 1, "crit_dmg": 0.3, "dr": 0.6, "er": 0.5, "ap": 0.4 } },
-        "unarmed":   { "label": "Unarmed",                    "ranged": false, "goals": { "unarmed": 1 }, "fallback_add": { "str": 1, "dmg_unarmed": 1, "dmg_melee": 0.6 }, "weights": { "dmg_all": 1, "crit_melee": 1, "crit_dmg": 0.3, "dr": 0.6, "er": 0.5, "ap": 0.4 } },
-        "archer":    { "label": "Bows & Throwing (bows, knives, tomahawks)", "ranged": true, "skip": ["damage_type"], "prefer": { "alcohol": ["Wine"] }, "weights": { "dmg_all": 1, "crit_dmg": 0.5, "ap": 0.3, "dr": 0.4 } },
-        "explosive": { "label": "Explosives",                 "ranged": true, "skip": ["damage_type"], "weights": { "dmg_explosive": 1, "dmg_all": 1, "crit_dmg": 0.2, "dr": 0.6, "er": 0.5, "fire_res": 0.3 } },
-        "support":   { "label": "Support / Team Healer",      "ranged": true, "skip": ["damage_type"], "weights": { "stimpak_heal": 0.6, "cha": 1, "max_hp": 0.8, "dr": 0.6, "er": 0.5, "heal_rate": 0.6, "ap": 0.3, "end": 0.3 } }
+        "heavy":     { "label": "Heavy Guns",                 "ranged": true,  "weights": { "dmg_heavy": 1, "crit_heavy": 1, "dmg_unscoped": 0.8, "heavy_ammo": 0.4, "dmg_all": 1, "ap": 0.2 } },
+        "rifle":     { "label": "Rifleman / Sniper (semi-auto & scoped rifles)", "ranged": true, "weights": { "dmg_scoped": 0.8, "dmg_all": 1, "ap": 0.3 } },
+        "commando":  { "label": "Commando (auto rifles)",     "ranged": true,  "weights": { "dmg_unscoped": 0.8, "dmg_all": 1, "ap": 0.3 } },
+        "pistol":    { "label": "Gunslinger (pistols)",       "ranged": true,  "weights": { "dmg_unscoped": 0.8, "dmg_all": 1, "ap": 0.4 } },
+        "shotgun":   { "label": "Shotgunner",                 "ranged": true,  "weights": { "dmg_unscoped": 0.8, "dmg_all": 1, "ap": 0.3 } },
+        "melee":     { "label": "Melee",                      "ranged": false, "goals": { "melee": 1 }, "fallback_add": { "str": 1, "dmg_melee": 1 }, "weights": { "dmg_melee_weapons": 1, "crit_melee": 1, "dmg_all": 1, "ap": 0.4 } },
+        "unarmed":   { "label": "Unarmed",                    "ranged": false, "goals": { "unarmed": 1 }, "fallback_add": { "str": 1, "dmg_unarmed": 1, "dmg_melee": 0.6 }, "weights": { "dmg_all": 1, "crit_melee": 1, "ap": 0.4 } },
+        "archer":    { "label": "Bows & Throwing (bows, knives, tomahawks)", "ranged": true, "skip": ["damage_type"], "prefer": { "alcohol": ["Wine"] }, "weights": { "dmg_all": 1, "ap": 0.3 } },
+        "explosive": { "label": "Explosives",                 "ranged": true, "skip": ["damage_type"], "weights": { "dmg_explosive": 1, "dmg_all": 1, "fire_res": 0.3 } },
+        "support":   { "label": "Support / Team Healer",      "ranged": true, "skip": ["damage_type"], "weights": { "stimpak_heal": 0.6, "cha": 1, "max_hp": 0.8, "heal_rate": 0.6, "ap": 0.3, "end": 0.3 } }
       }
     },
     "playstyle": {
       "label": "What do you mostly do?",
       "options": {
-        "combat":    { "label": "Combat & events" },
-        "exploring": { "label": "Exploring & looting", "add": { "loot_caps": 0.8, "lockpick": 0.8, "hacking": 0.8, "carry": 0.6, "sneak": 0.3, "per": 0.6, "cha": 0.6, "int": 0.6, "agi": 0.6, "ap": 0.4, "luck": 0.6 }, "full_utility": true,
+        "combat":    { "label": "Combat & events", "add": { "dr": 0.6, "er": 0.5 } },
+        "exploring": { "label": "Exploring & looting", "add": { "loot_caps": 0.8, "lockpick": 0.8, "hacking": 0.8, "carry": 0.6, "dr": 0.5, "er": 0.5, "per": 0.6, "cha": 0.6, "int": 0.6, "agi": 0.6, "ap": 0.4, "luck": 0.6 }, "full_utility": true,
                        "note": "Exploring: Perception widens your compass range (about 12 ft a point), so you spot more on the way, Charisma gets you better prices when you buy and sell your loot, Intelligence gives you more components back when you scrap junk, Agility adds Action Points (10 a point) for jetpacks and jumping, and Luck means weapons and armour you loot are in better condition." }
       }
     },
@@ -175,7 +177,7 @@
                   "add": { "crit_dmg": 1.5, "vats_acc": 0.8, "ap_regen": 0.7, "luck": 0.8, "per": 0.6 },
                   "fallback_add": { "ap": 0.5, "agi": 0.6 },
                   "note": "VATS builds live on crits, so Critical Damage is weighted heavily (Overdrive over Psycho for the chem slot)." },
-        "free": { "label": "Free aim / scope",        "add": { "gun_acc": 0.6 }, "mult": { "vats_acc": 0, "crit_dmg": 0.5, "ap_regen": 0.6 } }
+        "free": { "label": "Free aim / scope",        "add": { "gun_acc": 0.6 }, "mult": { "vats_acc": 0, "crit_dmg": 0, "ap_regen": 0.6 } }
       }
     },
     "weapon": {
@@ -195,8 +197,8 @@
       "only_if_melee": true,
       "options": {
         "no":  { "label": "No" },
-        "yes": { "label": "Yes (e.g. Hack and Slash)", "goals": { "action_points": 0.5 }, "add": { "crit_dmg": 1.5, "ap_regen": 0.7, "luck": 0.8, "agi": 0.6 }, "fallback_add": { "ap": 0.5 },
-                 "note": "Melee V.A.T.S.: every swing costs AP, and the Hack and Slash legendary perk makes V.A.T.S. melee hits splash damage onto nearby enemies. So Agility / Action Points, AP regen, and Luck + Critical Damage for crits are picked." }
+        "yes": { "label": "Yes (e.g. Hack and Slash)", "goals": { "action_points": 0.5 }, "add": { "crit_dmg": 1.5, "vats_acc": 0.8, "ap_regen": 0.7, "luck": 0.8, "agi": 0.6 }, "fallback_add": { "ap": 0.5 },
+                 "note": "Melee V.A.T.S.: every swing costs AP, and the Hack and Slash legendary perk makes V.A.T.S. melee hits splash damage onto nearby enemies. So Agility / Action Points, AP regen, V.A.T.S. accuracy, and Luck + Critical Damage for crits are picked." }
       }
     },
     "sneaky": {
@@ -209,28 +211,28 @@
     "armour": {
       "label": "What armour do you wear?",
       "options": {
-        "power": { "label": "Power Armour",                  "goals": { "carry_weight": 1 }, "fallback_add": { "carry": 1, "str": 0.5 }, "add": { "fusion_core": 0.4, "pa_drain": 0.4 }, "mult": { "dr": 0.4, "er": 0.4, "rad_res": 0.2, "fire_res": 0.6, "poison_res": 0.6 },
-                   "note": "Carry weight is low in Power Armour, so Strength and carry weight buffs are picked. Power Armour already gives big DR / ER and rad resistance, so those buffs drop down the list." },
+        "power": { "label": "Power Armour",                  "goals": { "carry_weight": 1 }, "fallback_add": { "carry": 1, "str": 0.5 }, "add": { "fusion_core": 0.4, "pa_drain": 0.4 }, "mult": { "dr": 0, "er": 0, "rad_res": 0 },
+                   "note": "Carry weight is low in Power Armour, so Strength and carry weight buffs are picked. Power Armour already gives big DR / ER, so DR, ER and Rad Resistance buffs are left out." },
         "body":  { "label": "Body armour",                   "goals": { "health_bar": 0 }, "add": { "dr": 0.1, "er": 0.1, "end": 0.6, "max_hp": 0.6, "heal_rate": 0.6 },
                    "note": "Not in Power Armour, so Endurance, Max Health and Health Regen buffs are picked: every Endurance point adds 5 HP to your health bar." },
-        "none":  { "label": "No armour (Berserker's / Unyielding)", "avoid": ["dr"], "goals": { "health_bar": 0 }, "add": { "er": 0.2, "max_hp": 0.6, "end": 0.6, "heal_rate": 0.6 },
+        "none":  { "label": "Berserker's (no armour)", "avoid": ["dr"], "goals": { "health_bar": 0 }, "add": { "er": 0.2, "max_hp": 0.6, "end": 0.6, "heal_rate": 0.6 },
                    "note": "Not in Power Armour, so Endurance, Max Health and Health Regen buffs are picked: every Endurance point adds 5 HP to your health bar. Berserker's does more damage the LOWER your Damage Resistance is, so anything that adds DR (Psycho, Fury, Lead Champagne, DR food) is left out." }
       }
     },
     "health": {
       "label": "Bloodied or full health?",
       "options": {
-        "bloodied": { "label": "Bloodied (low health)", "add": { "max_hp": 0.6, "end": 1 }, "mult": { "rad_res": 0, "heal_rate": 0.3 }, "rads_ok": true,
-                      "note": "Bloodied builds still want Max Health and Endurance buffs so they can take more hits (Kat, 20 Oct 2026: bloodied always gets Endurance). Rads are fine (they keep your health low), so rad resistance is left out." },
-        "full":     { "label": "Full health",           "add": { "rad_res": 0.3 } }
+        "bloodied": { "label": "Bloodied (low health)", "add": { "max_hp": 0.6, "end": 1 }, "mult": { "heal_rate": 0.3 }, "rads_ok": true,
+                      "note": "Bloodied builds still want Max Health and Endurance buffs so they can take more hits (Kat, 20 Oct 2026: bloodied always gets Endurance). Rads are fine while you get your health down. Once you are low, take your Rad Resistance so more rads don't kill you: rads first, then Rad Resistance." },
+        "full":     { "label": "Full health" }
       }
     },
     "race": {
       "label": "Ghoul or human?",
       "options": {
         "human": { "label": "Human" },
-        "ghoul": { "label": "Ghoul", "mult": { "rad_res": 0 }, "rads_ok": true, "feral_bonus": 0.15,
-                   "note": "Ghouls don't need rad resistance and rads don't hurt them. Chems that also refill your Feral meter get a small bonus." }
+        "ghoul": { "label": "Ghoul", "mult": { "rad_res": 0, "disease_res": 0, "cha": 0 }, "rads_ok": true, "feral_bonus": 0.15,
+                   "note": "Ghouls don't need rad resistance and rads don't hurt them. They are immune to disease, so disease resistance is left out, and Charisma buffs are left out too (Ghouls lose 10 Charisma, and buffs can't fix perk sharing). Chems that also refill your Feral meter get a small bonus." }
       }
     },
     "carry": {
