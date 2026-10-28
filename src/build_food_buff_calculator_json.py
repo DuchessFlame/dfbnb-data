@@ -798,6 +798,22 @@ def build(data_dir, dist_dir):
             "rule": sr.get("description", ""),
             "src": "dist/seasonal_fish_guide.json",
         }
+    # Watched buffs (rules.watch_buffs, Kat 28 Oct): flag any item whose buff got bigger since the baseline
+    buffed = {}
+    for it in items:
+        bl = (rules.get("watch_buffs") or {}).get(it["n"])
+        if not bl:
+            continue
+        for f in it["fx"]:
+            if f.get("neg") or f["s"] not in bl:
+                continue
+            m0, d0 = bl[f["s"]]
+            if (m0 is not None and f["m"] > m0 + 1e-9) or (d0 is not None and f["d"] > d0):
+                buffed.setdefault(it["n"], []).append({"s": f["s"], "was": [m0, d0], "now": [f["m"], f["d"]]})
+    if buffed:
+        mech["buffed"] = buffed
+        for n, ch in buffed.items():
+            warn(f"watch_buffs: {n} got a buff {ch} - the calculator now recommends it first")
     out = {
         "version": 1,
         "generated": datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),

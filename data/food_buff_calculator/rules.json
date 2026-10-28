@@ -157,7 +157,7 @@
       "options": {
         "combat":    { "label": "Combat & events", "add": { "dr": 0.6, "er": 0.5 } },
         "exploring": { "label": "Exploring & looting", "add": { "loot_caps": 0.8, "lockpick": 0.8, "hacking": 0.8, "carry": 0.6, "dr": 0.5, "er": 0.5, "per": 0.6, "cha": 0.6, "int": 0.6, "agi": 0.6, "ap": 0.4, "luck": 0.6 }, "full_utility": true,
-                       "note": "Exploring: Perception widens your compass range (about 12 ft a point), so you spot more on the way, Charisma gets you better prices when you buy and sell your loot, Intelligence gives you more components back when you scrap junk, Agility adds Action Points (10 a point) for jetpacks and jumping, and Luck means weapons and armour you loot are in better condition." }
+                       "note": "Exploring: Perception, Charisma, Intelligence, Agility and Luck all help you loot, sell and get around." }
       }
     },
     "damage_type": {
@@ -176,7 +176,7 @@
         "vats": { "label": "VATS",                    "goals": { "action_points": 0.5, "vats": 0 },
                   "add": { "crit_dmg": 1.5, "vats_acc": 0.8, "ap_regen": 0.7, "luck": 0.8, "per": 0.6 },
                   "fallback_add": { "ap": 0.5, "agi": 0.6 },
-                  "note": "VATS builds live on crits, so Critical Damage is weighted heavily (Overdrive over Psycho for the chem slot)." },
+                  "note": "V.A.T.S. builds live on crits, so Critical Damage comes first." },
         "free": { "label": "Free aim / scope",        "add": { "gun_acc": 0.6 }, "mult": { "vats_acc": 0, "crit_dmg": 0, "ap_regen": 0.6 } }
       }
     },
@@ -198,7 +198,7 @@
       "options": {
         "no":  { "label": "No" },
         "yes": { "label": "Yes (e.g. Hack and Slash)", "goals": { "action_points": 0.5 }, "add": { "crit_dmg": 1.5, "vats_acc": 0.8, "ap_regen": 0.7, "luck": 0.8, "agi": 0.6 }, "fallback_add": { "ap": 0.5 },
-                 "note": "Melee V.A.T.S.: every swing costs AP, and the Hack and Slash legendary perk makes V.A.T.S. melee hits splash damage onto nearby enemies. So Agility / Action Points, AP regen, V.A.T.S. accuracy, and Luck + Critical Damage for crits are picked." }
+                 "note": "Melee V.A.T.S.: every swing costs AP, so AP, AP regen, accuracy, Luck and crit damage are picked." }
       }
     },
     "sneaky": {
@@ -212,18 +212,18 @@
       "label": "What armour do you wear?",
       "options": {
         "power": { "label": "Power Armour",                  "goals": { "carry_weight": 1 }, "fallback_add": { "carry": 1, "str": 0.5 }, "add": { "fusion_core": 0.4, "pa_drain": 0.4 }, "mult": { "dr": 0, "er": 0, "rad_res": 0 },
-                   "note": "Carry weight is low in Power Armour, so Strength and carry weight buffs are picked. Power Armour already gives big DR / ER, so DR, ER and Rad Resistance buffs are left out." },
+                   "note": "Power Armour: low carry weight, so Strength and carry weight. It already covers DR, ER and rads." },
         "body":  { "label": "Body armour",                   "goals": { "health_bar": 0 }, "add": { "dr": 0.1, "er": 0.1, "end": 0.6, "max_hp": 0.6, "heal_rate": 0.6 },
-                   "note": "Not in Power Armour, so Endurance, Max Health and Health Regen buffs are picked: every Endurance point adds 5 HP to your health bar." },
+                   "note": "Not in Power Armour: Endurance, Max Health and Health Regen." },
         "none":  { "label": "Berserker's (no armour)", "avoid": ["dr"], "goals": { "health_bar": 0 }, "add": { "er": 0.2, "max_hp": 0.6, "end": 0.6, "heal_rate": 0.6 },
-                   "note": "Not in Power Armour, so Endurance, Max Health and Health Regen buffs are picked: every Endurance point adds 5 HP to your health bar. Berserker's does more damage the LOWER your Damage Resistance is, so anything that adds DR (Psycho, Fury, Lead Champagne, DR food) is left out." }
+                   "note": "Berserker's: no DR buffs (they lower your damage). Endurance, Max Health and Health Regen instead." }
       }
     },
     "health": {
       "label": "Bloodied or full health?",
       "options": {
         "bloodied": { "label": "Bloodied (low health)", "add": { "max_hp": 0.6, "end": 1 }, "mult": { "heal_rate": 0.3 }, "rads_ok": true,
-                      "note": "Bloodied builds still want Max Health and Endurance buffs so they can take more hits (Kat, 20 Oct 2026: bloodied always gets Endurance). Rads are fine while you get your health down. Once you are low, take your Rad Resistance so more rads don't kill you: rads first, then Rad Resistance." },
+                      "note": "Bloodied: take your rads first, then Rad Resistance so more rads don't kill you." },
         "full":     { "label": "Full health" }
       }
     },
@@ -232,7 +232,7 @@
       "options": {
         "human": { "label": "Human" },
         "ghoul": { "label": "Ghoul", "mult": { "rad_res": 0, "disease_res": 0, "cha": 0 }, "rads_ok": true, "feral_bonus": 0.15,
-                   "note": "Ghouls don't need rad resistance and rads don't hurt them. They are immune to disease, so disease resistance is left out, and Charisma buffs are left out too (Ghouls lose 10 Charisma, and buffs can't fix perk sharing). Chems that also refill your Feral meter get a small bonus." }
+                   "note": "Ghouls: no rad, disease or Charisma buffs needed." }
       }
     },
     "carry": {
@@ -247,7 +247,7 @@
       "options": {
         "no":  { "label": "No" },
         "yes": { "label": "Yes", "goals": { "health_bar": 1, "health_regen": 1 }, "add": { "stimpak_heal": 0.3, "avoid_all": 0.5 }, "fallback_add": { "max_hp": 0.8, "heal_rate": 0.8, "end": 0.5 },
-                 "note": "You die a lot, so anything that adds HP to your health bar (Max Health, Endurance) and health regen moves up the list (Kat, 20 Oct 2026). Bloodied still keeps regen low - it would heal them out of bloodied." }
+                 "note": "Die a lot: more health and health regen." }
       }
     },
     "xp": {
@@ -255,7 +255,7 @@
       "options": {
         "no":  { "label": "No", "mult": { "xp": 0 } },
         "yes": { "label": "Yes", "goals": { "xp": 1 }, "add": { "cha": 1 }, "fallback_add": { "xp": 1, "int": 0.7 },
-                 "note": "XP hungry: XP buffs, Intelligence (it raises XP gained) and Charisma buffs. Charisma raises your XP through the Inspirational perk card while you're on a team (+20% at 15 CHA, +25% at 30) and your teammates' XP too." }
+                 "note": "XP: XP buffs, Intelligence, and Charisma in a team." }
       }
     },
     "enemy": {
@@ -295,8 +295,12 @@
     "always_add": ["Carry Weight Booster"],
     "cover": { "type": "food", "slots": ["carry", "str"] }
   },
+  "_slot_why_readme": "Kat 28 Oct: one plain sentence per stat, shown under the stat name in the Stats view (why we recommend it), with a Learn more link to its SPECIALs & Stats guide. Words only - no numbers or formulas.",
+  "slot_why": {"str": {"t": "Strength raises your melee damage and how much you can carry.", "link": "/bnb/specials-stats/strength/strength-guide/"}, "per": {"t": "Perception helps your V.A.T.S. shots land and widens your compass so you spot more.", "link": "/bnb/specials-stats/perception/perception-guide/"}, "end": {"t": "Endurance gives you a bigger health bar, so you can take more hits.", "link": "/bnb/specials-stats/endurance/endurance-guide/"}, "cha": {"t": "Charisma gets you better prices when you trade, and more XP when you're in a team.", "link": "/bnb/specials-stats/charisma/charisma-guide/"}, "int": {"t": "Intelligence earns you more XP and more components when you scrap junk.", "link": "/bnb/specials-stats/intelligence/intelligence-guide/"}, "agi": {"t": "Agility gives you more Action Points and helps you sneak.", "link": "/bnb/specials-stats/agility/agility-guide/"}, "luck": {"t": "Luck fills your V.A.T.S. critical meter faster and means the weapons and armour you loot are in better condition.", "link": "/bnb/specials-stats/luck/luck-guide/"}, "ap": {"t": "More Action Points for V.A.T.S., sprinting, jumping and jetpacks.", "link": "/bnb/specials-stats/action-points/action-points-guide/"}, "ap_regen": {"t": "Your Action Points refill faster.", "link": "/bnb/specials-stats/ap-regen/ap-regen-guide/"}, "xp": {"t": "You earn more XP from everything you do.", "link": "/bnb/specials-stats/well-rested/well-rested-guide/"}, "carry": {"t": "You can carry more before you're over-encumbered.", "link": "/bnb/specials-stats/carry-weight/carry-weight-guide/"}, "dmg_all": {"t": "More damage with every weapon."}, "dmg_melee": {"t": "More damage with melee weapons and fists.", "link": "/bnb/specials-stats/melee-damage/melee-damage-guide/"}, "dmg_unarmed": {"t": "More damage with fists and unarmed weapons.", "link": "/bnb/specials-stats/melee-damage/melee-damage-guide/"}, "dmg_melee_weapons": {"t": "More damage with melee weapons (not fists).", "link": "/bnb/specials-stats/melee-damage/melee-damage-guide/"}, "dmg_ballistic": {"t": "More damage with bullet weapons."}, "dmg_energy": {"t": "More damage with energy weapons."}, "dmg_heavy": {"t": "More damage with heavy guns."}, "dmg_explosive": {"t": "More damage with explosives."}, "dmg_scoped": {"t": "More damage with scoped weapons."}, "dmg_unscoped": {"t": "More damage with weapons that have no scope."}, "dmg_cryolator": {"t": "More damage with the Cryolator."}, "dmg_alien": {"t": "More damage with the Alien Blaster."}, "dmg_throwing": {"t": "More damage with throwing weapons."}, "dmg_fistknife": {"t": "More damage with fists and knives."}, "dmg_animals": {"t": "More damage against animals."}, "crit_dmg": {"t": "Your V.A.T.S. critical hits hit harder.", "link": "/bnb/specials-stats/vats-crits/vats-crits-guide/"}, "crit_ballistic": {"t": "Your V.A.T.S. critical hits with bullet weapons hit harder.", "link": "/bnb/specials-stats/vats-crits/vats-crits-guide/"}, "crit_energy": {"t": "Your V.A.T.S. critical hits with energy weapons hit harder.", "link": "/bnb/specials-stats/vats-crits/vats-crits-guide/"}, "crit_heavy": {"t": "Your V.A.T.S. critical hits with heavy guns hit harder.", "link": "/bnb/specials-stats/vats-crits/vats-crits-guide/"}, "crit_melee": {"t": "Your V.A.T.S. critical hits with melee and fists hit harder.", "link": "/bnb/specials-stats/vats-crits/vats-crits-guide/"}, "sneak_attack": {"t": "Your attacks from sneak do more damage.", "link": "/bnb/specials-stats/sneak/sneak-guide/"}, "sneak": {"t": "Enemies have a harder time spotting you.", "link": "/bnb/specials-stats/sneak/sneak-guide/"}, "invis": {"t": "Turns you invisible for a short time.", "link": "/bnb/specials-stats/sneak/sneak-guide/"}, "vats_acc": {"t": "Your V.A.T.S. shots and swings land more often.", "link": "/bnb/specials-stats/vats-hit-chance/vats-hit-chance-guide/"}, "gun_acc": {"t": "Steadier aim when you shoot without V.A.T.S."}, "max_hp": {"t": "A bigger health bar, so you can take more hits.", "link": "/bnb/specials-stats/hp/hp-guide/"}, "heal_rate": {"t": "Heals you back up over time when you're out of a fight.", "link": "/bnb/specials-stats/hp-regen/hp-regen-guide/"}, "dr": {"t": "You take less damage from bullets, melee and other physical hits.", "link": "/bnb/specials-stats/resistance/damage-resistance/damage-resistance-guide/"}, "er": {"t": "You take less damage from lasers, plasma and other energy weapons.", "link": "/bnb/specials-stats/resistance/energy-resistance/energy-resistance-guide/"}, "fire_res": {"t": "You take less damage from fire and flamers.", "link": "/bnb/specials-stats/resistance/fire-resistance/fire-resistance-guide/"}, "rad_res": {"t": "You pick up fewer rads from the world around you.", "link": "/bnb/specials-stats/resistance/radiation-resistance/radiation-resistance-guide/"}, "disease_res": {"t": "Less chance of catching a disease.", "link": "/bnb/specials-stats/disease-resistance/disease-resistance-guide/"}, "move_speed": {"t": "You move faster.", "link": "/bnb/specials-stats/movement-speed/movement-speed-guide/"}, "stimpak_heal": {"t": "Stimpaks heal you more."}, "ap_refill": {"t": "Gives you some Action Points back straight away.", "link": "/bnb/specials-stats/action-points/action-points-guide/"}, "hunger_thirst": {"t": "Your hunger and thirst go down slower, so you eat and drink less."}, "fusion_core": {"t": "Your fusion cores last longer."}, "pa_drain": {"t": "Your Power Armour uses less fusion core power."}, "heavy_ammo": {"t": "Your heavy weapons use less ammo."}},
+  "_watch_buffs_readme": "Kat 28 Oct 2026: Bethesda is buffing bubblegum. These are the gum numbers (magnitude, seconds) as of 28 Oct. When a patch makes any of them BIGGER, the builder flags the item (mechanics.buffed) and the calculator puts it first in the gum slot with a \"Buffed this patch\" pill. Update this baseline after the buff is checked.",
+  "watch_buffs": {"Bubblegum": {"hunger_thirst": [50.0, 600]}, "Cola Perk Bubblegum": {"hunger_thirst": [5.0, 120], "rad_res": [5.0, 120]}, "Grape Perk Bubblegum": {"hunger_thirst": [5.0, 120], "disease_res": [5.0, 120]}, "Perfect Bubblegum": {"hunger_thirst": [100.0, 3615]}, "Perk Bubblegum": {"hunger_thirst": [5.0, 120]}, "Strawberry Perk Bubblegum": {"hunger_thirst": [5.0, 120], "dr": [1.0, 120]}, "Watermelon Perk Bubblegum": {"hunger_thirst": [5.0, 120], "ap_refill": [0.35, 120]}},
   "_team_play_readme": "Weights added by the Solo / In a team page option (not a question). Kat 27 Oct: Charisma is wanted in a team (Inspirational: Charisma-keyed XP for you and an XP aura for teammates, only in a team), when XP is important, or when exploring & looting (barter). Solo + XP not important + combat = no Charisma.",
-  "team_play": { "team": { "add": { "cha": 0.6 }, "note": "In a team: Charisma powers Inspirational, more XP for you and your teammates." } },
+  "team_play": { "team": { "add": { "cha": 0.6 }, "note": "In a team: Charisma means more XP for you and your team." } },
   "_damage_first_readme": "Chems and alcohol only get ONE slot each (dispel groups), so that slot goes to DAMAGE OUTPUT: buffs in the 'Damage' slot group count in full, everything else counts at non_damage_share. Carry Weight also counts in full when they say they struggle with carry weight (that is the only time Rad Ant Lager wins). full_when (Kat 27 Oct): the listed slots also count in full when question q has answer a. Strength counts in full for Melee / Unarmed (it IS their damage), and Strength + carry weight count in full in Power Armour (carry weight is low in PA) and when they struggle with carry weight.",
   "damage_first": { "types": ["chem", "alcohol", "magazine", "bobblehead"], "non_damage_share": 0.25, "full_when_yes": { "carry": "carry" },
                     "full_when": [ { "q": "carry", "a": "yes", "slots": ["carry", "str"] }, { "q": "armour", "a": "power", "slots": ["carry", "str"] }, { "q": "build", "a": "melee", "slots": ["str"] }, { "q": "build", "a": "unarmed", "slots": ["str"] } ] },
