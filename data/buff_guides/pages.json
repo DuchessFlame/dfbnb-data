@@ -16,7 +16,8 @@
       "basics": [
         "Most drinks have a chance to make you addicted to alcohol. The chance is shown with each drink.",
         "Party Boy / Party Girl (Luck) multiplies the good effects of alcohol: ×{party1} at rank 1, ×{party2} at the top rank.",
-        "Drinks with the same kind of buff replace each other. Drinks with different buffs stack."
+        "Drinks with the same kind of buff replace each other. Drinks with different buffs stack.",
+        "Some drinks leave you with a hangover when they wear off. The Rad Ant Lager and Hard Lemonade hangovers are cleared by your next alcoholic drink. The Mild Hangover (Lead Champagne, Tick Blood Tequila, Ballistic Bock, Hoppy Hunter, High Voltage Hefe, White Russian, Toxic Gin, Firecracker Whiskey and Appalachian Bubbly) and the Nukashine hangover are not: drinking again doesn't clear them, they just run out."
       ],
       "guides_title": "Useful pages",
       "guides": [
@@ -30,7 +31,16 @@
       "perkbar": [
         "party"
       ],
-      "notes": {}
+      "notes": {
+        "Brew_RadAntLager": [
+          "note",
+          "When it wears off you get a hangover that takes {fx0} lb off your carry weight. Your next alcoholic drink clears the hangover, so drink again before it ends and you keep the +{fx0} lb going without ever losing it."
+        ],
+        "Brew_LemonadeHard": [
+          "note",
+          "When it wears off you get a Sugar Crash hangover that lowers your Action Points and AP regen. Your next alcoholic drink clears it."
+        ]
+      }
     },
     "chems": {
       "url": "/bnb/buffs/chems/chem-buffs/",

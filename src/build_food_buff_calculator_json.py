@@ -273,8 +273,9 @@ def conds_from_raw(raw):
     return out
 
 
-def perk_rules(perkep_rows, perk_edid, item_kws, effect_kws):
-    """Ingestible-magnitude multiply rules for one perk."""
+def perk_rules(perkep_rows, perk_edid, item_kws, effect_kws, kind="magnitude"):
+    """Ingestible multiply rules for one perk: kind "magnitude" (entry point 29,
+    Mod Spell Magnitude) or "duration" (entry point 30, Mod Spell Duration)."""
     out = []
     for r in perkep_rows:
         if r.get("PERK_EDID") != perk_edid:
@@ -282,7 +283,10 @@ def perk_rules(perkep_rows, perk_edid, item_kws, effect_kws):
         ep, fn = str(r.get("EntryPoint", "")), str(r.get("Function", ""))
         # Entry point 29. The ESM reader writes the number; xEdit (FO76 defs)
         # writes its name, "Mod Spell Magnitude".
-        if not (ep == "29" or "ingestible" in ep.lower() or "spell magnitude" in ep.lower()):
+        if kind == "duration":
+            if not (ep == "30" or "spell duration" in ep.lower()):
+                continue
+        elif not (ep == "29" or "ingestible" in ep.lower() or "spell magnitude" in ep.lower()):
             continue
         if not (fn == "3" or "multiply" in fn.lower()):
             continue
@@ -438,6 +442,10 @@ def build(data_dir, dist_dir):
             warn(f"no ingestible rules found for {k} (perks {diet_perks[k]}) - diet multipliers will be x1")
     party = {"rank1": perk_rules(perkep, "PartyGirl01", all_item_kws, all_eff_kws),
              "rank2": perk_rules(perkep, "PartyGirl02", all_item_kws, all_eff_kws)}
+    # All Night Long (Endurance card, Kat 28 Oct 2026): alcohol buffs last x2, but the
+    # perk skips drinks with BlockPartyBoyPerk (Rad Ant Lager, Mire Magic Moonshine ...)
+    # and detrimental effects - read from its own entry-point conditions.
+    all_night = perk_rules(perkep, "AllNightLong01", all_item_kws, all_eff_kws, kind="duration")
 
     chem_fiend = 2.0
     for fid, rows in S.spel_effects.items():
@@ -591,6 +599,7 @@ def build(data_dir, dist_dir):
                 p2 = mult_for(party["rank2"], kw, ek, None) if party["rank2"] else p1
                 if (p1 != 1 or p2 != 1) and not neg:
                     pm = [p1, p2]
+            anl = mult_for(all_night, kw, ek, None) if (typ == "alcohol" and all_night and not neg) else 1
             f = {"s": slot, "m": round(mag, 4), "d": int(round(dur)), "st": stack,
                  "e": "Gum_BigHungerThirst" if eed in BIG_GUM_EDID else eed}
             # DISPEL GROUPS — the real stacking rule (checked against the whole ESM,
@@ -612,6 +621,8 @@ def build(data_dir, dist_dir):
                 f["dm"] = dm
             if pm:
                 f["pm"] = pm
+            if anl != 1:
+                f["anl"] = anl
             fx.append(f)
 
         if typ in ("magazine", "bobblehead"):
@@ -744,6 +755,8 @@ def build(data_dir, dist_dir):
                       party["rank2"][0]["mult"] if party["rank2"] else 3.0],
         "chemFiend": round(chem_fiend, 3),
     }
+    if all_night:
+        mech["allNightLong"] = {"mult": all_night[0]["mult"], "perk": "AllNightLong01", "card": "All Night Long", "special": "Endurance"}
     # Magazine / bobblehead duration perks (20 Oct 2026): entry point 30 (spell
     # duration), multiply, conditioned on BobbleheadKeyword / MagazineKeyword.
     #   Curator01                 Intelligence card, x2

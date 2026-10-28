@@ -138,15 +138,15 @@
     "build": {
       "label": "What build are you running?",
       "options": {
-        "heavy":     { "label": "Heavy Guns",                 "ranged": true,  "weights": { "dmg_heavy": 1, "crit_heavy": 1, "dmg_unscoped": 0.8, "heavy_ammo": 0.4, "dmg_all": 1, "crit_dmg": 0.3, "dr": 0.6, "er": 0.5, "max_hp": 0.5, "ap": 0.2 } },
-        "rifle":     { "label": "Rifleman / Sniper (semi-auto & scoped rifles)", "ranged": true, "weights": { "dmg_scoped": 0.8, "dmg_all": 1, "crit_dmg": 0.4, "dr": 0.5, "er": 0.4, "max_hp": 0.4, "ap": 0.3 } },
-        "commando":  { "label": "Commando (auto rifles)",     "ranged": true,  "weights": { "dmg_unscoped": 0.8, "dmg_all": 1, "crit_dmg": 0.3, "dr": 0.5, "er": 0.4, "max_hp": 0.4, "ap": 0.3 } },
-        "pistol":    { "label": "Gunslinger (pistols)",       "ranged": true,  "weights": { "dmg_unscoped": 0.8, "dmg_all": 1, "crit_dmg": 0.4, "dr": 0.5, "er": 0.4, "max_hp": 0.4, "ap": 0.4 } },
-        "shotgun":   { "label": "Shotgunner",                 "ranged": true,  "weights": { "dmg_unscoped": 0.8, "dmg_all": 1, "crit_dmg": 0.3, "dr": 0.6, "er": 0.5, "max_hp": 0.5, "ap": 0.3 } },
-        "melee":     { "label": "Melee",                      "ranged": false, "goals": { "melee": 1 }, "fallback_add": { "str": 1, "dmg_melee": 1 }, "weights": { "dmg_melee_weapons": 1, "crit_melee": 1, "dmg_all": 1, "crit_dmg": 0.3, "dr": 0.6, "er": 0.5, "max_hp": 0.5, "ap": 0.4 } },
-        "unarmed":   { "label": "Unarmed",                    "ranged": false, "goals": { "unarmed": 1 }, "fallback_add": { "str": 1, "dmg_unarmed": 1, "dmg_melee": 0.6 }, "weights": { "dmg_all": 1, "crit_dmg": 0.3, "dr": 0.6, "er": 0.5, "max_hp": 0.5, "ap": 0.4 } },
-        "archer":    { "label": "Bows & Throwing (bows, knives, tomahawks)", "ranged": true, "skip": ["damage_type"], "prefer": { "alcohol": ["Wine"] }, "weights": { "dmg_all": 1, "crit_dmg": 0.5, "ap": 0.3, "dr": 0.4, "max_hp": 0.3 } },
-        "explosive": { "label": "Explosives",                 "ranged": true, "skip": ["damage_type"], "weights": { "dmg_explosive": 1, "dmg_all": 1, "crit_dmg": 0.2, "dr": 0.6, "er": 0.5, "fire_res": 0.3, "max_hp": 0.5 } },
+        "heavy":     { "label": "Heavy Guns",                 "ranged": true,  "weights": { "dmg_heavy": 1, "crit_heavy": 1, "dmg_unscoped": 0.8, "heavy_ammo": 0.4, "dmg_all": 1, "crit_dmg": 0.3, "dr": 0.6, "er": 0.5, "ap": 0.2 } },
+        "rifle":     { "label": "Rifleman / Sniper (semi-auto & scoped rifles)", "ranged": true, "weights": { "dmg_scoped": 0.8, "dmg_all": 1, "crit_dmg": 0.4, "dr": 0.5, "er": 0.4, "ap": 0.3 } },
+        "commando":  { "label": "Commando (auto rifles)",     "ranged": true,  "weights": { "dmg_unscoped": 0.8, "dmg_all": 1, "crit_dmg": 0.3, "dr": 0.5, "er": 0.4, "ap": 0.3 } },
+        "pistol":    { "label": "Gunslinger (pistols)",       "ranged": true,  "weights": { "dmg_unscoped": 0.8, "dmg_all": 1, "crit_dmg": 0.4, "dr": 0.5, "er": 0.4, "ap": 0.4 } },
+        "shotgun":   { "label": "Shotgunner",                 "ranged": true,  "weights": { "dmg_unscoped": 0.8, "dmg_all": 1, "crit_dmg": 0.3, "dr": 0.6, "er": 0.5, "ap": 0.3 } },
+        "melee":     { "label": "Melee",                      "ranged": false, "goals": { "melee": 1 }, "fallback_add": { "str": 1, "dmg_melee": 1 }, "weights": { "dmg_melee_weapons": 1, "crit_melee": 1, "dmg_all": 1, "crit_dmg": 0.3, "dr": 0.6, "er": 0.5, "ap": 0.4 } },
+        "unarmed":   { "label": "Unarmed",                    "ranged": false, "goals": { "unarmed": 1 }, "fallback_add": { "str": 1, "dmg_unarmed": 1, "dmg_melee": 0.6 }, "weights": { "dmg_all": 1, "crit_melee": 1, "crit_dmg": 0.3, "dr": 0.6, "er": 0.5, "ap": 0.4 } },
+        "archer":    { "label": "Bows & Throwing (bows, knives, tomahawks)", "ranged": true, "skip": ["damage_type"], "prefer": { "alcohol": ["Wine"] }, "weights": { "dmg_all": 1, "crit_dmg": 0.5, "ap": 0.3, "dr": 0.4 } },
+        "explosive": { "label": "Explosives",                 "ranged": true, "skip": ["damage_type"], "weights": { "dmg_explosive": 1, "dmg_all": 1, "crit_dmg": 0.2, "dr": 0.6, "er": 0.5, "fire_res": 0.3 } },
         "support":   { "label": "Support / Team Healer",      "ranged": true, "skip": ["damage_type"], "weights": { "stimpak_heal": 0.6, "cha": 1, "max_hp": 0.8, "dr": 0.6, "er": 0.5, "heal_rate": 0.6, "ap": 0.3, "end": 0.3 } }
       }
     },
@@ -154,7 +154,8 @@
       "label": "What do you mostly do?",
       "options": {
         "combat":    { "label": "Combat & events" },
-        "exploring": { "label": "Exploring & looting", "add": { "loot_caps": 0.8, "lockpick": 0.8, "hacking": 0.8, "carry": 0.6, "sneak": 0.3 }, "full_utility": true }
+        "exploring": { "label": "Exploring & looting", "add": { "loot_caps": 0.8, "lockpick": 0.8, "hacking": 0.8, "carry": 0.6, "sneak": 0.3, "per": 0.6, "cha": 0.6, "int": 0.6, "agi": 0.6, "ap": 0.4, "luck": 0.6 }, "full_utility": true,
+                       "note": "Exploring: Perception widens your compass range (about 12 ft a point), so you spot more on the way, Charisma gets you better prices when you buy and sell your loot, Intelligence gives you more components back when you scrap junk, Agility adds Action Points (10 a point) for jetpacks and jumping, and Luck means weapons and armour you loot are in better condition." }
       }
     },
     "damage_type": {
@@ -189,6 +190,15 @@
         "gatling":   { "label": "Gatling Laser",         "add": { "fusion_core": 1.5, "dmg_energy": 0.5, "crit_energy": 0.5 }, "mult": { "dmg_ballistic": 0, "crit_ballistic": 0 } }
       }
     },
+    "melee_vats": {
+      "label": "Do you use V.A.T.S. with your melee / unarmed weapon?",
+      "only_if_melee": true,
+      "options": {
+        "no":  { "label": "No" },
+        "yes": { "label": "Yes (e.g. Hack and Slash)", "goals": { "action_points": 0.5 }, "add": { "crit_dmg": 1.5, "ap_regen": 0.7, "luck": 0.8, "agi": 0.6 }, "fallback_add": { "ap": 0.5 },
+                 "note": "Melee V.A.T.S.: every swing costs AP, and the Hack and Slash legendary perk makes V.A.T.S. melee hits splash damage onto nearby enemies. So Agility / Action Points, AP regen, and Luck + Critical Damage for crits are picked." }
+      }
+    },
     "sneaky": {
       "label": "Do you play Sneak?",
       "options": {
@@ -199,11 +209,12 @@
     "armour": {
       "label": "What armour do you wear?",
       "options": {
-        "power": { "label": "Power Armour",                  "add": { "carry": 0.7, "fusion_core": 0.4, "pa_drain": 0.4 }, "mult": { "dr": 0.4, "er": 0.4, "rad_res": 0.2, "fire_res": 0.6, "poison_res": 0.6 },
-                   "note": "Power Armour already gives big DR / ER and rad resistance, so those buffs drop down the list." },
-        "body":  { "label": "Body armour",                   "add": { "dr": 0.1, "er": 0.1 } },
-        "none":  { "label": "No armour (Berserker's / Unyielding)", "avoid": ["dr"], "add": { "er": 0.2, "max_hp": 0.2 },
-                   "note": "Berserker's does more damage the LOWER your Damage Resistance is, so anything that adds DR (Psycho, Fury, Lead Champagne, DR food) is left out." }
+        "power": { "label": "Power Armour",                  "goals": { "carry_weight": 1 }, "fallback_add": { "carry": 1, "str": 0.5 }, "add": { "fusion_core": 0.4, "pa_drain": 0.4 }, "mult": { "dr": 0.4, "er": 0.4, "rad_res": 0.2, "fire_res": 0.6, "poison_res": 0.6 },
+                   "note": "Carry weight is low in Power Armour, so Strength and carry weight buffs are picked. Power Armour already gives big DR / ER and rad resistance, so those buffs drop down the list." },
+        "body":  { "label": "Body armour",                   "goals": { "health_bar": 0 }, "add": { "dr": 0.1, "er": 0.1, "end": 0.6, "max_hp": 0.6, "heal_rate": 0.6 },
+                   "note": "Not in Power Armour, so Endurance, Max Health and Health Regen buffs are picked: every Endurance point adds 5 HP to your health bar." },
+        "none":  { "label": "No armour (Berserker's / Unyielding)", "avoid": ["dr"], "goals": { "health_bar": 0 }, "add": { "er": 0.2, "max_hp": 0.6, "end": 0.6, "heal_rate": 0.6 },
+                   "note": "Not in Power Armour, so Endurance, Max Health and Health Regen buffs are picked: every Endurance point adds 5 HP to your health bar. Berserker's does more damage the LOWER your Damage Resistance is, so anything that adds DR (Psycho, Fury, Lead Champagne, DR food) is left out." }
       }
     },
     "health": {
@@ -211,7 +222,7 @@
       "options": {
         "bloodied": { "label": "Bloodied (low health)", "add": { "max_hp": 0.6, "end": 1 }, "mult": { "rad_res": 0, "heal_rate": 0.3 }, "rads_ok": true,
                       "note": "Bloodied builds still want Max Health and Endurance buffs so they can take more hits (Kat, 20 Oct 2026: bloodied always gets Endurance). Rads are fine (they keep your health low), so rad resistance is left out." },
-        "full":     { "label": "Full health",           "add": { "max_hp": 0.5, "heal_rate": 0.4, "rad_res": 0.3 } }
+        "full":     { "label": "Full health",           "add": { "rad_res": 0.3 } }
       }
     },
     "race": {
@@ -225,7 +236,7 @@
     "carry": {
       "label": "Do you struggle with carry weight?",
       "options": {
-        "no":  { "label": "No",  "mult": { "carry": 0 } },
+        "no":  { "label": "No" },
         "yes": { "label": "Yes", "goals": { "carry_weight": 1 }, "fallback_add": { "carry": 1, "str": 0.5 } }
       }
     },
@@ -273,8 +284,20 @@
       }
     }
   },
-  "_damage_first_readme": "Chems and alcohol only get ONE slot each (dispel groups), so that slot goes to DAMAGE OUTPUT: buffs in the 'Damage' slot group count in full, everything else counts at non_damage_share. Carry Weight also counts in full when they say they struggle with carry weight (that is the only time Rad Ant Lager wins).",
-  "damage_first": { "types": ["chem", "alcohol", "magazine", "bobblehead"], "non_damage_share": 0.25, "full_when_yes": { "carry": "carry" } },
+  "_linked_readme": "Kat 28 Oct: when a stat is on their list, the linked stat comes with it. AP follows Agility (Agility IS Action Points, 10 a point), and AP Regen follows Agility and / or AP. Weight = the highest of the from stats x share, unless the stat is already higher. Applied in order, so ap_regen sees the linked AP.",
+  "linked": { "ap": { "from": ["agi"], "share": 1 }, "ap_regen": { "from": ["agi", "ap"], "share": 1 } },
+  "_carry_plan_readme": "Kat 28 Oct 2026. When they need carry weight (carry = yes, or Power Armour): prefer = the magazine slot goes to Grognak the Barbarian 9 (+carry weight), the bobblehead slot to Strength, and the alcohol slot to Vintage Mire Magic Moonshine (+4 STR, 4 min); Rad Ant Lager (+50 lb but only 2 min, then a hangover) shows as its alternative because the two cancel each other. always_add = items with no dispel group that stack with everything: added on top, never taking a food slot. cover = a carry weight food AND a Strength food are both picked (different food groups, they stack).",
+  "carry_plan": {
+    "when": [ { "q": "carry", "a": "yes" }, { "q": "armour", "a": "power" } ],
+    "prefer": { "alcohol": ["Vintage Mire Magic Moonshine"], "magazine": ["Grognak the Barbarian 9"], "bobblehead": ["Bobblehead: Strength", "Glowing Bobblehead: Strength"] },
+    "always_add": ["Carry Weight Booster"],
+    "cover": { "type": "food", "slots": ["carry", "str"] }
+  },
+  "_team_play_readme": "Weights added by the Solo / In a team page option (not a question). Kat 27 Oct: Charisma is wanted in a team (Inspirational: Charisma-keyed XP for you and an XP aura for teammates, only in a team), when XP is important, or when exploring & looting (barter). Solo + XP not important + combat = no Charisma.",
+  "team_play": { "team": { "add": { "cha": 0.6 }, "note": "In a team: Charisma powers Inspirational, more XP for you and your teammates." } },
+  "_damage_first_readme": "Chems and alcohol only get ONE slot each (dispel groups), so that slot goes to DAMAGE OUTPUT: buffs in the 'Damage' slot group count in full, everything else counts at non_damage_share. Carry Weight also counts in full when they say they struggle with carry weight (that is the only time Rad Ant Lager wins). full_when (Kat 27 Oct): the listed slots also count in full when question q has answer a. Strength counts in full for Melee / Unarmed (it IS their damage), and Strength + carry weight count in full in Power Armour (carry weight is low in PA) and when they struggle with carry weight.",
+  "damage_first": { "types": ["chem", "alcohol", "magazine", "bobblehead"], "non_damage_share": 0.25, "full_when_yes": { "carry": "carry" },
+                    "full_when": [ { "q": "carry", "a": "yes", "slots": ["carry", "str"] }, { "q": "armour", "a": "power", "slots": ["carry", "str"] }, { "q": "build", "a": "melee", "slots": ["str"] }, { "q": "build", "a": "unarmed", "slots": ["str"] } ] },
   "penalties": {
     "rads_per_point": 0.01,
     "disease_chance_per_pct": 0.004,
