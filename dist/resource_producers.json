@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-28T09:23:55+00:00",
+  "generatedAt": "2026-10-28T14:23:38+00:00",
   "type": "resource_producers",
   "count": 89,
   "items": [
@@ -529,14 +529,14 @@
       },
       "craftingRequirements": [],
       "howToObtain": {
-        "method": "scoreboard",
+        "method": "gold",
         "seasonNumber": 26,
-        "goldBullionPrice": null,
-        "vendor": null,
-        "tradeable": null,
-        "planName": null,
-        "display": "Purchase with tickets from the Beware the Blood Moon Scoreboard (Season 26)",
-        "badge": "scoreboard"
+        "goldBullionPrice": 4000,
+        "vendor": "Samuel",
+        "tradeable": false,
+        "planName": "Plan: Altar of Bones",
+        "display": "Purchase from Samuel for 4000 Gold Bullion. Requires unlocking the Beware the Blood Moon Scoreboard (Season 26).",
+        "badge": "gold"
       },
       "obtainRoutes": [
         {
@@ -555,19 +555,21 @@
         },
         {
           "route": "Scoreboard",
-          "populated": true,
-          "lines": [
-            "Purchase with tickets from the Beware the Blood Moon Scoreboard (Season 26)"
-          ],
-          "tradeable": null,
-          "dropRate": "N/A"
-        },
-        {
-          "route": "Gold Bullion",
           "populated": false,
           "lines": [],
           "tradeable": null,
           "dropRate": null
+        },
+        {
+          "route": "Gold Bullion",
+          "populated": true,
+          "lines": [
+            "Plan: Altar of Bones",
+            "Vendor: Samuel",
+            "Cost: 4,000 Gold Bullion"
+          ],
+          "tradeable": false,
+          "dropRate": "N/A"
         },
         {
           "route": "Atom Shop",
@@ -18318,7 +18320,7 @@
       "contFormId": "0090B5D3",
       "entmFormId": "0090B5D4",
       "displayName": "Tree of Spoils",
-      "description": "Even Raiders want to give gifts for the holidays, even if the gifts were pillaged from someone else.",
+      "description": "Even Raiders want to give gifts for the holidays, even if the gifts were pillaged from someone else. Generates basic Chems, alcoholic drinks, basic melee weapons, and basic ranged weapons.",
       "imageUrl": "/wp-content/uploads/guide-images/camp-items/resource-producers/atx_camp_collector_treeofspoils_l.avif",
       "imageCarousel": [
         "/wp-content/uploads/guide-images/camp-items/resource-producers/atx_camp_collector_treeofspoils_c1.avif",
@@ -18330,7 +18332,7 @@
       "production": {
         "intervalHours": 0.17,
         "intervalDisplay": "10 min 12 sec",
-        "resourceName": "Tree of Spoils",
+        "resourceName": "Spoils of War",
         "resourceEdid": "ATX_ResourceAV_TreeOfSpoils_resource",
         "drops": [],
         "modes": [
@@ -18338,7 +18340,7 @@
             "name": "Default",
             "resoFormId": "0090B5D9",
             "lvliFormId": "0090B5D8",
-            "resourceName": "Tree of Spoils",
+            "resourceName": "Spoils of War",
             "drops": []
           }
         ]

@@ -1,16 +1,16 @@
 {
   "version": 2,
-  "generated": "2026-10-28T09:57:23.914347+00:00",
+  "generated": "2026-10-28T19:08:19.629745+00:00",
   "mode": "vs-live",
   "season": null,
   "baseline": {
-    "newest": "BOOK_Export_PTS_2026-10-25_1808.tsv",
+    "newest": "BOOK_Export_PTS_2026-10-28_0509.tsv",
     "previous": "BOOK_Export_October_2026.tsv",
-    "newest_plan_count": 3109,
+    "newest_plan_count": 3113,
     "previous_plan_count": 2935
   },
-  "count": 166,
-  "count_new": 166,
+  "count": 160,
+  "count_new": 160,
   "count_changed": 0,
   "skipped_not_in_master": [],
   "grouping": "source",
@@ -1164,8 +1164,160 @@
     {
       "key": "gold",
       "label": "Gold Bullion Vendors",
-      "count": 2,
+      "count": 4,
       "items": [
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "recipe",
+          "id": "PLAN_00968AC5",
+          "name": "Plan: Altar of Bones",
+          "has_image_box": true,
+          "image_dir": "workshop",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+          "category_label": "CAMP / Recipe (physical plan)",
+          "obtain_routes": [
+            {
+              "route": "Samuel (Settlers Gold Bullion vendor)",
+              "source_type": "vendor",
+              "rate": 1.0,
+              "rate_display": "100%",
+              "lvli": [
+                "0059672D"
+              ],
+              "conditions": [
+                "Only while you do not own Altar of Bones"
+              ],
+              "vendor_detail": {
+                "vendor": "Samuel",
+                "location": "Foundation",
+                "cost": 4000,
+                "currency": "Gold Bullion",
+                "reputation": "Settlers — Ally",
+                "stock": "",
+                "lines": [
+                  "Vendor: Samuel — Foundation",
+                  "Cost: 4,000 Gold Bullion",
+                  "Reputation: Settlers — Ally"
+                ]
+              }
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "00968AC5",
+            "edid": "SCORE_S26_Recipe_workshop_CAMP_Collector_SkullCollector_GoldVendor"
+          },
+          "cobj": {
+            "formid": "00968AC9",
+            "edid": "SCORE_S26_workshop_CondProxy_co_CategoryResources_SkullCollector_GoldVendor"
+          },
+          "cnam": null,
+          "tradeable": false,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Gold Bullion",
+              "routes": [
+                0
+              ]
+            }
+          ],
+          "source_tag": "Gold",
+          "images": [
+            "/wp-content/uploads/season_images/season-26/score_s26_camp_collector_skullcollector.avif"
+          ],
+          "image_source": "season",
+          "plan_page": "camp",
+          "plan_page_group": "C.A.M.P. Plans",
+          "group": "gold",
+          "is_new": true,
+          "source_group": "gold",
+          "source_groups": [
+            "gold"
+          ],
+          "type_label": "CAMP",
+          "type_group": "camp"
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "recipe",
+          "id": "PLAN_00968AC4",
+          "name": "Plan: Creepy Cultist Well Collector",
+          "has_image_box": true,
+          "image_dir": "workshop",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+          "category_label": "CAMP / Recipe (physical plan)",
+          "obtain_routes": [
+            {
+              "route": "Samuel (Settlers Gold Bullion vendor)",
+              "source_type": "vendor",
+              "rate": 1.0,
+              "rate_display": "100%",
+              "lvli": [
+                "0059672D"
+              ],
+              "conditions": [
+                "Only while you do not own Creepy Cultist Well Collector"
+              ],
+              "vendor_detail": {
+                "vendor": "Samuel",
+                "location": "Foundation",
+                "cost": 4000,
+                "currency": "Gold Bullion",
+                "reputation": "Settlers — Cautious",
+                "stock": "",
+                "lines": [
+                  "Vendor: Samuel — Foundation",
+                  "Cost: 4,000 Gold Bullion",
+                  "Reputation: Settlers — Cautious"
+                ]
+              }
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "00968AC4",
+            "edid": "SCORE_S26_Recipe_workshop_CAMP_Collector_CultistWell_GoldVendor"
+          },
+          "cobj": {
+            "formid": "00968AC8",
+            "edid": "SCORE_S26_workshop_CondProxy_co_CategoryResources_CultistWell_GoldVendor"
+          },
+          "cnam": null,
+          "tradeable": false,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Gold Bullion",
+              "routes": [
+                0
+              ]
+            }
+          ],
+          "source_tag": "Gold",
+          "images": [
+            "/wp-content/uploads/season_images/season-26/score_s26_camp_utility_collector_cultistwell.avif"
+          ],
+          "image_source": "season",
+          "plan_page": "camp",
+          "plan_page_group": "C.A.M.P. Plans",
+          "group": "gold",
+          "is_new": true,
+          "source_group": "gold",
+          "source_groups": [
+            "gold"
+          ],
+          "type_label": "CAMP",
+          "type_group": "camp"
+        },
         {
           "kind": "plan",
           "brand": "df",
@@ -1329,7 +1481,7 @@
     {
       "key": "vendors",
       "label": "Vendors (Caps)",
-      "count": 2,
+      "count": 4,
       "items": [
         {
           "kind": "plan",
@@ -1562,13 +1714,145 @@
           ],
           "type_label": "Armour Mod",
           "type_group": "armour-mod"
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "recipe",
+          "id": "PLAN_00918210",
+          "name": "Plan: Cryolator Blasted Mod",
+          "has_image_box": false,
+          "image_dir": "weapons",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+          "category_label": "CAMP / Recipe (mod/recipe)",
+          "obtain_routes": [
+            {
+              "route": "Windy (Cryptid Hunter vendor)",
+              "source_type": "vendor",
+              "rate": 1.0,
+              "rate_display": "100%",
+              "lvli": [
+                "00788B00",
+                "0079AEC6"
+              ],
+              "conditions": []
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "00918210",
+            "edid": "SCORE_S26_Recipe_Cryolator_Blasted_StampVendor"
+          },
+          "cobj": {
+            "formid": "0091820B",
+            "edid": "SCORE_S26_co_Weapon_Cryolator_Blasted_StampVendor"
+          },
+          "cnam": null,
+          "tradeable": false,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Caps",
+              "routes": [
+                0
+              ]
+            }
+          ],
+          "source_tag": "Vendor",
+          "images": [
+            "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
+          ],
+          "image_source": "weapon-mod",
+          "plan_page": "weapon",
+          "plan_page_group": null,
+          "weapon_role": "mod",
+          "weapon_group": "Cryolator",
+          "weapon_group_key": "cryolator",
+          "weapon_group_solo": false,
+          "group": "vendors",
+          "is_new": true,
+          "source_group": "vendors",
+          "source_groups": [
+            "vendors"
+          ],
+          "type_label": "Weapon Mod",
+          "type_group": "weapon-mod"
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "recipe",
+          "id": "PLAN_00918212",
+          "name": "Plan: Cryolator Circuit Chiller Mod",
+          "has_image_box": false,
+          "image_dir": "weapons",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+          "category_label": "CAMP / Recipe (mod/recipe)",
+          "obtain_routes": [
+            {
+              "route": "Windy (Cryptid Hunter vendor)",
+              "source_type": "vendor",
+              "rate": 1.0,
+              "rate_display": "100%",
+              "lvli": [
+                "00788B00",
+                "0079AEC6"
+              ],
+              "conditions": []
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "00918212",
+            "edid": "SCORE_S26_Recipe_Cryolator_CircuitChiller_StampVendor"
+          },
+          "cobj": {
+            "formid": "0091820A",
+            "edid": "SCORE_S26_co_Weapon_Cryolator_CircuitChiller_StampVendor"
+          },
+          "cnam": null,
+          "tradeable": false,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Caps",
+              "routes": [
+                0
+              ]
+            }
+          ],
+          "source_tag": "Vendor",
+          "images": [
+            "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
+          ],
+          "image_source": "weapon-mod",
+          "plan_page": "weapon",
+          "plan_page_group": null,
+          "weapon_role": "mod",
+          "weapon_group": "Cryolator",
+          "weapon_group_key": "cryolator",
+          "weapon_group_solo": false,
+          "group": "vendors",
+          "is_new": true,
+          "source_group": "vendors",
+          "source_groups": [
+            "vendors"
+          ],
+          "type_label": "Weapon Mod",
+          "type_group": "weapon-mod"
         }
       ]
     },
     {
       "key": "other",
       "label": "No Source Found Yet",
-      "count": 152,
+      "count": 142,
       "items": [
         {
           "kind": "plan",
@@ -2974,7 +3258,7 @@
           "kind": "plan",
           "brand": "df",
           "type": "weapon",
-          "id": "PLAN_0094CE39",
+          "id": "PLAN_0094CE3B",
           "name": "Plan: Crusader Pistol Vicious Receiver",
           "has_image_box": false,
           "image_dir": "weapons",
@@ -2983,16 +3267,16 @@
           "obtain_routes": [],
           "obtain_unlocks": [],
           "plan_item": {
-            "formid": "0094CE39",
-            "edid": "recipe_mod_BoSPistol_Receiver_Damage-CritDMG"
+            "formid": "0094CE3B",
+            "edid": "recipe_mod_BoSPistol_Receiver_Damage-HipAccuracy"
           },
           "cobj": {
-            "formid": "0094CE55",
-            "edid": "co_mod_BoSPistol_Receiver_Damage-CritDMG"
+            "formid": "0094CE4F",
+            "edid": "co_mod_BoSPistol_Receiver_Damage-HipAccuracy"
           },
           "cnam": {
-            "formid": "0094CE80",
-            "edid": "mod_BoSPistol_Receiver_Damage-CritDMG",
+            "formid": "0094CE87",
+            "edid": "mod_BoSPistol_Receiver_Damage-HipAccuracy",
             "sig": "OMOD"
           },
           "tradeable": true,
@@ -3024,7 +3308,7 @@
           "kind": "plan",
           "brand": "df",
           "type": "weapon",
-          "id": "PLAN_0094CE3B",
+          "id": "PLAN_0094CE39",
           "name": "Plan: Crusader Pistol Vicious Receiver",
           "has_image_box": false,
           "image_dir": "weapons",
@@ -3033,16 +3317,16 @@
           "obtain_routes": [],
           "obtain_unlocks": [],
           "plan_item": {
-            "formid": "0094CE3B",
-            "edid": "recipe_mod_BoSPistol_Receiver_Damage-HipAccuracy"
+            "formid": "0094CE39",
+            "edid": "recipe_mod_BoSPistol_Receiver_Damage-CritDMG"
           },
           "cobj": {
-            "formid": "0094CE4F",
-            "edid": "co_mod_BoSPistol_Receiver_Damage-HipAccuracy"
+            "formid": "0094CE55",
+            "edid": "co_mod_BoSPistol_Receiver_Damage-CritDMG"
           },
           "cnam": {
-            "formid": "0094CE87",
-            "edid": "mod_BoSPistol_Receiver_Damage-HipAccuracy",
+            "formid": "0094CE80",
+            "edid": "mod_BoSPistol_Receiver_Damage-CritDMG",
             "sig": "OMOD"
           },
           "tradeable": true,
@@ -5123,106 +5407,6 @@
         {
           "kind": "plan",
           "brand": "df",
-          "type": "recipe",
-          "id": "PLAN_00947F2D",
-          "name": "Plan: LMG Hardened .308 Receiver",
-          "has_image_box": false,
-          "image_dir": "weapons",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
-          "category_label": "CAMP / Recipe Mod / Paint",
-          "obtain_routes": [],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "00947F2D",
-            "edid": "recipe_mod_MG42_Receiver_Damage-AmmoConv308"
-          },
-          "cobj": {
-            "formid": "00947F44",
-            "edid": "co_mod_MG42_Receiver_Damage-AmmoConv308"
-          },
-          "cnam": {
-            "formid": "00947F83",
-            "edid": "mod_MG42_Receiver_Damage-AmmoConv308",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "obtain_ledger": [],
-          "images": [
-            "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
-          ],
-          "image_source": "weapon-mod",
-          "plan_page": "weapon",
-          "plan_page_group": null,
-          "weapon_role": "mod",
-          "weapon_group": "MG42 Light Machine Gun",
-          "weapon_group_key": "mg42-light-machine-gun",
-          "weapon_group_solo": false,
-          "group": "other",
-          "is_new": true,
-          "source_group": "other",
-          "source_groups": [
-            "other"
-          ],
-          "type_label": "Weapon Mod",
-          "type_group": "weapon-mod"
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "recipe",
-          "id": "PLAN_00947F2C",
-          "name": "Plan: LMG Hardened .45 Receiver",
-          "has_image_box": false,
-          "image_dir": "weapons",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
-          "category_label": "CAMP / Recipe Mod / Paint",
-          "obtain_routes": [],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "00947F2C",
-            "edid": "recipe_mod_MG42_Receiver_Damage-AmmoConv45"
-          },
-          "cobj": {
-            "formid": "00947F43",
-            "edid": "co_mod_MG42_Receiver_Damage-AmmoConv45"
-          },
-          "cnam": {
-            "formid": "00947F82",
-            "edid": "mod_MG42_Receiver_Damage-AmmoConv45",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "obtain_ledger": [],
-          "images": [
-            "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
-          ],
-          "image_source": "weapon-mod",
-          "plan_page": "weapon",
-          "plan_page_group": null,
-          "weapon_role": "mod",
-          "weapon_group": "MG42 Light Machine Gun",
-          "weapon_group_key": "mg42-light-machine-gun",
-          "weapon_group_solo": false,
-          "group": "other",
-          "is_new": true,
-          "source_group": "other",
-          "source_groups": [
-            "other"
-          ],
-          "type_label": "Weapon Mod",
-          "type_group": "weapon-mod"
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
           "type": "armour",
           "id": "PLAN_00947F3E",
           "name": "Plan: LMG Piercing Magazine",
@@ -5324,106 +5508,6 @@
           "kind": "plan",
           "brand": "df",
           "type": "recipe",
-          "id": "PLAN_00947F32",
-          "name": "Plan: LMG Refined .308 Receiver",
-          "has_image_box": false,
-          "image_dir": "weapons",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
-          "category_label": "CAMP / Recipe Mod / Paint",
-          "obtain_routes": [],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "00947F32",
-            "edid": "recipe_mod_MG42_Receiver_Damage-HipAccuracy-AmmoConv308"
-          },
-          "cobj": {
-            "formid": "00947F49",
-            "edid": "co_mod_MG42_Receiver_Damage-HipAccuracy-AmmoConv308"
-          },
-          "cnam": {
-            "formid": "00947F88",
-            "edid": "mod_MG42_Receiver_Damage-HipAccuracy-AmmoConv308",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "obtain_ledger": [],
-          "images": [
-            "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
-          ],
-          "image_source": "weapon-mod",
-          "plan_page": "weapon",
-          "plan_page_group": null,
-          "weapon_role": "mod",
-          "weapon_group": "MG42 Light Machine Gun",
-          "weapon_group_key": "mg42-light-machine-gun",
-          "weapon_group_solo": false,
-          "group": "other",
-          "is_new": true,
-          "source_group": "other",
-          "source_groups": [
-            "other"
-          ],
-          "type_label": "Weapon Mod",
-          "type_group": "weapon-mod"
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "recipe",
-          "id": "PLAN_00947F33",
-          "name": "Plan: LMG Refined .45 Receiver",
-          "has_image_box": false,
-          "image_dir": "weapons",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
-          "category_label": "CAMP / Recipe Mod / Paint",
-          "obtain_routes": [],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "00947F33",
-            "edid": "recipe_mod_MG42_Receiver_Damage-HipAccuracy-AmmoConv45"
-          },
-          "cobj": {
-            "formid": "00947F4A",
-            "edid": "co_mod_MG42_Receiver_Damage-HipAccuracy-AmmoConv45"
-          },
-          "cnam": {
-            "formid": "00947F89",
-            "edid": "mod_MG42_Receiver_Damage-HipAccuracy-AmmoConv45",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "obtain_ledger": [],
-          "images": [
-            "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
-          ],
-          "image_source": "weapon-mod",
-          "plan_page": "weapon",
-          "plan_page_group": null,
-          "weapon_role": "mod",
-          "weapon_group": "MG42 Light Machine Gun",
-          "weapon_group_key": "mg42-light-machine-gun",
-          "weapon_group_solo": false,
-          "group": "other",
-          "is_new": true,
-          "source_group": "other",
-          "source_groups": [
-            "other"
-          ],
-          "type_label": "Weapon Mod",
-          "type_group": "weapon-mod"
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "recipe",
           "id": "PLAN_00947F31",
           "name": "Plan: LMG Refined Receiver",
           "has_image_box": false,
@@ -5443,106 +5527,6 @@
           "cnam": {
             "formid": "00947F87",
             "edid": "mod_MG42_Receiver_Damage-HipAccuracy",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "obtain_ledger": [],
-          "images": [
-            "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
-          ],
-          "image_source": "weapon-mod",
-          "plan_page": "weapon",
-          "plan_page_group": null,
-          "weapon_role": "mod",
-          "weapon_group": "MG42 Light Machine Gun",
-          "weapon_group_key": "mg42-light-machine-gun",
-          "weapon_group_solo": false,
-          "group": "other",
-          "is_new": true,
-          "source_group": "other",
-          "source_groups": [
-            "other"
-          ],
-          "type_label": "Weapon Mod",
-          "type_group": "weapon-mod"
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "recipe",
-          "id": "PLAN_00947F2F",
-          "name": "Plan: LMG Severe .308 Receiver",
-          "has_image_box": false,
-          "image_dir": "weapons",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
-          "category_label": "CAMP / Recipe Mod / Paint",
-          "obtain_routes": [],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "00947F2F",
-            "edid": "recipe_mod_MG42_Receiver_Damage-CritDMG-AmmoConv308"
-          },
-          "cobj": {
-            "formid": "00947F46",
-            "edid": "co_mod_MG42_Receiver_Damage-CritDMG-AmmoConv308"
-          },
-          "cnam": {
-            "formid": "00947F85",
-            "edid": "mod_MG42_Receiver_Damage-CritDMG-AmmoConv308",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "obtain_ledger": [],
-          "images": [
-            "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
-          ],
-          "image_source": "weapon-mod",
-          "plan_page": "weapon",
-          "plan_page_group": null,
-          "weapon_role": "mod",
-          "weapon_group": "MG42 Light Machine Gun",
-          "weapon_group_key": "mg42-light-machine-gun",
-          "weapon_group_solo": false,
-          "group": "other",
-          "is_new": true,
-          "source_group": "other",
-          "source_groups": [
-            "other"
-          ],
-          "type_label": "Weapon Mod",
-          "type_group": "weapon-mod"
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "recipe",
-          "id": "PLAN_00947F30",
-          "name": "Plan: LMG Severe .45 Receiver",
-          "has_image_box": false,
-          "image_dir": "weapons",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
-          "category_label": "CAMP / Recipe Mod / Paint",
-          "obtain_routes": [],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "00947F30",
-            "edid": "recipe_mod_MG42_Receiver_Damage-CritDMG-AmmoConv45"
-          },
-          "cobj": {
-            "formid": "00947F47",
-            "edid": "co_mod_MG42_Receiver_Damage-CritDMG-AmmoConv45"
-          },
-          "cnam": {
-            "formid": "00947F86",
-            "edid": "mod_MG42_Receiver_Damage-CritDMG-AmmoConv45",
             "sig": "OMOD"
           },
           "tradeable": true,
@@ -5693,206 +5677,6 @@
           "cnam": {
             "formid": "00947F9A",
             "edid": "mod_MG42_Magazine_Ammo-Reload",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "obtain_ledger": [],
-          "images": [
-            "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
-          ],
-          "image_source": "weapon-mod",
-          "plan_page": "weapon",
-          "plan_page_group": null,
-          "weapon_role": "mod",
-          "weapon_group": "MG42 Light Machine Gun",
-          "weapon_group_key": "mg42-light-machine-gun",
-          "weapon_group_solo": false,
-          "group": "other",
-          "is_new": true,
-          "source_group": "other",
-          "source_groups": [
-            "other"
-          ],
-          "type_label": "Weapon Mod",
-          "type_group": "weapon-mod"
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "recipe",
-          "id": "PLAN_00947F35",
-          "name": "Plan: LMG True .308 Receiver",
-          "has_image_box": false,
-          "image_dir": "weapons",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
-          "category_label": "CAMP / Recipe Mod / Paint",
-          "obtain_routes": [],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "00947F35",
-            "edid": "recipe_mod_MG42_Receiver_HipAccuracy-AmmoConv308"
-          },
-          "cobj": {
-            "formid": "00947F4D",
-            "edid": "co_mod_MG42_Receiver_HipAccuracy-AmmoConv308"
-          },
-          "cnam": {
-            "formid": "00947F8C",
-            "edid": "mod_MG42_Receiver_HipAccuracy-AmmoConv308",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "obtain_ledger": [],
-          "images": [
-            "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
-          ],
-          "image_source": "weapon-mod",
-          "plan_page": "weapon",
-          "plan_page_group": null,
-          "weapon_role": "mod",
-          "weapon_group": "MG42 Light Machine Gun",
-          "weapon_group_key": "mg42-light-machine-gun",
-          "weapon_group_solo": false,
-          "group": "other",
-          "is_new": true,
-          "source_group": "other",
-          "source_groups": [
-            "other"
-          ],
-          "type_label": "Weapon Mod",
-          "type_group": "weapon-mod"
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "recipe",
-          "id": "PLAN_00947F34",
-          "name": "Plan: LMG True .45 Receiver",
-          "has_image_box": false,
-          "image_dir": "weapons",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
-          "category_label": "CAMP / Recipe Mod / Paint",
-          "obtain_routes": [],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "00947F34",
-            "edid": "recipe_mod_MG42_Receiver_HipAccuracy-AmmoConv45"
-          },
-          "cobj": {
-            "formid": "00947F4C",
-            "edid": "co_mod_MG42_Receiver_HipAccuracy-AmmoConv45"
-          },
-          "cnam": {
-            "formid": "00947F8B",
-            "edid": "mod_MG42_Receiver_HipAccuracy-AmmoConv45",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "obtain_ledger": [],
-          "images": [
-            "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
-          ],
-          "image_source": "weapon-mod",
-          "plan_page": "weapon",
-          "plan_page_group": null,
-          "weapon_role": "mod",
-          "weapon_group": "MG42 Light Machine Gun",
-          "weapon_group_key": "mg42-light-machine-gun",
-          "weapon_group_solo": false,
-          "group": "other",
-          "is_new": true,
-          "source_group": "other",
-          "source_groups": [
-            "other"
-          ],
-          "type_label": "Weapon Mod",
-          "type_group": "weapon-mod"
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "recipe",
-          "id": "PLAN_00947F2B",
-          "name": "Plan: LMG Vicious .308 Receiver",
-          "has_image_box": false,
-          "image_dir": "weapons",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
-          "category_label": "CAMP / Recipe Mod / Paint",
-          "obtain_routes": [],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "00947F2B",
-            "edid": "recipe_mod_MG42_Receiver_CritDMG-HipAccuracy-AmmoConv308"
-          },
-          "cobj": {
-            "formid": "00947F41",
-            "edid": "co_mod_MG42_Receiver_CritDMG-HipAccuracy-AmmoConv308"
-          },
-          "cnam": {
-            "formid": "00947F7E",
-            "edid": "mod_MG42_Receiver_CritDMG-HipAccuracy-AmmoConv308",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "obtain_ledger": [],
-          "images": [
-            "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
-          ],
-          "image_source": "weapon-mod",
-          "plan_page": "weapon",
-          "plan_page_group": null,
-          "weapon_role": "mod",
-          "weapon_group": "MG42 Light Machine Gun",
-          "weapon_group_key": "mg42-light-machine-gun",
-          "weapon_group_solo": false,
-          "group": "other",
-          "is_new": true,
-          "source_group": "other",
-          "source_groups": [
-            "other"
-          ],
-          "type_label": "Weapon Mod",
-          "type_group": "weapon-mod"
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "recipe",
-          "id": "PLAN_00947F2A",
-          "name": "Plan: LMG Vicious .45 Receiver",
-          "has_image_box": false,
-          "image_dir": "weapons",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
-          "category_label": "CAMP / Recipe Mod / Paint",
-          "obtain_routes": [],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "00947F2A",
-            "edid": "recipe_mod_MG42_Receiver_CritDMG-HipAccuracy-AmmoConv45"
-          },
-          "cobj": {
-            "formid": "00947F40",
-            "edid": "co_mod_MG42_Receiver_CritDMG-HipAccuracy-AmmoConv45"
-          },
-          "cnam": {
-            "formid": "00947F7D",
-            "edid": "mod_MG42_Receiver_CritDMG-HipAccuracy-AmmoConv45",
             "sig": "OMOD"
           },
           "tradeable": true,
@@ -9154,11 +8938,11 @@
   "title_groups": [],
   "titles_baseline": {
     "player": {
-      "newest": "PLYT_Export_PTS_2026-10-25_1807.tsv",
+      "newest": "PLYT_Export_PTS_2026-10-28_0508.tsv",
       "previous": null
     },
     "camp": {
-      "newest": "CMPT_Export_PTS_2026-10-25_1807.tsv",
+      "newest": "CMPT_Export_PTS_2026-10-28_0508.tsv",
       "previous": null
     }
   },

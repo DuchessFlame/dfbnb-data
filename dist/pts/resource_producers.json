@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-28T09:49:54+00:00",
+  "generatedAt": "2026-10-28T19:00:47+00:00",
   "type": "resource_producers",
   "count": 89,
   "items": [
@@ -564,10 +564,15 @@
         },
         {
           "route": "Gold Bullion",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
+          "populated": true,
+          "lines": [
+            "Plan: Altar of Bones",
+            "Vendor: Samuel — Foundation",
+            "Cost: 4,000 Gold Bullion",
+            "Reputation: Settlers — Ally"
+          ],
+          "tradeable": false,
+          "dropRate": "N/A"
         },
         {
           "route": "Atom Shop",
@@ -4804,10 +4809,10 @@
       "howToObtain": {
         "method": "scoreboard",
         "seasonNumber": 23,
-        "goldBullionPrice": 4000,
+        "goldBullionPrice": null,
         "vendor": null,
-        "tradeable": false,
-        "planName": "Plan: Crashed Cargo Bot",
+        "tradeable": null,
+        "planName": null,
         "display": "Purchase with tickets from the Blood x Rust Scoreboard (Season 23)",
         "badge": "scoreboard"
       },
@@ -4832,7 +4837,7 @@
           "lines": [
             "Purchase with tickets from the Blood x Rust Scoreboard (Season 23)"
           ],
-          "tradeable": false,
+          "tradeable": null,
           "dropRate": "N/A"
         },
         {
@@ -13473,14 +13478,14 @@
         }
       ],
       "howToObtain": {
-        "method": "gold",
+        "method": "scoreboard",
         "seasonNumber": 17,
-        "goldBullionPrice": 1250,
-        "vendor": "a Gold Bullion Vendor",
-        "tradeable": false,
-        "planName": "Plan: Pemmican Collector",
-        "display": "Purchase from a Gold Bullion Vendor for 1250 Gold Bullion. Requires unlocking the Pioneer Scouts: Skyline Valley Scoreboard (Season 17).",
-        "badge": "gold"
+        "goldBullionPrice": null,
+        "vendor": null,
+        "tradeable": null,
+        "planName": null,
+        "display": "Purchase with tickets from the Pioneer Scouts: Skyline Valley Scoreboard (Season 17)",
+        "badge": "scoreboard"
       },
       "obtainRoutes": [
         {
@@ -13499,10 +13504,12 @@
         },
         {
           "route": "Scoreboard",
-          "populated": false,
-          "lines": [],
+          "populated": true,
+          "lines": [
+            "Purchase with tickets from the Pioneer Scouts: Skyline Valley Scoreboard (Season 17)"
+          ],
           "tradeable": null,
-          "dropRate": null
+          "dropRate": "N/A"
         },
         {
           "route": "Gold Bullion",
@@ -14197,8 +14204,8 @@
         "seasonNumber": null,
         "goldBullionPrice": null,
         "vendor": null,
-        "tradeable": false,
-        "planName": "Recipe: Pumpkin Pie",
+        "tradeable": null,
+        "planName": null,
         "display": "Purchase from the Atom Shop.",
         "badge": "atom"
       },
@@ -14237,7 +14244,7 @@
           "lines": [
             "Purchase from the Atom Shop."
           ],
-          "tradeable": false,
+          "tradeable": null,
           "dropRate": "N/A"
         },
         {
@@ -14766,8 +14773,8 @@
         "seasonNumber": null,
         "goldBullionPrice": null,
         "vendor": null,
-        "tradeable": false,
-        "planName": "Plan: Flower Crown - Carnal Weeper",
+        "tradeable": null,
+        "planName": null,
         "display": "Available in the base game.",
         "badge": "default"
       },
@@ -14912,8 +14919,8 @@
         "seasonNumber": null,
         "goldBullionPrice": null,
         "vendor": null,
-        "tradeable": false,
-        "planName": "Plan: Flower Crown - Crystalcup",
+        "tradeable": null,
+        "planName": null,
         "display": "Available in the base game.",
         "badge": "default"
       },
@@ -15058,8 +15065,8 @@
         "seasonNumber": null,
         "goldBullionPrice": null,
         "vendor": null,
-        "tradeable": false,
-        "planName": "Plan: Flower Crown - Radlily",
+        "tradeable": null,
+        "planName": null,
         "display": "Available in the base game.",
         "badge": "default"
       },
@@ -15327,10 +15334,10 @@
       "howToObtain": {
         "method": "scoreboard",
         "seasonNumber": 24,
-        "goldBullionPrice": 4000,
+        "goldBullionPrice": null,
         "vendor": null,
-        "tradeable": false,
-        "planName": "Plan: Rip Daring's Survival Cache",
+        "tradeable": null,
+        "planName": null,
         "display": "Purchase with tickets from the RIP Darling & The Cryptids from Beyond the Cosmos Scoreboard (Season 24)",
         "badge": "scoreboard"
       },
@@ -15355,7 +15362,7 @@
           "lines": [
             "Purchase with tickets from the RIP Darling & The Cryptids from Beyond the Cosmos Scoreboard (Season 24)"
           ],
-          "tradeable": false,
+          "tradeable": null,
           "dropRate": "N/A"
         },
         {
@@ -18318,7 +18325,7 @@
       "contFormId": "0090B5D3",
       "entmFormId": "0090B5D4",
       "displayName": "Tree of Spoils",
-      "description": "Even Raiders want to give gifts for the holidays, even if the gifts were pillaged from someone else.",
+      "description": "Even Raiders want to give gifts for the holidays, even if the gifts were pillaged from someone else. Generates basic Chems, alcoholic drinks, basic melee weapons, and basic ranged weapons.",
       "imageUrl": "/wp-content/uploads/guide-images/camp-items/resource-producers/atx_camp_collector_treeofspoils_l.avif",
       "imageCarousel": [
         "/wp-content/uploads/guide-images/camp-items/resource-producers/atx_camp_collector_treeofspoils_c1.avif",
@@ -18330,16 +18337,414 @@
       "production": {
         "intervalHours": 0.17,
         "intervalDisplay": "10 min 12 sec",
-        "resourceName": "Tree of Spoils",
+        "resourceName": "Spoils of War",
         "resourceEdid": "ATX_ResourceAV_TreeOfSpoils_resource",
-        "drops": [],
+        "drops": [
+          {
+            "item": "10mm",
+            "name": "10mm",
+            "formId": "00004822",
+            "chance": 0.0
+          },
+          {
+            "item": "44",
+            "name": ".44",
+            "formId": "000CE97D",
+            "chance": 0.0
+          },
+          {
+            "item": "BeerBottleEmpty01",
+            "name": "Beer Bottle",
+            "formId": "000211DD",
+            "chance": 0.0
+          },
+          {
+            "item": "BottleEmptyBourbon01",
+            "name": "Bourbon Bottle",
+            "formId": "000DEDDF",
+            "chance": 0.0
+          },
+          {
+            "item": "BottleEmptyRum01",
+            "name": "Rum Bottle",
+            "formId": "0014A138",
+            "chance": 0.0
+          },
+          {
+            "item": "BottleEmptyVodka01",
+            "name": "Vodka Bottle",
+            "formId": "000DEDE0",
+            "chance": 0.0
+          },
+          {
+            "item": "BottleEmptyWhiskey01",
+            "name": "Whiskey Bottle",
+            "formId": "000DEDE1",
+            "chance": 0.0
+          },
+          {
+            "item": "BottleEmptyWine01",
+            "name": "Wine Bottle",
+            "formId": "000DEDED",
+            "chance": 0.0
+          },
+          {
+            "item": "Brew_BeerBottleStandard01",
+            "name": "Beer",
+            "formId": "0011EA93",
+            "chance": 0.0
+          },
+          {
+            "item": "Brew_BlackwaterBrew",
+            "name": "Blackwater Brew",
+            "formId": "003B5FC9",
+            "chance": 0.0
+          },
+          {
+            "item": "Brew_Bourbon",
+            "name": "Bourbon",
+            "formId": "000366C4",
+            "chance": 0.0
+          },
+          {
+            "item": "Brew_NewRiverRedAle",
+            "name": "New River Red Ale",
+            "formId": "003B5FCA",
+            "chance": 0.0
+          },
+          {
+            "item": "Brew_OakHollerLager",
+            "name": "Oak Holler Lager",
+            "formId": "003B5FCB",
+            "chance": 0.0
+          },
+          {
+            "item": "Brew_OldPossum",
+            "name": "Old Possum",
+            "formId": "003B5FCC",
+            "chance": 0.0
+          },
+          {
+            "item": "Brew_PickAxePilsner",
+            "name": "Pickaxe Pilsner",
+            "formId": "003B5FCD",
+            "chance": 0.0
+          },
+          {
+            "item": "Brew_Rum",
+            "name": "Rum",
+            "formId": "00145857",
+            "chance": 0.0
+          },
+          {
+            "item": "Brew_Vodka",
+            "name": "Vodka",
+            "formId": "000366C3",
+            "chance": 0.0
+          },
+          {
+            "item": "Brew_Whiskey",
+            "name": "Whiskey",
+            "formId": "000366C1",
+            "chance": 0.0
+          },
+          {
+            "item": "Brew_Wine",
+            "name": "Wine",
+            "formId": "000366C2",
+            "chance": 0.0
+          },
+          {
+            "item": "Buffout",
+            "name": "Buffout",
+            "formId": "00033778",
+            "chance": 0.0
+          },
+          {
+            "item": "CombatRifle",
+            "name": "Combat Rifle",
+            "formId": "000DF42E",
+            "chance": 0.0
+          },
+          {
+            "item": "DoubleBarrelShotgun",
+            "name": "Double-Barrel Shotgun",
+            "formId": "00092217",
+            "chance": 0.0
+          },
+          {
+            "item": "Knuckles",
+            "name": "Knuckles",
+            "formId": "0005524B",
+            "chance": 0.0
+          },
+          {
+            "item": "LeadPipe",
+            "name": "Lead Pipe",
+            "formId": "000FC9C3",
+            "chance": 0.0
+          },
+          {
+            "item": "MedX",
+            "name": "Med-X",
+            "formId": "00033779",
+            "chance": 0.0
+          },
+          {
+            "item": "Mentats",
+            "name": "Mentats",
+            "formId": "0003377B",
+            "chance": 0.0
+          },
+          {
+            "item": "PipeGun",
+            "name": "Pipe",
+            "formId": "00024F55",
+            "chance": 0.0
+          },
+          {
+            "item": "PoolCue",
+            "name": "Pool Cue",
+            "formId": "000FA3E8",
+            "chance": 0.0
+          },
+          {
+            "item": "Psycho",
+            "name": "Psycho",
+            "formId": "0003377D",
+            "chance": 0.0
+          },
+          {
+            "item": "RadAway",
+            "name": "RadAway",
+            "formId": "00023742",
+            "chance": 0.0
+          },
+          {
+            "item": "RadX",
+            "name": "Rad-X",
+            "formId": "00024057",
+            "chance": 0.0
+          },
+          {
+            "item": "Switchblade",
+            "name": "Switchblade",
+            "formId": "000FDC81",
+            "chance": 0.0
+          },
+          {
+            "item": "TireIron",
+            "name": "Tire Iron",
+            "formId": "00185D25",
+            "chance": 0.0
+          }
+        ],
         "modes": [
           {
             "name": "Default",
             "resoFormId": "0090B5D9",
             "lvliFormId": "0090B5D8",
-            "resourceName": "Tree of Spoils",
-            "drops": []
+            "resourceName": "Spoils of War",
+            "drops": [
+              {
+                "item": "10mm",
+                "name": "10mm",
+                "formId": "00004822",
+                "chance": 0.0
+              },
+              {
+                "item": "44",
+                "name": ".44",
+                "formId": "000CE97D",
+                "chance": 0.0
+              },
+              {
+                "item": "BeerBottleEmpty01",
+                "name": "Beer Bottle",
+                "formId": "000211DD",
+                "chance": 0.0
+              },
+              {
+                "item": "BottleEmptyBourbon01",
+                "name": "Bourbon Bottle",
+                "formId": "000DEDDF",
+                "chance": 0.0
+              },
+              {
+                "item": "BottleEmptyRum01",
+                "name": "Rum Bottle",
+                "formId": "0014A138",
+                "chance": 0.0
+              },
+              {
+                "item": "BottleEmptyVodka01",
+                "name": "Vodka Bottle",
+                "formId": "000DEDE0",
+                "chance": 0.0
+              },
+              {
+                "item": "BottleEmptyWhiskey01",
+                "name": "Whiskey Bottle",
+                "formId": "000DEDE1",
+                "chance": 0.0
+              },
+              {
+                "item": "BottleEmptyWine01",
+                "name": "Wine Bottle",
+                "formId": "000DEDED",
+                "chance": 0.0
+              },
+              {
+                "item": "Brew_BeerBottleStandard01",
+                "name": "Beer",
+                "formId": "0011EA93",
+                "chance": 0.0
+              },
+              {
+                "item": "Brew_BlackwaterBrew",
+                "name": "Blackwater Brew",
+                "formId": "003B5FC9",
+                "chance": 0.0
+              },
+              {
+                "item": "Brew_Bourbon",
+                "name": "Bourbon",
+                "formId": "000366C4",
+                "chance": 0.0
+              },
+              {
+                "item": "Brew_NewRiverRedAle",
+                "name": "New River Red Ale",
+                "formId": "003B5FCA",
+                "chance": 0.0
+              },
+              {
+                "item": "Brew_OakHollerLager",
+                "name": "Oak Holler Lager",
+                "formId": "003B5FCB",
+                "chance": 0.0
+              },
+              {
+                "item": "Brew_OldPossum",
+                "name": "Old Possum",
+                "formId": "003B5FCC",
+                "chance": 0.0
+              },
+              {
+                "item": "Brew_PickAxePilsner",
+                "name": "Pickaxe Pilsner",
+                "formId": "003B5FCD",
+                "chance": 0.0
+              },
+              {
+                "item": "Brew_Rum",
+                "name": "Rum",
+                "formId": "00145857",
+                "chance": 0.0
+              },
+              {
+                "item": "Brew_Vodka",
+                "name": "Vodka",
+                "formId": "000366C3",
+                "chance": 0.0
+              },
+              {
+                "item": "Brew_Whiskey",
+                "name": "Whiskey",
+                "formId": "000366C1",
+                "chance": 0.0
+              },
+              {
+                "item": "Brew_Wine",
+                "name": "Wine",
+                "formId": "000366C2",
+                "chance": 0.0
+              },
+              {
+                "item": "Buffout",
+                "name": "Buffout",
+                "formId": "00033778",
+                "chance": 0.0
+              },
+              {
+                "item": "CombatRifle",
+                "name": "Combat Rifle",
+                "formId": "000DF42E",
+                "chance": 0.0
+              },
+              {
+                "item": "DoubleBarrelShotgun",
+                "name": "Double-Barrel Shotgun",
+                "formId": "00092217",
+                "chance": 0.0
+              },
+              {
+                "item": "Knuckles",
+                "name": "Knuckles",
+                "formId": "0005524B",
+                "chance": 0.0
+              },
+              {
+                "item": "LeadPipe",
+                "name": "Lead Pipe",
+                "formId": "000FC9C3",
+                "chance": 0.0
+              },
+              {
+                "item": "MedX",
+                "name": "Med-X",
+                "formId": "00033779",
+                "chance": 0.0
+              },
+              {
+                "item": "Mentats",
+                "name": "Mentats",
+                "formId": "0003377B",
+                "chance": 0.0
+              },
+              {
+                "item": "PipeGun",
+                "name": "Pipe",
+                "formId": "00024F55",
+                "chance": 0.0
+              },
+              {
+                "item": "PoolCue",
+                "name": "Pool Cue",
+                "formId": "000FA3E8",
+                "chance": 0.0
+              },
+              {
+                "item": "Psycho",
+                "name": "Psycho",
+                "formId": "0003377D",
+                "chance": 0.0
+              },
+              {
+                "item": "RadAway",
+                "name": "RadAway",
+                "formId": "00023742",
+                "chance": 0.0
+              },
+              {
+                "item": "RadX",
+                "name": "Rad-X",
+                "formId": "00024057",
+                "chance": 0.0
+              },
+              {
+                "item": "Switchblade",
+                "name": "Switchblade",
+                "formId": "000FDC81",
+                "chance": 0.0
+              },
+              {
+                "item": "TireIron",
+                "name": "Tire Iron",
+                "formId": "00185D25",
+                "chance": 0.0
+              }
+            ]
           }
         ]
       },
@@ -18446,7 +18851,7 @@
       "cutContent": false,
       "status": "live",
       "subcategory": "other",
-      "bucket": "Misc Junk",
+      "bucket": "Drinks",
       "buildMenu": [],
       "pages": [
         "producers"

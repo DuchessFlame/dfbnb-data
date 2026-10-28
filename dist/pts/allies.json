@@ -32875,22 +32875,22 @@
                 "text": "I don't mind when they throw tatos. It's the grenades I worry about."
               },
               {
-                "text": "What do stylish kangaroos wear? Jumpsuits. Ha... What the hell is a kangaroo?",
-                "note": "Trying out a new joke he's read but doesn't know what a kangaroo is so doesn't get the joke"
-              },
-              {
                 "text": "There once was a man from Nantucket, he... no wait how'd it go again? Nah, fuck it.",
                 "note": "Trying to remember the limerick. Coincidentally ends up rhyming."
               },
               {
-                "text": "Go to Appalachia they said. \"You'll have a blast\" they said. Didn't realize they were literally still dropping nukes on themselves.",
-                "note": "To self."
+                "text": "What do stylish kangaroos wear? Jumpsuits. Ha... What the hell is a kangaroo?",
+                "note": "Trying out a new joke he's read but doesn't know what a kangaroo is so doesn't get the joke"
               },
               {
                 "text": "Damn, I could really use another hit from that pipe. If I could just remember where it was..."
               },
               {
                 "text": "(Sigh) Mondays. Is it Monday? Feels like a Monday."
+              },
+              {
+                "text": "Go to Appalachia they said. \"You'll have a blast\" they said. Didn't realize they were literally still dropping nukes on themselves.",
+                "note": "To self."
               }
             ]
           },
@@ -33516,9 +33516,6 @@
                 "text": "You're so ugly you make me wanna quit drinking just in case I ever start seeing two of youse!"
               },
               {
-                "text": "If being ugly was a crime you'd be on the most wanted list. And given your looks it'd probably be the first time anybody's ever wanted you."
-              },
-              {
                 "text": "I heard you was strong but I guess they were talking about your stench! Pee-yoo. Your breath would make onions cry!",
                 "condition": "GetValue: Strength \"Strength\""
               },
@@ -33539,6 +33536,9 @@
               },
               {
                 "text": "Your stench is so bad you make me wish I was a ghoul just so I didn't have a nose."
+              },
+              {
+                "text": "If being ugly was a crime you'd be on the most wanted list. And given your looks it'd probably be the first time anybody's ever wanted you."
               },
               {
                 "text": "I never forget a face, but in your case I wish I could make an exception. Yours looks like it caught fire and someone put it out with a tire iron."
@@ -40642,7 +40642,7 @@
       "furnFormId": "0093470B",
       "edid": "SCORE_S27_CAMP_MrMoore_Pod_FURN",
       "displayName": "Mr. Moore",
-      "furnitureName": "Mr. Moore Vault-Tec Bot Station",
+      "furnitureName": "Mr. Moore's Bot Station",
       "description": "Prepare for a better life underground with the help of Mr. Moore!",
       "obtainSource": "Scoreboard",
       "howToObtain": "Purchase with tickets from the Season 27 Scoreboard",
@@ -40730,7 +40730,8 @@
         "buffName": "Better Haggling",
         "lines": [
           "Ghouls Charisma while bartering set to 10. Humans gain +10 Charisma while Bartering.",
-          "Ghouls Charisma while bartering set to 10.  Humans gain +10 Charisma while Bartering."
+          "Ghouls Charisma while bartering set to 10.  Humans gain +10 Charisma while Bartering.",
+          "Increased Charisma while bartering."
         ],
         "hasBuff": true,
         "romanceable": false
@@ -41024,8 +41025,8 @@
             "prompt": "You're a bit late. I was already assigned to Vault 76.",
             "lines": [
               {
-                "text": "Oh boy, what a beauty. I remember the ceremony like it was yesterday. Ah, brings a <strong reaction> to my <emotion module>.",
-                "note": "Words in <brackets> should be said robotically."
+                "text": "Oh boy, what a beauty. I remember the ceremony like it was yesterday. Ah, brings a //strong reaction// to my //emotion module//.",
+                "note": "Words between // // should be said robotically."
               },
               {
                 "text": "However, I do regret to inform you that since you appear to have vacated the vault, you will need to find a new home."
@@ -41094,8 +41095,8 @@
             "prompt": "",
             "lines": [
               {
-                "text": "Good <insert time of day> to you. Actually did I say good? What I meant to say was great.",
-                "note": "The <bracket> should be said robotically"
+                "text": "Good //insert time of day// to you. Actually did I say good? What I meant to say was great.",
+                "note": "The words between // // should be said robotically"
               },
               {
                 "text": "Because every day is a great day when you have Vault-Tec calling!"
@@ -41326,7 +41327,7 @@
                 "condition": "GetNumTimesCompletedQuest: W05_MQA_206P \"Secrets Revealed\""
               },
               {
-                "text": "<Note: customer struggles with basic reading comprehension.>",
+                "text": "//Note: customer struggles with basic reading comprehension.//",
                 "condition": "GetNumTimesCompletedQuest: W05_MQA_206P \"Secrets Revealed\"",
                 "note": "Said very robotically"
               },
@@ -41388,8 +41389,8 @@
                 "text": "A dream! Imagine being a cog in the machine that's protecting the future of America."
               },
               {
-                "text": "Knowing that you're securing your future and the future of everyone you help? That gives me <positive emotions> in my <emotion module>.",
-                "note": "The <brackets> are read robotically."
+                "text": "Knowing that you're securing your future and the future of everyone you help? That gives me //positive emotions// in my //emotion module//.",
+                "note": "The words between // // are read robotically."
               },
               {
                 "text": "Plus they gave me this swell hat. Who doesn't love corporate uniforms?"
