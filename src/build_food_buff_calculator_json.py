@@ -668,6 +668,9 @@ def build(data_dir, dist_dir):
             it["sup"] = 1
         if feral:
             it["feral"] = round(feral, 2)
+        if "NonPlayerTradable" in kw or "NonDroppable" in kw:
+            it["nt"] = 1          # not tradeable - same rule as the plan pages (build_plan_obtain_json.py).
+                                  # UnsellableObject only means vendors won't buy it (Kat 28 Oct)
         if menu:
             it["menu"] = menu
         items.append(it)
@@ -755,6 +758,15 @@ def build(data_dir, dist_dir):
                       party["rank2"][0]["mult"] if party["rank2"] else 3.0],
         "chemFiend": round(chem_fiend, 3),
     }
+    # Chem Diet (Ghoul, Endurance card, Kat 28 Oct): chems cut Feral more, x per rank (entry point 29)
+    cd = []
+    for pk in ("GHL_ChemDiet01", "GHL_ChemDiet02", "GHL_ChemDiet03"):
+        v = [fnum(r.get("Value"), None) for r in perkep if (r.get("PERK_EDID") or "").strip() == pk
+             and (r.get("EntryPoint") or "").strip() in ("29", "Mod Spell Magnitude")]
+        if v and v[0]:
+            cd.append(round(v[0], 3))
+    if cd:
+        mech["chemDiet"] = {"ranks": cd, "card": "Chem Diet", "special": "Endurance"}
     if all_night:
         mech["allNightLong"] = {"mult": all_night[0]["mult"], "perk": "AllNightLong01", "card": "All Night Long", "special": "Endurance"}
     # Magazine / bobblehead duration perks (20 Oct 2026): entry point 30 (spell
