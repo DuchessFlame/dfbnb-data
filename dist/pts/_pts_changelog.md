@@ -272,50 +272,36 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S26_Instrument_AltoSax  `SCORE_S26_Instrument_AltoSax` — fields: description, displayName
 - WestVirginia_SlotMachine  `WestVirginia_SlotMachine` — fields: imageUrl
 
-## `buff_guides/alcohol.json`  ·  +0 / -0 / ~43
+## `buff_guides/alcohol.json`  ·  +0 / -0 / ~27
 
-**Changed (43)**
+**Changed (27)**
 - Brew_BallisticBockFerm  `Brew_BallisticBockFerm` — fields: obtain
-- Brew_BeerBottleStandard01  `Brew_BeerBottleStandard01` — fields: fx
 - Brew_BeerBottleStandard01Ferm  `Brew_BeerBottleStandard01Ferm` — fields: obtain
-- Brew_BlackwaterBrew  `Brew_BlackwaterBrew` — fields: fx
 - Brew_BlackwaterBrewFerm  `Brew_BlackwaterBrewFerm` — fields: obtain
-- Brew_Bourbon  `Brew_Bourbon` — fields: fx
 - Brew_BourbonFerm  `Brew_BourbonFerm` — fields: obtain
-- Brew_CranberryMoonshine  `Brew_CranberryMoonshine` — fields: fx
 - Brew_CranberryMoonshineFerm  `Brew_CranberryMoonshineFerm` — fields: obtain
 - Brew_HighVoltageHefeFerm  `Brew_HighVoltageHefeFerm` — fields: obtain
 - Brew_HoppyHunterFerm  `Brew_HoppyHunterFerm` — fields: obtain
 - Brew_LeadChampagneBellini  `Brew_LeadChampagneBellini` — fields: obtain
 - Brew_LeadChampagneFerm  `Brew_LeadChampagneFerm` — fields: obtain
 - Brew_LeadChampagneMimosa  `Brew_LeadChampagneMimosa` — fields: obtain
-- Brew_LemonadeHard  `Brew_LemonadeHard` — fields: obtain, odd
-- Brew_LiquidCourage  `Brew_LiquidCourage` — fields: fx
+- Brew_LemonadeHard  `Brew_LemonadeHard` — fields: obtain
 - Brew_LiquidCourageFerm  `Brew_LiquidCourageFerm` — fields: obtain
-- Brew_MountainHoneyMoonshine  `Brew_MountainHoneyMoonshine` — fields: fx
 - Brew_MountainHoneyMoonshineFerm  `Brew_MountainHoneyMoonshineFerm` — fields: obtain
-- Brew_NewRiverRedAle  `Brew_NewRiverRedAle` — fields: fx
 - Brew_NewRiverRedAleFerm  `Brew_NewRiverRedAleFerm` — fields: obtain
-- Brew_OakHollerLager  `Brew_OakHollerLager` — fields: fx
 - Brew_OakHollerLagerFerm  `Brew_OakHollerLagerFerm` — fields: obtain
-- Brew_OldPossum  `Brew_OldPossum` — fields: fx
 - Brew_OldPossumFerm  `Brew_OldPossumFerm` — fields: obtain
-- Brew_PickAxePilsner  `Brew_PickAxePilsner` — fields: fx
 - Brew_PickAxePilsnerFerm  `Brew_PickAxePilsnerFerm` — fields: obtain
-- Brew_RadAntLager  `Brew_RadAntLager` — fields: odd
 - Brew_RadAntLagerFerm  `Brew_RadAntLagerFerm` — fields: obtain
-- Brew_Rum  `Brew_Rum` — fields: fx
 - Brew_RumFerm  `Brew_RumFerm` — fields: obtain
 - Brew_TickBloodTequilaFerm  `Brew_TickBloodTequilaFerm` — fields: obtain
 - Brew_TickBloodTequilaMargarita  `Brew_TickBloodTequilaMargarita` — fields: obtain
 - Brew_TickBloodTequilaSunrise  `Brew_TickBloodTequilaSunrise` — fields: obtain
-- Brew_Vodka  `Brew_Vodka` — fields: fx
 - Brew_VodkaFerm  `Brew_VodkaFerm` — fields: obtain
-- Brew_Whiskey  `Brew_Whiskey` — fields: fx
 - Brew_WhiskeyFerm  `Brew_WhiskeyFerm` — fields: obtain
 - Brew_WhiteRussian  `Brew_WhiteRussian` — fields: obtain
-- Brew_Wine  `Brew_Wine` — fields: fx
-- …and 3 more
+- Brew_WineFerm  `Brew_WineFerm` — fields: obtain
+- E08A_Brew_GulpershineFerm  `E08A_Brew_GulpershineFerm` — fields: obtain
 
 ## `buff_guides/bobbleheads.json`  ·  +0 / -0 / ~0
 
@@ -417,10 +403,9 @@ _Couldn't key this file to records; contents differ._
 
 ## `buff_guides/mutations.json`  ·  +0 / -0 / ~0
 
-## `buff_guides/nuka-cola.json`  ·  +0 / -0 / ~6
+## `buff_guides/nuka-cola.json`  ·  +0 / -0 / ~5
 
-**Changed (6)**
-- Brew_DLC04_NukaCola_Dark  `Brew_DLC04_NukaCola_Dark` — fields: fx
+**Changed (5)**
 - Brew_DLC04_NukaCola_DarkFerm  `Brew_DLC04_NukaCola_DarkFerm` — fields: obtain
 - Brew_NukashineFerm  `Brew_NukashineFerm` — fields: obtain
 - NukaCola_Vaccine_Blood  `NukaCola_Vaccine_Blood` — fields: obtain
@@ -671,32 +656,23 @@ _Couldn't key this file to records; contents differ._
 ## `calculators/crafting_materials_calculator.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `calculators/food_buff_calculator.json`  ·  +0 / -0 / ~23
+## `calculators/food_buff_calculator.json`  ·  +0 / -0 / ~14
 
-**Changed (23)**
+**Changed (14)**
 - BloodpackGlowing  `BloodpackGlowing` — fields: dgAll, fx
 - BloodpackIrradiated  `BloodpackIrradiated` — fields: dgAll, fx
-- Brew_BeerBottleStandard01  `Brew_BeerBottleStandard01` — fields: fx
-- Brew_BlackwaterBrew  `Brew_BlackwaterBrew` — fields: fx
-- Brew_Bourbon  `Brew_Bourbon` — fields: fx
-- Brew_CranberryMoonshine  `Brew_CranberryMoonshine` — fields: fx
-- Brew_DLC04_NukaCola_Dark  `Brew_DLC04_NukaCola_Dark` — fields: fx
-- Brew_LiquidCourage  `Brew_LiquidCourage` — fields: fx
-- Brew_MountainHoneyMoonshine  `Brew_MountainHoneyMoonshine` — fields: fx
-- Brew_NewRiverRedAle  `Brew_NewRiverRedAle` — fields: fx
-- Brew_OakHollerLager  `Brew_OakHollerLager` — fields: fx
-- Brew_OldPossum  `Brew_OldPossum` — fields: fx
-- Brew_PickAxePilsner  `Brew_PickAxePilsner` — fields: fx
-- Brew_Rum  `Brew_Rum` — fields: fx
-- Brew_Vodka  `Brew_Vodka` — fields: fx
-- Brew_Whiskey  `Brew_Whiskey` — fields: fx
-- Brew_Wine  `Brew_Wine` — fields: fx
-- FFZ13_BrewSweetwaterTastyTea  `FFZ13_BrewSweetwaterTastyTea` — fields: fx
-- MTN04_BeerBottleReserve  `MTN04_BeerBottleReserve` — fields: fx
+- LGN_BrawlingChemist_Chem01  `LGN_BrawlingChemist_Chem01` — fields: nt
+- LGN_BrawlingChemist_Chem02  `LGN_BrawlingChemist_Chem02` — fields: nt
+- LGN_BrawlingChemist_Chem03  `LGN_BrawlingChemist_Chem03` — fields: nt
+- LGN_BrawlingChemist_Chem04  `LGN_BrawlingChemist_Chem04` — fields: nt
 - RadX  `RadX` — fields: dgAll, fx
 - RadXDiluted  `RadXDiluted` — fields: dgAll, fx
 - SFM04_Organic_RadShield  `SFM04_Organic_RadShield` — fields: dgAll, fx
 - TrenchMed_Pitt  `TrenchMed_Pitt` — fields: dgAll, fx
+- VenisonAndTatoStew_Psycho  `VenisonAndTatoStew_Psycho` — fields: nt
+- VenisonAndTatoStew_Spiced  `VenisonAndTatoStew_Spiced` — fields: nt
+- VenisonAndTatoStew_Stimpak  `VenisonAndTatoStew_Stimpak` — fields: nt
+- W05_MQR_203P_ChemBlend  `W05_MQR_203P_ChemBlend` — fields: nt
 
 ## `calculators/outfit_inspiration.json`  ·  +23 / -8 / ~12
 
