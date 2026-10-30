@@ -85,8 +85,18 @@ jobs:
             exit 0
           fi
           git commit -m "Refresh Images"
+          # After the rebase, every JSON this run touched must still parse. A
+          # line-merge of two builds' copies once left dist/no_plan_apparel.json
+          # broken on main (31 Oct 2026); never push one of those.
+          check_json() {
+            git diff --name-only origin/main HEAD -- '*.json' | while read -r f; do
+              [ -f "$f" ] || continue
+              python -c "import json,sys; json.load(open(sys.argv[1], encoding='utf-8'))" "$f" \
+                || { echo "BROKEN JSON after rebase: $f"; return 1; }
+            done
+          }
           for i in 1 2 3 4; do
-            if git pull --rebase -X theirs origin main && git push origin HEAD:main; then
+            if git pull --rebase -X theirs origin main && check_json && git push origin HEAD:main; then
               exit 0
             fi
             git rebase --abort 2>/dev/null || true
