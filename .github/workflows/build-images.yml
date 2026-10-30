@@ -1,0 +1,96 @@
+name: Refresh Images
+
+# Re-points every page at the pictures on the server, straight after Duchess
+# refreshes the server list (Duchess, 31 Oct 2026: "a separate workflow just for
+# images, like the bugged plans one").
+#
+# Her steps: upload with FileZilla -> python tools\list_server_images.py ... ->
+# commit + push data/server_listing.tsv. This runs on that push, so the pages
+# show the new pictures a few minutes later without waiting for the full
+# DFBNB Patch Build (which now skips listing-only pushes; it still rebuilds
+# every picture on its own runs).
+#
+# Runs, in this order:
+#   1-4  what REFRESH-IMAGES.bat does: picture library (dist/image_index.json),
+#        plan checklist pictures (plan_master, New Plans, Underarmour, Apparel
+#        without plans), library again, then Seasonal / Mutated / Daily Ops /
+#        Activities / Public Events / Treasure Maps.
+#   5    Slasher Lore checklist (map + location pictures are linked only once
+#        they are on the list).
+#   6    One-weapon guides (The Pipe).
+#   7    Unique Weapons & Armour (live + PTS).
+# Not here on purpose: add_weapon_groups.py on its own clears the plan rows'
+# pictures (it is meant to run before plan_images inside the full build).
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'data/server_listing.tsv'
+      - '.github/workflows/build-images.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-images-main
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+        with:
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: "[1] Picture library"
+        run: python src/build_image_index.py
+
+      - name: "[2] Plan checklist pictures"
+        run: |
+          python src/add_plan_images.py dist/plan_master.json dist/new_plans.json
+          python src/add_plan_images.py --folder underarmour dist/underarmour.json
+          python src/add_plan_images.py --folder apparel-without-plans dist/no_plan_apparel.json
+
+      - name: "[3] Picture library again (with the plan checklists' picks)"
+        run: python src/build_image_index.py
+
+      - name: "[4] Seasonal, Mutated, Daily Ops, Activities, Public Events, Treasure Maps"
+        run: python src/apply_image_index.py
+
+      - name: "[5] Slasher Lore checklist"
+        run: python src/build_slasher_lore_json.py --data-dir tsv --out dist/collectables_slasher_lore.json
+
+      - name: "[6] One-weapon guides"
+        run: python src/build_weapon_guides_json.py
+
+      - name: "[7] Unique Weapons & Armour"
+        run: python src/build_unique_weapons_armour_json.py --channel both
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add dist/ audits/
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "Refresh Images"
+          for i in 1 2 3 4; do
+            if git pull --rebase -X theirs origin main && git push origin HEAD:main; then
+              exit 0
+            fi
+            git rebase --abort 2>/dev/null || true
+            sleep $((i * 15))
+          done
+          echo "Could not push after 4 tries."
+          exit 1

@@ -21,6 +21,9 @@ on:
       - "tools/**"
       - "src/**"
       - "data/**"
+      # A server-list refresh on its own runs build-images.yml instead (31 Oct 2026).
+      # This build still rebuilds every picture on its own runs.
+      - "!data/server_listing.tsv"
       - ".github/workflows/dfbnb-patch-build.yml"
 
 permissions:
