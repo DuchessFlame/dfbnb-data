@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "generated": "2026-10-30T14:57:25Z",
-  "channel": "pts",
+  "generated": "2026-10-30T18:52:11Z",
+  "channel": "live",
   "count": 133,
   "counts": {
     "weapon": 120,
@@ -18,7 +18,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/acceptable-overkill.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 0,
+        "damage": null,
         "fireRate": 1.0,
         "range": 3102,
         "weight": 3.0,
@@ -73,7 +73,13 @@
           "edid": "mod_Custom_AcceptableOverkill",
           "formId": "008EE1EB",
           "kind": "unique",
-          "desc": "+1% Accuracy and Damage per V.A.T.S. Focus Shot"
+          "desc": "+1% Accuracy and Damage per V.A.T.S. Focus Shot",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         },
         {
           "name": "Calibrated Capacitor",
@@ -160,7 +166,7 @@
           "lines": [
             "Drops: Ready-made weapon",
             "Source: Enemy drop: Uninvited Pint-Sized Phantom — 3.3333%",
-            "Legacy: Survival mode version — no longer obtainable, player trading only"
+            "Legacy: an older Survival mode version also exists, from when Survival mode was in the game — no longer obtainable, player trading only"
           ],
           "tradeable": true,
           "dropRate": "",
@@ -197,7 +203,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/all-rise.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 40,
+        "damage": "271 Physical at level 50",
         "fireRate": 1.0,
         "range": 10,
         "weight": 20.0,
@@ -252,7 +258,13 @@
           "edid": "mod_Custom_AllRise",
           "formId": "0047187E",
           "kind": "unique",
-          "desc": "+50 Health"
+          "desc": "+50 Health",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         },
         {
           "name": "Heavy Rocket",
@@ -349,7 +361,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/anchorage-ace.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 7,
+        "damage": "59 Physical at level 50",
         "fireRate": 0.9,
         "range": 2565,
         "weight": 3.0,
@@ -390,7 +402,13 @@
           "edid": "mod_custom_Suppressed10mmSMG_AnchorageAce",
           "formId": "00759B4A",
           "kind": "unique",
-          "desc": "Prototype Integrated Silencer"
+          "desc": "Prototype Integrated Silencer",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         }
       ],
       "obtainRoutes": [
@@ -474,7 +492,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/ski-sword.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 11,
+        "damage": "160 Physical at level 50",
         "fireRate": 1.0,
         "range": 10,
         "weight": 3.0,
@@ -529,7 +547,13 @@
           "edid": "mod_Custom_BlackDiamond",
           "formId": "0047187F",
           "kind": "unique",
-          "desc": "Deals Cryo damage"
+          "desc": "Deals Cryo damage",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         },
         {
           "name": "Skate Blade",
@@ -632,7 +656,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/blade-of-bastet.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 1,
+        "damage": "160 Physical at level 50",
         "fireRate": 1.0,
         "range": 10,
         "weight": 3.0,
@@ -644,7 +668,7 @@
         "minLevel": 25
       },
       "starEffects": [],
-      "inherentEffect": "Upgrades when Eye of Ra is Equipped: +0% Armor Penetration",
+      "inherentEffect": "Upgrades when Eye of Ra is Equipped: +50% Armor Penetration (+100% with Eye of Ra)",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -665,7 +689,15 @@
           "edid": "mod_Description_MoM_BladeofBastet",
           "formId": "00522666",
           "kind": "unique",
-          "desc": "Upgrades when Eye of Ra is Equipped: +0% Armor Penetration"
+          "desc": "Upgrades when Eye of Ra is Equipped: +50% Armor Penetration (+100% with Eye of Ra)",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": [
+              "Ab Fortify Armor Penetration: curve 50 at 0, 100 at 1"
+            ]
+          }
         }
       ],
       "obtainRoutes": [
@@ -763,7 +795,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/blue-ridge-branding-iron.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 13,
+        "damage": "72 Physical at level 50",
         "fireRate": 1.0,
         "range": 10,
         "weight": 3.0,
@@ -797,7 +829,7 @@
           "fixed": false
         }
       ],
-      "inherentEffect": "Critical hits cause fire damage; Adds Fire damage",
+      "inherentEffect": "Critical hits cause fire damage; Adds Fire damage over 3 seconds",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -818,7 +850,15 @@
           "edid": "mod_custom_BlueRidgeBrandingIron_Custom",
           "formId": "007AA31C",
           "kind": "unique",
-          "desc": "Critical hits cause fire damage; Adds Fire damage"
+          "desc": "Critical hits cause fire damage; Adds Fire damage over 3 seconds",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": [
+              "dt Fire Flame Effect Chance Always: curve 13 at 1, 14 at 5, 16 at 10, 18 at 15, 20 at 20, 23 at 25, 26 at 30, 29 at 35, 33 at 40, 37 at 45, 42 at 50"
+            ]
+          }
         }
       ],
       "obtainRoutes": [
@@ -903,7 +943,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/boiling-point.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 0,
+        "damage": null,
         "fireRate": 1.0,
         "range": 1319,
         "weight": 15.0,
@@ -944,7 +984,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "Adds Poison damage",
+      "inherentEffect": "Adds Poison damage over 12 seconds",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -965,7 +1005,15 @@
           "edid": "RD01_Mod_Custom_BoilingPoint_CustomName",
           "formId": "007934FC",
           "kind": "unique",
-          "desc": "Adds Poison damage"
+          "desc": "Adds Poison damage over 12 seconds",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": [
+              "dt Poison Effect Chance Always: curve 8 at 1, 9 at 5, 11 at 10, 12 at 15, 14 at 20, 15 at 25, 17 at 30, 19 at 35, 22 at 40, 25 at 45, 28 at 50"
+            ]
+          }
         },
         {
           "name": "Large Propellant Tank",
@@ -1072,7 +1120,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/boomstick.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 5,
+        "damage": "5 Physical",
         "fireRate": 1.0,
         "range": 5225,
         "weight": 20.0,
@@ -1127,7 +1175,22 @@
           "edid": "mod_Custom_BoomStick",
           "formId": "00680832",
           "kind": "unique",
-          "desc": "Fires 2 Additional Missiles"
+          "desc": "Fires 2 Additional Missiles",
+          "effectCheck": {
+            "status": "confirmed",
+            "claimed": [
+              "2 Additional"
+            ],
+            "notFound": [],
+            "files": [
+              "aim model min cone degrees +100%",
+              "aim model max cone degrees +100%",
+              "aim model recoil max deg per shot +50%",
+              "aim model recoil min deg per shot +50%",
+              "num projectiles +2",
+              "damage bonus mult +0.75"
+            ]
+          }
         },
         {
           "name": "Quad Barrel",
@@ -1286,7 +1349,17 @@
           "edid": "mod_Custom_Bulwark",
           "formId": "008A418B",
           "kind": "unique",
-          "desc": "This armor weighs twice as much and provides 35% more protection."
+          "desc": "This armor weighs twice as much and provides 35% more protection.",
+          "effectCheck": {
+            "status": "confirmed",
+            "claimed": [
+              "35%"
+            ],
+            "notFound": [],
+            "files": [
+              "weight +100%"
+            ]
+          }
         }
       ],
       "obtainRoutes": [
@@ -1370,7 +1443,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/bunker-buster.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 5,
+        "damage": "5 Physical",
         "fireRate": 1.0,
         "range": 5225,
         "weight": 20.0,
@@ -1425,7 +1498,13 @@
           "edid": "mod_Custom_BunkerBuster",
           "formId": "00471880",
           "kind": "unique",
-          "desc": "Modifiers to Explosive Radius Apply to Damage Instead"
+          "desc": "Modifiers to Explosive Radius Apply to Damage Instead",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         },
         {
           "name": "Triple Barrel",
@@ -1533,7 +1612,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/burning-love.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 7,
+        "damage": "244 Physical at level 50",
         "fireRate": 1.0,
         "range": 6161,
         "weight": 3.0,
@@ -1567,7 +1646,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "Adds Fire damage",
+      "inherentEffect": "Adds Fire damage over 6 seconds",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -1588,7 +1667,15 @@
           "edid": "E09C_mod_Custom_BurningLove",
           "formId": "0067A475",
           "kind": "unique",
-          "desc": "Adds Fire damage"
+          "desc": "Adds Fire damage over 6 seconds",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": [
+              "dt Fire Flame Effect Chance Always: curve 14 at 1, 16 at 5, 18 at 10, 20 at 15, 23 at 20, 26 at 25, 29 at 30, 33 at 35, 37 at 40, 42 at 45, 47 at 50"
+            ]
+          }
         }
       ],
       "obtainRoutes": [
@@ -1676,7 +1763,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/commie-whacker.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 10,
+        "damage": "47 Physical at level 50",
         "fireRate": 1.0,
         "range": 10,
         "weight": 2.0,
@@ -1710,7 +1797,7 @@
           "fixed": false
         }
       ],
-      "inherentEffect": "Adds Poison damage; Deals Cryo damage; Causes Bleed damage; Deals Energy damage; Deals Radiation damage; Adds Fire damage",
+      "inherentEffect": "Adds Poison damage over 10 seconds; Deals Cryo damage; Causes Bleed damage over 5 seconds; Deals Energy damage; Deals Radiation damage; Adds Fire damage over 3 seconds",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -1731,7 +1818,13 @@
           "edid": "mod_Custom_CamdenWhacker",
           "formId": "008EDF26",
           "kind": "unique",
-          "desc": "Adds Poison damage; Deals Cryo damage; Causes Bleed damage; Deals Energy damage; Deals Radiation damage; Adds Fire damage"
+          "desc": "Adds Poison damage over 10 seconds; Deals Cryo damage; Causes Bleed damage over 5 seconds; Deals Energy damage; Deals Radiation damage; Adds Fire damage over 3 seconds",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         }
       ],
       "obtainRoutes": [
@@ -1815,7 +1908,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/cauterizer.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 0,
+        "damage": "28 Physical at level 50",
         "fireRate": 1.0,
         "range": 256,
         "weight": 12.0,
@@ -1878,7 +1971,16 @@
           "edid": "RD01_Mod_Custom_Cauterizer_CustomName",
           "formId": "00796EB4",
           "kind": "unique",
-          "desc": "+60% Energy Damage; +25% AP cost"
+          "desc": "+60% Energy Damage; +25% AP cost",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": [
+              "AttackDamage: curve -0.4 at 1, -0.4 at 50",
+              "attack action point cost +25%"
+            ]
+          }
         }
       ],
       "obtainRoutes": [
@@ -1978,7 +2080,7 @@
       "image": "",
       "ddsHandle": "",
       "stats": {
-        "damage": 3,
+        "damage": "3 Physical",
         "fireRate": 1.0,
         "range": 4124,
         "weight": 6.0,
@@ -2019,7 +2121,22 @@
           "edid": "HIDE_Mod_Custom_crChaosEngine_SpecialEffect",
           "formId": "00835A70",
           "kind": "unique",
-          "desc": "Projectile Applies Cryo To First Slow Targets & Then Explosive To Damage Them: Fires its own special projectile; -50% spread and recoil"
+          "desc": "Projectile Applies Cryo To First Slow Targets & Then Explosive To Damage Them: Fires its own special projectile; -50% spread and recoil",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": [
+              "aim model recoil diminish spring force -50%",
+              "aim model recoil diminish sights mult -50%",
+              "aim model recoil max deg per shot -50%",
+              "aim model recoil min deg per shot -50%",
+              "aim model recoil hip mult -50%",
+              "aim model recoil arc deg -50%",
+              "aim model recoil arc rotate deg -50%",
+              "aim model base stability +50%"
+            ]
+          }
         },
         {
           "name": "Long Barrel",
@@ -2118,7 +2235,7 @@
       "image": "/wp-content/uploads/season_images/season-15/score_s15_weapons_circuitbreaker.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 0,
+        "damage": null,
         "fireRate": 1.0,
         "range": 2637,
         "weight": 3.0,
@@ -2152,7 +2269,7 @@
           "fixed": false
         }
       ],
-      "inherentEffect": "+15% Reload Speed",
+      "inherentEffect": "+15% Reload Speed; Successful Final Round shot will create an energy blast that deals damage and stuns enemies within 50ft. Stunned enemies will be immune to being stunned again for 10 seconds",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -2173,7 +2290,23 @@
           "edid": "mod_Custom_CircuitBreaker",
           "formId": "006DC8DD",
           "kind": "unique",
-          "desc": "+15% Reload Speed"
+          "desc": "+15% Reload Speed; Successful Final Round shot will create an energy blast that deals damage and stuns enemies within 50ft. Stunned enemies will be immune to being stunned again for 10 seconds",
+          "effectCheck": {
+            "status": "confirmed",
+            "claimed": [
+              "15%",
+              "50 ft",
+              "10 seconds"
+            ],
+            "notFound": [],
+            "files": [
+              "reload speed +15%",
+              "Damage Health: curve 31 at 1, 35 at 5, 39 at 10, 44 at 15, 50 at 20, 56 at 25, 64 at 30, 72 at 35, 81 at 40, 91 at 45, 103 at 50",
+              "Damage Health +31",
+              "Circuit Breaker Damge Effect: curve 6 at 1, 7 at 5, 8 at 10, 9 at 15, 10 at 20, 11 at 25, 13 at 30, 14 at 35, 16 at 40, 18 at 45, 20 at 50",
+              "Circuit Breaker Damge Effect +6"
+            ]
+          }
         },
         {
           "name": "Energy Muzzle",
@@ -2274,7 +2407,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/civil-unrest.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 50,
+        "damage": "257 Physical at level 50",
         "fireRate": 1.0,
         "range": 2278,
         "weight": 7.0,
@@ -2329,7 +2462,13 @@
           "edid": "mod_Custom_CivilUnrest",
           "formId": "00471881",
           "kind": "unique",
-          "desc": "+50 Action Points"
+          "desc": "+50 Action Points",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         },
         {
           "name": "Stabilized Medium Barrel",
@@ -2433,7 +2572,7 @@
       "image": "/wp-content/uploads/season_images/season-12/score_s12_weapons_coldshoulder.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 67,
+        "damage": "300 Physical at level 50",
         "fireRate": 1.0,
         "range": 1439,
         "weight": 6.0,
@@ -2488,7 +2627,15 @@
           "edid": "mod_custom_Coldshoulder_DmgvsCryptid",
           "formId": "00690C7D",
           "kind": "unique",
-          "desc": "Bonus Damage to Cryptids (goes up with level); Deals Cryo damage"
+          "desc": "Bonus Damage to Cryptids (goes up with level); Deals Cryo damage",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": [
+              "ActorValues: curve 50 at 1, 50 at 100"
+            ]
+          }
         },
         {
           "name": "Stabilized Stock",
@@ -2541,17 +2688,10 @@
         },
         {
           "route": "Atom Shop",
-          "populated": true,
-          "lines": [
-            "Drops: Unlocks crafting (Weapon Workbench)",
-            "Source: Cold Shoulder Starter Bundle",
-            "Cost: 1,000 Atoms",
-            "Note: In the Atom Shop's Add-ons store."
-          ],
-          "tradeable": false,
-          "dropRate": "N/A",
-          "conditions": [],
-          "conditionsChecked": true
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
         },
         {
           "route": "Limited Time Bundle",
@@ -2596,7 +2736,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/revolutionary-war-sword.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 16,
+        "damage": "150 Physical at level 50",
         "fireRate": 1.0,
         "range": 10,
         "weight": 3.0,
@@ -2651,7 +2791,13 @@
           "edid": "mod_Custom_CommandersCharge",
           "formId": "008EE2A8",
           "kind": "unique",
-          "desc": "+30% Chance to Automatically Block Ranged Attacks"
+          "desc": "+30% Chance to Automatically Block Ranged Attacks",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         },
         {
           "name": "Electrified",
@@ -2710,7 +2856,7 @@
           "lines": [
             "Drops: Ready-made weapon",
             "Source: Enemy drop: Uninvited Pint-Sized Phantom — 3.3333%",
-            "Legacy: Survival mode version — no longer obtainable, player trading only"
+            "Legacy: an older Survival mode version also exists, from when Survival mode was in the game — no longer obtainable, player trading only"
           ],
           "tradeable": true,
           "dropRate": "",
@@ -2752,7 +2898,7 @@
       "ddsHandle": "",
       "stats": {},
       "starEffects": [],
-      "inherentEffect": "[TODO] +1% Weakpoint Damage per Killstreak (Max 10)",
+      "inherentEffect": "[TODO] +1% Weakpoint Damage per Killstreak (Max 10) (not confirmed in the game files)",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -2774,7 +2920,19 @@
           "edid": "mod_Custom_CorpseStacker",
           "formId": "0094E88A",
           "kind": "unique",
-          "desc": "[TODO] +1% Weakpoint Damage per Killstreak (Max 10)"
+          "desc": "[TODO] +1% Weakpoint Damage per Killstreak (Max 10) (not confirmed in the game files)",
+          "effectCheck": {
+            "status": "unconfirmed",
+            "claimed": [
+              "1%",
+              "Max 10"
+            ],
+            "notFound": [
+              "1%",
+              "Max 10"
+            ],
+            "files": []
+          }
         }
       ],
       "obtainRoutes": [
@@ -2854,7 +3012,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/cosmic-knife.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 9,
+        "damage": "87 Physical at level 50",
         "fireRate": 1.0,
         "range": 10,
         "weight": 1.0,
@@ -2888,7 +3046,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "+65% attack speed; +35% damage; Sneak damage increased by 50%; Causes Bleed damage",
+      "inherentEffect": "+65% attack speed; +35% damage; Sneak damage increased by 50%; Causes Bleed damage over 5 seconds",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -2909,7 +3067,21 @@
           "edid": "mod_custom_CosmicKnife",
           "formId": "00832CB6",
           "kind": "unique",
-          "desc": "+65% attack speed; +35% damage; Sneak damage increased by 50%; Causes Bleed damage"
+          "desc": "+65% attack speed; +35% damage; Sneak damage increased by 50%; Causes Bleed damage over 5 seconds",
+          "effectCheck": {
+            "status": "confirmed",
+            "claimed": [
+              "50%"
+            ],
+            "notFound": [],
+            "files": [
+              "speed +65%",
+              "attack damage +35%",
+              "S22 Cosmic Knife Effect Text Dummy 1",
+              "mod Weap Bleed Effect: curve 13 at 1, 14 at 5, 16 at 10, 18 at 15, 20 at 20, 23 at 25, 26 at 30, 29 at 35, 33 at 40, 37 at 45, 42 at 50",
+              "sneak attack mult +0.5"
+            ]
+          }
         }
       ],
       "obtainRoutes": [
@@ -3002,7 +3174,7 @@
       "ddsHandle": "",
       "stats": {},
       "starEffects": [],
-      "inherentEffect": "+65% attack speed; +35% damage; Causes Bleed damage; +35% Fire Damage",
+      "inherentEffect": "+65% attack speed; +35% damage; Reduces Target's Damage Resistance by 25% for 3 seconds; Causes Bleed damage over 5 seconds; +35% Fire Damage",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -3023,7 +3195,19 @@
           "edid": "mod_custom_CosmicKnife_Superheated",
           "formId": "00837E13",
           "kind": "unique",
-          "desc": "+65% attack speed; +35% damage; Causes Bleed damage; +35% Fire Damage"
+          "desc": "+65% attack speed; +35% damage; Reduces Target's Damage Resistance by 25% for 3 seconds; Causes Bleed damage over 5 seconds; +35% Fire Damage",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": [
+              "speed +65%",
+              "attack damage +35%",
+              "FXFire Hit Visuals: curve 13 at 1, 14 at 5, 16 at 10, 18 at 15, 20 at 20, 23 at 25, 26 at 30, 29 at 35, 33 at 40, 37 at 45, 42 at 50",
+              "Cosmic Knife Superheated Damage Resist Effect Contact 25 for 3 seconds",
+              "mod Weap Bleed Effect: curve 13 at 1, 14 at 5, 16 at 10, 18 at 15, 20 at 20, 23 at 25, 26 at 30, 29 at 35, 33 at 40, 37 at 45, 42 at 50"
+            ]
+          }
         }
       ],
       "obtainRoutes": [
@@ -3117,7 +3301,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/crowd-control-paint.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 50,
+        "damage": "206 Physical at level 50",
         "fireRate": 1.0,
         "range": 2038,
         "weight": 7.0,
@@ -3151,7 +3335,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "Causes Bleed damage",
+      "inherentEffect": "Causes Bleed damage over 10 seconds",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -3172,7 +3356,15 @@
           "edid": "E08B_mod_Custom_CrowdControl",
           "formId": "0064D006",
           "kind": "unique",
-          "desc": "Causes Bleed damage"
+          "desc": "Causes Bleed damage over 10 seconds",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": [
+              "Damage Health Contact: curve 5 at 1, 6 at 5, 6 at 10, 7 at 15, 8 at 20, 9 at 25, 11 at 30, 12 at 35, 13 at 40, 15 at 45, 17 at 50"
+            ]
+          }
         }
       ],
       "obtainRoutes": [
@@ -3259,7 +3451,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/m79-grenade-launcher.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 3,
+        "damage": "3 Physical",
         "fireRate": 1.0,
         "range": 4124,
         "weight": 6.0,
@@ -3314,7 +3506,13 @@
           "edid": "mod_Custom_CrushingBlow",
           "formId": "008EF0F7",
           "kind": "unique",
-          "desc": "+10 Damage per Crippled Limb Your Target Has"
+          "desc": "+10 Damage per Crippled Limb Your Target Has",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         },
         {
           "name": "Short Barrel",
@@ -3373,7 +3571,7 @@
           "lines": [
             "Drops: Ready-made weapon",
             "Source: Enemy drop: Uninvited Pint-Sized Phantom — 3.3333%",
-            "Legacy: Survival mode version — no longer obtainable, player trading only"
+            "Legacy: an older Survival mode version also exists, from when Survival mode was in the game — no longer obtainable, player trading only"
           ],
           "tradeable": true,
           "dropRate": "",
@@ -3412,7 +3610,7 @@
       "ddsHandle": "",
       "stats": {},
       "starEffects": [],
-      "inherentEffect": "[TODO] Crippling a Target Grants 50% Damage Reduction for 5 Seconds",
+      "inherentEffect": "[TODO] Crippling a Target Grants 50% Damage Reduction for 5 Seconds (not confirmed in the game files)",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -3434,7 +3632,19 @@
           "edid": "mod_Custom_Crybaby",
           "formId": "0094E888",
           "kind": "unique",
-          "desc": "[TODO] Crippling a Target Grants 50% Damage Reduction for 5 Seconds"
+          "desc": "[TODO] Crippling a Target Grants 50% Damage Reduction for 5 Seconds (not confirmed in the game files)",
+          "effectCheck": {
+            "status": "unconfirmed",
+            "claimed": [
+              "50%",
+              "5 Seconds"
+            ],
+            "notFound": [
+              "50%",
+              "5 Seconds"
+            ],
+            "files": []
+          }
         }
       ],
       "obtainRoutes": [
@@ -3514,7 +3724,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/cryptid-jawbone-knife.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 9,
+        "damage": "87 Physical at level 50",
         "fireRate": 1.0,
         "range": 10,
         "weight": 1.0,
@@ -3569,7 +3779,15 @@
           "edid": "mod_custom_CryptidJawboneKnife",
           "formId": "006ABA10",
           "kind": "unique",
-          "desc": "Bonus Damage to Cryptids (goes up with level)"
+          "desc": "Bonus Damage to Cryptids (goes up with level)",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": [
+              "ActorValues: curve 50 at 1, 50 at 100"
+            ]
+          }
         }
       ],
       "obtainRoutes": [
@@ -3653,7 +3871,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/cultist-piercer.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 0,
+        "damage": "231 Physical at level 50",
         "fireRate": 1.0,
         "range": 10,
         "weight": 2.5,
@@ -3708,7 +3926,17 @@
           "edid": "mod_custom_CultistPiercer_Effect",
           "formId": "006E2247",
           "kind": "unique",
-          "desc": "+50% Armor Penetrations vs Cryptids"
+          "desc": "+50% Armor Penetrations vs Cryptids",
+          "effectCheck": {
+            "status": "confirmed",
+            "claimed": [
+              "50%"
+            ],
+            "notFound": [],
+            "files": [
+              "target damage resistance x0.5 (-50%)"
+            ]
+          }
         }
       ],
       "obtainRoutes": [
@@ -3793,7 +4021,7 @@
       "image": "/wp-content/uploads/guide-images/seasonal-events/treasure-hunters/cursed-broadsider.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 5,
+        "damage": "5 Physical",
         "fireRate": 1.0,
         "range": 4400,
         "weight": 16.0,
@@ -3829,7 +4057,13 @@
           "edid": "EN06_mod_Ranged_Broadsider_Custom_Cursed",
           "formId": "00614386",
           "kind": "unique",
-          "desc": "Cursed: +35% Damage, +15% Attack Speed, and -15% Durability"
+          "desc": "Cursed: +35% Damage, +15% Attack Speed, and -15% Durability",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         }
       ],
       "obtainRoutes": [
@@ -3918,7 +4152,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/cursed-harpoon-gun.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 254,
+        "damage": "330 Physical at level 50",
         "fireRate": 1.0,
         "range": 5060,
         "weight": 12.0,
@@ -3954,7 +4188,13 @@
           "edid": "EN06_mod_Ranged_HarpoonGun_Custom_Cursed",
           "formId": "005A70C2",
           "kind": "unique",
-          "desc": "Cursed: +35% Damage, +15% Attack Speed, and -15% Durability"
+          "desc": "Cursed: +35% Damage, +15% Attack Speed, and -15% Durability",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         }
       ],
       "obtainRoutes": [
@@ -4038,7 +4278,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/cursed-pickaxe.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 0,
+        "damage": "231 Physical at level 50",
         "fireRate": 1.0,
         "range": 10,
         "weight": 2.5,
@@ -4074,7 +4314,13 @@
           "edid": "EN06_mod_melee_PickAxe_Custom_Cursed",
           "formId": "005A70C1",
           "kind": "unique",
-          "desc": "Cursed: +35% Damage, +15% Attack Speed, and -15% Durability"
+          "desc": "Cursed: +35% Damage, +15% Attack Speed, and -15% Durability",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         }
       ],
       "obtainRoutes": [
@@ -4161,7 +4407,7 @@
       "image": "/wp-content/uploads/guide-images/seasonal-events/treasure-hunters/cursed-rolling-pin.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 11,
+        "damage": "121 Physical at level 50",
         "fireRate": 1.0,
         "range": 10,
         "weight": 1.0,
@@ -4197,7 +4443,13 @@
           "edid": "mod_melee_RollingPin_Custom_Cursed",
           "formId": "005FDE0D",
           "kind": "unique",
-          "desc": "Cursed: +35% Damage, +15% Attack Speed, and -15% Durability"
+          "desc": "Cursed: +35% Damage, +15% Attack Speed, and -15% Durability",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         }
       ],
       "obtainRoutes": [
@@ -4286,7 +4538,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/cursed-shovel.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 1,
+        "damage": "206 Physical at level 50",
         "fireRate": 1.0,
         "range": 10,
         "weight": 6.0,
@@ -4322,7 +4574,13 @@
           "edid": "EN06_mod_melee_Shovel_Custom_Cursed",
           "formId": "005A70C0",
           "kind": "unique",
-          "desc": "Cursed: +35% Damage, +15% Attack Speed, and -15% Durability"
+          "desc": "Cursed: +35% Damage, +15% Attack Speed, and -15% Durability",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         }
       ],
       "obtainRoutes": [
@@ -4406,7 +4664,7 @@
       "image": "/wp-content/uploads/guide-images/seasonal-events/treasure-hunters/cursed-sickle.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 11,
+        "damage": "130 Physical at level 50",
         "fireRate": 1.0,
         "range": 10,
         "weight": 3.0,
@@ -4442,7 +4700,13 @@
           "edid": "EN06_mod_melee_Sickle_Custom_Cursed",
           "formId": "00614357",
           "kind": "unique",
-          "desc": "Cursed: +35% Damage, +15% Attack Speed, and -15% Durability"
+          "desc": "Cursed: +35% Damage, +15% Attack Speed, and -15% Durability",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         }
       ],
       "obtainRoutes": [
@@ -4531,7 +4795,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/fatman.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 5,
+        "damage": "5 Physical",
         "fireRate": 1.0,
         "range": 5501,
         "weight": 20.0,
@@ -4586,7 +4850,18 @@
           "edid": "mod_Custom_Daisycutter",
           "formId": "00471882",
           "kind": "unique",
-          "desc": "+20% Damage for Every 1000 RAD Resistance"
+          "desc": "+20% Damage for Every 1000 RAD Resistance",
+          "effectCheck": {
+            "status": "confirmed",
+            "claimed": [
+              "20%",
+              "1000 RAD"
+            ],
+            "notFound": [],
+            "files": [
+              "weapon dmg bonus mult +20%"
+            ]
+          }
         },
         {
           "name": "MIRV Launcher",
@@ -4690,7 +4965,7 @@
       "ddsHandle": "",
       "stats": {},
       "starEffects": [],
-      "inherentEffect": "[TODO] Charging Drain AP for up to 100% More Damage",
+      "inherentEffect": "[TODO] Charging Drain AP for up to 100% More Damage (not confirmed in the game files)",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -4712,7 +4987,17 @@
           "edid": "mod_Custom_DeepBreath",
           "formId": "0094E88C",
           "kind": "unique",
-          "desc": "[TODO] Charging Drain AP for up to 100% More Damage"
+          "desc": "[TODO] Charging Drain AP for up to 100% More Damage (not confirmed in the game files)",
+          "effectCheck": {
+            "status": "unconfirmed",
+            "claimed": [
+              "100%"
+            ],
+            "notFound": [
+              "100%"
+            ],
+            "files": []
+          }
         }
       ],
       "obtainRoutes": [
@@ -4792,7 +5077,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/disorderly-conduct.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 11,
+        "damage": "130 Physical at level 50",
         "fireRate": 1.0,
         "range": 10,
         "weight": 2.0,
@@ -4847,7 +5132,17 @@
           "edid": "mod_Custom_DisorderlyConduct",
           "formId": "008EF10A",
           "kind": "unique",
-          "desc": "+20% Weapon Speed"
+          "desc": "+20% Weapon Speed",
+          "effectCheck": {
+            "status": "confirmed",
+            "claimed": [
+              "20%"
+            ],
+            "notFound": [],
+            "files": [
+              "speed +20%"
+            ]
+          }
         },
         {
           "name": "Electrified Rod",
@@ -4908,7 +5203,7 @@
             "Source: Daily Ops, Elder rank (cleared in 8:00 or less) — 1.3302%",
             "Source: Daily Ops, Paladin rank (cleared in 12:00 or less) — 0.1737%",
             "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0579%",
-            "Legacy: Survival mode version — no longer obtainable, player trading only"
+            "Legacy: an older Survival mode version also exists, from when Survival mode was in the game — no longer obtainable, player trading only"
           ],
           "tradeable": true,
           "dropRate": "",
@@ -4947,7 +5242,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/doctors-orders.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 20,
+        "damage": "285 Physical at level 50",
         "fireRate": 1.25,
         "range": 5225,
         "weight": 6.0,
@@ -5002,7 +5297,13 @@
           "edid": "E08B_mod_Custom_HuntingRifle_DoctorsOrders",
           "formId": "0064D007",
           "kind": "unique",
-          "desc": "Attacks Against Weak Points Have a 30% Chance to Reset a Revive Effect Cooldown"
+          "desc": "Attacks Against Weak Points Have a 30% Chance to Reset a Revive Effect Cooldown",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         },
         {
           "name": "Hardened Receiver",
@@ -5114,7 +5415,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/drill-fist.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 0,
+        "damage": "160 Physical at level 50",
         "fireRate": 1.0,
         "range": 10,
         "weight": 6.0,
@@ -5176,7 +5477,15 @@
           "edid": "RD01_Mod_Custom_DrillFist_CustomName",
           "formId": "00796EB6",
           "kind": "unique",
-          "desc": "Deals Fire damage"
+          "desc": "Deals Fire damage",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": [
+              "RD01 Weapon Drill Fist Fire Damage Effect: curve 18 at 1, 20 at 5, 22 at 10, 25 at 15, 29 at 20, 32 at 25, 36 at 30, 41 at 35, 46 at 40, 52 at 45, 59 at 50"
+            ]
+          }
         },
         {
           "name": "Blade Bits",
@@ -5283,7 +5592,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/elders-mark.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 0,
+        "damage": "72 Physical at level 50",
         "fireRate": 1.61,
         "range": 3910,
         "weight": 7.0,
@@ -5338,7 +5647,17 @@
           "edid": "mod_custom_EldersMark_Effect",
           "formId": "006E2246",
           "kind": "unique",
-          "desc": "+2% V.A.T.S. Critical Damage per Onslaught stack"
+          "desc": "+2% V.A.T.S. Critical Damage per Onslaught stack",
+          "effectCheck": {
+            "status": "confirmed",
+            "claimed": [
+              "2%"
+            ],
+            "notFound": [],
+            "files": [
+              "my critical hit damage mult +2% per stack"
+            ]
+          }
         },
         {
           "name": "Short Stock",
@@ -5440,7 +5759,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/face-breaker.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 20,
+        "damage": "171 Physical at level 50",
         "fireRate": 1.0,
         "range": 0,
         "weight": 4.0,
@@ -5495,7 +5814,13 @@
           "edid": "mod_Custom_FaceBreaker",
           "formId": "008F1034",
           "kind": "unique",
-          "desc": "+10 Damage to Weak Point"
+          "desc": "+10 Damage to Weak Point",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         }
       ],
       "obtainRoutes": [
@@ -5636,7 +5961,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/50-cal-machine-gun.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 8,
+        "damage": "59 Physical at level 50",
         "fireRate": 1.0,
         "range": 3895,
         "weight": 18.0,
@@ -5691,7 +6016,15 @@
           "edid": "mod_Custom_FinalWord",
           "formId": "008F1037",
           "kind": "unique",
-          "desc": "Gain 1 Bullet Storm Stack on Kill"
+          "desc": "Gain 1 Bullet Storm Stack on Kill",
+          "effectCheck": {
+            "status": "confirmed",
+            "claimed": [
+              "1 Bullet"
+            ],
+            "notFound": [],
+            "files": []
+          }
         }
       ],
       "obtainRoutes": [
@@ -5787,7 +6120,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/flatliner.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 5,
+        "damage": "103 Physical at level 50",
         "fireRate": 1.0,
         "range": 5500,
         "weight": 8.0,
@@ -5828,7 +6161,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "Fully Charged Shots Deal 100% More Damage",
+      "inherentEffect": "Fully Charged Shots Deal 100% More Damage (the game files say: full power seconds +0.5; min power per shot +1)",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -5849,7 +6182,20 @@
           "edid": "RD01_Mod_Custom_StrikeBreaker_CustomName",
           "formId": "00793512",
           "kind": "unique",
-          "desc": "Fully Charged Shots Deal 100% More Damage"
+          "desc": "Fully Charged Shots Deal 100% More Damage (the game files say: full power seconds +0.5; min power per shot +1)",
+          "effectCheck": {
+            "status": "mismatch",
+            "claimed": [
+              "100%"
+            ],
+            "notFound": [
+              "100%"
+            ],
+            "files": [
+              "full power seconds +0.5",
+              "min power per shot +1"
+            ]
+          }
         },
         {
           "name": "True Shielded Barrel",
@@ -5986,7 +6332,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/foundation-s-vengeance-paint.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 8,
+        "damage": "32 Physical at level 50",
         "fireRate": 2.0,
         "range": 5147,
         "weight": 18.0,
@@ -6020,7 +6366,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "+5 Max Bullet Storm Stacks While Under 25% HP",
+      "inherentEffect": "+5 Max Bullet Storm Stacks While Under 25% HP (not confirmed in the game files: 25%)",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -6041,7 +6387,20 @@
           "edid": "E08B_mod_Custom_FoundationsVengeance",
           "formId": "0064781F",
           "kind": "unique",
-          "desc": "+5 Max Bullet Storm Stacks While Under 25% HP"
+          "desc": "+5 Max Bullet Storm Stacks While Under 25% HP (not confirmed in the game files: 25%)",
+          "effectCheck": {
+            "status": "partial",
+            "claimed": [
+              "5 Max",
+              "25%"
+            ],
+            "notFound": [
+              "25%"
+            ],
+            "files": [
+              "Bullet Storm +5"
+            ]
+          }
         },
         {
           "name": "Gunner Sight",
@@ -6146,7 +6505,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/grand-finale-paint.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 5,
+        "damage": "5 Physical",
         "fireRate": 1.0,
         "range": 4400,
         "weight": 16.0,
@@ -6201,7 +6560,13 @@
           "edid": "E09A_mod_Custom_GrandFinale",
           "formId": "006696FC",
           "kind": "unique",
-          "desc": "Fires its own special projectile"
+          "desc": "Fires its own special projectile",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         }
       ],
       "obtainRoutes": [
@@ -6289,7 +6654,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/chinese-officer-sword.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 1,
+        "damage": "160 Physical at level 50",
         "fireRate": 1.0,
         "range": 10,
         "weight": 3.0,
@@ -6407,7 +6772,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/gunther-s-paint.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 48,
+        "damage": "218 Physical at level 50",
         "fireRate": 1.0,
         "range": 3299,
         "weight": 4.0,
@@ -6462,7 +6827,17 @@
           "edid": "E09D_mod_custom_GunthersRevolver",
           "formId": "00668F1E",
           "kind": "unique",
-          "desc": "+45% Reload Speed"
+          "desc": "+45% Reload Speed",
+          "effectCheck": {
+            "status": "confirmed",
+            "claimed": [
+              "45%"
+            ],
+            "notFound": [],
+            "files": [
+              "reload speed +45%"
+            ]
+          }
         }
       ],
       "obtainRoutes": [
@@ -6550,7 +6925,7 @@
       "image": "/wp-content/uploads/season_images/season-17/score_s17_weapons_headhunter.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 0,
+        "damage": "231 Physical at level 50",
         "fireRate": 1.0,
         "range": 10,
         "weight": 2.5,
@@ -6584,7 +6959,7 @@
           "fixed": false
         }
       ],
-      "inherentEffect": "-40% damage; Causes Bleed damage",
+      "inherentEffect": "-40% damage; Causes Bleed damage over 12 seconds",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -6605,7 +6980,16 @@
           "edid": "mod_custom_HeadHunter_Effect",
           "formId": "0075DF6E",
           "kind": "unique",
-          "desc": "-40% damage; Causes Bleed damage"
+          "desc": "-40% damage; Causes Bleed damage over 12 seconds",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": [
+              "attack damage -40%",
+              "mod Weap Secondary Bleed Effect: curve 26 at 1, 29 at 5, 33 at 10, 37 at 15, 42 at 20, 47 at 25, 54 at 30, 61 at 35, 68 at 40, 77 at 45, 87 at 50"
+            ]
+          }
         }
       ],
       "obtainRoutes": [
@@ -6692,7 +7076,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/holy-fire.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 0,
+        "damage": null,
         "fireRate": 1.0,
         "range": 1319,
         "weight": 15.0,
@@ -6747,7 +7131,21 @@
           "edid": "mod_custom_HolyFire_Effect",
           "formId": "006E06A3",
           "kind": "unique",
-          "desc": "You and Teammates Hit by Your Flame Gain +30% Damage and +50 DR for 15 Seconds"
+          "desc": "You and Teammates Hit by Your Flame Gain +30% Damage and +50 DR for 15 Seconds",
+          "effectCheck": {
+            "status": "confirmed",
+            "claimed": [
+              "30%",
+              "50 DR",
+              "15 Seconds"
+            ],
+            "notFound": [],
+            "files": [
+              "FXFire Hit Visuals Blue 3 for 3 seconds",
+              "Fortify All Damage +30 for 15 seconds",
+              "Fortify Damage Resist +50 for 15 seconds"
+            ]
+          }
         },
         {
           "name": "Large Propellant Tank",
@@ -6846,7 +7244,7 @@
       "image": "/wp-content/uploads/season_images/season-21/score_s21_weapons_harpoongun_icebreaker.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 254,
+        "damage": "330 Physical at level 50",
         "fireRate": 1.0,
         "range": 5060,
         "weight": 12.0,
@@ -6880,7 +7278,7 @@
           "fixed": false
         }
       ],
-      "inherentEffect": "+30% reload speed; +20 Damage to Freezing Targets",
+      "inherentEffect": "Enemies killed with Ice Breaker leave behind a Cryo Hazard; +30% reload speed; +20 Damage to Freezing Targets",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -6901,7 +7299,17 @@
           "edid": "SCORE_S21_mod_custom_IceBreaker",
           "formId": "007FA40F",
           "kind": "unique",
-          "desc": "+30% reload speed; +20 Damage to Freezing Targets"
+          "desc": "Enemies killed with Ice Breaker leave behind a Cryo Hazard; +30% reload speed; +20 Damage to Freezing Targets",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": [
+              "S21 Ice Breaker Effect Text Dummy 1",
+              "reload speed +30%",
+              "Cryo Slow Effect +1"
+            ]
+          }
         },
         {
           "name": "Reflex Sight",
@@ -7003,7 +7411,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/kingfisher.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 254,
+        "damage": "330 Physical at level 50",
         "fireRate": 1.0,
         "range": 5060,
         "weight": 12.0,
@@ -7058,7 +7466,17 @@
           "edid": "mod_Custom_Kingfisher",
           "formId": "008EF32C",
           "kind": "unique",
-          "desc": "+10% Damage per Local Legend Challenge Completed"
+          "desc": "+10% Damage per Local Legend Challenge Completed",
+          "effectCheck": {
+            "status": "confirmed",
+            "claimed": [
+              "10%"
+            ],
+            "notFound": [],
+            "files": [
+              "ab Perk Fortify Dmg All 10 (global Kingfisher_DamageBonus)"
+            ]
+          }
         },
         {
           "name": "Barbed Harpoon",
@@ -7124,7 +7542,7 @@
           "lines": [
             "Drops: Ready-made weapon",
             "Source: Fishing - Linda Lee Chum Trough — 7.1429%",
-            "Legacy: Survival mode version — no longer obtainable, player trading only"
+            "Legacy: an older Survival mode version also exists, from when Survival mode was in the game — no longer obtainable, player trading only"
           ],
           "tradeable": true,
           "dropRate": "",
@@ -7196,7 +7614,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "Accuracy Increases as Health Decreases",
+      "inherentEffect": "Accuracy Increases up to +35% as Health Decreases; Scales: +35% at 5% health, +25% at 20% health, +1% at 80% health, 0 at 100% health",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -7217,7 +7635,16 @@
           "edid": "mod_Custom_LastBastion",
           "formId": "00471883",
           "kind": "unique",
-          "desc": "Accuracy Increases as Health Decreases"
+          "desc": "Accuracy Increases up to +35% as Health Decreases; Scales: +35% at 5% health, +25% at 20% health, +1% at 80% health, 0 at 100% health",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": [
+              "Armor Unique Last Bastion Description: curve 35 at 0.05, 25 at 0.2, 1 at 0.8, 0 at 1",
+              "ab Perk Fortify Gun Accuracy Effect: curve 35 at 0.05, 25 at 0.2, 1 at 0.8, 0 at 1"
+            ]
+          }
         },
         {
           "name": "Padded",
@@ -7373,7 +7800,17 @@
           "edid": "mod_Custom_LastStand",
           "formId": "008A418A",
           "kind": "unique",
-          "desc": "Gain 50% of your evade chance as Damage Reduction. You can no longer Evade"
+          "desc": "Gain 50% of your evade chance as Damage Reduction. You can no longer Evade",
+          "effectCheck": {
+            "status": "confirmed",
+            "claimed": [
+              "50%"
+            ],
+            "notFound": [],
+            "files": [
+              "Incoming Weapon Damage: curve 1 at 0, 0.99 at 2, 0.5 at 100"
+            ]
+          }
         }
       ],
       "obtainRoutes": [
@@ -7464,7 +7901,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/lickety-split.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 100,
+        "damage": "171 Physical at level 50",
         "fireRate": 1.0,
         "range": 3406,
         "weight": 9.0,
@@ -7526,7 +7963,15 @@
           "edid": "RD01_Mod_Custom_LicketySplit_CustomName",
           "formId": "00793807",
           "kind": "unique",
-          "desc": "Railway Spikes Chain Two Times"
+          "desc": "Railway Spikes Chain Two Times",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": [
+              "projectile bounce count +2"
+            ]
+          }
         },
         {
           "name": "Automatic Piston Receiver",
@@ -7664,7 +8109,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/longshot.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 20,
+        "damage": "285 Physical at level 50",
         "fireRate": 1.25,
         "range": 5225,
         "weight": 6.0,
@@ -7719,7 +8164,17 @@
           "edid": "mod_Custom_Longshot",
           "formId": "006828DA",
           "kind": "unique",
-          "desc": "+30% Damage to Far Targets While Aiming"
+          "desc": "+30% Damage to Far Targets While Aiming",
+          "effectCheck": {
+            "status": "confirmed",
+            "claimed": [
+              "30%"
+            ],
+            "notFound": [],
+            "files": [
+              "ab Perk Fortify Dmg Far 30"
+            ]
+          }
         },
         {
           "name": "Hardened Receiver",
@@ -7847,7 +8302,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/love-tap-paint.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 0,
+        "damage": "72 Physical at level 50",
         "fireRate": 1.61,
         "range": 3910,
         "weight": 7.0,
@@ -7902,7 +8357,18 @@
           "edid": "E09C_mod_Custom_LoveTap",
           "formId": "00663B0C",
           "kind": "unique",
-          "desc": "Bashing Grants You and Teammates +30% Damage for 30 Seconds"
+          "desc": "Bashing Grants You and Teammates +30% Damage for 30 Seconds",
+          "effectCheck": {
+            "status": "confirmed",
+            "claimed": [
+              "30%",
+              "30 Seconds"
+            ],
+            "notFound": [],
+            "files": [
+              "Fortify All Damage +30 for 30 seconds"
+            ]
+          }
         },
         {
           "name": "Short Stock",
@@ -8004,7 +8470,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/luca-switchblade.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 8,
+        "damage": "80 Physical at level 50",
         "fireRate": 1.0,
         "range": 10,
         "weight": 1.0,
@@ -8059,7 +8525,13 @@
           "edid": "mod_custom_LucaSwitchblade_Effect",
           "formId": "006E2243",
           "kind": "unique",
-          "desc": "+50 Explosive Damage"
+          "desc": "+50 Explosive Damage",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         }
       ],
       "obtainRoutes": [
@@ -8147,7 +8619,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/meadow-breeze-sprayer.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 24,
+        "damage": "47 Physical at level 50",
         "fireRate": 1.0,
         "range": 1880,
         "weight": 3.0,
@@ -8181,7 +8653,7 @@
           "fixed": false
         }
       ],
-      "inherentEffect": "Sprays Toxic Meadow Breeze: No Energy Damage; +16 Poison Damage (goes up with level)",
+      "inherentEffect": "Sprays Toxic Meadow Breeze: Poison damage lasts 10 seconds; No Energy Damage; +16 Poison Damage (goes up with level)",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -8202,7 +8674,16 @@
           "edid": "mod_Custom_Plasma_AbraxoGun",
           "formId": "00839C68",
           "kind": "unique",
-          "desc": "Sprays Toxic Meadow Breeze: No Energy Damage; +16 Poison Damage (goes up with level)"
+          "desc": "Sprays Toxic Meadow Breeze: Poison damage lasts 10 seconds; No Energy Damage; +16 Poison Damage (goes up with level)",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": [
+              "dt Poison Effect Chance Always: curve 6 at 1, 7 at 5, 8 at 10, 9 at 15, 10 at 20, 11 at 25, 13 at 30, 14 at 35, 16 at 40, 18 at 45, 20 at 50",
+              "DamageTypeValues: curve 11 at 1, 12 at 5, 14 at 10, 16 at 15, 18 at 20, 20 at 25, 23 at 30, 26 at 35, 29 at 40, 33 at 45, 37 at 50"
+            ]
+          }
         },
         {
           "name": "Abraxo Barrel",
@@ -8322,7 +8803,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/mechanics-best-friend.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 13,
+        "damage": "140 Physical at level 50",
         "fireRate": 1.0,
         "range": 10,
         "weight": 2.0,
@@ -8377,7 +8858,16 @@
           "edid": "mod_Custom_MechanicsBestFriend",
           "formId": "0061384F",
           "kind": "unique",
-          "desc": "Makeshift Warrior Also Increases Damage"
+          "desc": "Makeshift Warrior Also Increases Damage",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": [
+              "weapon dmg bonus mult +40%",
+              "weapon dmg bonus mult +20%"
+            ]
+          }
         },
         {
           "name": "Extra Heavy",
@@ -8450,7 +8940,7 @@
             "Source: Daily Ops, Elder rank (cleared in 8:00 or less) — 1.3302%",
             "Source: Daily Ops, Paladin rank (cleared in 12:00 or less) — 0.1737%",
             "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0579%",
-            "Legacy: Survival mode version — no longer obtainable, player trading only"
+            "Legacy: an older Survival mode version also exists, from when Survival mode was in the game — no longer obtainable, player trading only"
           ],
           "conditions": [
             "Level 50 and above"
@@ -8507,7 +8997,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/44-medical-malpractice.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 48,
+        "damage": "182 Physical at level 50",
         "fireRate": 1.0,
         "range": 2978,
         "weight": 4.0,
@@ -8562,7 +9052,15 @@
           "edid": "mod_Custom_MedicalMalpractice",
           "formId": "008DC2D7",
           "kind": "unique",
-          "desc": "Bonuses to Stimpak Healing Also Increase Damage"
+          "desc": "Bonuses to Stimpak Healing Also Increase Damage",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": [
+              "weapon dmg bonus mult +1% per stack"
+            ]
+          }
         },
         {
           "name": "Hair Trigger Receiver",
@@ -8642,7 +9140,7 @@
           "lines": [
             "Drops: Ready-made weapon",
             "Source: Opening a Pint-Sized Phantom Pack — 0.6667%",
-            "Legacy: Survival mode version — no longer obtainable, player trading only"
+            "Legacy: an older Survival mode version also exists, from when Survival mode was in the game — no longer obtainable, player trading only"
           ],
           "tradeable": true,
           "dropRate": "",
@@ -8696,7 +9194,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/meteorite-sword.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 16,
+        "damage": "160 Physical at level 50",
         "fireRate": 1.0,
         "range": 10,
         "weight": 3.0,
@@ -8829,7 +9327,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/mind-over-matter.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 24,
+        "damage": "47 Physical at level 50",
         "fireRate": 1.0,
         "range": 1880,
         "weight": 3.0,
@@ -8863,7 +9361,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "Gain +1 INT per kill while on a Kill Streak (Max 10)",
+      "inherentEffect": "Gain +1 INT per kill while on a Kill Streak (Max 10) (not confirmed in the game files: Max 10)",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -8884,7 +9382,21 @@
           "edid": "mod_Custom_PlasmaGun_MindOverMatter",
           "formId": "005EC269",
           "kind": "unique",
-          "desc": "Gain +1 INT per kill while on a Kill Streak (Max 10)"
+          "desc": "Gain +1 INT per kill while on a Kill Streak (Max 10) (not confirmed in the game files: Max 10)",
+          "effectCheck": {
+            "status": "partial",
+            "claimed": [
+              "1 INT",
+              "Max 10"
+            ],
+            "notFound": [
+              "Max 10"
+            ],
+            "files": [
+              "Fortify Intelligence: 1 per Kill Streak",
+              "Kill Streak +1"
+            ]
+          }
         },
         {
           "name": "Short Barrel",
@@ -9003,7 +9515,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/minty-breather.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 0,
+        "damage": null,
         "fireRate": 1.0,
         "range": 1319,
         "weight": 10.0,
@@ -9058,7 +9570,15 @@
           "edid": "mod_Custom_MintyBreather",
           "formId": "00680831",
           "kind": "unique",
-          "desc": "Attacks Restore Teammates Health"
+          "desc": "Attacks Restore Teammates Health",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": [
+              "Restore Health +12 for 3 seconds"
+            ]
+          }
         }
       ],
       "obtainRoutes": [
@@ -9144,7 +9664,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/rat-bat.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 16,
+        "damage": "206 Physical at level 50",
         "fireRate": 1.0,
         "range": 10,
         "weight": 3.0,
@@ -9199,7 +9719,13 @@
           "edid": "E09A_mod_Custom_RatBat",
           "formId": "0067A476",
           "kind": "unique",
-          "desc": "+50 Damage to Mole Enemies"
+          "desc": "+50 Damage to Mole Enemies",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         }
       ],
       "obtainRoutes": [
@@ -9288,7 +9814,7 @@
       "ddsHandle": "",
       "stats": {},
       "starEffects": [],
-      "inherentEffect": "[TODO] Gain +1% Damage Reduction per Onslaught Stack",
+      "inherentEffect": "[TODO] Gain +1% Damage Reduction per Onslaught Stack (not confirmed in the game files)",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -9310,7 +9836,17 @@
           "edid": "mod_Custom_MrLacerator",
           "formId": "0094CE31",
           "kind": "unique",
-          "desc": "[TODO] Gain +1% Damage Reduction per Onslaught Stack"
+          "desc": "[TODO] Gain +1% Damage Reduction per Onslaught Stack (not confirmed in the game files)",
+          "effectCheck": {
+            "status": "unconfirmed",
+            "claimed": [
+              "1%"
+            ],
+            "notFound": [
+              "1%"
+            ],
+            "files": []
+          }
         }
       ],
       "obtainRoutes": [
@@ -9390,7 +9926,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/cultist-blade.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 11,
+        "damage": "150 Physical at level 50",
         "fireRate": 1.0,
         "range": 10,
         "weight": 3.0,
@@ -9445,7 +9981,16 @@
           "edid": "mod_Custom_Nailer",
           "formId": "008EC62B",
           "kind": "unique",
-          "desc": "Blocking Attacks Inflicts Bleeding"
+          "desc": "Blocking Attacks Inflicts Bleeding",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": [
+              "Bleed dmg health: curve 3 at 1, 3 at 5, 4 at 10, 4 at 15, 5 at 20, 5 at 25, 6 at 30, 7 at 35, 7 at 40, 8 at 45, 9 at 50",
+              "Bleed dmg health +3 for 10 seconds"
+            ]
+          }
         },
         {
           "name": "Generic Melee High Damage",
@@ -9541,7 +10086,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/night-light.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 0,
+        "damage": null,
         "fireRate": 1.0,
         "range": 3966,
         "weight": 8.0,
@@ -9596,7 +10141,13 @@
           "edid": "mod_Custom_NightLight",
           "formId": "008F0DD3",
           "kind": "unique",
-          "desc": "Ignore Time of Day Requirements on Perks"
+          "desc": "Ignore Time of Day Requirements on Perks",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         },
         {
           "name": "Lightning",
@@ -9669,7 +10220,7 @@
           "lines": [
             "Drops: Ready-made weapon",
             "Source: Repeatable: Disturbed Grave — 1.5000%",
-            "Legacy: Survival mode version — no longer obtainable, player trading only",
+            "Legacy: an older Survival mode version also exists, from when Survival mode was in the game — no longer obtainable, player trading only",
             "Note: Repeatable: Disturbed Grave — only available for the duration of The Slasher Seasonal Content."
           ],
           "tradeable": true,
@@ -9707,7 +10258,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/nuka-launcher.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 3,
+        "damage": "3 Physical",
         "fireRate": 0.8,
         "range": 4675,
         "weight": 18.0,
@@ -9768,7 +10319,13 @@
           "edid": "SCORE_S11_mod_Custom_NukaLauncher",
           "formId": "00682045",
           "kind": "unique",
-          "desc": "Fires its own special projectile"
+          "desc": "Fires its own special projectile",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         }
       ],
       "obtainRoutes": [
@@ -9866,7 +10423,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/war-glaive.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 0,
+        "damage": "231 Physical at level 50",
         "fireRate": 1.0,
         "range": 10,
         "weight": 9.0,
@@ -9921,7 +10478,13 @@
           "edid": "mod_Custom_Oathbreaker",
           "formId": "008F16B1",
           "kind": "unique",
-          "desc": "Gives the Bloody Mess effect"
+          "desc": "Gives the Bloody Mess effect",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         }
       ],
       "obtainRoutes": [
@@ -10020,7 +10583,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/ogua-gauntlet.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 25,
+        "damage": "160 Physical at level 50",
         "fireRate": 1.0,
         "range": 0,
         "weight": 10.0,
@@ -10075,7 +10638,17 @@
           "edid": "mod_custom_OguaGauntlet_Effect",
           "formId": "006E2245",
           "kind": "unique",
-          "desc": "+30% More Damage Blocked"
+          "desc": "+30% More Damage Blocked",
+          "effectCheck": {
+            "status": "confirmed",
+            "claimed": [
+              "30%"
+            ],
+            "notFound": [],
+            "files": [
+              "percent blocked +30%"
+            ]
+          }
         }
       ],
       "obtainRoutes": [
@@ -10160,7 +10733,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/old-guard.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 7,
+        "damage": "59 Physical at level 50",
         "fireRate": 0.9,
         "range": 2565,
         "weight": 3.0,
@@ -10215,7 +10788,13 @@
           "edid": "mod_Custom_OldGuard",
           "formId": "008EC5A9",
           "kind": "unique",
-          "desc": "+10% Deflect Chance"
+          "desc": "+10% Deflect Chance",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         },
         {
           "name": "Refined Receiver",
@@ -10340,7 +10919,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/overkill.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 5,
+        "damage": "5 Physical",
         "fireRate": 1.0,
         "range": 5501,
         "weight": 20.0,
@@ -10395,7 +10974,13 @@
           "edid": "mod_Custom_Overkill",
           "formId": "00685530",
           "kind": "unique",
-          "desc": "Kills Grant +5 Killstreak Count"
+          "desc": "Kills Grant +5 Killstreak Count",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         },
         {
           "name": "MIRV Launcher",
@@ -10488,7 +11073,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/perfect-storm.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 7,
+        "damage": "59 Physical at level 50",
         "fireRate": 0.9,
         "range": 2565,
         "weight": 3.0,
@@ -10522,7 +11107,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "Critical hits cause fire damage; Adds Fire damage; Fires incendiary rounds",
+      "inherentEffect": "Critical hits cause fire damage; Adds Fire damage over 3 seconds; Fires incendiary rounds",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -10543,7 +11128,15 @@
           "edid": "mod_Custom_PerfectStorm",
           "formId": "00471884",
           "kind": "unique",
-          "desc": "Critical hits cause fire damage; Adds Fire damage; Fires incendiary rounds"
+          "desc": "Critical hits cause fire damage; Adds Fire damage over 3 seconds; Fires incendiary rounds",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": [
+              "dt Fire Flame Effect Chance Always: curve 5 at 1, 6 at 5, 6 at 10, 7 at 15, 8 at 20, 9 at 25, 11 at 30, 12 at 35, 13 at 40, 15 at 45, 17 at 50"
+            ]
+          }
         }
       ],
       "obtainRoutes": [
@@ -10633,7 +11226,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/piercing-love.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 7,
+        "damage": "244 Physical at level 50",
         "fireRate": 1.0,
         "range": 6161,
         "weight": 3.0,
@@ -10667,7 +11260,7 @@
           "fixed": false
         }
       ],
-      "inherentEffect": "Adds Poison damage",
+      "inherentEffect": "Adds Poison damage over 38 seconds",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -10688,7 +11281,15 @@
           "edid": "SCORE_MiniSeason_LoveHurts_mod_Custom_PiercingLove",
           "formId": "008989D9",
           "kind": "unique",
-          "desc": "Adds Poison damage"
+          "desc": "Adds Poison damage over 38 seconds",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": [
+              "dt Poison Effect Chance Always: curve 14 at 1, 16 at 5, 18 at 10, 20 at 15, 23 at 20, 26 at 25, 29 at 30, 33 at 35, 37 at 40, 42 at 45, 47 at 50"
+            ]
+          }
         }
       ],
       "obtainRoutes": [
@@ -10781,7 +11382,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/pirate-punch.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 7,
+        "damage": "751 Physical at level 50",
         "fireRate": 1.0,
         "range": 3173,
         "weight": 3.0,
@@ -10815,7 +11416,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "+5% Damage per Lockpick Skill",
+      "inherentEffect": "+5% Damage per Lockpick Skill (the game files say: no numbers)",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -10836,7 +11437,17 @@
           "edid": "E08B_mod_Custom_Blackpowder_PiratePunch",
           "formId": "0064D004",
           "kind": "unique",
-          "desc": "+5% Damage per Lockpick Skill"
+          "desc": "+5% Damage per Lockpick Skill (the game files say: no numbers)",
+          "effectCheck": {
+            "status": "mismatch",
+            "claimed": [
+              "5%"
+            ],
+            "notFound": [
+              "5%"
+            ],
+            "files": []
+          }
         },
         {
           "name": "Black Powder Pistol Receiver",
@@ -10931,7 +11542,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/prototype-abx03.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 24,
+        "damage": "47 Physical at level 50",
         "fireRate": 1.0,
         "range": 1880,
         "weight": 3.0,
@@ -10993,7 +11604,16 @@
           "edid": "mod_Custom_Plasma_Abraxolator",
           "formId": "00856AFE",
           "kind": "unique",
-          "desc": "Sprays Burning Meadow Breeze: Critical hits cause fire damage; No Energy Damage; +16 Fire Damage (goes up with level)"
+          "desc": "Sprays Burning Meadow Breeze: Critical hits cause fire damage; No Energy Damage; +16 Fire Damage (goes up with level)",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": [
+              "FXFire Hit Visuals: curve 6 at 1, 7 at 5, 8 at 10, 9 at 15, 10 at 20, 11 at 25, 13 at 30, 14 at 35, 16 at 40, 18 at 45, 20 at 50",
+              "DamageTypeValues: curve 16 at 1, 18 at 5, 20 at 10, 23 at 15, 26 at 20, 29 at 25, 33 at 30, 37 at 35, 42 at 40, 47 at 45, 53 at 50"
+            ]
+          }
         },
         {
           "name": "Abraxo Barrel",
@@ -11113,7 +11733,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/pyrolyzer.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 0,
+        "damage": null,
         "fireRate": 1.0,
         "range": 1319,
         "weight": 15.0,
@@ -11168,7 +11788,13 @@
           "edid": "mod_Custom_Pyrolyzer",
           "formId": "00471885",
           "kind": "unique",
-          "desc": "Burning Enemies Burst into a Firey Mess Based on Luck"
+          "desc": "Burning Enemies Burst into a Firey Mess Based on Luck",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         },
         {
           "name": "Large Propellant Tank",
@@ -11309,7 +11935,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "Gain Rage Stacks When Hit (Max 100). Deal and Take +1% Additional Damage Per Stack. Stacks Expire Over Time.",
+      "inherentEffect": "Gain Rage Stacks When Hit (Max 100). Deal and Take +1% Additional Damage Per Stack. Stacks Expire Over Time (not confirmed in the game files: Max 100)",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -11330,7 +11956,21 @@
           "edid": "mod_Custom_Rage",
           "formId": "008A418C",
           "kind": "unique",
-          "desc": "Gain Rage Stacks When Hit (Max 100). Deal and Take +1% Additional Damage Per Stack. Stacks Expire Over Time."
+          "desc": "Gain Rage Stacks When Hit (Max 100). Deal and Take +1% Additional Damage Per Stack. Stacks Expire Over Time (not confirmed in the game files: Max 100)",
+          "effectCheck": {
+            "status": "partial",
+            "claimed": [
+              "Max 100",
+              "1%"
+            ],
+            "notFound": [
+              "Max 100"
+            ],
+            "files": [
+              "ab Fortify Damage All: 1 per 0000039D",
+              "ab Fortify Damage Recieved: 1 per 0000039D"
+            ]
+          }
         }
       ],
       "obtainRoutes": [
@@ -11414,7 +12054,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/mg42-red-terror-paint.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 0,
+        "damage": "47 Physical at level 50",
         "fireRate": 1.3462,
         "range": 4779,
         "weight": 8.0,
@@ -11448,7 +12088,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "Critical hits cause fire damage; Adds Fire damage; Fires incendiary rounds",
+      "inherentEffect": "Critical hits cause fire damage; Adds Fire damage over 3 seconds; Fires incendiary rounds",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -11469,7 +12109,15 @@
           "edid": "mod_custom_RedTerror_customName",
           "formId": "0075C3B8",
           "kind": "unique",
-          "desc": "Critical hits cause fire damage; Adds Fire damage; Fires incendiary rounds"
+          "desc": "Critical hits cause fire damage; Adds Fire damage over 3 seconds; Fires incendiary rounds",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": [
+              "dt Fire Flame Effect Chance Always: curve 5 at 1, 6 at 5, 6 at 10, 7 at 15, 8 at 20, 9 at 25, 11 at 30, 12 at 35, 13 at 40, 15 at 45, 17 at 50"
+            ]
+          }
         },
         {
           "name": ".308 Chamber",
@@ -11560,7 +12208,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/relic-reaper.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 1,
+        "damage": "206 Physical at level 50",
         "fireRate": 1.0,
         "range": 10,
         "weight": 6.0,
@@ -11615,7 +12263,13 @@
           "edid": "SDOW_Mod_Custom_RelicReaper",
           "formId": "009097C3",
           "kind": "unique",
-          "desc": "Grants one perk, picked at random: Can Do!, Cap Collector, Fortune Finder, Pannapictagraphist, Percepti-Bobble, Pharma Farma"
+          "desc": "Grants one perk, picked at random: Can Do!, Cap Collector, Fortune Finder, Pannapictagraphist, Percepti-Bobble, Pharma Farma",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         }
       ],
       "obtainRoutes": [
@@ -11700,7 +12354,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/resolute-veteran.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 8,
+        "damage": "112 Physical at level 50",
         "fireRate": 1.0,
         "range": 5390,
         "weight": 18.0,
@@ -11755,7 +12409,13 @@
           "edid": "mod_Custom_ResoluteVeteran",
           "formId": "008F0DCE",
           "kind": "unique",
-          "desc": "+5 Minimum Bullet Storm Stack Count"
+          "desc": "+5 Minimum Bullet Storm Stack Count",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         },
         {
           "name": "Long Barrel",
@@ -11837,7 +12497,7 @@
             "Source: Daily Ops, Elder rank (cleared in 8:00 or less) — 1.3302%",
             "Source: Daily Ops, Paladin rank (cleared in 12:00 or less) — 0.1737%",
             "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0579%",
-            "Legacy: Survival mode version — no longer obtainable, player trading only"
+            "Legacy: an older Survival mode version also exists, from when Survival mode was in the game — no longer obtainable, player trading only"
           ],
           "tradeable": true,
           "dropRate": "",
@@ -11876,7 +12536,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/resolve-breaker.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 3,
+        "damage": "3 Physical",
         "fireRate": 0.8,
         "range": 4675,
         "weight": 18.0,
@@ -11938,7 +12598,18 @@
           "edid": "RD01_Mod_Custom_ResolveBreaker_CustomName",
           "formId": "007934FE",
           "kind": "unique",
-          "desc": "Fires its own special projectile; +25% spread and recoil"
+          "desc": "Fires its own special projectile; +25% spread and recoil",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": [
+              "aim model min cone degrees +25%",
+              "aim model max cone degrees +25%",
+              "aim model recoil max deg per shot +25%",
+              "aim model recoil min deg per shot +25%"
+            ]
+          }
         },
         {
           "name": "Heavy Barrel",
@@ -12101,7 +12772,13 @@
           "edid": "mod_Custom_Roadkill",
           "formId": "008A418D",
           "kind": "unique",
-          "desc": "Eating Animal Corpses Restores Health and Hunger"
+          "desc": "Eating Animal Corpses Restores Health and Hunger",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         }
       ],
       "obtainRoutes": [
@@ -12185,7 +12862,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/syringer.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 1,
+        "damage": "5 Physical at level 50",
         "fireRate": 1.0,
         "range": 5568,
         "weight": 1.0,
@@ -12301,7 +12978,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/double-barrel-shotgun.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 67,
+        "damage": "300 Physical at level 50",
         "fireRate": 1.0,
         "range": 1439,
         "weight": 6.0,
@@ -12356,7 +13033,25 @@
           "edid": "mod_Custom_SaltOfTheEarth",
           "formId": "008F0DCD",
           "kind": "unique",
-          "desc": "Fires Both Barrels at Once: +50% attack delay; +100% damage; -15% reload speed; +100% AP cost; +150% spread and recoil"
+          "desc": "Fires Both Barrels at Once: +50% attack delay; +100% damage; -15% reload speed; +100% AP cost; +150% spread and recoil",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": [
+              "attack delay sec +50%",
+              "attack damage +100%",
+              "aim model min cone degrees +150%",
+              "aim model max cone degrees +150%",
+              "aim model recoil max deg per shot +50%",
+              "aim model recoil min deg per shot +50%",
+              "aim model recoil arc deg +20%",
+              "num projectiles +8",
+              "reload speed -15%",
+              "attack action point cost +100%",
+              "ammo consumption +1"
+            ]
+          }
         },
         {
           "name": "Steadfast Receiver",
@@ -12429,7 +13124,7 @@
           "lines": [
             "Drops: Ready-made weapon",
             "Source: Repeatable: Disturbed Grave — 1.5000%",
-            "Legacy: Survival mode version — no longer obtainable, player trading only",
+            "Legacy: an older Survival mode version also exists, from when Survival mode was in the game — no longer obtainable, player trading only",
             "Note: Repeatable: Disturbed Grave — only available for the duration of The Slasher Seasonal Content."
           ],
           "tradeable": true,
@@ -13030,7 +13725,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/shattered-grounds-handmade-paint.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 32,
+        "damage": "95 Physical at level 50",
         "fireRate": 1.0,
         "range": 3173,
         "weight": 8.0,
@@ -13064,7 +13759,7 @@
           "fixed": false
         }
       ],
-      "inherentEffect": "Causes Bleed damage",
+      "inherentEffect": "Causes Bleed damage over 10 seconds",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -13085,7 +13780,15 @@
           "edid": "mod_custom_ShatteredGrounds_Custom",
           "formId": "00759B4B",
           "kind": "unique",
-          "desc": "Causes Bleed damage"
+          "desc": "Causes Bleed damage over 10 seconds",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": [
+              "Damage Health Contact: curve 5 at 1, 6 at 5, 6 at 10, 7 at 15, 8 at 20, 9 at 25, 11 at 30, 12 at 35, 13 at 40, 15 at 45, 17 at 50"
+            ]
+          }
         },
         {
           "name": "Aligned Long Barrel",
@@ -13260,7 +13963,13 @@
           "edid": "mod_Custom_SilverLining",
           "formId": "00471886",
           "kind": "unique",
-          "desc": "+10 Damage Reflection"
+          "desc": "+10 Damage Reflection",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         }
       ],
       "obtainRoutes": [
@@ -13350,7 +14059,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/sdow_mod_custom_slasheraxe_appearance.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 0,
+        "damage": "32 Physical at level 50",
         "fireRate": 1.0,
         "range": 256,
         "weight": 12.0,
@@ -13384,7 +14093,7 @@
           "fixed": false
         }
       ],
-      "inherentEffect": "Causes Bleed damage",
+      "inherentEffect": "Causes Bleed damage over 4 seconds",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -13405,7 +14114,15 @@
           "edid": "SDOW_Mod_Custom_SlasherAxe_CustomName",
           "formId": "008E076F",
           "kind": "unique",
-          "desc": "Causes Bleed damage"
+          "desc": "Causes Bleed damage over 4 seconds",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": [
+              "SDOW mod Weap Bleed Effect: curve 11 at 1, 12 at 5, 14 at 10, 16 at 15, 18 at 20, 20 at 25, 23 at 30, 26 at 35, 29 at 40, 33 at 45, 37 at 50"
+            ]
+          }
         }
       ],
       "obtainRoutes": [
@@ -13491,7 +14208,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/slug-buster.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 24,
+        "damage": "47 Physical at level 50",
         "fireRate": 1.0,
         "range": 1880,
         "weight": 3.0,
@@ -13503,6 +14220,13 @@
         "minLevel": 15
       },
       "starEffects": [
+        {
+          "star": 1,
+          "name": "Random",
+          "edid": "",
+          "formId": "",
+          "fixed": false
+        },
         {
           "star": 2,
           "name": "Random",
@@ -13539,7 +14263,15 @@
           "edid": "mod_Custom_SlugBuster",
           "formId": "00592E5B",
           "kind": "unique",
-          "desc": "Replenish 60 Action Points with Each Kill"
+          "desc": "Replenish 60 Action Points with Each Kill",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": [
+              "Restore Action Points: 1 per LGND APOn Kill"
+            ]
+          }
         },
         {
           "name": "Short Barrel",
@@ -13648,7 +14380,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/sole-survivor.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 35,
+        "damage": "206 Physical at level 50",
         "fireRate": 1.0,
         "range": 4675,
         "weight": 6.0,
@@ -13682,7 +14414,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "+3% Weak Spot Damage per Kill while on a Kill Streak (Max 10)",
+      "inherentEffect": "+3% Weak Spot Damage per Kill while on a Kill Streak (Max 10) (the game files say: Kill Streak +1)",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -13703,7 +14435,21 @@
           "edid": "mod_Custom_SoleSurvivor",
           "formId": "00613850",
           "kind": "unique",
-          "desc": "+3% Weak Spot Damage per Kill while on a Kill Streak (Max 10)"
+          "desc": "+3% Weak Spot Damage per Kill while on a Kill Streak (Max 10) (the game files say: Kill Streak +1)",
+          "effectCheck": {
+            "status": "mismatch",
+            "claimed": [
+              "3%",
+              "Max 10"
+            ],
+            "notFound": [
+              "3%",
+              "Max 10"
+            ],
+            "files": [
+              "Kill Streak +1"
+            ]
+          }
         },
         {
           "name": "Calibrated Receiver",
@@ -13804,7 +14550,7 @@
             "Source: Daily Ops, Elder rank (cleared in 8:00 or less) — 1.3302%",
             "Source: Daily Ops, Paladin rank (cleared in 12:00 or less) — 0.1737%",
             "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0579%",
-            "Legacy: Survival mode version — no longer obtainable, player trading only"
+            "Legacy: an older Survival mode version also exists, from when Survival mode was in the game — no longer obtainable, player trading only"
           ],
           "conditions": [
             "Level 50 and above"
@@ -13858,7 +14604,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/somerset-special.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 48,
+        "damage": "182 Physical at level 50",
         "fireRate": 1.0,
         "range": 2978,
         "weight": 4.0,
@@ -13913,7 +14659,13 @@
           "edid": "mod_Custom_SomersetSpecial",
           "formId": "00471887",
           "kind": "unique",
-          "desc": "+15 Damage to Distant Targets"
+          "desc": "+15 Damage to Distant Targets",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         }
       ],
       "obtainRoutes": [
@@ -14007,7 +14759,7 @@
       "image": "",
       "ddsHandle": "",
       "stats": {
-        "damage": 7,
+        "damage": "59 Physical at level 50",
         "fireRate": 0.9,
         "range": 2565,
         "weight": 3.0,
@@ -14055,7 +14807,13 @@
           "edid": "HIDE_Mod_Custom_Splinter_CustomName",
           "formId": "00802188",
           "kind": "unique",
-          "desc": "Named weapon only — no unique effect"
+          "desc": "Named weapon only — no unique effect",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         },
         {
           "name": "Vicious Receiver",
@@ -14211,7 +14969,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "Damage Resistance increases as Speed increases",
+      "inherentEffect": "Damage Resistance increases up to +100 as Speed increases; Scales: 0 at 100% speed, +100 at 200% speed",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -14232,7 +14990,16 @@
           "edid": "mod_Custom_StandFast",
           "formId": "00471888",
           "kind": "unique",
-          "desc": "Damage Resistance increases as Speed increases"
+          "desc": "Damage Resistance increases up to +100 as Speed increases; Scales: 0 at 100% speed, +100 at 200% speed",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": [
+              "Armor Unique Stand Fast Description: curve 0 at 100, 100 at 200",
+              "ab Fortify Damage Resist: curve 0 at 100, 100 at 200"
+            ]
+          }
         }
       ],
       "obtainRoutes": [
@@ -14321,7 +15088,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/spear-super-stimpike-paint.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 23,
+        "damage": "160 Physical at level 50",
         "fireRate": 1.0,
         "range": 10,
         "weight": 2.0,
@@ -14376,7 +15143,15 @@
           "edid": "mod_Custom_SuperStimpike",
           "formId": "008F20E5",
           "kind": "unique",
-          "desc": "Attacks will Heal Friendly Targets by 10% Health"
+          "desc": "Attacks will Heal Friendly Targets by 10% Health",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": [
+              "Medic: 1 per LGND Medic"
+            ]
+          }
         }
       ],
       "obtainRoutes": [
@@ -14465,7 +15240,7 @@
       "image": "",
       "ddsHandle": "",
       "stats": {
-        "damage": 16,
+        "damage": "257 Physical at level 50",
         "fireRate": 1.0,
         "range": 10,
         "weight": 5.0,
@@ -14520,7 +15295,13 @@
           "edid": "mod_Custom_TarnishedClaw",
           "formId": "0094E889",
           "kind": "unique",
-          "desc": "[TODO] Your Thrown Weapons Inflict Bleeding Damage"
+          "desc": "[TODO] Your Thrown Weapons Inflict Bleeding Damage",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         }
       ],
       "obtainRoutes": [
@@ -14600,7 +15381,7 @@
       "image": "",
       "ddsHandle": "",
       "stats": {
-        "damage": 17,
+        "damage": "130 Physical at level 50",
         "fireRate": 1.0,
         "range": 10,
         "weight": 1.0,
@@ -14633,7 +15414,19 @@
           "edid": "HIDE_Mod_Custom_crTempest_SpecialEffect",
           "formId": "00835A71",
           "kind": "unique",
-          "desc": "Heavy Bleed DoT on Contact: Causes Bleed damage"
+          "desc": "Heavy Bleed DoT on Contact: Causes Bleed damage",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": [
+              "min range set to 64",
+              "max range set to 256",
+              "HIDE Weapon cr Tempest Add Bleed Effect 1",
+              "Tempest Apply Bleed Effect: curve 33 at 1, 36 at 7, 38 at 13, 41 at 19, 44 at 25, 47 at 31, 50 at 37, 54 at 43, 58 at 49, 62 at 55, 66 at 61, 71 at 67, 76 at 73, 82 at 79, 87 at 85, 94 at 91, 100 at 97, 107 at 103, 115 at 109, 123 at 115, 132 at 121, 141 at 127, 151 at 133, 162 at 139, 173 at 145, 186 at 151, 199 at 157, 213 at 163, 228 at 169, 244 at 175, 262 at 181, 280 at 187, 300 at 193, 322 at 199, 344 at 205, 369 at 211, 395 at 217, 423 at 223, 453 at 229, 485 at 235, 520 at 241, 556 at 247, 596 at 253, 638 at 259, 684 at 265, 732 at 271, 784 at 277, 840 at 283, 899 at 289, 963 at 295",
+              "Tempest Apply Bleed Effect +21 for 5 seconds"
+            ]
+          }
         },
         {
           "name": "Electrified",
@@ -14725,7 +15518,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/50-cal-machine-gun.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 8,
+        "damage": "59 Physical at level 50",
         "fireRate": 1.0,
         "range": 3895,
         "weight": 18.0,
@@ -14780,7 +15573,17 @@
           "edid": "mod_Custom_TheActionHero",
           "formId": "008F0DD0",
           "kind": "unique",
-          "desc": "+1% Deflect Chance per Bullet Storm Stack"
+          "desc": "+1% Deflect Chance per Bullet Storm Stack",
+          "effectCheck": {
+            "status": "confirmed",
+            "claimed": [
+              "1%"
+            ],
+            "notFound": [],
+            "files": [
+              "Deflect Chance: 1 per Ammo Spender Stacks"
+            ]
+          }
         }
       ],
       "obtainRoutes": [
@@ -14834,7 +15637,7 @@
             "Source: Daily Ops, Elder rank (cleared in 8:00 or less) — 1.3302%",
             "Source: Daily Ops, Paladin rank (cleared in 12:00 or less) — 0.1737%",
             "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0579%",
-            "Legacy: Survival mode version — no longer obtainable, player trading only"
+            "Legacy: an older Survival mode version also exists, from when Survival mode was in the game — no longer obtainable, player trading only"
           ],
           "tradeable": true,
           "dropRate": "",
@@ -14897,7 +15700,13 @@
           "edid": "mod_Custom_TheBasilisk",
           "formId": "0094E88B",
           "kind": "unique",
-          "desc": "[TODO] Fully Charge Shots Chain Towards a Nearby Target"
+          "desc": "[TODO] Fully Charge Shots Chain Towards a Nearby Target",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         }
       ],
       "obtainRoutes": [
@@ -14977,7 +15786,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/the-debilitator-paint.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 40,
+        "damage": "271 Physical at level 50",
         "fireRate": 1.0,
         "range": 10,
         "weight": 20.0,
@@ -15011,7 +15820,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "+2% Limb Damage per STR",
+      "inherentEffect": "+2% Limb Damage per STR (the game files say: no numbers)",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -15032,7 +15841,17 @@
           "edid": "E08B_mod_Custom_TheDebilitator",
           "formId": "0066275A",
           "kind": "unique",
-          "desc": "+2% Limb Damage per STR"
+          "desc": "+2% Limb Damage per STR (the game files say: no numbers)",
+          "effectCheck": {
+            "status": "mismatch",
+            "claimed": [
+              "2%"
+            ],
+            "notFound": [
+              "2%"
+            ],
+            "files": []
+          }
         }
       ],
       "obtainRoutes": [
@@ -15120,7 +15939,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/the-dragon.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 200,
+        "damage": "1293 Physical at level 50",
         "fireRate": 1.0,
         "range": 4469,
         "weight": 6.0,
@@ -15350,7 +16169,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/the-fact-finder.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 48,
+        "damage": "182 Physical at level 50",
         "fireRate": 1.0,
         "range": 2978,
         "weight": 4.0,
@@ -15405,7 +16224,17 @@
           "edid": "mod_Custom_TheFactFinder",
           "formId": "005D0347",
           "kind": "unique",
-          "desc": "+15% Weak Point Damage while Aiming"
+          "desc": "+15% Weak Point Damage while Aiming",
+          "effectCheck": {
+            "status": "confirmed",
+            "claimed": [
+              "15%"
+            ],
+            "notFound": [],
+            "files": [
+              "Ab Perk Fortify Dmg Weak Spot 15"
+            ]
+          }
         }
       ],
       "obtainRoutes": [
@@ -15508,7 +16337,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/super-sledge.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 40,
+        "damage": "271 Physical at level 50",
         "fireRate": 1.0,
         "range": 10,
         "weight": 20.0,
@@ -15542,7 +16371,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "Gain Melee Damage per END",
+      "inherentEffect": "Gain Melee Damage per END; Scales: +5 at 1 END, +22 at 15 END, +35 at 30 END, +45 at 60 END, +50 at 100 END",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -15563,7 +16392,13 @@
           "edid": "mod_Custom_SuperSledge_TheFarmhand",
           "formId": "005EC26A",
           "kind": "unique",
-          "desc": "Gain Melee Damage per END"
+          "desc": "Gain Melee Damage per END",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         }
       ],
       "obtainRoutes": [
@@ -15658,7 +16493,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/the-fixer.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 33,
+        "damage": "103 Physical at level 50",
         "fireRate": 1.0,
         "range": 4231,
         "weight": 5.0,
@@ -15713,7 +16548,13 @@
           "edid": "P01B_mod_Custom_Fixer",
           "formId": "0046D29E",
           "kind": "unique",
-          "desc": "+0.15 Stealth in Shadows; +100 Sneaking Speed"
+          "desc": "+0.15 Stealth in Shadows; +100 Sneaking Speed",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         },
         {
           "name": "Calibrated Receiver",
@@ -15881,7 +16722,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/fatman.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 5,
+        "damage": "5 Physical",
         "fireRate": 1.0,
         "range": 5501,
         "weight": 20.0,
@@ -15915,7 +16756,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "Your explosives do +20% damage",
+      "inherentEffect": "Your explosives do +20% damage (the game files say: Fortify Explosive Damage +60)",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -15936,7 +16777,19 @@
           "edid": "mod_Custom_TheGuarantee",
           "formId": "008F0DCC",
           "kind": "unique",
-          "desc": "Your explosives do +20% damage"
+          "desc": "Your explosives do +20% damage (the game files say: Fortify Explosive Damage +60)",
+          "effectCheck": {
+            "status": "mismatch",
+            "claimed": [
+              "20%"
+            ],
+            "notFound": [
+              "20%"
+            ],
+            "files": [
+              "Fortify Explosive Damage +60"
+            ]
+          }
         },
         {
           "name": "MIRV Launcher",
@@ -15997,7 +16850,7 @@
             "Source: Daily Ops, Elder rank (cleared in 8:00 or less) — 1.3302%",
             "Source: Daily Ops, Paladin rank (cleared in 12:00 or less) — 0.1737%",
             "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0579%",
-            "Legacy: Survival mode version — no longer obtainable, player trading only"
+            "Legacy: an older Survival mode version also exists, from when Survival mode was in the game — no longer obtainable, player trading only"
           ],
           "tradeable": true,
           "dropRate": "",
@@ -16037,7 +16890,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/the-gutter.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 17,
+        "damage": "130 Physical at level 50",
         "fireRate": 1.0,
         "range": 10,
         "weight": 1.0,
@@ -16071,7 +16924,7 @@
           "fixed": false
         }
       ],
-      "inherentEffect": "Adds Poison damage",
+      "inherentEffect": "Adds Poison damage over 10 seconds",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -16092,7 +16945,15 @@
           "edid": "mod_Custom_TheGutter",
           "formId": "005D9D1C",
           "kind": "unique",
-          "desc": "Adds Poison damage"
+          "desc": "Adds Poison damage over 10 seconds",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": [
+              "dt Poison Effect Chance Always: curve 6 at 1, 7 at 5, 8 at 10, 9 at 15, 10 at 20, 11 at 25, 13 at 30, 14 at 35, 16 at 40, 18 at 45, 20 at 50"
+            ]
+          }
         }
       ],
       "obtainRoutes": [
@@ -16156,7 +17017,7 @@
             "Source: Opening a Mutated Package — 0.0455%",
             "Source: Opening a Mutated Party Pack — 0.0909%",
             "Plan: Plan: The Gutter",
-            "Legacy: an older version — no longer obtainable, player trading only"
+            "Legacy: an older version also exists — no longer obtainable, player trading only"
           ],
           "tradeable": true,
           "dropRate": "",
@@ -16215,7 +17076,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/the-invader.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 9,
+        "damage": "87 Physical at level 50",
         "fireRate": 1.0,
         "range": 10,
         "weight": 1.0,
@@ -16330,7 +17191,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/the-kabloom.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 50,
+        "damage": "257 Physical at level 50",
         "fireRate": 1.0,
         "range": 2278,
         "weight": 7.0,
@@ -16364,7 +17225,7 @@
           "fixed": false
         }
       ],
-      "inherentEffect": "Adds Poison damage",
+      "inherentEffect": "Adds Poison damage over 10 seconds",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -16385,7 +17246,17 @@
           "edid": "mod_custom_TheKabloom_Effect",
           "formId": "006E2242",
           "kind": "unique",
-          "desc": "Adds Poison damage"
+          "desc": "Adds Poison damage over 10 seconds",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": [
+              "dt Poison Effect Chance Always 5 for 10 seconds",
+              "dt Poison Effect Chance Always: curve 6 at 1, 7 at 5, 8 at 10, 9 at 15, 10 at 20, 11 at 25, 13 at 30, 14 at 35, 16 at 40, 18 at 45, 20 at 50",
+              "dt Poison Effect Chance Always 5 for 1 seconds"
+            ]
+          }
         }
       ],
       "obtainRoutes": [
@@ -16470,7 +17341,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/auto-grenade-launcher.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 3,
+        "damage": "3 Physical",
         "fireRate": 0.8,
         "range": 4675,
         "weight": 18.0,
@@ -16504,7 +17375,7 @@
           "fixed": false
         }
       ],
-      "inherentEffect": "Gain Explosive Damage per CHA",
+      "inherentEffect": "Gain Explosive Damage per CHA; Scales: +5 at 1 CHA, +22 at 15 CHA, +35 at 30 CHA, +45 at 60 CHA, +50 at 100 CHA",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -16525,7 +17396,13 @@
           "edid": "mod_Custom_ThePeacemaker",
           "formId": "006828DB",
           "kind": "unique",
-          "desc": "Gain Explosive Damage per CHA"
+          "desc": "Gain Explosive Damage per CHA",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         },
         {
           "name": "Heavy Barrel",
@@ -16622,7 +17499,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/the-pipe.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 13,
+        "damage": "66 Physical at level 50",
         "fireRate": 1.0,
         "range": 2243,
         "weight": 4.0,
@@ -16684,7 +17561,15 @@
           "edid": "mod_Custom_ThePipe",
           "formId": "0091EE2C",
           "kind": "unique",
-          "desc": "A True Believer"
+          "desc": "A True Believer",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": [
+              "weapon dmg bonus mult +20%"
+            ]
+          }
         },
         {
           "name": "Stub Barrel",
@@ -16777,7 +17662,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/the-quick-fix.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 8,
+        "damage": "80 Physical at level 50",
         "fireRate": 1.0,
         "range": 10,
         "weight": 1.0,
@@ -16811,7 +17696,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "Swing Speed Increases per Addiction",
+      "inherentEffect": "Swing Speed Increases per Addiction up to +50%; Up to +50% at 10 Addictions",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -16832,7 +17717,13 @@
           "edid": "mod_Custom_TheQuickFix",
           "formId": "008F0DCF",
           "kind": "unique",
-          "desc": "Swing Speed Increases per Addiction"
+          "desc": "Swing Speed Increases per Addiction",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         },
         {
           "name": "Serrated Blade",
@@ -16893,7 +17784,7 @@
             "Source: Daily Ops, Elder rank (cleared in 8:00 or less) — 1.3302%",
             "Source: Daily Ops, Paladin rank (cleared in 12:00 or less) — 0.1737%",
             "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0579%",
-            "Legacy: Survival mode version — no longer obtainable, player trading only"
+            "Legacy: an older Survival mode version also exists, from when Survival mode was in the game — no longer obtainable, player trading only"
           ],
           "tradeable": true,
           "dropRate": "",
@@ -16932,7 +17823,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/the-vats-unknown.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 0,
+        "damage": null,
         "fireRate": 1.0,
         "range": 3046,
         "weight": 2.0,
@@ -16987,7 +17878,16 @@
           "edid": "mod_Custom_TheVATSUnknown",
           "formId": "008F1646",
           "kind": "unique",
-          "desc": "V.A.T.S. Criticals Deal Between 20% to 200% Damage"
+          "desc": "V.A.T.S. Criticals Deal Between 20% to 200% Damage",
+          "effectCheck": {
+            "status": "confirmed",
+            "claimed": [
+              "20%",
+              "200%"
+            ],
+            "notFound": [],
+            "files": []
+          }
         },
         {
           "name": "Sharpshooter's Grip",
@@ -17099,7 +17999,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/ticket-to-revenge-paint.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 100,
+        "damage": "171 Physical at level 50",
         "fireRate": 1.0,
         "range": 3406,
         "weight": 9.0,
@@ -17154,7 +18054,17 @@
           "edid": "mod_custom_TickettoRevenge",
           "formId": "00759B4C",
           "kind": "unique",
-          "desc": "+3% Armor Penetration per Onslaught stack"
+          "desc": "+3% Armor Penetration per Onslaught stack",
+          "effectCheck": {
+            "status": "confirmed",
+            "claimed": [
+              "3%"
+            ],
+            "notFound": [],
+            "files": [
+              "target damage resistance -3% per stack"
+            ]
+          }
         },
         {
           "name": "Long Barrel",
@@ -17270,7 +18180,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/tone-death-paint.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 10,
+        "damage": "150 Physical at level 50",
         "fireRate": 1.0,
         "range": 0,
         "weight": 0.5,
@@ -17325,7 +18235,17 @@
           "edid": "E08B_mod_Custom_ToneDeath",
           "formId": "0064D005",
           "kind": "unique",
-          "desc": "+20% Melee Damage while Well Tuned"
+          "desc": "+20% Melee Damage while Well Tuned",
+          "effectCheck": {
+            "status": "confirmed",
+            "claimed": [
+              "20%"
+            ],
+            "notFound": [],
+            "files": [
+              "Fortify All Melee Damage +20 for 3600 seconds"
+            ]
+          }
         }
       ],
       "obtainRoutes": [
@@ -17469,7 +18389,17 @@
           "edid": "mod_Custom_TrailWarden",
           "formId": "00471889",
           "kind": "unique",
-          "desc": "+50% Throwing Weapon Damage"
+          "desc": "+50% Throwing Weapon Damage",
+          "effectCheck": {
+            "status": "confirmed",
+            "claimed": [
+              "50%"
+            ],
+            "notFound": [],
+            "files": [
+              "weapon dmg bonus mult +50%"
+            ]
+          }
         }
       ],
       "obtainRoutes": [
@@ -17559,7 +18489,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/unstoppable-monster.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 25,
+        "damage": "182 Physical at level 50",
         "fireRate": 1.0,
         "range": 0,
         "weight": 10.0,
@@ -17593,7 +18523,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "Reduce Damage Taken by 5% and an Additional 1% per Killstreak (Max 10)",
+      "inherentEffect": "Reduce Damage Taken by 5% and an Additional 1% per Killstreak (Max 10) (not confirmed in the game files: Max 10)",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -17614,7 +18544,22 @@
           "edid": "mod_Custom_UnstoppableMonster",
           "formId": "008F0DD2",
           "kind": "unique",
-          "desc": "Reduce Damage Taken by 5% and an Additional 1% per Killstreak (Max 10)"
+          "desc": "Reduce Damage Taken by 5% and an Additional 1% per Killstreak (Max 10) (not confirmed in the game files: Max 10)",
+          "effectCheck": {
+            "status": "partial",
+            "claimed": [
+              "5%",
+              "1%",
+              "Max 10"
+            ],
+            "notFound": [
+              "Max 10"
+            ],
+            "files": [
+              "incoming weapon damage x0.95 (-5%)",
+              "incoming weapon damage -1% per stack"
+            ]
+          }
         },
         {
           "name": "Extra Claw",
@@ -17685,7 +18630,7 @@
           "lines": [
             "Drops: Ready-made weapon",
             "Source: Opening a Pint-Sized Phantom Pack — 0.6667%",
-            "Legacy: Survival mode version — no longer obtainable, player trading only"
+            "Legacy: an older Survival mode version also exists, from when Survival mode was in the game — no longer obtainable, player trading only"
           ],
           "conditions": [],
           "conditionsChecked": true
@@ -17753,7 +18698,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/v63-shock-baton.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 11,
+        "damage": "130 Physical at level 50",
         "fireRate": 1.0,
         "range": 10,
         "weight": 2.0,
@@ -17808,7 +18753,13 @@
           "edid": "mod_custom_V63ShockBaton_custom",
           "formId": "0075C3B9",
           "kind": "unique",
-          "desc": "+100% Energy Damage"
+          "desc": "+100% Energy Damage",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         }
       ],
       "obtainRoutes": [
@@ -17897,7 +18848,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/v63-zweihaender.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 40,
+        "damage": "244 Physical at level 50",
         "fireRate": 1.0,
         "range": 10,
         "weight": 15.0,
@@ -17917,13 +18868,16 @@
       "sourceType": "Quest",
       "sourceRef": "The Eye of the Storm",
       "questName": "The Eye of the Storm",
-      "craftable": true,
+      "craftable": false,
       "planName": "",
       "tradeable": true,
       "formId": "0072DF0B",
       "edid": "Stormcutter",
       "inCurrentExport": true,
       "isCut": false,
+      "discoveredBy": [
+        "official"
+      ],
       "uniqueMods": [],
       "namedOnly": true,
       "obtainRoutes": [
@@ -18022,7 +18976,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/laser-gun-v63-bertha.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 0,
+        "damage": null,
         "fireRate": 1.0,
         "range": 3966,
         "weight": 8.0,
@@ -18077,7 +19031,15 @@
           "edid": "mod_custom_V63-BERTHA_customName",
           "formId": "0075C3B7",
           "kind": "unique",
-          "desc": "Lightning Arches to an Additional Target"
+          "desc": "Lightning Arches to an Additional Target",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": [
+              "212 -10%"
+            ]
+          }
         },
         {
           "name": "Lightning",
@@ -18182,7 +19144,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/gatling-laser-v63-helga-paint.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 0,
+        "damage": null,
         "fireRate": 2.0,
         "range": 4241,
         "weight": 18.0,
@@ -18237,7 +19199,15 @@
           "edid": "mod_custom_V63GatlingLaser_customName",
           "formId": "0075C3BB",
           "kind": "unique",
-          "desc": "Projectiles penetrate up to three targets"
+          "desc": "Projectiles penetrate up to three targets",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": [
+              "vats penetration min visibility +1"
+            ]
+          }
         },
         {
           "name": "Reflex Sight (Dot)",
@@ -18352,7 +19322,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/laser-gun-v63-olga-paint.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 0,
+        "damage": null,
         "fireRate": 1.0,
         "range": 3102,
         "weight": 3.0,
@@ -18407,7 +19377,13 @@
           "edid": "mod_custom_V63LaserRifle_customName",
           "formId": "0075C3BA",
           "kind": "unique",
-          "desc": "Projectiles Gain +63% Chance to Refract Towards a Nearby Target"
+          "desc": "Projectiles Gain +63% Chance to Refract Towards a Nearby Target",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         },
         {
           "name": "Aligned Automatic Barrel",
@@ -18529,7 +19505,7 @@
       "image": "",
       "ddsHandle": "",
       "stats": {
-        "damage": 40,
+        "damage": "244 Physical at level 50",
         "fireRate": 1.0,
         "range": 10,
         "weight": 15.0,
@@ -18571,21 +19547,26 @@
       "sourceType": "Quest",
       "sourceRef": "A Matter of Matter",
       "questName": "A Matter of Matter",
-      "craftable": false,
+      "craftable": true,
       "planName": "",
       "tradeable": true,
       "formId": "0072DF0B",
       "edid": "Stormcutter",
       "inCurrentExport": true,
       "isCut": false,
-      "confirmedByGameFiles": false,
       "uniqueMods": [
         {
           "name": "V63-Z Custom",
           "edid": "mod_custom_StormSlasher",
           "formId": "008B0902",
           "kind": "unique",
-          "desc": "Named weapon only — no unique effect"
+          "desc": "Named weapon only — no unique effect",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         }
       ],
       "namedOnly": true,
@@ -18666,10 +19647,7 @@
           "dropRate": null
         }
       ],
-      "recordIds": [],
-      "aka": [
-        "V63-Z"
-      ]
+      "recordIds": []
     },
     {
       "id": "gatlinglaser",
@@ -18680,7 +19658,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/valkyrie.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 0,
+        "damage": null,
         "fireRate": 2.0,
         "range": 4241,
         "weight": 18.0,
@@ -18721,7 +19699,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "+2% Spin Up Speed per Bullet Storm Stack",
+      "inherentEffect": "+2% Spin Up Speed per Bullet Storm Stack (the game files say: no numbers)",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -18742,7 +19720,17 @@
           "edid": "RD01_Mod_Custom_Valkyrie_CustomName",
           "formId": "0079342E",
           "kind": "unique",
-          "desc": "+2% Spin Up Speed per Bullet Storm Stack"
+          "desc": "+2% Spin Up Speed per Bullet Storm Stack (the game files say: no numbers)",
+          "effectCheck": {
+            "status": "mismatch",
+            "claimed": [
+              "2%"
+            ],
+            "notFound": [
+              "2%"
+            ],
+            "files": []
+          }
         },
         {
           "name": "Vicious Gatling Laser Receiver",
@@ -18870,7 +19858,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/ultracite-terror-sword.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 16,
+        "damage": "257 Physical at level 50",
         "fireRate": 1.0,
         "range": 10,
         "weight": 5.0,
@@ -18933,7 +19921,15 @@
           "edid": "RD01_Mod_Custom_UltraciteTerrorSword_CustomName",
           "formId": "00796644",
           "kind": "unique",
-          "desc": "Deals Poison damage"
+          "desc": "Deals Poison damage",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": [
+              "RD01 Weapon Ultracite Terror Sword Poison Damage Effect: curve 14 at 1, 16 at 5, 18 at 10, 20 at 15, 23 at 20, 26 at 25, 29 at 30, 33 at 35, 37 at 40, 42 at 45, 47 at 50"
+            ]
+          }
         }
       ],
       "obtainRoutes": [
@@ -19038,7 +20034,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/voice-of-set.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 1,
+        "damage": "171 Physical at level 50",
         "fireRate": 1.0,
         "range": 2978,
         "weight": 4.0,
@@ -19050,7 +20046,7 @@
         "minLevel": 25
       },
       "starEffects": [],
-      "inherentEffect": "Additional Electric Damage vs. Robots: +20% damage",
+      "inherentEffect": "Additional Electric Damage vs. Robots: +20% damage; +35 electric damage vs Robots; With Eye of Ra worn: +70 electric damage & 25% chance to stun vs Robots",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -19071,7 +20067,21 @@
           "edid": "mod_Description_MoM_VoiceofSet",
           "formId": "00522667",
           "kind": "unique",
-          "desc": "Additional Electric Damage vs. Robots: +20% damage"
+          "desc": "Additional Electric Damage vs. Robots: +20% damage; +35 electric damage vs Robots; With Eye of Ra worn: +70 electric damage & 25% chance to stun vs Robots",
+          "effectCheck": {
+            "status": "confirmed",
+            "claimed": [
+              "35 electric",
+              "70 electric",
+              "25%"
+            ],
+            "notFound": [],
+            "files": [
+              "attack damage +20%",
+              "Damage Type Electrical +35 for 1 seconds",
+              "Damage Type Electrical +70 for 1 seconds"
+            ]
+          }
         },
         {
           "name": "Reflex Sight (Circle)",
@@ -19184,7 +20194,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/syringer.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 1,
+        "damage": "5 Physical at level 50",
         "fireRate": 1.0,
         "range": 5568,
         "weight": 4.0,
@@ -19308,7 +20318,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/western-spirit-paint.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 35,
+        "damage": "206 Physical at level 50",
         "fireRate": 1.0,
         "range": 4675,
         "weight": 6.0,
@@ -19363,7 +20373,17 @@
           "edid": "E09D_mod_custom_WesternSpirit",
           "formId": "0066957E",
           "kind": "unique",
-          "desc": "Gain Onslaught stacks over time and spend them on attacks, +10 max stacks"
+          "desc": "Gain Onslaught stacks over time and spend them on attacks, +10 max stacks",
+          "effectCheck": {
+            "status": "confirmed",
+            "claimed": [
+              "10 max"
+            ],
+            "notFound": [],
+            "files": [
+              "max consecutive hits allowed +10"
+            ]
+          }
         },
         {
           "name": "Vicious Receiver",
@@ -19486,7 +20506,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/whacker-smacker-paint.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 40,
+        "damage": "271 Physical at level 50",
         "fireRate": 1.0,
         "range": 10,
         "weight": 20.0,
@@ -19520,7 +20540,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "+5% Power Attack Damage per Onslaught Stack",
+      "inherentEffect": "+5% Power Attack Damage per Onslaught Stack (the game files say: no numbers)",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -19541,7 +20561,17 @@
           "edid": "E09B_mod_Custom_WhackerSmacker",
           "formId": "0068311F",
           "kind": "unique",
-          "desc": "+5% Power Attack Damage per Onslaught Stack"
+          "desc": "+5% Power Attack Damage per Onslaught Stack (the game files say: no numbers)",
+          "effectCheck": {
+            "status": "mismatch",
+            "claimed": [
+              "5%"
+            ],
+            "notFound": [
+              "5%"
+            ],
+            "files": []
+          }
         }
       ],
       "obtainRoutes": [
@@ -19629,7 +20659,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/whistle-in-the-dark.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 30,
+        "damage": "112 Physical at level 50",
         "fireRate": 0.8332,
         "range": 3808,
         "weight": 8.0,
@@ -19663,7 +20693,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "Your silenced weapons do an additional 50% sneak attack damage",
+      "inherentEffect": "Your silenced weapons do an additional 50% sneak attack damage (the game files say: Fortify Sneak Attack Multiplier +100)",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -19684,7 +20714,19 @@
           "edid": "mod_Custom_WhistleInTheDark",
           "formId": "005D8D86",
           "kind": "unique",
-          "desc": "Your silenced weapons do an additional 50% sneak attack damage"
+          "desc": "Your silenced weapons do an additional 50% sneak attack damage (the game files say: Fortify Sneak Attack Multiplier +100)",
+          "effectCheck": {
+            "status": "mismatch",
+            "claimed": [
+              "50%"
+            ],
+            "notFound": [
+              "50%"
+            ],
+            "files": [
+              "Fortify Sneak Attack Multiplier +100"
+            ]
+          }
         },
         {
           "name": "Steadfast Receiver",
@@ -19792,7 +20834,7 @@
             "Source: Daily Ops, Elder rank (cleared in 8:00 or less) — 1.3302%",
             "Source: Daily Ops, Paladin rank (cleared in 12:00 or less) — 0.1737%",
             "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0579%",
-            "Legacy: an older version — no longer obtainable, player trading only"
+            "Legacy: an older version also exists — no longer obtainable, player trading only"
           ],
           "conditions": [
             "Level 50 and above"
@@ -19849,7 +20891,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/gamma-gun.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 0,
+        "damage": null,
         "fireRate": 1.0,
         "range": 2933,
         "weight": 3.0,
@@ -19904,7 +20946,17 @@
           "edid": "mod_Custom_Xerxos",
           "formId": "008F173D",
           "kind": "unique",
-          "desc": "Emits Radiation at 6 RAD/s"
+          "desc": "Emits Radiation at 6 RAD/s",
+          "effectCheck": {
+            "status": "confirmed",
+            "claimed": [
+              "6 RAD"
+            ],
+            "notFound": [],
+            "files": [
+              "Self Rad Damage 6"
+            ]
+          }
         },
         {
           "name": "Deep Dish",
@@ -20006,7 +21058,7 @@
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/zetas-revenge.avif",
       "ddsHandle": "",
       "stats": {
-        "damage": 0,
+        "damage": null,
         "fireRate": 1.0,
         "range": 3046,
         "weight": 2.0,
@@ -20061,7 +21113,13 @@
           "edid": "mod_Custom_ZetasRevenge",
           "formId": "008F173E",
           "kind": "unique",
-          "desc": "Named weapon only — no unique effect"
+          "desc": "Named weapon only — no unique effect",
+          "effectCheck": {
+            "status": "none",
+            "claimed": [],
+            "notFound": [],
+            "files": []
+          }
         },
         {
           "name": "Sharpshooter's Grip",
