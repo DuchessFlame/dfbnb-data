@@ -298,6 +298,9 @@ class Build:
         return {
             "text": text,
             "fromFiles": bool(text and not ov.get("location")),
+            # No set spot in the world (mask order, random grave, enemy drop,
+            # quest delivery): the page shows just the text, no picture boxes.
+            "noFixedPlace": bool(ov.get("noFixedPlace")),
             # Default names only when the file is on the server listing, so the
             # page never asks for a picture that isn't up (no 404s); the renderer
             # shows the "not added yet" slot for a null.
