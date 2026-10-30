@@ -1050,6 +1050,13 @@ jobs:
       - name: Build Legendary Mod Drop Chances JSON
         run: python src/build_legendary_mod_drop_chances_json.py
 
+      # --- LEGENDARY STAR PAGES (/bnb/legendary-mods/N-star-legendary-mods/) ---
+      # Outputs dist/legendary_star_pages/{1..5}-star.json for df-bnb-legendary-star-pages.js.
+      # Runs after Unique Weapons & Armour (reads its JSON for "comes fixed on").
+      # Needs tsv/BUFFCOND + ENCHFX_Export_*.tsv (tools/esm_buff_guides_extract.py on the PC).
+      - name: Build Legendary Star Pages JSON
+        run: python src/build_legendary_star_pages_json.py
+
       # --- NPC SPAWNS (Score Challenges spawn-location pages) ---
       # tools/build_npc_spawns.py outputs dist/npc_spawns.json for df-bnb-npc-spawns.js.
       # The Mappalachia DB is large and local-only, so in CI this runs in CACHE

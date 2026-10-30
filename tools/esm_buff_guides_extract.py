@@ -7,13 +7,19 @@ straight from the game folder (esm_reader.py), the same way export_from_esm.py d
 Writes (tsv\ for live, tsv\pts\ with --pts):
 
   BUFFCOND_Export_<Month>_<Year>.tsv
-      Every condition on a consumable's effect (ALCH effect CTDA) and on a magic
-      effect itself (MGEF CTDA), one row per record/effect:
-          Scope (ALCH|MGEF)  FormID  EDID  EffectIndex  MGEF_FormID  MGEF_EDID  CondCount  Cond1..
+      Every condition on a consumable's effect (ALCH effect CTDA), an enchantment's
+      effect (ENCH effect CTDA, legendary mods) and on a magic effect itself (MGEF CTDA),
+      one row per record/effect:
+          Scope (ALCH|ENCH|MGEF)  FormID  EDID  EffectIndex  MGEF_FormID  MGEF_EDID  CondCount  Cond1..
       Conditions are written exactly like the CNDF / CHAL exports
       (Type|Value|Function|params...|RunOn|RefCell), so the same reader parses them.
       e.g. Live & Love 1's team buff: 10000000|1.000000|IsMemberOfAPlayerTeam|...
            Guns and Bullets 6 at night: GetGlobalValue(GameHour) >= 21 OR < 6
+
+  ENCHFX_Export_<Month>_<Year>.tsv
+      Every enchantment effect with its magnitude / duration globals (MAGG / DURG),
+      curve (CVT0) and curve input (MAGA) - the numbers behind legendary effects
+      that the xEdit ENCH export leaves out (legendary star pages, 29 Oct 2026).
 
   MESGTXT_Export_<Month>_<Year>.tsv
       Every message's title and text (MESG FULL / DESC), e.g. the pickup message
@@ -80,7 +86,52 @@ def exp_buffcond(esm):
             mfid = _u32(sub.first("EFID"))
             rows.append((["ALCH", "%08X" % r.fid, cc(r.edid), str(i), "%08X" % mfid,
                           cc(esm.edid_of(mfid)), str(len(conds))], conds))
+    # ENCH effect conditions (29 Oct 2026, legendary star pages): a legendary
+    # effect's "only vs Scorched" / "only while in a team" / "only at full
+    # health" lives on the enchantment's effect, which the ENCH export lacks.
+    for r in R.xedit_order(esm, "ENCH"):
+        for i, subs in enumerate(_effects(r)):
+            sub = _Sub(r, subs)
+            ctx = C.Ctx(esm, r)
+            conds = [cc(C.pas_cond(ctx, *c, clean=cc)) for c in C.conditions(sub, stop_at=())]
+            if not conds:
+                continue
+            mfid = _u32(sub.first("EFID"))
+            rows.append((["ENCH", "%08X" % r.fid, cc(r.edid), str(i), "%08X" % mfid,
+                          cc(esm.edid_of(mfid)), str(len(conds))], conds))
     return _pad(rows, ["Scope", "FormID", "EDID", "EffectIndex", "MGEF_FormID", "MGEF_EDID", "CondCount"])
+
+
+def exp_enchfx(esm):
+    """Every enchantment effect with its magnitude / duration GLOBALS (MAGG / DURG),
+    curve (CVT0) and the actor value the curve reads (MAGA). The xEdit ENCH export
+    has no MAGG / DURG, and many legendary effects keep their number there
+    (Elementalist's +25 resistances = BOUNTY_LegendaryElementalBonus) - 29 Oct 2026."""
+    def link(sub):
+        fid = _u32(sub) if sub else 0
+        return ("%08X" % fid, cc(esm.edid_of(fid))) if fid and esm.exists(fid) else ("", "")
+    out = ["ENCH_FormID\tENCH_EDID\tEffectIndex\tMGEF_FormID\tMGEF_EDID\tMagnitude\tArea\tDuration\t"
+           "MAGG_FormID\tMAGG_EDID\tDURG_FormID\tDURG_EDID\tCurve_FormID\tCurve_EDID\tCurveInput_FormID\tCurveInput_EDID"]
+    for r in R.xedit_order(esm, "ENCH"):
+        effs = []
+        for k, v in r.subs:
+            if k == "EFID":
+                effs.append({"EFID": v})
+            elif effs and k in ("EFIT", "MAGG", "DURG", "CVT0", "MAGA"):
+                effs[-1].setdefault(k, v)
+        for i, x in enumerate(effs):
+            mg = area = du = ""
+            efit = x.get("EFIT")
+            if efit and len(efit) >= 16 and r.version >= 170:
+                _id, m, a, d = struct.unpack_from("<IfII", efit)
+                mg, area, du = C.fmt_float(m), str(a), str(d)
+            elif efit and len(efit) >= 12:
+                m, a, d = struct.unpack_from("<fII", efit)
+                mg, area, du = C.fmt_float(m), str(a), str(d)
+            mf = _u32(x["EFID"])
+            out.append("\t".join(["%08X" % r.fid, cc(r.edid), str(i), "%08X" % mf, cc(esm.edid_of(mf)), mg, area, du,
+                                   *link(x.get("MAGG")), *link(x.get("DURG")), *link(x.get("CVT0")), *link(x.get("MAGA"))]))
+    return out
 
 
 def exp_mesgtxt(esm):
@@ -103,7 +154,7 @@ def exp_contitems(esm):
     return out
 
 
-EXPORTS = [("BUFFCOND_Export", exp_buffcond), ("MESGTXT_Export", exp_mesgtxt), ("CONTITEMS_Export", exp_contitems)]
+EXPORTS = [("BUFFCOND_Export", exp_buffcond), ("ENCHFX_Export", exp_enchfx), ("MESGTXT_Export", exp_mesgtxt), ("CONTITEMS_Export", exp_contitems)]
 
 
 def main(argv=None):
@@ -120,7 +171,7 @@ def main(argv=None):
         sys.exit("SeventySix.esm not found in %s - use --data" % data)
     t0 = time.time()
     print("[%s] reading %s ..." % (channel, data))
-    esm = R.Esm(data, ["MGEF", "ALCH", "MESG", "CONT"])
+    esm = R.Esm(data, ["MGEF", "ALCH", "ENCH", "MESG", "CONT"])
     print("  loaded in %.0fs" % (time.time() - t0))
     for prefix, fn in EXPORTS:
         lines = fn(esm)

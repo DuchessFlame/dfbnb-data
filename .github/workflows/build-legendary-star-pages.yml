@@ -1,0 +1,71 @@
+name: Build Legendary Star Pages
+
+# Builds the data for the five BnB pages
+#   /bnb/legendary-mods/1-star-legendary-mods/ ... /5-star-legendary-mods/
+# Output: dist/legendary_star_pages/{1..5}-star.json (df-bnb-legendary-star-pages.js).
+# Game-file extras (BUFFCOND ENCH conditions + ENCHFX magnitude globals) come from
+# tools/esm_buff_guides_extract.py, run on the PC after a patch. The full patch /
+# PTS builds also run this builder.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - 'tsv/MISC_*.tsv'
+      - 'tsv/COBJ*_*.tsv'
+      - 'tsv/OMOD_*.tsv'
+      - 'tsv/ENCH_*.tsv'
+      - 'tsv/ENCHFX_*.tsv'
+      - 'tsv/MGEF_*.tsv'
+      - 'tsv/PERK*_*.tsv'
+      - 'tsv/SPEL_*.tsv'
+      - 'tsv/AVIF_*.tsv'
+      - 'tsv/GLOB_*.tsv'
+      - 'tsv/GMST_*.tsv'
+      - 'tsv/CURV_*.tsv'
+      - 'tsv/LGDI_*.tsv'
+      - 'tsv/LVLI_*.tsv'
+      - 'tsv/GMRW_*.tsv'
+      - 'tsv/NPC*_*.tsv'
+      - 'tsv/BUFFCOND_*.tsv'
+      - 'src/build_legendary_star_pages_json.py'
+      - '.github/workflows/build-legendary-star-pages.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-legendary-star-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Build Legendary Star Pages JSON
+        run: python src/build_legendary_star_pages_json.py
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dist/legendary_star_pages
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "Build Legendary Star Pages data"
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push origin main && exit 0
+            sleep 5
+          done
+          exit 1

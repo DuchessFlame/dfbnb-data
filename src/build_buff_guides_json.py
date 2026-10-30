@@ -355,7 +355,7 @@ class Src:
             conds = [r.get(f"Cond{i}", "") for i in range(1, int(r.get("CondCount") or 0) + 1)]
             if r["Scope"] == "ALCH":
                 self.buffcond_alch[(r["FormID"].upper(), int(r["EffectIndex"] or 0))] = conds
-            else:
+            elif r["Scope"] == "MGEF":       # ENCH rows (legendary mods) are not buffs
                 self.buffcond_mgef[r["FormID"].upper()] = conds
         self.mesg = {r["MESG_EDID"]: r for r in read_tsv(p("mesg", "MESGTXT_Export_*.tsv"), raw=True)}
         self.cont = {}
