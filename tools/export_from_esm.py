@@ -1414,6 +1414,15 @@ def _weap_enum(names, i):
     return names[i] if 0 <= i < len(names) else "<Unknown: %d>" % i
 
 
+def _weap_dama(esm, raw):
+    """DAMA: 12-byte entries (damage type, amount, curve) -> "dtEnergy:24:CT_...|..."."""
+    out = []
+    for i in range(0, len(raw or b"") - 11, 12):
+        dt, amt, cv = struct.unpack_from("<III", raw, i)
+        out.append("%s:%d:%s" % (esm.edid_of(dt) or "%08X" % dt, amt, esm.edid_of(cv) if cv else ""))
+    return "|".join(out)
+
+
 def _weap_u32s(raw):
     return list(struct.unpack_from("<%dI" % (len(raw) // 4), raw)) if raw else []
 
@@ -1437,7 +1446,11 @@ def exp_weap(esm):
     sneak attack mult, durability curves), plus the naming-rules file INNR_Export_* (exp_innr).
     WEAP_Model, DNAM_Flags, DNAM_Projectiles and DNAM_RumblePattern stay blank like the .pas
     (paths FO76Edit doesn't have). Known difference: a few DNAM_AnimAttackSeconds such as
-    13/3 (4.33333349) print 4.333333 here; xEdit's own rounding gives 4.333334."""
+    13/3 (4.33333349) print 4.333333 here; xEdit's own rounding gives 4.333334.
+    30 Oct 2026: _DNAM gains DAMA_DamageTypes (not in the .pas) - the weapon's damage
+    types, "dtEnergy:24:CT_Player_Damage_Universal_Tier20|..." (type EDID : amount :
+    level curve EDID or blank). Energy / fire / cryo weapons keep their damage here, not in
+    DNAM_BaseDamage, so without it the Unique Weapons page showed 0 damage."""
     def lv(sub):
         raw = r.first(sub)
         return esm.link_edit_value(struct.unpack_from("<I", raw)[0]) if raw and len(raw) >= 4 else ""
@@ -1458,7 +1471,7 @@ def exp_weap(esm):
                      "DNAM_MinPowerPerShot", "DNAM_Stagger", "DNAM_Health", "CRDT_CritDamageMult",
                      "CRDT_CritChargeBonus", "CRDT_CritEffect", "DNAM_Projectiles", "DNAM_RumblePattern",
                      "WSAM_SneakAttackMult", "CVT0_DamageCurve", "CVT1_MinDurabilityCurve", "CVT2_CondLossScale",
-                     "CVT3_BashCondLossScale", "CVT4_MaxDurabilityCurve"])]
+                     "CVT3_BashCondLossScale", "CVT4_MaxDurabilityCurve", "DAMA_DamageTypes"])]
     for r in R.xedit_order(esm, "WEAP"):
         fid, ed, full = "%08X" % (r.fid & 0xFFFFFF), r.edid, esm.lstring(r.full)
         xa = r.first("XALG")
@@ -1495,7 +1508,7 @@ def exp_weap(esm):
                   % (ed, len(d), r.version))
         dn.append("\t".join([fid, ed, full] + _weap_dnam(esm, d) + crdt + ["", "",
                             _weap_float(struct.unpack_from("<f", ws)[0]) if ws else ""]
-                            + [lv("CVT%d" % i) for i in range(5)]))
+                            + [lv("CVT%d" % i) for i in range(5)] + [_weap_dama(esm, r.first("DAMA"))]))
     return {"_Base": base, "_ObjectTemplate": ot, "_DNAM": dn, "INNR": exp_innr(esm)}
 
 

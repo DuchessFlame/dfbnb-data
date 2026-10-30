@@ -16,6 +16,10 @@ Writes (tsv\ for live, tsv\pts\ with --pts):
       e.g. Live & Love 1's team buff: 10000000|1.000000|IsMemberOfAPlayerTeam|...
            Guns and Bullets 6 at night: GetGlobalValue(GameHour) >= 21 OR < 6
 
+  ALCHFX_Export_<Month>_<Year>.tsv
+      The same for every consumable effect (30 Oct 2026): brewed drinks keep their
+      real number in a CVT0 curve (Hard Lemonade, Nukashine, Lead Champagne ...).
+
   ENCHFX_Export_<Month>_<Year>.tsv
       Every enchantment effect with its magnitude / duration globals (MAGG / DURG),
       curve (CVT0) and curve input (MAGA) - the numbers behind legendary effects
@@ -102,17 +106,12 @@ def exp_buffcond(esm):
     return _pad(rows, ["Scope", "FormID", "EDID", "EffectIndex", "MGEF_FormID", "MGEF_EDID", "CondCount"])
 
 
-def exp_enchfx(esm):
-    """Every enchantment effect with its magnitude / duration GLOBALS (MAGG / DURG),
-    curve (CVT0) and the actor value the curve reads (MAGA). The xEdit ENCH export
-    has no MAGG / DURG, and many legendary effects keep their number there
-    (Elementalist's +25 resistances = BOUNTY_LegendaryElementalBonus) - 29 Oct 2026."""
+def _fx_rows(esm, sig):
     def link(sub):
         fid = _u32(sub) if sub else 0
         return ("%08X" % fid, cc(esm.edid_of(fid))) if fid and esm.exists(fid) else ("", "")
-    out = ["ENCH_FormID\tENCH_EDID\tEffectIndex\tMGEF_FormID\tMGEF_EDID\tMagnitude\tArea\tDuration\t"
-           "MAGG_FormID\tMAGG_EDID\tDURG_FormID\tDURG_EDID\tCurve_FormID\tCurve_EDID\tCurveInput_FormID\tCurveInput_EDID"]
-    for r in R.xedit_order(esm, "ENCH"):
+    out = []
+    for r in R.xedit_order(esm, sig):
         effs = []
         for k, v in r.subs:
             if k == "EFID":
@@ -132,6 +131,25 @@ def exp_enchfx(esm):
             out.append("\t".join(["%08X" % r.fid, cc(r.edid), str(i), "%08X" % mf, cc(esm.edid_of(mf)), mg, area, du,
                                    *link(x.get("MAGG")), *link(x.get("DURG")), *link(x.get("CVT0")), *link(x.get("MAGA"))]))
     return out
+
+
+def exp_alchfx(esm):
+    """Every consumable effect with its magnitude / duration globals, curve (CVT0) and
+    curve input (MAGA). 30 Oct 2026 (food buff calculator): brewed drinks keep their
+    real number in a curve table, not in EFIT - Hard Lemonade's +30 AP / +10% AP Regen
+    are EFIT 0 + Brewing_HardLemonade_* curves, Nukashine's AP Regen is EFIT 5 but the
+    game uses the curve's 50 (matches the in-game value). The xEdit ALCH export has no CVT0."""
+    return ["ALCH_FormID\tALCH_EDID\tEffectIndex\tMGEF_FormID\tMGEF_EDID\tMagnitude\tArea\tDuration\t"
+            "MAGG_FormID\tMAGG_EDID\tDURG_FormID\tDURG_EDID\tCurve_FormID\tCurve_EDID\tCurveInput_FormID\tCurveInput_EDID"] + _fx_rows(esm, "ALCH")
+
+
+def exp_enchfx(esm):
+    """Every enchantment effect with its magnitude / duration GLOBALS (MAGG / DURG),
+    curve (CVT0) and the actor value the curve reads (MAGA). The xEdit ENCH export
+    has no MAGG / DURG, and many legendary effects keep their number there
+    (Elementalist's +25 resistances = BOUNTY_LegendaryElementalBonus) - 29 Oct 2026."""
+    return ["ENCH_FormID\tENCH_EDID\tEffectIndex\tMGEF_FormID\tMGEF_EDID\tMagnitude\tArea\tDuration\t"
+            "MAGG_FormID\tMAGG_EDID\tDURG_FormID\tDURG_EDID\tCurve_FormID\tCurve_EDID\tCurveInput_FormID\tCurveInput_EDID"] + _fx_rows(esm, "ENCH")
 
 
 def exp_mesgtxt(esm):
@@ -154,7 +172,7 @@ def exp_contitems(esm):
     return out
 
 
-EXPORTS = [("BUFFCOND_Export", exp_buffcond), ("ENCHFX_Export", exp_enchfx), ("MESGTXT_Export", exp_mesgtxt), ("CONTITEMS_Export", exp_contitems)]
+EXPORTS = [("BUFFCOND_Export", exp_buffcond), ("ENCHFX_Export", exp_enchfx), ("ALCHFX_Export", exp_alchfx), ("MESGTXT_Export", exp_mesgtxt), ("CONTITEMS_Export", exp_contitems)]
 
 
 def main(argv=None):
@@ -163,6 +181,7 @@ def main(argv=None):
     ap.add_argument("--data", help="game Data folder (default: the live or PTS install)")
     ap.add_argument("--out", help="output folder (default: tsv\\ or tsv\\pts\\)")
     ap.add_argument("--no-ledger", action="store_true", help="don't add lines to tsv\\_exports.tsv")
+    ap.add_argument("--only", help="comma list of export prefixes to write, e.g. ALCHFX_Export")
     a = ap.parse_args(argv)
     channel = "PTS" if a.pts else "LIVE"
     data = a.data or (R.PTS_DATA if a.pts else R.LIVE_DATA)
@@ -173,7 +192,10 @@ def main(argv=None):
     print("[%s] reading %s ..." % (channel, data))
     esm = R.Esm(data, ["MGEF", "ALCH", "ENCH", "MESG", "CONT"])
     print("  loaded in %.0fs" % (time.time() - t0))
+    only = set((a.only or "").split(",")) - {""}
     for prefix, fn in EXPORTS:
+        if only and prefix not in only:
+            continue
         lines = fn(esm)
         path = os.path.join(out_dir, R.out_name(prefix, channel))
         R.write_tsv(path, lines)

@@ -151,6 +151,7 @@ sys.path.insert(0, str(SRC_DIR))
 import tsv_source
 import uwa_mods
 import uwa_effects
+import uwa_effect_check   # description vs game-file numbers (30 Oct 2026)
 import uwa_images      # unique pictures, matched by name (Oct 2026)
 import uwa_obtain
 import plan_sources   # site-wide cut test (is_cut_content)
@@ -396,9 +397,87 @@ def combo_star_effects(combo, omod_by_fid):
     return out
 
 
+# Damage at this level, in the page's damage line (Duchess, 30 Oct 2026).
+DAMAGE_LEVEL = 50
+# {curve EDID: [(x, y), ...]} for the channel being built (build_channel fills it).
+_DMG_CURVES = {}
+
+
+def load_damage_curves(channel):
+    _DMG_CURVES.clear()
+    path = pick("CURV_Export_*_POINTS.tsv", channel)
+    if not path:
+        return
+    for r in read_tsv(path):
+        try:
+            _DMG_CURVES.setdefault(r["EDID"], []).append((float(r["X"]), float(r["Y"])))
+        except (KeyError, TypeError, ValueError):
+            continue
+    for k in _DMG_CURVES:
+        _DMG_CURVES[k].sort()
+
+
+def _curve_at(name, x):
+    pts = _DMG_CURVES.get(strip_curve(name))
+    if not pts:
+        return None
+    if x <= pts[0][0]:
+        return pts[0][1]
+    for (x0, y0), (x1, y1) in zip(pts, pts[1:]):
+        if x <= x1:
+            return y0 + (y1 - y0) * (x - x0) / (x1 - x0) if x1 != x0 else y1
+    return pts[-1][1]
+
+
+def strip_curve(text):
+    """'CT_Player_Damage_Universal_Tier20 [CURV:0080F204]' -> the EDID."""
+    t = (text or "").strip()
+    return "" if not t or t.startswith("NULL") else t.split(" ")[0]
+
+
+def _dt_name(edid):
+    """dtEnergy -> Energy, dtRadiationExposure -> Radiation."""
+    w = re.findall(r"[A-Z][a-z]*", re.sub(r"^dt", "", edid or ""))
+    return w[0] if w else (edid or "")
+
+
+def weapon_damage(dnam_row):
+    """The weapon's damage line, from the game files:
+      - physical: DNAM_BaseDamage, or its level curve (CVT0) when it has one;
+      - other types (energy / fire / cryo...): the DAMA list (DAMA_DamageTypes),
+        each an amount or, when it has one, its level curve.
+    A curve wins over the flat number (the same rule as the boss stats page):
+    that is what the game scales the weapon's damage by.
+    -> "72 Energy at level 50", "28 Physical + 30 Energy at level 50", None."""
+    parts, curved = [], False
+    cv = strip_curve(dnam_row.get("CVT0_DamageCurve"))
+    v = _curve_at(cv, DAMAGE_LEVEL) if cv else None
+    if v is not None:
+        curved = True
+    else:
+        v = safe_float(dnam_row.get("DNAM_BaseDamage"))
+    if v:
+        parts.append((round(v), "Physical"))
+    for ent in (dnam_row.get("DAMA_DamageTypes") or "").split("|"):
+        bits = ent.split(":")
+        if len(bits) < 2 or not bits[0]:
+            continue
+        dv = _curve_at(bits[2], DAMAGE_LEVEL) if len(bits) > 2 and bits[2] else None
+        if dv is not None:
+            curved = True
+        else:
+            dv = safe_float(bits[1])
+        if dv:
+            parts.append((round(dv), _dt_name(bits[0])))
+    if not parts:
+        return None
+    text = " + ".join(f"{n} {k}" for n, k in parts)
+    return text + (f" at level {DAMAGE_LEVEL}" if curved else "")
+
+
 def weap_stats_from_dnam(base_row, dnam_row):
     return {
-        "damage": safe_int(dnam_row.get("DNAM_BaseDamage")),
+        "damage": weapon_damage(dnam_row),
         "fireRate": safe_float(dnam_row.get("DNAM_Speed")),
         "range": safe_int(dnam_row.get("DNAM_MaxRange")),
         "weight": safe_float(dnam_row.get("DNAM_Weight")),
@@ -1585,6 +1664,7 @@ def build_channel(channel, dist_dir):
     # given by the PTS Drifter Loot Bag - and every other name twice).
     CUT_ITEMS.clear()
     print(f"\n{'='*64}\n  Unique Weapons & Armour -- channel: {channel}\n{'='*64}")
+    load_damage_curves(channel)
 
     pool_name, pool_fid = build_pool_index()
     gmrw_quest = load_gmrw_quest(channel)
@@ -1649,6 +1729,12 @@ def build_channel(channel, dist_dir):
         base_in = norm_formid(it["formId"]) in weap_base
         no_cmod = len(it["_cmod_fids"]) == 0
         it["inCurrentExport"] = bool(cmod_in or (no_cmod and base_in))
+        # Damage from today's game files, not the saved copy (30 Oct 2026):
+        # the saved numbers were the flat DNAM_BaseDamage, 0 for every energy /
+        # fire / curve-only weapon.
+        drow = weap_dnam.get(norm_formid(it["formId"]))
+        if drow and isinstance(it.get("stats"), dict):
+            it["stats"]["damage"] = weapon_damage(drow)
 
     fresh_new = []
     matched_ct = 0
@@ -1806,6 +1892,9 @@ def build_channel(channel, dist_dir):
     # custom mod only renames them are flagged "named only". See uwa_effects.py.
     eff_stats = uwa_effects.apply(all_items, pick, channel)
     print(f"  unique mod effects: {eff_stats}")
+    # Descriptions vs the real numbers behind them (Duchess, 30 Oct 2026):
+    # mismatches are printed here as bug-report candidates.
+    uwa_effect_check.apply(all_items, pick, channel)
     _tr = uwa_effects.apply_tradeable(all_items, pick, channel)
     print(f"  tradeable set from the game files: {len(_tr)} changed")
     for _n, _o, _v in _tr:

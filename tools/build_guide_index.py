@@ -63,8 +63,10 @@ REPORT = os.path.join(DIST, "guide-index-report.json")
 SITE_URL = os.environ.get("SITE_URL", "https://theduchessflame.com").rstrip("/")
 UA = "DFBNB-guide-index/1.0 (+https://github.com/DuchessFlame/dfbnb-data)"
 
-# Portal / tooling sections - never public guides.
-SKIP_CATEGORIES = {"admin", "member", "staff"}
+# Portal / tooling sections - never public guides, never posted by Brewmaster.
+# "training" + "mod portal" added 30 Oct 2026 (Brewmaster had posted the Training
+# link; the live login check alone isn't enough before a portal page goes live).
+SKIP_CATEGORIES = {"admin", "member", "staff", "training", "mod portal"}
 SKIP_TEMPLATES = {"external-link"}
 
 # Tag tokens that describe page plumbing, not content.

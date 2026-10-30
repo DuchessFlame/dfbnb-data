@@ -616,9 +616,9 @@ def apply(items, tracer, names=None, obtain_idx=None, hand_only=(), log=print):
                 for l in r["lines"]:
                     m = re.match(r"^Source:\s*(.+?)\s+reward\s+—\s+retired$", l)
                     if m:
-                        kept.append(f"Legacy: {m.group(1)} version — no longer obtainable, player trading only")
+                        kept.append(uwa_obtain.legacy_line(m.group(1)))
                 if not kept:
-                    kept = ["Legacy: an older version — no longer obtainable, player trading only"]
+                    kept = [uwa_obtain.legacy_line()]
                 r.update({"populated": False, "lines": [], "tradeable": None, "dropRate": None})
                 r.pop("paths", None)
                 report["revived"].append(it.get("name"))
@@ -708,9 +708,7 @@ def apply(items, tracer, names=None, obtain_idx=None, hand_only=(), log=print):
             e = rec_edid.get(rid, "")
             if uwa_obtain.is_legacy_record(e):
                 mode = uwa_obtain.legacy_mode(e)
-                lines.append(f"Legacy: {mode} version — no longer obtainable, player trading only"
-                             if mode else
-                             "Legacy: an older version — no longer obtainable, player trading only")
+                lines.append(uwa_obtain.legacy_line(mode))
         live = [r for r in routes if r.get("populated")]
         for l in dict.fromkeys(lines):
             if any(l in r["lines"] for r in live):

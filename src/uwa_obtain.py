@@ -113,6 +113,16 @@ def is_legacy_record(edid):
     return bool(legacy_mode(edid)) or bool(re.match(r"DEPRECATED_", edid or "", re.I))
 
 
+def legacy_line(mode=""):
+    """The note for a retired copy that sits beside today's source (30 Oct 2026:
+    it read as if today's source handed out the old copy). Keeps the "Legacy:"
+    start and "no longer obtainable" - other steps look for both."""
+    if mode:
+        return (f"Legacy: an older {mode} version also exists, from when {mode} was in "
+                "the game — no longer obtainable, player trading only")
+    return "Legacy: an older version also exists — no longer obtainable, player trading only"
+
+
 def legacy_mode(edid):
     """'Survival_AssaultRifle_WhistleInTheDark' -> 'Survival mode'."""
     head = re.split(r"[_]", edid or "", 1)[0].lower()
@@ -908,9 +918,7 @@ class ObtainIndex:
             home = next((r for r in live if any(l.startswith("Source:") for l in r["lines"])),
                         live[0])
             for mode in modes:
-                line = (f"Legacy: {mode} version — no longer obtainable, player trading only"
-                        if mode else
-                        "Legacy: an older version — no longer obtainable, player trading only")
+                line = legacy_line(mode)
                 if line not in home["lines"]:
                     home["lines"].append(line)
             meta["legacyRecords"] = legacy

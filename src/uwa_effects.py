@@ -15,6 +15,15 @@ or paint has no combat effect — the item is "just a named weapon".
 
 DESC wins when it states a number. A DESC with no number is flavour text
 ("Sprays Burning Meadow Breeze"), so the property lines are added after it.
+
+30 Oct 2026 (Duchess): three kinds of line are added even after a DESC that
+states a number, because the DESC never says them:
+  - the game's own effect description (MGEF.DNAM) - Circuit Breaker's energy
+    blast, Ice Breaker's Cryo Hazard, Super-Heated's DR cut;
+  - curve scaling and caps (ENCH effect CURV + its input actor value, MAGA):
+    "+5 at 1 END ... +50 at 100 END", "+2% per STR (up to +200% at 100 STR)";
+  - how long damage over time lasts ("Adds Poison damage over 38 seconds").
+Generic: read from the ENCH / MGEF / CURV exports, nothing per item.
 """
 import csv
 import re
@@ -115,6 +124,23 @@ def _norm(s):
     return re.sub(r"[^a-z0-9]", "", (s or "").lower())
 
 
+_SPECIAL = {"strength": "STR", "perception": "PER", "endurance": "END", "charisma": "CHA",
+            "intelligence": "INT", "agility": "AGI", "luck": "LCK"}
+
+
+def _curve_shape(pts):
+    """'binary' (inputs 0 and 1 only), 'linear' (y = r*x), else 'points'."""
+    xs = sorted({x for x, _ in pts})
+    if xs == [0.0, 1.0]:
+        return "binary"
+    pos = [(x, y) for x, y in pts if x > 0]
+    if pos and all(y == 0 for x, y in pts if x == 0):
+        r = pos[0][1] / pos[0][0]
+        if r and all(abs(y - r * x) < 1e-6 * max(1.0, abs(y)) for x, y in pos):
+            return "linear"
+    return "points"
+
+
 def _human(edid):
     s = re.sub(r"^[A-Za-z0-9]{2,6}_(?=Projectile)", "", edid or "")
     s = re.sub(r"^Projectile|Projectile", "", s)
@@ -155,37 +181,99 @@ class EffectIndex:
             if len(r) >= 4:
                 self.avif[r[0].upper()] = (r[1], r[2].strip('"'), r[3])
         self.mgef = {}
+        self.mgef_perk = {}   # MGEF -> the perk it applies (EDID), e.g. MoM_VoiceofSetPerk
         rows = _read(p("MGEF_Export_*.tsv"))
         if rows:
             h = rows[0]
             i_ed, i_full, i_desc = h.index("EDID"), h.index("FULL"), h.index("DNAM_MagicItemDescription")
+            i_pk = h.index("PerkToApply") if "PerkToApply" in h else None
             for r in rows[1:]:
                 if len(r) > i_desc:
                     self.mgef[r[0].upper()] = (r[i_ed], r[i_full].strip('"'), r[i_desc])
+                    if i_pk is not None and len(r) > i_pk and r[i_pk].strip():
+                        self.mgef_perk[r[0].upper()] = r[i_pk].strip().split(" ")[0]
         self.ench = {}
         rows = _read(p("ENCH_Export_*.tsv"))
         if rows:
             h = rows[0]
             i_cnt = h.index("Effects_Count")
+            # Columns per effect, from the header (8 since the Python export:
+            # MGEF_FID, MGEF_EID, Magnitude, Area, Duration, CURV_EID, MAGA_FID,
+            # MAGA_EID). Reading 6 a time misread every effect after the first.
+            e1 = [c for c in h if re.match(r"Effect_1_", c)]
+            stride = len(e1) or 6
+            col = {c[len("Effect_1_"):]: k for k, c in enumerate(e1)}
             for r in rows[1:]:
                 if len(r) <= i_cnt:
                     continue
                 n = int(_num(r[i_cnt]) or 0)
                 effs, base = [], i_cnt + 1
-                # Each effect: "FID:EID", magnitude, area, duration, curve. The
-                # header names are one column out from the data, so go by position.
                 for k in range(n):
-                    c = r[base + k * 6: base + k * 6 + 6] + [""] * 6
+                    c = r[base + k * stride: base + (k + 1) * stride] + [""] * stride
                     if not c[0]:
                         continue
                     if ":" in c[0]:
                         # older export: "FID:EID" in one column, the rest one column early
                         fid, eid = c[0].split(":", 1)
-                        mag, dur = _num(c[1]), _num(c[3])
+                        mag, dur, curve, maga = _num(c[1]), _num(c[3]), "", ""
+                    elif col:
+                        g = lambda nm: c[col[nm]] if nm in col else ""
+                        fid, eid = g("MGEF_FID"), g("MGEF_EID")
+                        mag, dur = _num(g("Magnitude")), _num(g("Duration"))
+                        curve, maga = g("CURV_EID").strip(), g("MAGA_EID").strip()
                     else:
-                        fid, eid, mag, dur = c[0], c[1], _num(c[2]), _num(c[4])
-                    effs.append((fid.upper(), eid, mag, dur))
+                        fid, eid, mag, dur, curve, maga = c[0], c[1], _num(c[2]), _num(c[4]), "", ""
+                    if "NULL" in curve:
+                        curve = ""
+                    effs.append((fid.upper(), eid, mag, dur, curve, maga))
                 self.ench[r[0].upper()] = (r[1], r[2].strip('"'), effs)
+        # Curve points by EditorID: {EDID: [(x, y), ...]} (CURV POINTS export).
+        self.curve = {}
+        for r in _read(p("CURV_Export_*_POINTS.tsv"))[1:]:
+            if len(r) >= 4 and _num(r[2]) is not None and _num(r[3]) is not None:
+                self.curve.setdefault(r[1], []).append((_num(r[2]), _num(r[3])))
+        for k in self.curve:
+            self.curve[k].sort()
+        self.avif_by_edid = {v[0]: v[1] for v in self.avif.values()}
+        # A perk's Ability spells, and each spell's effects with their conditions
+        # (Voice of Set: one description without Eye of Ra worn, one with it).
+        self.perk_abil = {}
+        rows = _read(p("PERKEP_Export_*.tsv"))
+        if rows:
+            h = rows[0]
+            if {"PERK_EDID", "EffectType", "Ability_FormID"} <= set(h):
+                i_e, i_t, i_a = h.index("PERK_EDID"), h.index("EffectType"), h.index("Ability_FormID")
+                for r in rows[1:]:
+                    if len(r) > i_a and r[i_t] == "Ability" and r[i_a].strip():
+                        self.perk_abil.setdefault(r[i_e], []).append(r[i_a].strip().upper())
+        self.spel_eff = {}
+        rows = _read(p("SPEL_Export_*_EFFECTS.tsv"))
+        if rows:
+            h = rows[0]
+            if {"SPEL_FormID", "EFID_MGEF_FormID", "Conditions"} <= set(h):
+                i_s, i_m, i_c = h.index("SPEL_FormID"), h.index("EFID_MGEF_FormID"), h.index("Conditions")
+                for r in rows[1:]:
+                    if len(r) > i_c:
+                        self.spel_eff.setdefault(r[i_s].upper(), []).append((r[i_m].upper(), r[i_c]))
+        # Keyword -> the name of the item that carries it (MoMEyeOfRaItemKeyword -> "Eye of Ra")
+        self.kw_item = {}
+        rows = _read(p("ARMO_Export_*_ARMOUR.tsv"))
+        if rows:
+            h = rows[0]
+            kcols = [i for i, c in enumerate(h) if re.match(r"KW\d+$", c)]
+            i_full = h.index("ARMO_FULL") if "ARMO_FULL" in h else None
+            for r in rows[1:]:
+                full = r[i_full].strip('"').strip() if i_full is not None and len(r) > i_full else ""
+                if not full:
+                    continue
+                for i in kcols:
+                    c = r[i].strip() if i < len(r) else ""
+                    if c:
+                        # "004E60E2:MoMEyeOfRaItemKeyword:KYWD" (or a bare EDID)
+                        bits = c.split(":")
+                        self.kw_item.setdefault(bits[1] if len(bits) >= 3 else c.split(" ")[0], full)
+        self._curve_unit = {}
+        self.last_kinds = {}
 
     # --- one property -> zero or more lines ---------------------------------
     def _perk_lines(self, fid):
@@ -195,25 +283,134 @@ class EffectIndex:
         d = _clean_desc(rec[2])
         return [d] if d else []
 
-    def _ench_lines(self, fid):
+    # --- curve-driven effects --------------------------------------------
+    def _input_label(self, maga):
+        """What the curve's input actor value is, in reader words."""
+        e = (maga or "").strip()
+        low = e.lower()
+        if low in _SPECIAL:
+            return _SPECIAL[low]
+        if low == "healthpercent":
+            return "health"
+        if low == "speedmult":
+            return "speed"
+        full = self.avif_by_edid.get(e, "")
+        if full:
+            return full
+        e = re.sub(r"^(STAT|MoM|AV)_", "", e)
+        e = re.sub(r"Count$", "s", e)   # AddictionCount -> "Addictions"
+        return re.sub(r"(?<=\s)(Of|The|And|With)\b", lambda m: m.group(1).lower(), _human(e))
+
+    def _x_text(self, x, maga, label):
+        low = (maga or "").lower()
+        if low == "healthpercent":
+            return f"{_fmt(x * 100)}% health"
+        if low == "speedmult":
+            return f"{_fmt(x)}% speed"
+        return f"{_fmt(x)} {label}"
+
+    def _scale_line(self, pts, maga, unit):
+        label = self._input_label(maga)
+        sign = lambda y: ("+" if y > 0 else "") + _fmt(y) + (unit if y else "")
+        shape = _curve_shape(pts)
+        ymax = max(y for _, y in pts)
+        xmax = max(x for x, y in pts if y == ymax)
+        if shape == "linear":
+            r = next(y / x for x, y in pts if x > 0)
+            return (f"{sign(r)} per {label} (up to {sign(ymax)} at "
+                    f"{self._x_text(xmax, maga, label)})")
+        return "Scales: " + ", ".join(f"{sign(y)} at {self._x_text(x, maga, label)}"
+                                      for x, y in pts)
+
+    def _perk_ability_lines(self, perk_edid):
+        """Descriptions on the perk's Ability spells. One gated on a worn item
+        (WornHasKeyword = 1) reads "With <item> worn: ..."; its != 1 twin is the
+        plain line."""
+        out = []
+        for sp in self.perk_abil.get(perk_edid, []):
+            for mfid, cond in self.spel_eff.get(sp, []):
+                d = _clean_desc(self.mgef.get(mfid, ("", "", ""))[2])
+                if not d:
+                    continue
+                m = re.search(r"WornHasKeyword\((\w+)[^)]*\)\s*(!=|==|=)\s*1(?:\.0+)?\b", cond or "")
+                if m and m.group(2) != "!=":
+                    item = self.kw_item.get(m.group(1)) or _human(re.sub(r"(Item)?Keyword$", "", m.group(1)))
+                    d = f"With {item} worn: {d}"
+                out.append(d)
+        return out
+
+    def _ench_lines(self, fid, hint=""):
+        """[(text, kind)]; kind: mgef / scale / dot / plain."""
         rec = self.ench.get(fid)
         if not rec:
             return []
-        out = []
-        for mfid, eid, mag, dur in rec[2]:
+        out, dots = [], {}
+        for mfid, eid, mag, dur, curve, maga in rec[2]:
             m = self.mgef.get(mfid, (eid, "", ""))
+            pts = self.curve.get(curve) if curve and maga else None
+            if pts and _curve_shape(pts) != "binary" and max(abs(y) for _, y in pts) <= 1:
+                # fractions (0.05 = 5%): Quick Fix's swing speed multiplier
+                pts = [(x, round(y * 100, 4)) for x, y in pts]
+                self._curve_unit.setdefault(curve, "%")
+            if pts:
+                # A curve with an input (MAGA): the number moves with a stat,
+                # health, speed, a stack count or another item being worn.
+                unit = self._curve_unit.get(curve)
+                if unit is None:
+                    has_tok = re.search(r"<\+?MAG", m[2] or "")
+                    unit = "%" if (re.search(r"MAG(\.MAX)?>%", m[2] or "")
+                                   or (not has_tok and "%" in (m[2] or hint))) else ""
+                    self._curve_unit[curve] = unit
+                ymax = max(y for _, y in pts)
+                mx = _fmt(ymax) + unit
+                desc = re.sub(r"<(\+?)MAG\.MAX>%?", lambda t: t.group(1) + mx, m[2] or "")
+                desc = re.sub(r"\s*\(?\s*\.?\s*Currently\b[^)]*\)?\s*$", "", desc, flags=re.I)
+                if _curve_shape(pts) == "binary":
+                    y0 = next(y for x, y in pts if x == 0)
+                    y1 = next(y for x, y in pts if x == 1)
+                    d = _clean_desc(desc, mag=y0, dur=dur)
+                    with_ = (f" ({'+' if y1 > 0 else ''}{_fmt(y1)}{unit} with "
+                             f"{self._input_label(maga)})")
+                    if d:
+                        out.append((d + with_, "mgef"))
+                    else:
+                        out.append((f"{'+' if y0 > 0 else ''}{_fmt(y0)}{unit}{with_}".strip(), "scale"))
+                    continue
+                if re.search(r"<\+?MAG>", desc):
+                    desc = re.sub(r"<\+MAG>", "up to +" + _fmt(ymax), desc)
+                    desc = desc.replace("<MAG>", "up to " + _fmt(ymax))
+                d = _clean_desc(desc, dur=dur)
+                if d:
+                    out.append((d, "mgef"))
+                out.append((self._scale_line(pts, maga, unit), "scale"))
+                continue
             d = _clean_desc(m[2], mag=mag, dur=dur)
             if d:
-                out.append(d)
+                out.append((d, "mgef"))
                 continue
+            pk = self.mgef_perk.get(mfid)
+            if pk:
+                pl = self._perk_ability_lines(pk)
+                if pl:
+                    out += [(l, "mgef") for l in pl]
+                    continue
             if _VISUAL_MGEF.search(m[0] or eid):
                 continue
             dt = _DT_MGEF.match(m[0] or eid)
             if dt:
                 kind = _DT_NAME.get(dt.group(1).lower(), dt.group(1).title())
-                out.append(f"Adds {kind} damage")
             elif re.search(r"bleed", (m[0] or eid) + " " + rec[1], re.I):
-                out.append("Causes Bleed damage")
+                kind = "Bleed"
+            else:
+                continue
+            # Damage over time: keep the longest, the damage itself climbs with level.
+            dots[kind] = max(dots.get(kind, 0), dur or 0)
+        for kind, dur in dots.items():
+            verb = "Causes" if kind == "Bleed" else "Adds"
+            if dur:
+                out.append((f"{verb} {kind} damage over {_fmt(dur)} seconds", "dot"))
+            else:
+                out.append((f"{verb} {kind} damage", "plain"))
         return out
 
     def _av_lines(self, row):
@@ -252,6 +449,9 @@ class EffectIndex:
         """Every effect line for one OMOD, in property order, de-duplicated."""
         out, dmg_kw = [], []
         accuracy = None
+        kinds = {}
+        o = self.omod.get((omod_fid or "").upper(), ("", "", "", []))
+        hint = (o[2] or "") + " " + (o[1] or "")
         for r in self.props.get((omod_fid or "").upper(), []):
             fn, prop, v1, v2 = r[4], r[5], r[6], r[7]
             if prop == "Keywords":
@@ -266,7 +466,9 @@ class EffectIndex:
             if prop in ("116", "Perk"):
                 out += self._perk_lines(_fid(v1, "PERK"))
             elif prop == "Enchantments":
-                out += self._ench_lines(_fid(v1, "ENCH"))
+                for text, kind in self._ench_lines(_fid(v1, "ENCH"), hint):
+                    out.append(text)
+                    kinds[text] = kind
             elif prop in ("ActorValues", "Actor Values"):
                 out += self._av_lines(r)
             elif prop == "DamageTypeValues":
@@ -337,12 +539,20 @@ class EffectIndex:
         seen, uniq = set(), []
         joined = " ".join(out).lower()
         for s in out:
-            m = re.match(r"(?:Adds|Deals) (\w+) damage$", s)
+            m = re.match(r"(?:Adds|Deals|Causes) (\w+) damage$", s)
             if m and re.search(r"\d\S* " + m.group(1).lower() + " damage", joined):
                 continue   # "+16 Poison Damage" already says it
+            m = re.match(r"(?:Adds|Causes) (\w+) damage over (\S+) seconds$", s)
+            if m and re.search(r"\d\S* " + m.group(1).lower() + " damage", joined):
+                # the number is already there - just say how long it lasts
+                t = f"{m.group(1)} damage lasts {m.group(2)} seconds"
+                kinds[t] = kinds.get(s, "dot")
+                s = t
             if s.lower() not in seen:
                 seen.add(s.lower())
                 uniq.append(s)
+        if depth == 0:
+            self.last_kinds = {k: v for k, v in kinds.items() if k in uniq}
         return uniq
 
 
@@ -350,8 +560,36 @@ def describe(idx, omod_fid, desc):
     """Text for one unique mod: DESC if it states a number, else DESC + lines."""
     desc = (desc or "").strip()
     lines = idx.lines_for(omod_fid)
+    kinds = dict(idx.last_kinds)
+    # A curve's "+R per X (up to ...)" line repeats a rate another line or the
+    # DESC already gives - keep only the cap.
+    said = (desc + " " + " ".join(l for l in lines if kinds.get(l) != "scale")).lower()
+    if " per " in said:
+        short = []
+        for l in lines:
+            m = re.match(r"\S+ per (.+) \(up to (\S+) at (.+)\)$", l)
+            if m and kinds.get(l) == "scale":
+                t = f"Up to {m.group(2)} at {m.group(3)}"
+                kinds[t] = "scale"
+                l = t
+            short.append(l)
+        lines = short
     if desc and re.search(r"\d", desc):
-        return _clean_desc(desc) + ("." if desc.rstrip().endswith(".") else "")
+        base = _clean_desc(desc)
+        # Lines the DESC never says: the game's own effect text, curve caps,
+        # damage-over-time length (30 Oct 2026).
+        extra = []
+        for l in lines:
+            k = kinds.get(l)
+            if k not in ("mgef", "scale", "dot") or _norm(l) in _norm(base):
+                continue
+            m = re.match(r"\S+ per (.+) \(up to (\S+) at (.+)\)$", l)
+            if m and " per " in base.lower():
+                l = f"Up to {m.group(2)} at {m.group(3)}"   # the rate is already in the DESC
+            extra.append(l)
+        if extra:
+            return base.rstrip(" .") + "; " + "; ".join(extra)
+        return base + ("." if desc.rstrip().endswith(".") else "")
     if desc and lines:
         return desc.rstrip(" .") + ": " + "; ".join(lines)
     return desc or "; ".join(lines)

@@ -95,6 +95,32 @@ AV_SLOT = {
     "STAT_CritDmgHeavyGuns": "crit_heavy", "STAT_CritDmgMelee": "crit_melee",
     "STAT_Sneak": "sneak", "STAT_SneakLight": "sneak", "STAT_SneakSound": "sneak",
     "STAT_HealMultStimpak": "stimpak_heal",
+    # added 30 Oct 2026 (Kat): Nukashine's -80% sprint AP (Lead Champagne's +10% is a
+    # detrimental effect, so it counts against it), breathe underwater, fishing
+    "STAT_SprintAPCost": "sprint_ap", "WaterBreathing": "water_breathing",
+    "Fishing_MaxBopModifier": "fishing",
+}
+# Script / perk effects with no actor value (30 Oct 2026, Kat). The number comes from
+# the perk the effect applies (PERKEP, "Multiply Value"): 0.85 incoming damage = 15% less.
+#   effect EDID: (slot, how)   how = "perk" -> |1 - perk value| x 100, or a fixed number
+SCRIPT_FX = {
+    "NukaCola_Vaccine_Buff": ("lessdmg_scorched", "perk"),      # Nuka-Cola Scorched / Vaccinated / My Blood's In It
+    "D01C_InsectRepellentEffect": ("lessdmg_insects", "perk"),  # Insect Repellent
+    "Alcohol_ReduceLimbDamage": ("limb_dmg", "perk"),           # White Russian
+    "HoppyHunter_ScopeStability_Effect": ("scope_steady", "perk"),   # Hoppy Hunter IPA (+ -20% V.A.T.S. below)
+    "Fishing_NoHunger_Effect": ("hunger_thirst", "perk"),       # Fish Chowder: -25% hunger only
+    "FortifyBarterChemEffect": ("barter", 1),                   # Grape Mentats
+    "DetectLifeApplyClientEffect": ("detect_life", 1),          # Berry Mentats
+    "SSE_HarvestFlowers_Addperk": ("flowers", 1),               # Gamma Green Tea
+}
+SCRIPT_FX_TEXT = {
+    "Fishing_NoHunger_Effect": "{v}% slower hunger",
+}
+# +1 per teammate (Lucky-Leaf Tea Luck, Vault-Tec Gelatin Cake Charisma): the ability
+# spell gives +1 / +2 / +3 with 1 / 2 / 3 teammates (SPEL CONDITIONS GetPlayerTeammateCount).
+TEAM_FX = {
+    "ATX_FortifyLuck_TeaWizard_LuckyLeaf_AddPerk": ("luck", 3),
+    "ATX_FortifyCharisma_VaultTecGelatinCake_CakeSlice_AddPerk": ("cha", 3),
 }
 # Item types beyond food / chem / alcohol (20 Oct 2026): one bobblehead and one
 # magazine at a time (BobbleheadDispelEffects / MagazineDispelEffects), bubblegum.
@@ -133,6 +159,7 @@ MAGBOB_DESC_SLOT = [                                  # first match wins
     (r"Avoid Melee Dmg", "avoid_melee"), (r"Avoid Energy Dmg", "avoid_energy"), (r"Chance to Avoid Dmg", "avoid_all"),
     (r"Fusion Core Duration", "fusion_core"), (r"Heavy Weapon Ammo Consumption", "heavy_ammo"),
     (r"Harder to Detect", "sneak"),
+    (r"less hunger & thirst", "hunger_thirst"),          # Scouts' Life 6 (30 Oct 2026)
 ]
 # extra text for actor-value effects that have no slot and no description
 MAGBOB_AV_TEXT = {
@@ -417,6 +444,37 @@ def build(data_dir, dist_dir):
         mgef_detr[fid] = str(r.get("Detrimental", "0")).strip() == "1"
     perkep = read_tsv(ep_path)
 
+    # Curve-table magnitudes (CVT0) for consumable effects, 30 Oct 2026: brewed drinks
+    # keep their real number in a curve (Hard Lemonade +30 AP / +10% AP Regen are EFIT 0;
+    # Nukashine AP Regen is EFIT 5 but the game uses the curve's 50, Lead Champagne Rad
+    # Resist EFIT 250 vs curve 100). Only flat curves (one value) are used; the
+    # CT_FoodHealth_* curves are healing by level and are skipped. tools\esm_buff_guides_extract.py
+    # writes ALCHFX_Export_*.tsv.
+    alch_curve = {}
+    fx_path = newest(data_dir, "ALCHFX_Export_*.tsv")
+    pts_path = newest(data_dir, "CURV_Export_*_POINTS.tsv")
+    if fx_path and pts_path:
+        cpts = {}
+        for r in read_tsv(pts_path):
+            cpts.setdefault((r.get("EDID") or "").strip(), set()).add(fnum(r.get("Y")))
+        for r in read_tsv(fx_path):
+            ce = (r.get("Curve_EDID") or "").strip()
+            ys = cpts.get(ce)
+            if not ce or not ys or len(ys) != 1 or ce.startswith(("CT_FoodHealth", "FFZ10_CT_FoodHealth", "E08A_CT_FoodHealth")):
+                continue
+            alch_curve[(B.norm_fid(r.get("ALCH_FormID", "")), (r.get("MGEF_EDID") or "").strip())] = next(iter(ys))
+    else:
+        warn("no tsv/ALCHFX_Export_*.tsv - brewed drink numbers from curve tables are missing "
+             "(run tools/esm_buff_guides_extract.py)")
+    # perk value behind a script effect (SCRIPT_FX "perk")
+    def perk_pct(perk_edid):
+        for r in perkep:
+            if (r.get("PERK_EDID") or "").strip() == perk_edid and (r.get("Function") or "").strip() == "Multiply Value":
+                v = fnum(r.get("Value"))
+                if v is not None:
+                    return round(abs(1 - v) * 100, 2)
+        return None
+
     all_item_kws = set()
     for rec in S.alch.values():
         all_item_kws |= set(rec.get("keyword_edids") or [])
@@ -505,6 +563,7 @@ def build(data_dir, dist_dir):
             continue
 
         fx, sup, feral = [], False, 0.0
+        team_fx, extra_neg, script_text = [], [], {}
         all_dg = set()          # dispel keywords on ANY effect of the item (what it wipes when taken)
         for r in S.alch_effects.get(fid, []):
             e = S.build_effect(mgef_form_id=r["MGEF_FormID"], mgef_edid=r["MGEF_EDID"], mgef_full=r["MGEF_FULL"],
@@ -529,6 +588,9 @@ def build(data_dir, dist_dir):
                 mag = S.globs[mg]
             if dg and dg in S.globs and S.globs[dg] > 0:
                 dur = S.globs[dg]
+            cv = alch_curve.get((fid, (r.get("MGEF_EDID") or "").strip()))
+            if cv is not None:
+                mag = cv
             eed = e.get("edid") or ""
             if "Mutations Suppressed" in (e.get("dnam") or "") or "Mutations Suppressed" in (e.get("display") or ""):
                 sup = True
@@ -546,6 +608,23 @@ def build(data_dir, dist_dir):
                 slot, neg = "hunger_thirst", False
                 if not mag or dur < 60:
                     continue
+            elif eed in TEAM_FX and dur >= 60:
+                tslot, tmax = TEAM_FX[eed]
+                team_fx.append({"s": tslot, "m": tmax, "d": int(round(dur)), "st": eed, "e": eed, "w": "team",
+                                "dg": sorted(k for k in ek if "Dispel" in k)})
+                continue
+            elif eed in SCRIPT_FX and dur >= 60:
+                slot, how = SCRIPT_FX[eed]
+                neg = False
+                mag = perk_pct(mgef_perk.get(eed) or "") if how == "perk" else float(how)
+                if not mag:
+                    warn(f"{eed}: no perk value found - skipped")
+                    continue
+                if eed in SCRIPT_FX_TEXT:
+                    script_text[(slot, eed)] = SCRIPT_FX_TEXT[eed].replace("{v}", _num(mag))
+                if eed == "HoppyHunter_ScopeStability_Effect":     # the same perk: V.A.T.S. hit chance x0.8
+                    extra_neg.append({"s": "vats_acc", "m": 20.0, "d": int(round(dur)), "st": eed + "_VATS",
+                                      "e": eed + "_VATS", "neg": 1})
             elif eed.startswith("RestoreActionPoints"):
                 slot, neg = "ap_refill", False          # AP per second while it lasts
                 if not mag or dur < 60:
@@ -584,8 +663,8 @@ def build(data_dir, dist_dir):
                 neg = mgef_detr.get(mfid, False) or eed.startswith(("Reduce", "Damage"))
             if slot == "xp" and 0 < mag < 1:
                 mag *= 100.0
-            if slot == "invis":
-                mag = 1.0
+            if slot in ("invis", "water_breathing", "fishing", "barter", "detect_life", "flowers"):
+                mag = 1.0           # on / off buffs (30 Oct 2026: WaterBreathing's EFIT 4 means nothing to players)
             stack = next((k for k in sorted(ek) if k.startswith("Stack")), None) or \
                 next((k for k in sorted(ek) if k.startswith("FoodDispelEffect_")), None) or eed
             dm = {}
@@ -624,6 +703,24 @@ def build(data_dir, dist_dir):
             if anl != 1:
                 f["anl"] = anl
             fx.append(f)
+
+        for f in fx:
+            t = script_text.get((f["s"], f["e"]))
+            if t:
+                f["t"] = t
+            if f["s"] in ("water_breathing", "fishing", "barter", "detect_life", "flowers"):
+                f["m"] = 1.0        # on / off (magazines too)
+        # +1 per teammate: the team line is the item's own buff PLUS a full team (+3),
+        # so "in a team" compares the total (Kat 30 Oct 2026)
+        for tf in team_fx:
+            base = max([f["m"] for f in fx if f["s"] == tf["s"] and not f.get("neg")] or [0])
+            tf["m"] = round(base + tf["m"], 4)
+            tf["t"] = "+" + _num(tf["m"]) + " " + {"luck": "Luck", "cha": "Charisma"}[tf["s"]] + \
+                " in a full team (+1 per teammate)"
+            if not tf["dg"]:
+                tf.pop("dg")
+            fx.append(tf)
+        fx.extend(extra_neg)
 
         if typ in ("magazine", "bobblehead"):
             # A description-only effect that names a condition ("+5% Damage When in a
@@ -673,6 +770,14 @@ def build(data_dir, dist_dir):
                                   # UnsellableObject only means vendors won't buy it (Kat 28 Oct)
         if menu:
             it["menu"] = menu
+        # Canned or fresh (Kat 30 Oct 2026): weight for the canned note, and the
+        # fresh dish each canned one is made from (ENIT_CannedBase).
+        if typ == "food":
+            w = B.safe_num(rec.get("weight"))
+            if w is not None:
+                it["wt"] = round(w, 2)
+            if rec.get("is_canned") and rec.get("canned_base"):
+                it["cb"] = B.clean(rec.get("canned_base"))
         items.append(it)
 
     # One row per (type, name): prefer the Buffs n Brew one, then the most effects.
