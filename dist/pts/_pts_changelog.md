@@ -2402,7 +2402,7 @@ _Couldn't key this file to records; contents differ._
 ## `titles_data.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `titles_player.json`  ·  +23 / -0 / ~36
+## `titles_player.json`  ·  +23 / -0 / ~37
 
 **Added (23)**
 - ATX_PlayerTitles_Prefix_Sudsy  `ATX_PlayerTitles_Prefix_Sudsy`
@@ -2429,7 +2429,7 @@ _Couldn't key this file to records; contents differ._
 - ZZZ_SCORE_S27_PlayerTitles_Prefix_SPECIAL  `ZZZ_SCORE_S27_PlayerTitles_Prefix_SPECIAL`
 - zzz_HTO_PlayerTitles_Both_Terminated  `zzz_HTO_PlayerTitles_Both_Terminated`
 
-**Changed (36)**
+**Changed (37)**
 - ATX_PlayerTitles_Prefix_AdVictoriam  `ATX_PlayerTitles_Prefix_AdVictoriam` — fields: releaseDate, releaseLabel, releaseYear, source
 - ATX_PlayerTitles_Prefix_Contessa  `ATX_PlayerTitles_Prefix_Contessa` — fields: releaseDate, releaseLabel, source
 - ATX_PlayerTitles_Prefix_Gleaming  `ATX_PlayerTitles_Prefix_Gleaming` — fields: source
@@ -2466,6 +2466,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S25_PlayerTitles_Prefix_Outdoor  `SCORE_S25_PlayerTitles_Prefix_Outdoor` — fields: imageUrl, images
 - SCORE_S25_PlayerTitles_Suffix_Globetrotter  `SCORE_S25_PlayerTitles_Suffix_Globetrotter` — fields: imageUrl, images
 - SCORE_S25_PlayerTitles_Suffix_Pioneer  `SCORE_S25_PlayerTitles_Suffix_Pioneer` — fields: imageUrl, images
+- SFS09_PlayerTitles_Suffix_Manager  `SFS09_PlayerTitles_Suffix_Manager` — fields: debug
 
 ## `titles_player_generator.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
