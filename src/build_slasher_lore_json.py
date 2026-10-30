@@ -431,6 +431,11 @@ class Build:
             "location": self.location_block(edid, name, objectives),
             "routes": [r for _, r in routes],
         }
+        # A link line inside How to Obtain (Duchess, 30 Oct 2026): the mask
+        # notes point at the mask spawn guide. Hand-set in the overrides.
+        link = (self.overrides.get(edid) or {}).get("obtainLink")
+        if link:
+            it["obtainLink"] = link
         if contents is not None:
             it["contents"] = contents
         if transcript is not None:
