@@ -116,6 +116,11 @@ SCRIPT_FX = {
 SCRIPT_FX_TEXT = {
     "Fishing_NoHunger_Effect": "{v}% slower hunger",
 }
+# Kat 30 Oct 2026: the sprint AP / fall speed effects on Lead Champagne (debuffs: +10%
+# sprint AP cost, falls faster) and Nukashine are NOT used - we don't recommend drinks
+# for these. Scouts' Life 8 (magazine, -20% sprint AP) still counts.
+SKIP_DRINK_SPRINT = {"LeadChampagne_IncreaseSprintAP", "LeadChampagne_AdjustFallSpeed",
+                     "Nukashine_FortifySprintAP", "Nukashine_AdjustFallSpeed"}
 # +1 per teammate (Lucky-Leaf Tea Luck, Vault-Tec Gelatin Cake Charisma): the ability
 # spell gives +1 / +2 / +3 with 1 / 2 / 3 teammates (SPEL CONDITIONS GetPlayerTeammateCount).
 TEAM_FX = {
@@ -612,6 +617,8 @@ def build(data_dir, dist_dir):
                 tslot, tmax = TEAM_FX[eed]
                 team_fx.append({"s": tslot, "m": tmax, "d": int(round(dur)), "st": eed, "e": eed, "w": "team",
                                 "dg": sorted(k for k in ek if "Dispel" in k)})
+                continue
+            elif eed in SKIP_DRINK_SPRINT:
                 continue
             elif eed in SCRIPT_FX and dur >= 60:
                 slot, how = SCRIPT_FX[eed]
