@@ -83,6 +83,16 @@ CHALLENGE_PHASE = [
 ]
 TYPE_ORDER = ["Lifetime", "Daily", "Weekly"]
 
+# The order the game really shows a quest's steps in, by objective number.
+# The files only number the objectives; which stage turns each one on lives in
+# server-side quest scripts, so where the numbering is out of step with play it
+# is set here from in-game testing. Masked Truth: Eldritch_Equations played it
+# through (27 Oct 2026) - the masks (40) come before the clippings (20) and the
+# children's book page (30). Objectives not listed keep their own order after these.
+STEP_ORDER = {
+    "SDOW_MQ01_Bodies": [10, 40, 20, 30, 50, 60],
+}
+
 
 def _rows(path):
     with open(path, encoding="utf-8", errors="replace", newline="") as f:
@@ -127,6 +137,23 @@ def _tracker(guides):
     return None, [], ""
 
 
+def _ordered_steps(guides, fid, edid, steps):
+    """steps in STEP_ORDER's objective order (by matching each objective's own
+    cleaned text); anything the order doesn't name stays after, as it was."""
+    order = STEP_ORDER.get(edid)
+    if not order:
+        return steps
+    text_of = {}
+    for n, raw in guides.quests[fid]["obj"]:
+        t = plan_quest_guides.clean_step(raw)
+        if t:
+            text_of.setdefault(n, t)
+    first = [text_of[n] for n in order if text_of.get(n) in steps]
+    if len(first) != len([n for n in order if n in text_of]):
+        print("  [slasher_guide] STEP_ORDER for %s names a step the quest no longer has" % edid)
+    return first + [t for t in steps if t not in first]
+
+
 def _quest_block(guides, edid):
     fid = guides.edid_to_fid.get(edid)
     if not fid:
@@ -134,7 +161,7 @@ def _quest_block(guides, edid):
     g = guides.guide(fid)
     if not g:
         return None
-    out = {"formId": fid, "edid": edid, "name": g["name"], "steps": g["steps"]}
+    out = {"formId": fid, "edid": edid, "name": g["name"], "steps": _ordered_steps(guides, fid, edid, g["steps"])}
     for k in ("requires", "availability", "more_steps"):
         if g.get(k):
             out[k] = g[k]
