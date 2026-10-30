@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "generated": "2026-10-30T18:52:11Z",
-  "channel": "live",
+  "generated": "2026-10-30T23:02:14Z",
+  "channel": "pts",
   "count": 133,
   "counts": {
     "weapon": 120,
@@ -2688,10 +2688,17 @@
         },
         {
           "route": "Atom Shop",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
+          "populated": true,
+          "lines": [
+            "Drops: Unlocks crafting (Weapon Workbench)",
+            "Source: Cold Shoulder Starter Bundle",
+            "Cost: 1,000 Atoms",
+            "Note: In the Atom Shop's Add-ons store."
+          ],
+          "tradeable": false,
+          "dropRate": "N/A",
+          "conditions": [],
+          "conditionsChecked": true
         },
         {
           "route": "Limited Time Bundle",
@@ -14221,13 +14228,6 @@
       },
       "starEffects": [
         {
-          "star": 1,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
-        },
-        {
           "star": 2,
           "name": "Random",
           "edid": "",
@@ -16371,7 +16371,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "Gain Melee Damage per END; Scales: +5 at 1 END, +22 at 15 END, +35 at 30 END, +45 at 60 END, +50 at 100 END",
+      "inherentEffect": "Gain Melee Damage per END",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -17375,7 +17375,7 @@
           "fixed": false
         }
       ],
-      "inherentEffect": "Gain Explosive Damage per CHA; Scales: +5 at 1 CHA, +22 at 15 CHA, +35 at 30 CHA, +45 at 60 CHA, +50 at 100 CHA",
+      "inherentEffect": "Gain Explosive Damage per CHA",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -17696,7 +17696,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "Swing Speed Increases per Addiction up to +50%; Up to +50% at 10 Addictions",
+      "inherentEffect": "Swing Speed Increases per Addiction",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -18868,16 +18868,13 @@
       "sourceType": "Quest",
       "sourceRef": "The Eye of the Storm",
       "questName": "The Eye of the Storm",
-      "craftable": false,
+      "craftable": true,
       "planName": "",
       "tradeable": true,
       "formId": "0072DF0B",
       "edid": "Stormcutter",
       "inCurrentExport": true,
       "isCut": false,
-      "discoveredBy": [
-        "official"
-      ],
       "uniqueMods": [],
       "namedOnly": true,
       "obtainRoutes": [
@@ -19547,13 +19544,14 @@
       "sourceType": "Quest",
       "sourceRef": "A Matter of Matter",
       "questName": "A Matter of Matter",
-      "craftable": true,
+      "craftable": false,
       "planName": "",
       "tradeable": true,
       "formId": "0072DF0B",
       "edid": "Stormcutter",
       "inCurrentExport": true,
       "isCut": false,
+      "confirmedByGameFiles": false,
       "uniqueMods": [
         {
           "name": "V63-Z Custom",
@@ -19647,7 +19645,10 @@
           "dropRate": null
         }
       ],
-      "recordIds": []
+      "recordIds": [],
+      "aka": [
+        "V63-Z"
+      ]
     },
     {
       "id": "gatlinglaser",
