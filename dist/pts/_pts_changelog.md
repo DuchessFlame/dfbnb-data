@@ -271,20 +271,23 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S26_Instrument_AltoSax  `SCORE_S26_Instrument_AltoSax` — fields: description, displayName
 - WestVirginia_SlotMachine  `WestVirginia_SlotMachine` — fields: imageUrl
 
-## `buff_guides/alcohol.json`  ·  +0 / -0 / ~27
+## `buff_guides/alcohol.json`  ·  +0 / -0 / ~30
 
-**Changed (27)**
+**Changed (30)**
 - Brew_BallisticBockFerm  `Brew_BallisticBockFerm` — fields: obtain
 - Brew_BeerBottleStandard01Ferm  `Brew_BeerBottleStandard01Ferm` — fields: obtain
 - Brew_BlackwaterBrewFerm  `Brew_BlackwaterBrewFerm` — fields: obtain
 - Brew_BourbonFerm  `Brew_BourbonFerm` — fields: obtain
 - Brew_CranberryMoonshineFerm  `Brew_CranberryMoonshineFerm` — fields: obtain
 - Brew_HighVoltageHefeFerm  `Brew_HighVoltageHefeFerm` — fields: obtain
+- Brew_HoppyHunter  `Brew_HoppyHunter` — fields: fx
 - Brew_HoppyHunterFerm  `Brew_HoppyHunterFerm` — fields: obtain
-- Brew_LeadChampagneBellini  `Brew_LeadChampagneBellini` — fields: obtain
+- Brew_LeadChampagneBellini  `Brew_LeadChampagneBellini` — fields: fx, obtain
 - Brew_LeadChampagneFerm  `Brew_LeadChampagneFerm` — fields: obtain
-- Brew_LeadChampagneMimosa  `Brew_LeadChampagneMimosa` — fields: obtain
-- Brew_LemonadeHard  `Brew_LemonadeHard` — fields: obtain
+- Brew_LeadChampagneFresh  `Brew_LeadChampagneFresh` — fields: fx
+- Brew_LeadChampagneMimosa  `Brew_LeadChampagneMimosa` — fields: fx, obtain
+- Brew_LeadChampagneVintage  `Brew_LeadChampagneVintage` — fields: fx
+- Brew_LemonadeHard  `Brew_LemonadeHard` — fields: bnb, dg, fx, obtain
 - Brew_LiquidCourageFerm  `Brew_LiquidCourageFerm` — fields: obtain
 - Brew_MountainHoneyMoonshineFerm  `Brew_MountainHoneyMoonshineFerm` — fields: obtain
 - Brew_NewRiverRedAleFerm  `Brew_NewRiverRedAleFerm` — fields: obtain
@@ -298,7 +301,7 @@ _Couldn't key this file to records; contents differ._
 - Brew_TickBloodTequilaSunrise  `Brew_TickBloodTequilaSunrise` — fields: obtain
 - Brew_VodkaFerm  `Brew_VodkaFerm` — fields: obtain
 - Brew_WhiskeyFerm  `Brew_WhiskeyFerm` — fields: obtain
-- Brew_WhiteRussian  `Brew_WhiteRussian` — fields: obtain
+- Brew_WhiteRussian  `Brew_WhiteRussian` — fields: bnb, dg, fx, obtain
 - Brew_WineFerm  `Brew_WineFerm` — fields: obtain
 - E08A_Brew_GulpershineFerm  `E08A_Brew_GulpershineFerm` — fields: obtain
 
@@ -307,19 +310,19 @@ _Couldn't key this file to records; contents differ._
 ## `buff_guides/chems.json`  ·  +0 / -0 / ~48
 
 **Changed (48)**
-- BerryMentats  `BerryMentats` — fields: obtain
+- BerryMentats  `BerryMentats` — fields: fx, obtain
 - Bloodpack  `Bloodpack` — fields: obtain
 - BloodpackGlowing  `BloodpackGlowing` — fields: dg, effects, fx, obtain
 - BloodpackIrradiated  `BloodpackIrradiated` — fields: dg, effects, fx
 - Bufftats  `Bufftats` — fields: obtain
 - Fury  `Fury` — fields: obtain
-- GrapeMentats  `GrapeMentats` — fields: obtain
+- GrapeMentats  `GrapeMentats` — fields: fx, obtain
 - HealingSalve  `HealingSalve` — fields: obtain
 - Mentats  `Mentats` — fields: obtain
 - MoM_PhantomDevice  `MoM_PhantomDevice` — fields: obtain
 - OrangeMentats  `OrangeMentats` — fields: obtain
 - Overdrive  `Overdrive` — fields: obtain
-- Potion_D01C_InsectRepellent  `Potion_D01C_InsectRepellent` — fields: obtain
+- Potion_D01C_InsectRepellent  `Potion_D01C_InsectRepellent` — fields: bnb, dg, fx, obtain
 - Psycho  `Psycho` — fields: obtain
 - Psychobuff  `Psychobuff` — fields: obtain
 - RadAway  `RadAway` — fields: obtain
@@ -349,13 +352,19 @@ _Couldn't key this file to records; contents differ._
 - Serum_Talons  `Serum_Talons` — fields: obtain
 - …and 8 more
 
-## `buff_guides/food.json`  ·  +2 / -0 / ~207
+## `buff_guides/food.json`  ·  +6 / -0 / ~205
 
-**Added (2)**
+**Added (6)**
+- Fishing_FishChowder  `Fishing_FishChowder`
+- Fishing_GrilledFish  `Fishing_GrilledFish`
+- MirelurkMeatTastyCake  `MirelurkMeatTastyCake`
+- SSE_GammaGreenTeaCooked  `SSE_GammaGreenTeaCooked`
 - SeasonalFish_Meal_WinterFishKabomb  `SeasonalFish_Meal_WinterFishKabomb`
 - SeasonalFish_Meal_WinterFishSauce  `SeasonalFish_Meal_WinterFishSauce`
 
-**Changed (207)**
+**Changed (205)**
+- ATX_TeaWizard_LuckyLeaf  `ATX_TeaWizard_LuckyLeaf` — fields: fx
+- ATX_VaultTecGelatinCake_CakeSlice  `ATX_VaultTecGelatinCake_CakeSlice` — fields: fx
 - AnglerLureWeedVegetableCooked  `AnglerLureWeedVegetableCooked` — fields: obtain
 - AnglerMeatCooked  `AnglerMeatCooked` — fields: obtain
 - AnglerMeatCooked_Cannery  `AnglerMeatCooked_Cannery` — fields: obtain
@@ -394,25 +403,29 @@ _Couldn't key this file to records; contents differ._
 - Cooking_Razorgrain_Flour  `Cooking_Razorgrain_Flour` — fields: obtain
 - CornPoneCooked_RSVP02  `CornPoneCooked_RSVP02` — fields: obtain
 - CornVegetableCookedSoup  `CornVegetableCookedSoup` — fields: obtain
-- CornVegetableCookedSoup_Cannery  `CornVegetableCookedSoup_Cannery` — fields: obtain
-- CorpseFlowerSeedsFruitCookedJuice  `CorpseFlowerSeedsFruitCookedJuice` — fields: obtain
-- …and 167 more
+- …and 165 more
 
-## `buff_guides/magazines.json`  ·  +0 / -0 / ~1
+## `buff_guides/magazines.json`  ·  +0 / -0 / ~4
 
-**Changed (1)**
+**Changed (4)**
+- Magazine_AwesomeTales03_Potion  `Magazine_AwesomeTales03_Potion` — fields: fx
 - Magazine_GunsAndBullets07_Potion  `Magazine_GunsAndBullets07_Potion` — fields: effects
+- Magazine_ScoutsLife06_Potion  `Magazine_ScoutsLife06_Potion` — fields: fx
+- Magazine_ScoutsLife08_Potion  `Magazine_ScoutsLife08_Potion` — fields: fx
 
 ## `buff_guides/mutations.json`  ·  +0 / -0 / ~0
 
-## `buff_guides/nuka-cola.json`  ·  +0 / -0 / ~5
+## `buff_guides/nuka-cola.json`  ·  +0 / -0 / ~8
 
-**Changed (5)**
+**Changed (8)**
 - Brew_DLC04_NukaCola_DarkFerm  `Brew_DLC04_NukaCola_DarkFerm` — fields: obtain
 - Brew_NukashineFerm  `Brew_NukashineFerm` — fields: obtain
-- NukaCola_Vaccine_Blood  `NukaCola_Vaccine_Blood` — fields: obtain
-- NukaCola_Vaccine_Scorched  `NukaCola_Vaccine_Scorched` — fields: obtain
-- NukaCola_Vaccine_Vaccinated  `NukaCola_Vaccine_Vaccinated` — fields: obtain
+- Brew_NukashineFresh  `Brew_NukashineFresh` — fields: fx
+- Brew_NukashineVintage  `Brew_NukashineVintage` — fields: fx
+- NukaCola_Vaccine_Blood  `NukaCola_Vaccine_Blood` — fields: bnb, fx, obtain
+- NukaCola_Vaccine_Scorched  `NukaCola_Vaccine_Scorched` — fields: bnb, fx, obtain
+- NukaCola_Vaccine_Vaccinated  `NukaCola_Vaccine_Vaccinated` — fields: bnb, fx, obtain
+- SCORE_Brew_NukashineVintage_SugarFree  `SCORE_Brew_NukashineVintage_SugarFree` — fields: fx
 
 ## `buff_guides/shared.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
@@ -659,15 +672,63 @@ _Couldn't key this file to records; contents differ._
 ## `calculators/crafting_materials_calculator.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `calculators/food_buff_calculator.json`  ·  +0 / -0 / ~6
+## `calculators/food_buff_calculator.json`  ·  +11 / -0 / ~240
 
-**Changed (6)**
+**Added (11)**
+- Brew_LemonadeHard  `Brew_LemonadeHard`
+- Brew_WhiteRussian  `Brew_WhiteRussian`
+- Fishing_FishChowder  `Fishing_FishChowder`
+- Fishing_GrilledFish  `Fishing_GrilledFish`
+- Fishing_GrilledFish_Cannery  `Fishing_GrilledFish_Cannery`
+- MirelurkMeatTastyCake  `MirelurkMeatTastyCake`
+- NukaCola_Vaccine_Blood  `NukaCola_Vaccine_Blood`
+- NukaCola_Vaccine_Scorched  `NukaCola_Vaccine_Scorched`
+- NukaCola_Vaccine_Vaccinated  `NukaCola_Vaccine_Vaccinated`
+- Potion_D01C_InsectRepellent  `Potion_D01C_InsectRepellent`
+- SSE_GammaGreenTeaCooked  `SSE_GammaGreenTeaCooked`
+
+**Changed (240)**
+- ATX_TeaWizard_LuckyLeaf  `ATX_TeaWizard_LuckyLeaf` — fields: fx, wt
+- ATX_VaultTecGelatinCake_CakeSlice  `ATX_VaultTecGelatinCake_CakeSlice` — fields: fx, wt
+- AnglerLureWeedVegetableCooked  `AnglerLureWeedVegetableCooked` — fields: wt
+- AnglerMeatCooked  `AnglerMeatCooked` — fields: wt
+- AnglerMeatCooked_Cannery  `AnglerMeatCooked_Cannery` — fields: cb, wt
+- AppalachiliCooked_RSVP02  `AppalachiliCooked_RSVP02` — fields: wt
+- AshRoseHerbCookedTea  `AshRoseHerbCookedTea` — fields: wt
+- AshRoseHerbTastyTea  `AshRoseHerbTastyTea` — fields: wt
+- AsterHerbCookedTea  `AsterHerbCookedTea` — fields: wt
+- AsterHerbTastyTea  `AsterHerbTastyTea` — fields: wt
+- BURN_RadhogBurntEndsCooked  `BURN_RadhogBurntEndsCooked` — fields: wt
+- BURN_RadhogMeatCooked  `BURN_RadhogMeatCooked` — fields: wt
+- BerryMentats  `BerryMentats` — fields: fx
+- BirthdayCakeSlice  `BirthdayCakeSlice` — fields: wt
+- BlackberryFruitCookedJuice  `BlackberryFruitCookedJuice` — fields: wt
+- BlackberryHoneyCrispGourmet  `BlackberryHoneyCrispGourmet` — fields: wt
+- BlightVegetableCookedSoup  `BlightVegetableCookedSoup` — fields: wt
+- BloatflyMeatCooked  `BloatflyMeatCooked` — fields: wt
+- BloatflyMeatTasty  `BloatflyMeatTasty` — fields: wt
+- BloodLeafHerbCookedTea  `BloodLeafHerbCookedTea` — fields: wt
+- BloodLeafHerbTastyTea  `BloodLeafHerbTastyTea` — fields: wt
+- BloodbloomHerbTastyTea  `BloodbloomHerbTastyTea` — fields: wt
+- BloodbugMeatCooked  `BloodbugMeatCooked` — fields: wt
+- BloodbugMeatTasty  `BloodbugMeatTasty` — fields: wt
 - BloodpackGlowing  `BloodpackGlowing` — fields: dgAll, fx
 - BloodpackIrradiated  `BloodpackIrradiated` — fields: dgAll, fx
-- RadX  `RadX` — fields: dgAll, fx
-- RadXDiluted  `RadXDiluted` — fields: dgAll, fx
-- SFM04_Organic_RadShield  `SFM04_Organic_RadShield` — fields: dgAll, fx
-- TrenchMed_Pitt  `TrenchMed_Pitt` — fields: dgAll, fx
+- BrahminMeatCooked  `BrahminMeatCooked` — fields: wt
+- BrahminMeatCooked_Cannery  `BrahminMeatCooked_Cannery` — fields: cb, wt
+- BrainBombsGourmet  `BrainBombsGourmet` — fields: wt
+- BrainFungusVegetableCookedSoup  `BrainFungusVegetableCookedSoup` — fields: wt
+- Brew_HoppyHunter  `Brew_HoppyHunter` — fields: fx
+- Brew_LeadChampagneBellini  `Brew_LeadChampagneBellini` — fields: fx
+- Brew_LeadChampagneFresh  `Brew_LeadChampagneFresh` — fields: fx
+- Brew_LeadChampagneMimosa  `Brew_LeadChampagneMimosa` — fields: fx
+- Brew_LeadChampagneVintage  `Brew_LeadChampagneVintage` — fields: fx
+- Brew_NukashineFresh  `Brew_NukashineFresh` — fields: fx
+- Brew_NukashineVintage  `Brew_NukashineVintage` — fields: fx
+- Burn_Food_SlipperCactusVeg_1  `Burn_Food_SlipperCactusVeg_1` — fields: wt
+- Burn_Food_SlipperCactusVeg_2  `Burn_Food_SlipperCactusVeg_2` — fields: wt
+- CarrotFlowerHerbCookedNectar  `CarrotFlowerHerbCookedNectar` — fields: wt
+- …and 200 more
 
 ## `calculators/outfit_inspiration.json`  ·  +31 / -16 / ~4
 
@@ -2402,7 +2463,7 @@ _Couldn't key this file to records; contents differ._
 ## `titles_data.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `titles_player.json`  ·  +23 / -0 / ~37
+## `titles_player.json`  ·  +23 / -0 / ~36
 
 **Added (23)**
 - ATX_PlayerTitles_Prefix_Sudsy  `ATX_PlayerTitles_Prefix_Sudsy`
@@ -2429,7 +2490,7 @@ _Couldn't key this file to records; contents differ._
 - ZZZ_SCORE_S27_PlayerTitles_Prefix_SPECIAL  `ZZZ_SCORE_S27_PlayerTitles_Prefix_SPECIAL`
 - zzz_HTO_PlayerTitles_Both_Terminated  `zzz_HTO_PlayerTitles_Both_Terminated`
 
-**Changed (37)**
+**Changed (36)**
 - ATX_PlayerTitles_Prefix_AdVictoriam  `ATX_PlayerTitles_Prefix_AdVictoriam` — fields: releaseDate, releaseLabel, releaseYear, source
 - ATX_PlayerTitles_Prefix_Contessa  `ATX_PlayerTitles_Prefix_Contessa` — fields: releaseDate, releaseLabel, source
 - ATX_PlayerTitles_Prefix_Gleaming  `ATX_PlayerTitles_Prefix_Gleaming` — fields: source
@@ -2466,7 +2527,6 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S25_PlayerTitles_Prefix_Outdoor  `SCORE_S25_PlayerTitles_Prefix_Outdoor` — fields: imageUrl, images
 - SCORE_S25_PlayerTitles_Suffix_Globetrotter  `SCORE_S25_PlayerTitles_Suffix_Globetrotter` — fields: imageUrl, images
 - SCORE_S25_PlayerTitles_Suffix_Pioneer  `SCORE_S25_PlayerTitles_Suffix_Pioneer` — fields: imageUrl, images
-- SFS09_PlayerTitles_Suffix_Manager  `SFS09_PlayerTitles_Suffix_Manager` — fields: debug
 
 ## `titles_player_generator.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
