@@ -349,13 +349,13 @@ _Couldn't key this file to records; contents differ._
 - Serum_Talons  `Serum_Talons` — fields: obtain
 - …and 8 more
 
-## `buff_guides/food.json`  ·  +2 / -0 / ~203
+## `buff_guides/food.json`  ·  +2 / -0 / ~207
 
 **Added (2)**
 - SeasonalFish_Meal_WinterFishKabomb  `SeasonalFish_Meal_WinterFishKabomb`
 - SeasonalFish_Meal_WinterFishSauce  `SeasonalFish_Meal_WinterFishSauce`
 
-**Changed (203)**
+**Changed (207)**
 - AnglerLureWeedVegetableCooked  `AnglerLureWeedVegetableCooked` — fields: obtain
 - AnglerMeatCooked  `AnglerMeatCooked` — fields: obtain
 - AnglerMeatCooked_Cannery  `AnglerMeatCooked_Cannery` — fields: obtain
@@ -396,7 +396,7 @@ _Couldn't key this file to records; contents differ._
 - CornVegetableCookedSoup  `CornVegetableCookedSoup` — fields: obtain
 - CornVegetableCookedSoup_Cannery  `CornVegetableCookedSoup_Cannery` — fields: obtain
 - CorpseFlowerSeedsFruitCookedJuice  `CorpseFlowerSeedsFruitCookedJuice` — fields: obtain
-- …and 163 more
+- …and 167 more
 
 ## `buff_guides/magazines.json`  ·  +0 / -0 / ~1
 
@@ -2496,7 +2496,7 @@ _Couldn't key this file to records; contents differ._
 - Secret Settler Helmet  `Headwear_Clothes_SecretService_Helmet`
 - Chaos Engine  `M79`
 
-## `unique_weapons_armour/unique_weapons_armour.json`  ·  +15 / -0 / ~18
+## `unique_weapons_armour/unique_weapons_armour.json`  ·  +15 / -0 / ~118
 
 **Added (15)**
 - Splinter  `10mmsmg-4`
@@ -2515,25 +2515,48 @@ _Couldn't key this file to records; contents differ._
 - Tarnished Claw  `rd01-ultraciteterrorsword-2`
 - V63 Zweihaender  `stormcutter-2`
 
-**Changed (18)**
-- Final Word  `50calmachinegun` — fields: uniqueMods
-- The Action Hero  `50calmachinegun-2` — fields: uniqueMods
-- Whistle in the Dark  `assaultrifle` — fields: obtainRoutes
-- Disorderly Conduct  `baton` — fields: uniqueMods
-- The Dragon  `blackpowder-rifle-dragon` — fields: obtainRoutes
-- Camden Whacker  `dlc04-commiewhacker` — fields: howToObtain, obtainRoutes, sourceRef, sourceType, unreleased
-- Cold Shoulder  `doublebarrelshotgun` — fields: obtainRoutes
-- Cursed Broadsider  `e06-colossus-lls-quest-rewards-cursedbroadsider` — fields: howToObtain, obtainRoutes, sourceRef
-- Cursed Sickle  `e06-colossus-lls-quest-rewards-cursedsickle` — fields: howToObtain, obtainRoutes, sourceRef
-- Overkill  `fatman-2` — fields: howToObtain, image, imageSameAsBase, inherentEffect, name, obtainRoutes, recordIds, repairOnly, sourceRef, starEffects, uniqueMods
-- The Guarantee  `fatman-3` — fields: howToObtain, image, imageSameAsBase, inherentEffect, name, obtainRoutes, recordIds, repairOnly, sourceRef, starEffects, uniqueMods
-- Cursed Rolling Pin  `ll-dailyops-rewards-cursedrollingpin` — fields: howToObtain, obtainRoutes, sourceRef
-- Crushing Blow  `m79` — fields: uniqueMods
-- Red Terror  `mg42` — fields: uniqueMods
-- Slug Buster  `plasmagun-4` — fields: starEffects
-- Face Breaker  `powerfist` — fields: obtainRoutes
-- Venomous Fang  `rd01-ultraciteterrorsword` — fields: aka, confirmedByGameFiles, name, obtainRoutes
-- V63-Z Custom  `stormcutter` — fields: howToObtain, image, name, obtainRoutes, questName, recordIds, sourceRef, starEffects, uniqueMods
+**Changed (118)**
+- Circuit Breaker  `10mm-circuitbreaker` — fields: inherentEffect, stats, uniqueMods
+- Old Guard  `10mmsmg` — fields: stats, uniqueMods
+- Perfect Storm  `10mmsmg-2` — fields: inherentEffect, stats, uniqueMods
+- Anchorage Ace  `10mmsmg-3` — fields: stats, uniqueMods
+- Medical Malpractice  `44` — fields: obtainRoutes, stats, uniqueMods
+- Somerset Special  `44-2` — fields: stats, uniqueMods
+- The Fact Finder  `44-3` — fields: stats, uniqueMods
+- Final Word  `50calmachinegun` — fields: stats, uniqueMods
+- The Action Hero  `50calmachinegun-2` — fields: obtainRoutes, stats, uniqueMods
+- The V.A.T.S. Unknown  `alienblaster` — fields: stats, uniqueMods
+- Zeta's Revenge  `alienblaster-2` — fields: stats, uniqueMods
+- Last Stand  `armor-bosinfantry-torso` — fields: uniqueMods
+- Stand Fast  `armor-combat-torso` — fields: inherentEffect, uniqueMods
+- Road Kill  `armor-dlc03-trapper-armleft` — fields: uniqueMods
+- Last Bastion  `armor-enclavescoutuniform-torso-urban` — fields: inherentEffect, uniqueMods
+- Silver Lining  `armor-leather-torso` — fields: uniqueMods
+- Trail Warden  `armor-metal-torso` — fields: uniqueMods
+- Rage  `armor-raidermod-torso` — fields: inherentEffect, uniqueMods
+- Bulwark  `armor-secretservice-torso` — fields: uniqueMods
+- Whistle in the Dark  `assaultrifle` — fields: inherentEffect, obtainRoutes, stats, uniqueMods
+- The Invader  `atx-alienprobe` — fields: stats
+- Slasher Axe  `autoaxe` — fields: inherentEffect, stats, uniqueMods
+- The Peacemaker  `autogrenadelauncher` — fields: inherentEffect, stats, uniqueMods
+- Resolve Breaker  `autogrenadelauncher-2` — fields: stats, uniqueMods
+- Nuka-Launcher  `autogrenadelauncher-3` — fields: stats, uniqueMods
+- Molerat Bat  `baseballbat` — fields: stats, uniqueMods
+- Disorderly Conduct  `baton` — fields: obtainRoutes, stats, uniqueMods
+- V63 Shock Baton  `baton-2` — fields: stats, uniqueMods
+- Ogua Gauntlet  `beararm` — fields: stats, uniqueMods
+- Pirate Punch  `blackpowder-pistol-blunderbuss` — fields: inherentEffect, stats, uniqueMods
+- The Dragon  `blackpowder-rifle-dragon` — fields: obtainRoutes, stats
+- Grand Finale  `broadsider` — fields: stats, uniqueMods
+- Cauterizer  `chainsaw-76` — fields: stats, uniqueMods
+- Meteorite Sword  `chineseofficersword` — fields: stats
+- The Fixer  `combatrifle-fixer` — fields: stats, uniqueMods
+- Crowd Control  `combatshotgun` — fields: inherentEffect, stats, uniqueMods
+- Burning Love  `compoundbow` — fields: inherentEffect, stats, uniqueMods
+- Piercing Love Bow  `compoundbow-2` — fields: inherentEffect, stats, uniqueMods
+- Minty Breather  `cryolator` — fields: stats, uniqueMods
+- Nailer  `cultistblade` — fields: stats, uniqueMods
+- …and 78 more
 
 ## `vendors.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
