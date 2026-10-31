@@ -9,6 +9,7 @@
   ],
   "source_totals": {
    "ambush": 11,
+   "corpse": 7,
    "nest": 9,
    "placement": 2,
    "queen": 1
@@ -819,8 +820,9 @@
      },
      {
       "marker": "Glassed Cavern",
-      "count": 2,
+      "count": 8,
       "sources": {
+       "corpse": 6,
        "placement": 2
       },
       "image_top": "",
@@ -828,13 +830,91 @@
       "image_bottom": "",
       "refs": [
        "3534DE",
-       "43A919"
+       "43A919",
+       "452F1D",
+       "452F1E",
+       "452F23",
+       "76613C",
+       "76613F",
+       "766140"
       ],
       "coords": [
        201657.8,
        -161232.8
       ],
       "spawns": [
+       {
+        "label": "Scorchbeast Corpse #1",
+        "ref": "452F1D",
+        "source_type": "corpse",
+        "coords": [
+         -3004.9,
+         3817.9
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Scorchbeast Corpse #2",
+        "ref": "452F1E",
+        "source_type": "corpse",
+        "coords": [
+         -4407.8,
+         5706.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Scorchbeast Corpse #3",
+        "ref": "452F23",
+        "source_type": "corpse",
+        "coords": [
+         -7818.2,
+         6863.1
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Scorchbeast Corpse #4",
+        "ref": "76613C",
+        "source_type": "corpse",
+        "coords": [
+         -7802.4,
+         6863.1
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Scorchbeast Corpse #5",
+        "ref": "76613F",
+        "source_type": "corpse",
+        "coords": [
+         -4392.0,
+         5706.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Scorchbeast Corpse #6",
+        "ref": "766140",
+        "source_type": "corpse",
+        "coords": [
+         -2989.1,
+         3817.9
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
        {
         "label": "Scorchbeast spawn #1",
         "ref": "3534DE",
@@ -861,6 +941,11 @@
        }
       ],
       "breakdown": [
+       {
+        "label": "corpses",
+        "count": 6,
+        "source_type": "corpse"
+       },
        {
         "label": "static spawns",
         "count": 2,
@@ -1250,14 +1335,16 @@
      },
      {
       "marker": "Vault 96",
-      "count": 1,
+      "count": 2,
       "sources": {
+       "corpse": 1,
        "nest": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
+       "56BD35",
        "56BDC1"
       ],
       "coords": [
@@ -1265,6 +1352,18 @@
        -153273.0
       ],
       "spawns": [
+       {
+        "label": "Scorchbeast Corpse",
+        "ref": "56BD35",
+        "source_type": "corpse",
+        "coords": [
+         23649.9,
+         -155087.9
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
        {
         "label": "Scorchbeast nest",
         "ref": "56BDC1",
@@ -1279,6 +1378,11 @@
        }
       ],
       "breakdown": [
+       {
+        "label": "corpse",
+        "count": 1,
+        "source_type": "corpse"
+       },
        {
         "label": "nest",
         "count": 1,
@@ -1384,13 +1488,13 @@
    }
   ],
   "total_markers": 13,
-  "total_placements": 23
+  "total_placements": 30
  },
  "chance_spawns": {
   "locations": [],
   "total": 0,
   "note": null
  },
- "blurb": "The Scorchbeast in Fallout 76 — drops Scorchbeast Brain, Scorchbeast Heart, Scorchbeast Liver, Scorchbeast Lung, Scorchbeast Meat, 12 NPC variants, 23 known spawn points.",
+ "blurb": "The Scorchbeast in Fallout 76 — drops Scorchbeast Brain, Scorchbeast Heart, Scorchbeast Liver, Scorchbeast Lung, Scorchbeast Meat, 12 NPC variants, 30 known spawn points.",
  "map_base": "/wp-content/uploads/guide-images/farming-meat/scorchbeast/"
 }
