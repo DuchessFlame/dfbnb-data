@@ -5,7 +5,7 @@
  },
  "set": "meat",
  "slug": "meat-squirrel",
- "name": "Intestine",
+ "name": "Squirrel Bits",
  "page_title": "Squirrel Location Guide",
  "blurb": "The Squirrel in Fallout 76 — drops Intestine, Squirrel Bits, 5 NPC variants, 13 known spawn points.",
  "map_base": "/wp-content/uploads/guide-images/farming-meat/squirrel/",
@@ -222,10 +222,10 @@
   }
  },
  "farming_tips": {
-  "spawn_note": "Intestine comes from killing Squirrels and looting the body.",
+  "spawn_note": "Intestine and Squirrel Bits come from killing Squirrels and looting the body.",
   "spoils": true,
   "spoil_duration_hours": null,
-  "base_weight": 0.5,
+  "base_weight": 0.25,
   "object_type": "Food",
   "yield_perk": "butchers_bounty",
   "weight_perk": "thru_hiker",
@@ -233,43 +233,43 @@
    {
     "rank": 1,
     "reduction": "45%",
-    "weight": 0.28
+    "weight": 0.14
    },
    {
     "rank": 2,
     "reduction": "90%",
-    "weight": 0.05
+    "weight": 0.03
    }
   ],
   "backpack_mod": "grocers",
-  "backpack_weight": 0.05,
+  "backpack_weight": 0.03,
   "armour_mod": "thru_hikers",
   "armour_mod_per_piece": 0.2,
   "armour_mod_weights": [
    {
     "pieces": 1,
     "reduction": "20%",
-    "weight": 0.4
+    "weight": 0.2
    },
    {
     "pieces": 2,
     "reduction": "40%",
-    "weight": 0.3
+    "weight": 0.15
    },
    {
     "pieces": 3,
     "reduction": "60%",
-    "weight": 0.2
+    "weight": 0.1
    },
    {
     "pieces": 4,
     "reduction": "80%",
-    "weight": 0.1
+    "weight": 0.05
    },
    {
     "pieces": 5,
     "reduction": "90% cap",
-    "weight": 0.05
+    "weight": 0.03
    }
   ],
   "magazines_affect_yield": false,
@@ -339,17 +339,44 @@
    "name": "Refrigerated Backpack",
    "reduction": "50%",
    "stacks_with_good_with_salt": false
-  }
+  },
+  "subject": "Intestine and Squirrel Bits",
+  "item_weights": [
+   {
+    "name": "Intestine",
+    "base_weight": 0.5,
+    "thru_hiker": [
+     0.28,
+     0.05
+    ],
+    "grocers": 0.05
+   },
+   {
+    "name": "Squirrel Bits",
+    "base_weight": 0.25,
+    "thru_hiker": [
+     0.14,
+     0.03
+    ],
+    "grocers": 0.03
+   }
+  ]
  },
  "used_for": {
   "consumption": {
    "object_type": "Food",
-   "weight": 0.5,
-   "value": 8,
+   "keywords": [
+    "Food",
+    "Raw",
+    "Meat",
+    "Can spoil"
+   ],
+   "weight": 0.25,
+   "value": 4,
    "addiction": null,
    "herbivore": false,
    "carnivore": true,
-   "note": "Intestine is a food consumable. It grants no timed stat buff on its own.",
+   "note": "Squirrel Bits is a food consumable. It grants no timed stat buff on its own.",
    "effects": [
     {
      "name": "Disease Chance",
@@ -364,10 +391,10 @@
     },
     {
      "name": "Satisfy Hunger",
-     "display": "Satisfies hunger (720/12 min)",
+     "display": "Satisfies hunger (360/6 min)",
      "duration": null,
      "label": "Satisfies Hunger",
-     "value": 720.0,
+     "value": 360.0,
      "unit": "seconds",
      "scales": true,
      "zeroed": false,
@@ -375,10 +402,10 @@
     },
     {
      "name": "Rads",
-     "display": "+15 Rads",
+     "display": "+10 Rads",
      "duration": null,
      "label": "Rads",
-     "value": 15.0,
+     "value": 10.0,
      "unit": "rads",
      "scales": false,
      "zeroed": true,
@@ -481,6 +508,81 @@
   ],
   "recipes": [
    {
+    "name": "Crispy Squirrel Bits",
+    "form_id": "000330FA",
+    "recipe_edid": "co_meal_SquirrelMeatCooked",
+    "category": "Food (Meat)",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 1,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1,
+      "url": "/df/farming/junk/wood/"
+     },
+     {
+      "name": "Squirrel Bits",
+      "qty": 1,
+      "is_main": true
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores 25 Health",
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 25.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Fortify Agility",
+      "display": "+2 Fortify Agility",
+      "duration": "30 min",
+      "label": "Agility",
+      "value": 2.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (720/12 min)",
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 720.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Rads",
+      "display": "+2 Rads",
+      "duration": null,
+      "label": "Rads",
+      "value": 2.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
+     }
+    ],
+    "how_to_obtain": "Known by default.",
+    "uses": [
+     {
+      "name": "Squirrel Bits",
+      "qty": 1
+     }
+    ]
+   },
+   {
     "name": "Fasnacht Sausage",
     "form_id": "003EEA45",
     "recipe_edid": "co_meal_Sausage_Fasnacht",
@@ -571,6 +673,12 @@
       "route": "Event: Fasnacht Day",
       "rate_display": "2.1277%",
       "kind": "event"
+     }
+    ],
+    "uses": [
+     {
+      "name": "Intestine",
+      "qty": 1
      }
     ]
    },
@@ -672,9 +780,889 @@
       "rate_display": "100%",
       "kind": "quest"
      }
+    ],
+    "uses": [
+     {
+      "name": "Intestine",
+      "qty": 2
+     }
+    ]
+   },
+   {
+    "name": "Squirrel On A Stick",
+    "form_id": "000366BB",
+    "recipe_edid": "co_meal_SquirrelMeatTasty",
+    "category": "Food (Meat)",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 2,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1,
+      "url": "/df/farming/junk/wood/"
+     },
+     {
+      "name": "Corn",
+      "qty": 2,
+      "url": "/bnb/farming/plants/corn/"
+     },
+     {
+      "name": "Squirrel Bits",
+      "qty": 2,
+      "is_main": true
+     },
+     {
+      "name": "Boiled Water",
+      "qty": 2
+     },
+     {
+      "name": "Sugar",
+      "qty": 2,
+      "url": "/bnb/farming/non-perishable/salt-pepper-spices-sugar/"
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores 45 Health",
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 45.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Fortify Agility",
+      "display": "+3 Fortify Agility",
+      "duration": "1 hour",
+      "label": "Agility",
+      "value": 3.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (1080/18 min)",
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 1080.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Rads",
+      "display": "+2 Rads",
+      "duration": null,
+      "label": "Rads",
+      "value": 2.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
+     }
+    ],
+    "how_to_obtain": "Recipe: Squirrel On A Stick",
+    "plan_routes": [
+     {
+      "route": "Yasmin Chowdhury (C.A.M.P. ally vendor)",
+      "rate_display": "21.1254%",
+      "kind": "vendor"
+     },
+     {
+      "route": "Grandma Junko (C.A.M.P. ally vendor)",
+      "rate_display": "15.592%",
+      "kind": "vendor"
+     },
+     {
+      "route": "Antoine (Whitespring Gourmet vendor)",
+      "rate_display": "10.5717%",
+      "kind": "vendor"
+     },
+     {
+      "route": "Daily: Thrill of the Grill",
+      "rate_display": "6.6667%",
+      "kind": "quest"
+     },
+     {
+      "route": "Molly (Raiders vendor)",
+      "rate_display": "3.2964%",
+      "kind": "vendor"
+     },
+     {
+      "route": "Event: Distinguished Guests",
+      "rate_display": "1.1111%",
+      "kind": "event"
+     },
+     {
+      "route": "Plans lying in the world",
+      "rate_display": "1.1111%",
+      "kind": "fixed"
+     },
+     {
+      "route": "Travelling merchant (random encounter, food goods)",
+      "rate_display": "1%",
+      "kind": "vendor"
+     },
+     {
+      "route": "Maul (C.A.M.P. ally vendor)",
+      "rate_display": "0.9524%",
+      "kind": "vendor"
+     },
+     {
+      "route": "Daily: Ecological Balance",
+      "rate_display": "0.3125%",
+      "kind": "quest"
+     },
+     {
+      "route": "Daily: Strange Brew",
+      "rate_display": "0.3125%",
+      "kind": "quest"
+     },
+     {
+      "route": "Dirty Laundry",
+      "rate_display": "0.3125%",
+      "kind": "quest"
+     },
+     {
+      "route": "Insurrection",
+      "rate_display": "0.3125%",
+      "kind": "quest"
+     },
+     {
+      "route": "Welcoming Committee",
+      "rate_display": "0.3125%",
+      "kind": "quest"
+     },
+     {
+      "route": "When the Rust Settles",
+      "rate_display": "0.3125%",
+      "kind": "quest"
+     },
+     {
+      "route": "Plans lying in the world",
+      "rate_display": "0.2778%",
+      "kind": "fixed"
+     },
+     {
+      "route": "Wastelanders - Wayward Anchor Farm",
+      "rate_display": "0.2222%",
+      "kind": "event"
+     },
+     {
+      "route": "Activity: Always Vigilant",
+      "rate_display": "0.1172%",
+      "kind": "event"
+     },
+     {
+      "route": "Activity: Back on the Beat",
+      "rate_display": "0.1172%",
+      "kind": "event"
+     },
+     {
+      "route": "Activity: Battle Bots",
+      "rate_display": "0.1172%",
+      "kind": "event"
+     },
+     {
+      "route": "Activity: Collision Course",
+      "rate_display": "0.1172%",
+      "kind": "event"
+     },
+     {
+      "route": "Activity: Death Blossoms",
+      "rate_display": "0.1172%",
+      "kind": "event"
+     },
+     {
+      "route": "Activity: Fertile Soil",
+      "rate_display": "0.1172%",
+      "kind": "event"
+     },
+     {
+      "route": "Activity: Horde",
+      "rate_display": "0.1172%",
+      "kind": "event"
+     },
+     {
+      "route": "Activity: Leader of the Pack",
+      "rate_display": "0.1172%",
+      "kind": "event"
+     },
+     {
+      "route": "Activity: Powering Up",
+      "rate_display": "0.1172%",
+      "kind": "event"
+     },
+     {
+      "route": "Activity: Project Beanstalk",
+      "rate_display": "0.1172%",
+      "kind": "event"
+     },
+     {
+      "route": "Ally repeatable quests (fetch)",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "Ally repeatable quests (kill)",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "Ally repeatable quests (rescue)",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "Daily: Big Fish in a Small Pond",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "Daily: The Importance of Communication",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "Division of Wealth",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "Follow the Trail",
+      "rate_display": "0.1172%",
+      "kind": "event"
+     },
+     {
+      "route": "From Russia With Lev",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "Hunter/Hunted",
+      "rate_display": "0.1172%",
+      "kind": "event"
+     },
+     {
+      "route": "Mission: Countdown",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "Novice of Mysteries",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "Overseer's Mission",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "Overseer, Overseen",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "Strange Bedfellows",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "The Slasher - Disturbed Grave (Repeatable)",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "The Slasher: Blood Will Have Blood",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "The Slasher: Out of the Shadows",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "The Slasher: Secrets to the Grave",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "Trade Secrets",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "Wastelanders - Ally C.A.M.P. Full Astronaut",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "Wastelanders - Ally C.A.M.P. Full Beckett",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "Wastelanders - The New Arrivals",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "Cooler",
+      "rate_display": "0.1%",
+      "kind": "container"
+     },
+     {
+      "route": "Lunch Pail",
+      "rate_display": "0.1%",
+      "kind": "container"
+     },
+     {
+      "route": "Sunny's Lunch Pail",
+      "rate_display": "0.1%",
+      "kind": "container"
+     },
+     {
+      "route": "Pint-Sized Phantom Pack",
+      "rate_display": "0.0586%",
+      "kind": "container"
+     },
+     {
+      "route": "Chem Cooler",
+      "rate_display": "0.05%",
+      "kind": "container"
+     },
+     {
+      "route": "Cooler",
+      "rate_display": "0.05%",
+      "kind": "container"
+     },
+     {
+      "route": "Duffle Bag",
+      "rate_display": "0.05%",
+      "kind": "container"
+     },
+     {
+      "route": "Refrigerator",
+      "rate_display": "0.05%",
+      "kind": "container"
+     },
+     {
+      "route": "Metal Box",
+      "rate_display": "0.03%",
+      "kind": "container"
+     }
+    ],
+    "uses": [
+     {
+      "name": "Squirrel Bits",
+      "qty": 2
+     }
+    ]
+   },
+   {
+    "name": "Tasty Squirrel Stew",
+    "form_id": "00036927",
+    "recipe_edid": "co_meal_SquirrelMeatTastyStew",
+    "category": "Food (Meat)",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 2,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1,
+      "url": "/df/farming/junk/wood/"
+     },
+     {
+      "name": "Squirrel Bits",
+      "qty": 2,
+      "is_main": true
+     },
+     {
+      "name": "Boiled Water",
+      "qty": 2
+     },
+     {
+      "name": "Tato",
+      "qty": 2,
+      "url": "/bnb/farming/plants/tato/"
+     },
+     {
+      "name": "Salt",
+      "qty": 1,
+      "url": "/bnb/farming/non-perishable/salt-pepper-spices-sugar/"
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores 60 Health",
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 60.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Fortify XP Bonus",
+      "display": "+10 Fortify XP Bonus",
+      "duration": "1 hour",
+      "label": "XP Bonus",
+      "value": 10.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (1440/24 min)",
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 1440.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Quench Thirst",
+      "display": "Quenches thirst (540/9 min)",
+      "duration": null,
+      "label": "Quenches Thirst",
+      "value": 540.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Rads",
+      "display": "+2 Rads",
+      "duration": null,
+      "label": "Rads",
+      "value": 2.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
+     }
+    ],
+    "how_to_obtain": "Recipe: Tasty Squirrel Stew",
+    "plan_routes": [
+     {
+      "route": "Yasmin Chowdhury (C.A.M.P. ally vendor)",
+      "rate_display": "21.1254%",
+      "kind": "vendor"
+     },
+     {
+      "route": "Grandma Junko (C.A.M.P. ally vendor)",
+      "rate_display": "15.592%",
+      "kind": "vendor"
+     },
+     {
+      "route": "Antoine (Whitespring Gourmet vendor)",
+      "rate_display": "10.5717%",
+      "kind": "vendor"
+     },
+     {
+      "route": "Molly (Raiders vendor)",
+      "rate_display": "3.2964%",
+      "kind": "vendor"
+     },
+     {
+      "route": "Event: Distinguished Guests",
+      "rate_display": "1.1111%",
+      "kind": "event"
+     },
+     {
+      "route": "Plans lying in the world",
+      "rate_display": "1.1111%",
+      "kind": "fixed"
+     },
+     {
+      "route": "Travelling merchant (random encounter, food goods)",
+      "rate_display": "1%",
+      "kind": "vendor"
+     },
+     {
+      "route": "Daily: Ecological Balance",
+      "rate_display": "0.3125%",
+      "kind": "quest"
+     },
+     {
+      "route": "Daily: Strange Brew",
+      "rate_display": "0.3125%",
+      "kind": "quest"
+     },
+     {
+      "route": "Dirty Laundry",
+      "rate_display": "0.3125%",
+      "kind": "quest"
+     },
+     {
+      "route": "Insurrection",
+      "rate_display": "0.3125%",
+      "kind": "quest"
+     },
+     {
+      "route": "Welcoming Committee",
+      "rate_display": "0.3125%",
+      "kind": "quest"
+     },
+     {
+      "route": "When the Rust Settles",
+      "rate_display": "0.3125%",
+      "kind": "quest"
+     },
+     {
+      "route": "Plans lying in the world",
+      "rate_display": "0.2778%",
+      "kind": "fixed"
+     },
+     {
+      "route": "Wastelanders - Wayward Anchor Farm",
+      "rate_display": "0.2222%",
+      "kind": "event"
+     },
+     {
+      "route": "Activity: Always Vigilant",
+      "rate_display": "0.1172%",
+      "kind": "event"
+     },
+     {
+      "route": "Activity: Back on the Beat",
+      "rate_display": "0.1172%",
+      "kind": "event"
+     },
+     {
+      "route": "Activity: Battle Bots",
+      "rate_display": "0.1172%",
+      "kind": "event"
+     },
+     {
+      "route": "Activity: Collision Course",
+      "rate_display": "0.1172%",
+      "kind": "event"
+     },
+     {
+      "route": "Activity: Death Blossoms",
+      "rate_display": "0.1172%",
+      "kind": "event"
+     },
+     {
+      "route": "Activity: Fertile Soil",
+      "rate_display": "0.1172%",
+      "kind": "event"
+     },
+     {
+      "route": "Activity: Horde",
+      "rate_display": "0.1172%",
+      "kind": "event"
+     },
+     {
+      "route": "Activity: Leader of the Pack",
+      "rate_display": "0.1172%",
+      "kind": "event"
+     },
+     {
+      "route": "Activity: Powering Up",
+      "rate_display": "0.1172%",
+      "kind": "event"
+     },
+     {
+      "route": "Activity: Project Beanstalk",
+      "rate_display": "0.1172%",
+      "kind": "event"
+     },
+     {
+      "route": "Ally repeatable quests (fetch)",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "Ally repeatable quests (kill)",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "Ally repeatable quests (rescue)",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "Daily: Big Fish in a Small Pond",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "Daily: The Importance of Communication",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "Division of Wealth",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "Follow the Trail",
+      "rate_display": "0.1172%",
+      "kind": "event"
+     },
+     {
+      "route": "From Russia With Lev",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "Hunter/Hunted",
+      "rate_display": "0.1172%",
+      "kind": "event"
+     },
+     {
+      "route": "Mission: Countdown",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "Novice of Mysteries",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "Overseer's Mission",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "Overseer, Overseen",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "Strange Bedfellows",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "The Slasher - Disturbed Grave (Repeatable)",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "The Slasher: Blood Will Have Blood",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "The Slasher: Out of the Shadows",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "The Slasher: Secrets to the Grave",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "Trade Secrets",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "Wastelanders - Ally C.A.M.P. Full Astronaut",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "Wastelanders - Ally C.A.M.P. Full Beckett",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "Wastelanders - The New Arrivals",
+      "rate_display": "0.1172%",
+      "kind": "quest"
+     },
+     {
+      "route": "Cooler",
+      "rate_display": "0.1%",
+      "kind": "container"
+     },
+     {
+      "route": "Lunch Pail",
+      "rate_display": "0.1%",
+      "kind": "container"
+     },
+     {
+      "route": "Sunny's Lunch Pail",
+      "rate_display": "0.1%",
+      "kind": "container"
+     },
+     {
+      "route": "Pint-Sized Phantom Pack",
+      "rate_display": "0.0586%",
+      "kind": "container"
+     },
+     {
+      "route": "Chem Cooler",
+      "rate_display": "0.05%",
+      "kind": "container"
+     },
+     {
+      "route": "Cooler",
+      "rate_display": "0.05%",
+      "kind": "container"
+     },
+     {
+      "route": "Duffle Bag",
+      "rate_display": "0.05%",
+      "kind": "container"
+     },
+     {
+      "route": "Refrigerator",
+      "rate_display": "0.05%",
+      "kind": "container"
+     },
+     {
+      "route": "Metal Box",
+      "rate_display": "0.03%",
+      "kind": "container"
+     }
+    ],
+    "uses": [
+     {
+      "name": "Squirrel Bits",
+      "qty": 2
+     }
     ]
    }
-  ]
+  ],
+  "items": [
+   {
+    "name": "Intestine",
+    "form_id": "003EEA40",
+    "consumption": {
+     "object_type": "Food",
+     "keywords": [
+      "Food",
+      "Raw",
+      "Meat",
+      "Can spoil"
+     ],
+     "weight": 0.5,
+     "value": 8,
+     "addiction": null,
+     "herbivore": false,
+     "carnivore": true,
+     "note": "Intestine is a food consumable. It grants no timed stat buff on its own.",
+     "effects": [
+      {
+       "name": "Disease Chance",
+       "display": "3% chance to catch a disease",
+       "duration": null,
+       "label": "Disease Chance",
+       "value": 3.0,
+       "unit": "percent",
+       "scales": false,
+       "zeroed": true,
+       "sign": false
+      },
+      {
+       "name": "Satisfy Hunger",
+       "display": "Satisfies hunger (720/12 min)",
+       "duration": null,
+       "label": "Satisfies Hunger",
+       "value": 720.0,
+       "unit": "seconds",
+       "scales": true,
+       "zeroed": false,
+       "sign": false
+      },
+      {
+       "name": "Rads",
+       "display": "+15 Rads",
+       "duration": null,
+       "label": "Rads",
+       "value": 15.0,
+       "unit": "rads",
+       "scales": false,
+       "zeroed": true,
+       "sign": true
+      }
+     ]
+    }
+   },
+   {
+    "name": "Squirrel Bits",
+    "form_id": "000366BC",
+    "consumption": {
+     "object_type": "Food",
+     "keywords": [
+      "Food",
+      "Raw",
+      "Meat",
+      "Can spoil"
+     ],
+     "weight": 0.25,
+     "value": 4,
+     "addiction": null,
+     "herbivore": false,
+     "carnivore": true,
+     "note": "Squirrel Bits is a food consumable. It grants no timed stat buff on its own.",
+     "effects": [
+      {
+       "name": "Disease Chance",
+       "display": "3% chance to catch a disease",
+       "duration": null,
+       "label": "Disease Chance",
+       "value": 3.0,
+       "unit": "percent",
+       "scales": false,
+       "zeroed": true,
+       "sign": false
+      },
+      {
+       "name": "Satisfy Hunger",
+       "display": "Satisfies hunger (360/6 min)",
+       "duration": null,
+       "label": "Satisfies Hunger",
+       "value": 360.0,
+       "unit": "seconds",
+       "scales": true,
+       "zeroed": false,
+       "sign": false
+      },
+      {
+       "name": "Rads",
+       "display": "+10 Rads",
+       "duration": null,
+       "label": "Rads",
+       "value": 10.0,
+       "unit": "rads",
+       "scales": false,
+       "zeroed": true,
+       "sign": true
+      }
+     ]
+    }
+   }
+  ],
+  "subject": "Intestine and Squirrel Bits"
  },
  "vendor_list": [
   {
@@ -690,83 +1678,16 @@
    "count": 1
   },
   {
-   "name": "Vendor Bot Chad",
-   "marker": "Camden Park",
-   "region": "Ash Heap",
+   "name": "Marie",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
    "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Responder",
-   "marker": "Lewisburg Station",
-   "region": "Ash Heap",
-   "vendor_type": "Train station vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Responder",
-   "marker": "Welch Station",
-   "region": "Ash Heap",
-   "vendor_type": "Train station vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Carmen",
-   "marker": "Atlantic City",
-   "region": "Atlantic City",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Fast Nicky",
-   "marker": "Atlantic City",
-   "region": "Atlantic City",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Pete Rutledge",
-   "marker": "Atlantic City",
-   "region": "Atlantic City",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "May",
-   "marker": "Highway Town Interior",
-   "region": "Burning Springs",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Hocking Hills Vendor Bot",
-   "marker": "Hocking Hills Train Station",
-   "region": "Burning Springs",
-   "vendor_type": "Train station vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
+   "rate_lines": [
+    "67.232%",
+    "8.3333%"
+   ],
+   "rate_display": "67.232% / 8.3333%",
+   "rate_value": 0.67232,
    "count": 1
   },
   {
@@ -774,9 +1695,11 @@
    "marker": "Big Bend Tunnel East",
    "region": "Cranberry Bog",
    "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
+   "rate_lines": [
+    "36%"
+   ],
+   "rate_display": "36%",
+   "rate_value": 0.36,
    "count": 1
   },
   {
@@ -784,89 +1707,11 @@
    "marker": "Big Bend Tunnel East",
    "region": "Cranberry Bog",
    "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Phoenix",
-   "marker": "Watoga Shopping Plaza",
-   "region": "Cranberry Bog",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Watoga Vendor Bot",
-   "marker": "Watoga Station",
-   "region": "Cranberry Bog",
-   "vendor_type": "Train station vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Mack",
-   "marker": "Charleston Fire Department",
-   "region": "Forest",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Responder",
-   "marker": "Charleston Station",
-   "region": "Forest",
-   "vendor_type": "Train station vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Bob",
-   "marker": "Flatwoods",
-   "region": "Forest",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Responder Vendor",
-   "marker": "Morgantown High School",
-   "region": "Forest",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Responder",
-   "marker": "Morgantown Station",
-   "region": "Forest",
-   "vendor_type": "Train station vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Raider",
-   "marker": "Sutton Station",
-   "region": "Forest",
-   "vendor_type": "Raider vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
+   "rate_lines": [
+    "36%"
+   ],
+   "rate_display": "36%",
+   "rate_value": 0.36,
    "count": 1
   },
   {
@@ -874,249 +1719,11 @@
    "marker": "The Wayward",
    "region": "Forest",
    "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Sunny",
-   "marker": "Foundation",
-   "region": "Savage Divide",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Resin",
-   "marker": "Pleasant Valley Ski Resort",
-   "region": "Savage Divide",
-   "vendor_type": "Raider vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Raider",
-   "marker": "Pleasant Valley Station",
-   "region": "Savage Divide",
-   "vendor_type": "Raider vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Raider",
-   "marker": "R&G Station",
-   "region": "Savage Divide",
-   "vendor_type": "Raider vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Raider",
-   "marker": "Sunnytop Station",
-   "region": "Savage Divide",
-   "vendor_type": "Raider vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Brotherhood Vendor",
-   "marker": "Whitespring Mall",
-   "region": "Savage Divide",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Free States Vendor",
-   "marker": "Whitespring Mall",
-   "region": "Savage Divide",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Marie",
-   "marker": "Whitespring Mall",
-   "region": "Savage Divide",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Raiders Vendor",
-   "marker": "Whitespring Mall",
-   "region": "Savage Divide",
-   "vendor_type": "Raider vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Responders Vendor",
-   "marker": "Whitespring Mall",
-   "region": "Savage Divide",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Shopping Mall Vendor",
-   "marker": "Whitespring Mall",
-   "region": "Savage Divide",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "The Whitespring Station Vendor",
-   "marker": "Whitespring Station",
-   "region": "Savage Divide",
-   "vendor_type": "Train station vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Murry",
-   "marker": "",
-   "region": "Skyline Valley",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Wallace",
-   "marker": "Berkeley Springs Station",
-   "region": "The Mire",
-   "vendor_type": "Train station vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Beckham",
-   "marker": "Raleigh Clay's Bunker",
-   "region": "The Mire",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Greg",
-   "marker": "Grafton",
-   "region": "Toxic Valley",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Responder",
-   "marker": "Grafton Station",
-   "region": "Toxic Valley",
-   "vendor_type": "Train station vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Molly",
-   "marker": "The Crater",
-   "region": "Toxic Valley",
-   "vendor_type": "Raider vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "A.T.H.E.N.A.",
-   "marker": "",
-   "region": "",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Astronaut Emerson Vendor",
-   "marker": "",
-   "region": "",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Beckett",
-   "marker": "",
-   "region": "",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Daphne",
-   "marker": "",
-   "region": "",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Grahm",
-   "marker": "",
-   "region": "",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Hunter",
-   "marker": "",
-   "region": "",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
+   "rate_lines": [
+    "22.9745%"
+   ],
+   "rate_display": "22.9745%",
+   "rate_value": 0.229745,
    "count": 1
   },
   {
@@ -1124,19 +1731,505 @@
    "marker": "",
    "region": "",
    "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
+   "rate_lines": [
+    "20%"
+   ],
+   "rate_display": "20%",
+   "rate_value": 0.2,
    "count": 2
+  },
+  {
+   "name": "Vendor Bot Chad",
+   "marker": "Camden Park",
+   "region": "Ash Heap",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "15.9722%",
+    "3.483%"
+   ],
+   "rate_display": "15.9722% / 3.483%",
+   "rate_value": 0.159722,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Lewisburg Station",
+   "region": "Ash Heap",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "15.9722%",
+    "2.9605%"
+   ],
+   "rate_display": "15.9722% / 2.9605%",
+   "rate_value": 0.159722,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Welch Station",
+   "region": "Ash Heap",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "15.9722%",
+    "2.9605%"
+   ],
+   "rate_display": "15.9722% / 2.9605%",
+   "rate_value": 0.159722,
+   "count": 1
+  },
+  {
+   "name": "Carmen",
+   "marker": "Atlantic City",
+   "region": "Atlantic City",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "15.9722%"
+   ],
+   "rate_display": "15.9722%",
+   "rate_value": 0.159722,
+   "count": 1
+  },
+  {
+   "name": "Fast Nicky",
+   "marker": "Atlantic City",
+   "region": "Atlantic City",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "15.9722%"
+   ],
+   "rate_display": "15.9722%",
+   "rate_value": 0.159722,
+   "count": 1
+  },
+  {
+   "name": "Pete Rutledge",
+   "marker": "Atlantic City",
+   "region": "Atlantic City",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "15.9722%"
+   ],
+   "rate_display": "15.9722%",
+   "rate_value": 0.159722,
+   "count": 1
+  },
+  {
+   "name": "May",
+   "marker": "Highway Town Interior",
+   "region": "Burning Springs",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "15.9722%"
+   ],
+   "rate_display": "15.9722%",
+   "rate_value": 0.159722,
+   "count": 1
+  },
+  {
+   "name": "Hocking Hills Vendor Bot",
+   "marker": "Hocking Hills Train Station",
+   "region": "Burning Springs",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "15.9722%"
+   ],
+   "rate_display": "15.9722%",
+   "rate_value": 0.159722,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Phoenix",
+   "marker": "Watoga Shopping Plaza",
+   "region": "Cranberry Bog",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "15.9722%"
+   ],
+   "rate_display": "15.9722%",
+   "rate_value": 0.159722,
+   "count": 1
+  },
+  {
+   "name": "Watoga Vendor Bot",
+   "marker": "Watoga Station",
+   "region": "Cranberry Bog",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "15.9722%"
+   ],
+   "rate_display": "15.9722%",
+   "rate_value": 0.159722,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Mack",
+   "marker": "Charleston Fire Department",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "15.9722%",
+    "3.483%"
+   ],
+   "rate_display": "15.9722% / 3.483%",
+   "rate_value": 0.159722,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Charleston Station",
+   "region": "Forest",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "15.9722%",
+    "2.9605%"
+   ],
+   "rate_display": "15.9722% / 2.9605%",
+   "rate_value": 0.159722,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Bob",
+   "marker": "Flatwoods",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "15.9722%",
+    "3.483%"
+   ],
+   "rate_display": "15.9722% / 3.483%",
+   "rate_value": 0.159722,
+   "count": 1
+  },
+  {
+   "name": "Responder Vendor",
+   "marker": "Morgantown High School",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "15.9722%",
+    "3.483%"
+   ],
+   "rate_display": "15.9722% / 3.483%",
+   "rate_value": 0.159722,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Morgantown Station",
+   "region": "Forest",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "15.9722%",
+    "2.9605%"
+   ],
+   "rate_display": "15.9722% / 2.9605%",
+   "rate_value": 0.159722,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Raider",
+   "marker": "Sutton Station",
+   "region": "Forest",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "15.9722%"
+   ],
+   "rate_display": "15.9722%",
+   "rate_value": 0.159722,
+   "count": 1
+  },
+  {
+   "name": "Sunny",
+   "marker": "Foundation",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "15.9722%"
+   ],
+   "rate_display": "15.9722%",
+   "rate_value": 0.159722,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Resin",
+   "marker": "Pleasant Valley Ski Resort",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "15.9722%",
+    "0.4412%"
+   ],
+   "rate_display": "15.9722% / 0.4412%",
+   "rate_value": 0.159722,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Raider",
+   "marker": "Pleasant Valley Station",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "15.9722%"
+   ],
+   "rate_display": "15.9722%",
+   "rate_value": 0.159722,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Raider",
+   "marker": "R&G Station",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "15.9722%"
+   ],
+   "rate_display": "15.9722%",
+   "rate_value": 0.159722,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Raider",
+   "marker": "Sunnytop Station",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "15.9722%"
+   ],
+   "rate_display": "15.9722%",
+   "rate_value": 0.159722,
+   "count": 1
+  },
+  {
+   "name": "Brotherhood Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "15.9722%"
+   ],
+   "rate_display": "15.9722%",
+   "rate_value": 0.159722,
+   "count": 1
+  },
+  {
+   "name": "Free States Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "15.9722%"
+   ],
+   "rate_display": "15.9722%",
+   "rate_value": 0.159722,
+   "count": 1
+  },
+  {
+   "name": "Raiders Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "15.9722%",
+    "0.4412%"
+   ],
+   "rate_display": "15.9722% / 0.4412%",
+   "rate_value": 0.159722,
+   "count": 1
+  },
+  {
+   "name": "Responders Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "15.9722%",
+    "3.483%"
+   ],
+   "rate_display": "15.9722% / 3.483%",
+   "rate_value": 0.159722,
+   "count": 1
+  },
+  {
+   "name": "Shopping Mall Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "15.9722%"
+   ],
+   "rate_display": "15.9722%",
+   "rate_value": 0.159722,
+   "count": 1
+  },
+  {
+   "name": "The Whitespring Station Vendor",
+   "marker": "Whitespring Station",
+   "region": "Savage Divide",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "15.9722%",
+    "8.3333%"
+   ],
+   "rate_display": "15.9722% / 8.3333%",
+   "rate_value": 0.159722,
+   "count": 1
+  },
+  {
+   "name": "Murry",
+   "marker": "",
+   "region": "Skyline Valley",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "15.9722%"
+   ],
+   "rate_display": "15.9722%",
+   "rate_value": 0.159722,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Wallace",
+   "marker": "Berkeley Springs Station",
+   "region": "The Mire",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "15.9722%"
+   ],
+   "rate_display": "15.9722%",
+   "rate_value": 0.159722,
+   "count": 1
+  },
+  {
+   "name": "Beckham",
+   "marker": "Raleigh Clay's Bunker",
+   "region": "The Mire",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "15.9722%"
+   ],
+   "rate_display": "15.9722%",
+   "rate_value": 0.159722,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Greg",
+   "marker": "Grafton",
+   "region": "Toxic Valley",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "15.9722%",
+    "3.483%"
+   ],
+   "rate_display": "15.9722% / 3.483%",
+   "rate_value": 0.159722,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Grafton Station",
+   "region": "Toxic Valley",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "15.9722%",
+    "2.9605%"
+   ],
+   "rate_display": "15.9722% / 2.9605%",
+   "rate_value": 0.159722,
+   "count": 1
+  },
+  {
+   "name": "Molly",
+   "marker": "The Crater",
+   "region": "Toxic Valley",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "15.9722%"
+   ],
+   "rate_display": "15.9722%",
+   "rate_value": 0.159722,
+   "count": 1
+  },
+  {
+   "name": "A.T.H.E.N.A.",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "15.9722%"
+   ],
+   "rate_display": "15.9722%",
+   "rate_value": 0.159722,
+   "count": 1
+  },
+  {
+   "name": "Astronaut Emerson Vendor",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "15.9722%"
+   ],
+   "rate_display": "15.9722%",
+   "rate_value": 0.159722,
+   "count": 1
+  },
+  {
+   "name": "Beckett",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "15.9722%"
+   ],
+   "rate_display": "15.9722%",
+   "rate_value": 0.159722,
+   "count": 1
+  },
+  {
+   "name": "Daphne",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "15.9722%"
+   ],
+   "rate_display": "15.9722%",
+   "rate_value": 0.159722,
+   "count": 1
+  },
+  {
+   "name": "Grahm",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "15.9722%"
+   ],
+   "rate_display": "15.9722%",
+   "rate_value": 0.159722,
+   "count": 1
+  },
+  {
+   "name": "Hunter",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "15.9722%"
+   ],
+   "rate_display": "15.9722%",
+   "rate_value": 0.159722,
+   "count": 1
   },
   {
    "name": "Sam Nguyen",
    "marker": "",
    "region": "",
    "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
+   "rate_lines": [
+    "15.9722%"
+   ],
+   "rate_display": "15.9722%",
+   "rate_value": 0.159722,
    "count": 1
   },
   {
@@ -1144,9 +2237,11 @@
    "marker": "",
    "region": "",
    "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
+   "rate_lines": [
+    "15.9722%"
+   ],
+   "rate_display": "15.9722%",
+   "rate_value": 0.159722,
    "count": 6
   },
   {
@@ -1154,9 +2249,11 @@
    "marker": "",
    "region": "",
    "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
+   "rate_lines": [
+    "15.9722%"
+   ],
+   "rate_display": "15.9722%",
+   "rate_value": 0.159722,
    "count": 1
   },
   {
@@ -1164,9 +2261,11 @@
    "marker": "",
    "region": "",
    "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
+   "rate_lines": [
+    "15.9722%"
+   ],
+   "rate_display": "15.9722%",
+   "rate_value": 0.159722,
    "count": 1
   },
   {
@@ -1174,9 +2273,11 @@
    "marker": "",
    "region": "",
    "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
+   "rate_lines": [
+    "15.9722%"
+   ],
+   "rate_display": "15.9722%",
+   "rate_value": 0.159722,
    "count": 1
   },
   {
@@ -1184,9 +2285,11 @@
    "marker": "",
    "region": "",
    "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
+   "rate_lines": [
+    "15.9722%"
+   ],
+   "rate_display": "15.9722%",
+   "rate_value": 0.159722,
    "count": 1
   }
  ],

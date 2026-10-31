@@ -149,7 +149,7 @@
   }
  },
  "farming_tips": {
-  "spawn_note": "Chicken Thigh comes from killing Chickens and looting the body.",
+  "spawn_note": "Chicken Thigh and Intestine come from killing Chickens and looting the body.",
   "spoils": true,
   "spoil_duration_hours": null,
   "base_weight": 0.5,
@@ -266,11 +266,19 @@
    "name": "Refrigerated Backpack",
    "reduction": "50%",
    "stacks_with_good_with_salt": false
-  }
+  },
+  "subject": "Chicken Thigh and Intestine"
  },
  "used_for": {
   "consumption": {
    "object_type": "Food",
+   "keywords": [
+    "Food",
+    "Raw",
+    "Meat",
+    "Chicken meat",
+    "Can spoil"
+   ],
    "weight": 0.5,
    "value": 8,
    "addiction": null,
@@ -432,11 +440,347 @@
       "sign": true
      }
     ],
-    "how_to_obtain": "Known by default."
+    "how_to_obtain": "Known by default.",
+    "uses": [
+     {
+      "name": "Chicken Thigh",
+      "qty": 1
+     }
+    ]
+   },
+   {
+    "name": "Fasnacht Sausage",
+    "form_id": "003EEA45",
+    "recipe_edid": "co_meal_Sausage_Fasnacht",
+    "category": "Food (Meat)",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 1,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1,
+      "url": "/df/farming/junk/wood/"
+     },
+     {
+      "name": "Boiled Water",
+      "qty": 2
+     },
+     {
+      "name": "Spices",
+      "qty": 1,
+      "url": "/bnb/farming/non-perishable/salt-pepper-spices-sugar/"
+     },
+     {
+      "name": "Spoiled Meat",
+      "qty": 2
+     },
+     {
+      "name": "Tick Blood",
+      "qty": 1,
+      "url": "/bnb/farming/non-perishable/tick-blood/"
+     },
+     {
+      "name": "Intestine",
+      "qty": 1,
+      "is_main": true
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores 30 Health",
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 30.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Fortify Health",
+      "display": "+40 Fortify Health",
+      "duration": "30 min",
+      "label": "Health",
+      "value": 40.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (1440/24 min)",
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 1440.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Rads",
+      "display": "+2 Rads",
+      "duration": null,
+      "label": "Rads",
+      "value": 2.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
+     }
+    ],
+    "how_to_obtain": "Recipe: Fasnacht Sausage",
+    "plan_routes": [
+     {
+      "route": "Event: Fasnacht Day",
+      "rate_display": "2.1277%",
+      "kind": "event"
+     }
+    ],
+    "uses": [
+     {
+      "name": "Intestine",
+      "qty": 1
+     }
+    ]
+   },
+   {
+    "name": "Mystery Meat Pie",
+    "form_id": "0040FC27",
+    "recipe_edid": "P01B_co_meal_MysteryMeatPie",
+    "category": "Food (Meat)",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 2,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Toxic Water",
+      "qty": 1
+     },
+     {
+      "name": "Wood",
+      "qty": 1,
+      "url": "/df/farming/junk/wood/"
+     },
+     {
+      "name": "Spices",
+      "qty": 1,
+      "url": "/bnb/farming/non-perishable/salt-pepper-spices-sugar/"
+     },
+     {
+      "name": "Spoiled Meat",
+      "qty": 2
+     },
+     {
+      "name": "Intestine",
+      "qty": 2,
+      "is_main": true
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores 60 Health",
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 60.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Fortify Carry Weight",
+      "display": "+20 Fortify Carry Weight",
+      "duration": "30 min",
+      "label": "Carry Weight",
+      "value": 20.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
+     },
+     {
+      "name": "Fortify Endurance",
+      "display": "+3 Fortify Endurance",
+      "duration": "30 min",
+      "label": "Endurance",
+      "value": 3.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (1080/18 min)",
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 1080.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Rads",
+      "display": "+2 Rads",
+      "duration": null,
+      "label": "Rads",
+      "value": 2.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
+     }
+    ],
+    "how_to_obtain": "Recipe: Mystery Meat Pie",
+    "plan_routes": [
+     {
+      "route": "Unmarked Quest: A Perfect Getaway",
+      "rate_display": "100%",
+      "kind": "quest"
+     }
+    ],
+    "uses": [
+     {
+      "name": "Intestine",
+      "qty": 2
+     }
+    ]
    }
-  ]
+  ],
+  "items": [
+   {
+    "name": "Chicken Thigh",
+    "form_id": "00111967",
+    "consumption": {
+     "object_type": "Food",
+     "keywords": [
+      "Food",
+      "Raw",
+      "Meat",
+      "Chicken meat",
+      "Can spoil"
+     ],
+     "weight": 0.5,
+     "value": 8,
+     "addiction": null,
+     "herbivore": false,
+     "carnivore": true,
+     "note": "Chicken Thigh is a food consumable. It grants no timed stat buff on its own.",
+     "effects": [
+      {
+       "name": "Disease Chance",
+       "display": "3% chance to catch a disease",
+       "duration": null,
+       "label": "Disease Chance",
+       "value": 3.0,
+       "unit": "percent",
+       "scales": false,
+       "zeroed": true,
+       "sign": false
+      },
+      {
+       "name": "Satisfy Hunger",
+       "display": "Satisfies hunger (720/12 min)",
+       "duration": null,
+       "label": "Satisfies Hunger",
+       "value": 720.0,
+       "unit": "seconds",
+       "scales": true,
+       "zeroed": false,
+       "sign": false
+      },
+      {
+       "name": "Rads",
+       "display": "+15 Rads",
+       "duration": null,
+       "label": "Rads",
+       "value": 15.0,
+       "unit": "rads",
+       "scales": false,
+       "zeroed": true,
+       "sign": true
+      }
+     ]
+    }
+   },
+   {
+    "name": "Intestine",
+    "form_id": "003EEA40",
+    "consumption": {
+     "object_type": "Food",
+     "keywords": [
+      "Food",
+      "Raw",
+      "Meat",
+      "Can spoil"
+     ],
+     "weight": 0.5,
+     "value": 8,
+     "addiction": null,
+     "herbivore": false,
+     "carnivore": true,
+     "note": "Intestine is a food consumable. It grants no timed stat buff on its own.",
+     "effects": [
+      {
+       "name": "Disease Chance",
+       "display": "3% chance to catch a disease",
+       "duration": null,
+       "label": "Disease Chance",
+       "value": 3.0,
+       "unit": "percent",
+       "scales": false,
+       "zeroed": true,
+       "sign": false
+      },
+      {
+       "name": "Satisfy Hunger",
+       "display": "Satisfies hunger (720/12 min)",
+       "duration": null,
+       "label": "Satisfies Hunger",
+       "value": 720.0,
+       "unit": "seconds",
+       "scales": true,
+       "zeroed": false,
+       "sign": false
+      },
+      {
+       "name": "Rads",
+       "display": "+15 Rads",
+       "duration": null,
+       "label": "Rads",
+       "value": 15.0,
+       "unit": "rads",
+       "scales": false,
+       "zeroed": true,
+       "sign": true
+      }
+     ]
+    }
+   }
+  ],
+  "subject": "Chicken Thigh and Intestine"
  },
  "vendor_list": [
+  {
+   "name": "Wandering Doctor",
+   "marker": "Vault 76",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
   {
    "name": "Marie",
    "marker": "Whitespring Mall",
@@ -639,16 +983,6 @@
    ],
    "rate_display": "0.4412%",
    "rate_value": 0.004412,
-   "count": 1
-  },
-  {
-   "name": "Wandering Doctor",
-   "marker": "Vault 76",
-   "region": "Forest",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
    "count": 1
   }
  ],

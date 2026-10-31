@@ -5,7 +5,7 @@
  },
  "set": "meat",
  "slug": "meat-rabbit",
- "name": "Intestine",
+ "name": "Rabbit Leg",
  "page_title": "Rabbit Location Guide",
  "blurb": "The Rabbit in Fallout 76 — drops Intestine, Rabbit Leg, 5 NPC variants, 13 known spawn points.",
  "map_base": "/wp-content/uploads/guide-images/farming-meat/rabbit/",
@@ -139,10 +139,10 @@
   }
  },
  "farming_tips": {
-  "spawn_note": "Intestine comes from killing Rabbits and looting the body.",
+  "spawn_note": "Intestine and Rabbit Leg come from killing Rabbits and looting the body.",
   "spoils": true,
   "spoil_duration_hours": null,
-  "base_weight": 0.5,
+  "base_weight": 0.25,
   "object_type": "Food",
   "yield_perk": "butchers_bounty",
   "weight_perk": "thru_hiker",
@@ -150,43 +150,43 @@
    {
     "rank": 1,
     "reduction": "45%",
-    "weight": 0.28
+    "weight": 0.14
    },
    {
     "rank": 2,
     "reduction": "90%",
-    "weight": 0.05
+    "weight": 0.03
    }
   ],
   "backpack_mod": "grocers",
-  "backpack_weight": 0.05,
+  "backpack_weight": 0.03,
   "armour_mod": "thru_hikers",
   "armour_mod_per_piece": 0.2,
   "armour_mod_weights": [
    {
     "pieces": 1,
     "reduction": "20%",
-    "weight": 0.4
+    "weight": 0.2
    },
    {
     "pieces": 2,
     "reduction": "40%",
-    "weight": 0.3
+    "weight": 0.15
    },
    {
     "pieces": 3,
     "reduction": "60%",
-    "weight": 0.2
+    "weight": 0.1
    },
    {
     "pieces": 4,
     "reduction": "80%",
-    "weight": 0.1
+    "weight": 0.05
    },
    {
     "pieces": 5,
     "reduction": "90% cap",
-    "weight": 0.05
+    "weight": 0.03
    }
   ],
   "magazines_affect_yield": false,
@@ -256,17 +256,44 @@
    "name": "Refrigerated Backpack",
    "reduction": "50%",
    "stacks_with_good_with_salt": false
-  }
+  },
+  "subject": "Intestine and Rabbit Leg",
+  "item_weights": [
+   {
+    "name": "Intestine",
+    "base_weight": 0.5,
+    "thru_hiker": [
+     0.28,
+     0.05
+    ],
+    "grocers": 0.05
+   },
+   {
+    "name": "Rabbit Leg",
+    "base_weight": 0.25,
+    "thru_hiker": [
+     0.14,
+     0.03
+    ],
+    "grocers": 0.03
+   }
+  ]
  },
  "used_for": {
   "consumption": {
    "object_type": "Food",
-   "weight": 0.5,
-   "value": 8,
+   "keywords": [
+    "Food",
+    "Raw",
+    "Meat",
+    "Can spoil"
+   ],
+   "weight": 0.25,
+   "value": 7,
    "addiction": null,
    "herbivore": false,
    "carnivore": true,
-   "note": "Intestine is a food consumable. It grants no timed stat buff on its own.",
+   "note": "Rabbit Leg is a food consumable. It grants no timed stat buff on its own.",
    "effects": [
     {
      "name": "Disease Chance",
@@ -281,10 +308,10 @@
     },
     {
      "name": "Satisfy Hunger",
-     "display": "Satisfies hunger (720/12 min)",
+     "display": "Satisfies hunger (360/6 min)",
      "duration": null,
      "label": "Satisfies Hunger",
-     "value": 720.0,
+     "value": 360.0,
      "unit": "seconds",
      "scales": true,
      "zeroed": false,
@@ -292,10 +319,10 @@
     },
     {
      "name": "Rads",
-     "display": "+15 Rads",
+     "display": "+10 Rads",
      "duration": null,
      "label": "Rads",
-     "value": 15.0,
+     "value": 10.0,
      "unit": "rads",
      "scales": false,
      "zeroed": true,
@@ -440,6 +467,12 @@
       "rate_display": "2.1277%",
       "kind": "event"
      }
+    ],
+    "uses": [
+     {
+      "name": "Intestine",
+      "qty": 1
+     }
     ]
    },
    {
@@ -540,9 +573,201 @@
       "rate_display": "100%",
       "kind": "quest"
      }
+    ],
+    "uses": [
+     {
+      "name": "Intestine",
+      "qty": 2
+     }
+    ]
+   },
+   {
+    "name": "Seasoned Rabbit Skewers",
+    "form_id": "001119D8",
+    "recipe_edid": "co_meal_RabbitMeatCooked",
+    "category": "Food (Meat)",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 1,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1,
+      "url": "/df/farming/junk/wood/"
+     },
+     {
+      "name": "Rabbit Leg",
+      "qty": 1,
+      "is_main": true
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores 25 Health",
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 25.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Fortify Luck",
+      "display": "+1 Fortify Luck",
+      "duration": "30 min",
+      "label": "Luck",
+      "value": 1.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (720/12 min)",
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 720.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Rads",
+      "display": "+2 Rads",
+      "duration": null,
+      "label": "Rads",
+      "value": 2.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
+     }
+    ],
+    "how_to_obtain": "Known by default.",
+    "uses": [
+     {
+      "name": "Rabbit Leg",
+      "qty": 1
+     }
     ]
    }
-  ]
+  ],
+  "items": [
+   {
+    "name": "Intestine",
+    "form_id": "003EEA40",
+    "consumption": {
+     "object_type": "Food",
+     "keywords": [
+      "Food",
+      "Raw",
+      "Meat",
+      "Can spoil"
+     ],
+     "weight": 0.5,
+     "value": 8,
+     "addiction": null,
+     "herbivore": false,
+     "carnivore": true,
+     "note": "Intestine is a food consumable. It grants no timed stat buff on its own.",
+     "effects": [
+      {
+       "name": "Disease Chance",
+       "display": "3% chance to catch a disease",
+       "duration": null,
+       "label": "Disease Chance",
+       "value": 3.0,
+       "unit": "percent",
+       "scales": false,
+       "zeroed": true,
+       "sign": false
+      },
+      {
+       "name": "Satisfy Hunger",
+       "display": "Satisfies hunger (720/12 min)",
+       "duration": null,
+       "label": "Satisfies Hunger",
+       "value": 720.0,
+       "unit": "seconds",
+       "scales": true,
+       "zeroed": false,
+       "sign": false
+      },
+      {
+       "name": "Rads",
+       "display": "+15 Rads",
+       "duration": null,
+       "label": "Rads",
+       "value": 15.0,
+       "unit": "rads",
+       "scales": false,
+       "zeroed": true,
+       "sign": true
+      }
+     ]
+    }
+   },
+   {
+    "name": "Rabbit Leg",
+    "form_id": "00111966",
+    "consumption": {
+     "object_type": "Food",
+     "keywords": [
+      "Food",
+      "Raw",
+      "Meat",
+      "Can spoil"
+     ],
+     "weight": 0.25,
+     "value": 7,
+     "addiction": null,
+     "herbivore": false,
+     "carnivore": true,
+     "note": "Rabbit Leg is a food consumable. It grants no timed stat buff on its own.",
+     "effects": [
+      {
+       "name": "Disease Chance",
+       "display": "3% chance to catch a disease",
+       "duration": null,
+       "label": "Disease Chance",
+       "value": 3.0,
+       "unit": "percent",
+       "scales": false,
+       "zeroed": true,
+       "sign": false
+      },
+      {
+       "name": "Satisfy Hunger",
+       "display": "Satisfies hunger (360/6 min)",
+       "duration": null,
+       "label": "Satisfies Hunger",
+       "value": 360.0,
+       "unit": "seconds",
+       "scales": true,
+       "zeroed": false,
+       "sign": false
+      },
+      {
+       "name": "Rads",
+       "display": "+10 Rads",
+       "duration": null,
+       "label": "Rads",
+       "value": 10.0,
+       "unit": "rads",
+       "scales": false,
+       "zeroed": true,
+       "sign": true
+      }
+     ]
+    }
+   }
+  ],
+  "subject": "Intestine and Rabbit Leg"
  },
  "vendor_list": [
   {
@@ -558,33 +783,15 @@
    "count": 1
   },
   {
-   "name": "Vendor Bot Chad",
-   "marker": "Camden Park",
-   "region": "Ash Heap",
+   "name": "Marie",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
    "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Responder",
-   "marker": "Lewisburg Station",
-   "region": "Ash Heap",
-   "vendor_type": "Train station vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Responder",
-   "marker": "Welch Station",
-   "region": "Ash Heap",
-   "vendor_type": "Train station vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
+   "rate_lines": [
+    "67.232%"
+   ],
+   "rate_display": "67.232%",
+   "rate_value": 0.67232,
    "count": 1
   },
   {
@@ -592,9 +799,11 @@
    "marker": "Big Bend Tunnel East",
    "region": "Cranberry Bog",
    "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
+   "rate_lines": [
+    "36%"
+   ],
+   "rate_display": "36%",
+   "rate_value": 0.36,
    "count": 1
   },
   {
@@ -602,119 +811,11 @@
    "marker": "Big Bend Tunnel East",
    "region": "Cranberry Bog",
    "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Mack",
-   "marker": "Charleston Fire Department",
-   "region": "Forest",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Responder",
-   "marker": "Charleston Station",
-   "region": "Forest",
-   "vendor_type": "Train station vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Bob",
-   "marker": "Flatwoods",
-   "region": "Forest",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Responder Vendor",
-   "marker": "Morgantown High School",
-   "region": "Forest",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Responder",
-   "marker": "Morgantown Station",
-   "region": "Forest",
-   "vendor_type": "Train station vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Resin",
-   "marker": "Pleasant Valley Ski Resort",
-   "region": "Savage Divide",
-   "vendor_type": "Raider vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Marie",
-   "marker": "Whitespring Mall",
-   "region": "Savage Divide",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Raiders Vendor",
-   "marker": "Whitespring Mall",
-   "region": "Savage Divide",
-   "vendor_type": "Raider vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Responders Vendor",
-   "marker": "Whitespring Mall",
-   "region": "Savage Divide",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Greg",
-   "marker": "Grafton",
-   "region": "Toxic Valley",
-   "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Responder",
-   "marker": "Grafton Station",
-   "region": "Toxic Valley",
-   "vendor_type": "Train station vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
+   "rate_lines": [
+    "36%"
+   ],
+   "rate_display": "36%",
+   "rate_value": 0.36,
    "count": 1
   },
   {
@@ -722,10 +823,168 @@
    "marker": "",
    "region": "",
    "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
+   "rate_lines": [
+    "20%"
+   ],
+   "rate_display": "20%",
+   "rate_value": 0.2,
    "count": 2
+  },
+  {
+   "name": "Vendor Bot Chad",
+   "marker": "Camden Park",
+   "region": "Ash Heap",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "3.483%"
+   ],
+   "rate_display": "3.483%",
+   "rate_value": 0.03483,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Mack",
+   "marker": "Charleston Fire Department",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "3.483%"
+   ],
+   "rate_display": "3.483%",
+   "rate_value": 0.03483,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Bob",
+   "marker": "Flatwoods",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "3.483%"
+   ],
+   "rate_display": "3.483%",
+   "rate_value": 0.03483,
+   "count": 1
+  },
+  {
+   "name": "Responder Vendor",
+   "marker": "Morgantown High School",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "3.483%"
+   ],
+   "rate_display": "3.483%",
+   "rate_value": 0.03483,
+   "count": 1
+  },
+  {
+   "name": "Responders Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "3.483%"
+   ],
+   "rate_display": "3.483%",
+   "rate_value": 0.03483,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Greg",
+   "marker": "Grafton",
+   "region": "Toxic Valley",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "3.483%"
+   ],
+   "rate_display": "3.483%",
+   "rate_value": 0.03483,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Lewisburg Station",
+   "region": "Ash Heap",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "2.9605%"
+   ],
+   "rate_display": "2.9605%",
+   "rate_value": 0.029605,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Welch Station",
+   "region": "Ash Heap",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "2.9605%"
+   ],
+   "rate_display": "2.9605%",
+   "rate_value": 0.029605,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Charleston Station",
+   "region": "Forest",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "2.9605%"
+   ],
+   "rate_display": "2.9605%",
+   "rate_value": 0.029605,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Morgantown Station",
+   "region": "Forest",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "2.9605%"
+   ],
+   "rate_display": "2.9605%",
+   "rate_value": 0.029605,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Grafton Station",
+   "region": "Toxic Valley",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "2.9605%"
+   ],
+   "rate_display": "2.9605%",
+   "rate_value": 0.029605,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Resin",
+   "marker": "Pleasant Valley Ski Resort",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "0.4412%"
+   ],
+   "rate_display": "0.4412%",
+   "rate_value": 0.004412,
+   "count": 1
+  },
+  {
+   "name": "Raiders Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "0.4412%"
+   ],
+   "rate_display": "0.4412%",
+   "rate_value": 0.004412,
+   "count": 1
   }
  ],
  "events_activities": [

@@ -5,7 +5,7 @@
  },
  "set": "meat",
  "slug": "meat-glowing-meat",
- "name": "Frog Leg",
+ "name": "Glowing Meat",
  "page_title": "Glowing Meat Location Guide",
  "blurb": "The Glowing Meat in Fallout 76 — drops Frog Leg, Glowing Meat, 4 NPC variants, 19 known spawn points.",
  "map_base": "/wp-content/uploads/guide-images/farming-meat/glowing-meat/",
@@ -139,10 +139,10 @@
   }
  },
  "farming_tips": {
-  "spawn_note": "Frog Leg comes from killing Glowing Meats and looting the body.",
+  "spawn_note": "Frog Leg and Glowing Meat come from killing Glowing Meats and looting the body.",
   "spoils": true,
   "spoil_duration_hours": null,
-  "base_weight": 0.25,
+  "base_weight": 2.0,
   "object_type": "Food",
   "yield_perk": "butchers_bounty",
   "weight_perk": "thru_hiker",
@@ -150,43 +150,43 @@
    {
     "rank": 1,
     "reduction": "45%",
-    "weight": 0.14
+    "weight": 1.1
    },
    {
     "rank": 2,
     "reduction": "90%",
-    "weight": 0.03
+    "weight": 0.2
    }
   ],
   "backpack_mod": "grocers",
-  "backpack_weight": 0.03,
+  "backpack_weight": 0.2,
   "armour_mod": "thru_hikers",
   "armour_mod_per_piece": 0.2,
   "armour_mod_weights": [
    {
     "pieces": 1,
     "reduction": "20%",
-    "weight": 0.2
+    "weight": 1.6
    },
    {
     "pieces": 2,
     "reduction": "40%",
-    "weight": 0.15
+    "weight": 1.2
    },
    {
     "pieces": 3,
     "reduction": "60%",
-    "weight": 0.1
+    "weight": 0.8
    },
    {
     "pieces": 4,
     "reduction": "80%",
-    "weight": 0.05
+    "weight": 0.4
    },
    {
     "pieces": 5,
     "reduction": "90% cap",
-    "weight": 0.03
+    "weight": 0.2
    }
   ],
   "magazines_affect_yield": false,
@@ -256,35 +256,51 @@
    "name": "Refrigerated Backpack",
    "reduction": "50%",
    "stacks_with_good_with_salt": false
-  }
+  },
+  "subject": "Frog Leg and Glowing Meat",
+  "item_weights": [
+   {
+    "name": "Frog Leg",
+    "base_weight": 0.25,
+    "thru_hiker": [
+     0.14,
+     0.03
+    ],
+    "grocers": 0.03
+   },
+   {
+    "name": "Glowing Meat",
+    "base_weight": 2.0,
+    "thru_hiker": [
+     1.1,
+     0.2
+    ],
+    "grocers": 0.2
+   }
+  ]
  },
  "used_for": {
   "consumption": {
    "object_type": "Food",
-   "weight": 0.25,
-   "value": 8,
+   "keywords": [
+    "Food",
+    "Raw",
+    "Meat",
+    "Can spoil"
+   ],
+   "weight": 2.0,
+   "value": 25,
    "addiction": null,
    "herbivore": false,
    "carnivore": true,
-   "note": "Frog Leg is a food consumable. It grants no timed stat buff on its own.",
+   "note": "Glowing Meat is a food consumable. It grants no timed stat buff on its own.",
    "effects": [
     {
-     "name": "Disease Chance",
-     "display": "3% chance to catch a disease",
-     "duration": null,
-     "label": "Disease Chance",
-     "value": 3.0,
-     "unit": "percent",
-     "scales": false,
-     "zeroed": true,
-     "sign": false
-    },
-    {
      "name": "Satisfy Hunger",
-     "display": "Satisfies hunger (360/6 min)",
+     "display": "Satisfies hunger (1440/24 min)",
      "duration": null,
      "label": "Satisfies Hunger",
-     "value": 360.0,
+     "value": 1440.0,
      "unit": "seconds",
      "scales": true,
      "zeroed": false,
@@ -292,10 +308,10 @@
     },
     {
      "name": "Rads",
-     "display": "+10 Rads",
+     "display": "+30 Rads",
      "duration": null,
      "label": "Rads",
-     "value": 10.0,
+     "value": 30.0,
      "unit": "rads",
      "scales": false,
      "zeroed": true,
@@ -339,7 +355,184 @@
    "sin_abbr": "SIN"
   },
   "challenges": [],
-  "recipes": []
+  "recipes": [
+   {
+    "name": "Glowing Meat Steak",
+    "form_id": "003B9424",
+    "recipe_edid": "co_meal_GlowingMeatCooked",
+    "category": "Food (Meat)",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 4,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 4,
+      "url": "/df/farming/junk/wood/"
+     },
+     {
+      "name": "Glowing Meat",
+      "qty": 4,
+      "is_main": true
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores 45 Health",
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 45.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Fortify Melee Damage",
+      "display": "+40 Fortify Melee Damage",
+      "duration": "30 min",
+      "label": "Melee Damage",
+      "value": 40.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (1080/18 min)",
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 1080.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Rads",
+      "display": "+5 Rads",
+      "duration": null,
+      "label": "Rads",
+      "value": 5.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
+     }
+    ],
+    "how_to_obtain": "Known by default.",
+    "uses": [
+     {
+      "name": "Glowing Meat",
+      "qty": 4
+     }
+    ]
+   }
+  ],
+  "items": [
+   {
+    "name": "Frog Leg",
+    "form_id": "004FE51D",
+    "consumption": {
+     "object_type": "Food",
+     "keywords": [
+      "Food",
+      "Raw",
+      "Meat",
+      "Irradiated",
+      "Can spoil"
+     ],
+     "weight": 0.25,
+     "value": 8,
+     "addiction": null,
+     "herbivore": false,
+     "carnivore": true,
+     "note": "Frog Leg is a food consumable. It grants no timed stat buff on its own.",
+     "effects": [
+      {
+       "name": "Disease Chance",
+       "display": "3% chance to catch a disease",
+       "duration": null,
+       "label": "Disease Chance",
+       "value": 3.0,
+       "unit": "percent",
+       "scales": false,
+       "zeroed": true,
+       "sign": false
+      },
+      {
+       "name": "Satisfy Hunger",
+       "display": "Satisfies hunger (360/6 min)",
+       "duration": null,
+       "label": "Satisfies Hunger",
+       "value": 360.0,
+       "unit": "seconds",
+       "scales": true,
+       "zeroed": false,
+       "sign": false
+      },
+      {
+       "name": "Rads",
+       "display": "+10 Rads",
+       "duration": null,
+       "label": "Rads",
+       "value": 10.0,
+       "unit": "rads",
+       "scales": false,
+       "zeroed": true,
+       "sign": true
+      }
+     ]
+    }
+   },
+   {
+    "name": "Glowing Meat",
+    "form_id": "003657E1",
+    "consumption": {
+     "object_type": "Food",
+     "keywords": [
+      "Food",
+      "Raw",
+      "Meat",
+      "Can spoil"
+     ],
+     "weight": 2.0,
+     "value": 25,
+     "addiction": null,
+     "herbivore": false,
+     "carnivore": true,
+     "note": "Glowing Meat is a food consumable. It grants no timed stat buff on its own.",
+     "effects": [
+      {
+       "name": "Satisfy Hunger",
+       "display": "Satisfies hunger (1440/24 min)",
+       "duration": null,
+       "label": "Satisfies Hunger",
+       "value": 1440.0,
+       "unit": "seconds",
+       "scales": true,
+       "zeroed": false,
+       "sign": false
+      },
+      {
+       "name": "Rads",
+       "display": "+30 Rads",
+       "duration": null,
+       "label": "Rads",
+       "value": 30.0,
+       "unit": "rads",
+       "scales": false,
+       "zeroed": true,
+       "sign": true
+      }
+     ]
+    }
+   }
+  ],
+  "subject": "Frog Leg and Glowing Meat"
  },
  "vendor_list": [
   {
@@ -347,29 +540,11 @@
    "marker": "Camden Park",
    "region": "Ash Heap",
    "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Responder",
-   "marker": "Lewisburg Station",
-   "region": "Ash Heap",
-   "vendor_type": "Train station vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Responder",
-   "marker": "Welch Station",
-   "region": "Ash Heap",
-   "vendor_type": "Train station vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
+   "rate_lines": [
+    "3.483%"
+   ],
+   "rate_display": "3.483%",
+   "rate_value": 0.03483,
    "count": 1
   },
   {
@@ -377,19 +552,11 @@
    "marker": "Charleston Fire Department",
    "region": "Forest",
    "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Responder",
-   "marker": "Charleston Station",
-   "region": "Forest",
-   "vendor_type": "Train station vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
+   "rate_lines": [
+    "3.483%"
+   ],
+   "rate_display": "3.483%",
+   "rate_value": 0.03483,
    "count": 1
   },
   {
@@ -397,9 +564,11 @@
    "marker": "Flatwoods",
    "region": "Forest",
    "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
+   "rate_lines": [
+    "3.483%"
+   ],
+   "rate_display": "3.483%",
+   "rate_value": 0.03483,
    "count": 1
   },
   {
@@ -407,39 +576,11 @@
    "marker": "Morgantown High School",
    "region": "Forest",
    "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Responder",
-   "marker": "Morgantown Station",
-   "region": "Forest",
-   "vendor_type": "Train station vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Vendor Bot Resin",
-   "marker": "Pleasant Valley Ski Resort",
-   "region": "Savage Divide",
-   "vendor_type": "Raider vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
-   "count": 1
-  },
-  {
-   "name": "Raiders Vendor",
-   "marker": "Whitespring Mall",
-   "region": "Savage Divide",
-   "vendor_type": "Raider vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
+   "rate_lines": [
+    "3.483%"
+   ],
+   "rate_display": "3.483%",
+   "rate_value": 0.03483,
    "count": 1
   },
   {
@@ -447,9 +588,11 @@
    "marker": "Whitespring Mall",
    "region": "Savage Divide",
    "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
+   "rate_lines": [
+    "3.483%"
+   ],
+   "rate_display": "3.483%",
+   "rate_value": 0.03483,
    "count": 1
   },
   {
@@ -457,9 +600,59 @@
    "marker": "Grafton",
    "region": "Toxic Valley",
    "vendor_type": "Settlement vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
+   "rate_lines": [
+    "3.483%"
+   ],
+   "rate_display": "3.483%",
+   "rate_value": 0.03483,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Lewisburg Station",
+   "region": "Ash Heap",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "2.9605%"
+   ],
+   "rate_display": "2.9605%",
+   "rate_value": 0.029605,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Welch Station",
+   "region": "Ash Heap",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "2.9605%"
+   ],
+   "rate_display": "2.9605%",
+   "rate_value": 0.029605,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Charleston Station",
+   "region": "Forest",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "2.9605%"
+   ],
+   "rate_display": "2.9605%",
+   "rate_value": 0.029605,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Morgantown Station",
+   "region": "Forest",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "2.9605%"
+   ],
+   "rate_display": "2.9605%",
+   "rate_value": 0.029605,
    "count": 1
   },
   {
@@ -467,9 +660,35 @@
    "marker": "Grafton Station",
    "region": "Toxic Valley",
    "vendor_type": "Train station vendor",
-   "rate_lines": [],
-   "rate_display": "0%",
-   "rate_value": 0.0,
+   "rate_lines": [
+    "2.9605%"
+   ],
+   "rate_display": "2.9605%",
+   "rate_value": 0.029605,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Resin",
+   "marker": "Pleasant Valley Ski Resort",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "0.4412%"
+   ],
+   "rate_display": "0.4412%",
+   "rate_value": 0.004412,
+   "count": 1
+  },
+  {
+   "name": "Raiders Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "0.4412%"
+   ],
+   "rate_display": "0.4412%",
+   "rate_value": 0.004412,
    "count": 1
   }
  ],

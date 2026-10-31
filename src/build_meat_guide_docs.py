@@ -102,8 +102,9 @@ def farming_tips(cons, formid, creature):
     ft = collections.OrderedDict([
         # Creature meat is not a pick-up spawn, so the page's opening line says
         # how the meat is actually got rather than the loose-item wording.
-        ("spawn_note", f"{cons.get('_name')} comes from killing {creature}s and "
-                       f"looting the body."),
+        ("spawn_note", f"{cons.get('_name')} "
+                       f"{'come' if cons.get('_plural') else 'comes'} from killing "
+                       f"{creature}s and looting the body."),
         ("spoils", spoils),
         ("spoil_duration_hours", None),
         ("base_weight", w),
@@ -351,6 +352,50 @@ def convert_chance(meat_doc):
 
 
 # ── One page ────────────────────────────────────────────────────────────────
+def _main_meat(meats, creature):
+    """The page's lead item: '<Creature> Meat', else the first named after the
+    creature, else the first. (It used to be meats[0], which is alphabetical, so
+    the Scorchbeast page was built around Scorchbeast Brain.)"""
+    want = f"{creature} meat".lower()
+    for m in meats:
+        if (m.get("name") or "").lower() == want:
+            return m
+    for m in meats:
+        if (m.get("name") or "").lower().startswith(creature.lower()):
+            return m
+    return meats[0]
+
+
+def _subject(names, creature):
+    """'Scorchbeast Brain, Heart, Liver, Lung and Meat' / 'Intestine and Rabbit Leg'."""
+    pre = creature + " "
+    if len(names) > 1 and all(n.startswith(pre) for n in names):
+        names = [names[0]] + [n[len(pre):] for n in names[1:]]
+    if len(names) == 1:
+        return names[0]
+    return ", ".join(names[:-1]) + " and " + names[-1]
+
+
+def _merged_recipes(meats, ctx):
+    """Every recipe that uses ANY of the page's items, once each. `uses` says which
+    of the page's items it takes and how many."""
+    by = collections.OrderedDict()
+    for m in meats:
+        for r in B.build_recipes(m["name"], ctx["recipe_guide"], ctx["bench_cat"],
+                                 TSV, ctx["guide_urls"]):
+            key = r.get("recipe_edid") or r.get("form_id") or r.get("name")
+            use = {"name": m["name"], "qty": r.get("item_qty")}
+            if key in by:
+                by[key]["uses"].append(use)
+                for i in by[key].get("ingredients") or []:
+                    if (i.get("name") or "").strip().lower() == m["name"].lower():
+                        i["is_main"] = True
+            else:
+                r["uses"] = [use]
+                by[key] = r
+    return sorted(by.values(), key=lambda r: (r.get("name") or "").lower())
+
+
 def build_one(meat_path, ctx):
     md = json.load(open(meat_path, encoding="utf-8"))
     slug = md.get("slug") or os.path.basename(meat_path)[:-5]
@@ -359,33 +404,64 @@ def build_one(meat_path, ctx):
     if not meats:
         print(f"  [skip] {slug}: no meat item")
         return None
-    main = meats[0]
+    main = _main_meat(meats, creature)
+    multi = len(meats) > 1
     formid = main["form_id"].upper()
     item = main.get("name") or f"{creature} Meat"
     targets = {m["form_id"].upper() for m in meats}
     out_path = os.path.join(OUT_DIR, f"meat-{slug}_spawns.json")
     keep, keep_markers = _existing_slots(out_path)
 
-    # Used For
+    # Used For. A creature can drop several items (Scorchbeast: Brain, Heart,
+    # Liver, Lung, Meat). Every section covers ALL of them (Duchess, 31 Oct 2026),
+    # not just the first one.
+    names = [m.get("name") or "" for m in meats]
+    subject = _subject(names, creature) if multi else item
     cons = B.build_consumption(formid, TSV, item)
+    per_item = []
+    if multi:
+        for m in meats:
+            c = cons if m is main else B.build_consumption(m["form_id"].upper(), TSV, m["name"])
+            per_item.append({"name": m["name"], "form_id": m["form_id"].upper(),
+                             "consumption": c})
     challenges = list(md.get("used_for") or [])
     have = {c.get("edid") for c in challenges}
-    for c in B.build_challenges(formid, DIST):
-        if c.get("edid") not in have:
-            challenges.append(c)
-            have.add(c.get("edid"))
+    for m in meats:
+        for c in B.build_challenges(m["form_id"].upper(), DIST):
+            if c.get("edid") not in have:
+                challenges.append(c)
+                have.add(c.get("edid"))
     used_for = collections.OrderedDict([
         ("consumption", cons),
         ("modifiers", ctx["modifiers"]),
         ("challenges", challenges),
-        ("recipes", B.build_recipes(item, ctx["recipe_guide"], ctx["bench_cat"],
+        ("recipes", _merged_recipes(meats, ctx) if multi else
+                    B.build_recipes(item, ctx["recipe_guide"], ctx["bench_cat"],
                                     TSV, ctx["guide_urls"])),
     ])
+    if multi:
+        used_for["items"] = per_item
+        used_for["subject"] = subject
     if cons is not None:
-        cons["_name"] = item
+        cons["_name"] = subject
+        cons["_plural"] = multi
     tips = farming_tips(cons, formid, creature)
     if cons is not None:
         cons.pop("_name", None)
+        cons.pop("_plural", None)
+    if tips is not None and multi:
+        tips["subject"] = subject
+        # Weights per item, only when they differ (all five Scorchbeast parts are 2).
+        ws = [(p["name"], (p["consumption"] or {}).get("weight")) for p in per_item]
+        if len({w for _, w in ws if w is not None}) > 1:
+            tips["item_weights"] = [
+                {"name": n, "base_weight": w, "thru_hiker": [r2(w * 0.55), r2(w * 0.10)],
+                 "grocers": r2(w * 0.10)} for n, w in ws if w is not None]
+        # Items that do not spoil, when the page mixes both kinds.
+        no_spoil = [p["name"] for p in per_item
+                    if "ObjectTypeNonPerishable" in _alch_keywords(p["form_id"])]
+        if no_spoil and len(no_spoil) < len(per_item):
+            tips["no_spoil_items"] = no_spoil
 
     # Closure (vendors, containers, events, treasure maps)
     src = sources.get_sources([{"formid": m["form_id"], "sig": "ALCH"} for m in meats],
@@ -486,7 +562,8 @@ def build_one(meat_path, ctx):
     if tips is not None:
         doc["farming_tips"] = tips
     doc["used_for"] = used_for
-    doc["vendor_list"] = B.build_vendor_list([], {"items": [{"formid": formid}], "name": item},
+    doc["vendor_list"] = B.build_vendor_list([], {"items": [{"formid": m["form_id"].upper()}
+                                                            for m in meats], "name": subject},
                                              item_closure=item_closure,
                                              vendor_master=ctx["vendors"], rates=ctx["rates"])
 
