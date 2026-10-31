@@ -2158,8 +2158,136 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi  `SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi` — fields: imageUrl
 - SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat  `SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat` — fields: imageUrl
 
-## `plan_master.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
+## `plan_master.json`  ·  +314 / -107 / ~1387
+
+**Added (314)**
+- Plan: Brain In a Jar  `PLAN_008AC859`
+- Plan:  Lightning Hit Outfit  `PLAN_008D2AB9`
+- Plan: Lightning Hit Helmet  `PLAN_008D2ABA`
+- Recipe: Thrasher Dinner  `PLAN_0090FBD2`
+- Plan: Secret Service Spring Assisted Armor Limb  `PLAN_0091665F`
+- Plan: Secret Service Tattered Armor Torso  `PLAN_00916660`
+- Plan: Brotherhood Recon Tattered Armor Torso  `PLAN_00916661`
+- Plan: Brotherhood Recon Spring Assisted Armor Limb  `PLAN_00916662`
+- Plan: Covert Scout Tattered Armor Torso  `PLAN_00916663`
+- Plan: Covert Scout Spring Assisted Armor Limb  `PLAN_00916664`
+- Plan: Civil Engineer Tattered Armor Torso  `PLAN_00916665`
+- Plan: Civil Engineer Spring Assisted Armor Limb  `PLAN_00916666`
+- Plan: Cryolator Blasted Mod  `PLAN_00918210`
+- Plan: Cryolator Circuit Chiller Mod  `PLAN_00918212`
+- Plan: Vault-Tec Vulcan Left Arm  `PLAN_0092748C`
+- Plan: Vault-Tec Vulcan Right Arm  `PLAN_0092748D`
+- Plan: Vault-Tec Vulcan Helmet  `PLAN_0092748E`
+- Plan: Vault-Tec Vulcan Left Leg  `PLAN_0092748F`
+- Plan: Vault-Tec Vulcan Right Leg  `PLAN_00927490`
+- Plan: Vault-Tec Vulcan Torso  `PLAN_00927491`
+- Plan: Mr. Moore  `PLAN_00934704`
+- Plan: Single Action Revolver Vicious Receiver  `PLAN_0094673A`
+- Plan: Single Action Revolver Severe Receiver  `PLAN_0094673B`
+- Plan: Single Action Revolver Refined Receiver  `PLAN_0094673C`
+- Plan: Single Action Revolver Fierce Receiver  `PLAN_0094673D`
+- Plan: Single Action Revolver Vigorous Receiver  `PLAN_0094673E`
+- Plan: Single Action Revolver Steadfast Receiver  `PLAN_0094673F`
+- Plan: Single-Action Revolver Precise Grip  `PLAN_00946740`
+- Plan: Single-Action Revolver Aligned Grip  `PLAN_00946741`
+- Plan: Single-Action Revolver Aligned Long Barrel  `PLAN_00946742`
+- Plan: LMG Vicious Receiver  `PLAN_00947F29`
+- Plan: LMG Vicious .45 Receiver  `PLAN_00947F2A`
+- Plan: LMG Vicious .308 Receiver  `PLAN_00947F2B`
+- Plan: LMG Hardened .45 Receiver  `PLAN_00947F2C`
+- Plan: LMG Hardened .308 Receiver  `PLAN_00947F2D`
+- Plan: LMG Severe Receiver  `PLAN_00947F2E`
+- Plan: LMG Severe .308 Receiver  `PLAN_00947F2F`
+- Plan: LMG Severe .45 Receiver  `PLAN_00947F30`
+- Plan: LMG Refined Receiver  `PLAN_00947F31`
+- Plan: LMG Refined .308 Receiver  `PLAN_00947F32`
+- …and 274 more
+
+**Removed (107)**
+- Deathclaw Leveling Backpack Flair  `RECIPE_008B507F`
+- Cat Leveling Backpack Flair  `RECIPE_008B5081`
+- Dog Leveling Backpack Flair  `RECIPE_008B5082`
+- Radhog Leveling Backpack Flair  `RECIPE_008B5084`
+- Dog Leveling Backpack  `RECIPE_008B6A26`
+- Cat Leveling Backpack  `RECIPE_008B6A27`
+- Radhog Leveling Backpack  `RECIPE_008B6A28`
+- Deathclaw Leveling Backpack  `RECIPE_008B6A29`
+- Atomic Cats Plating (Deathclaw)  `RECIPE_008C910D`
+- Metallic Plating (Deathclaw)  `RECIPE_008CCFA4`
+- Ruby Leather Collar (Cat)  `RECIPE_008D4739`
+- Tan Leather Collar (Cat)  `RECIPE_008D473A`
+- Bandana Plaid  `RECIPE_008D4C4F`
+- Badge Bandana  `RECIPE_008D4C50`
+- Patina Nose Ring (Radhog)  `RECIPE_008D667D`
+- Gold Nose Ring (Radhog)  `RECIPE_008D667E`
+- Dog Tamer Helmet  `RECIPE_00900A8C`
+- Dog Tamer Outfit  `RECIPE_00900A8D`
+- Deathclaw Tamer Helmet  `RECIPE_00900A8E`
+- Radhog Tamer Helmet  `RECIPE_00900A90`
+- Radhog Tamer Outfit  `RECIPE_00900A91`
+- Cat Tamer Helmet  `RECIPE_00900A92`
+- Cat Tamer Outfit  `RECIPE_00900A93`
+- Acceptable Overkill  `UNIQ_ACCEPTABLE_OVERKILL`
+- All Rise  `UNIQ_ALL_RISE`
+- Anchorage Ace  `UNIQ_ANCHORAGE_ACE`
+- Black Diamond  `UNIQ_BLACK_DIAMOND`
+- Blue Ridge Branding Iron  `UNIQ_BLUE_RIDGE_BRANDING_IRON`
+- Boomstick  `UNIQ_BOOMSTICK`
+- Bunker Buster  `UNIQ_BUNKER_BUSTER`
+- Burning Love  `UNIQ_BURNING_LOVE`
+- Camden Whacker  `UNIQ_CAMDEN_WHACKER`
+- Civil Unrest  `UNIQ_CIVIL_UNREST`
+- Commander's Charge  `UNIQ_COMMANDER_S_CHARGE`
+- Cosmic Knife Super-Heated  `UNIQ_COSMIC_KNIFE_SUPER_HEATED`
+- Crushing Blow  `UNIQ_CRUSHING_BLOW`
+- Cryptid Jawbone Knife  `UNIQ_CRYPTID_JAWBONE_KNIFE`
+- Cultist Piercer  `UNIQ_CULTIST_PIERCER`
+- Cursed Broadsider  `UNIQ_CURSED_BROADSIDER`
+- Cursed Harpoon Gun  `UNIQ_CURSED_HARPOON_GUN`
+- …and 67 more
+
+**Changed (1387)**
+- Mr. Handy Player Icon  `NWREWARD_003FBB46` — fields: image_source, images
+- Pocket Watch Player Icon  `NWREWARD_003FBB49` — fields: image_source, images
+- MegaSloth Player Icon  `NWREWARD_003FBB4B` — fields: image_source, images
+- Vault 51 Player Icon  `NWREWARD_003FBB4F` — fields: image_source, images
+- Bad Hair Female Player Icon  `NWREWARD_003FBB50` — fields: image_source, images
+- Bad Hair Male Player Icon  `NWREWARD_003FBB51` — fields: image_source, images
+- Vault Boy with Camera Player Icon  `NWREWARD_003FBB52` — fields: image_source, images
+- Small Crate Player Icon  `NWREWARD_003FBB60` — fields: image_source, images
+- Medium Crate Player Icon  `NWREWARD_003FBB61` — fields: image_source, images
+- Epic Crate Player Icon  `NWREWARD_003FBB62` — fields: image_source, images
+- Skeleton Player Icon  `NWREWARD_00416629` — fields: image_source, images
+- Nuke Skull Player Icon  `NWREWARD_0041662A` — fields: image_source, images
+- Nuke Goggles Man Player Icon  `NWREWARD_0041662B` — fields: image_source, images
+- Nuke Goggles Woman Player Icon  `NWREWARD_0041662C` — fields: image_source, images
+- Power Armor Player Icon  `NWREWARD_0041662D` — fields: image_source, images
+- Plan: Assault Rifle Fierce Receiver  `PLAN_00000871` — fields: obtain_ledger, obtain_routes, retired_routes
+- Plan: Assault Rifle Vigorous Receiver  `PLAN_00000872` — fields: obtain_ledger, obtain_routes, retired_routes
+- Plan: Assault Rifle Steadfast Receiver  `PLAN_00000873` — fields: obtain_ledger, obtain_routes, retired_routes
+- Plan: Ultra-Light Build Robot Armor Chest  `PLAN_0001BF30` — fields: obtain_ledger, obtain_routes
+- Plan: BioCommMesh Robot Armor Lining  `PLAN_0001BF31` — fields: obtain_ledger, obtain_routes
+- Plan: Shadowed Robot Armor Chest  `PLAN_0001BF32` — fields: obtain_ledger, obtain_routes
+- Plan: Strengthened Robot Armor Limbs  `PLAN_0001BF34` — fields: obtain_ledger, obtain_routes
+- Plan: Cushioned Robot Armor Legs  `PLAN_0001BF35` — fields: obtain_ledger, obtain_routes
+- Plan: Deep Pocketed Robot Armor Chest  `PLAN_0001BF36` — fields: obtain_ledger, obtain_routes
+- Plan: Shadowed Robot Armor Legs  `PLAN_0001BF48` — fields: obtain_ledger, obtain_routes
+- Plan: Deep Pocketed Robot Armor Limbs  `PLAN_0001BF49` — fields: obtain_ledger, obtain_routes
+- Plan: Ultra-Light Build Robot Armor Limbs  `PLAN_0001BF4A` — fields: obtain_ledger, obtain_routes
+- Plan: Ultra-Light Build Marine Armor Chest  `PLAN_000218B3` — fields: obtain_ledger, obtain_routes
+- Plan: Lead Lined Marine Armor Chest  `PLAN_000218B4` — fields: obtain_ledger, obtain_routes
+- Plan: Shadowed Robot Armor Arms  `PLAN_000218B5` — fields: obtain_ledger, obtain_routes
+- Plan: Strengthened Marine Armor Limbs  `PLAN_000218C4` — fields: obtain_ledger, obtain_routes
+- Plan: Cushioned Marine Armor Legs  `PLAN_000218C5` — fields: obtain_ledger, obtain_routes
+- Plan: Deep Pocketed Marine Armor Chest  `PLAN_000218C6` — fields: obtain_ledger, obtain_routes
+- Plan: Shadowed Combat Armor Chest  `PLAN_0002190F` — fields: obtain_ledger, obtain_routes, retired_routes
+- Plan: Deep Pocketed Marine Armor Limbs  `PLAN_00021910` — fields: obtain_ledger, obtain_routes
+- Plan: Ultra-Light Build Marine Armor Limbs  `PLAN_00021911` — fields: obtain_ledger, obtain_routes
+- Plan: BioCommMesh Combat Armor Lining  `PLAN_000224FB` — fields: obtain_ledger, obtain_routes, retired_routes
+- Plan: Lead Lined Combat Armor Chest  `PLAN_000224FC` — fields: obtain_ledger, obtain_routes, retired_routes
+- Plan: BoS Combat Armor Chest Piece  `PLAN_000224FD` — fields: obtain_ledger, obtain_routes
+- Plan: Cushioned Combat Armor Legs  `PLAN_00022E98` — fields: obtain_ledger, obtain_routes, retired_routes
+- …and 1347 more
 
 ## `plan_master_unresolved.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
@@ -2282,7 +2410,7 @@ _Couldn't key this file to records; contents differ._
 ## `titles_data.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `titles_player.json`  ·  +23 / -0 / ~36
+## `titles_player.json`  ·  +23 / -0 / ~37
 
 **Added (23)**
 - ATX_PlayerTitles_Prefix_Sudsy  `ATX_PlayerTitles_Prefix_Sudsy`
@@ -2309,7 +2437,7 @@ _Couldn't key this file to records; contents differ._
 - ZZZ_SCORE_S27_PlayerTitles_Prefix_SPECIAL  `ZZZ_SCORE_S27_PlayerTitles_Prefix_SPECIAL`
 - zzz_HTO_PlayerTitles_Both_Terminated  `zzz_HTO_PlayerTitles_Both_Terminated`
 
-**Changed (36)**
+**Changed (37)**
 - ATX_PlayerTitles_Prefix_AdVictoriam  `ATX_PlayerTitles_Prefix_AdVictoriam` — fields: releaseDate, releaseLabel, releaseYear, source
 - ATX_PlayerTitles_Prefix_Contessa  `ATX_PlayerTitles_Prefix_Contessa` — fields: releaseDate, releaseLabel, source
 - ATX_PlayerTitles_Prefix_Gleaming  `ATX_PlayerTitles_Prefix_Gleaming` — fields: source
@@ -2346,6 +2474,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S25_PlayerTitles_Prefix_Outdoor  `SCORE_S25_PlayerTitles_Prefix_Outdoor` — fields: imageUrl, images
 - SCORE_S25_PlayerTitles_Suffix_Globetrotter  `SCORE_S25_PlayerTitles_Suffix_Globetrotter` — fields: imageUrl, images
 - SCORE_S25_PlayerTitles_Suffix_Pioneer  `SCORE_S25_PlayerTitles_Suffix_Pioneer` — fields: imageUrl, images
+- SFS09_PlayerTitles_Suffix_Manager  `SFS09_PlayerTitles_Suffix_Manager` — fields: debug
 
 ## `titles_player_generator.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
