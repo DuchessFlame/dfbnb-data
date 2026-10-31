@@ -272,6 +272,9 @@ def _spawn_label(sp, creature):
     # Queen spawn point (Scorchbeast: the Queen's fissure at Fissure Site Prime).
     if (sp.get("source_type") or "") == "queen":
         return f"{creature} Queen"
+    # A placed corpse you loot (Scorchbeast corpses in and near the Glassed Cavern).
+    if (sp.get("source_type") or "") == "corpse":
+        return f"{creature} Corpse"
     return sp.get("variant") or creature
 
 
@@ -352,6 +355,32 @@ def convert_chance(meat_doc):
 
 
 # ── One page ────────────────────────────────────────────────────────────────
+def _fixed_counts(regions, creature, labels):
+    """[{count, label}] per source type, in the order the extras file lists them
+    (labels = {source_type: [singular, plural]}; true = default labels)."""
+    tally = collections.Counter()
+    for r in regions:
+        for l in r.get("locations") or []:
+            for st, n in (l.get("sources") or {}).items():
+                tally[st] += n
+    default = {"ambush": ["Ambush point", "Ambush points"],
+               "nest": [f"{creature} Nest", f"{creature} Nests"],
+               "corpse": [f"{creature} Corpse", f"{creature} Corpses"],
+               "queen": [f"{creature} Queen spawn", f"{creature} Queen spawns"],
+               "placement": [f"Fixed {creature} spawn", f"Fixed {creature} spawns"]}
+    order = list(labels) if isinstance(labels, dict) else []
+    order += [st for st in tally if st not in order]
+    out = []
+    for st in order:
+        n = tally.get(st, 0)
+        if not n:
+            continue
+        one, many = (labels.get(st) if isinstance(labels, dict) and labels.get(st)
+                     else default.get(st, [st, st + "s"]))
+        out.append({"source_type": st, "count": n, "label": one if n == 1 else many})
+    return out
+
+
 def _main_meat(meats, creature):
     """The page's lead item: '<Creature> Meat', else the first named after the
     creature, else the first. (It used to be meats[0], which is alphabetical, so
@@ -586,6 +615,14 @@ def build_one(meat_path, ctx):
     from spawns_engine import route_order
     doc["regions"] = convert_regions(md, keep, keep_markers, creature,
                                      route_order.load("meat-" + slug))
+    # Fixed Spawn Locations count list + note (Duchess, 31 Oct 2026): "There are
+    # {N} Fissure Sites, {N} Nests, {N} Scorchbeast Corpses" as a list at the top of
+    # Fixed Spawn Locations, and the author note under it (it used to sit in the
+    # intro card). Switched on per page in data/meat_guide_extras.json.
+    if ex.get("fixed_counts"):
+        doc["fixed_counts"] = _fixed_counts(doc["regions"], creature, ex["fixed_counts"])
+    if ex.get("fixed_note"):
+        doc["fixed_note"] = ex["fixed_note"]
     doc["chance_spawns"] = convert_chance(md)
     n = doc["chance_spawns"]["total_markers"]
     if n:

@@ -122,7 +122,8 @@ MEAT = [
     # Fissure03 at Fissure Site Prime is the Queen's.
     {"slug": "scorchbeast", "name": "Scorchbeast", "lld": r"^LLD_Creature_Scorchbeast",
      "tokens": ["scorchbeast"], "nest_tokens": ["scorchbeast"], "mappalachia": [],
-     "ambush_exclude": ["fissure01nogeo"], "ambush_types": {"fissure03": "queen"}},
+     "ambush_exclude": ["fissure01nogeo"], "ambush_types": {"fissure03": "queen"},
+     "corpse_tokens": ["scorchbeastcorpse"]},
     {"slug": "sheepsquatch", "name": "Sheepsquatch", "lld": r"^LLD_Creature_Sheepsquatch",
      "tokens": ["sheepsquatch"], "mappalachia": []},
     {"slug": "squirrel", "name": "Squirrel", "lld": r"^LLD_Creature_RadSquirrel",

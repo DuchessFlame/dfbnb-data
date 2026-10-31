@@ -678,6 +678,51 @@ def sweep_nest_markers(pages, cur):
     return out
 
 
+def _cont_with_items():
+    """CONT FormIDs (int) that hold at least one item (CONTITEMS export). Used so an
+    empty look-alike container is never listed as a farming spot."""
+    import tsv_source
+    try:
+        path = tsv_source.newest("CONTITEMS_Export_*.tsv")
+    except Exception:
+        path = None
+    out = set()
+    if not path:
+        return out
+    with open(path, encoding="utf-8", errors="replace") as fh:
+        rdr = csv.DictReader(fh, delimiter="\t")
+        for r in rdr:
+            try:
+                out.add(int((r.get("CONT_FormID") or "").strip(), 16))
+            except ValueError:
+                pass
+    return out
+
+
+def sweep_corpse_markers(pages, cur):
+    """Entity sweep for placed creature CORPSE containers (CONT, EDID contains
+    'Corpse'), matched to a page's `corpse_tokens` -> {entityFormID -> (edid, slug)}.
+    Opt-in per page, like nests. Only corpses that HOLD loot count: Scorchbeast
+    corpse types 01/04/05 are empty look-alikes in the ESM (no CNTO, checked
+    31 Oct 2026), while 02/03/06 hold LLD_Creature_ScorchbeastCorpse."""
+    active = [pg for pg in pages if pg.get("corpse_tokens")]
+    if cur is None or not active:
+        return {}
+    filled = _cont_with_items()
+    rows = cur.execute("SELECT entityFormID, editorID, signature FROM Entity "
+                       "WHERE editorID LIKE '%Corpse%' AND signature = 'CONT'").fetchall()
+    out = {}
+    for fid, edid, sig in rows:
+        e = (edid or "").lower()
+        if DEV_MARKER_RE.search(e) or (filled and int(fid) not in filled):
+            continue
+        for pg in active:
+            if any(t in e for t in pg["corpse_tokens"]):
+                out[int(fid)] = (edid, pg["slug"])
+                break
+    return out
+
+
 def _chunks(seq, n=900):
     seq = list(seq)
     for i in range(0, len(seq), n):
@@ -787,6 +832,19 @@ def resolve_fixed_spawns(pages, npcs_by_page, geo, cur, cache, db_ok):
                 region, marker, _ = geo.resolve(space, x, y)
                 _record(cache, seen, slug, inst, space, ref, x, y, region, marker, "nest")
 
+    # 1c) creature corpse containers (opt-in via corpse_tokens) — 'corpse'.
+    corpse_map = sweep_corpse_markers(pages, cur)
+    if corpse_map:
+        for chunk in _chunks(list(corpse_map.keys())):
+            q = ("SELECT x, y, instanceFormID, spaceFormID, referenceFormID FROM Position "
+                 "WHERE referenceFormID IN (%s)" % ",".join("?" * len(chunk)))
+            for x, y, inst, space, ref in cur.execute(q, tuple(chunk)):
+                edid, slug = corpse_map[int(ref)]
+                if inst in seen[slug]:
+                    continue
+                region, marker, _ = geo.resolve(space, x, y)
+                _record(cache, seen, slug, inst, space, ref, x, y, region, marker, "corpse")
+
     # 2) static NPC-base placements
     base_slug = {}
     base_full = {}   # base FormID -> variant display name (e.g. "Burning Radscorpion")
@@ -862,7 +920,7 @@ def label_spawns(regions_out, name):
                 typed[sp.get("source_type", "spawn")].append(sp)
             label_word = {"ambush": f"{name} ambush", "placement": f"{name} spawn",
                           "spawn": f"{name} spawn", "nest": f"{name} nest",
-                          "queen": f"{name} Queen"}
+                          "queen": f"{name} Queen", "corpse": f"{name} Corpse"}
             counts = defaultdict(int)
             for sp in loc.get("spawns") or []:
                 st = sp.get("source_type", "spawn")
@@ -902,7 +960,7 @@ def tier_spawns(seen_slug, cache, slug, page_name, promote_unique=False,
         weight = rec.get("weight")
         shared = rec.get("shared", False)
         variant = rec.get("variant") or page_name
-        is_guaranteed = (stype in ("ambush", "nest", "queen")) or (
+        is_guaranteed = (stype in ("ambush", "nest", "queen", "corpse")) or (
             stype == "spawn" and weight is not None and weight >= 0.999 and not shared)
         # `promote_placements` — a DIRECT world placement is a guaranteed spawn.
         #
@@ -961,7 +1019,7 @@ def attach_breakdowns(regions_out):
             for st, n in sorted((loc.get("sources") or {}).items()):
                 word = {"ambush": "ambush point", "placement": "static spawn",
                         "spawn": "spawn point", "nest": "nest",
-                        "queen": "queen spawn"}.get(st, st)
+                        "queen": "queen spawn", "corpse": "corpse"}.get(st, st)
                 bd.append({"label": word + ("" if n == 1 else "s"), "count": n,
                            "source_type": st})
             if bd:

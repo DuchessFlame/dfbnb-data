@@ -88,6 +88,7 @@ import plan_source_pill     # the one-word source tag on each row
 import prune_dead_routes    # retire routes nothing in the game rolls (see module)
 import plan_vendor_regions  # a vendor only sells the regional plans of where it stands
 import plan_activity_regions  # an activity only gives the regional plans of where it is played
+import plan_learn_routes    # quest-taught recipes, quest items, unused/duplicate plans (see module)
 import plan_conditions      # drop conditions per source (LVLI entry CTDAs)
 import plan_display_names   # row titles: model-first weapon paint names
 import plan_recipe_rows     # rows for recipes that have no plan book at all
@@ -2368,6 +2369,18 @@ def main(argv=None):
     if not args.no_routes and not args.offset and not args.limit and not args.only:
         print("[plan-obtain] activity regions:")
         plan_activity_regions.report(plan_activity_regions.attach(items, TSV))
+
+    # Plans with no source that are not bugged: the quest teaches the recipe
+    # itself, the plan is a quest item, a duplicate copy, or an unused record
+    # nothing gives out (plan_learn_routes.py). Decides `tradeable` False for
+    # every plan a mule can never hold, so they leave the plan check master list
+    # and the mule lists. Pure join, no rate touched. Before source tags.
+    if not args.no_routes and not args.offset and not args.limit and not args.only:
+        print("[plan-obtain] learn routes / unholdable plans:")
+        try:
+            plan_learn_routes.report(plan_learn_routes.attach(items, TSV))
+        except Exception as exc:                  # noqa: BLE001 - never fatal
+            print(f"  WARNING: learn routes skipped: {exc}", file=sys.stderr)
 
     # The one-word "where does this come from" tag on each row and in the
     # export poster's SOURCE column. Pure string work over the routes that were

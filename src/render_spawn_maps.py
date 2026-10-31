@@ -113,6 +113,7 @@ TYPE_LABELS = {
     "spawn": "Spawn point",
     "ambush": "Ambush",
     "queen": "Queen spawn",
+    "corpse": "Corpse",
 }
 TYPE_COLOURS = {
     "direct": (255, 193, 7),            # amber
@@ -137,6 +138,9 @@ TYPE_COLOURS = {
     # (Oct 2026) ambush spots and nests came out the same colour.
     "ambush": (255, 138, 30),           # orange
     "queen": (255, 235, 59),            # bright yellow, star shape
+    # Placed creature corpses you loot (Scorchbeast, 31 Oct 2026). Cyan diamond:
+    # no other type on a creature map uses cyan, and the shape carries it anyway.
+    "corpse": (0, 209, 255),            # cyan, diamond shape
 }
 
 # Shape per source type, so the key never leans on colour alone (colour-blind
@@ -145,6 +149,7 @@ TYPE_SHAPES = {
     "nest": "square",
     "ambush": "triangle",
     "queen": "star",
+    "corpse": "diamond",
 }
 
 # Per-page legend names, where the general label reads wrong for that creature.
@@ -153,7 +158,8 @@ TYPE_SHAPES = {
 # Scorchbeast climbs out of when SQ_ScorchbeastSpawn fires, not a creature waiting.
 PAGE_TYPE_LABELS = {
     "scorchbeast": {"ambush": "Fissure Site",
-                    "queen": "Scorchbeast Queen (Fissure Site Prime)"},
+                    "queen": "Scorchbeast Queen (Fissure Site Prime)",
+                    "corpse": "Scorchbeast Corpse"},
 }
 _PAGE = {"slug": ""}   # set by render_set so the legend can use PAGE_TYPE_LABELS
 
@@ -309,6 +315,11 @@ def draw_dot(d, px, py, fill=DOT_FILL, shape="circle"):
     elif shape == "triangle":
         r *= 1.2
         pts = [(px, py - r), (px + r * 0.95, py + r * 0.7), (px - r * 0.95, py + r * 0.7)]
+        d.polygon(pts, fill=fill, outline=DOT_OUTLINE)
+        d.line(pts + [pts[0]], fill=DOT_OUTLINE, width=DOT_OUTLINE_W, joint="curve")
+    elif shape == "diamond":
+        r *= 1.25
+        pts = [(px, py - r), (px + r * 0.8, py), (px, py + r), (px - r * 0.8, py)]
         d.polygon(pts, fill=fill, outline=DOT_OUTLINE)
         d.line(pts + [pts[0]], fill=DOT_OUTLINE, width=DOT_OUTLINE_W, joint="curve")
     elif shape == "star":
@@ -883,7 +894,8 @@ def render_interiors(pts, spaces, out_dir, slug, item_name):
         for p in ipts:
             tally[p.get("source_type", "")] += 1
         draw_legend(img, f"{sp['name']}",
-                    [(f"{item_name} — {type_label(t)}", n, type_colour(t))
+                    [((type_label(t) if item_name.lower() in type_label(t).lower()
+                       else f"{item_name} — {type_label(t)}"), n, type_colour(t), type_shape(t))
                      for t, n in sorted(tally.items(), key=lambda kv: (-kv[1], kv[0]))])
 
         path = os.path.join(out_dir, f"{sp['edid']}_{slug}.jpg")

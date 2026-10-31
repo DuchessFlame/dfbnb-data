@@ -247,18 +247,26 @@ def main():
         mules, seen_all = [], set()
         for key, label, mule_donate in cfg["mules"]:
             data = lists.pop(key, None) or {}
-            rows, seen, stale = [], set(), 0
+            rows, seen, stale, dropped = [], set(), 0, 0
             for it in rows_of(data):
                 pid = str(it.get("id") or "")
                 if not pid or pid in seen:
                     continue
                 seen.add(pid)
                 fresh = master.get(pid)
+                # A plan no mule can hold (quest-taught recipe, quest item,
+                # unused or duplicate copy, cut: plan_learn_routes.py) is not a
+                # missing plan -- it never shows on a mule list.
+                if fresh is not None and (fresh.get("cut") or fresh.get("tradeable") is False):
+                    dropped += 1
+                    continue
                 if fresh is None:
                     stale += 1
                 rows.append(dict(fresh) if fresh is not None else dict(it))
             rows.sort(key=plan_sort_key)
             seen_all |= seen
+            if dropped:
+                print(f"  {platform}/{key}: {dropped} plan(s) left off -- not tradeable or cut in plan_master")
             if stale:
                 print(f"  [WARN] {platform}/{key}: {stale} plan(s) not in plan_master -- bot copy used",
                       file=sys.stderr)
