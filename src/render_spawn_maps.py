@@ -703,6 +703,14 @@ def place_labels(d, rows, font, gap=None):
         r["label_xy"] = (lx - ox, ly - oy)
 
 
+# Region tiles are cut from a numbered copy WITHOUT the legend box (31 Oct 2026):
+# cutting them from the saved numbered map put a slice of the legend in the corner of
+# any region near the top-left (Scorchbeast Toxic Valley / Savage Divide tiles).
+# render_exterior() keeps returning (plain, numbered) so no caller changes; the
+# legend-free copy is looked up here by render_region_tiles().
+_TILE_SRC = {}
+
+
 def render_exterior(bg_path, rows, title, out_plain, out_numbered):
     base = Image.open(bg_path).convert("RGB")
     if base.size != (S, S):
@@ -715,6 +723,7 @@ def render_exterior(bg_path, rows, title, out_plain, out_numbered):
     for r in rows:
         draw_dot(d, r["px"], r["py"], fill=type_colour(r.get("source_type", "")),
                  shape=type_shape(r.get("source_type", "")))
+    dotted = plain.copy()                      # dots only, no legend (for tiles)
     draw_legend(plain, title, legend_rows(rows))
     os.makedirs(os.path.dirname(out_plain), exist_ok=True)
     # Watermarked on the way out — see src/map_watermark.py. Maps of ours were
@@ -729,6 +738,11 @@ def render_exterior(bg_path, rows, title, out_plain, out_numbered):
         draw_outlined_text(dn, r["label_xy"], str(r["n"]), f, w=3)
     os.makedirs(os.path.dirname(out_numbered), exist_ok=True)
     map_watermark.apply(numbered).save(out_numbered, "JPEG", quality=88, optimize=True)
+    dt = ImageDraw.Draw(dotted)
+    for r in rows:
+        draw_outlined_text(dt, r["label_xy"], str(r["n"]), f, w=3)
+    _TILE_SRC.clear()
+    _TILE_SRC[id(numbered)] = dotted
     return plain, numbered
 
 
@@ -770,7 +784,7 @@ def render_region_tiles(numbered_img, rows, boxes, to_px, out_dir, slug,
             x0, x1 = max(0, cxm - 400), min(S, cxm + 400)
             y0, y1 = max(0, cym - 400), min(S, cym + 400)
 
-        crop = numbered_img.crop((x0, y0, x1, y1))
+        crop = _TILE_SRC.get(id(numbered_img), numbered_img).crop((x0, y0, x1, y1))
         w, h = crop.size
         crop = crop.resize((TILE_WIDTH, max(1, int(h * TILE_WIDTH / w))), Image.LANCZOS)
         rslug = region.replace(" ", "")
@@ -898,7 +912,11 @@ def render_interiors(pts, spaces, out_dir, slug, item_name):
                        else f"{item_name} — {type_label(t)}"), n, type_colour(t), type_shape(t))
                      for t, n in sorted(tally.items(), key=lambda kv: (-kv[1], kv[0]))])
 
-        path = os.path.join(out_dir, f"{sp['edid']}_{slug}.jpg")
+        # Written under the name the site uses — <region>-<cell name>-cell-map.jpg —
+        # so the folder holds ONE copy (31 Oct 2026; Radstag/Deathclaw Egg were
+        # renamed by hand before). interior_cells.csv's `file` column records it.
+        fname = f"{_region_slug(ipts[0]['region'])}-{_region_slug(sp['name'])}-cell-map.jpg"
+        path = os.path.join(out_dir, fname)
         if INTERIOR_SIZE != S:
             img = img.resize((INTERIOR_SIZE, INTERIOR_SIZE), Image.LANCZOS)
         # Interior-cell images are small, so the badge would swamp them — the
@@ -907,12 +925,14 @@ def render_interiors(pts, spaces, out_dir, slug, item_name):
             path, "JPEG", quality=INTERIOR_QUALITY, optimize=True)
         made.append((sp["edid"], path))
         csv_rows.append([sp["edid"], sp["name"], ipts[0]["region"], len(ipts), drawn,
-                         "" if drawn == len(ipts) else "some coords fell outside the cell image"])
+                         "" if drawn == len(ipts) else "some coords fell outside the cell image",
+                         fname])
 
     with open(os.path.join(out_dir, "interior_cells.csv"), "w",
               newline="", encoding="utf-8") as fh:
         w_ = csv.writer(fh)
-        w_.writerow(["cell_edid", "display_name", "region", "total_spawns", "markers_drawn", "note"])
+        w_.writerow(["cell_edid", "display_name", "region", "total_spawns", "markers_drawn", "note",
+                     "file"])
         w_.writerows(csv_rows)
     return made
 

@@ -99,6 +99,23 @@ QUEST_UNLOCK_BY_HAND = {
 # Never released (Kat, 31 Oct 2026).
 CUT_BY_HAND = {
     "008591ED": "never released (Kat, 31 Oct 2026)",          # Loveland Frog Plushie
+    # Nothing has given these out since at least March 2026 (Kat, 31 Oct 2026).
+    "00467FC0": "nothing has given it out since at least March 2026 (Kat, 31 Oct 2026)",  # Smoke Grenade
+    "005D0F08": "nothing has given it out since at least March 2026 (Kat, 31 Oct 2026)",  # Bubble Turret
+    "007284E7": "nothing has given it out since at least March 2026 (Kat, 31 Oct 2026)",  # Tesla Rifle Lobber Barrel
+    # Burning Springs set never hooked up as plans — cut, or Atom Shop /
+    # Scoreboard items (Kat, 31 Oct 2026).
+    "0083E70A": "never released as a plan (Kat, 31 Oct 2026)",  # Deathclaw Plushie
+    "007F5AF3": "never released as a plan (Kat, 31 Oct 2026)",  # Rust Kingdom Gateway
+    "007FDC36": "never released as a plan; the sign is a Season 24 Scoreboard item (Kat, 31 Oct 2026)",  # Starlight Drive-In Marquee
+    "00833F55": "never released as a plan (Kat, 31 Oct 2026)",  # Super Duper Mart Sign
+    "0083E70B": "never released as a plan (Kat, 31 Oct 2026)",  # Bogey Plushie
+    # Four of the eight Skyline Valley trail signs were never added to any list
+    # (01/03/04/08 drop from Dangerous Pastimes) — cut (Kat, 31 Oct 2026).
+    "00770816": "cut — never added to any reward list (Kat, 31 Oct 2026)",  # Nature Trail Sign Dinosaur Footprints
+    "00770819": "cut — never added to any reward list (Kat, 31 Oct 2026)",  # Nature Trail Sign Natural Bridge
+    "00770814": "cut — never added to any reward list (Kat, 31 Oct 2026)",  # Nature Trail Sign Steel Jack
+    "0077081A": "cut — never added to any reward list (Kat, 31 Oct 2026)",  # Nature Trail Sign Water Features
 }
 
 

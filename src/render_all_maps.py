@@ -16,7 +16,7 @@ Per item you get the layout the Cream and Deathclaw Egg folders already use:
         02 Numbered Maps (4096)/<slug>_numbered.jpg
         03 Region Tiles/<region-slug>-spawn-map.jpg  <- UPLOAD THIS ONE
                         <Region>_coords.csv
-        04 Interior Maps/<cell>_<slug>.jpg + interior_cells.csv
+        04 Interior Maps/<region>-<cell name>-cell-map.jpg + interior_cells.csv
         05 Chance Maps/...                           <- only where the doc has
                                                         chance refs (farming + nuka)
         <slug>_exterior_coords.csv

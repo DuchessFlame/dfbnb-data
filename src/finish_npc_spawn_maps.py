@@ -129,7 +129,12 @@ def finish(slug):
     csv_p = os.path.join(folder, "04 Interior Maps", "interior_cells.csv")
     if os.path.exists(csv_p):
         for row in csv.DictReader(open(csv_p, encoding="utf-8")):
-            src = os.path.join(folder, "04 Interior Maps", f"{row['cell_edid']}_{slug}.jpg")
+            # `file` = the renderer's site-named output (31 Oct 2026); older folders
+            # still hold <cell>_<slug>.jpg.
+            src = os.path.join(folder, "04 Interior Maps",
+                               row.get("file") or f"{row['cell_edid']}_{slug}.jpg")
+            if not os.path.exists(src):
+                src = os.path.join(folder, "04 Interior Maps", f"{row['cell_edid']}_{slug}.jpg")
             if not os.path.exists(src):
                 continue
             name = f"{slugify(row['region'])}-{slugify(row['display_name'])}-cell-map.avif"
