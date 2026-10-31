@@ -10,99 +10,62 @@
  "blurb": "The Scorchbeast in Fallout 76 — drops Scorchbeast Brain, Scorchbeast Heart, Scorchbeast Liver, Scorchbeast Lung, Scorchbeast Meat, 12 NPC variants, 41 known spawn points.",
  "map_base": "/wp-content/uploads/guide-images/farming-meat/scorchbeast/",
  "map_ext": ".jpg",
- "maps_expand": true,
  "full_map": "/wp-content/uploads/guide-images/farming-meat/scorchbeast/scorchbeast.jpg",
  "intro_note": "Fissure Sites will spawn one Scorchbeast every 10 minutes. If you run the fissure site route below, then the first fissure site will be ready to spawn another Scorchbeast by the time you have cleared the last location.",
+ "maps_expand": true,
  "workshop_attacks": {
-  "event": "Defend your workshop (Scorchbeast attack)",
+  "event": "Scorchbeast workshop attack",
   "chance": "10%",
-  "lead": "When one of your claimed workshops is attacked, there is a 10% chance it is a Scorchbeast attack instead of a normal one. The workshop must be level 30 or higher. How many Scorchbeasts come depends on the workshop's level, and a workshop's level stays inside its region's level range.",
+  "lead": "When one of your claimed workshops is attacked, there is a 10% chance it is a Scorchbeast attack. The workshop must be level 30 or higher.",
   "count_by_level": [
    {
-    "levels": "30–49",
+    "levels": "Workshop level 30+",
     "count": "1 Scorchbeast"
    },
    {
-    "levels": "50–74",
+    "levels": "Workshop level 50+",
     "count": "2 Scorchbeasts"
    },
    {
-    "levels": "75+",
+    "levels": "Workshop level 75+",
     "count": "3 Scorchbeasts"
    }
   ],
   "regions": [
    {
-    "region": "Ash Heap",
-    "levels": "25–50",
-    "result": "Yes, at level 30+ — 1 Scorchbeast (2 at level 50)",
-    "workshops": [
-     "Beckley Mine Exhibit",
-     "Mount Blair"
-    ]
-   },
-   {
-    "region": "Burning Springs",
-    "levels": "—",
-    "result": "No",
-    "workshops": [
-     "Starlight Drive-in"
-    ]
-   },
-   {
     "region": "Cranberry Bog",
-    "levels": "35–99",
-    "result": "Yes — 1 to 3 Scorchbeasts",
-    "workshops": [
-     "Abandoned Bog Town"
-    ]
-   },
-   {
-    "region": "The Forest",
-    "levels": "1–10",
-    "result": "No",
-    "workshops": [
-     "Billings Homestead",
-     "Charleston Landfill",
-     "Gorge Junkyard",
-     "Lakeside Cabins",
-     "Poseidon Energy Plant Yard",
-     "Sunshine Meadows Industrial Farm",
-     "Sutton",
-     "Tyler County Dirt Track",
-     "Wade Airport"
-    ]
+    "chance": "10%",
+    "count": "1–3 Scorchbeasts"
    },
    {
     "region": "The Mire",
-    "levels": "30–99",
-    "result": "Yes — 1 to 3 Scorchbeasts",
-    "workshops": [
-     "Berkeley Springs",
-     "Dabney Homestead",
-     "Dolly Sods Campground",
-     "Thunder Mt. Power Plant Yard"
-    ]
+    "chance": "10%",
+    "count": "1–3 Scorchbeasts"
    },
    {
     "region": "Savage Divide",
-    "levels": "15–99",
-    "result": "Yes, at level 30+ — 1 to 3 Scorchbeasts",
-    "workshops": [
-     "Converted Munitions Factory",
-     "Federal Disposal Field HZ-21",
-     "Monongah Power Plant Yard",
-     "Red Rocket Mega Stop"
-    ]
+    "chance": "10%",
+    "count": "1–3 Scorchbeasts"
+   },
+   {
+    "region": "Ash Heap",
+    "chance": "10%",
+    "count": "1–2 Scorchbeasts"
    },
    {
     "region": "Toxic Valley",
-    "levels": "10–25",
-    "result": "No — workshops here never reach level 30",
-    "workshops": [
-     "Grafton Steel Yard",
-     "Hemlock Holes Maintenance"
-    ]
+    "chance": "No",
+    "count": ""
+   },
+   {
+    "region": "The Forest",
+    "chance": "No",
+    "count": ""
+   },
+   {
+    "region": "Burning Springs",
+    "chance": "No",
+    "count": ""
    }
   ]
  },
@@ -123,15 +86,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "33.33%",
+        "rate_display": "33.3333%",
         "note": ""
        },
        {
-        "rate_display": "55.56%",
+        "rate_display": "55.5556%",
         "note": ""
        },
        {
-        "rate_display": "33.33%",
+        "rate_display": "33.3333%",
         "note": ""
        }
       ]
@@ -180,15 +143,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "33.33%",
+        "rate_display": "33.3333%",
         "note": ""
        },
        {
-        "rate_display": "55.56%",
+        "rate_display": "55.5556%",
         "note": ""
        },
        {
-        "rate_display": "33.33%",
+        "rate_display": "33.3333%",
         "note": ""
        }
       ]
@@ -256,15 +219,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "33.33%",
+        "rate_display": "33.3333%",
         "note": ""
        },
        {
-        "rate_display": "55.56%",
+        "rate_display": "55.5556%",
         "note": ""
        },
        {
-        "rate_display": "33.33%",
+        "rate_display": "33.3333%",
         "note": ""
        }
       ]
@@ -301,7 +264,7 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0049%",
         "note": "Level 50+"
        },
        {
@@ -309,7 +272,7 @@
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0049%",
         "note": "Level 50+"
        }
       ]
@@ -378,7 +341,7 @@
       "cells": [
        null,
        {
-        "rate_display": "16.67%",
+        "rate_display": "16.6667%",
         "note": ""
        },
        null
@@ -467,7 +430,7 @@
       "cells": [
        null,
        {
-        "rate_display": "16.67%",
+        "rate_display": "16.6667%",
         "note": ""
        },
        null
@@ -480,7 +443,7 @@
       "cells": [
        null,
        {
-        "rate_display": "16.67%",
+        "rate_display": "16.6667%",
         "note": ""
        },
        null
@@ -587,7 +550,7 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0049%",
         "note": "Level 50+"
        },
        {
@@ -595,7 +558,7 @@
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0049%",
         "note": "Level 50+"
        }
       ]
@@ -607,7 +570,7 @@
       "cells": [
        null,
        {
-        "rate_display": "16.67%",
+        "rate_display": "16.6667%",
         "note": ""
        },
        null
@@ -620,7 +583,7 @@
       "cells": [
        null,
        {
-        "rate_display": "16.67%",
+        "rate_display": "16.6667%",
         "note": ""
        },
        null
@@ -670,7 +633,7 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0049%",
         "note": "Level 50+"
        },
        {
@@ -678,7 +641,7 @@
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0049%",
         "note": "Level 50+"
        }
       ]
@@ -689,7 +652,7 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0049%",
         "note": "Level 50+"
        },
        {
@@ -697,7 +660,7 @@
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0049%",
         "note": "Level 50+"
        }
       ]
@@ -709,7 +672,7 @@
       "cells": [
        null,
        {
-        "rate_display": "16.67%",
+        "rate_display": "16.6667%",
         "note": ""
        },
        null
@@ -825,15 +788,15 @@
       "note": "Only in Savage Divide; Level 25+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0039%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0039%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0039%",
         "note": ""
        }
       ]
@@ -996,15 +959,15 @@
       "note": "Only in Ash Heap / Cranberry Bog / The Mire; Level 40+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        }
       ]
@@ -1034,15 +997,15 @@
       "note": "Only in Burning Springs / Forest / Skyline Valley",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        }
       ]
@@ -1053,15 +1016,15 @@
       "note": "Only in Burning Springs / Forest / Skyline Valley; Level 5+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        }
       ]
@@ -1300,15 +1263,15 @@
       "note": "Only in Burning Springs / Forest / Skyline Valley / Toxic Valley; Level 5+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0063%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0063%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0063%",
         "note": ""
        }
       ]
@@ -1319,15 +1282,15 @@
       "note": "Only in Burning Springs / Forest / Skyline Valley / Toxic Valley; Level 5+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0063%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0063%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0063%",
         "note": ""
        }
       ]
@@ -1338,15 +1301,15 @@
       "note": "Only in Savage Divide; Level 25+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0039%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0039%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0039%",
         "note": ""
        }
       ]
@@ -1376,15 +1339,15 @@
       "note": "Only in Toxic Valley; Level 10+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0063%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0063%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0063%",
         "note": ""
        }
       ]
@@ -1395,15 +1358,15 @@
       "note": "Only in Savage Divide; Level 20+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0039%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0039%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0039%",
         "note": ""
        }
       ]
@@ -1642,15 +1605,15 @@
       "note": "Only in Savage Divide; Level 20+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0039%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0039%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0039%",
         "note": ""
        }
       ]
@@ -1718,15 +1681,15 @@
       "note": "Only in Toxic Valley; Level 15+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        }
       ]
@@ -1775,15 +1738,15 @@
       "note": "Only in Savage Divide; Level 25+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0039%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0039%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0039%",
         "note": ""
        }
       ]
@@ -1794,15 +1757,15 @@
       "note": "Only in Savage Divide / Toxic Valley; Level 15+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0089%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0089%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0089%",
         "note": ""
        }
       ]
@@ -2250,15 +2213,15 @@
       "note": "Only in Ash Heap / Cranberry Bog / The Mire",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0055%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0055%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0055%",
         "note": ""
        }
       ]
@@ -2269,15 +2232,15 @@
       "note": "Only in Ash Heap / Cranberry Bog / The Mire",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0055%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0055%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0055%",
         "note": ""
        }
       ]
@@ -2288,15 +2251,15 @@
       "note": "Only in Ash Heap / Cranberry Bog / The Mire",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0055%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0055%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0055%",
         "note": ""
        }
       ]
@@ -2307,15 +2270,15 @@
       "note": "Only in Ash Heap / Cranberry Bog / The Mire",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0055%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0055%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0055%",
         "note": ""
        }
       ]
@@ -2326,15 +2289,15 @@
       "note": "Only in Ash Heap / Cranberry Bog / The Mire",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0055%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0055%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0055%",
         "note": ""
        }
       ]
@@ -2345,15 +2308,15 @@
       "note": "Only in Ash Heap / Cranberry Bog / The Mire",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0055%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0055%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0055%",
         "note": ""
        }
       ]
@@ -2364,15 +2327,15 @@
       "note": "Only in Ash Heap / Cranberry Bog / The Mire",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0055%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0055%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0055%",
         "note": ""
        }
       ]
@@ -2402,15 +2365,15 @@
       "note": "Only in Ash Heap / Cranberry Bog / Savage Divide / The Mire; Level 30+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        }
       ]
@@ -2459,15 +2422,15 @@
       "note": "Only in Savage Divide; Level 20+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0039%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0039%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0039%",
         "note": ""
        }
       ]
@@ -2497,15 +2460,15 @@
       "note": "Only in Savage Divide; Level 25+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0039%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0039%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0039%",
         "note": ""
        }
       ]
@@ -2554,15 +2517,15 @@
       "note": "Only in Ash Heap / Cranberry Bog / Savage Divide / The Mire; Level 30+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        }
       ]
@@ -2573,15 +2536,15 @@
       "note": "Only in Ash Heap / Cranberry Bog / Savage Divide / The Mire; Level 35+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0079%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0079%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0079%",
         "note": ""
        }
       ]
@@ -2649,15 +2612,15 @@
       "note": "Only in Burning Springs / Forest / Skyline Valley",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        }
       ]
@@ -2668,15 +2631,15 @@
       "note": "Only in Savage Divide; Level 20+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0089%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0089%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0089%",
         "note": ""
        }
       ]
@@ -2687,15 +2650,15 @@
       "note": "Only in Toxic Valley; Level 15+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        }
       ]
@@ -2782,15 +2745,15 @@
       "note": "Only in Ash Heap / Cranberry Bog / Savage Divide / The Mire; Level 30+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        }
       ]
@@ -2820,15 +2783,15 @@
       "note": "Only in Ash Heap / Cranberry Bog / Savage Divide / The Mire; Level 3+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0072%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0072%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0072%",
         "note": ""
        }
       ]
@@ -2839,15 +2802,15 @@
       "note": "Only in Ash Heap / Cranberry Bog / Savage Divide / The Mire; Level 3+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0072%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0072%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0072%",
         "note": ""
        }
       ]
@@ -2858,15 +2821,15 @@
       "note": "Only in Ash Heap / Cranberry Bog / Savage Divide / The Mire; Level 3+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0072%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0072%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0072%",
         "note": ""
        }
       ]
@@ -3143,15 +3106,15 @@
       "note": "Only in Burning Springs / Forest / Skyline Valley",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        }
       ]
@@ -3428,15 +3391,15 @@
       "note": "Only in Savage Divide; Level 25+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0039%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0039%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0039%",
         "note": ""
        }
       ]
@@ -3618,15 +3581,15 @@
       "note": "Only in Ash Heap / Cranberry Bog / Savage Divide / The Mire",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0072%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0072%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0072%",
         "note": ""
        }
       ]
@@ -3637,15 +3600,15 @@
       "note": "Only in Ash Heap / Cranberry Bog / Savage Divide / The Mire",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0072%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0072%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0072%",
         "note": ""
        }
       ]
@@ -3656,15 +3619,15 @@
       "note": "Only in Ash Heap / Cranberry Bog / Savage Divide / The Mire",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0072%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0072%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0072%",
         "note": ""
        }
       ]
@@ -3694,15 +3657,15 @@
       "note": "Only in Savage Divide / Toxic Valley; Level 15+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        }
       ]
@@ -3808,15 +3771,15 @@
       "note": "Only in Burning Springs / Forest / Skyline Valley; Level 5+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        }
       ]
@@ -3827,15 +3790,15 @@
       "note": "Only in Ash Heap / Cranberry Bog / Savage Divide / The Mire; Level 30+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        }
       ]
@@ -3846,15 +3809,15 @@
       "note": "Only in Ash Heap / Cranberry Bog / The Mire; Level 35+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        }
       ]
@@ -4511,15 +4474,15 @@
       "note": "Only in Burning Springs / Forest / Skyline Valley",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        }
       ]
@@ -4530,15 +4493,15 @@
       "note": "Only in Burning Springs / Forest / Skyline Valley",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        }
       ]
@@ -4549,15 +4512,15 @@
       "note": "Only in Savage Divide / Toxic Valley; Level 15+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        }
       ]
@@ -4986,15 +4949,15 @@
       "note": "Only in Toxic Valley; Level 10+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0063%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0063%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0063%",
         "note": ""
        }
       ]
@@ -5005,15 +4968,15 @@
       "note": "Only in Burning Springs / Forest / Skyline Valley",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        }
       ]
@@ -5047,7 +5010,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5066,7 +5029,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5085,7 +5048,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5104,7 +5067,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5123,7 +5086,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5142,7 +5105,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5161,7 +5124,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5180,7 +5143,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5199,7 +5162,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5218,7 +5181,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5237,7 +5200,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5256,7 +5219,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5275,7 +5238,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5294,7 +5257,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5313,7 +5276,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5332,7 +5295,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5351,7 +5314,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5370,7 +5333,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5389,7 +5352,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5408,7 +5371,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5427,7 +5390,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5446,7 +5409,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5465,7 +5428,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5484,7 +5447,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5503,7 +5466,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5522,7 +5485,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5541,7 +5504,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5560,7 +5523,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5579,7 +5542,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5598,7 +5561,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5617,7 +5580,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5636,7 +5599,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5655,7 +5618,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5674,7 +5637,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5693,7 +5656,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5712,7 +5675,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5731,7 +5694,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5750,7 +5713,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5769,7 +5732,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5788,7 +5751,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5807,7 +5770,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5826,7 +5789,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5845,7 +5808,7 @@
         "note": ""
        },
        {
-        "rate_display": "2.33%",
+        "rate_display": "2.3256%",
         "note": ""
        },
        {
@@ -5917,15 +5880,15 @@
       "note": "Only in Ash Heap / Cranberry Bog / The Mire; Level 40+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        }
       ]
@@ -6025,15 +5988,15 @@
       "note": "Only in Ash Heap / Cranberry Bog / Savage Divide / The Mire; Level 30+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        }
       ]
@@ -6120,15 +6083,15 @@
       "note": "Only in Toxic Valley; Level 10+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0063%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0063%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0063%",
         "note": ""
        }
       ]
@@ -6139,15 +6102,15 @@
       "note": "Only in Savage Divide; Level 20+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0039%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0039%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0039%",
         "note": ""
        }
       ]
@@ -6196,15 +6159,15 @@
       "note": "Only in Burning Springs / Forest / Skyline Valley",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        }
       ]
@@ -6462,15 +6425,15 @@
       "note": "Only in Burning Springs / Forest / Skyline Valley",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        }
       ]
@@ -6519,15 +6482,15 @@
       "note": "Only in Savage Divide / Toxic Valley; Level 15+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0089%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0089%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0089%",
         "note": ""
        }
       ]
@@ -6538,15 +6501,15 @@
       "note": "Only in Toxic Valley; Level 10+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0063%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0063%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0063%",
         "note": ""
        }
       ]
@@ -6557,15 +6520,15 @@
       "note": "Only in Savage Divide / Toxic Valley; Level 15+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0089%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0089%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0089%",
         "note": ""
        }
       ]
@@ -6709,15 +6672,15 @@
       "note": "Only in Ash Heap / Cranberry Bog / Savage Divide / The Mire; Level 2+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0072%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0072%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0072%",
         "note": ""
        }
       ]
@@ -6728,15 +6691,15 @@
       "note": "Only in Ash Heap / Cranberry Bog / Savage Divide / The Mire; Level 2+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0072%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0072%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0072%",
         "note": ""
        }
       ]
@@ -6747,15 +6710,15 @@
       "note": "Only in Ash Heap / Cranberry Bog / Savage Divide / The Mire; Level 2+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0072%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0072%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0072%",
         "note": ""
        }
       ]
@@ -6766,15 +6729,15 @@
       "note": "Only in Savage Divide / Toxic Valley; Level 15+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        }
       ]
@@ -6842,15 +6805,15 @@
       "note": "Only in Toxic Valley; Level 10+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0063%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0063%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0063%",
         "note": ""
        }
       ]
@@ -6957,15 +6920,15 @@
       "note": "Only in Ash Heap / Cranberry Bog / The Mire; Level 40+",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0075%",
         "note": ""
        }
       ]
@@ -6995,15 +6958,15 @@
       "note": "Only in Burning Springs / Forest / Skyline Valley",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        }
       ]
@@ -7128,15 +7091,15 @@
       "note": "Only in Ash Heap / Cranberry Bog / Savage Divide / The Mire",
       "cells": [
        {
-        "rate_display": "1.28%",
+        "rate_display": "1.2806%",
         "note": ""
        },
        {
-        "rate_display": "1.28%",
+        "rate_display": "1.2806%",
         "note": ""
        },
        {
-        "rate_display": "1.28%",
+        "rate_display": "1.2806%",
         "note": ""
        }
       ]
@@ -7147,15 +7110,15 @@
       "note": "Only in Ash Heap / Cranberry Bog / Savage Divide / The Mire",
       "cells": [
        {
-        "rate_display": "1.28%",
+        "rate_display": "1.2806%",
         "note": ""
        },
        {
-        "rate_display": "1.28%",
+        "rate_display": "1.2806%",
         "note": ""
        },
        {
-        "rate_display": "1.28%",
+        "rate_display": "1.2806%",
         "note": ""
        }
       ]
@@ -7375,15 +7338,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0049%",
         "note": "Level 50+"
        },
        {
-        "rate_display": "10.08%",
+        "rate_display": "10.081%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0049%",
         "note": "Level 50+"
        }
       ]
@@ -7508,15 +7471,15 @@
       "note": "Only in Burning Springs / Forest / Skyline Valley",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        }
       ]
@@ -7546,15 +7509,15 @@
       "note": "Only in Burning Springs / Forest / Skyline Valley",
       "cells": [
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        },
        {
-        "rate_display": "<0.01%",
+        "rate_display": "0.0042%",
         "note": ""
        }
       ]
@@ -7585,15 +7548,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        }
       ]
@@ -7604,15 +7567,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        }
       ]
@@ -7623,15 +7586,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        }
       ]
@@ -7642,15 +7605,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        }
       ]
@@ -7661,15 +7624,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        }
       ]
@@ -7680,15 +7643,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        }
       ]
@@ -7699,15 +7662,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        }
       ]
@@ -7718,15 +7681,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        }
       ]
@@ -7737,15 +7700,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "87.59%",
+        "rate_display": "87.5882%",
         "note": ""
        },
        {
-        "rate_display": "87.59%",
+        "rate_display": "87.5882%",
         "note": ""
        },
        {
-        "rate_display": "87.59%",
+        "rate_display": "87.5882%",
         "note": ""
        }
       ]
@@ -7756,15 +7719,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        }
       ]
@@ -7775,15 +7738,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        }
       ]
@@ -7794,15 +7757,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        }
       ]
@@ -7813,15 +7776,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        }
       ]
@@ -7832,15 +7795,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        }
       ]
@@ -7851,15 +7814,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        }
       ]
@@ -7870,15 +7833,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        }
       ]
@@ -7889,15 +7852,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        }
       ]
@@ -7908,15 +7871,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        }
       ]
@@ -7927,15 +7890,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "12.12%",
+        "rate_display": "12.1173%",
         "note": ""
        },
        {
-        "rate_display": "12.12%",
+        "rate_display": "12.1173%",
         "note": ""
        },
        {
-        "rate_display": "12.12%",
+        "rate_display": "12.1173%",
         "note": ""
        }
       ]
@@ -7946,15 +7909,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        }
       ]
@@ -7965,15 +7928,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        }
       ]
@@ -7984,15 +7947,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "26.4%",
+        "rate_display": "26.4001%",
         "note": ""
        },
        {
-        "rate_display": "26.4%",
+        "rate_display": "26.4001%",
         "note": ""
        },
        {
-        "rate_display": "26.4%",
+        "rate_display": "26.4001%",
         "note": ""
        }
       ]
@@ -8003,15 +7966,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "64.45%",
+        "rate_display": "64.4508%",
         "note": ""
        },
        {
-        "rate_display": "64.45%",
+        "rate_display": "64.4508%",
         "note": ""
        },
        {
-        "rate_display": "64.45%",
+        "rate_display": "64.4508%",
         "note": ""
        }
       ]
@@ -8022,15 +7985,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        }
       ]
@@ -8041,15 +8004,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "12.12%",
+        "rate_display": "12.1173%",
         "note": ""
        },
        {
-        "rate_display": "12.12%",
+        "rate_display": "12.1173%",
         "note": ""
        },
        {
-        "rate_display": "12.12%",
+        "rate_display": "12.1173%",
         "note": ""
        }
       ]
@@ -8060,15 +8023,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        }
       ]
@@ -8079,15 +8042,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        }
       ]
@@ -8098,15 +8061,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        }
       ]
@@ -8117,15 +8080,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        }
       ]
@@ -8136,15 +8099,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        }
       ]
@@ -8155,15 +8118,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        }
       ]
@@ -8174,15 +8137,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        }
       ]
@@ -8193,15 +8156,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        }
       ]
@@ -8212,15 +8175,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        }
       ]
@@ -8231,15 +8194,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        }
       ]
@@ -8250,15 +8213,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        }
       ]
@@ -8269,15 +8232,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        }
       ]
@@ -8288,15 +8251,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        }
       ]
@@ -8307,15 +8270,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        }
       ]
@@ -8326,15 +8289,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "12.12%",
+        "rate_display": "12.1173%",
         "note": ""
        },
        {
-        "rate_display": "12.12%",
+        "rate_display": "12.1173%",
         "note": ""
        },
        {
-        "rate_display": "12.12%",
+        "rate_display": "12.1173%",
         "note": ""
        }
       ]
@@ -8345,15 +8308,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        }
       ]
@@ -8364,15 +8327,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "12.12%",
+        "rate_display": "12.1173%",
         "note": ""
        },
        {
-        "rate_display": "12.12%",
+        "rate_display": "12.1173%",
         "note": ""
        },
        {
-        "rate_display": "12.12%",
+        "rate_display": "12.1173%",
         "note": ""
        }
       ]
@@ -8383,15 +8346,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        }
       ]
@@ -8402,15 +8365,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        },
        {
-        "rate_display": "95.49%",
+        "rate_display": "95.4927%",
         "note": ""
        }
       ]
@@ -8428,15 +8391,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        }
       ]
@@ -8447,15 +8410,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        }
       ]
@@ -8466,15 +8429,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        }
       ]
@@ -8485,15 +8448,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        }
       ]
@@ -8504,15 +8467,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        }
       ]
@@ -8523,15 +8486,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "2.43%",
+        "rate_display": "2.4286%",
         "note": ""
        },
        {
-        "rate_display": "2.43%",
+        "rate_display": "2.4286%",
         "note": ""
        },
        {
-        "rate_display": "2.43%",
+        "rate_display": "2.4286%",
         "note": ""
        }
       ]
@@ -8542,15 +8505,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "2.43%",
+        "rate_display": "2.4286%",
         "note": ""
        },
        {
-        "rate_display": "2.43%",
+        "rate_display": "2.4286%",
         "note": ""
        },
        {
-        "rate_display": "2.43%",
+        "rate_display": "2.4286%",
         "note": ""
        }
       ]
@@ -8561,15 +8524,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "2.43%",
+        "rate_display": "2.4286%",
         "note": ""
        },
        {
-        "rate_display": "2.43%",
+        "rate_display": "2.4286%",
         "note": ""
        },
        {
-        "rate_display": "2.43%",
+        "rate_display": "2.4286%",
         "note": ""
        }
       ]
@@ -8580,15 +8543,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "2.43%",
+        "rate_display": "2.4286%",
         "note": ""
        },
        {
-        "rate_display": "2.43%",
+        "rate_display": "2.4286%",
         "note": ""
        },
        {
-        "rate_display": "2.43%",
+        "rate_display": "2.4286%",
         "note": ""
        }
       ]
@@ -8599,15 +8562,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "2.43%",
+        "rate_display": "2.4286%",
         "note": ""
        },
        {
-        "rate_display": "2.43%",
+        "rate_display": "2.4286%",
         "note": ""
        },
        {
-        "rate_display": "2.43%",
+        "rate_display": "2.4286%",
         "note": ""
        }
       ]
@@ -8618,15 +8581,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        }
       ]
@@ -8637,15 +8600,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        }
       ]
@@ -8656,15 +8619,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        }
       ]
@@ -8675,15 +8638,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        }
       ]
@@ -8694,15 +8657,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        }
       ]
@@ -8713,15 +8676,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        }
       ]
@@ -8732,15 +8695,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        }
       ]
@@ -8751,15 +8714,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        }
       ]
@@ -8770,15 +8733,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        }
       ]
@@ -8789,15 +8752,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        }
       ]
@@ -8808,15 +8771,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        }
       ]
@@ -8827,15 +8790,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        }
       ]
@@ -8846,15 +8809,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        }
       ]
@@ -8865,15 +8828,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        }
       ]
@@ -8884,15 +8847,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        }
       ]
@@ -8903,15 +8866,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        }
       ]
@@ -8922,15 +8885,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        }
       ]
@@ -8941,15 +8904,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        }
       ]
@@ -8960,15 +8923,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        }
       ]
@@ -8979,15 +8942,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        }
       ]
@@ -8998,15 +8961,15 @@
       "note": "Level 20+",
       "cells": [
        {
-        "rate_display": "1.39%",
+        "rate_display": "1.3889%",
         "note": ""
        },
        {
-        "rate_display": "1.39%",
+        "rate_display": "1.3889%",
         "note": ""
        },
        {
-        "rate_display": "1.39%",
+        "rate_display": "1.3889%",
         "note": ""
        }
       ]
@@ -9017,15 +8980,15 @@
       "note": "Level 20+",
       "cells": [
        {
-        "rate_display": "1.39%",
+        "rate_display": "1.3889%",
         "note": ""
        },
        {
-        "rate_display": "1.39%",
+        "rate_display": "1.3889%",
         "note": ""
        },
        {
-        "rate_display": "1.39%",
+        "rate_display": "1.3889%",
         "note": ""
        }
       ]
@@ -9036,15 +8999,15 @@
       "note": "Level 20+",
       "cells": [
        {
-        "rate_display": "1.39%",
+        "rate_display": "1.3889%",
         "note": ""
        },
        {
-        "rate_display": "1.39%",
+        "rate_display": "1.3889%",
         "note": ""
        },
        {
-        "rate_display": "1.39%",
+        "rate_display": "1.3889%",
         "note": ""
        }
       ]
@@ -9055,15 +9018,15 @@
       "note": "Level 20+",
       "cells": [
        {
-        "rate_display": "1.39%",
+        "rate_display": "1.3889%",
         "note": ""
        },
        {
-        "rate_display": "1.39%",
+        "rate_display": "1.3889%",
         "note": ""
        },
        {
-        "rate_display": "1.39%",
+        "rate_display": "1.3889%",
         "note": ""
        }
       ]
@@ -9074,15 +9037,15 @@
       "note": "Level 20+",
       "cells": [
        {
-        "rate_display": "1.39%",
+        "rate_display": "1.3889%",
         "note": ""
        },
        {
-        "rate_display": "1.39%",
+        "rate_display": "1.3889%",
         "note": ""
        },
        {
-        "rate_display": "1.39%",
+        "rate_display": "1.3889%",
         "note": ""
        }
       ]
@@ -9093,15 +9056,15 @@
       "note": "Level 20+",
       "cells": [
        {
-        "rate_display": "1.39%",
+        "rate_display": "1.3889%",
         "note": ""
        },
        {
-        "rate_display": "1.39%",
+        "rate_display": "1.3889%",
         "note": ""
        },
        {
-        "rate_display": "1.39%",
+        "rate_display": "1.3889%",
         "note": ""
        }
       ]
@@ -9340,15 +9303,15 @@
       "note": "Level 15+",
       "cells": [
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        }
       ]
@@ -9359,15 +9322,15 @@
       "note": "Level 15+",
       "cells": [
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        }
       ]
@@ -9378,15 +9341,15 @@
       "note": "Level 15+",
       "cells": [
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        }
       ]
@@ -9397,15 +9360,15 @@
       "note": "Level 15+",
       "cells": [
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        }
       ]
@@ -9416,15 +9379,15 @@
       "note": "Level 15+",
       "cells": [
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        },
        {
-        "rate_display": "1.93%",
+        "rate_display": "1.9286%",
         "note": ""
        }
       ]
@@ -9556,15 +9519,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "43.46%",
+        "rate_display": "43.4571%",
         "note": ""
        },
        {
-        "rate_display": "43.46%",
+        "rate_display": "43.4571%",
         "note": ""
        },
        {
-        "rate_display": "43.46%",
+        "rate_display": "43.4571%",
         "note": ""
        }
       ]
@@ -9773,15 +9736,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "1.19%",
+        "rate_display": "1.1875%",
         "note": ""
        },
        {
-        "rate_display": "1.19%",
+        "rate_display": "1.1875%",
         "note": ""
        },
        {
-        "rate_display": "1.19%",
+        "rate_display": "1.1875%",
         "note": ""
        }
       ]
@@ -10236,15 +10199,15 @@
       "note": "Level 5+",
       "cells": [
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        }
       ]
@@ -10255,15 +10218,15 @@
       "note": "Level 25+",
       "cells": [
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        }
       ]
@@ -10274,15 +10237,15 @@
       "note": "Level 5+",
       "cells": [
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        }
       ]
@@ -10293,15 +10256,15 @@
       "note": "Level 10+",
       "cells": [
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        }
       ]
@@ -10312,15 +10275,15 @@
       "note": "Level 30+",
       "cells": [
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        }
       ]
@@ -10331,15 +10294,15 @@
       "note": "Level 40+",
       "cells": [
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        }
       ]
@@ -10350,15 +10313,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "4.37%",
+        "rate_display": "4.3714%",
         "note": ""
        },
        {
-        "rate_display": "4.37%",
+        "rate_display": "4.3714%",
         "note": ""
        },
        {
-        "rate_display": "4.37%",
+        "rate_display": "4.3714%",
         "note": ""
        }
       ]
@@ -10426,15 +10389,15 @@
       "note": "Level 25+",
       "cells": [
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        }
       ]
@@ -10445,15 +10408,15 @@
       "note": "Level 20+",
       "cells": [
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        }
       ]
@@ -10464,15 +10427,15 @@
       "note": "Level 20+",
       "cells": [
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        }
       ]
@@ -10483,15 +10446,15 @@
       "note": "Level 15+",
       "cells": [
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        }
       ]
@@ -10521,15 +10484,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "8.74%",
+        "rate_display": "8.7429%",
         "note": ""
        },
        {
-        "rate_display": "8.74%",
+        "rate_display": "8.7429%",
         "note": ""
        },
        {
-        "rate_display": "8.74%",
+        "rate_display": "8.7429%",
         "note": ""
        }
       ]
@@ -10540,15 +10503,15 @@
       "note": "Level 25+",
       "cells": [
        {
-        "rate_display": "1.38%",
+        "rate_display": "1.381%",
         "note": ""
        },
        {
-        "rate_display": "1.38%",
+        "rate_display": "1.381%",
         "note": ""
        },
        {
-        "rate_display": "1.38%",
+        "rate_display": "1.381%",
         "note": ""
        }
       ]
@@ -10559,15 +10522,15 @@
       "note": "Level 15+",
       "cells": [
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        }
       ]
@@ -10578,15 +10541,15 @@
       "note": "Level 25+",
       "cells": [
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        }
       ]
@@ -10597,15 +10560,15 @@
       "note": "Level 30+",
       "cells": [
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        }
       ]
@@ -10635,15 +10598,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "4.37%",
+        "rate_display": "4.3714%",
         "note": ""
        },
        {
-        "rate_display": "4.37%",
+        "rate_display": "4.3714%",
         "note": ""
        },
        {
-        "rate_display": "4.37%",
+        "rate_display": "4.3714%",
         "note": ""
        }
       ]
@@ -10654,15 +10617,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "4.37%",
+        "rate_display": "4.3714%",
         "note": ""
        },
        {
-        "rate_display": "4.37%",
+        "rate_display": "4.3714%",
         "note": ""
        },
        {
-        "rate_display": "4.37%",
+        "rate_display": "4.3714%",
         "note": ""
        }
       ]
@@ -10673,15 +10636,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "4.37%",
+        "rate_display": "4.3714%",
         "note": ""
        },
        {
-        "rate_display": "4.37%",
+        "rate_display": "4.3714%",
         "note": ""
        },
        {
-        "rate_display": "4.37%",
+        "rate_display": "4.3714%",
         "note": ""
        }
       ]
@@ -10692,15 +10655,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "13.11%",
+        "rate_display": "13.1143%",
         "note": ""
        },
        {
-        "rate_display": "13.11%",
+        "rate_display": "13.1143%",
         "note": ""
        },
        {
-        "rate_display": "13.11%",
+        "rate_display": "13.1143%",
         "note": ""
        }
       ]
@@ -10730,15 +10693,15 @@
       "note": "Level 20+",
       "cells": [
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        }
       ]
@@ -10749,15 +10712,15 @@
       "note": "Level 20+",
       "cells": [
        {
-        "rate_display": "1.38%",
+        "rate_display": "1.381%",
         "note": ""
        },
        {
-        "rate_display": "1.38%",
+        "rate_display": "1.381%",
         "note": ""
        },
        {
-        "rate_display": "1.38%",
+        "rate_display": "1.381%",
         "note": ""
        }
       ]
@@ -10768,15 +10731,15 @@
       "note": "Level 25+",
       "cells": [
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        }
       ]
@@ -10787,15 +10750,15 @@
       "note": "Level 30+",
       "cells": [
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        }
       ]
@@ -10806,15 +10769,15 @@
       "note": "Level 35+",
       "cells": [
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        }
       ]
@@ -10825,15 +10788,15 @@
       "note": "Level 15+",
       "cells": [
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        }
       ]
@@ -10844,15 +10807,15 @@
       "note": "Level 30+",
       "cells": [
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        }
       ]
@@ -10863,15 +10826,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        }
       ]
@@ -10882,15 +10845,15 @@
       "note": "Level 5+",
       "cells": [
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        }
       ]
@@ -10901,15 +10864,15 @@
       "note": "Level 25+",
       "cells": [
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        }
       ]
@@ -10920,15 +10883,15 @@
       "note": "Level 30+",
       "cells": [
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        }
       ]
@@ -10939,15 +10902,15 @@
       "note": "Level 15+",
       "cells": [
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        }
       ]
@@ -10958,15 +10921,15 @@
       "note": "Level 35+",
       "cells": [
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        }
       ]
@@ -10977,15 +10940,15 @@
       "note": "Level 20+",
       "cells": [
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        }
       ]
@@ -10996,15 +10959,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "4.37%",
+        "rate_display": "4.3714%",
         "note": ""
        },
        {
-        "rate_display": "4.37%",
+        "rate_display": "4.3714%",
         "note": ""
        },
        {
-        "rate_display": "4.37%",
+        "rate_display": "4.3714%",
         "note": ""
        }
       ]
@@ -11072,15 +11035,15 @@
       "note": "Level 15+",
       "cells": [
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        }
       ]
@@ -11091,15 +11054,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "8.74%",
+        "rate_display": "8.7429%",
         "note": ""
        },
        {
-        "rate_display": "8.74%",
+        "rate_display": "8.7429%",
         "note": ""
        },
        {
-        "rate_display": "8.74%",
+        "rate_display": "8.7429%",
         "note": ""
        }
       ]
@@ -11129,15 +11092,15 @@
       "note": "",
       "cells": [
        {
-        "rate_display": "8.74%",
+        "rate_display": "8.7429%",
         "note": ""
        },
        {
-        "rate_display": "8.74%",
+        "rate_display": "8.7429%",
         "note": ""
        },
        {
-        "rate_display": "8.74%",
+        "rate_display": "8.7429%",
         "note": ""
        }
       ]
@@ -11167,15 +11130,15 @@
       "note": "Level 5+",
       "cells": [
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        }
       ]
@@ -11186,15 +11149,15 @@
       "note": "Level 40+",
       "cells": [
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        }
       ]
@@ -11205,15 +11168,15 @@
       "note": "Level 30+",
       "cells": [
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        }
       ]
@@ -11224,15 +11187,15 @@
       "note": "Level 25+",
       "cells": [
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        }
       ]
@@ -11243,15 +11206,15 @@
       "note": "Level 10+",
       "cells": [
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        }
       ]
@@ -11262,15 +11225,15 @@
       "note": "Level 15+",
       "cells": [
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        }
       ]
@@ -11281,15 +11244,15 @@
       "note": "Level 10+",
       "cells": [
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        }
       ]
@@ -11300,15 +11263,15 @@
       "note": "Level 40+",
       "cells": [
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        }
       ]
@@ -11408,15 +11371,15 @@
       "note": "Level 20+",
       "cells": [
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        },
        {
-        "rate_display": "1.33%",
+        "rate_display": "1.3315%",
         "note": ""
        }
       ]
@@ -11433,19 +11396,19 @@
     {
      "creature": "Scorchbeast Queen",
      "item": "Scorchbeast Bones",
-     "rate_display": "55.56%",
+     "rate_display": "55.5556%",
      "note": ""
     },
     {
      "creature": "Scorchbeast",
      "item": "Scorchbeast Bones",
-     "rate_display": "33.33%",
+     "rate_display": "33.3333%",
      "note": ""
     },
     {
      "creature": "Uninvited Scorchbeast",
      "item": "Scorchbeast Bones",
-     "rate_display": "33.33%",
+     "rate_display": "33.3333%",
      "note": ""
     },
     {
@@ -11487,19 +11450,19 @@
     {
      "creature": "Scorchbeast Queen",
      "item": "Scorchbeast Hide",
-     "rate_display": "55.56%",
+     "rate_display": "55.5556%",
      "note": ""
     },
     {
      "creature": "Scorchbeast",
      "item": "Scorchbeast Hide",
-     "rate_display": "33.33%",
+     "rate_display": "33.3333%",
      "note": ""
     },
     {
      "creature": "Uninvited Scorchbeast",
      "item": "Scorchbeast Hide",
-     "rate_display": "33.33%",
+     "rate_display": "33.3333%",
      "note": ""
     },
     {
@@ -11559,19 +11522,19 @@
     {
      "creature": "Scorchbeast Queen",
      "item": "Scorchbeast Wing Fragment",
-     "rate_display": "55.56%",
+     "rate_display": "55.5556%",
      "note": ""
     },
     {
      "creature": "Scorchbeast",
      "item": "Scorchbeast Wing Fragment",
-     "rate_display": "33.33%",
+     "rate_display": "33.3333%",
      "note": ""
     },
     {
      "creature": "Uninvited Scorchbeast",
      "item": "Scorchbeast Wing Fragment",
-     "rate_display": "33.33%",
+     "rate_display": "33.3333%",
      "note": ""
     }
    ],
@@ -11651,7 +11614,7 @@
         "cells": [
          null,
          {
-          "rate_display": "11.11%",
+          "rate_display": "11.1111%",
           "note": ""
          },
          null
@@ -11664,7 +11627,7 @@
         "cells": [
          null,
          {
-          "rate_display": "1.54%",
+          "rate_display": "1.5385%",
           "note": ""
          },
          null
@@ -11677,7 +11640,7 @@
         "cells": [
          null,
          {
-          "rate_display": "1.54%",
+          "rate_display": "1.5385%",
           "note": ""
          },
          null
@@ -11690,7 +11653,7 @@
         "cells": [
          null,
          {
-          "rate_display": "11.11%",
+          "rate_display": "11.1111%",
           "note": ""
          },
          null
@@ -11703,7 +11666,7 @@
         "cells": [
          null,
          {
-          "rate_display": "1.54%",
+          "rate_display": "1.5385%",
           "note": ""
          },
          null
@@ -11716,7 +11679,7 @@
         "cells": [
          null,
          {
-          "rate_display": "11.11%",
+          "rate_display": "11.1111%",
           "note": ""
          },
          null
@@ -11729,7 +11692,7 @@
         "cells": [
          null,
          {
-          "rate_display": "1.54%",
+          "rate_display": "1.5385%",
           "note": ""
          },
          null
@@ -11742,7 +11705,7 @@
         "cells": [
          null,
          {
-          "rate_display": "11.11%",
+          "rate_display": "11.1111%",
           "note": ""
          },
          null
@@ -11755,7 +11718,7 @@
         "cells": [
          null,
          {
-          "rate_display": "1.54%",
+          "rate_display": "1.5385%",
           "note": ""
          },
          null
@@ -11768,7 +11731,7 @@
         "cells": [
          null,
          {
-          "rate_display": "1.54%",
+          "rate_display": "1.5385%",
           "note": ""
          },
          null
@@ -11781,7 +11744,7 @@
         "cells": [
          null,
          {
-          "rate_display": "11.11%",
+          "rate_display": "11.1111%",
           "note": ""
          },
          null
@@ -11794,7 +11757,7 @@
         "cells": [
          null,
          {
-          "rate_display": "1.54%",
+          "rate_display": "1.5385%",
           "note": ""
          },
          null
@@ -11807,7 +11770,7 @@
         "cells": [
          null,
          {
-          "rate_display": "1.54%",
+          "rate_display": "1.5385%",
           "note": ""
          },
          null
@@ -11820,7 +11783,7 @@
         "cells": [
          null,
          {
-          "rate_display": "1.54%",
+          "rate_display": "1.5385%",
           "note": ""
          },
          null
@@ -11833,7 +11796,7 @@
         "cells": [
          null,
          {
-          "rate_display": "11.11%",
+          "rate_display": "11.1111%",
           "note": ""
          },
          null
@@ -11846,7 +11809,7 @@
         "cells": [
          null,
          {
-          "rate_display": "1.54%",
+          "rate_display": "1.5385%",
           "note": ""
          },
          null
@@ -11858,12 +11821,12 @@
         "note": "",
         "cells": [
          {
-          "rate_display": "33.33%",
+          "rate_display": "33.3333%",
           "note": ""
          },
          null,
          {
-          "rate_display": "22.97%",
+          "rate_display": "22.9745%",
           "note": ""
          }
         ]
@@ -11906,12 +11869,12 @@
         "note": "",
         "cells": [
          {
-          "rate_display": "33.33%",
+          "rate_display": "33.3333%",
           "note": ""
          },
          null,
          {
-          "rate_display": "22.97%",
+          "rate_display": "22.9745%",
           "note": ""
          }
         ]
@@ -11970,12 +11933,12 @@
         "note": "",
         "cells": [
          {
-          "rate_display": "33.33%",
+          "rate_display": "33.3333%",
           "note": ""
          },
          null,
          {
-          "rate_display": "22.97%",
+          "rate_display": "22.9745%",
           "note": ""
          }
         ]
@@ -11987,7 +11950,7 @@
         "cells": [
          null,
          {
-          "rate_display": "1.54%",
+          "rate_display": "1.5385%",
           "note": ""
          },
          null
@@ -12000,7 +11963,7 @@
         "cells": [
          null,
          {
-          "rate_display": "1.54%",
+          "rate_display": "1.5385%",
           "note": ""
          },
          null
@@ -12013,7 +11976,7 @@
         "cells": [
          null,
          {
-          "rate_display": "1.54%",
+          "rate_display": "1.5385%",
           "note": ""
          },
          null
@@ -12033,7 +11996,7 @@
         "cells": [
          null,
          {
-          "rate_display": "5.88%",
+          "rate_display": "5.8824%",
           "note": ""
          },
          null
@@ -12046,7 +12009,7 @@
         "cells": [
          null,
          {
-          "rate_display": "5.88%",
+          "rate_display": "5.8824%",
           "note": ""
          },
          null
@@ -12059,7 +12022,7 @@
         "cells": [
          null,
          {
-          "rate_display": "5.88%",
+          "rate_display": "5.8824%",
           "note": ""
          },
          null
@@ -12072,7 +12035,7 @@
         "cells": [
          null,
          {
-          "rate_display": "5.88%",
+          "rate_display": "5.8824%",
           "note": ""
          },
          null
@@ -12085,7 +12048,7 @@
         "cells": [
          null,
          {
-          "rate_display": "5.88%",
+          "rate_display": "5.8824%",
           "note": ""
          },
          null
@@ -12098,7 +12061,7 @@
         "cells": [
          null,
          {
-          "rate_display": "17.65%",
+          "rate_display": "17.6471%",
           "note": ""
          },
          null
@@ -12111,11 +12074,11 @@
         "cells": [
          null,
          {
-          "rate_display": "4.85%",
+          "rate_display": "4.8533%",
           "note": ""
          },
          {
-          "rate_display": "11.53%",
+          "rate_display": "11.5264%",
           "note": ""
          }
         ]
@@ -12127,11 +12090,11 @@
         "cells": [
          null,
          {
-          "rate_display": "4.85%",
+          "rate_display": "4.8533%",
           "note": ""
          },
          {
-          "rate_display": "11.53%",
+          "rate_display": "11.5264%",
           "note": ""
          }
         ]
@@ -12143,11 +12106,11 @@
         "cells": [
          null,
          {
-          "rate_display": "4.85%",
+          "rate_display": "4.8533%",
           "note": ""
          },
          {
-          "rate_display": "11.53%",
+          "rate_display": "11.5264%",
           "note": ""
          }
         ]
@@ -12159,7 +12122,7 @@
         "cells": [
          null,
          {
-          "rate_display": "5.88%",
+          "rate_display": "5.8824%",
           "note": ""
          },
          null
@@ -12172,7 +12135,7 @@
         "cells": [
          null,
          {
-          "rate_display": "5.88%",
+          "rate_display": "5.8824%",
           "note": ""
          },
          null
@@ -12185,7 +12148,7 @@
         "cells": [
          null,
          {
-          "rate_display": "5.88%",
+          "rate_display": "5.8824%",
           "note": ""
          },
          null
@@ -12198,11 +12161,11 @@
         "cells": [
          null,
          {
-          "rate_display": "4.85%",
+          "rate_display": "4.8533%",
           "note": ""
          },
          {
-          "rate_display": "11.53%",
+          "rate_display": "11.5264%",
           "note": ""
          }
         ]
@@ -12214,7 +12177,7 @@
         "cells": [
          null,
          {
-          "rate_display": "33.33%",
+          "rate_display": "33.3333%",
           "note": ""
          },
          null
@@ -12227,7 +12190,7 @@
         "cells": [
          null,
          {
-          "rate_display": "5.88%",
+          "rate_display": "5.8824%",
           "note": ""
          },
          null
@@ -12240,7 +12203,7 @@
         "cells": [
          null,
          {
-          "rate_display": "5.88%",
+          "rate_display": "5.8824%",
           "note": ""
          },
          null
@@ -12253,11 +12216,11 @@
         "cells": [
          null,
          {
-          "rate_display": "4.85%",
+          "rate_display": "4.8533%",
           "note": ""
          },
          {
-          "rate_display": "11.53%",
+          "rate_display": "11.5264%",
           "note": ""
          }
         ]
@@ -12269,7 +12232,7 @@
         "cells": [
          null,
          {
-          "rate_display": "5.88%",
+          "rate_display": "5.8824%",
           "note": ""
          },
          null
@@ -12282,11 +12245,11 @@
         "cells": [
          null,
          {
-          "rate_display": "4.85%",
+          "rate_display": "4.8533%",
           "note": ""
          },
          {
-          "rate_display": "11.53%",
+          "rate_display": "11.5264%",
           "note": ""
          }
         ]
@@ -12298,11 +12261,11 @@
         "cells": [
          null,
          {
-          "rate_display": "4.85%",
+          "rate_display": "4.8533%",
           "note": ""
          },
          {
-          "rate_display": "11.53%",
+          "rate_display": "11.5264%",
           "note": ""
          }
         ]
@@ -12314,11 +12277,11 @@
         "cells": [
          null,
          {
-          "rate_display": "4.85%",
+          "rate_display": "4.8533%",
           "note": ""
          },
          {
-          "rate_display": "11.53%",
+          "rate_display": "11.5264%",
           "note": ""
          }
         ]
@@ -12330,11 +12293,11 @@
         "cells": [
          null,
          {
-          "rate_display": "4.85%",
+          "rate_display": "4.8533%",
           "note": ""
          },
          {
-          "rate_display": "11.53%",
+          "rate_display": "11.5264%",
           "note": ""
          }
         ]
@@ -12346,11 +12309,11 @@
         "cells": [
          null,
          {
-          "rate_display": "4.85%",
+          "rate_display": "4.8533%",
           "note": ""
          },
          {
-          "rate_display": "11.53%",
+          "rate_display": "11.5264%",
           "note": ""
          }
         ]
@@ -12362,7 +12325,7 @@
         "cells": [
          null,
          {
-          "rate_display": "11.11%",
+          "rate_display": "11.1111%",
           "note": ""
          },
          null
@@ -12375,11 +12338,11 @@
         "cells": [
          null,
          {
-          "rate_display": "4.85%",
+          "rate_display": "4.8533%",
           "note": ""
          },
          {
-          "rate_display": "11.53%",
+          "rate_display": "11.5264%",
           "note": ""
          }
         ]
@@ -12391,11 +12354,11 @@
         "cells": [
          null,
          {
-          "rate_display": "4.85%",
+          "rate_display": "4.8533%",
           "note": ""
          },
          {
-          "rate_display": "11.53%",
+          "rate_display": "11.5264%",
           "note": ""
          }
         ]
@@ -12407,11 +12370,11 @@
         "cells": [
          null,
          {
-          "rate_display": "4.85%",
+          "rate_display": "4.8533%",
           "note": ""
          },
          {
-          "rate_display": "11.53%",
+          "rate_display": "11.5264%",
           "note": ""
          }
         ]
@@ -12423,11 +12386,11 @@
         "cells": [
          null,
          {
-          "rate_display": "4.85%",
+          "rate_display": "4.8533%",
           "note": ""
          },
          {
-          "rate_display": "11.53%",
+          "rate_display": "11.5264%",
           "note": ""
          }
         ]
@@ -12439,11 +12402,11 @@
         "cells": [
          null,
          {
-          "rate_display": "4.85%",
+          "rate_display": "4.8533%",
           "note": ""
          },
          {
-          "rate_display": "11.53%",
+          "rate_display": "11.5264%",
           "note": ""
          }
         ]
@@ -12455,11 +12418,11 @@
         "cells": [
          null,
          {
-          "rate_display": "4.85%",
+          "rate_display": "4.8533%",
           "note": ""
          },
          {
-          "rate_display": "11.53%",
+          "rate_display": "11.5264%",
           "note": ""
          }
         ]
@@ -12471,11 +12434,11 @@
         "cells": [
          null,
          {
-          "rate_display": "4.85%",
+          "rate_display": "4.8533%",
           "note": ""
          },
          {
-          "rate_display": "11.53%",
+          "rate_display": "11.5264%",
           "note": ""
          }
         ]
@@ -12487,7 +12450,7 @@
         "cells": [
          null,
          {
-          "rate_display": "33.33%",
+          "rate_display": "33.3333%",
           "note": ""
          },
          null
@@ -12500,7 +12463,7 @@
         "cells": [
          null,
          {
-          "rate_display": "33.33%",
+          "rate_display": "33.3333%",
           "note": ""
          },
          null
@@ -12513,11 +12476,11 @@
         "cells": [
          null,
          {
-          "rate_display": "4.85%",
+          "rate_display": "4.8533%",
           "note": ""
          },
          {
-          "rate_display": "11.53%",
+          "rate_display": "11.5264%",
           "note": ""
          }
         ]
@@ -12529,11 +12492,11 @@
         "cells": [
          null,
          {
-          "rate_display": "4.85%",
+          "rate_display": "4.8533%",
           "note": ""
          },
          {
-          "rate_display": "11.53%",
+          "rate_display": "11.5264%",
           "note": ""
          }
         ]
@@ -12545,11 +12508,11 @@
         "cells": [
          null,
          {
-          "rate_display": "4.85%",
+          "rate_display": "4.8533%",
           "note": ""
          },
          {
-          "rate_display": "11.53%",
+          "rate_display": "11.5264%",
           "note": ""
          }
         ]
@@ -12561,11 +12524,11 @@
         "cells": [
          null,
          {
-          "rate_display": "4.85%",
+          "rate_display": "4.8533%",
           "note": ""
          },
          {
-          "rate_display": "11.53%",
+          "rate_display": "11.5264%",
           "note": ""
          }
         ]
@@ -12577,11 +12540,11 @@
         "cells": [
          null,
          {
-          "rate_display": "4.85%",
+          "rate_display": "4.8533%",
           "note": ""
          },
          {
-          "rate_display": "11.53%",
+          "rate_display": "11.5264%",
           "note": ""
          }
         ]
@@ -12593,11 +12556,11 @@
         "cells": [
          null,
          {
-          "rate_display": "4.85%",
+          "rate_display": "4.8533%",
           "note": ""
          },
          {
-          "rate_display": "11.53%",
+          "rate_display": "11.5264%",
           "note": ""
          }
         ]
@@ -12609,11 +12572,11 @@
         "cells": [
          null,
          {
-          "rate_display": "4.85%",
+          "rate_display": "4.8533%",
           "note": ""
          },
          {
-          "rate_display": "11.53%",
+          "rate_display": "11.5264%",
           "note": ""
          }
         ]
@@ -12625,7 +12588,7 @@
         "cells": [
          null,
          {
-          "rate_display": "5.88%",
+          "rate_display": "5.8824%",
           "note": ""
          },
          null
@@ -12638,7 +12601,7 @@
         "cells": [
          null,
          {
-          "rate_display": "5.88%",
+          "rate_display": "5.8824%",
           "note": ""
          },
          null
@@ -12651,11 +12614,11 @@
         "cells": [
          null,
          {
-          "rate_display": "4.85%",
+          "rate_display": "4.8533%",
           "note": ""
          },
          {
-          "rate_display": "11.53%",
+          "rate_display": "11.5264%",
           "note": ""
          }
         ]
@@ -12667,7 +12630,7 @@
         "cells": [
          null,
          {
-          "rate_display": "5.88%",
+          "rate_display": "5.8824%",
           "note": ""
          },
          null
@@ -12687,7 +12650,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -12700,7 +12663,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -12713,7 +12676,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -12726,7 +12689,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -12739,7 +12702,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -12752,7 +12715,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -12765,7 +12728,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -12778,7 +12741,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -12791,7 +12754,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -12804,7 +12767,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -12817,7 +12780,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -12830,7 +12793,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -12843,7 +12806,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -12856,7 +12819,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -12869,7 +12832,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -12882,7 +12845,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -12895,7 +12858,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -12908,7 +12871,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -12921,7 +12884,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -12934,7 +12897,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -12947,7 +12910,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -12960,7 +12923,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -12973,7 +12936,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -12986,7 +12949,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -12999,7 +12962,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -13012,7 +12975,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -13025,7 +12988,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -13038,7 +13001,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -13051,7 +13014,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -13064,7 +13027,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -13077,7 +13040,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -13090,7 +13053,7 @@
         "cells": [
          null,
          {
-          "rate_display": "4.76%",
+          "rate_display": "4.7619%",
           "note": ""
          },
          null
@@ -13103,7 +13066,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -13116,7 +13079,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -13129,7 +13092,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -13142,7 +13105,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -13155,7 +13118,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -13168,7 +13131,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -13181,7 +13144,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -13194,7 +13157,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -13207,7 +13170,7 @@
         "cells": [
          null,
          {
-          "rate_display": "2.38%",
+          "rate_display": "2.381%",
           "note": ""
          },
          null
@@ -13216,6 +13179,16 @@
       ],
       "sub": true
      }
+    ],
+    "own_ids": [
+     "002DB87A",
+     "002DB87B",
+     "002DB87C",
+     "002DB87D",
+     "002DB87E",
+     "0035E6CF",
+     "0035E6D0",
+     "0035E6D1"
     ]
    }
   }
@@ -13343,6 +13316,12 @@
  "used_for": {
   "consumption": {
    "object_type": "Food",
+   "keywords": [
+    "Food",
+    "Raw",
+    "Meat",
+    "Can spoil"
+   ],
    "weight": 2.0,
    "value": 27,
    "addiction": null,
@@ -14129,8 +14108,8 @@
      "directions": "",
      "image_bottom": "",
      "refs": [
-      "3A7462",
-      "3A57DB"
+      "3A57DB",
+      "3A7462"
      ],
      "coords": [
       152581.0,
@@ -14222,8 +14201,8 @@
       "43A919"
      ],
      "coords": [
-      -8321.4,
-      4948.3
+      -8440.0,
+      5128.0
      ],
      "breakdown": [
       {
@@ -14431,9 +14410,9 @@
      "directions": "",
      "image_bottom": "",
      "refs": [
-      "3A5911",
       "3A070A",
-      "3A581E"
+      "3A581E",
+      "3A5911"
      ],
      "coords": [
       153526.6,

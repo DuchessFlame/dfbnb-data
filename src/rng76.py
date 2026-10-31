@@ -42,6 +42,29 @@ Per-entry curve tables (25 Oct 2026):
   was read through its armour entry's Container_Item3_ChanceNone curve and
   came out "always nothing". With an older export (no column) the old
   borrowing is used exactly as before. Details: resolve_chance_none().
+
+Weighted pick lists, LVLF bit 9 (31 Oct 2026) -- CHANGED WITH DUCHESS'S PERMISSION:
+  rng76.py is normally not to be changed without asking Duchess. She gave
+  explicit permission on 31 Oct 2026 for THIS change only, on condition that
+  the existing rules keep working exactly as before for every other list.
+  Why: a handful of lists set LVLF bit 9 (position 9 in LVLF_Flags, e.g.
+  "0000000001") and put pick WEIGHTS in the entry ChanceNone slot instead of
+  chances of nothing. Sir Loin collectron (ATX_Resources_Collectron_SirLoin,
+  008CD162): 650 / 300 / 50; Abandoned Nest (ATX_Resources_AbandonedNest_
+  resource, 008F84FA): 240 x4 + 40 -- both add up to exactly 1,000. Read as
+  ChanceNone they gave NEGATIVE cn_factors (-5.5, -2.0) and the common tiers
+  could never drop. 10 lists had the flag in the Oct 2026 export (Sir Loin,
+  Abandoned Nest, HTO legendary reward lists, weekend seasonal fish, SDOW
+  skull junk). Every other tiered collectron uses Use All + ChanceNone
+  GLOBs and is untouched.
+  Rule: ONLY for a pick-one list (bit 9 set, Use All and First Match NOT set),
+  each entry's resolved ChanceNone value is its pick WEIGHT and its own
+  cn_factor is 1.0 (the list's own ChanceNone still applies). Pick-one then
+  does weight / sum(weights) as usual. Lists without bit 9 never reach this
+  branch, so their rates are byte-for-byte what they were (checked: every
+  list's resolve_simple() before vs after; only bit-9 lists and the lists
+  above them moved). See _entry_pick_and_cn() and parse_lvlf_flags().
+  Backup of the file before this change: 1 site-data/Claude outputs/rng76-bit9-backup-20261031/rng76.py.before-bit9
 """
 
 from __future__ import annotations
@@ -632,7 +655,8 @@ class LvliIndex:
         row = self.list_by_formid.get(formid)
         if not row:
             return {"use_all": False, "for_each": False,
-                    "level_filter": False, "first_match": False}
+                    "level_filter": False, "first_match": False,
+                    "weighted": False}
         return parse_lvlf_flags(pick(row, "LVLF_Flags", default=""))
 
     def list_conditions_for(self, formid: str) -> List[str]:
@@ -720,16 +744,19 @@ def parse_lvlf_flags(flags_str: str) -> Dict[str, bool]:
       position 1 = Calculate for each item in count (For Each)
       position 2 = Use All
       position 6 = First Match
+      position 9 = Weighted pick (31 Oct 2026, with Duchess's permission):
+                   the entry ChanceNone values are pick WEIGHTS, see the
+                   module docstring and _entry_pick_and_cn().
 
     Examples: "001" → Use All, "11" → Level Filter + For Each,
-              "0000001" → First Match
+              "0000001" → First Match, "0000000001" → Weighted pick
 
-    Returns: ``{use_all, for_each, level_filter, first_match}``
+    Returns: ``{use_all, for_each, level_filter, first_match, weighted}``
     """
     flags_str = (flags_str or "").strip()
     if not flags_str:
         return {"use_all": False, "for_each": False,
-                "level_filter": False, "first_match": False}
+                "level_filter": False, "first_match": False, "weighted": False}
 
     def bit_set(pos):
         return pos < len(flags_str) and flags_str[pos] == '1'
@@ -739,6 +766,7 @@ def parse_lvlf_flags(flags_str: str) -> Dict[str, bool]:
         "for_each":     bit_set(1),
         "use_all":      bit_set(2),
         "first_match":  bit_set(6),
+        "weighted":     bit_set(9),
     }
 
 
@@ -965,7 +993,21 @@ class Rng76Resolver:
         ``pick_weight × cn_factor``.
         For a pick-one (non-Use-All) entry it is
         ``(pick_weight / Σpick_weights) × cn_factor``.
+
+        Weighted pick lists (LVLF bit 9, pick-one only; added 31 Oct 2026
+        with Duchess's permission): the entry's resolved ChanceNone value is
+        its pick WEIGHT and its own cn_factor is 1.0. Only the list-level
+        ChanceNone still applies. Every other list skips this branch and is
+        computed exactly as before.
         """
+        flags = self.lvli.flags_for(list_id)
+        if (flags.get("weighted") and not flags.get("use_all")
+                and not flags.get("first_match")):
+            weight = self.resolve_chance_none(math, "Entry")
+            weight = max(0.0, float(weight or 0.0))
+            list_cn = self.resolve_chance_none(math, "List")
+            return (weight, 1.0 - list_cn / 100.0)
+
         _ecn_glob = (math.get("EntryChanceNoneGlobal") or "")
         _is_minlvl = "MinLvl" in _ecn_glob
 

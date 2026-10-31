@@ -548,6 +548,45 @@ def _effect_fields(name: str, magnitude: Optional[float],
             "scales": True, "zeroed": False, "sign": True}
 
 
+# Item keywords for the Technical card's "Keywords" tile (Oct 2026). Bethesda's
+# own type keywords on the ALCH, in plain words: ObjectTypeFood -> Food,
+# MealTypeRaw -> Raw, IngredientTypeMeat -> Meat. Only these families are shown;
+# perk/vendor/UI flags (UnsellableObject, BlockSuperDuperPerk, *Icon ...) are not
+# item types. A few EDIDs read badly when split, so they get a fixed name.
+_KW_PREFIXES = ("ObjectType", "MealType", "IngredientType", "DrinkType",
+                "ChemType", "PlantType", "FoodType")
+_KW_NAMES = {
+    "ObjectTypeCanSpoilDUPLICATE000": "Can spoil",
+    "ObjectTypeCanSpoil": "Can spoil",
+    "ObjectTypeNonPerishable": "Non-perishable",
+    "IngredientTypeIrradiated_New": "Irradiated",
+    "IngredientTypeDiseaseRidden_New": "Disease-ridden",
+    "MealTypeCanned_Cannery": "Canned",
+    "ObjectTypeCakesPies": "Cakes & pies",
+    "ObjectTypeNukaCola": "Nuka-Cola",
+}
+_KW_SKIP_RE = re.compile(r"(Icon|RSVP|DUPLICATE\d+$|Delbert)", re.I)
+
+
+def keyword_labels(kw_flat: str) -> List[str]:
+    """Plain-word item-type keywords from an ALCH Keywords_Flat cell, in order,
+    no repeats."""
+    out: List[str] = []
+    for edid in re.findall(r"[A-Za-z][A-Za-z0-9_]+", kw_flat or ""):
+        if edid in _KW_NAMES:
+            lab = _KW_NAMES[edid]
+        elif edid.startswith(_KW_PREFIXES) and not _KW_SKIP_RE.search(edid):
+            core = next(edid[len(p):] for p in _KW_PREFIXES if edid.startswith(p))
+            core = re.sub(r"_New$", "", core).replace("_", " ")
+            lab = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", core).strip()
+            lab = lab[:1].upper() + lab[1:].lower() if lab else ""
+        else:
+            continue
+        if lab and lab not in out:
+            out.append(lab)
+    return out
+
+
 def build_consumption(formid: str, data_dir: str, item_name: str = "This item") -> Optional[Dict[str, Any]]:
     formid = (formid or "").upper()
     main_path = _resolve_alch(data_dir, effects=False)
@@ -557,9 +596,11 @@ def build_consumption(formid: str, data_dir: str, item_name: str = "This item") 
 
     obj_type, weight, value, addiction = None, None, None, None
     carnivore = herbivore = False
+    keywords: List[str] = []
     for r in _read_tsv(main_path):
         if (r.get("ALCH_FormID") or "").strip().upper() == formid:
             kw = (r.get("Keywords_Flat") or "")
+            keywords = keyword_labels(kw)
             if "ObjectTypeDrink" in kw:
                 obj_type = "Drink"
             elif "ObjectTypeFood" in kw:
@@ -621,6 +662,7 @@ def build_consumption(formid: str, data_dir: str, item_name: str = "This item") 
         note = f"Consuming {item_name} applies the effects below."
     return {
         "object_type": obj_type,
+        "keywords": keywords,
         "weight": weight,
         "value": value,
         "addiction": addiction,

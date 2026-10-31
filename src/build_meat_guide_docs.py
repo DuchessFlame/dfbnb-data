@@ -478,6 +478,10 @@ def build_one(meat_path, ctx):
     if loot:
         if not isinstance(doc["drop_rates"].get("containers"), dict):
             doc["drop_rates"]["containers"] = {"types": []}
+        # The page's own items (its meat + the parts it owns). The Containers
+        # expand lists only these per container (Duchess, 31 Oct 2026: someone
+        # farming Scorchbeast meat doesn't care about the Radstag meat in a pile).
+        loot["own_ids"] = sorted(own)
         doc["drop_rates"]["containers"]["loot"] = loot
     if tips is not None:
         doc["farming_tips"] = tips

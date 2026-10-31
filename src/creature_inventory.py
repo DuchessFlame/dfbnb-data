@@ -30,6 +30,7 @@ Cell notes come from the leveled-list path to the item:
   * a GetInCurrentLocation region test -> "Only in {Region}" (when every path to
     the item has one)
 """
+import rate_format
 import csv
 import collections
 import json
@@ -89,18 +90,13 @@ def _cols(path, wanted):
 
 
 def pct(rate):
+    """Display a 0-1 rate. Uses rate_format.fmt_rate, the one formatter for the
+    whole site (up to 4 decimals, trailing zeros trimmed, <0.0001% floor).
+    Duchess, 31 Oct 2026: this file had its own 2-decimal / 4-decimal / <0.01%
+    rules, so one Inventory table mixed 0.63% with 0.0378%."""
     if rate is None:
         return ""
-    v = rate * 100
-    if v <= 0:
-        return "0%"
-    if v >= 1:
-        s = f"{v:.2f}".rstrip("0").rstrip(".")
-    elif v >= 0.01:
-        s = f"{v:.4f}".rstrip("0").rstrip(".")
-    else:
-        return "<0.01%"
-    return s + "%"
+    return rate_format.fmt_rate(rate)
 
 
 class Ctx:
