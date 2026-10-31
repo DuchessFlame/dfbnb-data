@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "generated": "2026-10-30T23:56:24Z",
-  "channel": "pts",
+  "generated": "2026-10-30T23:41:40Z",
+  "channel": "live",
   "count": 133,
   "counts": {
     "weapon": 120,
@@ -11423,7 +11423,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "+5% Damage per Lockpick Skill (the game files say: no numbers)",
+      "inherentEffect": "+5% Damage per Lockpick Skill; Up to +100% at 20 Lockpicking Skill",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -11444,16 +11444,16 @@
           "edid": "E08B_mod_Custom_Blackpowder_PiratePunch",
           "formId": "0064D004",
           "kind": "unique",
-          "desc": "+5% Damage per Lockpick Skill (the game files say: no numbers)",
+          "desc": "+5% Damage per Lockpick Skill; Up to +100% at 20 Lockpicking Skill",
           "effectCheck": {
-            "status": "mismatch",
+            "status": "confirmed",
             "claimed": [
               "5%"
             ],
-            "notFound": [
-              "5%"
-            ],
-            "files": []
+            "notFound": [],
+            "files": [
+              "Ab Perk Fortify Dmg Pistols Non Auto: curve 0 at 0, 5 at 1, 100 at 20"
+            ]
           }
         },
         {
@@ -14414,7 +14414,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "+3% Weak Spot Damage per Kill while on a Kill Streak (Max 10) (the game files say: Kill Streak +1)",
+      "inherentEffect": "+3% Weak Spot Damage per Kill while on a Kill Streak (Max 10)",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -14435,18 +14435,16 @@
           "edid": "mod_Custom_SoleSurvivor",
           "formId": "00613850",
           "kind": "unique",
-          "desc": "+3% Weak Spot Damage per Kill while on a Kill Streak (Max 10) (the game files say: Kill Streak +1)",
+          "desc": "+3% Weak Spot Damage per Kill while on a Kill Streak (Max 10)",
           "effectCheck": {
-            "status": "mismatch",
+            "status": "confirmed",
             "claimed": [
               "3%",
               "Max 10"
             ],
-            "notFound": [
-              "3%",
-              "Max 10"
-            ],
+            "notFound": [],
             "files": [
+              "Fortify Weak Spot Damage: curve 0 at 0, 3 at 1, 30 at 10",
               "Kill Streak +1"
             ]
           }
@@ -15423,7 +15421,7 @@
               "min range set to 64",
               "max range set to 256",
               "HIDE Weapon cr Tempest Add Bleed Effect 1",
-              "Tempest Apply Bleed Effect: curve 33 at 1, 36 at 7, 38 at 13, 41 at 19, 44 at 25, 47 at 31, 50 at 37, 54 at 43, 58 at 49, 62 at 55, 66 at 61, 71 at 67, 76 at 73, 82 at 79, 87 at 85, 94 at 91, 100 at 97, 107 at 103, 115 at 109, 123 at 115, 132 at 121, 141 at 127, 151 at 133, 162 at 139, 173 at 145, 186 at 151, 199 at 157, 213 at 163, 228 at 169, 244 at 175, 262 at 181, 280 at 187, 300 at 193, 322 at 199, 344 at 205, 369 at 211, 395 at 217, 423 at 223, 453 at 229, 485 at 235, 520 at 241, 556 at 247, 596 at 253, 638 at 259, 684 at 265, 732 at 271, 784 at 277, 840 at 283, 899 at 289, 963 at 295",
+              "Tempest Apply Bleed Effect: curve 33 at 1, 38 at 12, 43 at 23, 49 at 34, 55 at 45, 63 at 56, 71 at 67, 81 at 78, 91 at 89, 104 at 100, 118 at 111, 133 at 122, 151 at 133, 172 at 144, 194 at 155, 221 at 166, 250 at 177, 284 at 188, 322 at 199, 365 at 210, 413 at 221, 469 at 232, 532 at 243, 603 at 254, 684 at 265, 775 at 276, 879 at 287, 997 at 298, 1131 at 309, 1282 at 320, 1454 at 331, 1649 at 342, 1870 at 353, 2121 at 364, 2406 at 375, 2728 at 386, 3094 at 397, 3510 at 408, 3981 at 419, 4515 at 430, 5121 at 441, 5808 at 452, 6588 at 463, 7472 at 474, 8475 at 485, 9612 at 496, 10903 at 507, 12366 at 518, 14027 at 529, 15910 at 540",
               "Tempest Apply Bleed Effect +21 for 5 seconds"
             ]
           }
@@ -15820,7 +15818,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "+2% Limb Damage per STR (the game files say: no numbers)",
+      "inherentEffect": "+2% Limb Damage per STR; Up to +200% at 100 STR",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -15841,16 +15839,16 @@
           "edid": "E08B_mod_Custom_TheDebilitator",
           "formId": "0066275A",
           "kind": "unique",
-          "desc": "+2% Limb Damage per STR (the game files say: no numbers)",
+          "desc": "+2% Limb Damage per STR; Up to +200% at 100 STR",
           "effectCheck": {
-            "status": "mismatch",
+            "status": "confirmed",
             "claimed": [
               "2%"
             ],
-            "notFound": [
-              "2%"
-            ],
-            "files": []
+            "notFound": [],
+            "files": [
+              "ab The Debilitator: curve 0 at 0, 2 at 1, 200 at 100"
+            ]
           }
         }
       ],
@@ -16392,12 +16390,14 @@
           "edid": "mod_Custom_SuperSledge_TheFarmhand",
           "formId": "005EC26A",
           "kind": "unique",
-          "desc": "Gain Melee Damage per END",
+          "desc": "Gain Melee Damage per END; Scales: +5 at 1 END, +22 at 15 END, +35 at 30 END, +45 at 60 END, +50 at 100 END",
           "effectCheck": {
             "status": "none",
             "claimed": [],
             "notFound": [],
-            "files": []
+            "files": [
+              "ab The Farmhand: curve 5 at 1, 22 at 15, 35 at 30, 45 at 60, 50 at 100"
+            ]
           }
         }
       ],
@@ -17396,12 +17396,14 @@
           "edid": "mod_Custom_ThePeacemaker",
           "formId": "006828DB",
           "kind": "unique",
-          "desc": "Gain Explosive Damage per CHA",
+          "desc": "Gain Explosive Damage per CHA; Scales: +5 at 1 CHA, +22 at 15 CHA, +35 at 30 CHA, +45 at 60 CHA, +50 at 100 CHA",
           "effectCheck": {
             "status": "none",
             "claimed": [],
             "notFound": [],
-            "files": []
+            "files": [
+              "ab The Peacemaker: curve 5 at 1, 22 at 15, 35 at 30, 45 at 60, 50 at 100"
+            ]
           }
         },
         {
@@ -17717,12 +17719,14 @@
           "edid": "mod_Custom_TheQuickFix",
           "formId": "008F0DCF",
           "kind": "unique",
-          "desc": "Swing Speed Increases per Addiction",
+          "desc": "Swing Speed Increases per Addiction up to +50%; Up to +50% at 10 Addictions",
           "effectCheck": {
             "status": "none",
             "claimed": [],
             "notFound": [],
-            "files": []
+            "files": [
+              "Ab Qucik Fix Description: curve 0 at 0, 0.05 at 1, 0.5 at 10"
+            ]
           }
         },
         {
@@ -19700,7 +19704,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "+2% Spin Up Speed per Bullet Storm Stack (the game files say: no numbers)",
+      "inherentEffect": "+2% Spin Up Speed per Bullet Storm Stack",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -19721,16 +19725,16 @@
           "edid": "RD01_Mod_Custom_Valkyrie_CustomName",
           "formId": "0079342E",
           "kind": "unique",
-          "desc": "+2% Spin Up Speed per Bullet Storm Stack (the game files say: no numbers)",
+          "desc": "+2% Spin Up Speed per Bullet Storm Stack",
           "effectCheck": {
-            "status": "mismatch",
+            "status": "confirmed",
             "claimed": [
               "2%"
             ],
-            "notFound": [
-              "2%"
-            ],
-            "files": []
+            "notFound": [],
+            "files": [
+              "Fortify Weapon Charge Up Speed: curve 0 at 0, 0.02 at 1, 0.6 at 30"
+            ]
           }
         },
         {
@@ -20541,7 +20545,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "+5% Power Attack Damage per Onslaught Stack (the game files say: no numbers)",
+      "inherentEffect": "+5% Power Attack Damage per Onslaught Stack; Up to +500% at 100 Consecutive Hits",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -20562,16 +20566,16 @@
           "edid": "E09B_mod_Custom_WhackerSmacker",
           "formId": "0068311F",
           "kind": "unique",
-          "desc": "+5% Power Attack Damage per Onslaught Stack (the game files say: no numbers)",
+          "desc": "+5% Power Attack Damage per Onslaught Stack; Up to +500% at 100 Consecutive Hits",
           "effectCheck": {
-            "status": "mismatch",
+            "status": "confirmed",
             "claimed": [
               "5%"
             ],
-            "notFound": [
-              "5%"
-            ],
-            "files": []
+            "notFound": [],
+            "files": [
+              "Ab Fortify Power Attack: curve 0 at 0, 5 at 1, 500 at 100"
+            ]
           }
         }
       ],
