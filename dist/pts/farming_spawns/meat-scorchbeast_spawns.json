@@ -10,57 +10,102 @@
  "blurb": "The Scorchbeast in Fallout 76 — drops Scorchbeast Brain, Scorchbeast Heart, Scorchbeast Liver, Scorchbeast Lung, Scorchbeast Meat, 12 NPC variants, 41 known spawn points.",
  "map_base": "/wp-content/uploads/guide-images/farming-meat/scorchbeast/",
  "map_ext": ".jpg",
+ "maps_expand": true,
  "full_map": "/wp-content/uploads/guide-images/farming-meat/scorchbeast/scorchbeast.jpg",
- "intro_note": "Fissure Sites will spawn one Scorchbeast every 18 minutes. If you run the fissure site route below, then the first fissure site will be ready to spawn another Scorchbeast by the time you have cleared the last location.",
- "map_regions": [
-  "Cranberry Bog",
-  "Forest",
-  "Savage Divide",
-  "The Mire",
-  "Toxic Valley"
- ],
- "gallery": [
-  {
-   "url": "/wp-content/uploads/guide-images/farming-meat/scorchbeast/scorchbeast-guide-banner.avif",
-   "caption": "Scorchbeast",
-   "credit": "Image credit: Katie Key"
-  },
-  {
-   "url": "/wp-content/uploads/guide-images/farming-meat/scorchbeast/scorchbeast-nest-loot.avif",
-   "caption": "Scorchbeast Nest",
-   "credit": "Image credit: DuchessFlame"
-  },
-  {
-   "url": "/wp-content/uploads/guide-images/farming-meat/scorchbeast/event-line-in-the-sand-map.avif",
-   "caption": "Event: Line in the Sand",
-   "credit": "Image credit: DuchessFlame"
-  },
-  {
-   "url": "/wp-content/uploads/guide-images/farming-meat/scorchbeast/event-its-a-trap-map.avif",
-   "caption": "Event: It's a Trap",
-   "credit": "Image credit: DuchessFlame"
-  },
-  {
-   "url": "/wp-content/uploads/guide-images/farming-meat/scorchbeast/event-surface-to-air-map.avif",
-   "caption": "Event: Surface to Air",
-   "credit": "Image credit: DuchessFlame"
-  },
-  {
-   "url": "/wp-content/uploads/guide-images/farming-meat/scorchbeast/event-scorched-earth-map.avif",
-   "caption": "Event: Scorched Earth",
-   "credit": "Image credit: DuchessFlame"
-  },
-  {
-   "url": "/wp-content/uploads/guide-images/farming-meat/scorchbeast/heart-of-the-enemy-map.avif",
-   "caption": "Daily: Heart of the Enemy",
-   "credit": "Image credit: DuchessFlame"
-  },
-  {
-   "url": "/wp-content/uploads/guide-images/farming-meat/scorchbeast/cranberry-bog-glassed-cavern-cell-map.jpg",
-   "caption": "Glassed Cavern",
-   "credit": "Image credit: DuchessFlame"
-  }
- ],
+ "intro_note": "Fissure Sites will spawn one Scorchbeast every 10 minutes. If you run the fissure site route below, then the first fissure site will be ready to spawn another Scorchbeast by the time you have cleared the last location.",
+ "workshop_attacks": {
+  "event": "Defend your workshop (Scorchbeast attack)",
+  "chance": "10%",
+  "lead": "When one of your claimed workshops is attacked, there is a 10% chance it is a Scorchbeast attack instead of a normal one. The workshop must be level 30 or higher. How many Scorchbeasts come depends on the workshop's level, and a workshop's level stays inside its region's level range.",
+  "count_by_level": [
+   {
+    "levels": "30–49",
+    "count": "1 Scorchbeast"
+   },
+   {
+    "levels": "50–74",
+    "count": "2 Scorchbeasts"
+   },
+   {
+    "levels": "75+",
+    "count": "3 Scorchbeasts"
+   }
+  ],
+  "regions": [
+   {
+    "region": "Ash Heap",
+    "levels": "25–50",
+    "result": "Yes, at level 30+ — 1 Scorchbeast (2 at level 50)",
+    "workshops": [
+     "Beckley Mine Exhibit",
+     "Mount Blair"
+    ]
+   },
+   {
+    "region": "Burning Springs",
+    "levels": "—",
+    "result": "No",
+    "workshops": [
+     "Starlight Drive-in"
+    ]
+   },
+   {
+    "region": "Cranberry Bog",
+    "levels": "35–99",
+    "result": "Yes — 1 to 3 Scorchbeasts",
+    "workshops": [
+     "Abandoned Bog Town"
+    ]
+   },
+   {
+    "region": "The Forest",
+    "levels": "1–10",
+    "result": "No",
+    "workshops": [
+     "Billings Homestead",
+     "Charleston Landfill",
+     "Gorge Junkyard",
+     "Lakeside Cabins",
+     "Poseidon Energy Plant Yard",
+     "Sunshine Meadows Industrial Farm",
+     "Sutton",
+     "Tyler County Dirt Track",
+     "Wade Airport"
+    ]
+   },
+   {
+    "region": "The Mire",
+    "levels": "30–99",
+    "result": "Yes — 1 to 3 Scorchbeasts",
+    "workshops": [
+     "Berkeley Springs",
+     "Dabney Homestead",
+     "Dolly Sods Campground",
+     "Thunder Mt. Power Plant Yard"
+    ]
+   },
+   {
+    "region": "Savage Divide",
+    "levels": "15–99",
+    "result": "Yes, at level 30+ — 1 to 3 Scorchbeasts",
+    "workshops": [
+     "Converted Munitions Factory",
+     "Federal Disposal Field HZ-21",
+     "Monongah Power Plant Yard",
+     "Red Rocket Mega Stop"
+    ]
+   },
+   {
+    "region": "Toxic Valley",
+    "levels": "10–25",
+    "result": "No — workshops here never reach level 30",
+    "workshops": [
+     "Grafton Steel Yard",
+     "Hemlock Holes Maintenance"
+    ]
+   }
+  ]
+ },
  "inventory": {
   "columns": [
    "Scorchbeast",
@@ -14084,8 +14129,8 @@
      "directions": "",
      "image_bottom": "",
      "refs": [
-      "3A57DB",
-      "3A7462"
+      "3A7462",
+      "3A57DB"
      ],
      "coords": [
       152581.0,
@@ -14127,17 +14172,14 @@
     },
     {
      "marker": "Fissure Site Prime",
-     "count": 4,
+     "count": 1,
      "sources": {
-      "ambush": 4
+      "queen": 1
      },
      "image_top": "/wp-content/uploads/guide-images/farming-meat/scorchbeast/fissure-site-prime-map.avif",
      "directions": "Fissure Site Prime",
      "image_bottom": "",
      "refs": [
-      "38EBBA",
-      "38EBBB",
-      "3D0E7B",
       "3D0E7C"
      ],
      "coords": [
@@ -14146,52 +14188,16 @@
      ],
      "breakdown": [
       {
-       "label": "Scorchbeast",
-       "count": 4,
+       "label": "Scorchbeast Queen",
+       "count": 1,
        "source_type": "placement"
       }
      ],
      "spawns": [
       {
-       "label": "Scorchbeast #1",
-       "ref": "38EBBA",
-       "source_type": "ambush",
-       "coords": [
-        195162.0,
-        -168842.3
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "Scorchbeast #2",
-       "ref": "38EBBB",
-       "source_type": "ambush",
-       "coords": [
-        197470.1,
-        -163334.7
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "Scorchbeast #3",
-       "ref": "3D0E7B",
-       "source_type": "ambush",
-       "coords": [
-        193382.2,
-        -166299.0
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "Scorchbeast #4",
+       "label": "Scorchbeast Queen",
        "ref": "3D0E7C",
-       "source_type": "ambush",
+       "source_type": "queen",
        "coords": [
         197262.9,
         -165903.3
@@ -14203,200 +14209,9 @@
      ]
     },
     {
-     "marker": "Appalachian Antiques",
-     "count": 1,
-     "sources": {
-      "ambush": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "3C37CB"
-     ],
-     "coords": [
-      115112.0,
-      -119316.8
-     ],
-     "breakdown": [
-      {
-       "label": "Scorchbeast",
-       "count": 1,
-       "source_type": "placement"
-      }
-     ],
-     "spawns": [
-      {
-       "label": "Scorchbeast",
-       "ref": "3C37CB",
-       "source_type": "ambush",
-       "coords": [
-        115112.0,
-        -119316.8
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Creekside Sundew Grove",
-     "count": 1,
-     "sources": {
-      "ambush": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "3C37F8"
-     ],
-     "coords": [
-      158076.9,
-      -82876.6
-     ],
-     "breakdown": [
-      {
-       "label": "Scorchbeast",
-       "count": 1,
-       "source_type": "placement"
-      }
-     ],
-     "spawns": [
-      {
-       "label": "Scorchbeast",
-       "ref": "3C37F8",
-       "source_type": "ambush",
-       "coords": [
-        158076.9,
-        -82876.6
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Drop Site V9",
-     "count": 1,
-     "sources": {
-      "ambush": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "3C3089"
-     ],
-     "coords": [
-      198012.0,
-      -148874.1
-     ],
-     "breakdown": [
-      {
-       "label": "Scorchbeast",
-       "count": 1,
-       "source_type": "placement"
-      }
-     ],
-     "spawns": [
-      {
-       "label": "Scorchbeast",
-       "ref": "3C3089",
-       "source_type": "ambush",
-       "coords": [
-        198012.0,
-        -148874.1
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Firebase LT",
-     "count": 1,
-     "sources": {
-      "ambush": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "3C37FA"
-     ],
-     "coords": [
-      169461.3,
-      -61445.5
-     ],
-     "breakdown": [
-      {
-       "label": "Scorchbeast",
-       "count": 1,
-       "source_type": "placement"
-      }
-     ],
-     "spawns": [
-      {
-       "label": "Scorchbeast",
-       "ref": "3C37FA",
-       "source_type": "ambush",
-       "coords": [
-        169461.3,
-        -61445.5
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Forward Station Delta",
-     "count": 1,
-     "sources": {
-      "ambush": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "3C3086"
-     ],
-     "coords": [
-      196439.8,
-      -172220.5
-     ],
-     "breakdown": [
-      {
-       "label": "Scorchbeast",
-       "count": 1,
-       "source_type": "placement"
-      }
-     ],
-     "spawns": [
-      {
-       "label": "Scorchbeast",
-       "ref": "3C3086",
-       "source_type": "ambush",
-       "coords": [
-        196439.8,
-        -172220.5
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
      "marker": "Glassed Cavern",
-     "count": 3,
+     "count": 2,
      "sources": {
-      "ambush": 1,
       "placement": 2
      },
      "image_top": "",
@@ -14404,35 +14219,22 @@
      "image_bottom": "",
      "refs": [
       "3534DE",
-      "43A919",
-      "491473"
+      "43A919"
      ],
      "coords": [
-      -8440.0,
-      5128.0
+      -8321.4,
+      4948.3
      ],
      "breakdown": [
       {
        "label": "Scorchbeast",
-       "count": 3,
+       "count": 2,
        "source_type": "placement"
       }
      ],
      "spawns": [
       {
        "label": "Scorchbeast #1",
-       "ref": "491473",
-       "source_type": "ambush",
-       "coords": [
-        -8440.0,
-        5128.0
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "Scorchbeast #2",
        "ref": "3534DE",
        "source_type": "placement",
        "coords": [
@@ -14444,354 +14246,12 @@
        "image_bottom": ""
       },
       {
-       "label": "Scorchbeast #3",
+       "label": "Scorchbeast #2",
        "ref": "43A919",
        "source_type": "placement",
        "coords": [
         201657.8,
         -161232.8
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Mac's Farm",
-     "count": 1,
-     "sources": {
-      "ambush": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "3C3E44"
-     ],
-     "coords": [
-      178549.0,
-      -73663.6
-     ],
-     "breakdown": [
-      {
-       "label": "Scorchbeast",
-       "count": 1,
-       "source_type": "placement"
-      }
-     ],
-     "spawns": [
-      {
-       "label": "Scorchbeast",
-       "ref": "3C3E44",
-       "source_type": "ambush",
-       "coords": [
-        178549.0,
-        -73663.6
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "NAR Repair Yard",
-     "count": 1,
-     "sources": {
-      "ambush": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "3C3073"
-     ],
-     "coords": [
-      133426.7,
-      -156596.8
-     ],
-     "breakdown": [
-      {
-       "label": "Scorchbeast",
-       "count": 1,
-       "source_type": "placement"
-      }
-     ],
-     "spawns": [
-      {
-       "label": "Scorchbeast",
-       "ref": "3C3073",
-       "source_type": "ambush",
-       "coords": [
-        133426.7,
-        -156596.8
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Overgrown Sundew Grove",
-     "count": 1,
-     "sources": {
-      "ambush": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "3C3084"
-     ],
-     "coords": [
-      171815.0,
-      -173968.9
-     ],
-     "breakdown": [
-      {
-       "label": "Scorchbeast",
-       "count": 1,
-       "source_type": "placement"
-      }
-     ],
-     "spawns": [
-      {
-       "label": "Scorchbeast",
-       "ref": "3C3084",
-       "source_type": "ambush",
-       "coords": [
-        171815.0,
-        -173968.9
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Pylon V-13",
-     "count": 1,
-     "sources": {
-      "ambush": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "3C3E42"
-     ],
-     "coords": [
-      194043.9,
-      -85019.4
-     ],
-     "breakdown": [
-      {
-       "label": "Scorchbeast",
-       "count": 1,
-       "source_type": "placement"
-      }
-     ],
-     "spawns": [
-      {
-       "label": "Scorchbeast",
-       "ref": "3C3E42",
-       "source_type": "ambush",
-       "coords": [
-        194043.9,
-        -85019.4
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Quarry X3",
-     "count": 1,
-     "sources": {
-      "ambush": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "3C37C9"
-     ],
-     "coords": [
-      165674.0,
-      -105796.5
-     ],
-     "breakdown": [
-      {
-       "label": "Scorchbeast",
-       "count": 1,
-       "source_type": "placement"
-      }
-     ],
-     "spawns": [
-      {
-       "label": "Scorchbeast",
-       "ref": "3C37C9",
-       "source_type": "ambush",
-       "coords": [
-        165674.0,
-        -105796.5
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Sacramental Glade",
-     "count": 1,
-     "sources": {
-      "ambush": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "3C37C7"
-     ],
-     "coords": [
-      182581.1,
-      -125147.4
-     ],
-     "breakdown": [
-      {
-       "label": "Scorchbeast",
-       "count": 1,
-       "source_type": "placement"
-      }
-     ],
-     "spawns": [
-      {
-       "label": "Scorchbeast",
-       "ref": "3C37C7",
-       "source_type": "ambush",
-       "coords": [
-        182581.1,
-        -125147.4
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Sparse Sundew Grove",
-     "count": 1,
-     "sources": {
-      "ambush": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "3C307C"
-     ],
-     "coords": [
-      132897.2,
-      -179396.4
-     ],
-     "breakdown": [
-      {
-       "label": "Scorchbeast",
-       "count": 1,
-       "source_type": "placement"
-      }
-     ],
-     "spawns": [
-      {
-       "label": "Scorchbeast",
-       "ref": "3C307C",
-       "source_type": "ambush",
-       "coords": [
-        132897.2,
-        -179396.4
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Sunrise Field",
-     "count": 1,
-     "sources": {
-      "ambush": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "43918C"
-     ],
-     "coords": [
-      152442.5,
-      -179605.0
-     ],
-     "breakdown": [
-      {
-       "label": "Scorchbeast",
-       "count": 1,
-       "source_type": "placement"
-      }
-     ],
-     "spawns": [
-      {
-       "label": "Scorchbeast",
-       "ref": "43918C",
-       "source_type": "ambush",
-       "coords": [
-        152442.5,
-        -179605.0
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Superior Sunset Farm",
-     "count": 1,
-     "sources": {
-      "ambush": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "3C37D6"
-     ],
-     "coords": [
-      129436.4,
-      -92047.0
-     ],
-     "breakdown": [
-      {
-       "label": "Scorchbeast",
-       "count": 1,
-       "source_type": "placement"
-      }
-     ],
-     "spawns": [
-      {
-       "label": "Scorchbeast",
-       "ref": "3C37D6",
-       "source_type": "ambush",
-       "coords": [
-        129436.4,
-        -92047.0
        ],
        "image_top": "",
        "directions": "",
@@ -14971,9 +14431,9 @@
      "directions": "",
      "image_bottom": "",
      "refs": [
+      "3A5911",
       "3A070A",
-      "3A581E",
-      "3A5911"
+      "3A581E"
      ],
      "coords": [
       153526.6,

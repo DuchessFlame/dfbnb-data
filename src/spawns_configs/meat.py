@@ -115,8 +115,14 @@ MEAT = [
      "tokens": ["radturkey", "rad turkey"], "mappalachia": []},
     {"slug": "pheasant", "name": "Pheasant", "lld": r"^LLD_Creature_Pheasant",
      "tokens": ["pheasant"], "mappalachia": []},
+    # Scorchbeast fissures (Oct 2026): only the large fissures at the Fissure Sites
+    # (AmbushSpawn_SpecialScorchBeastFissure02_noGeo) spawn while their site is
+    # active (EN07_Fissure_ActiveFissureKeyword). The small Fissure01NoGeo holes
+    # are just exit points for roaming SQ_ScorchbeastSpawn attacks - dropped.
+    # Fissure03 at Fissure Site Prime is the Queen's.
     {"slug": "scorchbeast", "name": "Scorchbeast", "lld": r"^LLD_Creature_Scorchbeast",
-     "tokens": ["scorchbeast"], "nest_tokens": ["scorchbeast"], "mappalachia": []},
+     "tokens": ["scorchbeast"], "nest_tokens": ["scorchbeast"], "mappalachia": [],
+     "ambush_exclude": ["fissure01nogeo"], "ambush_types": {"fissure03": "queen"}},
     {"slug": "sheepsquatch", "name": "Sheepsquatch", "lld": r"^LLD_Creature_Sheepsquatch",
      "tokens": ["sheepsquatch"], "mappalachia": []},
     {"slug": "squirrel", "name": "Squirrel", "lld": r"^LLD_Creature_RadSquirrel",

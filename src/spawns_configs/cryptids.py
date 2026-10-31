@@ -759,6 +759,9 @@ def resolve_fixed_spawns(pages, npcs_by_page, geo, cur, cache, db_ok):
 
     # 1) ambush markers
     marker_map = sweep_ambush_markers(pages, cur)   # entityFormID -> (edid, slug)
+    # Optional per-page `ambush_types` {editorID token: source_type} gives one kind
+    # of ambush marker its own type (Scorchbeast: the Queen's fissure -> "queen").
+    amb_types = {pg["slug"]: (pg.get("ambush_types") or {}) for pg in pages}
     if marker_map:
         for chunk in _chunks(list(marker_map.keys())):
             q = ("SELECT x, y, instanceFormID, spaceFormID, referenceFormID FROM Position "
@@ -766,7 +769,9 @@ def resolve_fixed_spawns(pages, npcs_by_page, geo, cur, cache, db_ok):
             for x, y, inst, space, ref in cur.execute(q, tuple(chunk)):
                 edid, slug = marker_map[int(ref)]
                 region, marker, _ = geo.resolve(space, x, y)
-                _record(cache, seen, slug, inst, space, ref, x, y, region, marker, "ambush")
+                stype = next((t for tok, t in amb_types.get(slug, {}).items()
+                              if tok in (edid or "").lower()), "ambush")
+                _record(cache, seen, slug, inst, space, ref, x, y, region, marker, stype)
 
     # 1b) nest markers (opt-in via nest_tokens) — a DISTINCT 'nest' source_type,
     # never merged into the creature-spawn count (spawn-guide §9k).
@@ -856,7 +861,8 @@ def label_spawns(regions_out, name):
             for sp in loc.get("spawns") or []:
                 typed[sp.get("source_type", "spawn")].append(sp)
             label_word = {"ambush": f"{name} ambush", "placement": f"{name} spawn",
-                          "spawn": f"{name} spawn", "nest": f"{name} nest"}
+                          "spawn": f"{name} spawn", "nest": f"{name} nest",
+                          "queen": f"{name} Queen"}
             counts = defaultdict(int)
             for sp in loc.get("spawns") or []:
                 st = sp.get("source_type", "spawn")
@@ -896,7 +902,7 @@ def tier_spawns(seen_slug, cache, slug, page_name, promote_unique=False,
         weight = rec.get("weight")
         shared = rec.get("shared", False)
         variant = rec.get("variant") or page_name
-        is_guaranteed = (stype in ("ambush", "nest")) or (
+        is_guaranteed = (stype in ("ambush", "nest", "queen")) or (
             stype == "spawn" and weight is not None and weight >= 0.999 and not shared)
         # `promote_placements` — a DIRECT world placement is a guaranteed spawn.
         #
@@ -954,7 +960,8 @@ def attach_breakdowns(regions_out):
             bd = []
             for st, n in sorted((loc.get("sources") or {}).items()):
                 word = {"ambush": "ambush point", "placement": "static spawn",
-                        "spawn": "spawn point", "nest": "nest"}.get(st, st)
+                        "spawn": "spawn point", "nest": "nest",
+                        "queen": "queen spawn"}.get(st, st)
                 bd.append({"label": word + ("" if n == 1 else "s"), "count": n,
                            "source_type": st})
             if bd:

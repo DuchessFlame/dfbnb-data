@@ -268,6 +268,9 @@ def _spawn_label(sp, creature):
     nest (a looted container, not a live creature)."""
     if (sp.get("source_type") or "") == "nest":
         return f"{creature} Nest"
+    # Queen spawn point (Scorchbeast: the Queen's fissure at Fissure Site Prime).
+    if (sp.get("source_type") or "") == "queen":
+        return f"{creature} Queen"
     return sp.get("variant") or creature
 
 
@@ -414,6 +417,13 @@ def build_one(meat_path, ctx):
     # A note for the top card, written by Duchess (e.g. the fissure-site timing).
     if ex.get("intro_note"):
         doc["intro_note"] = ex["intro_note"]
+    # Maps root expand switch, page by page (guide-maps-expand).
+    if ex.get("maps_expand"):
+        doc["maps_expand"] = True
+    # Workshops root expand: which workshop attacks bring this creature, where,
+    # and how many (data/workshop_attacks.json). No entry = no expand.
+    if ctx.get("workshops", {}).get(slug):
+        doc["workshop_attacks"] = ctx["workshops"][slug]
     # The gallery (art, interior cell maps) still waits for
     # data/meat_spawn_maps_live.txt — a gallery thumb has no check of its own.
     if slug in ctx["maps_live"]:
@@ -535,6 +545,7 @@ def load_ctx():
         "vendors": B._load_vendor_master(DIST),
         "maps_live": _maps_live(),
         "extras": _extras(),
+        "workshops": _workshop_attacks(),
         "quests": _load_quest_names(),
         "inv": CI.Ctx(data),
     }
@@ -543,6 +554,16 @@ def load_ctx():
 def _extras():
     """{slug: {full_map, gallery[]}} from data/meat_guide_extras.json."""
     path = os.path.join(REPO, "data", "meat_guide_extras.json")
+    if not os.path.exists(path):
+        return {}
+    d = json.load(open(path, encoding="utf-8"))
+    return {k: v for k, v in d.items() if not k.startswith("_")}
+
+
+def _workshop_attacks():
+    """{slug: workshop_attacks block} from data/workshop_attacks.json (Workshops
+    root expand). Hand-checked against the game files; sources in its _note."""
+    path = os.path.join(REPO, "data", "workshop_attacks.json")
     if not os.path.exists(path):
         return {}
     d = json.load(open(path, encoding="utf-8"))

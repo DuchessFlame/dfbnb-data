@@ -55,7 +55,7 @@ To render EVERY farming page in one go, use the driver instead:
   python src/render_all_maps.py
 """
 
-import argparse, csv, json, os, re, sqlite3, sys
+import argparse, csv, json, math, os, re, sqlite3, sys
 from collections import defaultdict, OrderedDict
 
 from PIL import Image, ImageDraw, ImageFont
@@ -112,13 +112,16 @@ TYPE_LABELS = {
     "placement": "Fixed spawn",
     "spawn": "Spawn point",
     "ambush": "Ambush",
+    "queen": "Queen spawn",
 }
 TYPE_COLOURS = {
     "direct": (255, 193, 7),            # amber
     "static": (255, 193, 7),
     "static-raw": (255, 193, 7),
     "static-cracked": (255, 138, 30),   # orange
-    "nest": (139, 92, 246),             # violet
+    # White, not violet: violet was hard to see on the map and poor for colour-blind
+    # readers (Duchess, 31 Oct 2026). Nests also get their own shape (TYPE_SHAPES).
+    "nest": (255, 255, 255),            # white
     "harvestable": (255, 193, 7),
     "flora": (76, 217, 100),            # green
     "enlightened-flora": (0, 209, 255), # cyan
@@ -130,16 +133,44 @@ TYPE_COLOURS = {
     "chance": (120, 160, 255),          # pale blue — reads as "maybe", not "go here"
     "placement": (255, 193, 7),         # amber, same as npc — it IS a creature
     "spawn": (255, 138, 30),            # orange — a spawn point, not the creature itself
-    "ambush": (139, 92, 246),           # violet
+    # Orange, not violet: violet is the nest colour, and on the Scorchbeast map
+    # (Oct 2026) ambush spots and nests came out the same colour.
+    "ambush": (255, 138, 30),           # orange
+    "queen": (255, 235, 59),            # bright yellow, star shape
 }
+
+# Shape per source type, so the key never leans on colour alone (colour-blind
+# readers, Duchess 31 Oct 2026). Anything unlisted is a circle.
+TYPE_SHAPES = {
+    "nest": "square",
+    "ambush": "triangle",
+    "queen": "star",
+}
+
+# Per-page legend names, where the general label reads wrong for that creature.
+# Keyed by the render slug. Scorchbeast "ambush" points are AmbushSpawn_Special
+# ScorchBeastFissure* furniture (EN07 large / small fissure ref types): the hole a
+# Scorchbeast climbs out of when SQ_ScorchbeastSpawn fires, not a creature waiting.
+PAGE_TYPE_LABELS = {
+    "scorchbeast": {"ambush": "Fissure Site",
+                    "queen": "Scorchbeast Queen (Fissure Site Prime)"},
+}
+_PAGE = {"slug": ""}   # set by render_set so the legend can use PAGE_TYPE_LABELS
 
 
 def type_label(stype):
+    page = PAGE_TYPE_LABELS.get(_PAGE["slug"], {})
+    if stype in page:
+        return page[stype]
     return TYPE_LABELS.get(stype, (stype or "Spawn").replace("-", " ").capitalize())
 
 
 def type_colour(stype):
     return TYPE_COLOURS.get(stype, DOT_FILL)
+
+
+def type_shape(stype):
+    return TYPE_SHAPES.get(stype, "circle")
 
 LEGEND_PAD = 40
 LEGEND_BG = (24, 24, 24)
@@ -269,10 +300,29 @@ def projector(space):
 
 # ---------------------------------------------------------------- drawing
 
-def draw_dot(d, px, py, fill=DOT_FILL):
+def draw_dot(d, px, py, fill=DOT_FILL, shape="circle"):
     r = DOT_D / 2.0
-    d.ellipse([px - r, py - r, px + r, py + r],
-              fill=fill, outline=DOT_OUTLINE, width=DOT_OUTLINE_W)
+    if shape == "square":
+        r *= 0.9
+        d.rectangle([px - r, py - r, px + r, py + r],
+                    fill=fill, outline=DOT_OUTLINE, width=DOT_OUTLINE_W)
+    elif shape == "triangle":
+        r *= 1.2
+        pts = [(px, py - r), (px + r * 0.95, py + r * 0.7), (px - r * 0.95, py + r * 0.7)]
+        d.polygon(pts, fill=fill, outline=DOT_OUTLINE)
+        d.line(pts + [pts[0]], fill=DOT_OUTLINE, width=DOT_OUTLINE_W, joint="curve")
+    elif shape == "star":
+        r *= 1.5
+        pts = []
+        for i in range(10):
+            a = -math.pi / 2 + i * math.pi / 5
+            rr = r if i % 2 == 0 else r * 0.45
+            pts.append((px + rr * math.cos(a), py + rr * math.sin(a)))
+        d.polygon(pts, fill=fill, outline=DOT_OUTLINE)
+        d.line(pts + [pts[0]], fill=DOT_OUTLINE, width=DOT_OUTLINE_W, joint="curve")
+    else:
+        d.ellipse([px - r, py - r, px + r, py + r],
+                  fill=fill, outline=DOT_OUTLINE, width=DOT_OUTLINE_W)
 
 
 def draw_outlined_text(d, xy, text, font, fill=(255, 255, 255), outline=(0, 0, 0), w=3):
@@ -292,9 +342,10 @@ def draw_legend(img, title, rows):
     f_title = _font(96)
     f_row = _font(72)
 
-    rows = [(r[0], r[1], r[2] if len(r) > 2 else DOT_FILL) for r in rows]
+    rows = [(r[0], r[1], r[2] if len(r) > 2 else DOT_FILL, r[3] if len(r) > 3 else "circle")
+            for r in rows]
     tw = d.textlength(title, font=f_title)
-    rw = max([d.textlength(f"{lbl}  ({cnt})", font=f_row) for lbl, cnt, _ in rows] or [0])
+    rw = max([d.textlength(f"{lbl}  ({cnt})", font=f_row) for lbl, cnt, _, _ in rows] or [0])
     box_w = int(max(tw + 64, rw + 152) + 64)
     box_h = int(96 + 26 + len(rows) * 84 + 24)
 
@@ -305,8 +356,8 @@ def draw_legend(img, title, rows):
     d.text((x0 + 32, y0 + 6), title, font=f_title, fill=(255, 255, 255))
 
     y = y0 + 96 + 26
-    for lbl, cnt, colour in rows:
-        draw_dot(d, x0 + 48, y + 30, fill=colour)
+    for lbl, cnt, colour, shape in rows:
+        draw_dot(d, x0 + 48, y + 30, fill=colour, shape=shape)
         d.text((x0 + 88, y), f"{lbl}  ({cnt})", font=f_row, fill=(230, 230, 230))
         y += 84
     return img
@@ -496,6 +547,29 @@ def apply_base_filter(slug, source, pts):
 
 # ---------------------------------------------------------------- renderers
 
+SPLIT_DIST = 6000.0   # game units; one POI's spawns sit well inside this
+
+
+def _split_far(pts):
+    """Index groups of pts, single-linkage within SPLIT_DIST."""
+    n = len(pts)
+    seen, out = set(), []
+    for i in range(n):
+        if i in seen:
+            continue
+        stack, grp = [i], []
+        seen.add(i)
+        while stack:
+            k = stack.pop()
+            grp.append(k)
+            for j in range(n):
+                if j not in seen and math.hypot(pts[k][0] - pts[j][0], pts[k][1] - pts[j][1]) <= SPLIT_DIST:
+                    seen.add(j)
+                    stack.append(j)
+        out.append(sorted(grp))
+    return out
+
+
 def cluster_by_marker(pts, to_px):
     """Group exterior spawns by map marker AND source type, so a dot = one kind of
     thing at one location. Splitting on source type is what lets a Deathclaw nest
@@ -509,13 +583,18 @@ def cluster_by_marker(pts, to_px):
         g["refs"].append(p["ref"])
     rows = []
     for (region, marker, stype), g in groups.items():
-        xs = [a for a, _ in g["pts"]]
-        ys = [b for _, b in g["pts"]]
-        cx, cy = sum(xs) / len(xs), sum(ys) / len(ys)
-        px, py = to_px(cx, cy)
-        rows.append({"region": region, "marker": marker, "source_type": stype,
-                     "count": len(g["pts"]), "x": cx, "y": cy, "px": px, "py": py,
-                     "refs": g["refs"]})
+        # Several separate places can share one marker name (every Scorchbeast
+        # "Fissure Site" in a region, Oct 2026). Split a group into clusters of
+        # points within SPLIT_DIST of each other, so far-apart places keep their
+        # own dot instead of one averaged dot between them.
+        for idx in _split_far(g["pts"]):
+            xs = [g["pts"][i][0] for i in idx]
+            ys = [g["pts"][i][1] for i in idx]
+            cx, cy = sum(xs) / len(xs), sum(ys) / len(ys)
+            px, py = to_px(cx, cy)
+            rows.append({"region": region, "marker": marker, "source_type": stype,
+                         "count": len(idx), "x": cx, "y": cy, "px": px, "py": py,
+                         "refs": [g["refs"][i] for i in idx]})
     rows.sort(key=lambda r: (r["region"], r["marker"], r["source_type"]))
     for i, r in enumerate(rows, 1):
         r["n"] = i
@@ -527,7 +606,7 @@ def legend_rows(rows):
     tally = defaultdict(int)
     for r in rows:
         tally[r.get("source_type", "")] += r["count"]
-    return [(type_label(t), n, type_colour(t))
+    return [(type_label(t), n, type_colour(t), type_shape(t))
             for t, n in sorted(tally.items(), key=lambda kv: (-kv[1], kv[0]))]
 
 
@@ -623,7 +702,8 @@ def render_exterior(bg_path, rows, title, out_plain, out_numbered):
     plain = base.copy()
     d = ImageDraw.Draw(plain)
     for r in rows:
-        draw_dot(d, r["px"], r["py"], fill=type_colour(r.get("source_type", "")))
+        draw_dot(d, r["px"], r["py"], fill=type_colour(r.get("source_type", "")),
+                 shape=type_shape(r.get("source_type", "")))
     draw_legend(plain, title, legend_rows(rows))
     os.makedirs(os.path.dirname(out_plain), exist_ok=True)
     # Watermarked on the way out — see src/map_watermark.py. Maps of ours were
@@ -796,7 +876,8 @@ def render_interiors(pts, spaces, out_dir, slug, item_name):
         for p in ipts:
             px, py = to_px(p["x"], p["y"])
             if -DOT_D <= px <= S + DOT_D and -DOT_D <= py <= S + DOT_D:
-                draw_dot(d, px, py, fill=type_colour(p.get("source_type", "")))
+                draw_dot(d, px, py, fill=type_colour(p.get("source_type", "")),
+                         shape=type_shape(p.get("source_type", "")))
                 drawn += 1
         tally = defaultdict(int)
         for p in ipts:
@@ -836,7 +917,16 @@ def render_set(slug, source, out_root, conn, spaces, boxes, verbose=True):
     rows = cluster_by_marker(ext, to_px)
 
     os.makedirs(out_root, exist_ok=True)
+    _PAGE["slug"] = slug
     bg = os.path.join(MAPPALACHIA, "img", "wrld", "Appalachia_menu.jpg")
+    # The in-game map-marker icons go under the dots, like the event-swap and
+    # route maps, so readers can find each spot by its icon (Duchess, Oct 2026).
+    # Falls back to the plain map if the icons can't be drawn.
+    try:
+        import render_event_swap_maps as _ESW
+        bg = _ESW._icon_background(bg, to_px)
+    except Exception as e:
+        print(f"  [WARN] map-marker icons skipped ({e})")
 
     p_plain = os.path.join(out_root, "01 Full Maps (4096)", f"{slug}.jpg")
     p_num = os.path.join(out_root, "02 Numbered Maps (4096)", f"{slug}_numbered.jpg")

@@ -1,0 +1,29 @@
+{
+  "_note": "Workshop attack data for creature pages (Workshops root expand). Keyed by meat slug. Copied into the page doc by src/build_meat_guide_docs.py. Sources (SeventySix.esm, Oct 2026): quest GQ_WorkshopAttackScorchbeasts [QUST:00011CCC] start conditions (not in Burning Springs; GetRandomPercent <= GQ_WorkshopAttackScorchbeastChance [GLOB:0001B46D] = 10); WorkshopFound alias: GetLevel >= RE_LevelScorchbeast [GLOB:00377D02] = 30; GQ_WorkshopAttackScorchbeastsScript.ScorchbeastCountData (VMAD) = level 0 -> 1, 50 -> 2, 75 -> 3; regional Story Manager nodes RegionManager*WorkshopAttacks [SMQN] (Forest and Burning Springs nodes do not list the Scorchbeast quest); region level ranges from the Region*Location [LCTN] DATA min/max bytes; workshops = LCTN with LocTypeWorkshop [KYWD:000234F1].",
+  "scorchbeast": {
+    "event": "Defend your workshop (Scorchbeast attack)",
+    "chance": "10%",
+    "lead": "When one of your claimed workshops is attacked, there is a 10% chance it is a Scorchbeast attack instead of a normal one. The workshop must be level 30 or higher. How many Scorchbeasts come depends on the workshop's level, and a workshop's level stays inside its region's level range.",
+    "count_by_level": [
+      {"levels": "30–49", "count": "1 Scorchbeast"},
+      {"levels": "50–74", "count": "2 Scorchbeasts"},
+      {"levels": "75+", "count": "3 Scorchbeasts"}
+    ],
+    "regions": [
+      {"region": "Ash Heap", "levels": "25–50", "result": "Yes, at level 30+ — 1 Scorchbeast (2 at level 50)",
+       "workshops": ["Beckley Mine Exhibit", "Mount Blair"]},
+      {"region": "Burning Springs", "levels": "—", "result": "No",
+       "workshops": ["Starlight Drive-in"]},
+      {"region": "Cranberry Bog", "levels": "35–99", "result": "Yes — 1 to 3 Scorchbeasts",
+       "workshops": ["Abandoned Bog Town"]},
+      {"region": "The Forest", "levels": "1–10", "result": "No",
+       "workshops": ["Billings Homestead", "Charleston Landfill", "Gorge Junkyard", "Lakeside Cabins", "Poseidon Energy Plant Yard", "Sunshine Meadows Industrial Farm", "Sutton", "Tyler County Dirt Track", "Wade Airport"]},
+      {"region": "The Mire", "levels": "30–99", "result": "Yes — 1 to 3 Scorchbeasts",
+       "workshops": ["Berkeley Springs", "Dabney Homestead", "Dolly Sods Campground", "Thunder Mt. Power Plant Yard"]},
+      {"region": "Savage Divide", "levels": "15–99", "result": "Yes, at level 30+ — 1 to 3 Scorchbeasts",
+       "workshops": ["Converted Munitions Factory", "Federal Disposal Field HZ-21", "Monongah Power Plant Yard", "Red Rocket Mega Stop"]},
+      {"region": "Toxic Valley", "levels": "10–25", "result": "No — workshops here never reach level 30",
+       "workshops": ["Grafton Steel Yard", "Hemlock Holes Maintenance"]}
+    ]
+  }
+}
