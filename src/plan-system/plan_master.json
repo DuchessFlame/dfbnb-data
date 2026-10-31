@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated": "2026-10-31T12:38:11.079776+00:00",
+  "generated": "2026-10-31T14:51:57.079371+00:00",
   "count": 4284,
   "source_files": {
     "WEAP": "WEAP_Export_October_2026_Base.tsv",
@@ -68265,11 +68265,11 @@
         "edid": "workshop_co_CondProxy_Taxidermy_MirelurkQueen01"
       },
       "cnam": null,
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": false,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "its only sources are cut records (POST_LL_Recipe_Workshop_WallDecor_Taxidermy)",
       "obtain_ledger": [],
       "images": [],
       "image_source": "",
@@ -206269,11 +206269,11 @@
         "edid": "Armor_VaultSuit96_Underarmor",
         "sig": "ARMO"
       },
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "only in a developer test chest — nothing in the game gives it out",
       "obtain_ledger": [],
       "images": [],
       "image_source": "",
@@ -221771,14 +221771,14 @@
         "edid": "mod_Chainsaw_Flamer",
         "sig": "OMOD"
       },
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": {
         "summary": "auto weapon fire damage",
         "rows": []
       },
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "only in a developer test chest — nothing in the game gives it out",
       "obtain_ledger": [],
       "images": [
         "/wp-content/uploads/guide-images/plan-checklist/weapons/mod_chainsaw_flamer.avif"
@@ -444937,7 +444937,7 @@
       "name": "Plan: Alien Blaster Short NV Scope",
       "has_image_box": false,
       "image_dir": "weapons",
-      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything).",
       "category_label": "CAMP / Recipe (mod/recipe)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -444950,12 +444950,13 @@
         "edid": "zzz_POST_co_mod_AlienBlaster_Scope_ScopeShort_NV"
       },
       "cnam": null,
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything).",
       "obtain_ledger": [],
+      "unused_plan": true,
       "images": [],
       "image_source": "",
       "plan_page": "weapon",
@@ -740781,11 +740782,11 @@
         "edid": "DLC05WorkshopWksDisplayCase",
         "sig": "FURN"
       },
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "only in a developer test chest — nothing in the game gives it out",
       "obtain_ledger": [],
       "images": [],
       "image_source": "",
@@ -771434,10 +771435,12 @@
       "name": "Plan: Excavator Left Leg",
       "has_image_box": true,
       "image_dir": "power-armour",
-      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+      "obtain": "There is no plan to find — a quest teaches this recipe directly, so there is no plan item to trade.",
       "category_label": "Armour (physical plan)",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Learned during the quest: Miner Miracles. The quest teaches the recipe itself — no plan is handed out."
+      ],
       "plan_item": {
         "formid": "00501888",
         "edid": "recipe_Armor_PowerArmor_Excavator_LegLeft"
@@ -771451,12 +771454,26 @@
         "edid": "Armor_PowerArmor_Excavator_LegLeft",
         "sig": "ARMO"
       },
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
       "cut": false,
       "cut_reason": null,
-      "obtain_ledger": [],
+      "obtain_ledger": [
+        {
+          "label": "Quests",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "quest_learned": true,
+      "learn_quest": {
+        "edid": "MTR02_Miner",
+        "name": "Miner Miracles"
+      },
+      "source_tag": "Quest",
       "images": [],
       "image_source": "",
       "plan_page": "power-armour",
@@ -778687,10 +778704,12 @@
       "name": "Plan: Excavator Right Arm",
       "has_image_box": true,
       "image_dir": "power-armour",
-      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+      "obtain": "There is no plan to find — a quest teaches this recipe directly, so there is no plan item to trade.",
       "category_label": "Armour (physical plan)",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Learned during the quest: Miner Miracles. The quest teaches the recipe itself — no plan is handed out."
+      ],
       "plan_item": {
         "formid": "00501886",
         "edid": "recipe_Armor_PowerArmor_Excavator_ArmRight"
@@ -778704,12 +778723,26 @@
         "edid": "Armor_PowerArmor_Excavator_ArmRight",
         "sig": "ARMO"
       },
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
       "cut": false,
       "cut_reason": null,
-      "obtain_ledger": [],
+      "obtain_ledger": [
+        {
+          "label": "Quests",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "quest_learned": true,
+      "learn_quest": {
+        "edid": "MTR02_Miner",
+        "name": "Miner Miracles"
+      },
+      "source_tag": "Quest",
       "images": [],
       "image_source": "",
       "plan_page": "power-armour",
@@ -780009,11 +780042,11 @@
         "edid": "mod_PowerArmor_T51_Helmet_Material_Paint_Winterized",
         "sig": "OMOD"
       },
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "only in a developer test chest — nothing in the game gives it out",
       "obtain_ledger": [],
       "display_name": "Plan: Winterized T-51b Coating",
       "images": [],
@@ -790002,10 +790035,12 @@
       "name": "Plan: Excavator Helmet",
       "has_image_box": true,
       "image_dir": "power-armour",
-      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+      "obtain": "There is no plan to find — a quest teaches this recipe directly, so there is no plan item to trade.",
       "category_label": "Armour (physical plan)",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Learned during the quest: Miner Miracles. The quest teaches the recipe itself — no plan is handed out."
+      ],
       "plan_item": {
         "formid": "00501887",
         "edid": "recipe_Armor_PowerArmor_Excavator_Helmet"
@@ -790019,12 +790054,26 @@
         "edid": "Armor_PowerArmor_Excavator_Helmet",
         "sig": "ARMO"
       },
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
       "cut": false,
       "cut_reason": null,
-      "obtain_ledger": [],
+      "obtain_ledger": [
+        {
+          "label": "Quests",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "quest_learned": true,
+      "learn_quest": {
+        "edid": "MTR02_Miner",
+        "name": "Miner Miracles"
+      },
+      "source_tag": "Quest",
       "images": [],
       "image_source": "",
       "plan_page": "power-armour",
@@ -790112,10 +790161,12 @@
       "name": "Plan: Excavator Torso",
       "has_image_box": true,
       "image_dir": "power-armour",
-      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+      "obtain": "There is no plan to find — a quest teaches this recipe directly, so there is no plan item to trade.",
       "category_label": "Armour (physical plan)",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Learned during the quest: Miner Miracles. The quest teaches the recipe itself — no plan is handed out."
+      ],
       "plan_item": {
         "formid": "0050188A",
         "edid": "recipe_Armor_PowerArmor_Excavator_Torso"
@@ -790129,12 +790180,26 @@
         "edid": "Armor_PowerArmor_Excavator_Torso",
         "sig": "ARMO"
       },
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
       "cut": false,
       "cut_reason": null,
-      "obtain_ledger": [],
+      "obtain_ledger": [
+        {
+          "label": "Quests",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "quest_learned": true,
+      "learn_quest": {
+        "edid": "MTR02_Miner",
+        "name": "Miner Miracles"
+      },
+      "source_tag": "Quest",
       "images": [],
       "image_source": "",
       "plan_page": "power-armour",
@@ -798832,7 +798897,7 @@
       "name": "Plan: X-01 Headlamp",
       "has_image_box": false,
       "image_dir": "power-armour",
-      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it).",
       "category_label": "Armour Mod / Paint",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -798849,12 +798914,13 @@
         "edid": "mod_PowerArmor_X01_Helmet_Headlamp_Selector",
         "sig": "OMOD"
       },
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it).",
       "obtain_ledger": [],
+      "unused_plan": true,
       "images": [],
       "image_source": "",
       "plan_page": "power-armour",
@@ -801939,10 +802005,12 @@
       "name": "Plan: Excavator Left Arm",
       "has_image_box": true,
       "image_dir": "power-armour",
-      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+      "obtain": "There is no plan to find — a quest teaches this recipe directly, so there is no plan item to trade.",
       "category_label": "Armour (physical plan)",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Learned during the quest: Miner Miracles. The quest teaches the recipe itself — no plan is handed out."
+      ],
       "plan_item": {
         "formid": "00501885",
         "edid": "recipe_Armor_PowerArmor_Excavator_ArmLeft"
@@ -801956,12 +802024,26 @@
         "edid": "Armor_PowerArmor_Excavator_ArmLeft",
         "sig": "ARMO"
       },
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
       "cut": false,
       "cut_reason": null,
-      "obtain_ledger": [],
+      "obtain_ledger": [
+        {
+          "label": "Quests",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "quest_learned": true,
+      "learn_quest": {
+        "edid": "MTR02_Miner",
+        "name": "Miner Miracles"
+      },
+      "source_tag": "Quest",
       "images": [],
       "image_source": "",
       "plan_page": "power-armour",
@@ -804112,10 +804194,12 @@
       "name": "Plan: Excavator Right Leg",
       "has_image_box": true,
       "image_dir": "power-armour",
-      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+      "obtain": "There is no plan to find — a quest teaches this recipe directly, so there is no plan item to trade.",
       "category_label": "Armour (physical plan)",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Learned during the quest: Miner Miracles. The quest teaches the recipe itself — no plan is handed out."
+      ],
       "plan_item": {
         "formid": "00501889",
         "edid": "recipe_Armor_PowerArmor_Excavator_LegRight"
@@ -804129,12 +804213,26 @@
         "edid": "Armor_PowerArmor_Excavator_LegRight",
         "sig": "ARMO"
       },
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
       "cut": false,
       "cut_reason": null,
-      "obtain_ledger": [],
+      "obtain_ledger": [
+        {
+          "label": "Quests",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "quest_learned": true,
+      "learn_quest": {
+        "edid": "MTR02_Miner",
+        "name": "Miner Miracles"
+      },
+      "source_tag": "Quest",
       "images": [],
       "image_source": "",
       "plan_page": "power-armour",
@@ -840017,7 +840115,7 @@
       "name": "Recipe: Cramburger",
       "has_image_box": false,
       "image_dir": "recipes",
-      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it).",
       "category_label": "Consumable Recipe",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -840034,12 +840132,13 @@
         "edid": "Cramburger_RSVP02",
         "sig": "ALCH"
       },
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it).",
       "obtain_ledger": [],
+      "unused_plan": true,
       "images": [],
       "image_source": "",
       "plan_page": "recipe",
@@ -957865,11 +957964,11 @@
         "edid": "SmokeGrenade",
         "sig": "WEAP"
       },
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "nothing has given it out since at least March 2026 (Kat, 31 Oct 2026)",
       "obtain_ledger": [],
       "images": [],
       "image_source": "",
@@ -957911,10 +958010,12 @@
       "name": "Plan: Standard Backpack",
       "has_image_box": true,
       "image_dir": "backpack",
-      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+      "obtain": "There is no plan to find — finishing a quest unlocks this recipe, so there is no plan item to trade.",
       "category_label": "Armour (physical plan)",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Unlocked when you complete the quest: The Order of the Tadpole (the backpack recipe is known once the quest is done — no plan is handed out)."
+      ],
       "plan_item": {
         "formid": "0046A36C",
         "edid": "Recipe_Armor_Backpack_Standard"
@@ -957928,12 +958029,26 @@
         "edid": "Armor_Backpack_Standard",
         "sig": "ARMO"
       },
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
       "cut": false,
       "cut_reason": null,
-      "obtain_ledger": [],
+      "obtain_ledger": [
+        {
+          "label": "Quests",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "quest_learned": true,
+      "learn_quest": {
+        "edid": "P01C_Tadpole",
+        "name": "The Order of the Tadpole"
+      },
+      "source_tag": "Quest",
       "images": [],
       "image_source": ""
     },
@@ -957945,10 +958060,12 @@
       "name": "Plan: Brewing Station",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+      "obtain": "There is no plan to find — a quest teaches this recipe directly, so there is no plan item to trade.",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Learned automatically as a reward for completing the quest: Wasted on Nukashine. The quest teaches the recipe itself — no plan is handed out."
+      ],
       "plan_item": {
         "formid": "0046A36F",
         "edid": "Recipe_Workshop_Crafting_Brewing_Bench"
@@ -957962,12 +958079,20 @@
         "edid": "workshop_LL_CraftingBrewing",
         "sig": "FURN"
       },
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": false,
       "effects": null,
       "cut": false,
       "cut_reason": null,
-      "obtain_ledger": [],
+      "obtain_ledger": [
+        {
+          "label": "Quests",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
       "retired_routes": [
         {
           "route": "Wasted on Nukashine",
@@ -957985,6 +958110,12 @@
           "quest_guide": "0047A44D"
         }
       ],
+      "quest_learned": true,
+      "learn_quest": {
+        "edid": "P01A_Nukashine",
+        "name": "Wasted on Nukashine"
+      },
+      "source_tag": "Quest",
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -960454,7 +960585,7 @@
       "name": "Recipe: Firecracker Whiskey Manhattan",
       "has_image_box": false,
       "image_dir": "recipes",
-      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it).",
       "category_label": "CAMP / Recipe (mod/recipe)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -960467,12 +960598,13 @@
         "edid": "co_Brewing_FirecrackerWhiskey_Manhattan"
       },
       "cnam": null,
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it).",
       "obtain_ledger": [],
+      "unused_plan": true,
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -960486,7 +960618,7 @@
       "name": "Recipe: Firecracker Whiskey Old Fashioned",
       "has_image_box": false,
       "image_dir": "recipes",
-      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it).",
       "category_label": "CAMP / Recipe (mod/recipe)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -960499,12 +960631,13 @@
         "edid": "co_Brewing_FirecrackerWhiskey_OldFashioned"
       },
       "cnam": null,
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it).",
       "obtain_ledger": [],
+      "unused_plan": true,
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -960754,10 +960887,12 @@
       "name": "Plan: Fermenting Station",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+      "obtain": "There is no plan to find — a quest teaches this recipe directly, so there is no plan item to trade.",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Learned automatically as a reward for completing the quest: Wasted on Nukashine. The quest teaches the recipe itself — no plan is handed out."
+      ],
       "plan_item": {
         "formid": "003F4600",
         "edid": "Recipe_Workshop_Crafting_Brewing_Fermenter"
@@ -960771,12 +960906,20 @@
         "edid": "workshop_LL_CraftingFermenter",
         "sig": "FURN"
       },
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": false,
       "effects": null,
       "cut": false,
       "cut_reason": null,
-      "obtain_ledger": [],
+      "obtain_ledger": [
+        {
+          "label": "Quests",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
       "retired_routes": [
         {
           "route": "Wasted on Nukashine",
@@ -960794,6 +960937,12 @@
           "quest_guide": "0047A44D"
         }
       ],
+      "quest_learned": true,
+      "learn_quest": {
+        "edid": "P01A_Nukashine",
+        "name": "Wasted on Nukashine"
+      },
+      "source_tag": "Quest",
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -963124,7 +963273,7 @@
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Reward for completing the quest: Hunter for Hire"
+        "Given to you during the quest Hunter for Hire as a quest item — you read it as one of the quest's steps, so it can't be traded, dropped or sold."
       ],
       "plan_item": {
         "formid": "0040F66A",
@@ -963139,7 +963288,7 @@
         "edid": "W05_MQ_002P_Radical_WorkshopCraneRadioTransmitter",
         "sig": "ACTI"
       },
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
       "cut": false,
@@ -963153,6 +963302,7 @@
           "drop": "N/A"
         }
       ],
+      "quest_item": true,
       "source_tag": "Quest",
       "images": [],
       "image_source": "",
@@ -963696,10 +963846,12 @@
       "name": "Recipe: Insect Repellent",
       "has_image_box": false,
       "image_dir": "recipes",
-      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+      "obtain": "There is no plan to find — a quest teaches this recipe directly, so there is no plan item to trade.",
       "category_label": "Consumable Recipe",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Learned during the quest: Repeatable: Stings and Things. The quest teaches the recipe itself — no plan is handed out."
+      ],
       "plan_item": {
         "formid": "004265FB",
         "edid": "P01C_Tadpole_Recipe_Chems_InsectRepellent"
@@ -963713,12 +963865,26 @@
         "edid": "Potion_D01C_InsectRepellent",
         "sig": "ALCH"
       },
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
       "cut": false,
       "cut_reason": null,
-      "obtain_ledger": [],
+      "obtain_ledger": [
+        {
+          "label": "Quests",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "quest_learned": true,
+      "learn_quest": {
+        "edid": "D01C_StingsAndThings",
+        "name": "Repeatable: Stings and Things"
+      },
+      "source_tag": "Quest",
       "images": [],
       "image_source": "",
       "plan_page": "recipe",
@@ -963788,10 +963954,12 @@
       "name": "Plan: Frog Habitat",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+      "obtain": "There is no plan to find — a quest teaches this recipe directly, so there is no plan item to trade.",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Learned during the quest: The Order of the Tadpole. The quest teaches the recipe itself — no plan is handed out."
+      ],
       "plan_item": {
         "formid": "00428C49",
         "edid": "Recipe_Workshop_FloorDecor_FrogHabitat"
@@ -963805,12 +963973,26 @@
         "edid": "Workshop_FrogHabitat",
         "sig": "FURN"
       },
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
       "cut": false,
       "cut_reason": null,
-      "obtain_ledger": [],
+      "obtain_ledger": [
+        {
+          "label": "Quests",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "quest_learned": true,
+      "learn_quest": {
+        "edid": "P01C_Tadpole",
+        "name": "The Order of the Tadpole"
+      },
+      "source_tag": "Quest",
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -968148,7 +968330,7 @@
       "name": "Plan: Super Mutant BBQ Grill",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything).",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -968161,12 +968343,13 @@
         "edid": "workshop_co_CondProxy_Appliances_Grill_SuperMutant"
       },
       "cnam": null,
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything).",
       "obtain_ledger": [],
+      "unused_plan": true,
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -968180,7 +968363,7 @@
       "name": "Plan: Super Mutant Grill",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it).",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -968193,12 +968376,13 @@
         "edid": "workshop_co_CondProxy_Appliances_Grill_SuperMutant"
       },
       "cnam": null,
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it).",
       "obtain_ledger": [],
+      "unused_plan": true,
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -988029,11 +988213,11 @@
         "edid": "WorkshopTurretBubble_wall",
         "sig": "FURN"
       },
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "nothing has given it out since at least March 2026 (Kat, 31 Oct 2026)",
       "obtain_ledger": [],
       "images": [],
       "image_source": "",
@@ -1014810,12 +1014994,13 @@
         "edid": "workshop_co_CondProxy_VintageWaterCooler_2"
       },
       "cnam": null,
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "duplicate of 006337D2 — the same plan in game; that copy is the one that drops, nothing gives this one out",
       "obtain_ledger": [],
+      "plan_duplicate": true,
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -1025696,12 +1025881,13 @@
         "edid": "E09A_Workshop_Ultracite_Shard_Large",
         "sig": "FURN"
       },
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "duplicate of 00682119 — the same plan in game; that copy is the one that drops, nothing gives this one out",
       "obtain_ledger": [],
+      "plan_duplicate": true,
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -1031888,7 +1032074,7 @@
       "name": "Plan: Flatwoods Monster Poster",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything).",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -1031901,12 +1032087,13 @@
         "edid": "Moon_workshop_co_CondProxy_WallDecor_Posters_Flatwoods"
       },
       "cnam": null,
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything).",
       "obtain_ledger": [],
+      "unused_plan": true,
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -1031920,7 +1032107,7 @@
       "name": "Plan: Grafton Monster Poster",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything).",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -1031933,12 +1032120,13 @@
         "edid": "Moon_workshop_co_CondProxy_WallDecor_Posters_Grafton"
       },
       "cnam": null,
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything).",
       "obtain_ledger": [],
+      "unused_plan": true,
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -1031952,7 +1032140,7 @@
       "name": "Plan: Jersey Devil Poster",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything). The item itself is a Season 13 Scoreboard reward, not a plan.",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -1031965,12 +1032153,13 @@
         "edid": "Moon_workshop_co_CondProxy_WallDecor_Posters_Jersey"
       },
       "cnam": null,
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything). The item itself is a Season 13 Scoreboard reward, not a plan.",
       "obtain_ledger": [],
+      "unused_plan": true,
       "images": [
         "/wp-content/uploads/season_images/season-13/score_s13_camp_walldecor_jerseydevilcryptid_poster.avif"
       ],
@@ -1031986,7 +1032175,7 @@
       "name": "Plan: Ogua Poster",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything). The item itself is a Season 13 Scoreboard reward, not a plan.",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -1031999,12 +1032188,13 @@
         "edid": "Moon_workshop_co_CondProxy_WallDecor_Posters_Ogua"
       },
       "cnam": null,
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything). The item itself is a Season 13 Scoreboard reward, not a plan.",
       "obtain_ledger": [],
+      "unused_plan": true,
       "images": [
         "/wp-content/uploads/season_images/season-13/score_s13_camp_walldecor_oguacryptid_poster.avif"
       ],
@@ -1032020,7 +1032210,7 @@
       "name": "Plan: Blue Devil Poster",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything). The item itself is a Season 13 Scoreboard reward, not a plan.",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -1032033,12 +1032223,13 @@
         "edid": "Moon_workshop_co_CondProxy_WallDecor_Posters_BlueDevil"
       },
       "cnam": null,
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything). The item itself is a Season 13 Scoreboard reward, not a plan.",
       "obtain_ledger": [],
+      "unused_plan": true,
       "images": [
         "/wp-content/uploads/season_images/season-13/score_s13_camp_walldecor_bluedevilcryptid_poster.avif"
       ],
@@ -1032054,7 +1032245,7 @@
       "name": "Plan: Beast of Beckley Poster",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything). The item itself is a Season 13 Scoreboard reward, not a plan.",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -1032067,12 +1032258,13 @@
         "edid": "Moon_workshop_co_CondProxy_WallDecor_Posters_Beast"
       },
       "cnam": null,
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything). The item itself is a Season 13 Scoreboard reward, not a plan.",
       "obtain_ledger": [],
+      "unused_plan": true,
       "images": [
         "/wp-content/uploads/season_images/season-13/score_s13_camp_walldecor_beastofbeckleycryptid_poster.avif"
       ],
@@ -1032088,7 +1032280,7 @@
       "name": "Plan: Mothman Poster",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything). The item itself is a Season 13 Scoreboard reward, not a plan.",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -1032101,12 +1032293,13 @@
         "edid": "Moon_workshop_co_CondProxy_WallDecor_Posters_Mothman"
       },
       "cnam": null,
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything). The item itself is a Season 13 Scoreboard reward, not a plan.",
       "obtain_ledger": [],
+      "unused_plan": true,
       "images": [
         "/wp-content/uploads/season_images/season-13/score_s13_camp_walldecor_mothmancryptid_poster.avif"
       ],
@@ -1035676,11 +1035869,11 @@
         "edid": "DLC01_mod_LightningGun_Barrel_Lobber",
         "sig": "OMOD"
       },
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "nothing has given it out since at least March 2026 (Kat, 31 Oct 2026)",
       "obtain_ledger": [],
       "images": [],
       "image_source": "",
@@ -1036657,33 +1036850,26 @@
       "name": "Plan: C.A.M.P. Certification",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "This is a physical plan — there is a plan item to find and learn. It is not random loot — see below.",
+      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it). Its only giver is a quest marked cut in the game files: Enjoy Your Stay (ZZZNPE_MQ01_Enjoy).",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
-      "obtain_unlocks": [
-        "Reward for completing the quest: Enjoy Your Stay"
-      ],
+      "obtain_unlocks": [],
       "plan_item": {
         "formid": "0072BC1A",
         "edid": "NPE_Recipe_Workshop_CAMPCertification"
       },
       "cobj": null,
       "cnam": null,
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
-      "obtain_ledger": [
-        {
-          "label": "Quests",
-          "unlocks": [
-            0
-          ],
-          "drop": "N/A"
-        }
+      "cut": true,
+      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it). Its only giver is a quest marked cut in the game files: Enjoy Your Stay (ZZZNPE_MQ01_Enjoy).",
+      "obtain_ledger": [],
+      "retired_unlocks": [
+        "Reward for completing the quest: Enjoy Your Stay"
       ],
-      "source_tag": "Quest",
+      "unused_plan": true,
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -1049965,12 +1050151,13 @@
         "edid": "workshop_co_Tinkers_Souvenir_HerdsmansBell_Basic_RECOVERED"
       },
       "cnam": null,
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "duplicate of 0072E1A9 — the same plan in game; that copy is the one that drops, nothing gives this one out",
       "obtain_ledger": [],
+      "plan_duplicate": true,
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -1053475,7 +1053662,7 @@
       "name": "Plan: Turkey Plushie",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything).",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -1053488,12 +1053675,13 @@
         "edid": "Storm_workshop_co_CondProxy_FloorDecor_TurkeyPlushie"
       },
       "cnam": null,
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything).",
       "obtain_ledger": [],
+      "unused_plan": true,
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -1054243,7 +1054431,7 @@
       "name": "Plan: Moe the Mole Plushie",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything). The item itself is an Atom Shop item, not a plan.",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -1054256,12 +1054444,13 @@
         "edid": "Storm_workshop_co_CondProxy_FloorDecor_MoePlushie"
       },
       "cnam": null,
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything). The item itself is an Atom Shop item, not a plan.",
       "obtain_ledger": [],
+      "unused_plan": true,
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -1054837,7 +1055026,7 @@
       "name": "Plan: Vault 63 Door Display",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it). The item itself is an Atom Shop item, not a plan.",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -1054854,12 +1055043,13 @@
         "edid": "ATX_Storm_Vault63Door_ACTI",
         "sig": "ACTI"
       },
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it). The item itself is an Atom Shop item, not a plan.",
       "obtain_ledger": [],
+      "unused_plan": true,
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -1059446,11 +1059636,11 @@
         "edid": "Storm_workshop_co_CondProxy_WildLifeSign02"
       },
       "cnam": null,
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "cut — never added to any reward list (Kat, 31 Oct 2026)",
       "obtain_ledger": [],
       "images": [],
       "image_source": "",
@@ -1059535,11 +1059725,11 @@
         "edid": "Storm_workshop_co_CondProxy_WildLifeSign05"
       },
       "cnam": null,
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "cut — never added to any reward list (Kat, 31 Oct 2026)",
       "obtain_ledger": [],
       "images": [],
       "image_source": "",
@@ -1059619,11 +1059809,11 @@
         "edid": "Storm_workshop_co_CondProxy_WildLifeSign07"
       },
       "cnam": null,
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "cut — never added to any reward list (Kat, 31 Oct 2026)",
       "obtain_ledger": [],
       "images": [],
       "image_source": "",
@@ -1059812,11 +1060002,11 @@
         "edid": "Storm_workshop_co_CondProxy_WildLifeSign06"
       },
       "cnam": null,
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "cut — never added to any reward list (Kat, 31 Oct 2026)",
       "obtain_ledger": [],
       "images": [],
       "image_source": "",
@@ -1063734,7 +1063924,7 @@
       "name": "Plan: Rusty Saxophone",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything).",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -1063747,12 +1063937,13 @@
         "edid": "MILE_Workshop_CO_Saxophone"
       },
       "cnam": null,
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything).",
       "obtain_ledger": [],
+      "unused_plan": true,
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -1076676,7 +1076867,7 @@
       "name": "Plan: Fish Display Hooks",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything).",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -1076689,12 +1076880,13 @@
         "edid": "Fishing_workshop_co_CondProxy_Displays_FishingDisplayHooks"
       },
       "cnam": null,
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything).",
       "obtain_ledger": [],
+      "unused_plan": true,
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -1076947,7 +1077139,7 @@
       "name": "Recipe: Fish Bits",
       "has_image_box": false,
       "image_dir": "recipes",
-      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything).",
       "category_label": "Consumable Recipe",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -1076964,12 +1077156,13 @@
         "edid": "Fish_Fishbits",
         "sig": "ALCH"
       },
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything).",
       "obtain_ledger": [],
+      "unused_plan": true,
       "images": [],
       "image_source": "",
       "plan_page": "recipe",
@@ -1078923,7 +1079116,7 @@
       "name": "Plan: Marshal Mallow Rod",
       "has_image_box": false,
       "image_dir": "fishing-rod",
-      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it).",
       "category_label": "Weapon Mod / Paint",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -1078940,12 +1079133,13 @@
         "edid": "SCORE_MiniSeason_2025_MMMFE_mod_FishingRod_Weapon_RodBase01_MarshalMallowRod",
         "sig": "OMOD"
       },
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it).",
       "obtain_ledger": [],
+      "unused_plan": true,
       "images": [],
       "image_source": "",
       "plan_page": "fishing-rod",
@@ -1081758,11 +1081952,11 @@
         "edid": "Burn_Workshop_ConditionProxy_DeathclawTamingPhotoPose"
       },
       "cnam": null,
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "photomode poses come from the Atom Shop, the Scoreboard or unlock automatically — never from a plan, and nothing gives this one out",
       "obtain_ledger": [],
       "images": [],
       "image_source": "",
@@ -1081777,7 +1081971,7 @@
       "name": "Plan: Dino Golf Info Board",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it). The item itself is a Season 23 Scoreboard reward, not a plan.",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -1081794,12 +1081988,13 @@
         "edid": "SCORE_S23_Workshop_DinoInfoBoard",
         "sig": "FURN"
       },
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it). The item itself is a Season 23 Scoreboard reward, not a plan.",
       "obtain_ledger": [],
+      "unused_plan": true,
       "images": [
         "/wp-content/uploads/season_images/season-23/score_s23_camp_walldecor_dinoinfoboard.avif"
       ],
@@ -1081832,11 +1082027,11 @@
         "edid": "zzzBurn_Workshop_GiantDeathclawSkull",
         "sig": "FURN"
       },
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "never released as a plan (Kat, 31 Oct 2026)",
       "obtain_ledger": [],
       "images": [],
       "image_source": "",
@@ -1081851,7 +1082046,7 @@
       "name": "Plan: Dino Peaks Entrance Sign",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it). The item itself is a Season 23 Scoreboard reward, not a plan.",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -1081868,12 +1082063,13 @@
         "edid": "SCORE_S23_Workshop_DinoEntranceSign",
         "sig": "FURN"
       },
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it). The item itself is a Season 23 Scoreboard reward, not a plan.",
       "obtain_ledger": [],
+      "unused_plan": true,
       "images": [
         "/wp-content/uploads/season_images/season-23/score_s23_camp_floordecor_dinoentrancesign_copy01.avif"
       ],
@@ -1082058,7 +1082254,7 @@
       "name": "Plan: Drive-In UFO Sculpture",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything). The item itself is a Season 24 Scoreboard reward, not a plan.",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -1082071,12 +1082267,13 @@
         "edid": "Burn_Workshop_CO_DriveInStatue"
       },
       "cnam": null,
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything). The item itself is a Season 24 Scoreboard reward, not a plan.",
       "obtain_ledger": [],
+      "unused_plan": true,
       "images": [
         "/wp-content/uploads/season_images/season-24/score_s24_camp_structure_driveinstatue.avif"
       ],
@@ -1082138,11 +1082335,11 @@
         "edid": "Burn_Workshop_DriveinSign_NoCables",
         "sig": "ACTI"
       },
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "never released as a plan; the sign is a Season 24 Scoreboard item (Kat, 31 Oct 2026)",
       "obtain_ledger": [],
       "images": [
         "/wp-content/uploads/season_images/season-24/score_s24_camp_structure_driveinsign.avif"
@@ -1082379,11 +1082576,11 @@
         "edid": "BURN_Workshop_RetailParkSign_SDM",
         "sig": "FURN"
       },
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "never released as a plan (Kat, 31 Oct 2026)",
       "obtain_ledger": [],
       "images": [],
       "image_source": "",
@@ -1082467,11 +1082664,11 @@
         "edid": "Burn_Workshop_Item_DeathclawPlushie",
         "sig": "FURN"
       },
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "never released as a plan (Kat, 31 Oct 2026)",
       "obtain_ledger": [],
       "images": [],
       "image_source": "",
@@ -1082503,11 +1082700,11 @@
         "edid": "Burn_DinoGolfPlushie",
         "sig": "FURN"
       },
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "never released as a plan (Kat, 31 Oct 2026)",
       "obtain_ledger": [],
       "images": [],
       "image_source": "",
@@ -1083808,11 +1084005,11 @@
         "edid": "Burn_Workshop_Item_LovelandFrogPlushie",
         "sig": "FURN"
       },
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "never released (Kat, 31 Oct 2026)",
       "obtain_ledger": [],
       "images": [],
       "image_source": "",
