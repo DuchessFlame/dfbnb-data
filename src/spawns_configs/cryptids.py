@@ -458,6 +458,33 @@ def _load_quests():
     return rows
 
 
+# Quests whose aliases / script properties carry the creature (opt-in per page via
+# `event_alias_tokens`, Scorchbeast 31 Oct 2026). These are the events that SPAWN
+# it — Scorched Earth, Line in the Sand, Surface to Air, It's a Trap, Heart of the
+# Enemy — which the name pass misses (no "Scorchbeast" in their titles). Random
+# encounters (RE_), spawner scaffolding (SQ_), workshop attacks / wandering bosses
+# (GQ_) and debug quests are left out: they have their own sections or aren't events.
+_SPAWN_QUEST_SKIP = re.compile(r"^(RE_|SQ_|GQ_|Debug|EN07_MQ_Fissure)", re.I)
+
+
+def _spawn_quests(tokens):
+    import tsv_source
+    hits = {}
+    for pat in ("QUST2_Export_*_Aliases.tsv", "QUST2_Export_*_ScriptProps.tsv"):
+        try:
+            path = tsv_source.newest(pat)
+        except Exception:
+            path = None
+        if not path:
+            continue
+        with open(path, encoding="utf-8", errors="replace") as fh:
+            for r in csv.DictReader(fh, delimiter="\t"):
+                line = " ".join(v or "" for v in r.values()).lower()
+                if any(re.search(re.escape(t), line) for t in tokens):
+                    hits[(r.get("QuestEDID") or "").strip()] = (r.get("QuestFormID") or "").strip()
+    return hits
+
+
 def resolve_events(pg, death_list_fids, tbls, appearance_fn):
     """Activities, Events & Quests that FEATURE this cryptid. Two passes, both
     keyword/registry driven (no hardcoded FormIDs):
@@ -486,6 +513,23 @@ def resolve_events(pg, death_list_fids, tbls, appearance_fn):
         seen.add(key)
         out.append({"name": q["full"], "edid": q["edid"], "type": q["type"] or "Quest",
                     "location": q["location"], "form_id": q["form_id"]})
+
+    # Spawn pass (opt-in): quests that put this creature in the world.
+    if pg.get("event_alias_tokens"):
+        by_edid = {q["edid"]: q for q in _load_quests()}
+        for edid, fid in sorted(_spawn_quests([t.lower() for t in pg["event_alias_tokens"]]).items()):
+            q = by_edid.get(edid)
+            if not q or not q["full"] or _SPAWN_QUEST_SKIP.search(edid):
+                continue
+            if (q["type"] or "").lower() in ("", "none"):
+                continue
+            key = q["form_id"] or edid
+            if key in seen:
+                continue
+            seen.add(key)
+            out.append({"name": q["full"], "edid": edid, "type": q["type"] or "Quest",
+                        "location": q["location"], "form_id": q["form_id"],
+                        "rate_display": f"{pg['name']}s spawn", "spawns": True})
 
     # LVLI reward-closure pass (nested event reward bags)
     if death_list_fids:

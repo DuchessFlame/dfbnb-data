@@ -123,7 +123,7 @@ MEAT = [
     {"slug": "scorchbeast", "name": "Scorchbeast", "lld": r"^LLD_Creature_Scorchbeast",
      "tokens": ["scorchbeast"], "nest_tokens": ["scorchbeast"], "mappalachia": [],
      "ambush_exclude": ["fissure01nogeo"], "ambush_types": {"fissure03": "queen"},
-     "corpse_tokens": ["scorchbeastcorpse"]},
+     "corpse_tokens": ["scorchbeastcorpse"], "event_alias_tokens": ["scorchbeast"]},
     {"slug": "sheepsquatch", "name": "Sheepsquatch", "lld": r"^LLD_Creature_Sheepsquatch",
      "tokens": ["sheepsquatch"], "mappalachia": []},
     {"slug": "squirrel", "name": "Squirrel", "lld": r"^LLD_Creature_RadSquirrel",
