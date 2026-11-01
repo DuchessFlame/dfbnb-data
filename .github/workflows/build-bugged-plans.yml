@@ -10,8 +10,10 @@ name: Build Current Bugged Plans
 #     Added 22 Oct 2026: the 21 Oct patch build started before Brewmaster's
 #     TSV sync, published a list made from the old files, and nothing rebuilt
 #     it afterwards - 13 fixed plans (Tunnel of Love, Windy) stayed "bugged".
-#   * when data/bugged_plans_review.json (confirmed / not_a_bug) or the
-#     builder changes, so a review mark shows straight away.
+#   * when data/bugged_plans_review.json (confirmed / not_a_bug), Kat's
+#     data/plan_status.json or the builder changes, so a mark shows straight
+#     away. A plan_status change is also applied to the live plan_master here
+#     (plan_learn_routes, seconds), which then rebuilds the mule pages.
 #   * by hand (Actions tab -> Run workflow).
 # The monthly patch build (dfbnb-patch-build.yml) still runs it inline too.
 
@@ -25,6 +27,8 @@ on:
     branches: [main]
     paths:
       - 'data/bugged_plans_review.json'
+      - 'data/plan_status.json'        # Kat's Bugged / Unreleased / Legacy calls (1 Nov 2026)
+      - 'src/plan_learn_routes.py'
       - 'src/build_bugged_plans_json.py'
       - 'src/switched_off_starts.py'
       - 'src/build_cut_content_json.py'
@@ -53,6 +57,18 @@ jobs:
         with:
           python-version: '3.12'
 
+      # Kat's calls from Mia (data/plan_status.json, committed by Brewmaster).
+      # plan_learn_routes is a pure join over the finished live plan_master
+      # (seconds, no rates), so an answer reaches the plan check, the mule
+      # lists and the bugged page without the 80-minute build. Live only.
+      - name: Apply plan statuses to the live plan_master
+        run: |
+          python src/plan_learn_routes.py dist/plan_master.json --data-dir tsv
+          # only when a row really changed (the checklist stamps the time)
+          if ! git diff --quiet dist/plan_master.json; then
+            python src/build_make_plan_checklist_json.py
+          fi
+
       - name: Build Current Bugged Plans JSON
         run: |
           mkdir -p dist
@@ -65,7 +81,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions@users.noreply.github.com"
-          git add dist/bugged_plans.json dist/cut_content.json
+          git add dist/bugged_plans.json dist/cut_content.json dist/plan_master.json dist/make_plan_checklist.json
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else

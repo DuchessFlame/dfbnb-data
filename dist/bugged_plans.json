@@ -1,6 +1,6 @@
 {
  "_generated_by": "src/build_bugged_plans_json.py",
- "generated": "2026-10-31",
+ "generated": "2026-11-01",
  "channel": "live",
  "exports": {
   "WEAP": "WEAP_Export_October_2026_Base.tsv",
@@ -30,18 +30,37 @@
   "titles_entitlement_or_default": 254,
   "titles_skipped_cut_or_atom": 151,
   "titles_checked": 52,
-  "moved_to_cut_content": 14
+  "moved_to_cut_content": 14,
+  "kat_unreleased": 14,
+  "kat_legacy_left_off": 1
  },
  "counts": {
-  "total": 7,
-  "unobtainable": 4,
+  "total": 8,
+  "unobtainable": 5,
   "broken_item": 3,
-  "conf_check": 6,
+  "conf_check": 7,
   "conf_strong": 1,
   "confirmed": 0,
   "titles": 0,
-  "plans": 7
+  "plans": 8,
+  "not_checked": 1,
+  "kat_bugged": 0,
+  "unreleased": 14
  },
+ "sections": [
+  {
+   "key": "bugged",
+   "title": "Bugged",
+   "source": "items",
+   "blurb": "Plans the game files say are broken, plans the Duchess has confirmed are bugged, and plans with no known source that haven't been checked yet."
+  },
+  {
+   "key": "unreleased",
+   "title": "Unreleased / leftover content",
+   "source": "unreleased",
+   "blurb": "Plans that were never released. They're still in the game files, but nothing gives them out. This is leftover content that needs tidying up, not a player problem."
+  }
+ ],
  "items": [
   {
    "id": "0086DBE5",
@@ -236,6 +255,35 @@
    "is_new": false
   },
   {
+   "id": "003F1215",
+   "name": "Plan: ProSnap Deluxe Targeting Lens",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "status": "not_checked",
+   "bugs": [
+    {
+     "kind": "no_source",
+     "strong": false,
+     "title": "No source found in the game files",
+     "records": [],
+     "summary": "No source found yet. The Duchess is looking into it.",
+     "detail": "Nothing in the current game files gives this plan out: no leveled list, vendor, quest, container or challenge that the exports can see."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "003F1215",
+     "edid": "Recipe_Mod_Camera_SnapMatic_Lens_Targeting",
+     "type": "BOOK"
+    }
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-11-01",
+   "is_new": true
+  },
+  {
    "id": "003E9FA7",
    "name": "Recipe: Delbert's Delicious Deerskins",
    "kind": "plan",
@@ -382,6 +430,134 @@
     "cause": "The plan's recipe was switched to The Gutter Paint. The Gutter's own recipe (co_Weapon_Melee_DLC01_AssaultronBlade_TheGutter) now makes nothing and is unlocked by a deleted record. Pointing the plan back at the recipe for The Gutter should fix it. These condition forms still check the old recipe, so they can never pass for anyone: DailyOps_AllChaseRareRecipesKnown_Condition, MPE_AllChaseUltraRareRecipesKnown_Condition.\n\nRecords: Recipe_Weapon_Melee_AssaultronBlade_TheGutter [BOOK:005D0F04], co_Weapon_Melee_DLC01_AssaultronBlade_TheGutter [COBJ:005D9D18], _DELETE_Note [BOOK:0047B7F2], DLC01_AssaultronBlade_TheGutter [WEAP:005E6F9E], co_mod_AssaultronBlade_Weapon_Paint_TheGutter [COBJ:005DAE95]",
     "filename": "bethesda-bug-report-the-gutter-wrong-item.txt"
    }
+  }
+ ],
+ "unreleased": [
+  {
+   "id": "0083E70B",
+   "name": "Plan: Bogey Plushie",
+   "edid": "BURN_Workshop_Recipe_DinoGolfPlushie",
+   "note": "never released as a plan",
+   "decided": "2026-10-31",
+   "by": "Kat",
+   "in_files": true
+  },
+  {
+   "id": "005D0F08",
+   "name": "Plan: Bubble Turret",
+   "edid": "Recipe_Workshop_DefensiveStructures_BubbleTurret",
+   "note": "nothing has given it out since at least March 2026",
+   "decided": "2026-10-31",
+   "by": "Kat",
+   "in_files": true
+  },
+  {
+   "id": "0083E70A",
+   "name": "Plan: Deathclaw Plushie",
+   "edid": "BURN_Workshop_Recipe_DeathclawPlushie",
+   "note": "never released as a plan",
+   "decided": "2026-10-31",
+   "by": "Kat",
+   "in_files": true
+  },
+  {
+   "id": "008591ED",
+   "name": "Plan: Loveland Frog Plushie",
+   "edid": "BURN_Workshop_Recipe_LovelandFrogPlushie",
+   "note": "never released",
+   "decided": "2026-10-31",
+   "by": "Kat",
+   "in_files": true
+  },
+  {
+   "id": "00770816",
+   "name": "Plan: Nature Trail Sign Dinosaur Footprints",
+   "edid": "Storm_Recipe_Workshop_FloorDecor_WildLifeSign07",
+   "note": "never added to any reward list (signs 01/03/04/08 drop from Dangerous Pastimes)",
+   "decided": "2026-10-31",
+   "by": "Kat",
+   "in_files": true
+  },
+  {
+   "id": "00770819",
+   "name": "Plan: Nature Trail Sign Natural Bridge",
+   "edid": "Storm_Recipe_Workshop_FloorDecor_WildLifeSign06",
+   "note": "never added to any reward list (signs 01/03/04/08 drop from Dangerous Pastimes)",
+   "decided": "2026-10-31",
+   "by": "Kat",
+   "in_files": true
+  },
+  {
+   "id": "00770814",
+   "name": "Plan: Nature Trail Sign Steel Jack",
+   "edid": "Storm_Recipe_Workshop_FloorDecor_WildLifeSign02",
+   "note": "never added to any reward list (signs 01/03/04/08 drop from Dangerous Pastimes)",
+   "decided": "2026-10-31",
+   "by": "Kat",
+   "in_files": true
+  },
+  {
+   "id": "0077081A",
+   "name": "Plan: Nature Trail Sign Water Features",
+   "edid": "Storm_Recipe_Workshop_FloorDecor_WildLifeSign05",
+   "note": "never added to any reward list (signs 01/03/04/08 drop from Dangerous Pastimes)",
+   "decided": "2026-10-31",
+   "by": "Kat",
+   "in_files": true
+  },
+  {
+   "id": "007F5AF3",
+   "name": "Plan: Rust Kingdom Gateway",
+   "edid": "Burn_Workshop_Recipe_DeathclawSkullEntrance",
+   "note": "never released as a plan",
+   "decided": "2026-10-31",
+   "by": "Kat",
+   "in_files": true
+  },
+  {
+   "id": "00467FC0",
+   "name": "Plan: Smoke Grenade",
+   "edid": "Recipe_Weapon_Thrown_SmokeGrenade",
+   "note": "nothing has given it out since at least March 2026",
+   "decided": "2026-10-31",
+   "by": "Kat",
+   "in_files": true
+  },
+  {
+   "id": "007FDC36",
+   "name": "Plan: Starlight Drive-In Marquee",
+   "edid": "Burn_Workshop_Recipe_DriveInSign",
+   "note": "never released as a plan; the sign is a Season 24 Scoreboard item",
+   "decided": "2026-10-31",
+   "by": "Kat",
+   "in_files": true
+  },
+  {
+   "id": "0077082F",
+   "name": "Plan: Steel Jack Statue",
+   "edid": "Storm_Recipe_Workshop_FloorDecor_SteelJackStatue",
+   "note": "the Steel Jack statues trail is an unmarked questline with no reward or plan at the end; none of its six loot spots holds the plan",
+   "decided": "2026-11-01",
+   "by": "Kat",
+   "in_files": true
+  },
+  {
+   "id": "00833F55",
+   "name": "Plan: Super Duper Mart Sign",
+   "edid": "BURN_Workshop_Recipe_RetailParkSign",
+   "note": "never released as a plan",
+   "decided": "2026-10-31",
+   "by": "Kat",
+   "in_files": true
+  },
+  {
+   "id": "007284E7",
+   "name": "Plan: Tesla Rifle Lobber Barrel",
+   "edid": "recipe_DLC01_mod_LightningGun_Barrel_Lobber",
+   "note": "nothing has given it out since at least March 2026",
+   "decided": "2026-10-31",
+   "by": "Kat",
+   "in_files": true
   }
  ],
  "parked_lists": [
