@@ -900,6 +900,28 @@ def build(data_dir, dist_dir):
         mech["collectors"] = {"byPieces": col, "perk": "Legendary_CollectorsPerk"}   # index 0 = 1 piece
     else:
         warn("Legendary_CollectorsPerk not found in PERKEP")
+    # Kat 1 Nov 2026: Collector's is retired (zzz_ legendary mod, no recipe / shard /
+    # loot list, live + PTS), so the page shows Metabolic instead. Metabolic (4-star
+    # armour) adds ONE perk however many pieces you wear:
+    #   P62_Legendary_Armor_MetabolicPerk  Mod Spell Duration x on bobbleheads / magazines
+    #   P62_LegendaryArmor_MetabolicFortifySpell  +STAT_ChemDuration (adds to Chem Fiend's,
+    #   STAT_BeneficialPerk turns the total into x(1 + value) on chems)
+    # The description says 5% per piece up to 25% - bug report sent 1 Nov 2026.
+    met = ep_values("P62_Legendary_Armor_MetabolicPerk")
+    met_chem = None
+    for fid, rows in S.spel_effects.items():
+        if (S.spel.get(fid) or {}).get("SPEL_EDID") == "P62_LegendaryArmor_MetabolicFortifySpell":
+            for r in rows:
+                if "Chem" in " ".join(str(v) for v in r.values()):
+                    met_chem = round(fnum(r.get("EFIT_Magnitude"), 0.0), 3)
+    if met:
+        mech["metabolic"] = {"magBob": met[0], "chemAdd": met_chem or 0.0,
+                             "perk": "P62_Legendary_Armor_MetabolicPerk", "card": "Metabolic",
+                             "special": "4\u2605 armour legendary"}
+        if met_chem is None:
+            warn("Metabolic chem duration effect not found in SPEL - chems not boosted")
+    else:
+        warn("P62_Legendary_Armor_MetabolicPerk not found in PERKEP")
     sr = guide.get("seasonRule") or {}
     if sr.get("rolloverDates"):
         mech["fishSeasons"] = {

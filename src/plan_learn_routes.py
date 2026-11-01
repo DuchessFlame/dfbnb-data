@@ -110,6 +110,9 @@ CUT_BY_HAND = {
     "007FDC36": "never released as a plan; the sign is a Season 24 Scoreboard item (Kat, 31 Oct 2026)",  # Starlight Drive-In Marquee
     "00833F55": "never released as a plan (Kat, 31 Oct 2026)",  # Super Duper Mart Sign
     "0083E70B": "never released as a plan (Kat, 31 Oct 2026)",  # Bogey Plushie
+    # The Steel Jack statues trail is an unmarked questline with no reward or
+    # plan at the end (Kat's guide); none of its six loot spots holds the plan.
+    "0077082F": "never released as a plan — the Steel Jack statues trail gives no plan (Kat, 1 Nov 2026)",  # Steel Jack Statue
     # Four of the eight Skyline Valley trail signs were never added to any list
     # (01/03/04/08 drop from Dangerous Pastimes) — cut (Kat, 31 Oct 2026).
     "00770816": "cut — never added to any reward list (Kat, 31 Oct 2026)",  # Nature Trail Sign Dinosaur Footprints
