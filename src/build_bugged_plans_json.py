@@ -47,6 +47,13 @@ SEVERITY
   unobtainable  every route is broken and nothing else gives the plan out
   route_broken  one route is broken but the plan is still obtainable elsewhere
 
+KAT'S CALLS  (data/plan_status.json, live only — 1 Nov 2026)
+  The page has two sections: `items` = Bugged (the checks above, the Duchess's
+  `bugged` plans, and every tradeable plan with no source that nobody has
+  checked yet, status "not_checked"), and `unreleased` = the Duchess's `unreleased`
+  plans (FormID, EDID, her note) — leftover content, not a player problem.
+  Legacy plans are on neither. `sections` describes the layout for the page.
+
 WHAT IS NOT A BUG
   * Cut content (plan_sources.cut_reason — dev prefix AND no live reference).
   * Lists whose own EditorID is editor-only (DEL_/zzz/Test/Babylon...).
@@ -99,6 +106,7 @@ import plan_sources                    # noqa: E402
 import plan_unlocks                    # noqa: E402
 import switched_off_starts             # noqa: E402
 import bug_report_text                 # noqa: E402
+import plan_learn_routes               # noqa: E402  (plan_status.json loader)
 
 RX_REF_COL = re.compile(r"^Ref_?\d+$")
 RX_COND_COL = re.compile(r"^Cond\d+$")
@@ -1160,6 +1168,93 @@ def gate(scan, items, master_path):
     return keep, held
 
 
+NO_SOURCE_BUG = {
+    "kind": "no_source", "strong": False,
+    "title": "No source found in the game files",
+}
+
+
+def apply_plan_status(s, items, status, master_path):
+    """Split the bugged list by the Duchess's plan_status.json calls.
+    Returns (bugged items, unreleased rows, ids that left the list because of a
+    call — never reported as "fixed")."""
+    master = _load_json(master_path, None) or {}
+    rows = {}
+    for it in (master.get("items", master) if isinstance(master, dict) else master) or []:
+        pid = ((it.get("plan_item") or {}).get("formid") or "").upper()
+        if pid and not it.get("recipe_only"):
+            rows.setdefault(pid, it)
+    moved = {fid for fid, v in status.items() if v["status"] in ("unreleased", "legacy")}
+    keep = []
+    for x in items:
+        st = (status.get(x["id"]) or {}).get("status")
+        if st in ("unreleased", "legacy"):
+            continue
+        if st:
+            x["status"] = st
+        keep.append(x)
+    have = {x["id"] for x in keep}
+
+    def no_source_row(fid, row, st):
+        book = s.books.get(fid) or {}
+        name = row.get("name") or book.get("full") or fid
+        edid = book.get("edid") or ""
+        if st == "bugged":
+            summ = "The Duchess has checked this one: it's bugged and isn't dropping right now."
+        else:
+            summ = "No source found yet. The Duchess is looking into it."
+        note = (status.get(fid) or {}).get("note")
+        return {
+            "id": fid, "name": name, "kind": "plan", "severity": "unobtainable",
+            "status": "not_checked" if st is None else st,
+            "bugs": [dict(NO_SOURCE_BUG, records=[], summary=summ,
+                          text=("Nothing in the current game files gives this plan out: no leveled "
+                                "list, vendor, quest, container or challenge that the exports can see."
+                                + (f" the Duchess's note: {note}" if note else "")))],
+            "still_from": [],
+            "technical": {"plan": {"form_id": fid, "edid": edid, "type": "BOOK"}},
+            "confidence": "strong" if st == "bugged" else "check",
+        }
+
+    # the Duchess's `bugged` calls the checks didn't catch, then every tradeable plan
+    # with no source nobody has looked at yet (plan_learn_routes sets
+    # status_checked: false on those)
+    for fid, row in sorted(rows.items()):
+        if fid in have:
+            continue
+        st = (status.get(fid) or {}).get("status")
+        no_src = not row.get("obtain_routes") and not row.get("obtain_unlocks") and not row.get("cut")
+        if st == "bugged" and no_src:
+            keep.append(no_source_row(fid, row, "bugged"))
+        elif st is None and row.get("status_checked") is False and no_src:
+            keep.append(no_source_row(fid, row, None))
+    # the summary/detail pass in main() has already run on the scanned rows
+    for x in keep:
+        for b in x["bugs"]:
+            if "text" in b:
+                b["detail"] = b.pop("text")
+
+    unreleased = []
+    for fid, v in sorted(status.items(), key=lambda kv: (kv[1].get("name") or "").lower()):
+        if v["status"] != "unreleased":
+            continue
+        row = rows.get(fid) or {}
+        if row.get("obtain_routes") or row.get("obtain_unlocks"):
+            continue   # it has a source now — no longer leftover content (Mia asks Duchess again)
+        book = s.books.get(fid) or {}
+        unreleased.append({
+            "id": fid,
+            "name": v.get("name") or book.get("full") or fid,
+            "edid": v.get("edid") or book.get("edid") or "",
+            "note": v.get("note") or "",
+            "decided": v.get("decided") or "",
+            "by": v.get("by") or "Duchess",
+            "in_files": fid in s.books,
+            "cut_in_files": bool(row.get("cut_in_files")),
+        })
+    return keep, unreleased, moved
+
+
 SEV_ORDER = {"unobtainable": 0, "route_broken": 1, "broken_item": 2}
 
 
@@ -1179,6 +1274,8 @@ def main(argv=None):
     ap.add_argument("--out", default=os.path.join(REPO, "dist", "bugged_plans.json"))
     ap.add_argument("--review", default=os.path.join(REPO, "data", "bugged_plans_review.json"))
     ap.add_argument("--master", default=os.path.join(REPO, "dist", "plan_master.json"))
+    ap.add_argument("--status", default=os.path.join(REPO, "data", "plan_status.json"),
+                    help="the Duchess's plan_status.json (live only)")
     ap.add_argument("--channel", choices=("live", "pts"), default=None,
                     help="label the output; the PTS build passes pts (its tsv/ is already PTS-normalised)")
     ap.add_argument("--previous", default=None,
@@ -1221,9 +1318,24 @@ def main(argv=None):
     s.stats["moved_to_cut_content"] = len(moved_cut)
     hidden = [x for x in items if (review.get(x["id"]) or {}).get("status") == "not_a_bug"]
     items = [x for x in items if x not in hidden]
+
+    # the Duchess's calls (data/plan_status.json, 1 Nov 2026). Live only — PTS is left
+    # exactly as the checks make it. Two sections on the page:
+    #   1. Bugged     = the checks above + the Duchess's `bugged` plans + every tradeable
+    #                   plan with no source nobody has looked at yet ("not
+    #                   checked yet"), so nothing is hidden
+    #   2. Unreleased = the Duchess's `unreleased` plans: leftover content in the files
+    # Legacy plans are on neither. `leave` rows stay as the checks found them.
+    channel = a.channel or ("pts" if "pts" in os.path.normpath(a.data_dir).split(os.sep) else "live")
+    unreleased, moved_status = [], set()
+    if channel == "live":
+        status = plan_learn_routes.load_status(a.status)
+        items, unreleased, moved_status = apply_plan_status(s, items, status, a.master)
+        s.stats["kat_unreleased"] = len(unreleased)
+        s.stats["kat_legacy_left_off"] = sum(1 for v in status.values() if v["status"] == "legacy")
     for x in items:
         rv = review.get(x["id"]) or {}
-        x["confirmed"] = rv.get("status") == "confirmed"
+        x["confirmed"] = rv.get("status") == "confirmed" or x.get("status") == "bugged"
         if rv.get("note"):
             x["review_note"] = rv["note"]
         old = prev_items.get(x["id"])
@@ -1237,7 +1349,8 @@ def main(argv=None):
             x["report"] = rep
     cur_ids = {x["id"] for x in items}
     fixed = [{"id": i, "name": o["name"], "fixed_on": today} for i, o in prev_items.items()
-             if i not in cur_ids and i not in {h["id"] for h in hidden} and i not in moved_cut]
+             if i not in cur_ids and i not in {h["id"] for h in hidden} and i not in moved_cut
+             and i not in moved_status]
     # keep earlier fixes for a few runs so readers see what changed
     for f in prev.get("fixed", []):
         if f["id"] not in cur_ids and f["id"] not in {x["id"] for x in fixed} and \
@@ -1250,14 +1363,28 @@ def main(argv=None):
     counts["confirmed"] = sum(1 for x in items if x.get("confirmed"))
     counts["titles"] = sum(1 for x in items if x["kind"] in ("player_title", "camp_title"))
     counts["plans"] = len(items) - counts["titles"]
+    counts["not_checked"] = sum(1 for x in items if x.get("status") == "not_checked")
+    counts["kat_bugged"] = sum(1 for x in items if x.get("status") == "bugged")
+    counts["unreleased"] = len(unreleased)
     doc = {
         "_generated_by": "src/build_bugged_plans_json.py",
         "generated": datetime.date.today().isoformat(),
-        "channel": a.channel or ("pts" if "pts" in os.path.normpath(a.data_dir).split(os.sep) else "live"),
+        "channel": channel,
         "exports": s.files,
         "stats": dict(s.stats),
         "counts": {"total": len(items), **counts},
+        # Page layout (1 Nov 2026). `items` stays the Bugged section so older
+        # readers (Brewmaster, the old renderer) keep working unchanged.
+        "sections": [
+            {"key": "bugged", "title": "Bugged", "source": "items",
+             "blurb": "Plans the game files say are broken, plans the Duchess has confirmed are "
+                      "bugged, and plans with no known source that haven't been checked yet."},
+            {"key": "unreleased", "title": "Unreleased / leftover content", "source": "unreleased",
+             "blurb": "Plans that were never released. They're still in the game files, but nothing "
+                      "gives them out. This is leftover content that needs tidying up, not a player problem."},
+        ] if channel == "live" else [],
         "items": items,
+        "unreleased": unreleased,
         "parked_lists": parked,
         "fixed": fixed,
         "held_back": held_back,
