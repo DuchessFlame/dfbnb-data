@@ -48,9 +48,9 @@ SEVERITY
   route_broken  one route is broken but the plan is still obtainable elsewhere
 
 KAT'S CALLS  (data/plan_status.json, live only — 1 Nov 2026)
-  The page has two sections: `items` = Bugged (the checks above, Kat's
+  The page has two sections: `items` = Bugged (the checks above, the Duchess's
   `bugged` plans, and every tradeable plan with no source that nobody has
-  checked yet, status "not_checked"), and `unreleased` = Kat's `unreleased`
+  checked yet, status "not_checked"), and `unreleased` = the Duchess's `unreleased`
   plans (FormID, EDID, her note) — leftover content, not a player problem.
   Legacy plans are on neither. `sections` describes the layout for the page.
 
@@ -1175,7 +1175,7 @@ NO_SOURCE_BUG = {
 
 
 def apply_plan_status(s, items, status, master_path):
-    """Split the bugged list by Kat's plan_status.json calls.
+    """Split the bugged list by the Duchess's plan_status.json calls.
     Returns (bugged items, unreleased rows, ids that left the list because of a
     call — never reported as "fixed")."""
     master = _load_json(master_path, None) or {}
@@ -1210,13 +1210,13 @@ def apply_plan_status(s, items, status, master_path):
             "bugs": [dict(NO_SOURCE_BUG, records=[], summary=summ,
                           text=("Nothing in the current game files gives this plan out: no leveled "
                                 "list, vendor, quest, container or challenge that the exports can see."
-                                + (f" Kat's note: {note}" if note else "")))],
+                                + (f" the Duchess's note: {note}" if note else "")))],
             "still_from": [],
             "technical": {"plan": {"form_id": fid, "edid": edid, "type": "BOOK"}},
             "confidence": "strong" if st == "bugged" else "check",
         }
 
-    # Kat's `bugged` calls the checks didn't catch, then every tradeable plan
+    # the Duchess's `bugged` calls the checks didn't catch, then every tradeable plan
     # with no source nobody has looked at yet (plan_learn_routes sets
     # status_checked: false on those)
     for fid, row in sorted(rows.items()):
@@ -1240,7 +1240,7 @@ def apply_plan_status(s, items, status, master_path):
             continue
         row = rows.get(fid) or {}
         if row.get("obtain_routes") or row.get("obtain_unlocks"):
-            continue   # it has a source now — no longer leftover content (Mia asks Kat again)
+            continue   # it has a source now — no longer leftover content (Mia asks Duchess again)
         book = s.books.get(fid) or {}
         unreleased.append({
             "id": fid,
@@ -1248,7 +1248,7 @@ def apply_plan_status(s, items, status, master_path):
             "edid": v.get("edid") or book.get("edid") or "",
             "note": v.get("note") or "",
             "decided": v.get("decided") or "",
-            "by": v.get("by") or "Kat",
+            "by": v.get("by") or "Duchess",
             "in_files": fid in s.books,
             "cut_in_files": bool(row.get("cut_in_files")),
         })
@@ -1275,7 +1275,7 @@ def main(argv=None):
     ap.add_argument("--review", default=os.path.join(REPO, "data", "bugged_plans_review.json"))
     ap.add_argument("--master", default=os.path.join(REPO, "dist", "plan_master.json"))
     ap.add_argument("--status", default=os.path.join(REPO, "data", "plan_status.json"),
-                    help="Kat's plan_status.json (live only)")
+                    help="the Duchess's plan_status.json (live only)")
     ap.add_argument("--channel", choices=("live", "pts"), default=None,
                     help="label the output; the PTS build passes pts (its tsv/ is already PTS-normalised)")
     ap.add_argument("--previous", default=None,
@@ -1319,12 +1319,12 @@ def main(argv=None):
     hidden = [x for x in items if (review.get(x["id"]) or {}).get("status") == "not_a_bug"]
     items = [x for x in items if x not in hidden]
 
-    # Kat's calls (data/plan_status.json, 1 Nov 2026). Live only — PTS is left
+    # the Duchess's calls (data/plan_status.json, 1 Nov 2026). Live only — PTS is left
     # exactly as the checks make it. Two sections on the page:
-    #   1. Bugged     = the checks above + Kat's `bugged` plans + every tradeable
+    #   1. Bugged     = the checks above + the Duchess's `bugged` plans + every tradeable
     #                   plan with no source nobody has looked at yet ("not
     #                   checked yet"), so nothing is hidden
-    #   2. Unreleased = Kat's `unreleased` plans: leftover content in the files
+    #   2. Unreleased = the Duchess's `unreleased` plans: leftover content in the files
     # Legacy plans are on neither. `leave` rows stay as the checks found them.
     channel = a.channel or ("pts" if "pts" in os.path.normpath(a.data_dir).split(os.sep) else "live")
     unreleased, moved_status = [], set()

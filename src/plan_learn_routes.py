@@ -49,7 +49,7 @@ Old copies can still be in players' hands (e.g. Laser Chainsaw Paint),
 so those stay tradeable.
 
 KAT'S CALLS (data/plan_status.json, 1 Nov 2026)
-  Every plan left with no source is Kat's to decide, one at a time in Mia's To
+  Every plan left with no source is the Duchess's to decide, one at a time in Mia's To
   finish list; Brewmaster commits her answer to data/plan_status.json and
   apply_status() below reads it: unreleased -> cut; legacy -> kept, never cut;
   bugged / leave -> unchanged, status_checked true. A tradeable plan with no
@@ -97,16 +97,16 @@ _PROXY_USER_SIGS = {"LVLI", "COBJ", "IDLE", "CNDF", "PERK", "SPEL", "MGEF", "ACT
 # no recipe, so no rule can join the two: (sentence, quest edid, quest name).
 QUEST_UNLOCK_BY_HAND = {
     # co_Armor_Backpack_Standard: "Known by default or when conditions are met",
-    # condition GetQuestCompleted(P01C_Tadpole). Kat, 31 Oct 2026: quest reward
+    # condition GetQuestCompleted(P01C_Tadpole). Duchess, 31 Oct 2026: quest reward
     # after the Tadpole and Possum badges.
     "0046A36C": ("Unlocked when you complete the quest: The Order of the Tadpole "
                  "(the backpack recipe is known once the quest is done — no plan is handed out).",
                  "P01C_Tadpole", "The Order of the Tadpole"),
 }
-# Kat's calls on plans with no source live in ONE file, data/plan_status.json
+# the Duchess's calls on plans with no source live in ONE file, data/plan_status.json
 # (1 Nov 2026 — it replaced the CUT_BY_HAND table that used to sit here). Mia
 # asks her about each plan one at a time; Brewmaster writes her answer there.
-#   unreleased -> cut, not tradeable, cut_reason "never released (Kat, <date>)"
+#   unreleased -> cut, not tradeable, cut_reason "never released (Duchess, <date>)"
 #   legacy     -> stays (tradeable as the keywords say), legacy: true, obtain
 #                 "No longer drops — old copies can still be traded." Never cut.
 #   bugged     -> stays as it is (tradeable, no source), status_checked: true
@@ -147,7 +147,7 @@ def _kat_date(iso):
 
 
 def unreleased_reason(entry):
-    return f"never released ({entry.get('by') or 'Kat'}, {_kat_date(entry.get('decided'))})"
+    return f"never released ({entry.get('by') or 'Duchess'}, {_kat_date(entry.get('decided'))})"
 
 
 def _no_source(it):
@@ -317,7 +317,7 @@ def _finish(it):
 
 
 def apply_status(items, status, stats, changed):
-    """Kat's plan_status.json calls, applied to every row they name (and the
+    """the Duchess's plan_status.json calls, applied to every row they name (and the
     status_checked flag on every other tradeable plan with no source). Runs
     after the rules above and is safe to re-run over a finished file: it only
     ever sets the same fields to the same values."""
@@ -326,7 +326,7 @@ def apply_status(items, status, stats, changed):
         if not pi or it.get("recipe_only"):
             continue
         entry = status.get(pi)
-        # re-worked out every run (Kat, 1 Nov: "the code will always check it in case it moves to CUT or a
+        # re-worked out every run (Duchess, 1 Nov: "the code will always check it in case it moves to CUT or a
         # source gets added"), so a flag clears itself when it stops being true
         for k in ("plan_status_outdated", "cut_in_files"):
             it.pop(k, None)
@@ -341,9 +341,9 @@ def apply_status(items, status, stats, changed):
             continue
         st = entry["status"]
         if not _no_source(it):
-            # a source turned up since Kat decided — the decision no longer
+            # a source turned up since Duchess decided — the decision no longer
             # applies. The row is left exactly as the route walk made it (a real
-            # plan with its routes), flagged so Mia asks Kat about it again.
+            # plan with its routes), flagged so Mia asks Duchess about it again.
             it.pop("plan_status", None)
             it["plan_status_outdated"] = {"was": st, "decided": entry.get("decided") or "",
                                           "now": "has a source"}
@@ -359,20 +359,20 @@ def apply_status(items, status, stats, changed):
         if st == "unreleased":
             why = unreleased_reason(entry)
             # a file rule that already cut it (test chest, POST_ list...) keeps
-            # its own reason; Kat's earlier hand reasons are replaced
-            if not it.get("cut") or "(Kat," in (it.get("cut_reason") or ""):
+            # its own reason; the Duchess's earlier hand reasons are replaced
+            if not it.get("cut") or re.search(r"\(\w+, \d{1,2} \w{3} \d{4}\)", it.get("cut_reason") or ""):
                 it["cut_reason"] = why
             it["cut"] = True
             it["tradeable"] = False
-            stats["unreleased (Kat)"] += 1
+            stats["unreleased (Duchess)"] += 1
             changed.append((it, "unreleased"))
         elif st == "legacy":
             it["legacy"] = True
             it["obtain"] = LEGACY_OBTAIN
-            stats["legacy (Kat)"] += 1
+            stats["legacy (Duchess)"] += 1
             changed.append((it, "legacy"))
         else:
-            stats[f"{st} (Kat)"] += 1
+            stats[f"{st} (Duchess)"] += 1
             changed.append((it, st))
 
 
@@ -384,7 +384,7 @@ def attach(items, tsv_dir, status=None):
     pts = "pts" in os.path.normpath(os.path.abspath(tsv_dir)).lower().split(os.sep)
     stats = collections.Counter()
     if pts:
-        # Kat, 31 Oct 2026: the plan check / mule lists are live only — PTS rows
+        # Duchess, 31 Oct 2026: the plan check / mule lists are live only — PTS rows
         # are left exactly as the route walk made them.
         stats["skipped: PTS"] = 1
         stats["_changed"] = []
@@ -475,12 +475,12 @@ def attach(items, tsv_dir, status=None):
 
         st = (status.get(pi) or {}).get("status")
         if st == "legacy":
-            # Kat: legacy plans are never cut, whatever the rules below say
-            stats["kept: legacy (Kat)"] += 1
+            # Duchess: legacy plans are never cut, whatever the rules below say
+            stats["kept: legacy (Duchess)"] += 1
             continue
         cut_why = unreleased_reason(status[pi]) if st == "unreleased" else None
         # 3b. every place that holds the plan is a cut record — a test chest
-        # (Kat, 31 Oct 2026: anything in a test case is cut content) or a
+        # (Duchess, 31 Oct 2026: anything in a test case is cut content) or a
         # zzz_/POST_/DEL_ list.
         holders = [(e, sig) for _f, e, sig in idx.book_refs.get(pi, [])
                    if sig in ("CONT", "LVLI", "NPC_", "REFR", "GMRW", "QUST", "TERM")]
@@ -490,7 +490,7 @@ def attach(items, tsv_dir, status=None):
             else:
                 cut_why = ("its only sources are cut records ("
                            + ", ".join(sorted({e for e, _s in holders})) + ")")
-        # 3c. photomode poses are never plans (Kat, 31 Oct 2026): every recipe
+        # 3c. photomode poses are never plans (Duchess, 31 Oct 2026): every recipe
         # this plan unlocks makes nothing and is only checked by a pose (IDLE).
         if not cut_why and cobjs and all(
                 not c["cnam"] and c["refs"] and all(sig == "IDLE" for _f, _e, sig in c["refs"])
@@ -537,7 +537,7 @@ def attach(items, tsv_dir, status=None):
                          + ", ".join(f"{n or e} ({e})" for e, n in dead_q) + ".")
             if what:
                 text += f" The item itself is {what}, not a plan."
-            # Kat, 31 Oct 2026: not a real plan, so off the pages and the lists.
+            # Duchess, 31 Oct 2026: not a real plan, so off the pages and the lists.
             it["obtain"] = text
             it["cut"] = True
             it["cut_reason"] = "not a real plan — " + text[len("Not obtainable. "):]

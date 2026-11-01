@@ -10,7 +10,7 @@ name: Build Current Bugged Plans
 #     Added 22 Oct 2026: the 21 Oct patch build started before Brewmaster's
 #     TSV sync, published a list made from the old files, and nothing rebuilt
 #     it afterwards - 13 fixed plans (Tunnel of Love, Windy) stayed "bugged".
-#   * when data/bugged_plans_review.json (confirmed / not_a_bug), Kat's
+#   * when data/bugged_plans_review.json (confirmed / not_a_bug), the Duchess's
 #     data/plan_status.json or the builder changes, so a mark shows straight
 #     away. A plan_status change is also applied to the live plan_master here
 #     (plan_learn_routes, seconds), which then rebuilds the mule pages.
@@ -27,7 +27,7 @@ on:
     branches: [main]
     paths:
       - 'data/bugged_plans_review.json'
-      - 'data/plan_status.json'        # Kat's Bugged / Unreleased / Legacy calls (1 Nov 2026)
+      - 'data/plan_status.json'        # the Duchess's Bugged / Unreleased / Legacy calls (1 Nov 2026)
       - 'src/plan_learn_routes.py'
       - 'src/build_bugged_plans_json.py'
       - 'src/switched_off_starts.py'
@@ -57,7 +57,7 @@ jobs:
         with:
           python-version: '3.12'
 
-      # Kat's calls from Mia (data/plan_status.json, committed by Brewmaster).
+      # the Duchess's calls from Mia (data/plan_status.json, committed by Brewmaster).
       # plan_learn_routes is a pure join over the finished live plan_master
       # (seconds, no rates), so an answer reaches the plan check, the mule
       # lists and the bugged page without the 80-minute build. Live only.
