@@ -75,6 +75,11 @@ jobs:
       - name: "[7] Unique Weapons & Armour"
         run: python src/build_unique_weapons_armour_json.py --channel both
 
+      - name: "[8] The Slasher Unique Rewards checklist"
+        run: |
+          python src/build_slasher_uniques.py --dist dist
+          python src/build_slasher_uniques.py --dist dist/pts
+
       - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"

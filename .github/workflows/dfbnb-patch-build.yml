@@ -959,6 +959,17 @@ jobs:
       - name: Build Unique Weapons Armour JSON
         run: python src/build_unique_weapons_armour_json.py --channel both
 
+      # --- THE SLASHER: UNIQUE REWARDS CHECKLIST ---
+      # Writes byPage["the-slasher-all-rewards"].uniques into the live seasonal
+      # JSON (dfbnb-pts-build.yml does the PTS copy) from the pools build_seasonal_events_json.py
+      # resolved, the slasher guide, plan_master, titles and the uniques'
+      # pictures. Must run after all of those. Renderer: renderSlasherPage in
+      # df-bnb-seasonal-events.js.
+      - name: Build Slasher Unique Rewards
+        run: |
+          python src/build_slasher_uniques.py --dist dist
+          python -c "import json;d=json.load(open('dist/seasonal_events/seasonal_events_rewards_by_page.json',encoding='utf-8'));u=d['byPage']['the-slasher-all-rewards'].get('uniques') or [];assert len(u)>20,len(u);print('slasher uniques ok',len(u))"
+
       # Every unique's source line must reach its own leveled list in the
       # game files (uwa_source_links.py). The build already drops a line that
       # does not; this prints the report into the run log. Never blocks.

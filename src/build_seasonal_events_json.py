@@ -3242,8 +3242,17 @@ _SLASHER_ACTIVITIES = [
         "lvlis": ["00900A70"],
     },
     {
+        # The quest's own reward list only (SDOW_MQ04_LL_QuestRewards: the
+        # Photo Frame). Split from the Infestation boss loot 1 Nov 2026 so the
+        # Unique Rewards checklist names the real source of each reward.
         "label": "Out of the Shadows (Week 3)", "edid": "SDOW_MQ04_Infestations",
-        "lvlis": ["00900A71", "008F2B67"],
+        "lvlis": ["00900A71"],
+    },
+    {
+        # HTO_crLLS_Rewards_SpecialEvents_SDOW: Pint-Sized Phantom Infestation
+        # bosses while The Slasher runs (Rare 25% / Ultra Rare 5%).
+        "label": "Infestations — Pint-Sized Phantom Boss", "edid": "HTO_crLLS_Rewards_SpecialEvents_SDOW",
+        "lvlis": ["008F2B67"],
         "drop": {"000ce97d", "0009221c"},   # generic .44 + .44 ammo
         "renames": {"000ff964": "The Farmhand", "0010db0f": "Old Guard"},
     },

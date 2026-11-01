@@ -1143,6 +1143,12 @@ jobs:
       - name: Build Unique Weapons Armour JSON
         run: python src/build_unique_weapons_armour_json.py --channel live
 
+      # --- THE SLASHER: UNIQUE REWARDS CHECKLIST (PTS) ---
+      # Same step as dfbnb-patch-build.yml. tsv/ is PTS here, so dist/ IS the
+      # PTS build; the relocate step moves it to dist/pts/.
+      - name: Build Slasher Unique Rewards
+        run: python src/build_slasher_uniques.py --dist dist
+
       # Data Mining > Cut Content (/df/data-mining/cut-content/). Collects the
       # cut rows every builder above marked (plan_master, uniques' cut_uniques,
       # titles, challenges + cut_quests, collectables, CAMP items) - cut

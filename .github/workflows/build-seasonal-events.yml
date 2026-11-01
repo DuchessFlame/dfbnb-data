@@ -8,6 +8,7 @@ on:
       - 'tsv/**'
       - 'src/build_seasonal_events_json.py'
       - 'src/slasher_guide.py'
+      - 'src/build_slasher_uniques.py'
       - 'src/plan_quest_guides.py'
       - 'src/build_drop_rates.py'
 
@@ -52,6 +53,11 @@ jobs:
         run: |
           python -V
           python src/build_seasonal_events_json.py
+
+      # The Slasher All Rewards page's Unique Rewards checklist rides on the
+      # file just written, so re-add it before the commit (src/build_slasher_uniques.py).
+      - name: Build Slasher Unique Rewards
+        run: python src/build_slasher_uniques.py --dist dist
 
       - name: Commit dist outputs
         shell: bash
