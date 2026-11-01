@@ -565,9 +565,13 @@ _Couldn't key this file to records; contents differ._
 
 ## `buffs/scout-banners.json`  ·  +0 / -0 / ~0
 
-## `bugged_plans.json`  ·  +81 / -2 / ~4
+## `bugged_plans.json`  ·  +85 / -3 / ~0
 
-**Added (81)**
+**Added (85)**
+- Plan: Plasma Caster Short Scope  `00590FC5`
+- Plan: Plasma Caster Automatic Barrel  `0086DBE5`
+- Plan: Plasma Caster Splitter Barrel  `0086DBE6`
+- Plan: Plasma Caster Gamma Wave Emitter  `0086DBE7`
 - Plan: LMG Compensator  `008D5AAE`
 - Plan: Single Action Revolver Vicious Receiver  `0094673A`
 - Plan: Single Action Revolver Severe Receiver  `0094673B`
@@ -604,21 +608,12 @@ _Couldn't key this file to records; contents differ._
 - Plan: Gauss Shotgun Stinging Magazine  `00948FF2`
 - Plan: Gauss Shotgun Swift Magazine  `00948FF3`
 - Plan: Gauss Shotgun Piercing Magazine  `00948FF4`
-- Plan: Gauss Shotgun Aligned Long Barrel  `00948FF5`
-- Plan: Gauss Shotgun Aligned Short Barrel  `00948FF6`
-- Plan: Gauss Shotgun Aligned Shielded Barrel  `00948FF7`
-- Plan: Gauss Shotgun Severe Receiver  `00948FF8`
-- …and 41 more
+- …and 45 more
 
-**Removed (2)**
+**Removed (3)**
+- Plan: ProSnap Deluxe Targeting Lens  `003F1215`
 - Plan: Stone Fountain  `004E8541`
 - Plan: The Gutter  `005D0F04`
-
-**Changed (4)**
-- Plan: Plasma Caster Short Scope  `00590FC5` — fields: bugs
-- Plan: Plasma Caster Automatic Barrel  `0086DBE5` — fields: bugs
-- Plan: Plasma Caster Splitter Barrel  `0086DBE6` — fields: bugs
-- Plan: Plasma Caster Gamma Wave Emitter  `0086DBE7` — fields: bugs
 
 ## `build_menu_items.json`  ·  +1 / -0 / ~21
 
@@ -2197,7 +2192,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi  `SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi` — fields: imageUrl
 - SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat  `SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat` — fields: imageUrl
 
-## `plan_master.json`  ·  +314 / -107 / ~1405
+## `plan_master.json`  ·  +314 / -107 / ~1387
 
 **Added (314)**
 - Plan: Brain In a Jar  `PLAN_008AC859`
@@ -2285,7 +2280,7 @@ _Couldn't key this file to records; contents differ._
 - Cursed Harpoon Gun  `UNIQ_CURSED_HARPOON_GUN`
 - …and 67 more
 
-**Changed (1405)**
+**Changed (1387)**
 - Mr. Handy Player Icon  `NWREWARD_003FBB46` — fields: image_source, images
 - Pocket Watch Player Icon  `NWREWARD_003FBB49` — fields: image_source, images
 - MegaSloth Player Icon  `NWREWARD_003FBB4B` — fields: image_source, images
@@ -2304,7 +2299,6 @@ _Couldn't key this file to records; contents differ._
 - Plan: Assault Rifle Fierce Receiver  `PLAN_00000871` — fields: obtain_ledger, obtain_routes, retired_routes
 - Plan: Assault Rifle Vigorous Receiver  `PLAN_00000872` — fields: obtain_ledger, obtain_routes, retired_routes
 - Plan: Assault Rifle Steadfast Receiver  `PLAN_00000873` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Alien Blaster Short NV Scope  `PLAN_00000D8D` — fields: 
 - Plan: Ultra-Light Build Robot Armor Chest  `PLAN_0001BF30` — fields: obtain_ledger, obtain_routes
 - Plan: BioCommMesh Robot Armor Lining  `PLAN_0001BF31` — fields: obtain_ledger, obtain_routes
 - Plan: Shadowed Robot Armor Chest  `PLAN_0001BF32` — fields: obtain_ledger, obtain_routes
@@ -2326,7 +2320,8 @@ _Couldn't key this file to records; contents differ._
 - Plan: BioCommMesh Combat Armor Lining  `PLAN_000224FB` — fields: obtain_ledger, obtain_routes, retired_routes
 - Plan: Lead Lined Combat Armor Chest  `PLAN_000224FC` — fields: obtain_ledger, obtain_routes, retired_routes
 - Plan: BoS Combat Armor Chest Piece  `PLAN_000224FD` — fields: obtain_ledger, obtain_routes
-- …and 1365 more
+- Plan: Cushioned Combat Armor Legs  `PLAN_00022E98` — fields: obtain_ledger, obtain_routes, retired_routes
+- …and 1347 more
 
 ## `plan_master_unresolved.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
@@ -2451,7 +2446,7 @@ _Couldn't key this file to records; contents differ._
 ## `titles_data.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `titles_player.json`  ·  +23 / -0 / ~40
+## `titles_player.json`  ·  +23 / -0 / ~39
 
 **Added (23)**
 - ATX_PlayerTitles_Prefix_Sudsy  `ATX_PlayerTitles_Prefix_Sudsy`
@@ -2478,7 +2473,7 @@ _Couldn't key this file to records; contents differ._
 - ZZZ_SCORE_S27_PlayerTitles_Prefix_SPECIAL  `ZZZ_SCORE_S27_PlayerTitles_Prefix_SPECIAL`
 - zzz_HTO_PlayerTitles_Both_Terminated  `zzz_HTO_PlayerTitles_Both_Terminated`
 
-**Changed (40)**
+**Changed (39)**
 - ATX_PlayerTitles_Prefix_AdVictoriam  `ATX_PlayerTitles_Prefix_AdVictoriam` — fields: releaseDate, releaseLabel, releaseYear, source
 - ATX_PlayerTitles_Prefix_Apex  `ATX_PlayerTitles_Prefix_Apex` — fields: isNew
 - ATX_PlayerTitles_Prefix_Contessa  `ATX_PlayerTitles_Prefix_Contessa` — fields: releaseDate, releaseLabel, source
@@ -2518,7 +2513,6 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S25_PlayerTitles_Prefix_Outdoor  `SCORE_S25_PlayerTitles_Prefix_Outdoor` — fields: imageUrl, images
 - SCORE_S25_PlayerTitles_Suffix_Globetrotter  `SCORE_S25_PlayerTitles_Suffix_Globetrotter` — fields: imageUrl, images
 - SCORE_S25_PlayerTitles_Suffix_Pioneer  `SCORE_S25_PlayerTitles_Suffix_Pioneer` — fields: imageUrl, images
-- SFS09_PlayerTitles_Suffix_Manager  `SFS09_PlayerTitles_Suffix_Manager` — fields: debug
 
 ## `titles_player_generator.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
