@@ -355,6 +355,84 @@ def convert_chance(meat_doc):
 
 
 # ── One page ────────────────────────────────────────────────────────────────
+def _event_variants(evs, ex):
+    """Mutated + Uninvited event rows from the game files (Duchess, 1 Nov 2026).
+
+    ex["mutated_events"]: for every row that spawns the creature, add a
+      "Mutated" twin when the game has MutatedEvents_LCP_<quest EDID>_MutationEnabled
+      (GLOB export). Bethesda switches mutations on from its servers each week.
+    ex["uninvited"] = NPC EDID (e.g. LvlScorchBeast_PartyCrasher): every quest
+      whose QUEST-export PartyCrasher_NPC_n is that NPC, with the matching
+      PartyCrasher_GLOB_n value as the chance (0.34 -> 34%). Grouped under the
+      NPC's own name ("Uninvited Scorchbeast"), plus its Mutated twin.
+    """
+    import csv
+    import tsv_source
+    csv.field_size_limit(10 ** 9)
+    if not (ex.get("mutated_events") or ex.get("uninvited")):
+        return evs
+    globs = {}
+    gp = tsv_source.newest("GLOB_Export_*.tsv", required=False)
+    if gp:
+        with open(gp, encoding="utf-8", errors="replace", newline="") as f:
+            r = csv.reader(f, delimiter="\t")
+            h = next(r)
+            ie, iv = h.index("EDID"), h.index("FLTV")
+            for row in r:
+                if len(row) > iv:
+                    globs[row[ie]] = row[iv]
+
+    def mutable(edid):
+        return ("MutatedEvents_LCP_" + (edid or "") + "_MutationEnabled") in globs
+
+    out = []
+    for e in evs:
+        out.append(e)
+        if ex.get("mutated_events") and e.get("spawns") and mutable(e.get("edid")):
+            out.append(dict(e, mutated=True))
+    want = ex.get("uninvited")
+    if not want:
+        return out
+    npc_name = ""
+    npath = tsv_source.newest("NPC_Export_*.tsv", required=False)
+    if npath:
+        with open(npath, encoding="utf-8", errors="replace", newline="") as f:
+            r = csv.reader(f, delimiter="\t")
+            h = next(r)
+            for row in r:
+                if len(row) > 2 and row[1] == want:
+                    npc_name = row[2]
+                    break
+    qpath = tsv_source.newest("QUEST_Export_*.tsv", required=False)
+    if not qpath:
+        return out
+    with open(qpath, encoding="utf-8", errors="replace", newline="") as f:
+        r = csv.reader(f, delimiter="\t")
+        h = next(r)
+        col = {c: i for i, c in enumerate(h)}
+        for row in r:
+            for n in range(10):
+                i = col.get("PartyCrasher_NPC_%d" % n)
+                if i is None or i >= len(row) or not row[i].endswith(":" + want):
+                    continue
+                g = row[col["PartyCrasher_GLOB_%d" % n]] if col.get("PartyCrasher_GLOB_%d" % n, 1e9) < len(row) else ""
+                gedid = g.split(":")[1] if ":" in g else g
+                try:
+                    pct = float(globs.get(gedid, "")) * 100
+                    rate = ("%.2f" % pct).rstrip("0").rstrip(".") + "%"
+                except ValueError:
+                    rate = ""
+                qedid = row[col["EDID"]]
+                base = {"name": row[col["FULL - Name"]], "edid": qedid,
+                        "type": row[col["Quest Type"]], "form_id": row[col["FormID"]],
+                        "spawns": True, "group": npc_name or "Uninvited",
+                        "uninvited": npc_name, "rate_display": rate}
+                out.append(base)
+                if mutable(qedid):
+                    out.append(dict(base, mutated=True))
+    return out
+
+
 def _fixed_counts(regions, creature, labels):
     """[{count, label}] per source type, in the order the extras file lists them
     (labels = {source_type: [singular, plural]}; true = default labels)."""
@@ -525,6 +603,8 @@ def build_one(meat_path, ctx):
     # Maps root expand switch, page by page (guide-maps-expand).
     if ex.get("maps_expand"):
         doc["maps_expand"] = True
+    if ex.get("recipe_obtain_expand"):
+        doc["recipe_obtain_expand"] = True
     # Workshops root expand: which workshop attacks bring this creature, where,
     # and how many (data/workshop_attacks.json). No entry = no expand.
     if ctx.get("workshops", {}).get(slug):
@@ -607,7 +687,15 @@ def build_one(meat_path, ctx):
         if k not in seen and (e.get("rate_value") is None or e.get("rate_value") > 0):
             evs.append(e)
             seen.add(k)
+    evs = _event_variants(evs, ex)
     doc["events_activities"] = evs
+    # Event map photos (extras event_images = {quest EDID: file}), only once the
+    # page pictures are live, like the gallery.
+    if slug in ctx["maps_live"] and ex.get("event_images") and doc.get("map_base"):
+        for e in evs:
+            f = ex["event_images"].get(e.get("edid") or "")
+            if f:
+                e["image"] = doc["map_base"] + f
 
     doc["random_encounters"] = list(md.get("random_encounters") or [])
     B._patch_random_encounters(doc)
