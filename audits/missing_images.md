@@ -1,6 +1,6 @@
 # Missing images
 
-Every item on a reward page with no picture anywhere: not in the shared library, not in its own event folder, not on any other page. Built 2026-10-30 from the server listing of 2026-10-30T23:27:41Z.
+Every item on a reward page with no picture anywhere: not in the shared library, not in its own event folder, not on any other page. Built 2026-11-01 from the server listing of 2026-11-01T01:41:47Z.
 
 **3309 items have no picture on the server**: 342 are already on your computer and just need uploading, 2967 need art found (7200 rows - the same item can appear on several pages; one upload fixes every page it is on).
 
@@ -742,7 +742,7 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: Pulse Grenade *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/mines-and-grenades/` | `pulse-grenade.avif` |
 | Plan: Pulse Mine *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/mines-and-grenades/` | `pulse-mine.avif` |
 | Plan: Smart Frag Grenade *(cut)* | `wp-content/uploads/guide-images/plan-checklist/mines-and-grenades/` | `004E84EC.avif` |
-| Plan: Smoke Grenade | `wp-content/uploads/guide-images/plan-checklist/mines-and-grenades/` | `00467FC6.avif` |
+| Plan: Smoke Grenade *(cut)* | `wp-content/uploads/guide-images/plan-checklist/mines-and-grenades/` | `00467FC6.avif` |
 | Plan: Soundmaker *(cut)* | `wp-content/uploads/guide-images/plan-checklist/mines-and-grenades/` | `00589620.avif` |
 | Plan: Thrown Bear Trap *(cut)* | `wp-content/uploads/guide-images/plan-checklist/mines-and-grenades/` | `004E84F6.avif` |
 
@@ -750,7 +750,7 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 
 | Item | Upload to | File name |
 |---|---|---|
-| Plan: Arena Champ Photopose | `wp-content/uploads/guide-images/plan-checklist/photomode/` | `007F5441.avif` |
+| Plan: Arena Champ Photopose *(cut)* | `wp-content/uploads/guide-images/plan-checklist/photomode/` | `007F5441.avif` |
 
 ## Plan Checklists - Power Armour (400)
 
@@ -952,7 +952,7 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: T-51b Tesla Coils | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `001D0334.avif` |
 | Plan: T-51b VATS Matrix Overlay *(cut)* | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `0017A5AE.avif` |
 | Plan: T-51b Vim! Paint *(cut)* | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `0047AAEF.avif` |
-| Plan: T-51b Winterized Coating | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `0047AA76.avif` |
+| Plan: T-51b Winterized Coating *(cut)* | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `0047AA76.avif` |
 | Plan: T-60 Atom Cat Paint *(cut)* | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `00501930.avif` |
 | Plan: T-60 Blood Cleanser | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `0018103C.avif` |
 | Plan: T-60 BOS Elder Paint | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `0047AABE.avif` |
@@ -1128,7 +1128,7 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: X-01 Cooling Vent | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `001D0271.avif` |
 | Plan: X-01 Core Assembly | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `001D0320.avif` |
 | Plan: X-01 Emergency Protocols | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `001D032B.avif` |
-| Plan: X-01 Headlamp | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `0016B6E5.avif` |
+| Plan: X-01 Headlamp *(cut)* | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `0016B6E5.avif` |
 | Plan: X-01 Headlamp Blue | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `001EC0EB.avif` |
 | Plan: X-01 Headlamp Bright | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `001EC0EC.avif` |
 | Plan: X-01 Headlamp Purple | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `001EC0EE.avif` |
@@ -1349,10 +1349,10 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Recipe: Fasnacht Sausage *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `fasnacht-sausage.avif` |
 | Recipe: Fiery Infusion *(cut)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `0068596A.avif` |
 | Recipe: Firecap Souffle *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `firecap-souffle.avif` |
-| Recipe: Firecracker Whiskey Manhattan | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `003F446B.avif` |
-| Recipe: Firecracker Whiskey Old Fashioned | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `003F446C.avif` |
+| Recipe: Firecracker Whiskey Manhattan *(cut)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `003F446B.avif` |
+| Recipe: Firecracker Whiskey Old Fashioned *(cut)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `003F446C.avif` |
 | Recipe: Fish and Tatos *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `fish-and-tatos.avif` |
-| Recipe: Fish Bits *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `fish-bits.avif` |
+| Recipe: Fish Bits *(cut)* *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `fish-bits.avif` |
 | Recipe: Fish Chowder *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `fish-chowder.avif` |
 | Recipe: Formula P *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `formula-p.avif` |
 | Recipe: Formula Q *(cut)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `00417A43.avif` |
@@ -1581,7 +1581,7 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: Vault 76 Jumpsuit *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/underarmour/` | `vault-76-jumpsuit.avif` |
 | Plan: Vault 94 Jumpsuit *(cut)* *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/underarmour/` | `vault-94-jumpsuit.avif` |
 | Plan: Vault 94 Jumpsuit *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/underarmour/` | `vault-94-jumpsuit.avif` |
-| Plan: Vault 96 Jumpsuit | `wp-content/uploads/guide-images/plan-checklist/underarmour/` | `003BE8AB.avif` |
+| Plan: Vault 96 Jumpsuit *(cut)* | `wp-content/uploads/guide-images/plan-checklist/underarmour/` | `003BE8AB.avif` |
 | Plan: Vault Suit Underarmor Style | `wp-content/uploads/guide-images/plan-checklist/underarmour/` | `0089D6BD.avif` |
 | Plan: Vault Tec University Jumpsuit *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/underarmour/` | `vault-tec-university-jumpsuit.avif` |
 
@@ -1751,7 +1751,7 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: Blue Tailgate Bed | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `007F4A14.avif` |
 | Plan: Body In A Bathtub *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0084B0B3.avif` |
 | Plan: Bog Berries *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `007FB507.avif` |
-| Plan: Bogey Plushie | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0083958D.avif` |
+| Plan: Bogey Plushie *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0083958D.avif` |
 | Plan: Bone Wood Bead Curtain *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0076F78D.avif` |
 | Plan: Boney Arm Sconce | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00783BBC.avif` |
 | Plan: Bookcase | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0012D5C7.avif` |
@@ -1777,10 +1777,10 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: Broken Toilet | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `004E8987.avif` |
 | Plan: Brotherhood Roundtable | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `005EF714.avif` |
 | Plan: Brown Domestic Kitchen Tables | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006E2396.avif` |
-| Plan: Bubble Turret | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `005D7E65.avif` |
+| Plan: Bubble Turret *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `005D7E65.avif` |
 | Plan: Bunk Bed | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `004E4850.avif` |
 | Plan: Burrows Signs | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `005D0F1D.avif` |
-| Plan: C.A.M.P. Certification | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0072BC1A.avif` |
+| Plan: C.A.M.P. Certification *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0072BC1A.avif` |
 | Plan: Cafe Tables | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `003B3086.avif` |
 | Plan: Caged Bulb Lights | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `005D0F0A.avif` |
 | Plan: Campfire Tales Tent | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0046D290.avif` |
@@ -1829,7 +1829,7 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: Curved Fish Display | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `007B704D.avif` |
 | Plan: Daisy Rug | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `000A78FE.avif` |
 | Plan: Deathclaw Gargoyle Statue | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `007832A2.avif` |
-| Plan: Deathclaw Plushie | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0082B94B.avif` |
+| Plan: Deathclaw Plushie *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0082B94B.avif` |
 | Plan: Decontamination Shower | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00521F4D.avif` |
 | Plan: Deer Skull | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0040DF45.avif` |
 | Plan: Desktop Nuka Launcher | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0067E1A7.avif` |
@@ -1839,7 +1839,7 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: Dino Peak Trashcan *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `007F2666.avif` |
 | Plan: Dino Theme T-Shirt 2 *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `007F5440.avif` |
 | Plan: Dirty Blue Ridge Sleeping Bag | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00691D11.avif` |
-| Plan: Display Cases | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00111D4E.avif` |
+| Plan: Display Cases *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00111D4E.avif` |
 | Plan: Disrupter Device *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006FBA57.avif` |
 | Plan: Disrupter Device *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006FBA80.avif` |
 | Plan: Divided Digits *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `007FB50B.avif` |
@@ -1913,12 +1913,12 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: Fermenting Station | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006EC3CB.avif` |
 | Plan: File Cabinets | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `003D6516.avif` |
 | Plan: Firing Targets *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `003A0819.avif` |
-| Plan: Fish Display Hooks | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `007B9272.avif` |
+| Plan: Fish Display Hooks *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `007B9272.avif` |
 | Plan: Fish Display Plaque *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `007B9271.avif` |
 | Plan: Fishermans Cooking Station *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `007F5560.avif` |
 | Plan: Flamethrower Trap | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `002377BC.avif` |
 | Plan: Flatwoods Jack-O-Lite | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00796788.avif` |
-| Plan: Flatwoods Monster Poster | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006B2E7A.avif` |
+| Plan: Flatwoods Monster Poster *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006B2E7A.avif` |
 | Plan: Flatwoods Monster Tube *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00632210.avif` |
 | Plan: Flatwoods Monster Tube | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00696247.avif` |
 | Plan: Floater Freezer Tube *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00696248.avif` |
@@ -1956,7 +1956,7 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: Goliath Claw Display | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00754FBB.avif` |
 | Plan: Goliath Leg Display | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00754FBA.avif` |
 | Plan: Gorilla Chair | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0069687D.avif` |
-| Plan: Grafton Monster Poster | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006B2E7B.avif` |
+| Plan: Grafton Monster Poster *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006B2E7B.avif` |
 | Plan: Greek Letters Set | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `003F476B.avif` |
 | Plan: Green Car Stash Box | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `007F2769.avif` |
 | Plan: Green Wall Mounted Headlamp | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `007F276A.avif` |
@@ -1975,7 +1975,7 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: Hello Neon Sign | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `005EDA6F.avif` |
 | Plan: Helvetian Flower Display | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0076CF2F.avif` |
 | Plan: Herdsman's Bell - Basic | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0072E1A9.avif` |
-| Plan: Herdsman's Bell - Basic | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0075D34E.avif` |
+| Plan: Herdsman's Bell - Basic *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0075D34E.avif` |
 | Plan: Herdsman's Bell - Bigfoot *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `007AC0D6.avif` |
 | Plan: Herdsman's Bell - Fasnacht | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0076CD35.avif` |
 | Plan: Herdsman's Bell - Lincoln | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `007802E2.avif` |
@@ -2020,7 +2020,7 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: Large Generator | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0066964C.avif` |
 | Plan: Large Tent | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0006EAB0.avif` |
 | Plan: Large Toolbox | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `003D6518.avif` |
-| Plan: Large Ultracite Shard | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0068312A.avif` |
+| Plan: Large Ultracite Shard *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0068312A.avif` |
 | Plan: Large Water Purifier | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00464835.avif` |
 | Plan: Lawn Flamingoes | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `004E852F.avif` |
 | Plan: Lesser Devil Plushies | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006E6F1F.avif` |
@@ -2036,7 +2036,7 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: Long Rustic Bench | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `003D64E4.avif` |
 | Plan: Lost Tube | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0075E13A.avif` |
 | Plan: Lounge Chairs | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `003C94DC.avif` |
-| Plan: Loveland Frog Plushie | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `008591EC.avif` |
+| Plan: Loveland Frog Plushie *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `008591EC.avif` |
 | Plan: Magazine Rack | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `001D4A72.avif` |
 | Plan: Makeshift Wine Rack | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0078664A.avif` |
 | Plan: Marquee Arrows | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00111E58.avif` |
@@ -2083,7 +2083,7 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: Modern TV | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `004E8975.avif` |
 | Plan: Moe the Mole Bear Poster | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0077299A.avif` |
 | Plan: Moe the Mole Fire Poster | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00772997.avif` |
-| Plan: Moe the Mole Plushie | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00748755.avif` |
+| Plan: Moe the Mole Plushie *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00748755.avif` |
 | Plan: Moe the Mole Safety Cutout | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0077082D.avif` |
 | Plan: Moe the Mole Trash Poster | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00772996.avif` |
 | Plan: Molerat Wind Chime | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `005E48A4.avif` |
@@ -2114,7 +2114,7 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: Mounted Mirelurk Claw | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `004E9FFD.avif` |
 | Plan: Mounted Mirelurk Hunter Head | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `004E9FF9.avif` |
 | Plan: Mounted Mirelurk King Head | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `004E9FDB.avif` |
-| Plan: Mounted Mirelurk Queen Claw | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `004E9FDD.avif` |
+| Plan: Mounted Mirelurk Queen Claw *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `004E9FDD.avif` |
 | Plan: Mounted Molerat Head | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `004E9FEB.avif` |
 | Plan: Mounted Mongrel Head | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `004E9FDF.avif` |
 | Plan: Mounted Mothman | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0043585C.avif` |
@@ -2139,10 +2139,10 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: Mr. Farmhand Collectron | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `008B3DBB.avif` |
 | Plan: Musket Stack Monument | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `005DD68C.avif` |
 | Plan: Mutated Goldfish | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0066DF0C.avif` |
-| Plan: Nature Trail Sign Dinosaur Footprints | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00770816.avif` |
-| Plan: Nature Trail Sign Natural Bridge | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00770819.avif` |
-| Plan: Nature Trail Sign Steel Jack | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00770814.avif` |
-| Plan: Nature Trail Sign Water Features | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0077081A.avif` |
+| Plan: Nature Trail Sign Dinosaur Footprints *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00770816.avif` |
+| Plan: Nature Trail Sign Natural Bridge *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00770819.avif` |
+| Plan: Nature Trail Sign Steel Jack *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00770814.avif` |
+| Plan: Nature Trail Sign Water Features *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0077081A.avif` |
 | Plan: Neapolitan Exterior Sign | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0072D476.avif` |
 | Plan: News Stand | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00023869.avif` |
 | Plan: Nightclub Exterior Sign | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0072D473.avif` |
@@ -2276,7 +2276,7 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: Rug | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `004E8539.avif` |
 | Plan: Rug Set 2 | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `004E853B.avif` |
 | Plan: Rust Eagle Banner | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00600254.avif` |
-| Plan: Rust Kingdom Gateway | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `007F5B01.avif` |
+| Plan: Rust Kingdom Gateway *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `007F5B01.avif` |
 | Plan: Rusted Abraxodyne Sign | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0083F2AD.avif` |
 | Plan: Rusted Flatwoods Jack-O-Lite | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00796787.avif` |
 | Plan: Rusted Ghoul Jack-O-Lite | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00796789.avif` |
@@ -2284,7 +2284,7 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: Rusted Sheepsquatch Jack-O-Lite | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0079678D.avif` |
 | Plan: Rusted T-60 Jack-O-Lite | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00796785.avif` |
 | Plan: Rustic Tables | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `003C7BDB.avif` |
-| Plan: Rusty Saxophone | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0078C78C.avif` |
+| Plan: Rusty Saxophone *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0078C78C.avif` |
 | Plan: Safety Posters | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `003B8142.avif` |
 | Plan: Saloon Car Doors | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `007F4A28.avif` |
 | Plan: Santa Crash | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0059FFFE.avif` |
@@ -2336,7 +2336,7 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: Starburst Clock | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `003D64F5.avif` |
 | Plan: Starlight Drive-in Movie Poster | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00833B46.avif` |
 | Plan: Steel Bust | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00755973.avif` |
-| Plan: Steel Jack Statue | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0077082F.avif` |
+| Plan: Steel Jack Statue *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0077082F.avif` |
 | Plan: Stone Benches | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00336731.avif` |
 | Plan: Stone Fountain | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `004E8541.avif` |
 | Plan: Stop Sign Stool | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `007F4A2B.avif` |
@@ -2353,9 +2353,9 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: Suitcase - Purple | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006E23C8.avif` |
 | Plan: Suitcase - Red | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006E23C7.avif` |
 | Plan: Suitcase - Yellow | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006E23CD.avif` |
-| Plan: Super Duper Mart Sign | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0082E7DD.avif` |
-| Plan: Super Mutant BBQ Grill | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0055549A.avif` |
-| Plan: Super Mutant Grill | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00556F1D.avif` |
+| Plan: Super Duper Mart Sign *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0082E7DD.avif` |
+| Plan: Super Mutant BBQ Grill *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0055549A.avif` |
+| Plan: Super Mutant Grill *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00556F1D.avif` |
 | Plan: Super Mutant Tube | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `005EE14F.avif` |
 | Plan: Super Reactor | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `005D163C.avif` |
 | Plan: Surprised Jack O'Lantern | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `005772C2.avif` |
@@ -2401,7 +2401,7 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: Tunnel Boring Drill Raid Trophy | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00791C2D.avif` |
 | Plan: Tunnel of Love Poster | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00682118.avif` |
 | Plan: Turbo-Fert Fertilizer | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00595A0E.avif` |
-| Plan: Turkey Plushie | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006A044F.avif` |
+| Plan: Turkey Plushie *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006A044F.avif` |
 | Plan: Tycoon Lake Sign | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `008553F5.avif` |
 | Plan: U.S. Flag | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `003D6535.avif` |
 | Plan: U.S. Flags (Clean) | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `003FC7E0.avif` |
@@ -2414,7 +2414,7 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: V63 Weather Machine Blueprint | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0075C203.avif` |
 | Plan: V63 Zweihaender Blueprint | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0075C202.avif` |
 | Plan: Valley Galleria Signs | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `005D0F1E.avif` |
-| Plan: Vault 63 Door Display | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00768740.avif` |
+| Plan: Vault 63 Door Display *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00768740.avif` |
 | Plan: Vault 94 Stash Box | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `005D0F07.avif` |
 | Plan: Vault Boy | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `004F8A0F.avif` |
 | Plan: Vault Boy Jack O'Lantern | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `005772C0.avif` |
@@ -2427,7 +2427,7 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: Vault-Tec Motorized Butter Churn *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00830902.avif` |
 | Plan: Vendors *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00391179.avif` |
 | Plan: Vintage Water Cooler | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `005FBD08.avif` |
-| Plan: Vintage Water Cooler | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00634B17.avif` |
+| Plan: Vintage Water Cooler *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00634B17.avif` |
 | Plan: VTU Statue | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00355983.avif` |
 | Plan: Wall Mounted Fan | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00633365.avif` |
 | Plan: Wall Safe | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0067AED3.avif` |
