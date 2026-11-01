@@ -2145,7 +2145,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi  `SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi` — fields: imageUrl
 - SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat  `SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat` — fields: imageUrl
 
-## `plan_master.json`  ·  +314 / -107 / ~1387
+## `plan_master.json`  ·  +314 / -107 / ~2486
 
 **Added (314)**
 - Plan: Brain In a Jar  `PLAN_008AC859`
@@ -2233,7 +2233,7 @@ _Couldn't key this file to records; contents differ._
 - Cursed Harpoon Gun  `UNIQ_CURSED_HARPOON_GUN`
 - …and 67 more
 
-**Changed (1387)**
+**Changed (2486)**
 - Mr. Handy Player Icon  `NWREWARD_003FBB46` — fields: image_source, images
 - Pocket Watch Player Icon  `NWREWARD_003FBB49` — fields: image_source, images
 - MegaSloth Player Icon  `NWREWARD_003FBB4B` — fields: image_source, images
@@ -2249,9 +2249,11 @@ _Couldn't key this file to records; contents differ._
 - Nuke Goggles Man Player Icon  `NWREWARD_0041662B` — fields: image_source, images
 - Nuke Goggles Woman Player Icon  `NWREWARD_0041662C` — fields: image_source, images
 - Power Armor Player Icon  `NWREWARD_0041662D` — fields: image_source, images
-- Plan: Assault Rifle Fierce Receiver  `PLAN_00000871` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Assault Rifle Vigorous Receiver  `PLAN_00000872` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Assault Rifle Steadfast Receiver  `PLAN_00000873` — fields: obtain_ledger, obtain_routes, retired_routes
+- Plan: Assault Rifle Fierce Receiver  `PLAN_00000871` — fields: image_source, images, obtain_ledger, obtain_routes, retired_routes
+- Plan: Assault Rifle Vigorous Receiver  `PLAN_00000872` — fields: image_source, images, obtain_ledger, obtain_routes, retired_routes
+- Plan: Assault Rifle Steadfast Receiver  `PLAN_00000873` — fields: image_source, images, obtain_ledger, obtain_routes, retired_routes
+- Plan: Alien Blaster Short NV Scope  `PLAN_00000D8D` — fields: image_source, images
+- Plan: Alien Blaster Fusion Mag  `PLAN_00000D8E` — fields: image_source, images
 - Plan: Ultra-Light Build Robot Armor Chest  `PLAN_0001BF30` — fields: obtain_ledger, obtain_routes
 - Plan: BioCommMesh Robot Armor Lining  `PLAN_0001BF31` — fields: obtain_ledger, obtain_routes
 - Plan: Shadowed Robot Armor Chest  `PLAN_0001BF32` — fields: obtain_ledger, obtain_routes
@@ -2272,9 +2274,7 @@ _Couldn't key this file to records; contents differ._
 - Plan: Ultra-Light Build Marine Armor Limbs  `PLAN_00021911` — fields: obtain_ledger, obtain_routes
 - Plan: BioCommMesh Combat Armor Lining  `PLAN_000224FB` — fields: obtain_ledger, obtain_routes, retired_routes
 - Plan: Lead Lined Combat Armor Chest  `PLAN_000224FC` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: BoS Combat Armor Chest Piece  `PLAN_000224FD` — fields: obtain_ledger, obtain_routes
-- Plan: Cushioned Combat Armor Legs  `PLAN_00022E98` — fields: obtain_ledger, obtain_routes, retired_routes
-- …and 1347 more
+- …and 2446 more
 
 ## `plan_master_unresolved.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
