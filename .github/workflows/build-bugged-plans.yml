@@ -20,14 +20,19 @@ name: Build Current Bugged Plans
 on:
   workflow_dispatch:
   workflow_run:
-    workflows: ["Build Plan Checklists (How to Obtain)"]
+    # The Patch Build also rebuilds plan_master (1 Nov 2026), so the Duchess's
+    # calls are re-applied after it too.
+    workflows: ["Build Plan Checklists (How to Obtain)", "DFBNB Patch Build"]
     types: [completed]
     branches: [main]
   push:
     branches: [main]
     paths:
       - 'data/bugged_plans_review.json'
-      - 'data/plan_status.json'        # the Duchess's Bugged / Unreleased / Legacy calls (1 Nov 2026)
+      - 'data/plan_status.json'
+      # A laptop push can carry an older dist/plan_master.json (1 Nov 2026: a
+      # GitHub Desktop merge put the pre-call copy back). Re-apply the calls.
+      - 'dist/plan_master.json'        # the Duchess's Bugged / Unreleased / Legacy calls (1 Nov 2026)
       - 'src/plan_learn_routes.py'
       - 'src/build_bugged_plans_json.py'
       - 'src/switched_off_starts.py'
