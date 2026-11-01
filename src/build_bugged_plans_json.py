@@ -1238,6 +1238,9 @@ def apply_plan_status(s, items, status, master_path):
     for fid, v in sorted(status.items(), key=lambda kv: (kv[1].get("name") or "").lower()):
         if v["status"] != "unreleased":
             continue
+        row = rows.get(fid) or {}
+        if row.get("obtain_routes") or row.get("obtain_unlocks"):
+            continue   # it has a source now — no longer leftover content (Mia asks Kat again)
         book = s.books.get(fid) or {}
         unreleased.append({
             "id": fid,
@@ -1247,6 +1250,7 @@ def apply_plan_status(s, items, status, master_path):
             "decided": v.get("decided") or "",
             "by": v.get("by") or "Kat",
             "in_files": fid in s.books,
+            "cut_in_files": bool(row.get("cut_in_files")),
         })
     return keep, unreleased, moved
 

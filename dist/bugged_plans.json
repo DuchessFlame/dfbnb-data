@@ -31,21 +31,21 @@
   "titles_skipped_cut_or_atom": 151,
   "titles_checked": 52,
   "moved_to_cut_content": 14,
-  "kat_unreleased": 14,
+  "kat_unreleased": 18,
   "kat_legacy_left_off": 1
  },
  "counts": {
-  "total": 8,
-  "unobtainable": 5,
+  "total": 4,
+  "unobtainable": 1,
   "broken_item": 3,
-  "conf_check": 7,
+  "conf_check": 3,
   "conf_strong": 1,
   "confirmed": 0,
   "titles": 0,
-  "plans": 8,
+  "plans": 4,
   "not_checked": 1,
   "kat_bugged": 0,
-  "unreleased": 14
+  "unreleased": 18
  },
  "sections": [
   {
@@ -62,198 +62,6 @@
   }
  ],
  "items": [
-  {
-   "id": "0086DBE5",
-   "name": "Plan: Plasma Caster Automatic Barrel",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": false,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "008B1D62",
-       "edid": "LLS_Mods_Weapons_Ranged_PlasmaCaster",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Mods Weapons Ranged Plasma Caster reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_PlasmaCaster) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Plasma Caster."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "0086DBE5",
-     "edid": "recipe_mod_PlasmaCaster_Barrel_Auto",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0058FDCC",
-      "edid": "co_mod_PlasmaCaster_Barrel_Auto",
-      "type": "COBJ"
-     }
-    ],
-    "creates": [
-     {
-      "form_id": "00584FBB",
-      "edid": "mod_PlasmaCaster_Barrel_Auto",
-      "type": "OMOD"
-     }
-    ]
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-09-23",
-   "is_new": false
-  },
-  {
-   "id": "0086DBE7",
-   "name": "Plan: Plasma Caster Gamma Wave Emitter",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": false,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "008B1D62",
-       "edid": "LLS_Mods_Weapons_Ranged_PlasmaCaster",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Mods Weapons Ranged Plasma Caster reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_PlasmaCaster) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Plasma Caster."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "0086DBE7",
-     "edid": "recipe_mod_PlasmaCaster_Receiver_Burning",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0086DBE8",
-      "edid": "co_mod_PlasmaCaster_Receiver_Burning",
-      "type": "COBJ"
-     }
-    ],
-    "creates": [
-     {
-      "form_id": "0086DBEC",
-      "edid": "mod_PlasmaCaster_Receiver_Burning",
-      "type": "OMOD"
-     }
-    ]
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-09-23",
-   "is_new": false
-  },
-  {
-   "id": "00590FC5",
-   "name": "Plan: Plasma Caster Short Scope",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": false,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "008B1D62",
-       "edid": "LLS_Mods_Weapons_Ranged_PlasmaCaster",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Mods Weapons Ranged Plasma Caster reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_PlasmaCaster) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Plasma Caster."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "00590FC5",
-     "edid": "recipe_mod_PlasmaCaster_SCOPE_ShortScope",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0058FDCE",
-      "edid": "co_mod_PlasmaCaster_SCOPE_ShortScope_Base",
-      "type": "COBJ"
-     }
-    ],
-    "creates": [
-     {
-      "form_id": "0086C9D7",
-      "edid": "mod_PlasmaCaster_Scope_ShortScope_Base",
-      "type": "OMOD"
-     }
-    ]
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-09-23",
-   "is_new": false
-  },
-  {
-   "id": "0086DBE6",
-   "name": "Plan: Plasma Caster Splitter Barrel",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": false,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "008B1D62",
-       "edid": "LLS_Mods_Weapons_Ranged_PlasmaCaster",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Mods Weapons Ranged Plasma Caster reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_PlasmaCaster) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Plasma Caster."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "0086DBE6",
-     "edid": "recipe_mod_PlasmaCaster_Barrel_Splitter",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0058FDCA",
-      "edid": "co_mod_PlasmaCaster_Barrel_Splitter",
-      "type": "COBJ"
-     }
-    ],
-    "creates": [
-     {
-      "form_id": "00584FBD",
-      "edid": "mod_PlasmaCaster_Barrel_Splitter",
-      "type": "OMOD"
-     }
-    ]
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-09-23",
-   "is_new": false
-  },
   {
    "id": "003F1215",
    "name": "Plan: ProSnap Deluxe Targeting Lens",
@@ -440,7 +248,8 @@
    "note": "never released as a plan",
    "decided": "2026-10-31",
    "by": "Kat",
-   "in_files": true
+   "in_files": true,
+   "cut_in_files": false
   },
   {
    "id": "005D0F08",
@@ -449,7 +258,8 @@
    "note": "nothing has given it out since at least March 2026",
    "decided": "2026-10-31",
    "by": "Kat",
-   "in_files": true
+   "in_files": true,
+   "cut_in_files": false
   },
   {
    "id": "0083E70A",
@@ -458,7 +268,8 @@
    "note": "never released as a plan",
    "decided": "2026-10-31",
    "by": "Kat",
-   "in_files": true
+   "in_files": true,
+   "cut_in_files": false
   },
   {
    "id": "008591ED",
@@ -467,7 +278,8 @@
    "note": "never released",
    "decided": "2026-10-31",
    "by": "Kat",
-   "in_files": true
+   "in_files": true,
+   "cut_in_files": false
   },
   {
    "id": "00770816",
@@ -476,7 +288,8 @@
    "note": "never added to any reward list (signs 01/03/04/08 drop from Dangerous Pastimes)",
    "decided": "2026-10-31",
    "by": "Kat",
-   "in_files": true
+   "in_files": true,
+   "cut_in_files": false
   },
   {
    "id": "00770819",
@@ -485,7 +298,8 @@
    "note": "never added to any reward list (signs 01/03/04/08 drop from Dangerous Pastimes)",
    "decided": "2026-10-31",
    "by": "Kat",
-   "in_files": true
+   "in_files": true,
+   "cut_in_files": false
   },
   {
    "id": "00770814",
@@ -494,7 +308,8 @@
    "note": "never added to any reward list (signs 01/03/04/08 drop from Dangerous Pastimes)",
    "decided": "2026-10-31",
    "by": "Kat",
-   "in_files": true
+   "in_files": true,
+   "cut_in_files": false
   },
   {
    "id": "0077081A",
@@ -503,7 +318,48 @@
    "note": "never added to any reward list (signs 01/03/04/08 drop from Dangerous Pastimes)",
    "decided": "2026-10-31",
    "by": "Kat",
-   "in_files": true
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "0086DBE5",
+   "name": "Plan: Plasma Caster Automatic Barrel",
+   "edid": "recipe_mod_PlasmaCaster_Barrel_Auto",
+   "note": "",
+   "decided": "2026-11-01",
+   "by": "Kat",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "0086DBE7",
+   "name": "Plan: Plasma Caster Gamma Wave Emitter",
+   "edid": "recipe_mod_PlasmaCaster_Receiver_Burning",
+   "note": "",
+   "decided": "2026-11-01",
+   "by": "Kat",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "00590FC5",
+   "name": "Plan: Plasma Caster Short Scope",
+   "edid": "recipe_mod_PlasmaCaster_SCOPE_ShortScope",
+   "note": "",
+   "decided": "2026-11-01",
+   "by": "Kat",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "0086DBE6",
+   "name": "Plan: Plasma Caster Splitter Barrel",
+   "edid": "recipe_mod_PlasmaCaster_Barrel_Splitter",
+   "note": "",
+   "decided": "2026-11-01",
+   "by": "Kat",
+   "in_files": true,
+   "cut_in_files": false
   },
   {
    "id": "007F5AF3",
@@ -512,7 +368,8 @@
    "note": "never released as a plan",
    "decided": "2026-10-31",
    "by": "Kat",
-   "in_files": true
+   "in_files": true,
+   "cut_in_files": false
   },
   {
    "id": "00467FC0",
@@ -521,7 +378,8 @@
    "note": "nothing has given it out since at least March 2026",
    "decided": "2026-10-31",
    "by": "Kat",
-   "in_files": true
+   "in_files": true,
+   "cut_in_files": false
   },
   {
    "id": "007FDC36",
@@ -530,7 +388,8 @@
    "note": "never released as a plan; the sign is a Season 24 Scoreboard item",
    "decided": "2026-10-31",
    "by": "Kat",
-   "in_files": true
+   "in_files": true,
+   "cut_in_files": false
   },
   {
    "id": "0077082F",
@@ -539,7 +398,8 @@
    "note": "the Steel Jack statues trail is an unmarked questline with no reward or plan at the end; none of its six loot spots holds the plan",
    "decided": "2026-11-01",
    "by": "Kat",
-   "in_files": true
+   "in_files": true,
+   "cut_in_files": false
   },
   {
    "id": "00833F55",
@@ -548,7 +408,8 @@
    "note": "never released as a plan",
    "decided": "2026-10-31",
    "by": "Kat",
-   "in_files": true
+   "in_files": true,
+   "cut_in_files": false
   },
   {
    "id": "007284E7",
@@ -557,7 +418,8 @@
    "note": "nothing has given it out since at least March 2026",
    "decided": "2026-10-31",
    "by": "Kat",
-   "in_files": true
+   "in_files": true,
+   "cut_in_files": false
   }
  ],
  "parked_lists": [

@@ -326,6 +326,10 @@ def apply_status(items, status, stats, changed):
         if not pi or it.get("recipe_only"):
             continue
         entry = status.get(pi)
+        # re-worked out every run (Kat, 1 Nov: "the code will always check it in case it moves to CUT or a
+        # source gets added"), so a flag clears itself when it stops being true
+        for k in ("plan_status_outdated", "cut_in_files"):
+            it.pop(k, None)
         if not entry:
             # nobody has looked at this one yet: a tradeable plan, not cut,
             # with no route and no unlock — "not checked yet" on the bugged page
@@ -338,10 +342,18 @@ def apply_status(items, status, stats, changed):
         st = entry["status"]
         if not _no_source(it):
             # a source turned up since Kat decided — the decision no longer
-            # applies; say so in the log so it can go back to her after a patch
+            # applies. The row is left exactly as the route walk made it (a real
+            # plan with its routes), flagged so Mia asks Kat about it again.
+            it.pop("plan_status", None)
+            it["plan_status_outdated"] = {"was": st, "decided": entry.get("decided") or "",
+                                          "now": "has a source"}
             stats[f"{st} but has a source now"] += 1
             changed.append((it, f"{st}: has a source now"))
             continue
+        if st == "unreleased" and _dev((it.get("plan_item") or {}).get("edid")):
+            # the game files now mark it cut too (zzz_/CUT_/DEL_/POST_...)
+            it["cut_in_files"] = True
+            stats["unreleased and now cut in the files"] += 1
         it["plan_status"] = st
         it["status_checked"] = True
         if st == "unreleased":
