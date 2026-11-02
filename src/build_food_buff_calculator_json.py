@@ -864,6 +864,12 @@ def build(data_dir, dist_dir):
                 if (t, n) not in names:
                     warn(f"rules.json build.{ok}.prefer.{t}: no {t} item called '{n}'")
     item_names = {i["n"] for i in items}
+    for n in rules.get("tie_prefer") or []:               # Kat 2 Nov: wins ties (easier for the chefs)
+        if not any(i["n"] == n for i in items):
+            warn(f"rules.json tie_prefer: no item called '{n}'")
+    for n in rules.get("never_recommend") or []:          # Kat 2 Nov: stays on the pages, never picked
+        if not any(i["n"] == n for i in items):
+            warn(f"rules.json never_recommend: no item called '{n}'")
     for n in rules.get("exclude_items") or []:
         if n not in item_names:
             warn(f"rules.json exclude_items: no item called '{n}'")
