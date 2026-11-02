@@ -161676,13 +161676,35 @@
           "sources": [
             {
               "route": "Events & Activities",
-              "name": "Daily Ops (while The Slasher is running)",
               "short": "Ops",
+              "name": "Daily Ops: Decryption - First Elder Clear of the Day",
               "rate": 11.111111,
+              "conditions": [],
+              "note": "Only fires while the Pint-Sized Slasher event is running and the op's enemy is the Slasher encounter. The first Elder clear of the day always rolls this list; repeat clears roll it 1 time in 4."
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - First Elder Clear of the Day",
+              "rate": 11.111111,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Decryption - Repeat Clears",
+              "rate": 2.777778,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - Repeat Clears",
+              "rate": 2.777778,
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Ops"
         },
         {
@@ -161832,7 +161854,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
         },
         {
@@ -161857,8 +161879,70 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
+        },
+        {
+          "id": "008E06F0",
+          "name": "Ghost Boy",
+          "formid": "008E06F0",
+          "edid": "SDOW_SlasherGhostBoy",
+          "sig": "ALCH",
+          "kind": "Chem",
+          "tradeable": null,
+          "isNew": false,
+          "releaseYear": null,
+          "pics": [],
+          "sources": [
+            {
+              "route": "Events & Activities",
+              "name": "Repeatable: Disturbed Grave",
+              "short": "Event",
+              "rate": 16.666667,
+              "conditions": [],
+              "quest": {
+                "name": "Repeatable: Disturbed Grave",
+                "steps": [
+                  "Find the Disturbed Grave",
+                  "Equip a shovel",
+                  "Use a shovel to dig up the Disturbed Grave",
+                  "Take the ritual pile"
+                ],
+                "availability": "Only available for the duration of The Slasher Seasonal Content"
+              }
+            },
+            {
+              "route": "Enemies",
+              "name": "Slasher-masked Spooky Scorched",
+              "short": "Enemy",
+              "rate": 100.0,
+              "conditions": []
+            },
+            {
+              "route": "Enemies",
+              "name": "Pint-Sized Phantoms",
+              "short": "Enemy",
+              "rate": 20.0,
+              "conditions": []
+            },
+            {
+              "route": "Enemies",
+              "name": "Uninvited Pint-Sized Phantom (Mischief Night)",
+              "short": "Enemy",
+              "rate": 8.333333,
+              "conditions": []
+            },
+            {
+              "route": "Challenges",
+              "short": "Challenge",
+              "name": "Complete the Lifetime Challenge: Collect Pint-Sized Slasher Masks (3)",
+              "rate": 100.0,
+              "conditions": [],
+              "challenge": true
+            }
+          ],
+          "stopsDropping": false,
+          "source": "Event"
         },
         {
           "id": "000CE97D",
@@ -161924,13 +162008,35 @@
           "sources": [
             {
               "route": "Events & Activities",
-              "name": "Daily Ops (while The Slasher is running)",
               "short": "Ops",
+              "name": "Daily Ops: Decryption - First Elder Clear of the Day",
               "rate": 11.111111,
+              "conditions": [],
+              "note": "Only fires while the Pint-Sized Slasher event is running and the op's enemy is the Slasher encounter. The first Elder clear of the day always rolls this list; repeat clears roll it 1 time in 4."
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - First Elder Clear of the Day",
+              "rate": 11.111111,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Decryption - Repeat Clears",
+              "rate": 2.777778,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - Repeat Clears",
+              "rate": 2.777778,
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Ops"
         },
         {
@@ -162009,7 +162115,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
         },
         {
@@ -162078,7 +162184,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
         },
         {
@@ -162115,7 +162221,7 @@
               }
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Quest"
         },
         {
@@ -162140,7 +162246,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
         },
         {
@@ -162165,7 +162271,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
         },
         {
@@ -162190,7 +162296,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
         },
         {
@@ -162215,7 +162321,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Event"
         },
         {
@@ -162241,7 +162347,7 @@
               "challenge": true
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Challenge"
         },
         {
@@ -162284,7 +162390,7 @@
               }
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Quest"
         },
         {
@@ -162303,13 +162409,35 @@
           "sources": [
             {
               "route": "Events & Activities",
-              "name": "Daily Ops (while The Slasher is running)",
               "short": "Ops",
+              "name": "Daily Ops: Decryption - First Elder Clear of the Day",
               "rate": 11.111111,
+              "conditions": [],
+              "note": "Only fires while the Pint-Sized Slasher event is running and the op's enemy is the Slasher encounter. The first Elder clear of the day always rolls this list; repeat clears roll it 1 time in 4."
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - First Elder Clear of the Day",
+              "rate": 11.111111,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Decryption - Repeat Clears",
+              "rate": 2.777778,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - Repeat Clears",
+              "rate": 2.777778,
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Ops"
         },
         {
@@ -162328,13 +162456,35 @@
           "sources": [
             {
               "route": "Events & Activities",
-              "name": "Daily Ops (while The Slasher is running)",
               "short": "Ops",
+              "name": "Daily Ops: Decryption - First Elder Clear of the Day",
               "rate": 11.111111,
+              "conditions": [],
+              "note": "Only fires while the Pint-Sized Slasher event is running and the op's enemy is the Slasher encounter. The first Elder clear of the day always rolls this list; repeat clears roll it 1 time in 4."
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - First Elder Clear of the Day",
+              "rate": 11.111111,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Decryption - Repeat Clears",
+              "rate": 2.777778,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - Repeat Clears",
+              "rate": 2.777778,
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Ops"
         },
         {
@@ -162353,13 +162503,35 @@
           "sources": [
             {
               "route": "Events & Activities",
-              "name": "Daily Ops (while The Slasher is running)",
               "short": "Ops",
+              "name": "Daily Ops: Decryption - First Elder Clear of the Day",
               "rate": 11.111111,
+              "conditions": [],
+              "note": "Only fires while the Pint-Sized Slasher event is running and the op's enemy is the Slasher encounter. The first Elder clear of the day always rolls this list; repeat clears roll it 1 time in 4."
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - First Elder Clear of the Day",
+              "rate": 11.111111,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Decryption - Repeat Clears",
+              "rate": 2.777778,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - Repeat Clears",
+              "rate": 2.777778,
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Ops"
         },
         {
@@ -162378,13 +162550,35 @@
           "sources": [
             {
               "route": "Events & Activities",
-              "name": "Daily Ops (while The Slasher is running)",
               "short": "Ops",
+              "name": "Daily Ops: Decryption - First Elder Clear of the Day",
               "rate": 11.111111,
+              "conditions": [],
+              "note": "Only fires while the Pint-Sized Slasher event is running and the op's enemy is the Slasher encounter. The first Elder clear of the day always rolls this list; repeat clears roll it 1 time in 4."
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - First Elder Clear of the Day",
+              "rate": 11.111111,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Decryption - Repeat Clears",
+              "rate": 2.777778,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - Repeat Clears",
+              "rate": 2.777778,
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Ops"
         },
         {
@@ -162427,7 +162621,7 @@
               }
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Quest"
         },
         {
@@ -162452,7 +162646,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Event"
         },
         {
@@ -162477,7 +162671,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
         },
         {
@@ -162516,7 +162710,7 @@
               }
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Quest"
         },
         {
@@ -162541,7 +162735,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
         },
         {
@@ -162566,7 +162760,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
         },
         {
@@ -162591,7 +162785,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
         },
         {
@@ -162617,7 +162811,7 @@
               "challenge": true
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Challenge"
         },
         {
@@ -162642,7 +162836,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
         },
         {
@@ -162667,7 +162861,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
         },
         {
@@ -162767,7 +162961,7 @@
               "challenge": true
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Challenge"
         },
         {
@@ -162786,9 +162980,37 @@
           "sources": [
             {
               "route": "Events & Activities",
-              "name": "Daily Ops (while The Slasher is running)",
               "short": "Ops",
+              "name": "Daily Ops: Decryption - First Elder Clear of the Day",
               "rate": 11.111111,
+              "conditions": [
+                "Won’t drop if you’ve already earned Player Title: Pint Sized"
+              ],
+              "note": "Only fires while the Pint-Sized Slasher event is running and the op's enemy is the Slasher encounter. The first Elder clear of the day always rolls this list; repeat clears roll it 1 time in 4."
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - First Elder Clear of the Day",
+              "rate": 11.111111,
+              "conditions": [
+                "Won’t drop if you’ve already earned Player Title: Pint Sized"
+              ]
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Decryption - Repeat Clears",
+              "rate": 2.777778,
+              "conditions": [
+                "Won’t drop if you’ve already earned Player Title: Pint Sized"
+              ]
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - Repeat Clears",
+              "rate": 2.777778,
               "conditions": [
                 "Won’t drop if you’ve already earned Player Title: Pint Sized"
               ]
@@ -162920,13 +163142,35 @@
           "sources": [
             {
               "route": "Events & Activities",
-              "name": "Daily Ops (while The Slasher is running)",
               "short": "Ops",
+              "name": "Daily Ops: Decryption - First Elder Clear of the Day",
               "rate": 11.111111,
+              "conditions": [],
+              "note": "Only fires while the Pint-Sized Slasher event is running and the op's enemy is the Slasher encounter. The first Elder clear of the day always rolls this list; repeat clears roll it 1 time in 4."
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - First Elder Clear of the Day",
+              "rate": 11.111111,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Decryption - Repeat Clears",
+              "rate": 2.777778,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - Repeat Clears",
+              "rate": 2.777778,
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Ops"
         },
         {
@@ -162993,7 +163237,9 @@
           "tradeable": null,
           "isNew": false,
           "releaseYear": null,
-          "pics": [],
+          "pics": [
+            "/wp-content/uploads/guide-images/category-images/legendary-mods-category-image.avif"
+          ],
           "sources": [
             {
               "route": "Enemies",
@@ -163160,13 +163406,35 @@
           "sources": [
             {
               "route": "Events & Activities",
-              "name": "Daily Ops (while The Slasher is running)",
               "short": "Ops",
+              "name": "Daily Ops: Decryption - First Elder Clear of the Day",
               "rate": 11.111111,
+              "conditions": [],
+              "note": "Only fires while the Pint-Sized Slasher event is running and the op's enemy is the Slasher encounter. The first Elder clear of the day always rolls this list; repeat clears roll it 1 time in 4."
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - First Elder Clear of the Day",
+              "rate": 11.111111,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Decryption - Repeat Clears",
+              "rate": 2.777778,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - Repeat Clears",
+              "rate": 2.777778,
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Ops"
         }
       ]
@@ -166156,13 +166424,35 @@
           "sources": [
             {
               "route": "Events & Activities",
-              "name": "Daily Ops (while The Slasher is running)",
               "short": "Ops",
+              "name": "Daily Ops: Decryption - First Elder Clear of the Day",
               "rate": 11.111111,
+              "conditions": [],
+              "note": "Only fires while the Pint-Sized Slasher event is running and the op's enemy is the Slasher encounter. The first Elder clear of the day always rolls this list; repeat clears roll it 1 time in 4."
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - First Elder Clear of the Day",
+              "rate": 11.111111,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Decryption - Repeat Clears",
+              "rate": 2.777778,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - Repeat Clears",
+              "rate": 2.777778,
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Ops"
         },
         {
@@ -166312,7 +166602,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
         },
         {
@@ -166337,8 +166627,70 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
+        },
+        {
+          "id": "008E06F0",
+          "name": "Ghost Boy",
+          "formid": "008E06F0",
+          "edid": "SDOW_SlasherGhostBoy",
+          "sig": "ALCH",
+          "kind": "Chem",
+          "tradeable": null,
+          "isNew": false,
+          "releaseYear": null,
+          "pics": [],
+          "sources": [
+            {
+              "route": "Events & Activities",
+              "name": "Repeatable: Disturbed Grave",
+              "short": "Event",
+              "rate": 16.666667,
+              "conditions": [],
+              "quest": {
+                "name": "Repeatable: Disturbed Grave",
+                "steps": [
+                  "Find the Disturbed Grave",
+                  "Equip a shovel",
+                  "Use a shovel to dig up the Disturbed Grave",
+                  "Take the ritual pile"
+                ],
+                "availability": "Only available for the duration of The Slasher Seasonal Content"
+              }
+            },
+            {
+              "route": "Enemies",
+              "name": "Slasher-masked Spooky Scorched",
+              "short": "Enemy",
+              "rate": 100.0,
+              "conditions": []
+            },
+            {
+              "route": "Enemies",
+              "name": "Pint-Sized Phantoms",
+              "short": "Enemy",
+              "rate": 20.0,
+              "conditions": []
+            },
+            {
+              "route": "Enemies",
+              "name": "Uninvited Pint-Sized Phantom (Mischief Night)",
+              "short": "Enemy",
+              "rate": 8.333333,
+              "conditions": []
+            },
+            {
+              "route": "Challenges",
+              "short": "Challenge",
+              "name": "Complete the Lifetime Challenge: Collect Pint-Sized Slasher Masks (3)",
+              "rate": 100.0,
+              "conditions": [],
+              "challenge": true
+            }
+          ],
+          "stopsDropping": false,
+          "source": "Event"
         },
         {
           "id": "000CE97D",
@@ -166404,13 +166756,35 @@
           "sources": [
             {
               "route": "Events & Activities",
-              "name": "Daily Ops (while The Slasher is running)",
               "short": "Ops",
+              "name": "Daily Ops: Decryption - First Elder Clear of the Day",
               "rate": 11.111111,
+              "conditions": [],
+              "note": "Only fires while the Pint-Sized Slasher event is running and the op's enemy is the Slasher encounter. The first Elder clear of the day always rolls this list; repeat clears roll it 1 time in 4."
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - First Elder Clear of the Day",
+              "rate": 11.111111,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Decryption - Repeat Clears",
+              "rate": 2.777778,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - Repeat Clears",
+              "rate": 2.777778,
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Ops"
         },
         {
@@ -166489,7 +166863,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
         },
         {
@@ -166558,7 +166932,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
         },
         {
@@ -166595,7 +166969,7 @@
               }
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Quest"
         },
         {
@@ -166620,7 +166994,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
         },
         {
@@ -166645,7 +167019,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
         },
         {
@@ -166670,7 +167044,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
         },
         {
@@ -166695,7 +167069,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Event"
         },
         {
@@ -166721,7 +167095,7 @@
               "challenge": true
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Challenge"
         },
         {
@@ -166764,7 +167138,7 @@
               }
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Quest"
         },
         {
@@ -166783,13 +167157,35 @@
           "sources": [
             {
               "route": "Events & Activities",
-              "name": "Daily Ops (while The Slasher is running)",
               "short": "Ops",
+              "name": "Daily Ops: Decryption - First Elder Clear of the Day",
               "rate": 11.111111,
+              "conditions": [],
+              "note": "Only fires while the Pint-Sized Slasher event is running and the op's enemy is the Slasher encounter. The first Elder clear of the day always rolls this list; repeat clears roll it 1 time in 4."
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - First Elder Clear of the Day",
+              "rate": 11.111111,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Decryption - Repeat Clears",
+              "rate": 2.777778,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - Repeat Clears",
+              "rate": 2.777778,
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Ops"
         },
         {
@@ -166808,13 +167204,35 @@
           "sources": [
             {
               "route": "Events & Activities",
-              "name": "Daily Ops (while The Slasher is running)",
               "short": "Ops",
+              "name": "Daily Ops: Decryption - First Elder Clear of the Day",
               "rate": 11.111111,
+              "conditions": [],
+              "note": "Only fires while the Pint-Sized Slasher event is running and the op's enemy is the Slasher encounter. The first Elder clear of the day always rolls this list; repeat clears roll it 1 time in 4."
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - First Elder Clear of the Day",
+              "rate": 11.111111,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Decryption - Repeat Clears",
+              "rate": 2.777778,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - Repeat Clears",
+              "rate": 2.777778,
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Ops"
         },
         {
@@ -166833,13 +167251,35 @@
           "sources": [
             {
               "route": "Events & Activities",
-              "name": "Daily Ops (while The Slasher is running)",
               "short": "Ops",
+              "name": "Daily Ops: Decryption - First Elder Clear of the Day",
               "rate": 11.111111,
+              "conditions": [],
+              "note": "Only fires while the Pint-Sized Slasher event is running and the op's enemy is the Slasher encounter. The first Elder clear of the day always rolls this list; repeat clears roll it 1 time in 4."
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - First Elder Clear of the Day",
+              "rate": 11.111111,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Decryption - Repeat Clears",
+              "rate": 2.777778,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - Repeat Clears",
+              "rate": 2.777778,
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Ops"
         },
         {
@@ -166858,13 +167298,35 @@
           "sources": [
             {
               "route": "Events & Activities",
-              "name": "Daily Ops (while The Slasher is running)",
               "short": "Ops",
+              "name": "Daily Ops: Decryption - First Elder Clear of the Day",
               "rate": 11.111111,
+              "conditions": [],
+              "note": "Only fires while the Pint-Sized Slasher event is running and the op's enemy is the Slasher encounter. The first Elder clear of the day always rolls this list; repeat clears roll it 1 time in 4."
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - First Elder Clear of the Day",
+              "rate": 11.111111,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Decryption - Repeat Clears",
+              "rate": 2.777778,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - Repeat Clears",
+              "rate": 2.777778,
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Ops"
         },
         {
@@ -166907,7 +167369,7 @@
               }
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Quest"
         },
         {
@@ -166932,7 +167394,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Event"
         },
         {
@@ -166957,7 +167419,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
         },
         {
@@ -166996,7 +167458,7 @@
               }
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Quest"
         },
         {
@@ -167021,7 +167483,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
         },
         {
@@ -167046,7 +167508,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
         },
         {
@@ -167071,7 +167533,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
         },
         {
@@ -167097,7 +167559,7 @@
               "challenge": true
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Challenge"
         },
         {
@@ -167122,7 +167584,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
         },
         {
@@ -167147,7 +167609,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
         },
         {
@@ -167247,7 +167709,7 @@
               "challenge": true
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Challenge"
         },
         {
@@ -167266,9 +167728,37 @@
           "sources": [
             {
               "route": "Events & Activities",
-              "name": "Daily Ops (while The Slasher is running)",
               "short": "Ops",
+              "name": "Daily Ops: Decryption - First Elder Clear of the Day",
               "rate": 11.111111,
+              "conditions": [
+                "Won’t drop if you’ve already earned Player Title: Pint Sized"
+              ],
+              "note": "Only fires while the Pint-Sized Slasher event is running and the op's enemy is the Slasher encounter. The first Elder clear of the day always rolls this list; repeat clears roll it 1 time in 4."
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - First Elder Clear of the Day",
+              "rate": 11.111111,
+              "conditions": [
+                "Won’t drop if you’ve already earned Player Title: Pint Sized"
+              ]
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Decryption - Repeat Clears",
+              "rate": 2.777778,
+              "conditions": [
+                "Won’t drop if you’ve already earned Player Title: Pint Sized"
+              ]
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - Repeat Clears",
+              "rate": 2.777778,
               "conditions": [
                 "Won’t drop if you’ve already earned Player Title: Pint Sized"
               ]
@@ -167400,13 +167890,35 @@
           "sources": [
             {
               "route": "Events & Activities",
-              "name": "Daily Ops (while The Slasher is running)",
               "short": "Ops",
+              "name": "Daily Ops: Decryption - First Elder Clear of the Day",
               "rate": 11.111111,
+              "conditions": [],
+              "note": "Only fires while the Pint-Sized Slasher event is running and the op's enemy is the Slasher encounter. The first Elder clear of the day always rolls this list; repeat clears roll it 1 time in 4."
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - First Elder Clear of the Day",
+              "rate": 11.111111,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Decryption - Repeat Clears",
+              "rate": 2.777778,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - Repeat Clears",
+              "rate": 2.777778,
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Ops"
         },
         {
@@ -167473,7 +167985,9 @@
           "tradeable": null,
           "isNew": false,
           "releaseYear": null,
-          "pics": [],
+          "pics": [
+            "/wp-content/uploads/guide-images/category-images/legendary-mods-category-image.avif"
+          ],
           "sources": [
             {
               "route": "Enemies",
@@ -167640,13 +168154,35 @@
           "sources": [
             {
               "route": "Events & Activities",
-              "name": "Daily Ops (while The Slasher is running)",
               "short": "Ops",
+              "name": "Daily Ops: Decryption - First Elder Clear of the Day",
               "rate": 11.111111,
+              "conditions": [],
+              "note": "Only fires while the Pint-Sized Slasher event is running and the op's enemy is the Slasher encounter. The first Elder clear of the day always rolls this list; repeat clears roll it 1 time in 4."
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - First Elder Clear of the Day",
+              "rate": 11.111111,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Decryption - Repeat Clears",
+              "rate": 2.777778,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - Repeat Clears",
+              "rate": 2.777778,
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Ops"
         }
       ]
@@ -170636,13 +171172,35 @@
           "sources": [
             {
               "route": "Events & Activities",
-              "name": "Daily Ops (while The Slasher is running)",
               "short": "Ops",
+              "name": "Daily Ops: Decryption - First Elder Clear of the Day",
               "rate": 11.111111,
+              "conditions": [],
+              "note": "Only fires while the Pint-Sized Slasher event is running and the op's enemy is the Slasher encounter. The first Elder clear of the day always rolls this list; repeat clears roll it 1 time in 4."
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - First Elder Clear of the Day",
+              "rate": 11.111111,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Decryption - Repeat Clears",
+              "rate": 2.777778,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - Repeat Clears",
+              "rate": 2.777778,
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Ops"
         },
         {
@@ -170792,7 +171350,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
         },
         {
@@ -170817,8 +171375,70 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
+        },
+        {
+          "id": "008E06F0",
+          "name": "Ghost Boy",
+          "formid": "008E06F0",
+          "edid": "SDOW_SlasherGhostBoy",
+          "sig": "ALCH",
+          "kind": "Chem",
+          "tradeable": null,
+          "isNew": false,
+          "releaseYear": null,
+          "pics": [],
+          "sources": [
+            {
+              "route": "Events & Activities",
+              "name": "Repeatable: Disturbed Grave",
+              "short": "Event",
+              "rate": 16.666667,
+              "conditions": [],
+              "quest": {
+                "name": "Repeatable: Disturbed Grave",
+                "steps": [
+                  "Find the Disturbed Grave",
+                  "Equip a shovel",
+                  "Use a shovel to dig up the Disturbed Grave",
+                  "Take the ritual pile"
+                ],
+                "availability": "Only available for the duration of The Slasher Seasonal Content"
+              }
+            },
+            {
+              "route": "Enemies",
+              "name": "Slasher-masked Spooky Scorched",
+              "short": "Enemy",
+              "rate": 100.0,
+              "conditions": []
+            },
+            {
+              "route": "Enemies",
+              "name": "Pint-Sized Phantoms",
+              "short": "Enemy",
+              "rate": 20.0,
+              "conditions": []
+            },
+            {
+              "route": "Enemies",
+              "name": "Uninvited Pint-Sized Phantom (Mischief Night)",
+              "short": "Enemy",
+              "rate": 8.333333,
+              "conditions": []
+            },
+            {
+              "route": "Challenges",
+              "short": "Challenge",
+              "name": "Complete the Lifetime Challenge: Collect Pint-Sized Slasher Masks (3)",
+              "rate": 100.0,
+              "conditions": [],
+              "challenge": true
+            }
+          ],
+          "stopsDropping": false,
+          "source": "Event"
         },
         {
           "id": "000CE97D",
@@ -170884,13 +171504,35 @@
           "sources": [
             {
               "route": "Events & Activities",
-              "name": "Daily Ops (while The Slasher is running)",
               "short": "Ops",
+              "name": "Daily Ops: Decryption - First Elder Clear of the Day",
               "rate": 11.111111,
+              "conditions": [],
+              "note": "Only fires while the Pint-Sized Slasher event is running and the op's enemy is the Slasher encounter. The first Elder clear of the day always rolls this list; repeat clears roll it 1 time in 4."
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - First Elder Clear of the Day",
+              "rate": 11.111111,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Decryption - Repeat Clears",
+              "rate": 2.777778,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - Repeat Clears",
+              "rate": 2.777778,
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Ops"
         },
         {
@@ -170969,7 +171611,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
         },
         {
@@ -171038,7 +171680,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
         },
         {
@@ -171075,7 +171717,7 @@
               }
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Quest"
         },
         {
@@ -171100,7 +171742,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
         },
         {
@@ -171125,7 +171767,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
         },
         {
@@ -171150,7 +171792,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
         },
         {
@@ -171175,7 +171817,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Event"
         },
         {
@@ -171201,7 +171843,7 @@
               "challenge": true
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Challenge"
         },
         {
@@ -171244,7 +171886,7 @@
               }
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Quest"
         },
         {
@@ -171263,13 +171905,35 @@
           "sources": [
             {
               "route": "Events & Activities",
-              "name": "Daily Ops (while The Slasher is running)",
               "short": "Ops",
+              "name": "Daily Ops: Decryption - First Elder Clear of the Day",
               "rate": 11.111111,
+              "conditions": [],
+              "note": "Only fires while the Pint-Sized Slasher event is running and the op's enemy is the Slasher encounter. The first Elder clear of the day always rolls this list; repeat clears roll it 1 time in 4."
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - First Elder Clear of the Day",
+              "rate": 11.111111,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Decryption - Repeat Clears",
+              "rate": 2.777778,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - Repeat Clears",
+              "rate": 2.777778,
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Ops"
         },
         {
@@ -171288,13 +171952,35 @@
           "sources": [
             {
               "route": "Events & Activities",
-              "name": "Daily Ops (while The Slasher is running)",
               "short": "Ops",
+              "name": "Daily Ops: Decryption - First Elder Clear of the Day",
               "rate": 11.111111,
+              "conditions": [],
+              "note": "Only fires while the Pint-Sized Slasher event is running and the op's enemy is the Slasher encounter. The first Elder clear of the day always rolls this list; repeat clears roll it 1 time in 4."
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - First Elder Clear of the Day",
+              "rate": 11.111111,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Decryption - Repeat Clears",
+              "rate": 2.777778,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - Repeat Clears",
+              "rate": 2.777778,
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Ops"
         },
         {
@@ -171313,13 +171999,35 @@
           "sources": [
             {
               "route": "Events & Activities",
-              "name": "Daily Ops (while The Slasher is running)",
               "short": "Ops",
+              "name": "Daily Ops: Decryption - First Elder Clear of the Day",
               "rate": 11.111111,
+              "conditions": [],
+              "note": "Only fires while the Pint-Sized Slasher event is running and the op's enemy is the Slasher encounter. The first Elder clear of the day always rolls this list; repeat clears roll it 1 time in 4."
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - First Elder Clear of the Day",
+              "rate": 11.111111,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Decryption - Repeat Clears",
+              "rate": 2.777778,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - Repeat Clears",
+              "rate": 2.777778,
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Ops"
         },
         {
@@ -171338,13 +172046,35 @@
           "sources": [
             {
               "route": "Events & Activities",
-              "name": "Daily Ops (while The Slasher is running)",
               "short": "Ops",
+              "name": "Daily Ops: Decryption - First Elder Clear of the Day",
               "rate": 11.111111,
+              "conditions": [],
+              "note": "Only fires while the Pint-Sized Slasher event is running and the op's enemy is the Slasher encounter. The first Elder clear of the day always rolls this list; repeat clears roll it 1 time in 4."
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - First Elder Clear of the Day",
+              "rate": 11.111111,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Decryption - Repeat Clears",
+              "rate": 2.777778,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - Repeat Clears",
+              "rate": 2.777778,
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Ops"
         },
         {
@@ -171387,7 +172117,7 @@
               }
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Quest"
         },
         {
@@ -171412,7 +172142,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Event"
         },
         {
@@ -171437,7 +172167,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
         },
         {
@@ -171476,7 +172206,7 @@
               }
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Quest"
         },
         {
@@ -171501,7 +172231,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
         },
         {
@@ -171526,7 +172256,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
         },
         {
@@ -171551,7 +172281,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
         },
         {
@@ -171577,7 +172307,7 @@
               "challenge": true
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Challenge"
         },
         {
@@ -171602,7 +172332,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
         },
         {
@@ -171627,7 +172357,7 @@
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Enemy"
         },
         {
@@ -171727,7 +172457,7 @@
               "challenge": true
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Challenge"
         },
         {
@@ -171746,9 +172476,37 @@
           "sources": [
             {
               "route": "Events & Activities",
-              "name": "Daily Ops (while The Slasher is running)",
               "short": "Ops",
+              "name": "Daily Ops: Decryption - First Elder Clear of the Day",
               "rate": 11.111111,
+              "conditions": [
+                "Won’t drop if you’ve already earned Player Title: Pint Sized"
+              ],
+              "note": "Only fires while the Pint-Sized Slasher event is running and the op's enemy is the Slasher encounter. The first Elder clear of the day always rolls this list; repeat clears roll it 1 time in 4."
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - First Elder Clear of the Day",
+              "rate": 11.111111,
+              "conditions": [
+                "Won’t drop if you’ve already earned Player Title: Pint Sized"
+              ]
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Decryption - Repeat Clears",
+              "rate": 2.777778,
+              "conditions": [
+                "Won’t drop if you’ve already earned Player Title: Pint Sized"
+              ]
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - Repeat Clears",
+              "rate": 2.777778,
               "conditions": [
                 "Won’t drop if you’ve already earned Player Title: Pint Sized"
               ]
@@ -171880,13 +172638,35 @@
           "sources": [
             {
               "route": "Events & Activities",
-              "name": "Daily Ops (while The Slasher is running)",
               "short": "Ops",
+              "name": "Daily Ops: Decryption - First Elder Clear of the Day",
               "rate": 11.111111,
+              "conditions": [],
+              "note": "Only fires while the Pint-Sized Slasher event is running and the op's enemy is the Slasher encounter. The first Elder clear of the day always rolls this list; repeat clears roll it 1 time in 4."
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - First Elder Clear of the Day",
+              "rate": 11.111111,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Decryption - Repeat Clears",
+              "rate": 2.777778,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - Repeat Clears",
+              "rate": 2.777778,
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Ops"
         },
         {
@@ -171953,7 +172733,9 @@
           "tradeable": null,
           "isNew": false,
           "releaseYear": null,
-          "pics": [],
+          "pics": [
+            "/wp-content/uploads/guide-images/category-images/legendary-mods-category-image.avif"
+          ],
           "sources": [
             {
               "route": "Enemies",
@@ -172120,13 +172902,35 @@
           "sources": [
             {
               "route": "Events & Activities",
-              "name": "Daily Ops (while The Slasher is running)",
               "short": "Ops",
+              "name": "Daily Ops: Decryption - First Elder Clear of the Day",
               "rate": 11.111111,
+              "conditions": [],
+              "note": "Only fires while the Pint-Sized Slasher event is running and the op's enemy is the Slasher encounter. The first Elder clear of the day always rolls this list; repeat clears roll it 1 time in 4."
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - First Elder Clear of the Day",
+              "rate": 11.111111,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Decryption - Repeat Clears",
+              "rate": 2.777778,
+              "conditions": []
+            },
+            {
+              "route": "Events & Activities",
+              "short": "Ops",
+              "name": "Daily Ops: Uplink - Repeat Clears",
+              "rate": 2.777778,
               "conditions": []
             }
           ],
-          "stopsDropping": null,
+          "stopsDropping": false,
           "source": "Ops"
         }
       ]

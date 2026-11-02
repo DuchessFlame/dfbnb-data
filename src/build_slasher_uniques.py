@@ -80,7 +80,8 @@ SOURCES = {
     "Disturbed Grave (Repeatable)": {
         "route": "Events & Activities", "name": "Repeatable: Disturbed Grave", "quest": "SDOW_SQ01_Graves_Repeatable", "short": "Event"},
     "The Way of the Wicked (Daily Ops)": {
-        "route": "Events & Activities", "name": "Daily Ops (while The Slasher is running)", "short": "Ops"},
+        "route": "Events & Activities", "name": "Daily Ops (while The Slasher is running)", "short": "Ops",
+        "dailyOps": True},
     "Slasher Masked Spooky Scorched": {
         "route": "Enemies", "name": "Slasher-masked Spooky Scorched", "short": "Enemy"},
     "Mischief Night — Uninvited Guest": {
@@ -103,8 +104,10 @@ SKIP_NAME = re.compile(r"^(\d★ Legendary|Caps$)", re.I)
 EXTRA_PICS = {
     "super slasher auto axe": "guide-images/plan-checklist/weapons/super-slasher-auto-axe.avif",
     "ghost boy": "guide-images/seasonal-events/the-slasher/ghost-boy.avif",
-    "severing (legendary shard)": "guide-images/seasonal-events/the-slasher/severing-legendary-shard.avif",
 }
+# Every legendary mod (shard / mod box) without its own picture uses the
+# site's one green legendary mod box.
+LEGENDARY_MOD_BOX = "guide-images/category-images/legendary-mods-category-image.avif"
 
 
 def log(msg):
@@ -211,6 +214,51 @@ def guide_quests(guide):
     return out
 
 
+def daily_ops_tiers(dist):
+    """The Slasher tier of the Daily Ops page (build_daily_ops_rewards_json.py):
+    each clear that rolls the Slasher list and the chance it does
+    ([{label, chance}]), the ops it runs on (plan_master routes that reach
+    those lists) and the tier's own explanation."""
+    d = load(os.path.join(dist, "daily_ops", "daily_ops_all_rewards.json"), {}) or {}
+
+    def find(o):
+        if isinstance(o, dict):
+            if o.get("type") == "tier" and o.get("tier") == "slasher":
+                return o
+            for v in o.values():
+                r = find(v)
+                if r:
+                    return r
+        elif isinstance(o, list):
+            for v in o:
+                r = find(v)
+                if r:
+                    return r
+        return None
+
+    t = find(d) or {}
+    tiers, lists = [], set()
+    for c in t.get("children") or []:
+        if c.get("type") != "lvli":
+            continue
+        ch = c.get("listSelfChance", c.get("entryRate", 100.0))
+        try:
+            ch = float(ch)
+        except (TypeError, ValueError):
+            ch = 100.0
+        tiers.append({"label": c.get("label") or "", "chance": ch})
+        if c.get("formid"):
+            lists.add(str(c["formid"]).upper())
+    ops = set()
+    if lists:
+        pm = load(os.path.join(dist, "plan_master.json"), {}) or {}
+        for p in pm.get("items") or []:
+            for r in p.get("obtain_routes") or []:
+                if lists & {str(x).upper() for x in r.get("lvli") or []} and r.get("route"):
+                    ops.add(r["route"])
+    return sorted(ops), tiers, (t.get("note") or "")
+
+
 def new_item(name, formid="", edid="", sig=""):
     return {
         "id": (formid or "").upper() or re.sub(r"[^a-z0-9]+", "-", key_of(name)).strip("-"),
@@ -250,6 +298,7 @@ def build(dist):
 
     items = {}
     unknown_pools = []
+    ops_names, ops_tiers, ops_note = daily_ops_tiers(dist)
 
     # 1. Every reward pool the page resolves (rng76 rates + conditions)
     for node in page.get("eventRewardTree") or []:
@@ -263,11 +312,9 @@ def build(dist):
             name = it.get("name") or ""
             sig = (it.get("sig") or "").upper()
             edid = it.get("edid") or ""
-            # it.consumable: food / drink / chems (Ghost Boy) - never on a
-            # checklist, same rule as every other seasonal page
-            # (isNotChecklistItem in df-bnb-seasonal-events.js).
-            if (sig in SKIP_SIG or SKIP_EDID.match(edid) or SKIP_NAME.match(name)
-                    or it.get("consumable")):
+            # Ghost Boy (a chem) IS listed here - Duchess, 1 Nov 2026: it is
+            # one of the event's own rewards.
+            if sig in SKIP_SIG or SKIP_EDID.match(edid) or SKIP_NAME.match(name):
                 continue
             k = key_of(name)
             row = items.get(k)
@@ -286,9 +333,24 @@ def build(dist):
             if it.get("imageUrl") or fr.get("imageUrl"):
                 cur.append(it.get("imageUrl") or fr.get("imageUrl"))
             row["_cur"] = row.get("_cur", []) + cur
+            conds = [re.sub(r"\bthe The\b", "The", c) for c in (it.get("conditions") or []) if c]
+            if spec.get("dailyOps") and ops_tiers:
+                # One line per op and per clear (house rule: one source per
+                # line, each with its own rate).
+                first = True
+                for op in ops_names or ["Daily Ops"]:
+                    for t in ops_tiers:
+                        r = (it.get("dropRate") or 0) * t["chance"] / 100.0
+                        src = {"route": spec["route"], "short": spec["short"],
+                               "name": (f"Daily Ops: {op} - " if op != "Daily Ops" else "Daily Ops - ") + t["label"],
+                               "rate": round(r, 6), "conditions": conds}
+                        if first and ops_note:
+                            src["note"] = ops_note
+                            first = False
+                        add_source(row, src)
+                continue
             src = {"route": spec["route"], "name": spec["name"], "short": spec["short"],
-                   "rate": it.get("dropRate"),
-                   "conditions": [re.sub(r"\bthe The\b", "The", c) for c in (it.get("conditions") or []) if c]}
+                   "rate": it.get("dropRate"), "conditions": conds}
             if spec.get("quest") and spec["quest"] in quests:
                 src["quest"] = quests[spec["quest"]]
             add_source(row, src)
@@ -338,9 +400,6 @@ def build(dist):
                 f"Complete the Lifetime Challenge: {chal}"
             src = dict(CHALLENGE, name=line, rate=100.0, conditions=[], challenge=True)
             row = items.get(key_of(rew))
-            if row is None and any(key_of(rew) == key_of(it.get("name")) and it.get("consumable")
-                                   for n in page.get("eventRewardTree") or [] for it in n.get("items") or []):
-                continue                                    # a chem (Ghost Boy) - not a checklist item
             if row is None:
                 p = next((p for p in plans if not p.get("cut") and any(
                     chal.lower() in str(u).lower() for u in (p.get("obtain_unlocks") or []))), None)
@@ -378,6 +437,8 @@ def build(dist):
     out = []
     for row in items.values():
         row["pics"] = pics.pick(row["name"], row.pop("_cur", []), row["formid"], row["edid"])
+        if not row["pics"] and row["kind"] == "Legendary Shard":
+            row["pics"] = pics.pick("", [UPLOADS + LEGENDARY_MOD_BOX])
         if not row["pics"] and row["kind"] in ("Player Title", "C.A.M.P. Title"):
             affix = "prefix" if re.search(r"prefix", row["edid"], re.I) else "suffix" if re.search(r"suffix", row["edid"], re.I) else "both"
             kind = "camp" if row["kind"].startswith("C.A.M.P") else "player"
@@ -385,7 +446,9 @@ def build(dist):
             if ph:
                 row["pics"] = [ph]
         stops = any(re.search(r"already (learned|earned)", c, re.I) for s in row["sources"] for c in s.get("conditions") or [])
-        row["stopsDropping"] = True if stops else (False if row["kind"] not in ("Plan", "Recipe", "Player Title", "C.A.M.P. Title") else None)
+        # No "already learned" gate in any source = it keeps dropping (same
+        # reading as sevDropPersistence on the other seasonal checklists).
+        row["stopsDropping"] = bool(stops)
         order = {"Quests": 0, "Events & Activities": 1, "Enemies": 2, "Challenges": 3}
         row["sources"].sort(key=lambda s: (order.get(s["route"], 9), -(s.get("rate") or 0), s["name"]))
         row["source"] = row["sources"][0]["short"] if row["sources"] else ""

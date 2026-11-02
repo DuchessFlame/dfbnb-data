@@ -15,8 +15,8 @@
     "'avoid' slots are hard-excluded: no item that GRANTS that buff is recommended at all (e.g. DR for berserkers).",
     "'prefer' (build option): { type: [item names] } - that item takes the slot first whenever it is allowed (menu / avoid rules still apply).",
     "  Used for Bows & Throwing: no drink adds bow or throwing damage, so the drink slot goes to Wine (+15 AP) - Kat, 20 Oct 2026.",
-"  Nukashine has no alcohol dispel keyword, so it stacks with Wine: both can be taken (the card says so).",
-"Any ALCH item can be recommended; items Buffs n Brew doesn't sell get a 'Not sold at BnB' mark and are left out of the copied order list.",
+    "  Nukashine has no alcohol dispel keyword, so it stacks with Wine: both can be taken (the card says so).",
+    "Any ALCH item can be recommended; items Buffs n Brew doesn't sell get a 'Not sold at BnB' mark and are left out of the copied order list.",
     "ref = what counts as one 'full strength' buff of that type; only used to rank different buffs against each other."
   ],
   "show_threshold": 0.3,
@@ -27,273 +27,1336 @@
     "'fallback_add' = hand-set weights used only if specials_stats.json can't load on the page (answers AND builds).",
     "Melee build = melee goal (1 STR = 5% melee damage, fAVDMeleeDamageMult). Unarmed build = unarmed goal (1 STR = 10% unarmed damage, fDamageStrengthMult; Unarmed AND Melee Damage buffs both count) - Kat, 20 Oct 2026."
   ],
-  "goals": { "refs": { "health_bar": 40, "health_regen": 0.25, "carry_weight": 30, "xp": 5, "action_points": 30, "melee": 30, "unarmed": 50, "vats": 0 } },
+  "goals": {
+    "refs": {
+      "health_bar": 40,
+      "health_regen": 0.25,
+      "carry_weight": 30,
+      "xp": 5,
+      "action_points": 30,
+      "melee": 30,
+      "unarmed": 50,
+      "vats": 0
+    }
+  },
   "_exclude_items_readme": "Item names never recommended (quest-only / can't normally get). Nuclear Don's Custom Chem Blend = W05_MQR_203P Wastelanders main quest chem (+100% dmg, +100 DR, +100 HP) - Claude 20 Oct 2026, ask Kat before adding more.",
-  "exclude_items": ["Nuclear Don's Custom Chem Blend"],
+  "exclude_items": [
+    "Nuclear Don's Custom Chem Blend"
+  ],
   "_display_order_readme": "Order the result cards and the stat list are shown in: SPECIAL first, then AP Regen, XP and the rest. Reorder freely.",
-  "display_order": ["str", "per", "end", "cha", "int", "agi", "luck",
-                    "ap_regen", "xp", "ap", "carry",
-                    "dmg_all", "dmg_melee", "dmg_unarmed", "dmg_ballistic", "dmg_energy", "dmg_animals",
-                    "crit_dmg", "sneak_attack", "vats_acc", "gun_acc",
-                    "max_hp", "heal_rate", "dr", "er", "fire_res", "poison_res", "rad_res", "disease_res",
-                    "move_speed", "invis",
-                    "dmg_heavy", "dmg_explosive", "dmg_melee_weapons", "dmg_scoped",
-                    "crit_ballistic", "crit_energy", "crit_heavy", "crit_melee",
-                    "sneak", "stimpak_heal", "ap_refill", "hunger_thirst",
-                    "dmg_cryolator", "dmg_alien", "dmg_throwing", "dmg_fistknife", "dmg_unscoped",
-                    "dmgvs_scorched", "dmgvs_supermutants", "dmgvs_robots", "dmgvs_ghouls", "dmgvs_mirelurks",
-                    "dmgvs_yaoguai", "dmgvs_liberators", "dmgvs_humans", "dmgvs_cryptids",
-                    "lessdmg_robots", "lessdmg_insects", "lessdmg_animals", "lessdmg_plasma", "lessdmg_players",
-                    "avoid_all", "avoid_scorched", "avoid_explosion", "avoid_melee", "avoid_energy",
-                    "cryo_res", "fusion_core", "heavy_ammo",
-                    "lessdmg_scorched", "limb_dmg", "scope_steady", "sprint_ap",
-                    "water_breathing", "fishing", "barter", "detect_life", "flowers"],
-  "max_picks": { "food": 7, "chem": 4, "alcohol": 4, "gum": 2, "magazine": 1, "bobblehead": 1 },
+  "display_order": [
+    "str",
+    "per",
+    "end",
+    "cha",
+    "int",
+    "agi",
+    "luck",
+    "ap_regen",
+    "xp",
+    "ap",
+    "carry",
+    "dmg_all",
+    "dmg_melee",
+    "dmg_unarmed",
+    "dmg_ballistic",
+    "dmg_energy",
+    "dmg_animals",
+    "crit_dmg",
+    "sneak_attack",
+    "vats_acc",
+    "gun_acc",
+    "max_hp",
+    "heal_rate",
+    "dr",
+    "er",
+    "fire_res",
+    "poison_res",
+    "rad_res",
+    "disease_res",
+    "move_speed",
+    "invis",
+    "dmg_heavy",
+    "dmg_explosive",
+    "dmg_melee_weapons",
+    "dmg_scoped",
+    "crit_ballistic",
+    "crit_energy",
+    "crit_laser",
+    "crit_plasma",
+    "crit_heavy",
+    "crit_melee",
+    "sneak",
+    "stimpak_heal",
+    "ap_refill",
+    "hunger_thirst",
+    "dmg_cryolator",
+    "dmg_alien",
+    "dmg_throwing",
+    "dmg_fistknife",
+    "dmg_unscoped",
+    "dmgvs_scorched",
+    "dmgvs_supermutants",
+    "dmgvs_robots",
+    "dmgvs_ghouls",
+    "dmgvs_mirelurks",
+    "dmgvs_yaoguai",
+    "dmgvs_liberators",
+    "dmgvs_humans",
+    "dmgvs_cryptids",
+    "lessdmg_robots",
+    "lessdmg_insects",
+    "lessdmg_animals",
+    "lessdmg_plasma",
+    "lessdmg_players",
+    "avoid_all",
+    "avoid_scorched",
+    "avoid_explosion",
+    "avoid_melee",
+    "avoid_energy",
+    "cryo_res",
+    "fusion_core",
+    "heavy_ammo",
+    "lessdmg_scorched",
+    "limb_dmg",
+    "scope_steady",
+    "sprint_ap",
+    "water_breathing",
+    "fishing",
+    "barter",
+    "detect_life",
+    "flowers"
+  ],
+  "max_picks": {
+    "food": 7,
+    "chem": 4,
+    "alcohol": 4,
+    "gum": 2,
+    "magazine": 1,
+    "bobblehead": 1
+  },
   "_base_weights_readme": "Kat 28 Oct: every build wants Move Speed (0.4) and Fire Resistance (0.4, Power Armour included), Rad Resistance (0.4; not Power Armour or Ghouls) and Disease Resistance (0.4). Weights every build gets (20 Oct 2026, Kat: bubblegum for hunger & thirst).",
-  "base_weights": { "hunger_thirst": 0.5, "move_speed": 0.4, "fire_res": 0.4, "rad_res": 0.4, "disease_res": 0.4 },
+  "base_weights": {
+    "hunger_thirst": 0.5,
+    "move_speed": 0.4,
+    "fire_res": 0.4,
+    "rad_res": 0.4,
+    "disease_res": 0.4
+  },
   "_ignore_slots_readme": "Kat 28 Oct: never recommended. No cryo enemies in the game; poison resistance is not worth a slot.",
-  "ignore_slots": ["cryo_res", "poison_res"],
+  "ignore_slots": [
+    "cryo_res",
+    "poison_res"
+  ],
   "_when_readme": "Magazine / bobblehead buffs whose game text names a condition (fx.w): team = only with 'In a team', sneak = only for sneaky players, night / alcohol = counted at when_share, swim = never counted (still shown).",
-  "when_share": { "night": 0.5, "alcohol": 0.5 },
+  "when_share": {
+    "night": 0.5,
+    "alcohol": 0.5
+  },
   "_mirror_readme": "Weapon-type crit damage (magazines) is only worth what crit damage is worth to this build: final weight = its own weight (how well it fits the weapon, 0-1) x the build's crit_dmg weight. So VATS builds value them, free aim halves them like crit_dmg.",
-  "mirror": { "crit_ballistic": "crit_dmg", "crit_energy": "crit_dmg", "crit_heavy": "crit_dmg", "crit_melee": "crit_dmg" },
+  "mirror": {
+    "crit_ballistic": "crit_dmg",
+    "crit_energy": "crit_dmg",
+    "crit_heavy": "crit_dmg",
+    "crit_melee": "crit_dmg",
+    "crit_laser": "crit_dmg",
+    "crit_plasma": "crit_dmg"
+  },
   "sessions": [
-    { "key": "30", "label": "30 min", "minutes": 30, "food_min_duration_min": 30 },
-    { "key": "60", "label": "60+ min", "minutes": 60, "food_min_duration_min": 60 }
+    {
+      "key": "30",
+      "label": "30 min",
+      "minutes": 30,
+      "food_min_duration_min": 30
+    },
+    {
+      "key": "60",
+      "label": "60+ min",
+      "minutes": 60,
+      "food_min_duration_min": 60
+    }
   ],
   "slots": {
-    "str":           { "label": "Strength",            "fmt": "+{v} Strength",              "ref": 3,   "group": "SPECIAL" },
-    "per":           { "label": "Perception",          "fmt": "+{v} Perception",            "ref": 3,   "group": "SPECIAL" },
-    "end":           { "label": "Endurance",           "fmt": "+{v} Endurance",             "ref": 3,   "group": "SPECIAL" },
-    "cha":           { "label": "Charisma",            "fmt": "+{v} Charisma",              "ref": 3,   "group": "SPECIAL" },
-    "int":           { "label": "Intelligence",        "fmt": "+{v} Intelligence",          "ref": 3,   "group": "SPECIAL" },
-    "agi":           { "label": "Agility",             "fmt": "+{v} Agility",               "ref": 3,   "group": "SPECIAL" },
-    "luck":          { "label": "Luck",                "fmt": "+{v} Luck",                  "ref": 3,   "group": "SPECIAL" },
-    "dmg_all":       { "label": "Damage",              "fmt": "+{v}% Damage",               "ref": 25,  "group": "Damage" },
-    "dmg_melee":     { "label": "Melee Damage",        "fmt": "+{v}% Melee Damage",         "ref": 30,  "group": "Damage" },
-    "dmg_unarmed":   { "label": "Unarmed Damage",      "fmt": "+{v}% Unarmed Damage",       "ref": 50,  "group": "Damage" },
-    "dmg_ballistic": { "label": "Ballistic Damage",    "fmt": "+{v}% Ballistic Damage",     "ref": 15,  "group": "Damage" },
-    "dmg_energy":    { "label": "Energy Damage",       "fmt": "+{v}% Energy Damage",        "ref": 15,  "group": "Damage" },
-    "dmg_animals":   { "label": "Damage vs Animals",   "fmt": "+{v}% Damage vs Animals",    "ref": 15,  "group": "Damage" },
-    "crit_dmg":      { "label": "Critical Damage",     "fmt": "+{v}% Critical Damage",      "ref": 50,  "group": "Damage" },
-    "sneak_attack":  { "label": "Sneak Attack Damage", "fmt": "+{v}% Sneak Attack Damage",  "ref": 15,  "group": "Damage" },
-    "vats_acc":      { "label": "VATS Hit Chance",     "fmt": "+{v}% VATS Hit Chance",      "ref": 10,  "group": "Damage" },
-    "gun_acc":       { "label": "Gun Accuracy",        "fmt": "+{v} Accuracy",              "ref": 33,  "group": "Damage" },
-    "dr":            { "label": "Damage Resistance",   "fmt": "+{v} Damage Resistance",     "ref": 50,  "group": "Defence" },
-    "er":            { "label": "Energy Resistance",   "fmt": "+{v} Energy Resistance",     "ref": 35,  "group": "Defence" },
-    "fire_res":      { "label": "Fire Resistance",     "fmt": "+{v} Fire Resistance",       "ref": 75,  "group": "Defence" },
-    "poison_res":    { "label": "Poison Resistance",   "fmt": "+{v} Poison Resistance",     "ref": 50,  "group": "Defence" },
-    "rad_res":       { "label": "Radiation Resistance","fmt": "+{v} Radiation Resistance",  "ref": 50,  "group": "Defence" },
-    "disease_res":   { "label": "Disease Resistance",  "fmt": "+{v}% Disease Resistance",   "ref": 20,  "group": "Defence" },
-    "max_hp":        { "label": "Max Health",          "fmt": "+{v} Max Health",            "ref": 40,  "group": "Defence" },
-    "heal_rate":     { "label": "Health Regen",        "fmt": "+{v} Health Regen",          "ref": 0.25,"group": "Defence" },
-    "ap":            { "label": "Action Points",       "fmt": "+{v} Action Points",         "ref": 30,  "group": "Utility" },
-    "ap_regen":      { "label": "AP Regen",            "fmt": "+{v}% AP Regen",             "ref": 10,  "group": "Utility" },
-    "carry":         { "label": "Carry Weight",        "fmt": "+{v} Carry Weight",          "ref": 30,  "group": "Utility" },
-    "xp":            { "label": "XP",                  "fmt": "+{v}% XP",                   "ref": 5,   "group": "Utility" },
-    "move_speed":    { "label": "Move Speed",          "fmt": "+{v}% Move Speed",           "ref": 20,  "group": "Utility" },
-    "invis":         { "label": "Invisibility",        "fmt": "Invisible (Stealth Boy)",    "ref": 1,   "group": "Utility" },
-    "dmg_heavy":     { "label": "Heavy Guns Damage",   "fmt": "+{v}% Heavy Guns Damage",    "ref": 15,  "group": "Damage" },
-    "dmg_explosive": { "label": "Explosive Damage",    "fmt": "+{v}% Explosive Damage",     "ref": 15,  "group": "Damage" },
-    "dmg_melee_weapons": { "label": "Melee Weapon Damage", "fmt": "+{v}% Melee Weapon Damage", "ref": 20, "group": "Damage" },
-    "dmg_scoped":    { "label": "Scoped Weapon Damage","fmt": "+{v}% Scoped Weapon Damage", "ref": 30,  "group": "Damage" },
-    "crit_ballistic":{ "label": "Ballistic Crit Damage","fmt": "+{v}% Ballistic Critical Damage", "ref": 50, "group": "Damage" },
-    "crit_energy":   { "label": "Energy Crit Damage",  "fmt": "+{v}% Energy Critical Damage", "ref": 50, "group": "Damage" },
-    "crit_heavy":    { "label": "Heavy Guns Crit Damage", "fmt": "+{v}% Heavy Guns Critical Damage", "ref": 50, "group": "Damage" },
-    "crit_melee":    { "label": "Melee Crit Damage",   "fmt": "+{v}% Melee Critical Damage", "ref": 50, "group": "Damage" },
-    "sneak":         { "label": "Sneak",               "fmt": "+{v} Sneak",                 "ref": 30,  "group": "Utility" },
-    "stimpak_heal":  { "label": "Stimpak Healing",     "fmt": "+{v}% Stimpak Healing",      "ref": 30,  "group": "Defence" },
-    "ap_refill":     { "label": "AP Refill",           "fmt": "+{v} AP per second",         "ref": 0.35,"group": "Utility" },
-    "hunger_thirst": { "label": "Slower Hunger & Thirst", "fmt": "{v}% slower hunger & thirst", "ref": 50, "group": "Utility" },
-    "dmg_cryolator":  { "label": "Cryolator Damage", "fmt": "+{v}% Cryolator Damage", "ref": 25, "group": "Damage", "situational": true },
-    "dmg_alien":      { "label": "Alien Blaster Damage", "fmt": "+{v}% Alien Blaster Damage", "ref": 25, "group": "Damage", "situational": true },
-    "dmg_throwing":   { "label": "Throwing Weapon Damage", "fmt": "+{v}% Throwing Weapon Damage", "ref": 25, "group": "Damage", "situational": true },
-    "dmg_fistknife":  { "label": "Fists & Knife Damage", "fmt": "+{v}% Fists & Knife Damage", "ref": 25, "group": "Damage", "situational": true },
-    "dmg_unscoped":   { "label": "Unscoped Weapon Damage", "fmt": "+{v}% Unscoped Weapon Damage", "ref": 10, "group": "Damage" },
-    "dmgvs_scorched":  { "label": "Damage vs Scorched", "fmt": "+{v}% Damage vs Scorched", "ref": 15, "group": "Damage", "situational": true },
-    "dmgvs_supermutants":  { "label": "Damage vs Super Mutants", "fmt": "+{v}% Damage vs Super Mutants", "ref": 15, "group": "Damage", "situational": true },
-    "dmgvs_robots":   { "label": "Damage vs Robots", "fmt": "+{v}% Damage vs Robots", "ref": 15, "group": "Damage", "situational": true },
-    "dmgvs_ghouls":   { "label": "Damage vs Ghouls", "fmt": "+{v}% Damage vs Ghouls", "ref": 15, "group": "Damage", "situational": true },
-    "dmgvs_mirelurks":  { "label": "Damage vs Mirelurks", "fmt": "+{v}% Damage vs Mirelurks", "ref": 15, "group": "Damage", "situational": true },
-    "dmgvs_yaoguai":  { "label": "Damage vs Yao Guai", "fmt": "+{v}% Damage vs Yao Guai", "ref": 15, "group": "Damage", "situational": true },
-    "dmgvs_liberators":  { "label": "Damage vs Liberators", "fmt": "+{v}% Damage vs Liberators", "ref": 15, "group": "Damage", "situational": true },
-    "dmgvs_humans":   { "label": "Damage vs Humans", "fmt": "+{v}% Damage vs Humans", "ref": 10, "group": "Damage", "situational": true },
-    "dmgvs_cryptids":  { "label": "Damage vs a Cryptid", "fmt": "+{v}% Damage vs one Cryptid", "ref": 15, "group": "Damage", "situational": true },
-    "lessdmg_robots":  { "label": "Less Damage from Robots", "fmt": "-{v}% Damage from Robots", "ref": 25, "group": "Defence", "situational": true },
-    "lessdmg_insects":  { "label": "Less Damage from Insects", "fmt": "-{v}% Damage from Insects", "ref": 25, "group": "Defence", "situational": true },
-    "lessdmg_animals":  { "label": "Less Damage from Animals", "fmt": "-{v}% Damage from Animals", "ref": 25, "group": "Defence", "situational": true },
-    "lessdmg_plasma":  { "label": "Less Plasma Damage", "fmt": "-{v}% Plasma Damage Taken", "ref": 25, "group": "Defence", "situational": true },
-    "lessdmg_players":  { "label": "Less Damage from Players", "fmt": "-{v}% Damage from Players", "ref": 10, "group": "Defence", "situational": true },
-    "avoid_all":      { "label": "Chance to Avoid Damage", "fmt": "{v}% Chance to Avoid Damage", "ref": 5, "group": "Defence", "situational": true },
-    "avoid_scorched":  { "label": "Avoid Damage from Scorched", "fmt": "{v}% Chance to Avoid Damage from Scorched", "ref": 20, "group": "Defence", "situational": true },
-    "avoid_explosion":  { "label": "Avoid Explosion Damage", "fmt": "{v}% Chance to Avoid Explosion Damage", "ref": 30, "group": "Defence", "situational": true },
-    "avoid_melee":    { "label": "Avoid Melee Damage", "fmt": "{v}% Chance to Avoid Melee Damage", "ref": 30, "group": "Defence", "situational": true },
-    "avoid_energy":   { "label": "Avoid Energy Damage", "fmt": "{v}% Chance to Avoid Energy Damage", "ref": 30, "group": "Defence", "situational": true },
-    "cryo_res":       { "label": "Cryo Resistance", "fmt": "+{v} Cryo Resistance", "ref": 25, "group": "Defence", "situational": true },
-    "fusion_core":    { "label": "Fusion Core Duration", "fmt": "+{v}% Fusion Core Duration", "ref": 30, "group": "Utility", "situational": true },
-    "heavy_ammo":     { "label": "Less Heavy Weapon Ammo Used", "fmt": "-{v}% Heavy Weapon Ammo Used", "ref": 20, "group": "Utility", "situational": true },
-    "loot_caps":      { "label": "Better Caps Stashes", "fmt": "Better caps stashes", "ref": 1, "group": "Utility", "situational": true },
-    "lockpick":       { "label": "Lockpicking", "fmt": "+{v} Lockpick Sweet Spot", "ref": 30, "group": "Utility", "situational": true },
-    "hacking":        { "label": "Hacking", "fmt": "+{v} Hacking Guess", "ref": 1, "group": "Utility", "situational": true },
-    "pa_drain":       { "label": "Power Armour Core Drain", "fmt": "-{v}% Power Armour Core Drain", "ref": 30, "group": "Utility", "situational": true },
-    "lessdmg_scorched": { "label": "Less Damage from Scorched", "fmt": "-{v}% Damage from Scorched", "ref": 15, "group": "Defence", "situational": true },
-    "limb_dmg":       { "label": "Less Limb Damage", "fmt": "-{v}% Limb Damage Taken", "ref": 25, "group": "Defence", "situational": true },
-    "scope_steady":   { "label": "Steadier Scope", "fmt": "{v}% steadier scope (-20% V.A.T.S. hit chance)", "ref": 12, "group": "Damage", "situational": true },
-    "sprint_ap":      { "label": "Less AP Used Sprinting", "fmt": "-{v}% Sprint AP Cost", "ref": 50, "group": "Utility", "situational": true },
-    "water_breathing": { "label": "Breathe Underwater", "fmt": "Breathe underwater", "ref": 1, "group": "Utility", "situational": true },
-    "fishing":        { "label": "Fishing", "fmt": "Fish bite faster", "ref": 1, "group": "Utility", "situational": true },
-    "barter":         { "label": "Better NPC Prices", "fmt": "Better prices when trading with NPCs", "ref": 1, "group": "Utility", "situational": true },
-    "detect_life":    { "label": "See Living Targets", "fmt": "Highlights living targets", "ref": 1, "group": "Utility", "situational": true },
-    "flowers":        { "label": "Extra Flowers", "fmt": "Extra flowers when harvesting", "ref": 1, "group": "Utility", "situational": true }
+    "str": {
+      "label": "Strength",
+      "fmt": "+{v} Strength",
+      "ref": 3,
+      "group": "SPECIAL"
+    },
+    "per": {
+      "label": "Perception",
+      "fmt": "+{v} Perception",
+      "ref": 3,
+      "group": "SPECIAL"
+    },
+    "end": {
+      "label": "Endurance",
+      "fmt": "+{v} Endurance",
+      "ref": 3,
+      "group": "SPECIAL"
+    },
+    "cha": {
+      "label": "Charisma",
+      "fmt": "+{v} Charisma",
+      "ref": 3,
+      "group": "SPECIAL"
+    },
+    "int": {
+      "label": "Intelligence",
+      "fmt": "+{v} Intelligence",
+      "ref": 3,
+      "group": "SPECIAL"
+    },
+    "agi": {
+      "label": "Agility",
+      "fmt": "+{v} Agility",
+      "ref": 3,
+      "group": "SPECIAL"
+    },
+    "luck": {
+      "label": "Luck",
+      "fmt": "+{v} Luck",
+      "ref": 3,
+      "group": "SPECIAL"
+    },
+    "dmg_all": {
+      "label": "Damage",
+      "fmt": "+{v}% Damage",
+      "ref": 25,
+      "group": "Damage"
+    },
+    "dmg_melee": {
+      "label": "Melee Damage",
+      "fmt": "+{v}% Melee Damage",
+      "ref": 30,
+      "group": "Damage"
+    },
+    "dmg_unarmed": {
+      "label": "Unarmed Damage",
+      "fmt": "+{v}% Unarmed Damage",
+      "ref": 50,
+      "group": "Damage"
+    },
+    "dmg_ballistic": {
+      "label": "Ballistic Damage",
+      "fmt": "+{v}% Ballistic Damage",
+      "ref": 15,
+      "group": "Damage"
+    },
+    "dmg_energy": {
+      "label": "Energy Damage",
+      "fmt": "+{v}% Energy Damage",
+      "ref": 15,
+      "group": "Damage"
+    },
+    "dmg_animals": {
+      "label": "Damage vs Animals",
+      "fmt": "+{v}% Damage vs Animals",
+      "ref": 15,
+      "group": "Damage"
+    },
+    "crit_dmg": {
+      "label": "Critical Damage",
+      "fmt": "+{v}% Critical Damage",
+      "ref": 50,
+      "group": "Damage"
+    },
+    "sneak_attack": {
+      "label": "Sneak Attack Damage",
+      "fmt": "+{v}% Sneak Attack Damage",
+      "ref": 15,
+      "group": "Damage"
+    },
+    "vats_acc": {
+      "label": "VATS Hit Chance",
+      "fmt": "+{v}% VATS Hit Chance",
+      "ref": 10,
+      "group": "Damage"
+    },
+    "gun_acc": {
+      "label": "Gun Accuracy",
+      "fmt": "+{v} Accuracy",
+      "ref": 33,
+      "group": "Damage"
+    },
+    "dr": {
+      "label": "Damage Resistance",
+      "fmt": "+{v} Damage Resistance",
+      "ref": 50,
+      "group": "Defence"
+    },
+    "er": {
+      "label": "Energy Resistance",
+      "fmt": "+{v} Energy Resistance",
+      "ref": 35,
+      "group": "Defence"
+    },
+    "fire_res": {
+      "label": "Fire Resistance",
+      "fmt": "+{v} Fire Resistance",
+      "ref": 75,
+      "group": "Defence"
+    },
+    "poison_res": {
+      "label": "Poison Resistance",
+      "fmt": "+{v} Poison Resistance",
+      "ref": 50,
+      "group": "Defence"
+    },
+    "rad_res": {
+      "label": "Radiation Resistance",
+      "fmt": "+{v} Radiation Resistance",
+      "ref": 50,
+      "group": "Defence"
+    },
+    "disease_res": {
+      "label": "Disease Resistance",
+      "fmt": "+{v}% Disease Resistance",
+      "ref": 20,
+      "group": "Defence"
+    },
+    "max_hp": {
+      "label": "Max Health",
+      "fmt": "+{v} Max Health",
+      "ref": 40,
+      "group": "Defence"
+    },
+    "heal_rate": {
+      "label": "Health Regen",
+      "fmt": "+{v} Health Regen",
+      "ref": 0.25,
+      "group": "Defence"
+    },
+    "ap": {
+      "label": "Max AP",
+      "fmt": "+{v} Max AP",
+      "ref": 30,
+      "group": "Utility"
+    },
+    "ap_regen": {
+      "label": "AP Regen",
+      "fmt": "+{v}% AP Regen",
+      "ref": 10,
+      "group": "Utility"
+    },
+    "carry": {
+      "label": "Carry Weight",
+      "fmt": "+{v} Carry Weight",
+      "ref": 30,
+      "group": "Utility"
+    },
+    "xp": {
+      "label": "XP",
+      "fmt": "+{v}% XP",
+      "ref": 5,
+      "group": "Utility"
+    },
+    "move_speed": {
+      "label": "Move Speed",
+      "fmt": "+{v}% Move Speed",
+      "ref": 20,
+      "group": "Utility"
+    },
+    "invis": {
+      "label": "Invisibility",
+      "fmt": "Invisible (Stealth Boy)",
+      "ref": 1,
+      "group": "Utility"
+    },
+    "dmg_heavy": {
+      "label": "Heavy Guns Damage",
+      "fmt": "+{v}% Heavy Guns Damage",
+      "ref": 15,
+      "group": "Damage"
+    },
+    "dmg_explosive": {
+      "label": "Explosive Damage",
+      "fmt": "+{v}% Explosive Damage",
+      "ref": 15,
+      "group": "Damage"
+    },
+    "dmg_melee_weapons": {
+      "label": "Melee Weapon Damage",
+      "fmt": "+{v}% Melee Weapon Damage",
+      "ref": 20,
+      "group": "Damage"
+    },
+    "dmg_scoped": {
+      "label": "Scoped Weapon Damage",
+      "fmt": "+{v}% Scoped Weapon Damage",
+      "ref": 30,
+      "group": "Damage"
+    },
+    "crit_ballistic": {
+      "label": "Ballistic Crit Damage",
+      "fmt": "+{v}% Ballistic Critical Damage",
+      "ref": 50,
+      "group": "Damage"
+    },
+    "crit_energy": {
+      "label": "Laser & Plasma Crit Damage",
+      "fmt": "+{v}% Laser & Plasma Critical Damage",
+      "ref": 50,
+      "group": "Damage"
+    },
+    "crit_laser": {
+      "label": "Laser Crit Damage",
+      "fmt": "+{v}% Laser Critical Damage",
+      "ref": 50,
+      "group": "Damage"
+    },
+    "crit_plasma": {
+      "label": "Plasma Crit Damage",
+      "fmt": "+{v}% Plasma Critical Damage",
+      "ref": 50,
+      "group": "Damage"
+    },
+    "crit_heavy": {
+      "label": "Heavy Guns Crit Damage",
+      "fmt": "+{v}% Heavy Guns Critical Damage",
+      "ref": 50,
+      "group": "Damage"
+    },
+    "crit_melee": {
+      "label": "Melee Crit Damage",
+      "fmt": "+{v}% Melee Critical Damage",
+      "ref": 50,
+      "group": "Damage"
+    },
+    "sneak": {
+      "label": "Sneak",
+      "fmt": "+{v} Sneak",
+      "ref": 30,
+      "group": "Utility"
+    },
+    "stimpak_heal": {
+      "label": "Stimpak Healing",
+      "fmt": "+{v}% Stimpak Healing",
+      "ref": 30,
+      "group": "Defence"
+    },
+    "ap_refill": {
+      "label": "AP Refill",
+      "fmt": "+{v} AP refilled",
+      "ref": 300,
+      "group": "Utility"
+    },
+    "hunger_thirst": {
+      "label": "Slower Hunger & Thirst",
+      "fmt": "{v}% slower hunger & thirst",
+      "ref": 50,
+      "group": "Utility"
+    },
+    "dmg_cryolator": {
+      "label": "Cryolator Damage",
+      "fmt": "+{v}% Cryolator Damage",
+      "ref": 25,
+      "group": "Damage",
+      "situational": true
+    },
+    "dmg_alien": {
+      "label": "Alien Blaster Damage",
+      "fmt": "+{v}% Alien Blaster Damage",
+      "ref": 25,
+      "group": "Damage",
+      "situational": true
+    },
+    "dmg_throwing": {
+      "label": "Throwing Weapon Damage",
+      "fmt": "+{v}% Throwing Weapon Damage",
+      "ref": 25,
+      "group": "Damage",
+      "situational": true
+    },
+    "dmg_fistknife": {
+      "label": "Fists & Knife Damage",
+      "fmt": "+{v}% Fists & Knife Damage",
+      "ref": 25,
+      "group": "Damage",
+      "situational": true
+    },
+    "dmg_unscoped": {
+      "label": "Unscoped Weapon Damage",
+      "fmt": "+{v}% Unscoped Weapon Damage",
+      "ref": 10,
+      "group": "Damage"
+    },
+    "dmgvs_scorched": {
+      "label": "Damage vs Scorched",
+      "fmt": "+{v}% Damage vs Scorched",
+      "ref": 15,
+      "group": "Damage",
+      "situational": true
+    },
+    "dmgvs_supermutants": {
+      "label": "Damage vs Super Mutants",
+      "fmt": "+{v}% Damage vs Super Mutants",
+      "ref": 15,
+      "group": "Damage",
+      "situational": true
+    },
+    "dmgvs_robots": {
+      "label": "Damage vs Robots",
+      "fmt": "+{v}% Damage vs Robots",
+      "ref": 15,
+      "group": "Damage",
+      "situational": true
+    },
+    "dmgvs_ghouls": {
+      "label": "Damage vs Ghouls",
+      "fmt": "+{v}% Damage vs Ghouls",
+      "ref": 15,
+      "group": "Damage",
+      "situational": true
+    },
+    "dmgvs_mirelurks": {
+      "label": "Damage vs Mirelurks",
+      "fmt": "+{v}% Damage vs Mirelurks",
+      "ref": 15,
+      "group": "Damage",
+      "situational": true
+    },
+    "dmgvs_yaoguai": {
+      "label": "Damage vs Yao Guai",
+      "fmt": "+{v}% Damage vs Yao Guai",
+      "ref": 15,
+      "group": "Damage",
+      "situational": true
+    },
+    "dmgvs_liberators": {
+      "label": "Damage vs Liberators",
+      "fmt": "+{v}% Damage vs Liberators",
+      "ref": 15,
+      "group": "Damage",
+      "situational": true
+    },
+    "dmgvs_humans": {
+      "label": "Damage vs Humans",
+      "fmt": "+{v}% Damage vs Humans",
+      "ref": 10,
+      "group": "Damage",
+      "situational": true
+    },
+    "dmgvs_cryptids": {
+      "label": "Damage vs a Cryptid",
+      "fmt": "+{v}% Damage vs one Cryptid",
+      "ref": 15,
+      "group": "Damage",
+      "situational": true
+    },
+    "lessdmg_robots": {
+      "label": "Less Damage from Robots",
+      "fmt": "-{v}% Damage from Robots",
+      "ref": 25,
+      "group": "Defence",
+      "situational": true
+    },
+    "lessdmg_insects": {
+      "label": "Less Damage from Insects",
+      "fmt": "-{v}% Damage from Insects",
+      "ref": 25,
+      "group": "Defence",
+      "situational": true
+    },
+    "lessdmg_animals": {
+      "label": "Less Damage from Animals",
+      "fmt": "-{v}% Damage from Animals",
+      "ref": 25,
+      "group": "Defence",
+      "situational": true
+    },
+    "lessdmg_plasma": {
+      "label": "Less Plasma Damage",
+      "fmt": "-{v}% Plasma Damage Taken",
+      "ref": 25,
+      "group": "Defence",
+      "situational": true
+    },
+    "lessdmg_players": {
+      "label": "Less Damage from Players",
+      "fmt": "-{v}% Damage from Players",
+      "ref": 10,
+      "group": "Defence",
+      "situational": true
+    },
+    "avoid_all": {
+      "label": "Chance to Avoid Damage",
+      "fmt": "{v}% Chance to Avoid Damage",
+      "ref": 5,
+      "group": "Defence",
+      "situational": true
+    },
+    "avoid_scorched": {
+      "label": "Avoid Damage from Scorched",
+      "fmt": "{v}% Chance to Avoid Damage from Scorched",
+      "ref": 20,
+      "group": "Defence",
+      "situational": true
+    },
+    "avoid_explosion": {
+      "label": "Avoid Explosion Damage",
+      "fmt": "{v}% Chance to Avoid Explosion Damage",
+      "ref": 30,
+      "group": "Defence",
+      "situational": true
+    },
+    "avoid_melee": {
+      "label": "Avoid Melee Damage",
+      "fmt": "{v}% Chance to Avoid Melee Damage",
+      "ref": 30,
+      "group": "Defence",
+      "situational": true
+    },
+    "avoid_energy": {
+      "label": "Avoid Energy Damage",
+      "fmt": "{v}% Chance to Avoid Energy Damage",
+      "ref": 30,
+      "group": "Defence",
+      "situational": true
+    },
+    "cryo_res": {
+      "label": "Cryo Resistance",
+      "fmt": "+{v} Cryo Resistance",
+      "ref": 25,
+      "group": "Defence",
+      "situational": true
+    },
+    "fusion_core": {
+      "label": "Fusion Core Duration",
+      "fmt": "+{v}% Fusion Core Duration",
+      "ref": 30,
+      "group": "Utility",
+      "situational": true
+    },
+    "heavy_ammo": {
+      "label": "Less Heavy Weapon Ammo Used",
+      "fmt": "-{v}% Heavy Weapon Ammo Used",
+      "ref": 20,
+      "group": "Utility",
+      "situational": true
+    },
+    "loot_caps": {
+      "label": "Better Caps Stashes",
+      "fmt": "Better caps stashes",
+      "ref": 1,
+      "group": "Utility",
+      "situational": true
+    },
+    "lockpick": {
+      "label": "Lockpicking",
+      "fmt": "+{v} Lockpick Sweet Spot",
+      "ref": 30,
+      "group": "Utility",
+      "situational": true
+    },
+    "hacking": {
+      "label": "Hacking",
+      "fmt": "+{v} Hacking Guess",
+      "ref": 1,
+      "group": "Utility",
+      "situational": true
+    },
+    "pa_drain": {
+      "label": "Power Armour Core Drain",
+      "fmt": "-{v}% Power Armour Core Drain",
+      "ref": 30,
+      "group": "Utility",
+      "situational": true
+    },
+    "lessdmg_scorched": {
+      "label": "Less Damage from Scorched",
+      "fmt": "-{v}% Damage from Scorched",
+      "ref": 15,
+      "group": "Defence",
+      "situational": true
+    },
+    "limb_dmg": {
+      "label": "Less Limb Damage",
+      "fmt": "-{v}% Limb Damage Taken",
+      "ref": 25,
+      "group": "Defence",
+      "situational": true
+    },
+    "scope_steady": {
+      "label": "Steadier Scope",
+      "fmt": "{v}% steadier scope (-20% V.A.T.S. hit chance)",
+      "ref": 12,
+      "group": "Damage",
+      "situational": true
+    },
+    "sprint_ap": {
+      "label": "Less AP Used Sprinting",
+      "fmt": "-{v}% Sprint AP Cost",
+      "ref": 50,
+      "group": "Utility",
+      "situational": true
+    },
+    "water_breathing": {
+      "label": "Breathe Underwater",
+      "fmt": "Breathe underwater",
+      "ref": 1,
+      "group": "Utility",
+      "situational": true
+    },
+    "fishing": {
+      "label": "Fishing",
+      "fmt": "Fish bite faster",
+      "ref": 1,
+      "group": "Utility",
+      "situational": true
+    },
+    "barter": {
+      "label": "Better NPC Prices",
+      "fmt": "Better prices when trading with NPCs",
+      "ref": 1,
+      "group": "Utility",
+      "situational": true
+    },
+    "detect_life": {
+      "label": "See Living Targets",
+      "fmt": "Highlights living targets",
+      "ref": 1,
+      "group": "Utility",
+      "situational": true
+    },
+    "flowers": {
+      "label": "Extra Flowers",
+      "fmt": "Extra flowers when harvesting",
+      "ref": 1,
+      "group": "Utility",
+      "situational": true
+    }
   },
   "_playstyle_readme": "Buffs guide pages (25 Oct 2026, Kat): Combat & events = combat and events; Exploring & looting = looting and exploring. Exploring counts utility buffs in full (full_utility switches off damage_first) and values caps stashes, lockpicking, hacking, carry weight and sneak.",
   "questions": {
     "build": {
       "label": "What build are you running?",
       "options": {
-        "heavy":     { "label": "Heavy Guns",                 "ranged": true,  "weights": { "dmg_heavy": 1, "crit_heavy": 1, "dmg_unscoped": 0.8, "heavy_ammo": 0.4, "dmg_all": 1, "ap": 0.2 } },
-        "rifle":     { "label": "Rifleman / Sniper (semi-auto & scoped rifles)", "ranged": true, "weights": { "dmg_scoped": 0.8, "dmg_all": 1, "ap": 0.3 } },
-        "commando":  { "label": "Commando (auto rifles)",     "ranged": true,  "weights": { "dmg_unscoped": 0.8, "dmg_all": 1, "ap": 0.3 } },
-        "pistol":    { "label": "Gunslinger (pistols)",       "ranged": true,  "weights": { "dmg_unscoped": 0.8, "dmg_all": 1, "ap": 0.4 } },
-        "shotgun":   { "label": "Shotgunner",                 "ranged": true,  "weights": { "dmg_unscoped": 0.8, "dmg_all": 1, "ap": 0.3 } },
-        "melee":     { "label": "Melee",                      "ranged": false, "goals": { "melee": 1 }, "fallback_add": { "str": 1, "dmg_melee": 1 }, "weights": { "dmg_melee_weapons": 1, "crit_melee": 1, "dmg_all": 1, "ap": 0.4 } },
-        "unarmed":   { "label": "Unarmed",                    "ranged": false, "goals": { "unarmed": 1 }, "fallback_add": { "str": 1, "dmg_unarmed": 1, "dmg_melee": 0.6 }, "weights": { "dmg_all": 1, "crit_melee": 1, "ap": 0.4 } },
-        "archer":    { "label": "Bows & Throwing (bows, knives, tomahawks)", "ranged": true, "skip": ["damage_type"], "prefer": { "alcohol": ["Wine"] }, "weights": { "dmg_all": 1, "ap": 0.3 } },
-        "explosive": { "label": "Explosives",                 "ranged": true, "skip": ["damage_type"], "weights": { "dmg_explosive": 1, "dmg_all": 1, "fire_res": 0.3 } },
-        "support":   { "label": "Support / Team Healer",      "ranged": true, "skip": ["damage_type"], "weights": { "stimpak_heal": 0.6, "cha": 1, "max_hp": 0.8, "heal_rate": 0.6, "ap": 0.3, "end": 0.3 } }
+        "heavy": {
+          "label": "Heavy Guns",
+          "ranged": true,
+          "weights": {
+            "dmg_heavy": 1,
+            "crit_heavy": 1,
+            "dmg_unscoped": 0.8,
+            "heavy_ammo": 0.4,
+            "dmg_all": 1,
+            "ap": 0.2
+          }
+        },
+        "rifle": {
+          "label": "Rifleman / Sniper (semi-auto & scoped rifles)",
+          "ranged": true,
+          "weights": {
+            "dmg_scoped": 0.8,
+            "dmg_all": 1,
+            "ap": 0.3
+          }
+        },
+        "commando": {
+          "label": "Commando (auto rifles)",
+          "ranged": true,
+          "weights": {
+            "dmg_unscoped": 0.8,
+            "dmg_all": 1,
+            "ap": 0.3
+          }
+        },
+        "pistol": {
+          "label": "Gunslinger (pistols)",
+          "ranged": true,
+          "weights": {
+            "dmg_unscoped": 0.8,
+            "dmg_all": 1,
+            "ap": 0.4
+          }
+        },
+        "shotgun": {
+          "label": "Shotgunner",
+          "ranged": true,
+          "weights": {
+            "dmg_unscoped": 0.8,
+            "dmg_all": 1,
+            "ap": 0.3
+          }
+        },
+        "melee": {
+          "label": "Melee",
+          "ranged": false,
+          "goals": {
+            "melee": 1
+          },
+          "fallback_add": {
+            "str": 1,
+            "dmg_melee": 1
+          },
+          "weights": {
+            "dmg_melee_weapons": 1,
+            "crit_melee": 1,
+            "dmg_all": 1,
+            "ap": 0.4
+          }
+        },
+        "unarmed": {
+          "label": "Unarmed",
+          "ranged": false,
+          "goals": {
+            "unarmed": 1
+          },
+          "fallback_add": {
+            "str": 1,
+            "dmg_unarmed": 1,
+            "dmg_melee": 0.6
+          },
+          "weights": {
+            "dmg_all": 1,
+            "crit_melee": 1,
+            "ap": 0.4
+          }
+        },
+        "archer": {
+          "label": "Bows & Throwing (bows, knives, tomahawks)",
+          "ranged": true,
+          "skip": [
+            "damage_type"
+          ],
+          "prefer": {
+            "alcohol": [
+              "Wine"
+            ]
+          },
+          "weights": {
+            "dmg_all": 1,
+            "ap": 0.3
+          }
+        },
+        "explosive": {
+          "label": "Explosives",
+          "ranged": true,
+          "skip": [
+            "damage_type"
+          ],
+          "weights": {
+            "dmg_explosive": 1,
+            "dmg_all": 1,
+            "fire_res": 0.3
+          }
+        },
+        "support": {
+          "label": "Support / Team Healer",
+          "ranged": true,
+          "skip": [
+            "damage_type"
+          ],
+          "weights": {
+            "stimpak_heal": 0.6,
+            "cha": 1,
+            "max_hp": 0.8,
+            "heal_rate": 0.6,
+            "ap": 0.3,
+            "end": 0.3
+          }
+        }
       }
     },
     "playstyle": {
       "label": "What do you mostly do?",
       "options": {
-        "combat":    { "label": "Combat & events", "add": { "dr": 0.6, "er": 0.5 } },
-        "exploring": { "label": "Exploring & looting", "add": { "sprint_ap": 0.5, "loot_caps": 0.8, "lockpick": 0.8, "hacking": 0.8, "carry": 0.6, "dr": 0.5, "er": 0.5, "per": 0.6, "cha": 0.6, "int": 0.6, "agi": 0.6, "ap": 0.4, "luck": 0.6 }, "full_utility": true,
-                       "note": "Exploring: Perception, Charisma, Intelligence, Agility and Luck all help you loot, sell and get around." }
+        "combat": {
+          "label": "Combat & events",
+          "add": {
+            "dr": 0.6,
+            "er": 0.5
+          }
+        },
+        "exploring": {
+          "label": "Exploring & looting",
+          "add": {
+            "sprint_ap": 0.5,
+            "loot_caps": 0.8,
+            "lockpick": 0.8,
+            "hacking": 0.8,
+            "carry": 0.6,
+            "dr": 0.5,
+            "er": 0.5,
+            "per": 0.6,
+            "cha": 0.6,
+            "int": 0.6,
+            "agi": 0.6,
+            "ap": 0.4,
+            "luck": 0.6
+          },
+          "full_utility": true,
+          "note": "Exploring: Perception, Charisma, Intelligence, Agility and Luck all help you loot, sell and get around."
+        }
       }
     },
     "damage_type": {
       "label": "What damage does your weapon do?",
       "only_if_ranged": true,
       "options": {
-        "ballistic": { "label": "Ballistic (bullets)",     "add": { "dmg_ballistic": 0.9, "crit_ballistic": 1 } },
-        "energy":    { "label": "Energy (laser / plasma)", "add": { "dmg_energy": 0.9, "crit_energy": 1 } },
-        "mixed":     { "label": "Both / not sure",         "add": { "dmg_ballistic": 0.5, "dmg_energy": 0.5, "crit_ballistic": 0.5, "crit_energy": 0.5 } }
-      }
+        "ballistic": {
+          "label": "Ballistic (bullets)",
+          "add": {
+            "dmg_ballistic": 0.9,
+            "crit_ballistic": 1
+          }
+        },
+        "laser": {
+          "label": "Laser",
+          "add": {
+            "dmg_energy": 0.9,
+            "crit_energy": 1,
+            "crit_laser": 1
+          }
+        },
+        "plasma": {
+          "label": "Plasma",
+          "add": {
+            "dmg_energy": 0.9,
+            "crit_energy": 1,
+            "crit_plasma": 1
+          }
+        },
+        "gauss": {
+          "label": "Gauss (rifle, pistol, shotgun, minigun)",
+          "add": {
+            "dmg_ballistic": 0.9,
+            "dmg_energy": 0.9,
+            "crit_ballistic": 1
+          }
+        },
+        "tesla": {
+          "label": "Tesla rifle",
+          "add": {
+            "dmg_energy": 0.9,
+            "crit_energy": 1,
+            "crit_laser": 1
+          }
+        },
+        "energy": {
+          "label": "Other energy (Gamma Gun…)",
+          "add": {
+            "dmg_energy": 0.9
+          }
+        },
+        "mixed": {
+          "label": "Mixed / not sure",
+          "add": {
+            "dmg_ballistic": 0.5,
+            "dmg_energy": 0.5,
+            "crit_ballistic": 0.5,
+            "crit_energy": 0.5,
+            "crit_laser": 0.25,
+            "crit_plasma": 0.25
+          }
+        }
+      },
+      "help": "Laser and plasma each have their own crit magazine. Tesla rifles count as laser. Gauss weapons count as both bullets and energy. Other energy weapons, like the Gamma Gun, get no crit magazine."
     },
     "aim": {
       "label": "VATS or free aim?",
       "only_if_ranged": true,
       "options": {
-        "vats": { "label": "VATS",                    "goals": { "action_points": 0.5, "vats": 0 },
-                  "add": { "crit_dmg": 1.5, "vats_acc": 0.8, "ap_regen": 0.7, "luck": 0.8, "per": 0.6 },
-                  "fallback_add": { "ap": 0.5, "agi": 0.6 },
-                  "note": "V.A.T.S. builds live on crits, so Critical Damage comes first." },
-        "free": { "label": "Free aim / scope",        "add": { "gun_acc": 0.6, "scope_steady": 0.5 }, "mult": { "vats_acc": 0, "crit_dmg": 0, "ap_regen": 0.6 } }
+        "vats": {
+          "label": "VATS",
+          "goals": {
+            "action_points": 0.5,
+            "vats": 0
+          },
+          "add": {
+            "crit_dmg": 1.5,
+            "vats_acc": 0.8,
+            "ap_regen": 0.7,
+            "luck": 0.8,
+            "per": 0.6,
+            "agi": 1.0,
+            "ap_refill": 0.5
+          },
+          "fallback_add": {
+            "ap": 0.5,
+            "agi": 0.6
+          },
+          "note": "V.A.T.S. builds live on crits, so Critical Damage comes first."
+        },
+        "free": {
+          "label": "Free aim / scope",
+          "add": {
+            "gun_acc": 0.6,
+            "scope_steady": 0.5
+          },
+          "mult": {
+            "vats_acc": 0,
+            "crit_dmg": 0,
+            "ap_regen": 0.6,
+            "ap_refill": 0
+          }
+        }
       }
     },
     "weapon": {
       "label": "Main weapon (optional)",
-      "help": "Some magazines only boost one weapon type. Picking one puts its magazine first and drops boosts for other damage types.",
+      "help": "Some magazines only boost one weapon. Your build's main damage buffs still come first; the weapon's own magazine shows as a swap-in when it doesn't win the slot.",
       "options": {
-        "any":       { "label": "Anything / not listed" },
-        "cryolator": { "label": "Cryolator",             "add": { "dmg_cryolator": 4 }, "mult": { "dmg_ballistic": 0, "dmg_energy": 0, "crit_ballistic": 0, "crit_energy": 0 } },
-        "alien":     { "label": "Alien Blaster",         "add": { "dmg_alien": 4 }, "mult": { "dmg_ballistic": 0, "crit_ballistic": 0, "crit_heavy": 0 } },
-        "throwing":  { "label": "Throwing weapons",      "add": { "dmg_throwing": 4 }, "mult": { "dmg_energy": 0, "crit_energy": 0, "crit_heavy": 0 } },
-        "fistknife": { "label": "Fists & knives",        "add": { "dmg_fistknife": 4 } },
-        "gatling":   { "label": "Gatling Laser",         "add": { "fusion_core": 1.5, "dmg_energy": 0.5, "crit_energy": 0.5 }, "mult": { "dmg_ballistic": 0, "crit_ballistic": 0 } }
+        "any": {
+          "label": "Anything / not listed"
+        },
+        "cryolator": {
+          "label": "Cryolator",
+          "add": {
+            "dmg_cryolator": 1.0
+          },
+          "mult": {
+            "dmg_ballistic": 0,
+            "dmg_energy": 0,
+            "crit_ballistic": 0,
+            "crit_energy": 0,
+            "crit_laser": 0,
+            "crit_plasma": 0
+          }
+        },
+        "alien": {
+          "label": "Alien Blaster",
+          "add": {
+            "dmg_alien": 1.0
+          },
+          "mult": {
+            "dmg_ballistic": 0,
+            "crit_ballistic": 0,
+            "crit_heavy": 0
+          }
+        },
+        "throwing": {
+          "label": "Throwing weapons",
+          "add": {
+            "dmg_throwing": 1.0
+          },
+          "mult": {
+            "dmg_energy": 0,
+            "crit_energy": 0,
+            "crit_heavy": 0,
+            "crit_laser": 0,
+            "crit_plasma": 0
+          }
+        },
+        "fistknife": {
+          "label": "Fists & knives",
+          "add": {
+            "dmg_fistknife": 1.0
+          }
+        },
+        "gatling": {
+          "label": "Gatling Laser",
+          "add": {
+            "fusion_core": 1.5
+          },
+          "mult": {
+            "dmg_ballistic": 0,
+            "crit_ballistic": 0,
+            "dmg_energy": 0,
+            "crit_plasma": 0
+          }
+        }
       }
     },
     "melee_vats": {
       "label": "Do you use V.A.T.S. with your melee / unarmed weapon?",
       "only_if_melee": true,
       "options": {
-        "no":  { "label": "No" },
-        "yes": { "label": "Yes (e.g. Hack and Slash)", "goals": { "action_points": 0.5 }, "add": { "crit_dmg": 1.5, "vats_acc": 0.8, "ap_regen": 0.7, "luck": 0.8, "agi": 0.6 }, "fallback_add": { "ap": 0.5 },
-                 "note": "Melee V.A.T.S.: every swing costs AP, so AP, AP regen, accuracy, Luck and crit damage are picked." }
+        "no": {
+          "label": "No"
+        },
+        "yes": {
+          "label": "Yes (e.g. Hack and Slash)",
+          "goals": {
+            "action_points": 0.5
+          },
+          "add": {
+            "crit_dmg": 1.5,
+            "vats_acc": 0.8,
+            "ap_regen": 0.7,
+            "luck": 0.8,
+            "agi": 0.6
+          },
+          "fallback_add": {
+            "ap": 0.5
+          },
+          "note": "Melee V.A.T.S.: every swing costs AP, so AP, AP regen, accuracy, Luck and crit damage are picked."
+        }
       }
     },
     "sneaky": {
       "label": "Do you play Sneak?",
       "options": {
-        "no":  { "label": "No" },
-        "yes": { "label": "Yes", "add": { "agi": 1, "sneak_attack": 1.6, "invis": 0.4, "sneak": 0.6 } }
+        "no": {
+          "label": "No"
+        },
+        "yes": {
+          "label": "Yes",
+          "add": {
+            "agi": 1,
+            "sneak_attack": 1.6,
+            "invis": 0.4,
+            "sneak": 0.6
+          }
+        }
       }
     },
     "armour": {
       "label": "What armour do you wear?",
       "options": {
-        "power": { "label": "Power Armour",                  "goals": { "carry_weight": 1 }, "fallback_add": { "carry": 1, "str": 0.5 }, "add": { "fusion_core": 0.4, "pa_drain": 0.4 }, "mult": { "dr": 0, "er": 0, "rad_res": 0 },
-                   "note": "Power Armour: low carry weight, so Strength and carry weight. It already covers DR, ER and rads." },
-        "body":  { "label": "Body armour",                   "goals": { "health_bar": 0 }, "add": { "dr": 0.1, "er": 0.1, "end": 0.6, "max_hp": 0.6, "heal_rate": 0.6, "limb_dmg": 0.3 },
-                   "note": "Not in Power Armour: Endurance, Max Health and Health Regen." },
-        "none":  { "label": "Berserker's (no armour)", "avoid": ["dr"], "goals": { "health_bar": 0 }, "add": { "er": 0.2, "max_hp": 0.6, "end": 0.6, "heal_rate": 0.6 },
-                   "note": "Berserker's: no DR buffs (they lower your damage). Endurance, Max Health and Health Regen instead." }
+        "power": {
+          "label": "Power Armour",
+          "goals": {
+            "carry_weight": 1
+          },
+          "fallback_add": {
+            "carry": 1,
+            "str": 0.5
+          },
+          "add": {
+            "fusion_core": 0.4,
+            "pa_drain": 0.4
+          },
+          "mult": {
+            "dr": 0,
+            "er": 0,
+            "rad_res": 0
+          },
+          "note": "Power Armour: low carry weight, so Strength and carry weight. It already covers DR, ER and rads."
+        },
+        "body": {
+          "label": "Body armour",
+          "goals": {
+            "health_bar": 0
+          },
+          "add": {
+            "dr": 0.1,
+            "er": 0.1,
+            "end": 0.6,
+            "max_hp": 0.6,
+            "heal_rate": 0.6,
+            "limb_dmg": 0.3
+          },
+          "note": "Not in Power Armour: Endurance, Max Health and Health Regen."
+        },
+        "none": {
+          "label": "Berserker's (no armour)",
+          "avoid": [
+            "dr"
+          ],
+          "goals": {
+            "health_bar": 0
+          },
+          "add": {
+            "er": 0.2,
+            "max_hp": 0.6,
+            "end": 0.6,
+            "heal_rate": 0.6
+          },
+          "note": "Berserker's: no DR buffs (they lower your damage). Endurance, Max Health and Health Regen instead."
+        }
       }
     },
     "health": {
       "label": "Bloodied or full health?",
       "options": {
-        "bloodied": { "label": "Bloodied (low health)", "add": { "max_hp": 0.6, "end": 1 }, "mult": { "heal_rate": 0.3 }, "rads_ok": true,
-                      "note": "Bloodied: take your rads first, then Rad Resistance so more rads don't kill you." },
-        "full":     { "label": "Full health" }
+        "bloodied": {
+          "label": "Bloodied (low health)",
+          "add": {
+            "max_hp": 0.6,
+            "end": 1
+          },
+          "mult": {
+            "heal_rate": 0.3
+          },
+          "rads_ok": true,
+          "note": "Bloodied: take your rads first, then Rad Resistance so more rads don't kill you."
+        },
+        "full": {
+          "label": "Full health"
+        }
       }
     },
     "race": {
       "label": "Ghoul or human?",
       "options": {
-        "human": { "label": "Human" },
-        "ghoul": { "label": "Ghoul", "mult": { "rad_res": 0, "disease_res": 0, "cha": 0 }, "rads_ok": true, "feral_bonus": 0.15,
-                   "note": "Ghouls: no rad, disease or Charisma buffs needed." }
+        "human": {
+          "label": "Human"
+        },
+        "ghoul": {
+          "label": "Ghoul",
+          "mult": {
+            "rad_res": 0,
+            "disease_res": 0,
+            "cha": 0
+          },
+          "rads_ok": true,
+          "feral_bonus": 0.15,
+          "note": "Ghouls: no rad, disease or Charisma buffs needed."
+        }
       }
     },
     "carry": {
       "label": "Do you struggle with carry weight?",
       "options": {
-        "no":  { "label": "No" },
-        "yes": { "label": "Yes", "goals": { "carry_weight": 1 }, "fallback_add": { "carry": 1, "str": 0.5 } }
+        "no": {
+          "label": "No"
+        },
+        "yes": {
+          "label": "Yes",
+          "goals": {
+            "carry_weight": 1
+          },
+          "fallback_add": {
+            "carry": 1,
+            "str": 0.5
+          }
+        }
       }
     },
     "deaths": {
       "label": "Do you die a lot?",
       "options": {
-        "no":  { "label": "No" },
-        "yes": { "label": "Yes", "goals": { "health_bar": 1, "health_regen": 1 }, "add": { "stimpak_heal": 0.3, "avoid_all": 0.5 }, "fallback_add": { "max_hp": 0.8, "heal_rate": 0.8, "end": 0.5 },
-                 "note": "Die a lot: more health and health regen." }
+        "no": {
+          "label": "No"
+        },
+        "yes": {
+          "label": "Yes",
+          "goals": {
+            "health_bar": 1,
+            "health_regen": 1
+          },
+          "add": {
+            "stimpak_heal": 0.3,
+            "avoid_all": 0.5
+          },
+          "fallback_add": {
+            "max_hp": 0.8,
+            "heal_rate": 0.8,
+            "end": 0.5
+          },
+          "note": "Die a lot: more health and health regen."
+        }
       }
     },
     "xp": {
       "label": "Is XP important to you?",
       "options": {
-        "no":  { "label": "No", "mult": { "xp": 0 } },
-        "yes": { "label": "Yes", "goals": { "xp": 1 }, "add": { "cha": 1 }, "fallback_add": { "xp": 1, "int": 0.7 },
-                 "note": "XP: XP buffs, Intelligence, and Charisma in a team." }
+        "no": {
+          "label": "No",
+          "mult": {
+            "xp": 0
+          }
+        },
+        "yes": {
+          "label": "Yes",
+          "goals": {
+            "xp": 1
+          },
+          "add": {
+            "cha": 1
+          },
+          "fallback_add": {
+            "xp": 1,
+            "int": 0.7
+          },
+          "note": "XP: XP buffs, Intelligence, and Charisma in a team."
+        }
       }
     },
     "enemy": {
       "label": "Fighting anything in particular?",
-      "help": "For events and farming runs: some magazines only work on one enemy type. Picking one puts those magazines first.",
+      "help": "For events and farming runs. Your build's main damage buffs still come first; a magazine for that enemy shows as a swap-in when it doesn't win the slot.",
       "options": {
-        "any":          { "label": "Anything / a bit of everything" },
-        "scorched":     { "label": "Scorched / Scorchbeasts",  "add": { "dmgvs_scorched": 4, "avoid_scorched": 1.5, "lessdmg_scorched": 1.5 } },
-        "supermutants": { "label": "Super Mutants",            "add": { "dmgvs_supermutants": 4 } },
-        "robots":       { "label": "Robots",                   "add": { "dmgvs_robots": 4, "lessdmg_robots": 1.5 } },
-        "liberators":   { "label": "Liberators",               "add": { "dmgvs_liberators": 4, "dmgvs_robots": 3, "lessdmg_robots": 1.5 } },
-        "ghouls":       { "label": "Ghouls",                   "add": { "dmgvs_ghouls": 4 } },
-        "animals":      { "label": "Animals",                  "add": { "dmg_animals": 4, "lessdmg_animals": 1.5 } },
-        "yaoguai":      { "label": "Yao Guai",                 "add": { "dmgvs_yaoguai": 4, "dmg_animals": 3, "lessdmg_animals": 1.5 } },
-        "insects":      { "label": "Insects / bugs",           "add": { "lessdmg_insects": 1.5 } },
-        "mirelurks":    { "label": "Mirelurks",                "add": { "dmgvs_mirelurks": 4 } },
-        "humans":       { "label": "Humans / players",         "add": { "dmgvs_humans": 4, "lessdmg_players": 1 } },
-        "cryptids":     { "label": "Cryptids (Wendigo, Mothman, Grafton, Snallygaster, Flatwoods)", "add": { "dmgvs_cryptids": 4 } }
+        "any": {
+          "label": "Anything / a bit of everything"
+        },
+        "scorched": {
+          "label": "Scorched / Scorchbeasts",
+          "add": {
+            "dmgvs_scorched": 0.6,
+            "avoid_scorched": 0.4,
+            "lessdmg_scorched": 0.4
+          }
+        },
+        "supermutants": {
+          "label": "Super Mutants",
+          "add": {
+            "dmgvs_supermutants": 0.6
+          }
+        },
+        "robots": {
+          "label": "Robots (including Liberators)",
+          "add": {
+            "dmgvs_robots": 0.6,
+            "dmgvs_liberators": 0.6,
+            "lessdmg_robots": 0.4
+          }
+        },
+        "ghouls": {
+          "label": "Ghouls",
+          "add": {
+            "dmgvs_ghouls": 0.6
+          }
+        },
+        "animals": {
+          "label": "Animals",
+          "add": {
+            "dmg_animals": 0.6,
+            "lessdmg_animals": 0.4
+          }
+        },
+        "yaoguai": {
+          "label": "Yao Guai",
+          "add": {
+            "dmgvs_yaoguai": 0.6,
+            "dmg_animals": 0.6,
+            "lessdmg_animals": 0.4
+          }
+        },
+        "insects": {
+          "label": "Insects / bugs",
+          "add": {
+            "lessdmg_insects": 0.4
+          }
+        },
+        "mirelurks": {
+          "label": "Mirelurks",
+          "add": {
+            "dmgvs_mirelurks": 0.6
+          }
+        },
+        "humans": {
+          "label": "Humans / players",
+          "add": {
+            "dmgvs_humans": 0.6,
+            "lessdmg_players": 0.4
+          }
+        },
+        "cryptids": {
+          "label": "Cryptids (Wendigo, Mothman, Grafton, Snallygaster, Flatwoods)",
+          "add": {
+            "dmgvs_cryptids": 0.6
+          }
+        }
       }
     },
     "diet": {
       "label": "Carnivore, Herbivore or Hybrid?",
       "options": {
-        "carnivore": { "label": "Carnivore" },
-        "herbivore": { "label": "Herbivore" },
-        "both":      { "label": "Hybrid - Carnivore + Herbivore" },
-        "none":      { "label": "No diet mutation" }
+        "carnivore": {
+          "label": "Carnivore"
+        },
+        "herbivore": {
+          "label": "Herbivore"
+        },
+        "both": {
+          "label": "Hybrid - Carnivore + Herbivore"
+        },
+        "none": {
+          "label": "No diet mutation"
+        }
       }
     },
     "qol": {
@@ -301,37 +1364,873 @@
       "multi": true,
       "_readme": "Kat 30 Oct 2026: tick-box list, any number. Each pick asks for that buff on top of the build.",
       "options": {
-        "water":   { "label": "Breathe underwater",              "add": { "water_breathing": 1 } },
-        "fishing": { "label": "Fishing",                         "add": { "fishing": 1, "hunger_thirst": 0.3 } },
-        "barter":  { "label": "Better prices when trading with NPCs",      "add": { "barter": 1 } },
-        "detect":  { "label": "See living targets highlighted",  "add": { "detect_life": 1 } },
-        "flowers": { "label": "Extra flowers when harvesting",   "add": { "flowers": 1 } }
+        "water": {
+          "label": "Breathe underwater",
+          "add": {
+            "water_breathing": 1
+          }
+        },
+        "fishing": {
+          "label": "Fishing",
+          "add": {
+            "fishing": 1,
+            "hunger_thirst": 0.3
+          }
+        },
+        "barter": {
+          "label": "Better prices when trading with NPCs",
+          "add": {
+            "barter": 1
+          }
+        },
+        "detect": {
+          "label": "See living targets highlighted",
+          "add": {
+            "detect_life": 1
+          }
+        },
+        "flowers": {
+          "label": "Extra flowers when harvesting",
+          "add": {
+            "flowers": 1
+          }
+        }
       }
     }
   },
   "_linked_readme": "Kat 28 Oct: when a stat is on their list, the linked stat comes with it. AP follows Agility (Agility IS Action Points, 10 a point), and AP Regen follows Agility and / or AP. Weight = the highest of the from stats x share, unless the stat is already higher. Applied in order, so ap_regen sees the linked AP.",
-  "linked": { "ap": { "from": ["agi"], "share": 1 }, "ap_regen": { "from": ["agi", "ap"], "share": 1 } },
+  "linked": {
+    "ap": {
+      "from": [
+        "agi"
+      ],
+      "share": 1
+    },
+    "ap_regen": {
+      "from": [
+        "agi",
+        "ap"
+      ],
+      "share": 1
+    }
+  },
   "_carry_plan_readme": "Kat 28 Oct 2026. When they need carry weight (carry = yes, or Power Armour): prefer = the magazine slot goes to Grognak the Barbarian 9 (+carry weight), the bobblehead slot to Strength, and the alcohol slot to Vintage Mire Magic Moonshine (+4 STR, 4 min); Rad Ant Lager (+50 lb but only 2 min, then a hangover) shows as its alternative because the two cancel each other. always_add = items with no dispel group that stack with everything: added on top, never taking a food slot. cover = a carry weight food AND a Strength food are both picked (different food groups, they stack).",
   "carry_plan": {
-    "when": [ { "q": "carry", "a": "yes" }, { "q": "armour", "a": "power" } ],
-    "prefer": { "alcohol": ["Vintage Mire Magic Moonshine"], "magazine": ["Grognak the Barbarian 9"], "bobblehead": ["Bobblehead: Strength", "Glowing Bobblehead: Strength"] },
-    "always_add": ["Carry Weight Booster"],
-    "cover": { "type": "food", "slots": ["carry", "str"] }
+    "when": [
+      {
+        "q": "carry",
+        "a": "yes"
+      },
+      {
+        "q": "armour",
+        "a": "power"
+      }
+    ],
+    "prefer": {
+      "alcohol": [
+        "Vintage Mire Magic Moonshine"
+      ],
+      "magazine": [
+        "Grognak the Barbarian 9"
+      ],
+      "bobblehead": [
+        "Bobblehead: Strength",
+        "Glowing Bobblehead: Strength"
+      ]
+    },
+    "always_add": [
+      "Carry Weight Booster"
+    ],
+    "cover": {
+      "type": "food",
+      "slots": [
+        "carry",
+        "str"
+      ]
+    }
   },
   "_slot_why_readme": "Kat 28 Oct: one plain sentence per stat, shown under the stat name in the Stats view (why we recommend it), with a Learn more link to its SPECIALs & Stats guide. Words only - no numbers or formulas.",
-  "slot_why": {"str": {"t": "Strength raises your melee damage and how much you can carry.", "link": "/bnb/specials-stats/strength/strength-guide/"}, "per": {"t": "Perception helps your V.A.T.S. shots land and widens your compass so you spot more.", "link": "/bnb/specials-stats/perception/perception-guide/"}, "end": {"t": "Endurance gives you a bigger health bar, so you can take more hits.", "link": "/bnb/specials-stats/endurance/endurance-guide/"}, "cha": {"t": "Charisma gets you better prices when you trade with NPC vendors (not other players), and more XP when you're in a team.", "link": "/bnb/specials-stats/charisma/charisma-guide/"}, "int": {"t": "Intelligence earns you more XP and more components when you scrap junk.", "link": "/bnb/specials-stats/intelligence/intelligence-guide/"}, "agi": {"t": "Agility gives you more Action Points and helps you sneak.", "link": "/bnb/specials-stats/agility/agility-guide/"}, "luck": {"t": "Luck fills your V.A.T.S. critical meter faster and means the weapons and armour you loot are in better condition.", "link": "/bnb/specials-stats/luck/luck-guide/"}, "ap": {"t": "More Action Points for V.A.T.S., sprinting, jumping and jetpacks.", "link": "/bnb/specials-stats/action-points/action-points-guide/"}, "ap_regen": {"t": "Your Action Points refill faster.", "link": "/bnb/specials-stats/ap-regen/ap-regen-guide/"}, "xp": {"t": "You earn more XP from everything you do.", "link": "/bnb/specials-stats/well-rested/well-rested-guide/"}, "carry": {"t": "You can carry more before you're over-encumbered.", "link": "/bnb/specials-stats/carry-weight/carry-weight-guide/"}, "dmg_all": {"t": "More damage with every weapon."}, "dmg_melee": {"t": "More damage with melee weapons and fists.", "link": "/bnb/specials-stats/melee-damage/melee-damage-guide/"}, "dmg_unarmed": {"t": "More damage with fists and unarmed weapons.", "link": "/bnb/specials-stats/melee-damage/melee-damage-guide/"}, "dmg_melee_weapons": {"t": "More damage with melee weapons (not fists).", "link": "/bnb/specials-stats/melee-damage/melee-damage-guide/"}, "dmg_ballistic": {"t": "More damage with bullet weapons."}, "dmg_energy": {"t": "More damage with energy weapons."}, "dmg_heavy": {"t": "More damage with heavy guns."}, "dmg_explosive": {"t": "More damage with explosives."}, "dmg_scoped": {"t": "More damage with scoped weapons."}, "dmg_unscoped": {"t": "More damage with weapons that have no scope."}, "dmg_cryolator": {"t": "More damage with the Cryolator."}, "dmg_alien": {"t": "More damage with the Alien Blaster."}, "dmg_throwing": {"t": "More damage with throwing weapons."}, "dmg_fistknife": {"t": "More damage with fists and knives."}, "dmg_animals": {"t": "More damage against animals."}, "crit_dmg": {"t": "Your V.A.T.S. critical hits hit harder.", "link": "/bnb/specials-stats/vats-crits/vats-crits-guide/"}, "crit_ballistic": {"t": "Your V.A.T.S. critical hits with bullet weapons hit harder.", "link": "/bnb/specials-stats/vats-crits/vats-crits-guide/"}, "crit_energy": {"t": "Your V.A.T.S. critical hits with energy weapons hit harder.", "link": "/bnb/specials-stats/vats-crits/vats-crits-guide/"}, "crit_heavy": {"t": "Your V.A.T.S. critical hits with heavy guns hit harder.", "link": "/bnb/specials-stats/vats-crits/vats-crits-guide/"}, "crit_melee": {"t": "Your V.A.T.S. critical hits with melee and fists hit harder.", "link": "/bnb/specials-stats/vats-crits/vats-crits-guide/"}, "sneak_attack": {"t": "Your attacks from sneak do more damage.", "link": "/bnb/specials-stats/sneak/sneak-guide/"}, "sneak": {"t": "Enemies have a harder time spotting you.", "link": "/bnb/specials-stats/sneak/sneak-guide/"}, "invis": {"t": "Turns you invisible for a short time.", "link": "/bnb/specials-stats/sneak/sneak-guide/"}, "vats_acc": {"t": "Your V.A.T.S. shots and melee swings land more often.", "link": "/bnb/specials-stats/vats-hit-chance/vats-hit-chance-guide/"}, "gun_acc": {"t": "Steadier aim when you shoot without V.A.T.S."}, "max_hp": {"t": "A bigger health bar, so you can take more hits.", "link": "/bnb/specials-stats/hp/hp-guide/"}, "heal_rate": {"t": "Heals you back up over time when you're out of a fight.", "link": "/bnb/specials-stats/hp-regen/hp-regen-guide/"}, "dr": {"t": "You take less damage from bullets, melee and other physical hits.", "link": "/bnb/specials-stats/resistance/damage-resistance/damage-resistance-guide/"}, "er": {"t": "You take less damage from lasers, plasma and other energy weapons.", "link": "/bnb/specials-stats/resistance/energy-resistance/energy-resistance-guide/"}, "fire_res": {"t": "You take less damage from fire, like flamers and Molotovs. It does not protect against explosive damage.", "link": "/bnb/specials-stats/resistance/fire-resistance/fire-resistance-guide/"}, "rad_res": {"t": "You pick up fewer rads from the world around you.", "link": "/bnb/specials-stats/resistance/radiation-resistance/radiation-resistance-guide/"}, "disease_res": {"t": "Less chance of catching a disease.", "link": "/bnb/specials-stats/disease-resistance/disease-resistance-guide/"}, "move_speed": {"t": "You move faster.", "link": "/bnb/specials-stats/movement-speed/movement-speed-guide/"}, "stimpak_heal": {"t": "Stimpaks heal you more."}, "ap_refill": {"t": "Gives you some Action Points back straight away.", "link": "/bnb/specials-stats/action-points/action-points-guide/"}, "hunger_thirst": {"t": "Your hunger and thirst go down slower, so you eat and drink less."}, "fusion_core": {"t": "Your fusion cores last longer."}, "pa_drain": {"t": "Your Power Armour uses less fusion core power."}, "heavy_ammo": {"t": "Your heavy weapons use less ammo."}, "lessdmg_scorched": {"t": "You take less damage from Scorched and Scorchbeasts."}, "lessdmg_insects": {"t": "You take less damage from bugs, like bloatflies, stingwings and radroaches."}, "limb_dmg": {"t": "Your arms and legs get crippled less often."}, "scope_steady": {"t": "Your scope sways less, so free-aim shots land. It makes V.A.T.S. shots miss more."}, "sprint_ap": {"t": "Sprinting uses less AP, so you can run and use your jetpack for longer."}, "water_breathing": {"t": "You can stay underwater as long as you like."}, "fishing": {"t": "Fish bite faster, so you catch more in less time."}, "barter": {"t": "You get better prices when you buy and sell at NPC vendors. It doesn't change prices when you trade with other players."}, "detect_life": {"t": "Living enemies and creatures glow so you can see them."}, "flowers": {"t": "You pick more flowers each time you harvest a plant."}},
+  "slot_why": {
+    "str": {
+      "t": "Strength raises your melee damage and how much you can carry.",
+      "link": "/bnb/specials-stats/strength/strength-guide/"
+    },
+    "per": {
+      "t": "Perception helps your V.A.T.S. shots land and widens your compass so you spot more.",
+      "link": "/bnb/specials-stats/perception/perception-guide/"
+    },
+    "end": {
+      "t": "Endurance gives you a bigger health bar, so you can take more hits.",
+      "link": "/bnb/specials-stats/endurance/endurance-guide/"
+    },
+    "cha": {
+      "t": "Charisma gets you better prices when you trade with NPC vendors (not other players), and more XP when you're in a team.",
+      "link": "/bnb/specials-stats/charisma/charisma-guide/"
+    },
+    "int": {
+      "t": "Intelligence earns you more XP and more components when you scrap junk.",
+      "link": "/bnb/specials-stats/intelligence/intelligence-guide/"
+    },
+    "agi": {
+      "t": "Agility gives you more Action Points and helps you sneak.",
+      "link": "/bnb/specials-stats/agility/agility-guide/"
+    },
+    "luck": {
+      "t": "Luck fills your V.A.T.S. critical meter faster and means the weapons and armour you loot are in better condition.",
+      "link": "/bnb/specials-stats/luck/luck-guide/"
+    },
+    "ap": {
+      "t": "A longer AP bar, so you have more AP for V.A.T.S., sprinting, jumping and jetpacks.",
+      "link": "/bnb/specials-stats/action-points/action-points-guide/"
+    },
+    "ap_regen": {
+      "t": "Your Action Points refill faster.",
+      "link": "/bnb/specials-stats/ap-regen/ap-regen-guide/"
+    },
+    "xp": {
+      "t": "You earn more XP from everything you do.",
+      "link": "/bnb/specials-stats/well-rested/well-rested-guide/"
+    },
+    "carry": {
+      "t": "You can carry more before you're over-encumbered.",
+      "link": "/bnb/specials-stats/carry-weight/carry-weight-guide/"
+    },
+    "dmg_all": {
+      "t": "More damage with every weapon."
+    },
+    "dmg_melee": {
+      "t": "More damage with melee weapons and fists.",
+      "link": "/bnb/specials-stats/melee-damage/melee-damage-guide/"
+    },
+    "dmg_unarmed": {
+      "t": "More damage with fists and unarmed weapons.",
+      "link": "/bnb/specials-stats/melee-damage/melee-damage-guide/"
+    },
+    "dmg_melee_weapons": {
+      "t": "More damage with melee weapons (not fists).",
+      "link": "/bnb/specials-stats/melee-damage/melee-damage-guide/"
+    },
+    "dmg_ballistic": {
+      "t": "More damage with bullet weapons."
+    },
+    "dmg_energy": {
+      "t": "More damage with energy weapons."
+    },
+    "dmg_heavy": {
+      "t": "More damage with heavy guns."
+    },
+    "dmg_explosive": {
+      "t": "More damage with explosives."
+    },
+    "dmg_scoped": {
+      "t": "More damage with scoped weapons."
+    },
+    "dmg_unscoped": {
+      "t": "More damage with weapons that have no scope."
+    },
+    "dmg_cryolator": {
+      "t": "More damage with the Cryolator."
+    },
+    "dmg_alien": {
+      "t": "More damage with the Alien Blaster."
+    },
+    "dmg_throwing": {
+      "t": "More damage with throwing weapons."
+    },
+    "dmg_fistknife": {
+      "t": "More damage with fists and knives."
+    },
+    "dmg_animals": {
+      "t": "More damage against animals."
+    },
+    "crit_dmg": {
+      "t": "Your V.A.T.S. critical hits hit harder.",
+      "link": "/bnb/specials-stats/vats-crits/vats-crits-guide/"
+    },
+    "crit_ballistic": {
+      "t": "Your V.A.T.S. critical hits with bullet weapons hit harder.",
+      "link": "/bnb/specials-stats/vats-crits/vats-crits-guide/"
+    },
+    "crit_energy": {
+      "t": "Your V.A.T.S. critical hits with laser and plasma guns hit harder.",
+      "link": "/bnb/specials-stats/vats-crits/vats-crits-guide/"
+    },
+    "crit_heavy": {
+      "t": "Your V.A.T.S. critical hits with heavy guns hit harder.",
+      "link": "/bnb/specials-stats/vats-crits/vats-crits-guide/"
+    },
+    "crit_melee": {
+      "t": "Your V.A.T.S. critical hits with melee and fists hit harder.",
+      "link": "/bnb/specials-stats/vats-crits/vats-crits-guide/"
+    },
+    "sneak_attack": {
+      "t": "Your attacks from sneak do more damage.",
+      "link": "/bnb/specials-stats/sneak/sneak-guide/"
+    },
+    "sneak": {
+      "t": "Enemies have a harder time spotting you.",
+      "link": "/bnb/specials-stats/sneak/sneak-guide/"
+    },
+    "invis": {
+      "t": "Turns you invisible for a short time.",
+      "link": "/bnb/specials-stats/sneak/sneak-guide/"
+    },
+    "vats_acc": {
+      "t": "Your V.A.T.S. shots and melee swings land more often.",
+      "link": "/bnb/specials-stats/vats-hit-chance/vats-hit-chance-guide/"
+    },
+    "gun_acc": {
+      "t": "Steadier aim when you shoot without V.A.T.S."
+    },
+    "max_hp": {
+      "t": "A bigger health bar, so you can take more hits.",
+      "link": "/bnb/specials-stats/hp/hp-guide/"
+    },
+    "heal_rate": {
+      "t": "Heals you back up over time when you're out of a fight.",
+      "link": "/bnb/specials-stats/hp-regen/hp-regen-guide/"
+    },
+    "dr": {
+      "t": "You take less damage from bullets, melee and other physical hits.",
+      "link": "/bnb/specials-stats/resistance/damage-resistance/damage-resistance-guide/"
+    },
+    "er": {
+      "t": "You take less damage from lasers, plasma and other energy weapons.",
+      "link": "/bnb/specials-stats/resistance/energy-resistance/energy-resistance-guide/"
+    },
+    "fire_res": {
+      "t": "You take less damage from fire, like flamers and Molotovs. It does not protect against explosive damage.",
+      "link": "/bnb/specials-stats/resistance/fire-resistance/fire-resistance-guide/"
+    },
+    "rad_res": {
+      "t": "You pick up fewer rads from the world around you.",
+      "link": "/bnb/specials-stats/resistance/radiation-resistance/radiation-resistance-guide/"
+    },
+    "disease_res": {
+      "t": "Less chance of catching a disease.",
+      "link": "/bnb/specials-stats/disease-resistance/disease-resistance-guide/"
+    },
+    "move_speed": {
+      "t": "You move faster.",
+      "link": "/bnb/specials-stats/movement-speed/movement-speed-guide/"
+    },
+    "stimpak_heal": {
+      "t": "Stimpaks heal you more."
+    },
+    "ap_refill": {
+      "t": "Fills your AP bar back up over a few seconds when you eat it. Good for topping up mid-fight.",
+      "link": "/bnb/specials-stats/action-points/action-points-guide/"
+    },
+    "hunger_thirst": {
+      "t": "Your hunger and thirst go down slower, so you eat and drink less."
+    },
+    "fusion_core": {
+      "t": "Your fusion cores last longer."
+    },
+    "pa_drain": {
+      "t": "Your Power Armour uses less fusion core power."
+    },
+    "heavy_ammo": {
+      "t": "Your heavy weapons use less ammo."
+    },
+    "lessdmg_scorched": {
+      "t": "You take less damage from Scorched and Scorchbeasts."
+    },
+    "lessdmg_insects": {
+      "t": "You take less damage from bugs, like bloatflies, stingwings and radroaches."
+    },
+    "limb_dmg": {
+      "t": "Your arms and legs get crippled less often."
+    },
+    "scope_steady": {
+      "t": "Your scope sways less, so free-aim shots land. It makes V.A.T.S. shots miss more."
+    },
+    "sprint_ap": {
+      "t": "Sprinting uses less AP, so you can run and use your jetpack for longer."
+    },
+    "water_breathing": {
+      "t": "You can stay underwater as long as you like."
+    },
+    "fishing": {
+      "t": "Fish bite faster, so you catch more in less time."
+    },
+    "barter": {
+      "t": "You get better prices when you buy and sell at NPC vendors. It doesn't change prices when you trade with other players."
+    },
+    "detect_life": {
+      "t": "Living enemies and creatures glow so you can see them."
+    },
+    "flowers": {
+      "t": "You pick more flowers each time you harvest a plant."
+    },
+    "crit_laser": {
+      "t": "Your V.A.T.S. critical hits with laser guns hit harder (not the Gatling Laser).",
+      "link": "/bnb/specials-stats/vats-crits/vats-crits-guide/"
+    },
+    "crit_plasma": {
+      "t": "Your V.A.T.S. critical hits with plasma guns hit harder.",
+      "link": "/bnb/specials-stats/vats-crits/vats-crits-guide/"
+    }
+  },
   "_watch_buffs_readme": "Kat 28 Oct 2026: Bethesda is buffing bubblegum. These are the gum numbers (magnitude, seconds) as of 28 Oct. When a patch makes any of them BIGGER, the builder flags the item (mechanics.buffed) and the calculator puts it first in the gum slot with a \"Buffed this patch\" pill. Update this baseline after the buff is checked.",
-  "watch_buffs": {"Bubblegum": {"hunger_thirst": [50.0, 600]}, "Cola Perk Bubblegum": {"hunger_thirst": [5.0, 120], "rad_res": [5.0, 120]}, "Grape Perk Bubblegum": {"hunger_thirst": [5.0, 120], "disease_res": [5.0, 120]}, "Perfect Bubblegum": {"hunger_thirst": [100.0, 3615]}, "Perk Bubblegum": {"hunger_thirst": [5.0, 120]}, "Strawberry Perk Bubblegum": {"hunger_thirst": [5.0, 120], "dr": [1.0, 120]}, "Watermelon Perk Bubblegum": {"hunger_thirst": [5.0, 120], "ap_refill": [0.35, 120]}},
+  "watch_buffs": {
+    "Bubblegum": {
+      "hunger_thirst": [
+        50.0,
+        600
+      ]
+    },
+    "Cola Perk Bubblegum": {
+      "hunger_thirst": [
+        5.0,
+        120
+      ],
+      "rad_res": [
+        5.0,
+        120
+      ]
+    },
+    "Grape Perk Bubblegum": {
+      "hunger_thirst": [
+        5.0,
+        120
+      ],
+      "disease_res": [
+        5.0,
+        120
+      ]
+    },
+    "Perfect Bubblegum": {
+      "hunger_thirst": [
+        100.0,
+        3615
+      ]
+    },
+    "Perk Bubblegum": {
+      "hunger_thirst": [
+        5.0,
+        120
+      ]
+    },
+    "Strawberry Perk Bubblegum": {
+      "hunger_thirst": [
+        5.0,
+        120
+      ],
+      "dr": [
+        1.0,
+        120
+      ]
+    },
+    "Watermelon Perk Bubblegum": {
+      "hunger_thirst": [
+        5.0,
+        120
+      ],
+      "ap_refill": [
+        42.0,
+        120
+      ]
+    }
+  },
   "_team_play_readme": "Weights added by the Solo / In a team page option (not a question). Kat 27 Oct: Charisma is wanted in a team (Inspirational: Charisma-keyed XP for you and an XP aura for teammates, only in a team), when XP is important, or when exploring & looting (barter). Solo + XP not important + combat = no Charisma.",
-  "team_play": { "team": { "add": { "cha": 0.6 }, "note": "In a team: Charisma means more XP for you and your team." } },
+  "team_play": {
+    "team": {
+      "add": {
+        "cha": 0.6
+      },
+      "note": "In a team: Charisma means more XP for you and your team."
+    }
+  },
   "_damage_first_readme": "Chems and alcohol only get ONE slot each (dispel groups), so that slot goes to DAMAGE OUTPUT: buffs in the 'Damage' slot group count in full, everything else counts at non_damage_share. Carry Weight also counts in full when they say they struggle with carry weight (that is the only time Rad Ant Lager wins). full_when (Kat 27 Oct): the listed slots also count in full when question q has answer a. Strength counts in full for Melee / Unarmed (it IS their damage), and Strength + carry weight count in full in Power Armour (carry weight is low in PA) and when they struggle with carry weight.",
-  "damage_first": { "types": ["chem", "alcohol", "magazine", "bobblehead"], "non_damage_share": 0.25, "full_when_yes": { "carry": "carry" },
-                    "full_when": [ { "q": "carry", "a": "yes", "slots": ["carry", "str"] }, { "q": "armour", "a": "power", "slots": ["carry", "str"] }, { "q": "build", "a": "melee", "slots": ["str"] }, { "q": "build", "a": "unarmed", "slots": ["str"] } ] },
+  "damage_first": {
+    "types": [
+      "chem",
+      "alcohol",
+      "magazine",
+      "bobblehead"
+    ],
+    "non_damage_share": 0.25,
+    "full_when_yes": {
+      "carry": "carry"
+    },
+    "full_when": [
+      {
+        "q": "carry",
+        "a": "yes",
+        "slots": [
+          "carry",
+          "str"
+        ]
+      },
+      {
+        "q": "armour",
+        "a": "power",
+        "slots": [
+          "carry",
+          "str"
+        ]
+      },
+      {
+        "q": "build",
+        "a": "melee",
+        "slots": [
+          "str"
+        ]
+      },
+      {
+        "q": "build",
+        "a": "unarmed",
+        "slots": [
+          "str"
+        ]
+      }
+    ],
+    "damage_wins": [
+      "alcohol"
+    ],
+    "_damage_wins": "Kat / SpaceLime 2 Nov (v2): if any drink adds damage for this build, a drink with no damage for it never takes the drink slot (the carry plan and build 'prefer' items still come first)."
+  },
   "penalties": {
     "rads_per_point": 0.01,
     "disease_chance_per_pct": 0.004,
     "addiction_per_pct": 0.003,
     "secondary_buff_share": 0.2,
     "debuff_share": 1.0
+  },
+  "_ranged_defence_readme": "Kat 2 Nov 2026 (SpaceLime): ranged builds put damage before defence, so DR / ER / less-damage-from-X are halved unless the build is melee or unarmed (Power Armour already zeroes DR / ER).",
+  "ranged_defence": {
+    "exempt_builds": [
+      "melee",
+      "unarmed"
+    ],
+    "mult": {
+      "dr": 0.5,
+      "er": 0.5,
+      "lessdmg_players": 0.5,
+      "lessdmg_robots": 0.5,
+      "lessdmg_animals": 0.5,
+      "lessdmg_scorched": 0.5,
+      "lessdmg_insects": 0.5
+    }
+  },
+  "_only_for_builds_readme": "Kat 2 Nov 2026 (SpaceLime): items only recommended for these builds. Nukashine: its DR / unarmed damage are melee buffs, and its Nukashine_Duration script blacks you out and wakes you somewhere random.",
+  "only_for_builds": {
+    "Nukashine": [
+      "melee",
+      "unarmed"
+    ],
+    "Vintage Nukashine": [
+      "melee",
+      "unarmed"
+    ],
+    "Sugar-Free Nukashine": [
+      "melee",
+      "unarmed"
+    ]
+  },
+  "_extras_readme": "Kat 2 Nov 2026: AP refill snacks (Sweet Roll etc.) last 15-25 sec and stack, so V.A.T.S. builds get the best one ON TOP of their food picks (like the Carry Weight Booster), counted at 5 an hour.",
+  "extras": [
+    {
+      "when": {
+        "aim": "vats"
+      },
+      "slot": "ap_refill",
+      "type": "food"
+    }
+  ],
+  "_gatling_readme": "Kat 2 Nov 2026: the Gatling Laser has WeaponTypeEnergy + WeaponTypeHeavyGun but NOT WeaponTypeLaser, so laser / energy crit magazines (STAT_CritDamagePerk) and Energy damage (STAT_DmgEnergy: energy AND NOT heavy gun) don't reach it. Heavy gun buffs do.",
+  "_damage_model_readme": [
+    "v2 damage scoring (Kat 2 Nov 2026). Damage buffs are scored by how much more damage per shot they give a typical build, not by hand-set weights.",
+    "The numbers come from the game files (src/food_buff_damage_model.py -> mechanics.damage): card values from their ability spells, weapon tags + crit values from WEAP, Luck crit meter from CT_LuckVATSCriticalCharge, Critical Savvy 3 and Better Criticals 3 from PERKEP.",
+    "Here: which cards each build typically runs and how often a situational card is active (share 0-1). Loadouts agreed with Kat 2 Nov; Adrenaline added for every build at half a kill streak (Kat).",
+    "scale: % more damage that scores 1.0 (the same as a full-weight stat). slots: how each damage slot works - pile (adds to the Damage Bonus total), crit (adds to the crit multiplier, only with V.A.T.S. crits), mult (its own multiplier). any / all / none = weapon tags (WeaponType keywords). enemy = only when that enemy is picked.",
+    "Weapons: the typical weapon for each build and damage type. Their tags decide which buffs reach them (Gatling Laser has the Laser tag, so laser crit reaches it)."
+  ],
+  "damage_model": {
+    "scale": 10,
+    "luck": 15,
+    "luck_curve": "CT_LuckVATSCriticalCharge",
+    "crit_cost_perk": "CriticalSavvy03",
+    "crit_bonus_perk": "BetterCriticals03",
+    "enemy_share": 1,
+    "all_builds": [
+      {
+        "name": "Adrenaline",
+        "spell": "AbPerkAdrenaline",
+        "curve": "AdrenalineBonus",
+        "x": 10,
+        "share": 0.5
+      }
+    ],
+    "bloodied": [
+      {
+        "name": "Nerd Rage!",
+        "spell": "AbPerkNerdRage",
+        "curve": "NerdRageDamageBonus",
+        "x": 0.2
+      }
+    ],
+    "builds": {
+      "commando": {
+        "weapons": {
+          "ballistic": "DLC04_HandMadeGun",
+          "laser": "LaserGun",
+          "plasma": "PlasmaGun",
+          "energy": "GammaGun",
+          "gauss": "GaussRifle",
+          "tesla": "DLC01LightningGun"
+        },
+        "cards": [
+          {
+            "name": "Center Masochist",
+            "spell": "AbPerkCommando",
+            "share": 0.75
+          },
+          {
+            "name": "Guerrilla",
+            "spell": "AbPerkGuerrilla",
+            "share": 0.5
+          },
+          {
+            "name": "Number Cruncher",
+            "spell": "AbPerkCommandoMaster",
+            "per": 10,
+            "_per": "2% x 10 AP per shot"
+          }
+        ]
+      },
+      "rifle": {
+        "scoped": true,
+        "weapons": {
+          "ballistic": "HuntingRifle",
+          "laser": "LaserGun",
+          "plasma": "PlasmaGun",
+          "energy": "GammaGun",
+          "gauss": "GaussRifle",
+          "tesla": "DLC01LightningGun"
+        },
+        "cards": [
+          {
+            "name": "Down Ranger",
+            "spell": "AbPerkRifleman",
+            "share": 0.75
+          }
+        ]
+      },
+      "heavy": {
+        "weapons": {
+          "ballistic": "Minigun",
+          "laser": "GatlingLaser",
+          "plasma": "GatlingPlasma",
+          "energy": "TeslaCannon",
+          "gauss": "GaussMinigun",
+          "tesla": "TeslaCannon"
+        },
+        "cards": [
+          {
+            "name": "Bullet Storm",
+            "spell": "AbPerkHeavyGunner",
+            "curve": "HeavyGunnerDamageBonus3",
+            "x": 10,
+            "share": 0.8
+          }
+        ]
+      },
+      "pistol": {
+        "weapons": {
+          "ballistic": "DLC04_Revolver",
+          "laser": "LaserGun",
+          "plasma": "PlasmaGun",
+          "energy": "GammaGun",
+          "gauss": "GaussPistol",
+          "tesla": "DLC01LightningGun"
+        },
+        "cards": [
+          {
+            "name": "Guerrilla",
+            "spell": "AbPerkGuerrilla",
+            "share": 1
+          }
+        ]
+      },
+      "shotgun": {
+        "weapons": {
+          "any": "CombatShotgun",
+          "gauss": "gaussshotgun"
+        },
+        "cards": [
+          {
+            "name": "Easy Target",
+            "spell": "AbPerkShotgunner",
+            "share": 0.4
+          }
+        ]
+      },
+      "melee": {
+        "weapons": {
+          "any": "SuperSledge"
+        },
+        "cards": [
+          {
+            "name": "Slugger",
+            "spell": "AbPerkSlugger",
+            "share": 0.4
+          },
+          {
+            "name": "Wound Salter",
+            "spell": "AbPerkGladiator",
+            "share": 0.5
+          },
+          {
+            "name": "Heavy Hitter",
+            "spell": "AbPerkSluggerMaster",
+            "share": 0.3
+          }
+        ]
+      },
+      "unarmed": {
+        "weapons": {
+          "any": "PowerFist"
+        },
+        "cards": [
+          {
+            "name": "Iron Fist",
+            "spell": "AbPerkIronFist",
+            "curve": "IronFistBonus",
+            "by_answer": {
+              "q": "armour",
+              "x": {
+                "body": 400,
+                "power": 800,
+                "none": 0
+              }
+            }
+          },
+          {
+            "name": "Slugger",
+            "spell": "AbPerkSlugger",
+            "share": 0.4
+          }
+        ]
+      },
+      "archer": {
+        "weapons": {
+          "any": "CompoundBow"
+        },
+        "cards": [
+          {
+            "name": "Hat Trick",
+            "spell": "AbPerkArcher",
+            "share": 1
+          },
+          {
+            "name": "Deal Sealer",
+            "spell": "AbPerkArcherExpert",
+            "effect": "abPerkFortifyDmgCrippled",
+            "share": 1
+          }
+        ]
+      },
+      "explosive": {
+        "weapons": {
+          "any": "MissileLauncher"
+        },
+        "cards": [],
+        "explosive_cards": [
+          {
+            "name": "Demolition Expert",
+            "spell": "AbPerkDemolitionExpert",
+            "share": 1
+          }
+        ]
+      }
+    },
+    "weapon_option": {
+      "cryolator": "Cryolator",
+      "gatling": "GatlingLaser",
+      "alien": "AlienBlaster",
+      "throwing": "Throwing_Knife"
+    },
+    "slots": {
+      "dmg_all": {
+        "kind": "pile"
+      },
+      "dmg_ballistic": {
+        "kind": "pile",
+        "all": [
+          "Ballistic"
+        ],
+        "none": [
+          "HeavyGun"
+        ]
+      },
+      "dmg_energy": {
+        "kind": "pile",
+        "all": [
+          "Energy"
+        ],
+        "none": [
+          "HeavyGun"
+        ]
+      },
+      "dmg_heavy": {
+        "kind": "pile",
+        "any": [
+          "HeavyGun",
+          "ExplosiveHybrid"
+        ]
+      },
+      "dmg_melee": {
+        "kind": "pile",
+        "any": [
+          "Unarmed",
+          "MeleeGeneral"
+        ]
+      },
+      "dmg_melee_weapons": {
+        "kind": "pile",
+        "any": [
+          "MeleeGeneral"
+        ]
+      },
+      "dmg_unarmed": {
+        "kind": "pile",
+        "any": [
+          "Unarmed"
+        ]
+      },
+      "dmg_scoped": {
+        "kind": "pile",
+        "scoped": true,
+        "need_answer": {
+          "aim": "free"
+        },
+        "_why": "STAT_DmgScoped only counts while aiming down the sights (GetInIronSights), never in V.A.T.S."
+      },
+      "dmg_unscoped": {
+        "kind": "pile",
+        "scoped": false,
+        "any": [
+          "Ranged"
+        ]
+      },
+      "dmg_alien": {
+        "kind": "pile",
+        "any": [
+          "AlienBlaster"
+        ]
+      },
+      "dmg_throwing": {
+        "kind": "pile",
+        "any": [
+          "ThrowingKnife"
+        ]
+      },
+      "dmg_fistknife": {
+        "kind": "pile",
+        "any": [
+          "Unarmed",
+          "Knives"
+        ],
+        "or_answer": {
+          "weapon": "fistknife"
+        }
+      },
+      "dmg_animals": {
+        "kind": "pile",
+        "enemy": true
+      },
+      "dmgvs_scorched": {
+        "kind": "pile",
+        "enemy": true
+      },
+      "dmgvs_supermutants": {
+        "kind": "pile",
+        "enemy": true
+      },
+      "dmgvs_robots": {
+        "kind": "pile",
+        "enemy": true
+      },
+      "dmgvs_ghouls": {
+        "kind": "pile",
+        "enemy": true
+      },
+      "dmgvs_mirelurks": {
+        "kind": "pile",
+        "enemy": true
+      },
+      "dmgvs_yaoguai": {
+        "kind": "pile",
+        "enemy": true
+      },
+      "dmgvs_liberators": {
+        "kind": "pile",
+        "enemy": true
+      },
+      "dmgvs_humans": {
+        "kind": "pile",
+        "enemy": true
+      },
+      "dmgvs_cryptids": {
+        "kind": "pile",
+        "enemy": true
+      },
+      "dmg_cryolator": {
+        "kind": "mult",
+        "any": [
+          "Cryolator"
+        ]
+      },
+      "dmg_explosive": {
+        "kind": "explosive",
+        "any": [
+          "Explosive"
+        ]
+      },
+      "crit_dmg": {
+        "kind": "crit"
+      },
+      "crit_ballistic": {
+        "kind": "crit",
+        "any": [
+          "Ballistic"
+        ]
+      },
+      "crit_energy": {
+        "kind": "crit",
+        "any": [
+          "Laser",
+          "Plasma"
+        ]
+      },
+      "crit_laser": {
+        "kind": "crit",
+        "any": [
+          "Laser"
+        ]
+      },
+      "crit_plasma": {
+        "kind": "crit",
+        "any": [
+          "Plasma"
+        ]
+      },
+      "crit_heavy": {
+        "kind": "crit",
+        "any": [
+          "HeavyGun"
+        ]
+      },
+      "crit_melee": {
+        "kind": "crit",
+        "any": [
+          "Melee1H",
+          "Melee2H",
+          "Unarmed"
+        ]
+      }
+    }
   }
 }

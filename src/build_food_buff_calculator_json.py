@@ -91,7 +91,7 @@ AV_SLOT = {
     "STAT_DmgHeavyGuns": "dmg_heavy", "STAT_DmgExplosive": "dmg_explosive",
     "STAT_DmgMeleeWeapons": "dmg_melee_weapons", "STAT_DmgScoped": "dmg_scoped",
     "STAT_CritDmgAll": "crit_dmg", "STAT_CritDmgBallistic": "crit_ballistic",
-    "STAT_CritDmgLaser": "crit_energy", "STAT_CritDmgPlasma": "crit_energy", "STAT_CritDmgEnergy": "crit_energy",
+    "STAT_CritDmgLaser": "crit_laser", "STAT_CritDmgPlasma": "crit_plasma", "STAT_CritDmgEnergy": "crit_energy",   # Kat 2 Nov: laser / plasma split (STAT_CritDamagePerk: Laser, Plasma, Energy = laser OR plasma)
     "STAT_CritDmgHeavyGuns": "crit_heavy", "STAT_CritDmgMelee": "crit_melee",
     "STAT_Sneak": "sneak", "STAT_SneakLight": "sneak", "STAT_SneakSound": "sneak",
     "STAT_HealMultStimpak": "stimpak_heal",
@@ -633,9 +633,13 @@ def build(data_dir, dist_dir):
                     extra_neg.append({"s": "vats_acc", "m": 20.0, "d": int(round(dur)), "st": eed + "_VATS",
                                       "e": eed + "_VATS", "neg": 1})
             elif eed.startswith("RestoreActionPoints"):
-                slot, neg = "ap_refill", False          # AP per second while it lasts
-                if not mag or dur < 60:
+                # Kat 2 Nov 2026: AP refill = AP per second x seconds (SURV_Food_Effect_APRestore_*
+                # globals: Sweet Roll 12 x 25 = 300, Sunshine Oil 16 x 25 = 400, Sugar Bombs 4 x 15 = 60).
+                # They only last 15-25 sec, so the old "dur < 60" rule dropped every one of them.
+                slot, neg = "ap_refill", False
+                if not mag or not dur:
                     continue
+                mag = mag * dur                          # total AP you get back
             else:
                 slot = AV_SLOT.get(av)
                 if typ in ("magazine", "bobblehead") and dur >= 60:
@@ -922,6 +926,12 @@ def build(data_dir, dist_dir):
             warn("Metabolic chem duration effect not found in SPEL - chems not boosted")
     else:
         warn("P62_Legendary_Armor_MetabolicPerk not found in PERKEP")
+    # v2 damage model (2 Nov 2026): real damage sums for the damage buffs - see
+    # src/food_buff_damage_model.py and rules.json damage_model.
+    import food_buff_damage_model as DMG
+    dmg = DMG.damage_mechanics(rules, data_dir, warn)
+    if dmg:
+        mech["damage"] = dmg
     sr = guide.get("seasonRule") or {}
     if sr.get("rolloverDates"):
         mech["fishSeasons"] = {

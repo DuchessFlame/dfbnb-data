@@ -603,6 +603,8 @@ def build_one(meat_path, ctx):
     # Maps root expand switch, page by page (guide-maps-expand).
     if ex.get("maps_expand"):
         doc["maps_expand"] = True
+    if ex.get("vendors_note"):
+        doc["vendors_note"] = ex["vendors_note"]
     if ex.get("recipe_obtain_expand"):
         doc["recipe_obtain_expand"] = True
     # Workshops root expand: which workshop attacks bring this creature, where,
