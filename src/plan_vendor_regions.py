@@ -264,6 +264,7 @@ class VendorRegions:
         for r in _rows(pl):
             self.placements[_u(r.get("NPC_FormID"))].append(r)
         self.vend_path, self.place_path = vend, pl
+        self._add_chest_only_vendors(vend)
         # Interior cell -> the region Mappalachia gives ANY ref placed in it, so a
         # vendor whose own ref is not in the door cache (Giuseppe's Refuge stool,
         # XPD_Hub_Furniture_Giuseppe) still gets the cell's answer.
@@ -288,6 +289,36 @@ class VendorRegions:
                     bits = v.split(":")
                     if len(bits) >= 3:
                         self.refs[lid].append((_u(bits[0]), bits[1], bits[-1].strip().upper()))
+
+    def _add_chest_only_vendors(self, vend):
+        """Vendors with no NPC: a faction whose merchant chest is the shop
+        (MODUS's ENB Clinic in the Whitespring Bunker). NPC2_Vendors_*_Factions
+        gives the chest ref's own cell and Location; that ref stands where the
+        shop is, so it is judged like an NPC placement. Chests that already
+        have an NPC are left to the NPC (its placement is better). A chest
+        parked in a holding cell with no Location stays UNKNOWN (kept)."""
+        fac = vend.replace(".tsv", "_Factions.tsv")
+        if not os.path.exists(fac):
+            self.warnings.append(f"no vendor Factions export next to {os.path.basename(vend)}"
+                                 " — chest-only vendors not judged")
+            return
+        for r in _rows(fac):
+            c = _u(r.get("ContainerBase_FormID"))
+            if not c or self.chest_npcs.get(c):
+                continue
+            key = "CHEST:" + c
+            self.npc_edid[key] = r.get("Faction_EDID") or r.get("ContainerBase_EDID") or c
+            self.chest_npcs[c].add(key)
+            self.placements[key].append({
+                "NPC_EDID": self.npc_edid[key],
+                "Ref_EDID": r.get("ContainerBase_EDID") or "",
+                "Ref_FormID": r.get("ContainerRef_FormID") or "",
+                "Cell_EDID": r.get("Cell_EDID") or "",
+                "Cell_FormID": "",
+                "Worldspace_EDID": r.get("Worldspace_EDID") or "",
+                "X": r.get("X"), "Y": r.get("Y"),
+                "Location_FormID": r.get("Location_FormID") or "",
+            })
 
     # -- one placement -----------------------------------------------------
     def _place(self, p):
