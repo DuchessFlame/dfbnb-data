@@ -349,13 +349,13 @@ _Couldn't key this file to records; contents differ._
 - Serum_Talons  `Serum_Talons` — fields: obtain
 - …and 8 more
 
-## `buff_guides/food.json`  ·  +2 / -0 / ~207
+## `buff_guides/food.json`  ·  +2 / -0 / ~209
 
 **Added (2)**
 - SeasonalFish_Meal_WinterFishKabomb  `SeasonalFish_Meal_WinterFishKabomb`
 - SeasonalFish_Meal_WinterFishSauce  `SeasonalFish_Meal_WinterFishSauce`
 
-**Changed (207)**
+**Changed (209)**
 - AnglerLureWeedVegetableCooked  `AnglerLureWeedVegetableCooked` — fields: obtain
 - AnglerMeatCooked  `AnglerMeatCooked` — fields: obtain
 - AnglerMeatCooked_Cannery  `AnglerMeatCooked_Cannery` — fields: obtain
@@ -367,6 +367,7 @@ _Couldn't key this file to records; contents differ._
 - BURN_RadhogBurntEndsCooked  `BURN_RadhogBurntEndsCooked` — fields: obtain
 - BURN_RadhogMeatCooked  `BURN_RadhogMeatCooked` — fields: obtain
 - BlackberryFruitCookedJuice  `BlackberryFruitCookedJuice` — fields: obtain
+- BlackberryFruitTastyTea  `BlackberryFruitTastyTea` — fields: obtain
 - BlackberryHoneyCrispGourmet  `BlackberryHoneyCrispGourmet` — fields: obtain
 - BlightVegetableCookedSoup  `BlightVegetableCookedSoup` — fields: obtain
 - BloatflyMeatCooked  `BloatflyMeatCooked` — fields: obtain
@@ -395,8 +396,7 @@ _Couldn't key this file to records; contents differ._
 - CornPoneCooked_RSVP02  `CornPoneCooked_RSVP02` — fields: obtain
 - CornVegetableCookedSoup  `CornVegetableCookedSoup` — fields: obtain
 - CornVegetableCookedSoup_Cannery  `CornVegetableCookedSoup_Cannery` — fields: obtain
-- CorpseFlowerSeedsFruitCookedJuice  `CorpseFlowerSeedsFruitCookedJuice` — fields: obtain
-- …and 167 more
+- …and 169 more
 
 ## `buff_guides/magazines.json`  ·  +0 / -0 / ~1
 
@@ -2397,7 +2397,7 @@ _Couldn't key this file to records; contents differ._
 ## `titles_data.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `titles_player.json`  ·  +23 / -0 / ~36
+## `titles_player.json`  ·  +23 / -0 / ~37
 
 **Added (23)**
 - ATX_PlayerTitles_Prefix_Sudsy  `ATX_PlayerTitles_Prefix_Sudsy`
@@ -2424,7 +2424,7 @@ _Couldn't key this file to records; contents differ._
 - ZZZ_SCORE_S27_PlayerTitles_Prefix_SPECIAL  `ZZZ_SCORE_S27_PlayerTitles_Prefix_SPECIAL`
 - zzz_HTO_PlayerTitles_Both_Terminated  `zzz_HTO_PlayerTitles_Both_Terminated`
 
-**Changed (36)**
+**Changed (37)**
 - ATX_PlayerTitles_Prefix_AdVictoriam  `ATX_PlayerTitles_Prefix_AdVictoriam` — fields: releaseDate, releaseLabel, releaseYear, source
 - ATX_PlayerTitles_Prefix_Contessa  `ATX_PlayerTitles_Prefix_Contessa` — fields: releaseDate, releaseLabel, source
 - ATX_PlayerTitles_Prefix_Gleaming  `ATX_PlayerTitles_Prefix_Gleaming` — fields: source
@@ -2461,6 +2461,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S25_PlayerTitles_Prefix_Outdoor  `SCORE_S25_PlayerTitles_Prefix_Outdoor` — fields: imageUrl, images
 - SCORE_S25_PlayerTitles_Suffix_Globetrotter  `SCORE_S25_PlayerTitles_Suffix_Globetrotter` — fields: imageUrl, images
 - SCORE_S25_PlayerTitles_Suffix_Pioneer  `SCORE_S25_PlayerTitles_Suffix_Pioneer` — fields: imageUrl, images
+- SFS09_PlayerTitles_Suffix_Manager  `SFS09_PlayerTitles_Suffix_Manager` — fields: debug
 
 ## `titles_player_generator.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
