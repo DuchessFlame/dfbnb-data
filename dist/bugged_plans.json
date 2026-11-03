@@ -1,6 +1,6 @@
 {
  "_generated_by": "src/build_bugged_plans_json.py",
- "generated": "2026-11-02",
+ "generated": "2026-11-03",
  "channel": "live",
  "exports": {
   "WEAP": "WEAP_Export_October_2026_Base.tsv",
@@ -31,21 +31,20 @@
   "titles_skipped_cut_or_atom": 151,
   "titles_checked": 52,
   "moved_to_cut_content": 14,
-  "kat_unreleased": 18,
+  "kat_unreleased": 47,
   "kat_legacy_left_off": 1
  },
  "counts": {
-  "total": 4,
-  "unobtainable": 1,
+  "total": 3,
   "broken_item": 3,
-  "conf_check": 3,
+  "conf_check": 2,
   "conf_strong": 1,
   "confirmed": 0,
   "titles": 0,
-  "plans": 4,
-  "not_checked": 1,
+  "plans": 3,
+  "not_checked": 0,
   "kat_bugged": 0,
-  "unreleased": 18
+  "unreleased": 47
  },
  "sections": [
   {
@@ -62,35 +61,6 @@
   }
  ],
  "items": [
-  {
-   "id": "003F1215",
-   "name": "Plan: ProSnap Deluxe Targeting Lens",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "status": "not_checked",
-   "bugs": [
-    {
-     "kind": "no_source",
-     "strong": false,
-     "title": "No source found in the game files",
-     "records": [],
-     "summary": "No source found yet. The Duchess is looking into it.",
-     "detail": "Nothing in the current game files gives this plan out: no leveled list, vendor, quest, container or challenge that the exports can see."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "003F1215",
-     "edid": "Recipe_Mod_Camera_SnapMatic_Lens_Targeting",
-     "type": "BOOK"
-    }
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-11-01",
-   "is_new": false
-  },
   {
    "id": "003E9FA7",
    "name": "Recipe: Delbert's Delicious Deerskins",
@@ -242,6 +212,56 @@
  ],
  "unreleased": [
   {
+   "id": "003F4769",
+   "name": "Plan: Alpine Horn",
+   "edid": "Recipe_Workshop_FloorDecor_Fasnacht_AlpineHorn",
+   "note": "the item was later sold in the Atom Shop",
+   "decided": "2026-11-03",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "007F5441",
+   "name": "Plan: Arena Champ Photopose",
+   "edid": "Burn_Workshop_Recipe_DeathclawTamingPhotopose",
+   "note": "",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "006369B8",
+   "name": "Plan: Atom Cats Leather Armor Paint",
+   "edid": "Recipe_mod_armor_Leather_Material_Paint_AtomCats_NW",
+   "note": "only on a Minerva list that was never used; the paint was a Nuclear Winter reward",
+   "decided": "2026-11-03",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "006B2E79",
+   "name": "Plan: Beast of Beckley Poster",
+   "edid": "Moon_Recipe_Workshop_StandalonePoster_Beast",
+   "note": "the poster was later released as a Season 13 Scoreboard reward",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "006B2E78",
+   "name": "Plan: Blue Devil Poster",
+   "edid": "Moon_Recipe_Workshop_StandalonePoster_BlueDevil",
+   "note": "the poster was later released as a Season 13 Scoreboard reward",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
    "id": "0083E70B",
    "name": "Plan: Bogey Plushie",
    "edid": "BURN_Workshop_Recipe_DinoGolfPlushie",
@@ -262,6 +282,26 @@
    "cut_in_files": false
   },
   {
+   "id": "0072BC1A",
+   "name": "Plan: C.A.M.P. Certification",
+   "edid": "NPE_Recipe_Workshop_CAMPCertification",
+   "note": "",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "00182F4E",
+   "name": "Plan: Chainsaw Flamer",
+   "edid": "recipe_mod_Chainsaw_Flamer",
+   "note": "only in a test chest in the game files",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
    "id": "0083E70A",
    "name": "Plan: Deathclaw Plushie",
    "edid": "BURN_Workshop_Recipe_DeathclawPlushie",
@@ -272,11 +312,131 @@
    "cut_in_files": false
   },
   {
+   "id": "007F5AF2",
+   "name": "Plan: Dino Golf Info Board",
+   "edid": "Burn_Workshop_Recipe_DinoInfoBoard",
+   "note": "the item was later released as a Season 23 Scoreboard reward",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "007F5AF4",
+   "name": "Plan: Dino Peaks Entrance Sign",
+   "edid": "Burn_Workshop_Recipe_DinoEntranceSign",
+   "note": "the item was later released as a Season 23 Scoreboard reward",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "003D6501",
+   "name": "Plan: Display Cases",
+   "edid": "Recipe_Workshop_Shelves_WksDisplayCaseWood",
+   "note": "only in a test chest in the game files",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "007FDC37",
+   "name": "Plan: Drive-In UFO Sculpture",
+   "edid": "Burn_Workshop_Recipe_DriveInStatue",
+   "note": "the item was later released as a Season 24 Scoreboard reward",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "007B9272",
+   "name": "Plan: Fish Display Hooks",
+   "edid": "Fishing_Workshop_Recipe_FishDisplay_Hooks",
+   "note": "the item was later released as a Season 21 Scoreboard reward",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "006B2E7A",
+   "name": "Plan: Flatwoods Monster Poster",
+   "edid": "Moon_Recipe_Workshop_StandalonePoster_Flatwoods",
+   "note": "the poster was later released as a Season 13 Scoreboard reward",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "006B2E7B",
+   "name": "Plan: Grafton Monster Poster",
+   "edid": "Moon_Recipe_Workshop_StandalonePoster_Grafton",
+   "note": "the poster was later released as a Season 13 Scoreboard reward",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "006B2E7C",
+   "name": "Plan: Jersey Devil Poster",
+   "edid": "Moon_Recipe_Workshop_StandalonePoster_Jersey",
+   "note": "the poster was later released as a Season 13 Scoreboard reward",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
    "id": "008591ED",
    "name": "Plan: Loveland Frog Plushie",
    "edid": "BURN_Workshop_Recipe_LovelandFrogPlushie",
    "note": "never released",
    "decided": "2026-10-31",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "0082BB81",
+   "name": "Plan: Marshal Mallow Rod",
+   "edid": "Fishing_Recipe_mod_FishingRod_RodBase01_MarshalMallowRod",
+   "note": "the item was later released as a 2025 mini-season Scoreboard reward (Marshal Mallow Fishing Rod Paint)",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "00748755",
+   "name": "Plan: Moe the Mole Plushie",
+   "edid": "Storm_Recipe_Workshop_FloorDecor_MoetheMole_Plushie",
+   "note": "the item was later sold in the Skyline Valley Lost Treasures bundle (June 2024)",
+   "decided": "2026-11-02",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "006B2E7D",
+   "name": "Plan: Mothman Poster",
+   "edid": "Moon_Recipe_Workshop_StandalonePoster_Mothman",
+   "note": "the poster was later released as a Season 13 Scoreboard reward",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "004E9FDD",
+   "name": "Plan: Mounted Mirelurk Queen Claw",
+   "edid": "Recipe_Workshop_WallDecor_Taxidermy_MirelurkQueen",
+   "note": "",
+   "decided": "2026-11-01",
    "by": "Duchess",
    "in_files": true,
    "cut_in_files": false
@@ -322,6 +482,16 @@
    "cut_in_files": false
   },
   {
+   "id": "006B2E7E",
+   "name": "Plan: Ogua Poster",
+   "edid": "Moon_Recipe_Workshop_StandalonePoster_Ogua",
+   "note": "the poster was later released as a Season 13 Scoreboard reward",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
    "id": "0086DBE5",
    "name": "Plan: Plasma Caster Automatic Barrel",
    "edid": "recipe_mod_PlasmaCaster_Barrel_Auto",
@@ -362,6 +532,16 @@
    "cut_in_files": false
   },
   {
+   "id": "003F1215",
+   "name": "Plan: ProSnap Deluxe Targeting Lens",
+   "edid": "Recipe_Mod_Camera_SnapMatic_Lens_Targeting",
+   "note": "",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
    "id": "007F5AF3",
    "name": "Plan: Rust Kingdom Gateway",
    "edid": "Burn_Workshop_Recipe_DeathclawSkullEntrance",
@@ -372,10 +552,20 @@
    "cut_in_files": false
   },
   {
+   "id": "0078C78C",
+   "name": "Plan: Rusty Saxophone",
+   "edid": "MILE_Workshop_Recipie_Saxophone",
+   "note": "",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
    "id": "00467FC0",
    "name": "Plan: Smoke Grenade",
    "edid": "Recipe_Weapon_Thrown_SmokeGrenade",
-   "note": "nothing has given it out since at least March 2026",
+   "note": "",
    "decided": "2026-10-31",
    "by": "Duchess",
    "in_files": true,
@@ -412,11 +602,81 @@
    "cut_in_files": false
   },
   {
+   "id": "0055549A",
+   "name": "Plan: Super Mutant BBQ Grill",
+   "edid": "Recipe_Workshop_FloorDecor_Misc_MeatWeek_BBQGrill",
+   "note": "",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "00556F1D",
+   "name": "Plan: Super Mutant Grill",
+   "edid": "Recipe_Workshop_Appliances_Grill_SuperMutant",
+   "note": "",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "00501911",
+   "name": "Plan: T-51b Winterized Coating",
+   "edid": "recipe_mod_PowerArmor_T51_Material_Paint_Winterized",
+   "note": "only in a test chest in the game files",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
    "id": "007284E7",
    "name": "Plan: Tesla Rifle Lobber Barrel",
    "edid": "recipe_DLC01_mod_LightningGun_Barrel_Lobber",
-   "note": "nothing has given it out since at least March 2026",
+   "note": "",
    "decided": "2026-10-31",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "006A044F",
+   "name": "Plan: Turkey Plushie",
+   "edid": "Storm_Recipe_Workshop_FloorDecor_Turkey_Plushie",
+   "note": "",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "00749CD2",
+   "name": "Plan: Vault 63 Door Display",
+   "edid": "Storm_Recipe_Workshop_FloorDecor_Vault63Door",
+   "note": "the item was later sold in the Skyline Valley Lost Treasures bundle (June 2024)",
+   "decided": "2026-11-02",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "003F446B",
+   "name": "Recipe: Firecracker Whiskey Manhattan",
+   "edid": "Recipe_Brewing_FirecrackerWhiskey_Manhattan",
+   "note": "",
+   "decided": "2026-11-02",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "003F446C",
+   "name": "Recipe: Firecracker Whiskey Old Fashioned",
+   "edid": "Recipe_Brewing_FirecrackerWhiskey_OldFashioned",
+   "note": "",
+   "decided": "2026-11-02",
    "by": "Duchess",
    "in_files": true,
    "cut_in_files": false

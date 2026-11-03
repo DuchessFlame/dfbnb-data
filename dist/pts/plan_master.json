@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated": "2026-11-02T22:27:36.375352+00:00",
+  "generated": "2026-11-03T01:26:43.997343+00:00",
   "count": 4575,
   "source_files": {
     "WEAP": "WEAP_Export_October_2026_Base.tsv",
@@ -336,18 +336,6 @@
             "Vault 63 Organics Sector",
             "Vault-Tec Ag Research Center",
             "Vault-Tec University"
-          ],
-          "conditions": [
-            "Only in Cranberry Bog"
-          ]
-        },
-        {
-          "route": "ENB Clinic (Enclave vendor)",
-          "source_type": "vendor",
-          "rate": 1.0,
-          "rate_display": "100%",
-          "lvli": [
-            "002B801F"
           ],
           "conditions": [
             "Only in Cranberry Bog"
@@ -868,24 +856,24 @@
         {
           "label": "Caps",
           "routes": [
-            1,
-            2
+            1
           ]
         },
         {
           "label": "Containers",
           "routes": [
             0,
-            5,
+            4,
+            36,
             37,
-            38,
-            39
+            38
           ]
         },
         {
           "label": "Events & Activities",
           "routes": [
-            3,
+            2,
+            5,
             6,
             7,
             8,
@@ -894,24 +882,24 @@
             11,
             12,
             13,
-            14,
+            20,
             21,
             22,
             23,
-            24,
-            25
+            24
           ]
         },
         {
           "label": "Quests",
           "routes": [
-            4,
+            3,
+            14,
             15,
             16,
             17,
             18,
             19,
-            20,
+            25,
             26,
             27,
             28,
@@ -921,8 +909,7 @@
             32,
             33,
             34,
-            35,
-            36
+            35
           ]
         }
       ],
@@ -974,6 +961,24 @@
           "retired_because": [
             "cut source"
           ]
+        },
+        {
+          "route": "ENB Clinic (Enclave vendor)",
+          "source_type": "vendor",
+          "rate": 1.0,
+          "rate_display": "100%",
+          "lvli": [
+            "002B801F"
+          ],
+          "conditions": [
+            "Only in Cranberry Bog"
+          ],
+          "retired_because": [
+            "no vendor stands in that region"
+          ],
+          "region_detail": {
+            "002B801F": "ENB_DialogueFaction_MODUS_Vendor_Clinic: no region"
+          }
         },
         {
           "route": "Activity: Always Vigilant",
@@ -1686,18 +1691,6 @@
           ]
         },
         {
-          "route": "ENB Clinic (Enclave vendor)",
-          "source_type": "vendor",
-          "rate": 1.0,
-          "rate_display": "100%",
-          "lvli": [
-            "002B801F"
-          ],
-          "conditions": [
-            "Only in Ash Heap"
-          ]
-        },
-        {
           "route": "Travelling merchant (random encounter, clinic goods)",
           "source_type": "vendor",
           "rate": 1.0,
@@ -2125,55 +2118,54 @@
         {
           "label": "Caps",
           "routes": [
-            1,
-            2
+            1
           ]
         },
         {
           "label": "Containers",
           "routes": [
             0,
+            6,
             7,
-            8,
-            32,
-            33
+            31,
+            32
           ]
         },
         {
           "label": "Events & Activities",
           "routes": [
-            4,
-            6,
+            3,
+            5,
+            8,
             9,
             10,
             11,
             12,
             13,
             14,
-            15,
+            19,
             20,
             21,
-            22,
-            23
+            22
           ]
         },
         {
           "label": "Quests",
           "routes": [
-            3,
-            5,
+            2,
+            4,
+            15,
             16,
             17,
             18,
-            19,
+            23,
             24,
             25,
             26,
             27,
             28,
             29,
-            30,
-            31
+            30
           ]
         }
       ],
@@ -2225,6 +2217,24 @@
           "retired_because": [
             "cut source"
           ]
+        },
+        {
+          "route": "ENB Clinic (Enclave vendor)",
+          "source_type": "vendor",
+          "rate": 1.0,
+          "rate_display": "100%",
+          "lvli": [
+            "002B801F"
+          ],
+          "conditions": [
+            "Only in Ash Heap"
+          ],
+          "retired_because": [
+            "no vendor stands in that region"
+          ],
+          "region_detail": {
+            "002B801F": "ENB_DialogueFaction_MODUS_Vendor_Clinic: no region"
+          }
         },
         {
           "route": "Activity: AWOL Armaments",
@@ -4553,18 +4563,6 @@
           ]
         },
         {
-          "route": "ENB Clinic (Enclave vendor)",
-          "source_type": "vendor",
-          "rate": 1.0,
-          "rate_display": "100%",
-          "lvli": [
-            "002B801F"
-          ],
-          "conditions": [
-            "Only in Toxic Valley"
-          ]
-        },
-        {
           "route": "Travelling merchant (random encounter, clinic goods)",
           "source_type": "vendor",
           "rate": 1.0,
@@ -5162,24 +5160,24 @@
         {
           "label": "Caps",
           "routes": [
-            1,
-            2
+            1
           ]
         },
         {
           "label": "Containers",
           "routes": [
             0,
+            42,
             43,
             44,
-            45,
-            46
+            45
           ]
         },
         {
           "label": "Events & Activities",
           "routes": [
-            3,
+            2,
+            9,
             10,
             11,
             12,
@@ -5190,29 +5188,29 @@
             17,
             18,
             19,
-            20,
+            26,
             27,
-            28,
-            31
+            30
           ]
         },
         {
           "label": "Quests",
           "routes": [
+            3,
             4,
             5,
             6,
             7,
             8,
-            9,
+            20,
             21,
             22,
             23,
             24,
             25,
-            26,
+            28,
             29,
-            30,
+            31,
             32,
             33,
             34,
@@ -5222,8 +5220,7 @@
             38,
             39,
             40,
-            41,
-            42
+            41
           ]
         }
       ],
@@ -5275,6 +5272,24 @@
           "retired_because": [
             "cut source"
           ]
+        },
+        {
+          "route": "ENB Clinic (Enclave vendor)",
+          "source_type": "vendor",
+          "rate": 1.0,
+          "rate_display": "100%",
+          "lvli": [
+            "002B801F"
+          ],
+          "conditions": [
+            "Only in Toxic Valley"
+          ],
+          "retired_because": [
+            "no vendor stands in that region"
+          ],
+          "region_detail": {
+            "002B801F": "ENB_DialogueFaction_MODUS_Vendor_Clinic: no region"
+          }
         },
         {
           "route": "Activity: Always Vigilant",
@@ -6038,18 +6053,6 @@
           ]
         },
         {
-          "route": "ENB Clinic (Enclave vendor)",
-          "source_type": "vendor",
-          "rate": 1.0,
-          "rate_display": "100%",
-          "lvli": [
-            "002B801F"
-          ],
-          "conditions": [
-            "Only in The Mire"
-          ]
-        },
-        {
           "route": "Travelling merchant (random encounter, clinic goods)",
           "source_type": "vendor",
           "rate": 1.0,
@@ -6544,51 +6547,51 @@
         {
           "label": "Caps",
           "routes": [
-            1,
-            2
+            1
           ]
         },
         {
           "label": "Containers",
           "routes": [
             0,
+            34,
             35,
             36,
-            37,
-            38
+            37
           ]
         },
         {
           "label": "Events & Activities",
           "routes": [
-            4,
+            3,
+            8,
             9,
             10,
             11,
             12,
-            13,
+            20,
             21,
             22,
             23,
-            24,
-            25
+            24
           ]
         },
         {
           "label": "Quests",
           "routes": [
-            3,
+            2,
+            4,
             5,
             6,
             7,
-            8,
+            13,
             14,
             15,
             16,
             17,
             18,
             19,
-            20,
+            25,
             26,
             27,
             28,
@@ -6596,8 +6599,7 @@
             30,
             31,
             32,
-            33,
-            34
+            33
           ]
         }
       ],
@@ -6649,6 +6651,24 @@
           "retired_because": [
             "cut source"
           ]
+        },
+        {
+          "route": "ENB Clinic (Enclave vendor)",
+          "source_type": "vendor",
+          "rate": 1.0,
+          "rate_display": "100%",
+          "lvli": [
+            "002B801F"
+          ],
+          "conditions": [
+            "Only in The Mire"
+          ],
+          "retired_because": [
+            "no vendor stands in that region"
+          ],
+          "region_detail": {
+            "002B801F": "ENB_DialogueFaction_MODUS_Vendor_Clinic: no region"
+          }
         },
         {
           "route": "Activity: Always Vigilant",
@@ -7475,18 +7495,6 @@
           ]
         },
         {
-          "route": "ENB Clinic (Enclave vendor)",
-          "source_type": "vendor",
-          "rate": 1.0,
-          "rate_display": "100%",
-          "lvli": [
-            "002B801F"
-          ],
-          "conditions": [
-            "Only in Savage Divide"
-          ]
-        },
-        {
           "route": "Travelling merchant (random encounter, clinic goods)",
           "source_type": "vendor",
           "rate": 1.0,
@@ -8012,41 +8020,41 @@
         {
           "label": "Caps",
           "routes": [
-            1,
-            2
+            1
           ]
         },
         {
           "label": "Containers",
           "routes": [
             0,
-            6,
+            5,
+            37,
             38,
-            39,
-            40
+            39
           ]
         },
         {
           "label": "Events & Activities",
           "routes": [
-            3,
-            5,
+            2,
+            4,
+            6,
             7,
             8,
             9,
             10,
             11,
-            12,
+            20,
             21,
             22,
-            23,
-            25
+            24
           ]
         },
         {
           "label": "Quests",
           "routes": [
-            4,
+            3,
+            12,
             13,
             14,
             15,
@@ -8054,8 +8062,8 @@
             17,
             18,
             19,
-            20,
-            24,
+            23,
+            25,
             26,
             27,
             28,
@@ -8066,8 +8074,7 @@
             33,
             34,
             35,
-            36,
-            37
+            36
           ]
         }
       ],
@@ -8119,6 +8126,24 @@
           "retired_because": [
             "cut source"
           ]
+        },
+        {
+          "route": "ENB Clinic (Enclave vendor)",
+          "source_type": "vendor",
+          "rate": 1.0,
+          "rate_display": "100%",
+          "lvli": [
+            "002B801F"
+          ],
+          "conditions": [
+            "Only in Savage Divide"
+          ],
+          "retired_because": [
+            "no vendor stands in that region"
+          ],
+          "region_detail": {
+            "002B801F": "ENB_DialogueFaction_MODUS_Vendor_Clinic: no region"
+          }
         },
         {
           "route": "Activity: AWOL Armaments",
@@ -68590,8 +68615,10 @@
       "stops_dropping": false,
       "effects": null,
       "cut": true,
-      "cut_reason": "its only sources are cut records (POST_LL_Recipe_Workshop_WallDecor_Taxidermy)",
+      "cut_reason": "never released (Duchess, 1 Nov 2026)",
       "obtain_ledger": [],
+      "plan_status": "unreleased",
+      "status_checked": true,
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -169587,18 +169614,6 @@
           "conditions": []
         },
         {
-          "route": "ENB Clinic (Enclave vendor)",
-          "source_type": "vendor",
-          "rate": 1.0,
-          "rate_display": "100%",
-          "lvli": [
-            "002B801F"
-          ],
-          "conditions": [
-            "Only in Toxic Valley"
-          ]
-        },
-        {
           "route": "Travelling merchant (random encounter, clinic goods)",
           "source_type": "vendor",
           "rate": 1.0,
@@ -169655,22 +169670,41 @@
         {
           "label": "Caps",
           "routes": [
-            1,
-            2
+            1
           ]
         },
         {
           "label": "Containers",
           "routes": [
             0,
-            4
+            3
           ]
         },
         {
           "label": "Events & Activities",
           "routes": [
-            3
+            2
           ]
+        }
+      ],
+      "retired_routes": [
+        {
+          "route": "ENB Clinic (Enclave vendor)",
+          "source_type": "vendor",
+          "rate": 1.0,
+          "rate_display": "100%",
+          "lvli": [
+            "002B801F"
+          ],
+          "conditions": [
+            "Only in Toxic Valley"
+          ],
+          "retired_because": [
+            "no vendor stands in that region"
+          ],
+          "region_detail": {
+            "002B801F": "ENB_DialogueFaction_MODUS_Vendor_Clinic: no region"
+          }
         }
       ],
       "source_tag": "Vendor",
@@ -207615,6 +207649,8 @@
       "cut": true,
       "cut_reason": "only in a developer test chest — nothing in the game gives it out",
       "obtain_ledger": [],
+      "plan_status": "cut",
+      "status_checked": true,
       "images": [],
       "image_source": "",
       "plan_page": "underarmour",
@@ -223124,8 +223160,10 @@
         "rows": []
       },
       "cut": true,
-      "cut_reason": "only in a developer test chest — nothing in the game gives it out",
+      "cut_reason": "never released (Duchess, 1 Nov 2026)",
       "obtain_ledger": [],
+      "plan_status": "unreleased",
+      "status_checked": true,
       "images": [
         "mod_chainsaw_flamer"
       ],
@@ -447097,6 +447135,8 @@
       "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything).",
       "obtain_ledger": [],
       "unused_plan": true,
+      "plan_status": "cut",
+      "status_checked": true,
       "images": [],
       "image_source": "",
       "plan_page": "weapon",
@@ -687669,18 +687709,6 @@
       "category_label": "Consumable Recipe",
       "obtain_routes": [
         {
-          "route": "ENB Clinic (Enclave vendor)",
-          "source_type": "vendor",
-          "rate": 0.1428571429,
-          "rate_display": "14.2857%",
-          "lvli": [
-            "002B801F"
-          ],
-          "conditions": [
-            "Only in Cranberry Bog"
-          ]
-        },
-        {
           "route": "Travelling merchant (random encounter, clinic goods)",
           "source_type": "vendor",
           "rate": 0.1428571429,
@@ -687757,23 +687785,42 @@
         {
           "label": "Caps",
           "routes": [
-            0,
-            1
+            0
           ]
         },
         {
           "label": "Containers",
           "routes": [
+            2,
             3,
-            4,
-            5
+            4
           ]
         },
         {
           "label": "Events & Activities",
           "routes": [
-            2
+            1
           ]
+        }
+      ],
+      "retired_routes": [
+        {
+          "route": "ENB Clinic (Enclave vendor)",
+          "source_type": "vendor",
+          "rate": 0.1428571429,
+          "rate_display": "14.2857%",
+          "lvli": [
+            "002B801F"
+          ],
+          "conditions": [
+            "Only in Cranberry Bog"
+          ],
+          "retired_because": [
+            "no vendor stands in that region"
+          ],
+          "region_detail": {
+            "002B801F": "ENB_DialogueFaction_MODUS_Vendor_Clinic: no region"
+          }
         }
       ],
       "source_tag": "Vendor",
@@ -687797,18 +687844,6 @@
       "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
       "category_label": "Consumable Recipe",
       "obtain_routes": [
-        {
-          "route": "ENB Clinic (Enclave vendor)",
-          "source_type": "vendor",
-          "rate": 0.1428571429,
-          "rate_display": "14.2857%",
-          "lvli": [
-            "002B801F"
-          ],
-          "conditions": [
-            "Only in Ash Heap"
-          ]
-        },
         {
           "route": "Travelling merchant (random encounter, clinic goods)",
           "source_type": "vendor",
@@ -688237,54 +688272,53 @@
         {
           "label": "Caps",
           "routes": [
-            0,
-            1
+            0
           ]
         },
         {
           "label": "Containers",
           "routes": [
-            6,
+            5,
+            29,
             30,
-            31,
-            32
+            31
           ]
         },
         {
           "label": "Events & Activities",
           "routes": [
+            3,
             4,
-            5,
+            6,
             7,
             8,
             9,
             10,
             11,
             12,
-            13,
+            17,
             18,
             19,
-            20,
-            21
+            20
           ]
         },
         {
           "label": "Quests",
           "routes": [
+            1,
             2,
-            3,
+            13,
             14,
             15,
             16,
-            17,
+            21,
             22,
             23,
             24,
             25,
             26,
             27,
-            28,
-            29
+            28
           ]
         }
       ],
@@ -688336,6 +688370,24 @@
           "retired_because": [
             "cut source"
           ]
+        },
+        {
+          "route": "ENB Clinic (Enclave vendor)",
+          "source_type": "vendor",
+          "rate": 0.1428571429,
+          "rate_display": "14.2857%",
+          "lvli": [
+            "002B801F"
+          ],
+          "conditions": [
+            "Only in Ash Heap"
+          ],
+          "retired_because": [
+            "no vendor stands in that region"
+          ],
+          "region_detail": {
+            "002B801F": "ENB_DialogueFaction_MODUS_Vendor_Clinic: no region"
+          }
         },
         {
           "route": "Activity: AWOL Armaments",
@@ -690603,18 +690655,6 @@
       "category_label": "Consumable Recipe",
       "obtain_routes": [
         {
-          "route": "ENB Clinic (Enclave vendor)",
-          "source_type": "vendor",
-          "rate": 0.1428571429,
-          "rate_display": "14.2857%",
-          "lvli": [
-            "002B801F"
-          ],
-          "conditions": [
-            "Only in Toxic Valley"
-          ]
-        },
-        {
           "route": "Travelling merchant (random encounter, clinic goods)",
           "source_type": "vendor",
           "rate": 0.1428571429,
@@ -691212,22 +691252,22 @@
         {
           "label": "Caps",
           "routes": [
-            0,
-            1
+            0
           ]
         },
         {
           "label": "Containers",
           "routes": [
+            41,
             42,
             43,
-            44,
-            45
+            44
           ]
         },
         {
           "label": "Events & Activities",
           "routes": [
+            7,
             8,
             9,
             10,
@@ -691239,29 +691279,29 @@
             16,
             17,
             18,
-            19,
+            25,
             26,
-            27,
-            30
+            29
           ]
         },
         {
           "label": "Quests",
           "routes": [
+            1,
             2,
             3,
             4,
             5,
             6,
-            7,
+            19,
             20,
             21,
             22,
             23,
             24,
-            25,
+            27,
             28,
-            29,
+            30,
             31,
             32,
             33,
@@ -691271,8 +691311,7 @@
             37,
             38,
             39,
-            40,
-            41
+            40
           ]
         }
       ],
@@ -691324,6 +691363,24 @@
           "retired_because": [
             "cut source"
           ]
+        },
+        {
+          "route": "ENB Clinic (Enclave vendor)",
+          "source_type": "vendor",
+          "rate": 0.1428571429,
+          "rate_display": "14.2857%",
+          "lvli": [
+            "002B801F"
+          ],
+          "conditions": [
+            "Only in Toxic Valley"
+          ],
+          "retired_because": [
+            "no vendor stands in that region"
+          ],
+          "region_detail": {
+            "002B801F": "ENB_DialogueFaction_MODUS_Vendor_Clinic: no region"
+          }
         },
         {
           "route": "Activity: Always Vigilant",
@@ -693504,18 +693561,6 @@
       "category_label": "Consumable Recipe",
       "obtain_routes": [
         {
-          "route": "ENB Clinic (Enclave vendor)",
-          "source_type": "vendor",
-          "rate": 0.1428571429,
-          "rate_display": "14.2857%",
-          "lvli": [
-            "002B801F"
-          ],
-          "conditions": [
-            "Only in The Forest"
-          ]
-        },
-        {
           "route": "Travelling merchant (random encounter, clinic goods)",
           "source_type": "vendor",
           "rate": 0.1428571429,
@@ -694141,22 +694186,22 @@
         {
           "label": "Caps",
           "routes": [
-            0,
-            1
+            0
           ]
         },
         {
           "label": "Containers",
           "routes": [
+            42,
             43,
             44,
-            45,
-            46
+            45
           ]
         },
         {
           "label": "Events & Activities",
           "routes": [
+            8,
             9,
             10,
             11,
@@ -694166,30 +694211,30 @@
             15,
             16,
             17,
-            18,
-            26,
-            28,
-            42
+            25,
+            27,
+            41
           ]
         },
         {
           "label": "Quests",
           "routes": [
+            1,
             2,
             3,
             4,
             5,
             6,
             7,
-            8,
+            18,
             19,
             20,
             21,
             22,
             23,
             24,
-            25,
-            27,
+            26,
+            28,
             29,
             30,
             31,
@@ -694201,8 +694246,7 @@
             37,
             38,
             39,
-            40,
-            41
+            40
           ],
           "unlocks": [
             0
@@ -694271,6 +694315,24 @@
           "retired_because": [
             "cut source"
           ]
+        },
+        {
+          "route": "ENB Clinic (Enclave vendor)",
+          "source_type": "vendor",
+          "rate": 0.1428571429,
+          "rate_display": "14.2857%",
+          "lvli": [
+            "002B801F"
+          ],
+          "conditions": [
+            "Only in The Forest"
+          ],
+          "retired_because": [
+            "no vendor stands in that region"
+          ],
+          "region_detail": {
+            "002B801F": "ENB_DialogueFaction_MODUS_Vendor_Clinic: no region"
+          }
         },
         {
           "route": "Activity: AWOL Armaments",
@@ -703489,18 +703551,6 @@
       "category_label": "Consumable Recipe",
       "obtain_routes": [
         {
-          "route": "ENB Clinic (Enclave vendor)",
-          "source_type": "vendor",
-          "rate": 0.1428571429,
-          "rate_display": "14.2857%",
-          "lvli": [
-            "002B801F"
-          ],
-          "conditions": [
-            "Only in The Mire"
-          ]
-        },
-        {
           "route": "Travelling merchant (random encounter, clinic goods)",
           "source_type": "vendor",
           "rate": 0.1428571429,
@@ -703577,23 +703627,42 @@
         {
           "label": "Caps",
           "routes": [
-            0,
-            1
+            0
           ]
         },
         {
           "label": "Containers",
           "routes": [
+            2,
             3,
-            4,
-            5
+            4
           ]
         },
         {
           "label": "Events & Activities",
           "routes": [
-            2
+            1
           ]
+        }
+      ],
+      "retired_routes": [
+        {
+          "route": "ENB Clinic (Enclave vendor)",
+          "source_type": "vendor",
+          "rate": 0.1428571429,
+          "rate_display": "14.2857%",
+          "lvli": [
+            "002B801F"
+          ],
+          "conditions": [
+            "Only in The Mire"
+          ],
+          "retired_because": [
+            "no vendor stands in that region"
+          ],
+          "region_detail": {
+            "002B801F": "ENB_DialogueFaction_MODUS_Vendor_Clinic: no region"
+          }
         }
       ],
       "source_tag": "Vendor",
@@ -745465,8 +745534,10 @@
       "stops_dropping": null,
       "effects": null,
       "cut": true,
-      "cut_reason": "only in a developer test chest — nothing in the game gives it out",
+      "cut_reason": "never released (Duchess, 1 Nov 2026)",
       "obtain_ledger": [],
+      "plan_status": "unreleased",
+      "status_checked": true,
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -777450,6 +777521,9 @@
         "name": "Miner Miracles"
       },
       "source_tag": "Quest",
+      "plan_status": "learnt",
+      "status_checked": true,
+      "learnt": "quest",
       "images": [],
       "image_source": "",
       "plan_page": "power-armour",
@@ -784719,6 +784793,9 @@
         "name": "Miner Miracles"
       },
       "source_tag": "Quest",
+      "plan_status": "learnt",
+      "status_checked": true,
+      "learnt": "quest",
       "images": [],
       "image_source": "",
       "plan_page": "power-armour",
@@ -786022,8 +786099,10 @@
       "stops_dropping": null,
       "effects": null,
       "cut": true,
-      "cut_reason": "only in a developer test chest — nothing in the game gives it out",
+      "cut_reason": "never released (Duchess, 1 Nov 2026)",
       "obtain_ledger": [],
+      "plan_status": "unreleased",
+      "status_checked": true,
       "display_name": "Plan: Winterized T-51b Coating",
       "images": [],
       "image_source": "",
@@ -799588,6 +799667,9 @@
         "name": "Miner Miracles"
       },
       "source_tag": "Quest",
+      "plan_status": "learnt",
+      "status_checked": true,
+      "learnt": "quest",
       "images": [],
       "image_source": "",
       "plan_page": "power-armour",
@@ -800314,6 +800396,9 @@
         "name": "Miner Miracles"
       },
       "source_tag": "Quest",
+      "plan_status": "learnt",
+      "status_checked": true,
+      "learnt": "quest",
       "images": [],
       "image_source": "",
       "plan_page": "power-armour",
@@ -811932,10 +812017,12 @@
       "name": "Plan: X-01 Headlamp",
       "has_image_box": false,
       "image_dir": "power-armour",
-      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it).",
+      "obtain": "There is no plan to find — you already know this recipe, so there is no plan item to trade.",
       "category_label": "Armour Mod / Paint",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Known by default — every character can build it from the start, so the plan teaches nothing."
+      ],
       "plan_item": {
         "formid": "0050195E",
         "edid": "recipe_mod_PowerArmor_X01_Helmet_Headlamp"
@@ -811952,10 +812039,19 @@
       "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": true,
-      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it).",
-      "obtain_ledger": [],
-      "unused_plan": true,
+      "cut": false,
+      "obtain_ledger": [
+        {
+          "label": "Events & Activities",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "plan_status": "learnt",
+      "status_checked": true,
+      "learnt": "default",
       "images": [],
       "image_source": "",
       "plan_page": "power-armour",
@@ -816893,6 +816989,9 @@
         "name": "Miner Miracles"
       },
       "source_tag": "Quest",
+      "plan_status": "learnt",
+      "status_checked": true,
+      "learnt": "quest",
       "images": [],
       "image_source": "",
       "plan_page": "power-armour",
@@ -819696,6 +819795,9 @@
         "name": "Miner Miracles"
       },
       "source_tag": "Quest",
+      "plan_status": "learnt",
+      "status_checked": true,
+      "learnt": "quest",
       "images": [],
       "image_source": "",
       "plan_page": "power-armour",
@@ -859574,6 +859676,8 @@
       "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it).",
       "obtain_ledger": [],
       "unused_plan": true,
+      "plan_status": "cut",
+      "status_checked": true,
       "images": [],
       "image_source": "",
       "plan_page": "recipe",
@@ -977581,6 +977685,9 @@
         "name": "The Order of the Tadpole"
       },
       "source_tag": "Quest",
+      "plan_status": "learnt",
+      "status_checked": true,
+      "learnt": "quest",
       "images": [],
       "image_source": ""
     },
@@ -977648,6 +977755,9 @@
         "name": "Wasted on Nukashine"
       },
       "source_tag": "Quest",
+      "plan_status": "learnt",
+      "status_checked": true,
+      "learnt": "quest",
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -980095,16 +980205,17 @@
         "edid": "mod_Camera_Snapmatic_Lens_Targeting",
         "sig": "OMOD"
       },
-      "tradeable": true,
+      "tradeable": false,
       "stops_dropping": null,
       "effects": {
         "summary": "Camera Targeting HUD",
         "rows": []
       },
-      "cut": false,
-      "cut_reason": null,
+      "cut": true,
+      "cut_reason": "never released (Duchess, 1 Nov 2026)",
       "obtain_ledger": [],
-      "status_checked": false,
+      "plan_status": "unreleased",
+      "status_checked": true,
       "images": [],
       "image_source": "",
       "plan_page": "camera-mod",
@@ -980118,7 +980229,7 @@
       "name": "Recipe: Firecracker Whiskey Manhattan",
       "has_image_box": false,
       "image_dir": "recipes",
-      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it).",
+      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
       "category_label": "CAMP / Recipe (mod/recipe)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -980135,9 +980246,10 @@
       "stops_dropping": null,
       "effects": null,
       "cut": true,
-      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it).",
+      "cut_reason": "never released (Duchess, 2 Nov 2026)",
       "obtain_ledger": [],
-      "unused_plan": true,
+      "plan_status": "unreleased",
+      "status_checked": true,
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -980151,7 +980263,7 @@
       "name": "Recipe: Firecracker Whiskey Old Fashioned",
       "has_image_box": false,
       "image_dir": "recipes",
-      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it).",
+      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
       "category_label": "CAMP / Recipe (mod/recipe)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -980168,9 +980280,10 @@
       "stops_dropping": null,
       "effects": null,
       "cut": true,
-      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it).",
+      "cut_reason": "never released (Duchess, 2 Nov 2026)",
       "obtain_ledger": [],
-      "unused_plan": true,
+      "plan_status": "unreleased",
+      "status_checked": true,
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -980476,6 +980589,9 @@
         "name": "Wasted on Nukashine"
       },
       "source_tag": "Quest",
+      "plan_status": "learnt",
+      "status_checked": true,
+      "learnt": "quest",
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -982837,6 +982953,9 @@
       ],
       "quest_item": true,
       "source_tag": "Quest",
+      "plan_status": "learnt",
+      "status_checked": true,
+      "learnt": "quest",
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -983418,6 +983537,9 @@
         "name": "Repeatable: Stings and Things"
       },
       "source_tag": "Quest",
+      "plan_status": "learnt",
+      "status_checked": true,
+      "learnt": "quest",
       "images": [],
       "image_source": "",
       "plan_page": "recipe",
@@ -983526,6 +983648,9 @@
         "name": "The Order of the Tadpole"
       },
       "source_tag": "Quest",
+      "plan_status": "learnt",
+      "status_checked": true,
+      "learnt": "quest",
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -987863,7 +987988,7 @@
       "name": "Plan: Super Mutant BBQ Grill",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything).",
+      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -987880,9 +988005,10 @@
       "stops_dropping": null,
       "effects": null,
       "cut": true,
-      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything).",
+      "cut_reason": "never released (Duchess, 1 Nov 2026)",
       "obtain_ledger": [],
-      "unused_plan": true,
+      "plan_status": "unreleased",
+      "status_checked": true,
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -987896,7 +988022,7 @@
       "name": "Plan: Super Mutant Grill",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it).",
+      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -987913,9 +988039,10 @@
       "stops_dropping": null,
       "effects": null,
       "cut": true,
-      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it).",
+      "cut_reason": "never released (Duchess, 1 Nov 2026)",
       "obtain_ledger": [],
-      "unused_plan": true,
+      "plan_status": "unreleased",
+      "status_checked": true,
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -1048506,7 +1048633,7 @@
       "name": "Plan: Turkey Plushie",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything).",
+      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -1048523,9 +1048650,10 @@
       "stops_dropping": null,
       "effects": null,
       "cut": true,
-      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything).",
+      "cut_reason": "never released (Duchess, 1 Nov 2026)",
       "obtain_ledger": [],
-      "unused_plan": true,
+      "plan_status": "unreleased",
+      "status_checked": true,
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -1051668,7 +1051796,7 @@
       "name": "Plan: Flatwoods Monster Poster",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything).",
+      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -1051685,9 +1051813,10 @@
       "stops_dropping": null,
       "effects": null,
       "cut": true,
-      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything).",
+      "cut_reason": "never released (Duchess, 1 Nov 2026)",
       "obtain_ledger": [],
-      "unused_plan": true,
+      "plan_status": "unreleased",
+      "status_checked": true,
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -1051701,7 +1051830,7 @@
       "name": "Plan: Grafton Monster Poster",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything).",
+      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -1051718,9 +1051847,10 @@
       "stops_dropping": null,
       "effects": null,
       "cut": true,
-      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything).",
+      "cut_reason": "never released (Duchess, 1 Nov 2026)",
       "obtain_ledger": [],
-      "unused_plan": true,
+      "plan_status": "unreleased",
+      "status_checked": true,
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -1051734,7 +1051864,7 @@
       "name": "Plan: Jersey Devil Poster",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything). The item itself is a Season 13 Scoreboard reward, not a plan.",
+      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -1051751,9 +1051881,10 @@
       "stops_dropping": null,
       "effects": null,
       "cut": true,
-      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything). The item itself is a Season 13 Scoreboard reward, not a plan.",
+      "cut_reason": "never released (Duchess, 1 Nov 2026)",
       "obtain_ledger": [],
-      "unused_plan": true,
+      "plan_status": "unreleased",
+      "status_checked": true,
       "images": [
         "/wp-content/uploads/season_images/season-13/score_s13_camp_walldecor_jerseydevilcryptid_poster.avif"
       ],
@@ -1051769,7 +1051900,7 @@
       "name": "Plan: Ogua Poster",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything). The item itself is a Season 13 Scoreboard reward, not a plan.",
+      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -1051786,9 +1051917,10 @@
       "stops_dropping": null,
       "effects": null,
       "cut": true,
-      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything). The item itself is a Season 13 Scoreboard reward, not a plan.",
+      "cut_reason": "never released (Duchess, 1 Nov 2026)",
       "obtain_ledger": [],
-      "unused_plan": true,
+      "plan_status": "unreleased",
+      "status_checked": true,
       "images": [
         "/wp-content/uploads/season_images/season-13/score_s13_camp_walldecor_oguacryptid_poster.avif"
       ],
@@ -1051804,7 +1051936,7 @@
       "name": "Plan: Blue Devil Poster",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything). The item itself is a Season 13 Scoreboard reward, not a plan.",
+      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -1051821,9 +1051953,10 @@
       "stops_dropping": null,
       "effects": null,
       "cut": true,
-      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything). The item itself is a Season 13 Scoreboard reward, not a plan.",
+      "cut_reason": "never released (Duchess, 1 Nov 2026)",
       "obtain_ledger": [],
-      "unused_plan": true,
+      "plan_status": "unreleased",
+      "status_checked": true,
       "images": [
         "/wp-content/uploads/season_images/season-13/score_s13_camp_walldecor_bluedevilcryptid_poster.avif"
       ],
@@ -1051839,7 +1051972,7 @@
       "name": "Plan: Beast of Beckley Poster",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything). The item itself is a Season 13 Scoreboard reward, not a plan.",
+      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -1051856,9 +1051989,10 @@
       "stops_dropping": null,
       "effects": null,
       "cut": true,
-      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything). The item itself is a Season 13 Scoreboard reward, not a plan.",
+      "cut_reason": "never released (Duchess, 1 Nov 2026)",
       "obtain_ledger": [],
-      "unused_plan": true,
+      "plan_status": "unreleased",
+      "status_checked": true,
       "images": [
         "/wp-content/uploads/season_images/season-13/score_s13_camp_walldecor_beastofbeckleycryptid_poster.avif"
       ],
@@ -1051874,7 +1052008,7 @@
       "name": "Plan: Mothman Poster",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything). The item itself is a Season 13 Scoreboard reward, not a plan.",
+      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -1051891,9 +1052025,10 @@
       "stops_dropping": null,
       "effects": null,
       "cut": true,
-      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything). The item itself is a Season 13 Scoreboard reward, not a plan.",
+      "cut_reason": "never released (Duchess, 1 Nov 2026)",
       "obtain_ledger": [],
-      "unused_plan": true,
+      "plan_status": "unreleased",
+      "status_checked": true,
       "images": [
         "/wp-content/uploads/season_images/season-13/score_s13_camp_walldecor_mothmancryptid_poster.avif"
       ],
@@ -1067057,7 +1067192,7 @@
       "name": "Plan: C.A.M.P. Certification",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it). Its only giver is a quest marked cut in the game files: Enjoy Your Stay (ZZZNPE_MQ01_Enjoy).",
+      "obtain": "This is a physical plan — there is a plan item to find and learn. It is not random loot — see below.",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -1067071,12 +1067206,21 @@
       "stops_dropping": null,
       "effects": null,
       "cut": true,
-      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it). Its only giver is a quest marked cut in the game files: Enjoy Your Stay (ZZZNPE_MQ01_Enjoy).",
-      "obtain_ledger": [],
+      "cut_reason": "never released (Duchess, 1 Nov 2026)",
+      "obtain_ledger": [
+        {
+          "label": "Quests",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
       "retired_unlocks": [
         "Reward for completing the quest: Enjoy Your Stay"
       ],
-      "unused_plan": true,
+      "plan_status": "unreleased",
+      "status_checked": true,
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -1069008,7 +1069152,7 @@
       "name": "Plan: Moe the Mole Plushie",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything). The item itself is an Atom Shop item, not a plan.",
+      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -1069025,9 +1069169,10 @@
       "stops_dropping": null,
       "effects": null,
       "cut": true,
-      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything). The item itself is an Atom Shop item, not a plan.",
+      "cut_reason": "never released (Duchess, 2 Nov 2026)",
       "obtain_ledger": [],
-      "unused_plan": true,
+      "plan_status": "unreleased",
+      "status_checked": true,
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -1069603,7 +1069748,7 @@
       "name": "Plan: Vault 63 Door Display",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it). The item itself is an Atom Shop item, not a plan.",
+      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -1069624,9 +1069769,10 @@
       "stops_dropping": null,
       "effects": null,
       "cut": true,
-      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it). The item itself is an Atom Shop item, not a plan.",
+      "cut_reason": "never released (Duchess, 2 Nov 2026)",
       "obtain_ledger": [],
-      "unused_plan": true,
+      "plan_status": "unreleased",
+      "status_checked": true,
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -1082518,7 +1082664,7 @@
       "name": "Plan: Rusty Saxophone",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything).",
+      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -1082535,9 +1082681,10 @@
       "stops_dropping": null,
       "effects": null,
       "cut": true,
-      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything).",
+      "cut_reason": "never released (Duchess, 1 Nov 2026)",
       "obtain_ledger": [],
-      "unused_plan": true,
+      "plan_status": "unreleased",
+      "status_checked": true,
       "images": [
         "/wp-content/uploads/guide-images/camp-items/buff-stations/mile_workshop_instrument_saxophone.avif"
       ],
@@ -1095097,7 +1095244,7 @@
       "name": "Plan: Fish Display Hooks",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything).",
+      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -1095114,9 +1095261,10 @@
       "stops_dropping": null,
       "effects": null,
       "cut": true,
-      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything).",
+      "cut_reason": "never released (Duchess, 1 Nov 2026)",
       "obtain_ledger": [],
-      "unused_plan": true,
+      "plan_status": "unreleased",
+      "status_checked": true,
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -1097169,6 +1097317,8 @@
       "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything).",
       "obtain_ledger": [],
       "unused_plan": true,
+      "plan_status": "cut",
+      "status_checked": true,
       "images": [],
       "image_source": "",
       "plan_page": "recipe",
@@ -1099259,7 +1099409,7 @@
       "name": "Plan: Marshal Mallow Rod",
       "has_image_box": false,
       "image_dir": "fishing-rod",
-      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it).",
+      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
       "category_label": "Weapon Mod / Paint",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -1099280,9 +1099430,10 @@
       "stops_dropping": null,
       "effects": null,
       "cut": true,
-      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it).",
+      "cut_reason": "never released (Duchess, 1 Nov 2026)",
       "obtain_ledger": [],
-      "unused_plan": true,
+      "plan_status": "unreleased",
+      "status_checked": true,
       "images": [],
       "image_source": "",
       "plan_page": "fishing-rod",
@@ -1102123,8 +1102274,10 @@
       "stops_dropping": null,
       "effects": null,
       "cut": true,
-      "cut_reason": "photomode poses come from the Atom Shop, the Scoreboard or unlock automatically — never from a plan, and nothing gives this one out",
+      "cut_reason": "never released (Duchess, 1 Nov 2026)",
       "obtain_ledger": [],
+      "plan_status": "unreleased",
+      "status_checked": true,
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -1102138,7 +1102291,7 @@
       "name": "Plan: Dino Golf Info Board",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it). The item itself is a Season 23 Scoreboard reward, not a plan.",
+      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -1102159,9 +1102312,10 @@
       "stops_dropping": null,
       "effects": null,
       "cut": true,
-      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it). The item itself is a Season 23 Scoreboard reward, not a plan.",
+      "cut_reason": "never released (Duchess, 1 Nov 2026)",
       "obtain_ledger": [],
-      "unused_plan": true,
+      "plan_status": "unreleased",
+      "status_checked": true,
       "images": [
         "/wp-content/uploads/season_images/season-23/score_s23_camp_walldecor_dinoinfoboard.avif"
       ],
@@ -1102215,7 +1102369,7 @@
       "name": "Plan: Dino Peaks Entrance Sign",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it). The item itself is a Season 23 Scoreboard reward, not a plan.",
+      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -1102236,9 +1102390,10 @@
       "stops_dropping": null,
       "effects": null,
       "cut": true,
-      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (no recipe uses it). The item itself is a Season 23 Scoreboard reward, not a plan.",
+      "cut_reason": "never released (Duchess, 1 Nov 2026)",
       "obtain_ledger": [],
-      "unused_plan": true,
+      "plan_status": "unreleased",
+      "status_checked": true,
       "images": [
         "/wp-content/uploads/season_images/season-23/score_s23_camp_floordecor_dinoentrancesign_copy01.avif"
       ],
@@ -1102423,7 +1102578,7 @@
       "name": "Plan: Drive-In UFO Sculpture",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "Not obtainable. Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything). The item itself is a Season 24 Scoreboard reward, not a plan.",
+      "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
@@ -1102440,9 +1102595,10 @@
       "stops_dropping": null,
       "effects": null,
       "cut": true,
-      "cut_reason": "not a real plan — Nothing in the current game files gives this plan out, and reading it would teach nothing (the only recipe it unlocks is never used by anything). The item itself is a Season 24 Scoreboard reward, not a plan.",
+      "cut_reason": "never released (Duchess, 1 Nov 2026)",
       "obtain_ledger": [],
-      "unused_plan": true,
+      "plan_status": "unreleased",
+      "status_checked": true,
       "images": [
         "/wp-content/uploads/season_images/season-24/score_s24_camp_structure_driveinstatue.avif"
       ],
