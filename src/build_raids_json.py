@@ -75,7 +75,6 @@ for _p in [_this_dir, _this_dir / "src", _this_dir.parent / "src"]:
         sys.path.insert(0, str(_p))
 
 from rng76 import Rng76Data, pct, read_tsv, newest, pick
-from patchlog_utils import write_empty_patchlog_feed
 import plan_sources   # site-wide cut test (is_cut_content)
 
 
@@ -1195,7 +1194,6 @@ def main() -> int:
     print(f"✓ General pools: {len(general_pools)}  Stages: {len(stages_out)}  Items: {total_items}")
     print(f"  File size: {out_file.stat().st_size / 1024:.0f} KB")
 
-    write_empty_patchlog_feed(str(out_dir), "patchlog_latest_df_raids.json", total_items)
     return 0
 
 

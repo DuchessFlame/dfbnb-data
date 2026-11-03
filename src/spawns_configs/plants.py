@@ -557,13 +557,6 @@ def run(argv=None):
     if con:
         con.close()
 
-    try:
-        from patchlog_utils import write_empty_patchlog_feed
-        write_empty_patchlog_feed("dist", "patchlog_latest_bnb_farming_plants.json",
-                                  current_count=len(hub))
-    except Exception:
-        pass
-
 
 def main(argv=None):
     run(argv)

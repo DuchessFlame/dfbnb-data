@@ -62,7 +62,6 @@ if HERE not in sys.path:
 
 from nuka_cola_spawns_geo import Geo
 import farming_spawns_sources as sources
-from patchlog_utils import write_empty_patchlog_feed
 import tsv_source          # one resolver for every export selection
 
 MAPPALACHIA_DB = os.environ.get("MAPPALACHIA_DB", r"D:\Mappalachia\data\mappalachia.db")
@@ -428,7 +427,6 @@ def build(tsv_root, dist_dir, cache_path):
     os.makedirs(dist_dir, exist_ok=True)
     path = os.path.join(dist_dir, "vendors.json")
     json.dump(doc, open(path, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-    write_empty_patchlog_feed(dist_dir, "patchlog_latest_df_vendors.json", current_count=len(out))
 
     print(f"[vendors] Wrote {os.path.relpath(path, REPO)} — "
           f"{len(out)} vendors, {loc_n} located, {sells_n} with stock.")

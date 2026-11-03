@@ -35,7 +35,6 @@ import argparse
 from datetime import datetime
 from pathlib import Path
 
-from patchlog_utils import write_patchlog_feed
 import tsv_source          # one resolver for every export selection
 import camp_config       # hand-maintained tables live in data/camp/*.json
 import gold_vendor       # generative Gold Bullion route (ENTM -> vendor plan)
@@ -4040,29 +4039,5 @@ save_json("pet-apparel.json",      pet_appr_data)
 save_json("cryos.json",            cryos_data)
 save_json("fridges.json",          fridges_data)
 save_json("dispensers.json",       dispensers_data)
-
-# Generate patchlog feed (all camp-related items combined)
-def combine_camp_items(*dicts):
-    """Combine all items from multiple data structures."""
-    items = []
-    for d in dicts:
-        items.extend(d.get("items", []))
-    return items
-
-camp_items = combine_camp_items(
-    allies_data, pets_data, pet_furn_data, pet_appr_data,
-    cryos_data, fridges_data, dispensers_data, repair_bots_data
-)
-
-write_patchlog_feed(
-    dist_dir=str(OUT_DIR),
-    feed_name="patchlog_latest_df_camp.json",
-    current_items=camp_items,
-    key_field="formId",
-    name_field="displayName,edid",
-    compare_fields=["displayName", "description", "obtainSource"],
-    prev_json_path="dist/allies.json",  # Using allies.json as reference
-    items_extractor=lambda d: d.get("items", []),
-)
 
 print("\nDone.")

@@ -7,7 +7,6 @@ name: Build Daily Ops Data
 # Writes one JSON per page:
 #   dist/daily_ops/daily_ops_all_rewards.json       All Rewards page
 #   dist/daily_ops/daily_ops_reward_checklist.json  Reward Checklist + Guide pages
-#   dist/daily_ops/patchlog_latest_df_daily_ops_rewards.json
 
 on:
   workflow_dispatch:
@@ -65,7 +64,6 @@ jobs:
 
           git add dist/daily_ops/daily_ops_all_rewards.json 2>/dev/null || true
           git add dist/daily_ops/daily_ops_reward_checklist.json 2>/dev/null || true
-          git add dist/daily_ops/patchlog_latest_df_daily_ops_rewards.json 2>/dev/null || true
           # daily_ops_rewards.json was retired Sept 2026; stage its removal if it is still tracked.
           git rm --cached --ignore-unmatch dist/daily_ops/daily_ops_rewards.json
 

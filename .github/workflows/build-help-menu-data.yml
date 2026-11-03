@@ -39,6 +39,6 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add dist/help_menu.json dist/patchlog_latest_help_menu.json
+          git add dist/help_menu.json
           git diff --cached --quiet || git commit -m "chore: rebuild help_menu.json [skip ci]"
           git push

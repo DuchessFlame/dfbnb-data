@@ -6,7 +6,6 @@ build_activities_rewards_json.py
 Builds:
   dist/activities/activities_rewards.json
   dist/activities/activities_rewards_by_page.json
-  dist/patchlogs/patchlog_latest_df_activities.json
 
 baseRewards schema (new):
   {
@@ -30,7 +29,6 @@ import csv, glob, json, os, re, sys
 from collections import defaultdict
 from pathlib import Path
 
-from patchlog_utils import write_patchlog_feed
 from by_page_slices import write_by_page_slices
 
 # ---------------------------------------------------------------------------
@@ -56,7 +54,6 @@ import reward_variants     # which named version a reward list drops
 # script produces correct output regardless of which directory it's run from.
 _REPO_ROOT   = Path(__file__).resolve().parent.parent
 DIST_DIR     = _REPO_ROOT / "dist" / "activities"
-PATCHLOG_DIR = _REPO_ROOT / "dist" / "patchlogs"
 
 # --------------------------------------------------
 # Helpers
@@ -1037,7 +1034,6 @@ def _refine_custom_prefix(prefix, candidates, slots, item_name, had_nameless):
                 if name:
                     return name
     return None
-
 
 
 _JUNK_OMOD_DESCS = {"no customization", ""}
@@ -5460,20 +5456,9 @@ except Exception as _e:  # images are never fatal
     print("  [WARN] image index skipped: {}".format(_e))
 
 DIST_DIR.mkdir(parents=True, exist_ok=True)
-PATCHLOG_DIR.mkdir(parents=True, exist_ok=True)
 
 with open(DIST_DIR / "activities_rewards.json", "w", encoding="utf-8") as f:
     json.dump({"events": events}, f, separators=(",", ":"))
-write_patchlog_feed(
-    dist_dir=str(_REPO_ROOT / "dist"),
-    feed_name="patchlog_latest_df_activities.json",
-    current_items=events,
-    key_field="questFormID",
-    name_field="name,gameName",
-    compare_fields=["name", "gameName", "rewards", "pools"],
-    prev_json_path="dist/activities/activities_rewards.json",
-    items_extractor=lambda d: d.get("events", []),
-)
 
 # Min level on every weapon / armour reward. Every WEAP and ARMO record
 # carries EILV - the item levels it exists at (Urban Scout chest 40|50,

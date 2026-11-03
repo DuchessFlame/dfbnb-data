@@ -374,13 +374,6 @@ def run(argv=None):
     print(f"[meat] wrote {HUB_FILE} ({len(hub)} pages) + per-page docs in {OUT_DIR}")
     C.close_ctx(ctx)
 
-    try:
-        from patchlog_utils import write_empty_patchlog_feed
-        write_empty_patchlog_feed("dist", "patchlog_latest_bnb_farming_meat.json",
-                                  current_count=len(hub))
-    except Exception:
-        pass
-
 
 def _keep_from_doc(path):
     try:

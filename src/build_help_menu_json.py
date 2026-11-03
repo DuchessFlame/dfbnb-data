@@ -26,8 +26,6 @@ import sys
 import argparse
 from collections import defaultdict
 
-from patchlog_utils import diff_item_lists, _write_json, _git_show_json
-
 
 # ─────────────────────────────────────────────────────────────────────────────
 #  PLATFORM HANDLING
@@ -171,31 +169,6 @@ def main():
 
     size_kb = os.path.getsize(args.out) / 1024
     print(f"\nSaved → {args.out}  ({size_kb:.1f} KB)")
-
-    # ── Patchlog feed ──────────────────────────────────────────────────────
-    dist_base = os.path.dirname(args.out) or "dist"
-    prev_json = _git_show_json("HEAD^", args.out)
-
-    def extract_all_items(d):
-        if not d:
-            return []
-        return d.get("items", [])
-
-    entry = diff_item_lists(
-        prev_items=extract_all_items(prev_json),
-        curr_items=extract_all_items(data),
-        key_field="formId",
-        name_field="name",
-        compare_fields=["name", "desc"],
-    )
-    feed = {"entries": [entry]}
-    feed_path = os.path.join(dist_base, "patchlog_latest_help_menu.json")
-    _write_json(feed_path, feed)
-    a, r, c = len(entry["added"]), len(entry["removed"]), len(entry["changed"])
-    print(
-        f"[patchlog] patchlog_latest_help_menu.json: "
-        f"current={entry['current']}  added={a}  removed={r}  changed={c}"
-    )
 
 
 if __name__ == "__main__":

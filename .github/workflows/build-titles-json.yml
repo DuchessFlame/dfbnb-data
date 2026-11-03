@@ -18,8 +18,6 @@ on:
       - "dist/season_images/unpublished_images.json"
       - "src/build_drop_rates.py"
       - "src/rng76.py"
-      - "src/build_patchlog_manifest_from_guide_index.py"
-      - "src/append_patchlog_history.py"
       - ".github/workflows/build-titles-json.yml"
 
 permissions:
@@ -80,26 +78,6 @@ jobs:
         run: |
           test -f dist/titles_camp.json || (echo "Missing dist/titles_camp.json" && exit 1)
           test -f dist/titles_player.json || (echo "Missing dist/titles_player.json" && exit 1)
-          test -f dist/titles_patchlog.json || (echo "Missing dist/titles_patchlog.json" && exit 1)
-
-      - name: Stage patchlog latest (titles -> generic)
-        run: |
-          cp dist/titles_patchlog.json dist/patchlog_latest_titles.json
-
-      - name: Build patchlog manifest (from guide_index.tsv)
-        run: |
-          python src/build_patchlog_manifest_from_guide_index.py \
-            --guide-index tsv/guide_index.tsv \
-            --out dist/patchlog_manifest.json \
-            --dist-base-url "https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/dist" \
-            --titles-feed patchlog_latest_titles.json
-
-      - name: Append patchlog history (append-only)
-        run: |
-          python src/append_patchlog_history.py \
-            --latest dist/patchlog_latest_titles.json \
-            --history dist/patchlog_history.json \
-            --kind titles
 
       - name: Show git status (debug)
         run: |

@@ -890,29 +890,6 @@ def build_graves_only():
     print(f"[collectable_spawns] {GRAVE_SLUG}: {data['total']} grave sites across "
           f"{len(rc)} region(s) -> {os.path.basename(out_path)}")
 
-    # Placement patch log. Built from REFR export vs REFR export — the only place
-    # a grave being added, removed or re-placed is visible. Diffing this file
-    # against its own previous revision (what every other feed used to do) could
-    # never see it: with no new export the output never moved, so the page showed
-    # a cheerful "nothing changed" for five weeks while sending players to graves
-    # that were not there.
-    try:
-        import patchlog_utils as _pl
-        _pl.write_export_patchlog(
-            dist_dir=OUT_DIR,
-            feed_name="patchlog_latest_df_placements.json",
-            record_type="REFR",
-            pattern="REFR_Placements_*.tsv",
-            key_col="RefFormID",
-            name_cols=("RefEDID", "RefFormID"),
-            fields={"X": "X", "Y": "Y", "Z": "Z"},
-            # Only the graves' own base object — not every placement in Appalachia.
-            scope=lambda r: (r.get("BaseFormID", "") or "").strip().upper() == GRAVE_BASE,
-            current_count=data["total"],
-        )
-    except Exception as e:
-        print(f"[collectable_spawns] placement patch log skipped: {e}")
-
     mpath = os.path.join(OUT_DIR, "collectable_spawns_manifest.json")
     try:
         manifest = json.load(open(mpath, encoding="utf-8"))

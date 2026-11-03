@@ -39,7 +39,7 @@ import reusable_images               # season-first title art (verified-hosted u
 #   - Default non-tradeable; BOOK row containing keyword NonPlayerTradeable => non-tradeable; else tradeable
 #
 # Outputs:
-#   titles_camp.json, titles_player.json, titles_patchlog.json, titles_manifest.json
+#   titles_camp.json, titles_player.json, titles_manifest.json
 # ============================================================
 
 CUT_PREFIXES = ("DEL", "POST", "CUT", "ZZZ", "ZZZZ")
@@ -3045,71 +3045,6 @@ def git_show_json(rev: str, path: str) -> Optional[dict]:
         return None
 
 
-# Import the shared patchlog utility for frontend-compatible output
-try:
-    from patchlog_utils import diff_item_lists as _patchlog_diff_items
-except ImportError:
-    # Fallback if patchlog_utils isn't on path (shouldn't happen in CI)
-    _patchlog_diff_items = None  # type: ignore[assignment]
-
-
-def build_patchlog(prev: Optional[dict], curr: dict) -> dict:
-    """
-    Build a patchlog entry for a titles category (camp or player).
-
-    Returns the frontend-compatible format:
-    {ts, current, added: [names], removed: [names], changed: [names]}
-    """
-    TITLE_COMPARE_FIELDS = (
-        "edid", "title", "titleMale", "titleFemale",
-        "isPrefix", "isSuffix", "howToObtain", "dropRate",
-        "tradeable", "cutContent", "unlockType",
-    )
-
-    # Use shared utility if available
-    if _patchlog_diff_items is not None:
-        prev_items = prev.get("items", []) if prev else []
-        curr_items = curr.get("items", [])
-        return _patchlog_diff_items(
-            prev_items=prev_items,
-            curr_items=curr_items,
-            key_field="formId",
-            name_field="title,titleMale,titleFemale,edid",
-            compare_fields=TITLE_COMPARE_FIELDS,
-        )
-
-    # Inline fallback (same logic, same output format)
-    def index_by_id(items: List[dict]) -> Dict[str, dict]:
-        return {str(x.get("formId")): x for x in items if x.get("formId")}
-
-    def get_name(item: dict) -> str:
-        for f in ("title", "titleMale", "titleFemale", "edid"):
-            v = item.get(f)
-            if v and str(v).strip():
-                return str(v).strip()
-        return str(item.get("formId", "Unknown"))
-
-    prev_items = index_by_id(prev.get("items", [])) if prev else {}
-    curr_items = index_by_id(curr.get("items", []))
-
-    added = [get_name(curr_items[k]) for k in curr_items if k not in prev_items]
-    removed = [get_name(prev_items[k]) for k in prev_items if k not in curr_items]
-    changed: List[str] = []
-
-    for k in curr_items:
-        if k in prev_items:
-            a, b = prev_items[k], curr_items[k]
-            if any(a.get(f) != b.get(f) for f in TITLE_COMPARE_FIELDS):
-                changed.append(get_name(curr_items[k]))
-
-    return {
-        "ts": now_iso(),
-        "current": len(curr_items),
-        "added": sorted(added)[:500],
-        "removed": sorted(removed)[:500],
-        "changed": sorted(changed)[:500],
-    }
-
 # LVLI entry condition that removes a title BOOK from the pool once learnt:
 #   Subject.HasLearnedRecipe(00 00 00, 00 00, <proxy> [COBJ:xxxxxxxx], ...) 10000000 0.000000
 # The 8-char field is xEdit's condition-type bits: char 1 = "Equal to" (1) or
@@ -3756,22 +3691,6 @@ def main() -> int:
     player_path = os.path.join(args.outdir, "titles_player.json")
     data_path = os.path.join(args.outdir, "titles_data.json")
 
-    # ── Read previous dist files BEFORE overwriting them (patchlog diff source) ──
-    prev_camp = None
-    prev_player = None
-    try:
-        if os.path.isfile(camp_path):
-            with open(camp_path, "r", encoding="utf-8") as f:
-                prev_camp = json.load(f)
-    except Exception:
-        prev_camp = None
-    try:
-        if os.path.isfile(player_path):
-            with open(player_path, "r", encoding="utf-8") as f:
-                prev_player = json.load(f)
-    except Exception:
-        prev_player = None
-
     with open(camp_path, "w", encoding="utf-8") as f:
         json.dump(camp_json, f, ensure_ascii=False, separators=(",", ":"), indent=2)
     with open(player_path, "w", encoding="utf-8") as f:
@@ -3795,35 +3714,6 @@ def main() -> int:
     }
     with open(data_path, "w", encoding="utf-8") as f:
         json.dump(combined_json, f, ensure_ascii=False, separators=(",", ":"), indent=2)
-
-    # prev_camp and prev_player were read from disk BEFORE the file writes above.
-    # (Previously used git_show_json("HEAD^", ...) which compared against the
-    #  already-committed previous build — always finding zero changes.)
-
-    camp_entry = build_patchlog(prev_camp, camp_json)
-    player_entry = build_patchlog(prev_player, player_json)
-
-    # Merge camp + player into a single combined entry for the frontend.
-    # The frontend expects {entries: [{ts, current, added, removed, changed}]}.
-    combined_current = camp_entry.get("current", 0) + player_entry.get("current", 0)
-    combined_added = camp_entry.get("added", []) + player_entry.get("added", [])
-    combined_removed = camp_entry.get("removed", []) + player_entry.get("removed", [])
-    combined_changed = camp_entry.get("changed", []) + player_entry.get("changed", [])
-
-    patchlog = {
-        "entries": [
-            {
-                "ts": now_iso(),
-                "current": combined_current,
-                "added": sorted(combined_added)[:500],
-                "removed": sorted(combined_removed)[:500],
-                "changed": sorted(combined_changed)[:500],
-            }
-        ],
-        # Keep sub-entries for any future per-category use
-        "_camp": camp_entry,
-        "_player": player_entry,
-    }
 
     # ============================================================
     # NEW: titles_images_manifest.json (ENTM storefront DDS tasks)
@@ -3885,16 +3775,11 @@ def main() -> int:
     with open(images_manifest_path, "w", encoding="utf-8") as f:
         json.dump(images_manifest, f, ensure_ascii=False, separators=(",", ":"), indent=2)
 
-    patchlog_path = os.path.join(args.outdir, "titles_patchlog.json")
-    with open(patchlog_path, "w", encoding="utf-8") as f:
-        json.dump(patchlog, f, ensure_ascii=False, separators=(",", ":"), indent=2)
-
     manifest = {
         "generatedAt": now_iso(),
         "outputs": {
             "camp": {"file": "titles_camp.json", "count": len(camp_items)},
             "player": {"file": "titles_player.json", "count": len(player_items)},
-            "patchlog": {"file": "titles_patchlog.json"},
             "imagesManifest": {"file": "titles_images_manifest.json", "count": len(images_tasks)},
         },
         "sources": {

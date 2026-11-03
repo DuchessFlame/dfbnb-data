@@ -6,9 +6,7 @@ Usage: python3 build_minerva.py BOOK_Export_March_2026.tsv > minerva_plans.json
 """
 
 import csv, json, math, re, sys
-from pathlib import Path
 
-from patchlog_utils import write_patchlog_feed
 
 # Econ_GoldVendor_Tier_XX GLOB IDs -> gold bullion price
 TIER_PRICE = {
@@ -277,35 +275,6 @@ def main():
 
     print(json.dumps(output, indent=2))
     print(f"\n// Built: {len(all_plans)} gold vendor plans, {len(minerva_plans)} on Minerva lists", file=sys.stderr)
-
-    # Generate patchlog feeds to dist/.
-    # Two separate feeds so each page only diffs what it actually displays:
-    #   - /df/minerva/lists/                    → diff minerva-rotation plans (171)
-    #   - /df/minerva/gold-bullion-calculator/  → diff every gold-bullion plan  (~397)
-    # The output JSON lives at dist/minerva/minerva_plans.json (NOT dist/minerva_plans.json),
-    # so prev_json_path must include the subfolder or the diff will treat every plan
-    # as "added" on every build.
-    dist_dir = Path(__file__).parent.parent / "dist"
-    write_patchlog_feed(
-        dist_dir=str(dist_dir),
-        feed_name="patchlog_latest_df_minerva.json",
-        current_items=minerva_plans,
-        key_field="formid",
-        name_field="name",
-        compare_fields=["name", "gold", "lists"],
-        prev_json_path="dist/minerva/minerva_plans.json",
-        items_extractor=lambda d: d.get("minerva", []),
-    )
-    write_patchlog_feed(
-        dist_dir=str(dist_dir),
-        feed_name="patchlog_latest_df_minerva_calculator.json",
-        current_items=all_plans,
-        key_field="formid",
-        name_field="name",
-        compare_fields=["name", "gold", "vendor"],
-        prev_json_path="dist/minerva/minerva_plans.json",
-        items_extractor=lambda d: d.get("all_plans", []),
-    )
 
 if __name__ == '__main__':
     main()

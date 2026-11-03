@@ -48,7 +48,6 @@ TSV_DIR   = REPO_ROOT / "tsv"
 PTS_DIR   = TSV_DIR / "pts"
 
 sys.path.insert(0, str(SRC_DIR))
-from patchlog_utils import write_empty_patchlog_feed
 import tsv_source          # one resolver for every export selection
 
 
@@ -807,8 +806,6 @@ def build_channel(channel, tsv_dir, dist_dir):
     print(f"    Craftable: {crf_n}")
     print(f"    With obtain info: {obt_n}")
 
-    if channel == "live":
-        write_empty_patchlog_feed(str(dist_dir), "patchlog_latest_bnb_unique_weapons.json", current_count=len(weapons))
     return output
 
 

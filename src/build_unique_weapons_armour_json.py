@@ -162,7 +162,6 @@ import uwa_names       # in-game names from INNR (Oct 2026)
 import uwa_trace       # sources traced from the game files (Oct 2026)
 import uwa_route_labels  # player-facing route names (Oct 2026)
 import uwa_entries     # one entry per thing you get (17 Oct 2026)
-from patchlog_utils import write_empty_patchlog_feed
 
 import build_unique_weapons_json as buw
 from build_unique_weapons_json import (
@@ -2164,10 +2163,6 @@ def build_channel(channel, dist_dir):
     print(f"  Source unconfirmed: {len(unconfirmed)} -> {unconfirmed}")
     print(f"  Mods: {mod_stats}")
 
-    if channel == "live":
-        write_empty_patchlog_feed(str(dist_dir),
-                                  "patchlog_latest_bnb_unique_weapons_armour.json",
-                                  current_count=len(all_items))
     return output
 
 

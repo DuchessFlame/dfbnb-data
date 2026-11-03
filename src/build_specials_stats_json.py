@@ -53,10 +53,6 @@ try:
     import tsv_source                                          # noqa: E402
 except Exception:                                              # pragma: no cover
     tsv_source = None
-try:
-    from patchlog_utils import write_empty_patchlog_feed       # noqa: E402
-except Exception:                                              # pragma: no cover
-    write_empty_patchlog_feed = None
 
 DATA_DIR = os.path.join(REPO, "data", "specials_stats")
 WARNINGS = []
@@ -1170,11 +1166,6 @@ def build(channel):
     with open(path, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, separators=(",", ":"))
     print(f"[specials_stats] wrote {path} ({len(stats)} stats, {os.path.getsize(path)//1024} KB, {len(WARNINGS)} warnings)")
-    if write_empty_patchlog_feed and channel == "live":
-        try:
-            write_empty_patchlog_feed(dist, "patchlog_latest_bnb_specials_stats.json", current_count=len(stats))
-        except Exception as e:  # pragma: no cover
-            warn(f"patchlog feed not written: {e}")
     return out
 
 

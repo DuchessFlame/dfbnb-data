@@ -56,7 +56,6 @@ Inputs:
 
 Output:
   - dist/stamps.json
-  - dist/patchlog_latest_df_stamps.json
 
 Usage:
   python build_stamps_json.py
@@ -74,7 +73,6 @@ import os
 import re
 import sys
 
-from patchlog_utils import write_patchlog_feed
 
 # ---------------------------------------------------------------------------
 # Vendors whose leveled lists are priced in stamps.
@@ -583,17 +581,6 @@ def main():
     print(f"[build_stamps_json] Wrote {out_path} — {len(items)} items "
           f"({len(plans)} plans, {len(items) - len(plans)} other), "
           f"{sum(prices)} stamps for the lot.", file=sys.stderr)
-
-    write_patchlog_feed(
-        dist_dir=args.outdir,
-        feed_name="patchlog_latest_df_stamps.json",
-        current_items=items,
-        key_field="formid",
-        name_field="name",
-        compare_fields=["name", "stamps", "vendor"],
-        prev_json_path="dist/stamps.json",
-        items_extractor=lambda d: d.get("items", []),
-    )
 
 
 if __name__ == "__main__":

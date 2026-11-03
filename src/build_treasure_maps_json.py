@@ -31,8 +31,6 @@ from collections import defaultdict, OrderedDict
 from datetime import datetime, timezone
 from pathlib import Path
 
-from patchlog_utils import write_empty_patchlog_feed
-
 # ── rng76 engine import ──────────────────────────────────────────────────
 _SRC = Path(__file__).resolve().parent
 if str(_SRC) not in sys.path:
@@ -2653,10 +2651,6 @@ def main():
               f"Caps {phantoms['caps']['amount']}, {len(_pools)} repeatable pools ({_pp} items), "
               f"{len(phantoms['quest_related']['branches'])} journal branches")
     print("[build_treasure_maps_json.py] Done.")
-
-    patchlog_dir = DIST_DIR / "patchlogs"
-    os.makedirs(str(patchlog_dir), exist_ok=True)
-    write_empty_patchlog_feed(str(DIST_DIR), "patchlog_latest_df_treasure_maps.json", current_count=total_maps)
 
 
 if __name__ == "__main__":

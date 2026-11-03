@@ -54,7 +54,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          git add dist/events/events_rewards.json dist/events/events_rewards_by_page.json dist/patchlogs/patchlog_latest_df_events.json
+          git add dist/events/events_rewards.json dist/events/events_rewards_by_page.json
           # by_page_slices.py prunes retired slices; -A stages the deletions too,
           # otherwise the prune runs on the runner and is thrown away.
           git add -A dist/events/by_page
@@ -108,7 +108,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          git add dist/expos/expos_rewards.json dist/expos/patchlog_latest_df_expos_atlantic_city_rewards.json dist/expos/patchlog_latest_df_expos_pitt_rewards.json
+          git add dist/expos/expos_rewards.json
 
           if git diff --cached --quiet; then
             echo "No changes to commit."

@@ -517,14 +517,6 @@ def build_channel(channel, base, tsv_dir, dist_dir):
     json.dump(murm, open(murm_path, "w", encoding="utf-8"), indent=2, ensure_ascii=False)
     print(f"[murmrgh] wrote {murm_path}  ({murm['count']} mods)")
 
-    # patchlog feed (keeps the patch-tracking pipeline happy)
-    try:
-        from patchlog_utils import write_empty_patchlog_feed
-        write_empty_patchlog_feed(dist_dir, "patchlog_latest_bnb_legendary_mods.json",
-                                  current_count=total)
-    except Exception as e:  # non-fatal
-        print(f"  [warn] patchlog feed skipped: {e}")
-
 
 def main():
     ap = argparse.ArgumentParser(

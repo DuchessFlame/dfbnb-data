@@ -6,7 +6,6 @@ build_events_rewards_json.py
 Builds:
   dist/events/events_rewards.json
   dist/events/events_rewards_by_page.json
-  dist/patchlogs/patchlog_latest_df_events.json
 
 baseRewards schema (new):
   {
@@ -30,7 +29,6 @@ import csv, glob, json, os, re, sys
 from collections import defaultdict
 from pathlib import Path
 
-from patchlog_utils import write_patchlog_feed
 from by_page_slices import write_by_page_slices
 
 # ---------------------------------------------------------------------------
@@ -56,7 +54,6 @@ import reward_variants     # which named version a reward list drops
 # script produces correct output regardless of which directory it's run from.
 _REPO_ROOT   = Path(__file__).resolve().parent.parent
 DIST_DIR     = _REPO_ROOT / "dist" / "events"
-PATCHLOG_DIR = _REPO_ROOT / "dist" / "patchlogs"
 
 # --------------------------------------------------
 # Helpers
@@ -828,7 +825,6 @@ def _refine_custom_prefix(prefix, candidates, slots, item_name, had_nameless):
                 if name:
                     return name
     return None
-
 
 
 def _filter_and_clean_modslots(slots, item_name=None):
@@ -3762,7 +3758,6 @@ if __name__ == "__main__":
         print("  [WARN] image index skipped: {}".format(_e))
 
     DIST_DIR.mkdir(parents=True, exist_ok=True)
-    PATCHLOG_DIR.mkdir(parents=True, exist_ok=True)
 
     with open(DIST_DIR / "events_rewards.json", "w", encoding="utf-8") as f:
         json.dump({"events": events}, f, separators=(",", ":"))
@@ -3774,15 +3769,5 @@ if __name__ == "__main__":
     # written while the old renderer is still in circulation.
     write_by_page_slices(DIST_DIR, by_page, name="events")
 
-    write_patchlog_feed(
-        dist_dir=str(_REPO_ROOT / "dist"),
-        feed_name="patchlog_latest_df_events.json",
-        current_items=events,
-        key_field="questFormID",
-        name_field="name,gameName",
-        compare_fields=["name", "gameName", "rewards", "pools"],
-        prev_json_path="dist/events/events_rewards.json",
-        items_extractor=lambda d: d.get("events", []),
-    )
 
     print(f"Events Rewards build complete. events={len(events)} byPage={len(by_page)}")

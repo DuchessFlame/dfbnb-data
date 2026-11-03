@@ -48,10 +48,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # The build also emits the patchlog feed; commit it alongside so the
-          # two never drift out of sync.
           git add dist/challenges/challenges.json
-          git add dist/patchlog_latest_df_challenges.json || true
 
           if git diff --cached --quiet; then
             echo "No changes to commit."

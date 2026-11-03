@@ -30,7 +30,6 @@ import sys
 from pathlib import Path
 
 from events_page_pools import load_events_index, build_page_from_events
-from patchlog_utils import write_empty_patchlog_feed
 
 PTS = "--pts" in sys.argv
 
@@ -89,11 +88,6 @@ def main() -> int:
 
     print(f"✓ Wrote {out_file}")
     print(f"✓ Pages: {len(PAGE_MAPPINGS)}  Items: {total_items}")
-
-    # Preserve the wrapper's two feed names (empty feeds), written into the
-    # page's own dist dir (same pattern the retired build_daily_ops_json.py used).
-    write_empty_patchlog_feed(str(out_dir), "patchlog_latest_df_expos_atlantic_city_rewards.json", total_items)
-    write_empty_patchlog_feed(str(out_dir), "patchlog_latest_df_expos_pitt_rewards.json", total_items)
 
     return 0
 

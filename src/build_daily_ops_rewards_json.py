@@ -10,7 +10,6 @@ Writes (one JSON per page, so one bad file can never blank another page):
                                                      Checklist + Guide pages
                                                      (df-bnb-daily-ops.js) and the
                                                      Unique Weapons & Armour lookup
-    dist/daily_ops/patchlog_latest_df_daily_ops_rewards.json
 
 This is the ONLY Daily Ops rewards builder. It replaced build_daily_ops_json.py
 (-> daily_ops_rewards.json, retired 26 Sept 2026). It reads the xEdit exports
@@ -84,7 +83,6 @@ import build_events_rewards_json as ev      # import-safe: writes nothing
 import tsv_source
 from events_page_pools import process_pool, merge_duplicate_pools
 from rng76 import parse_randompercent_multiplier
-from patchlog_utils import write_patchlog_feed, _git_show_json
 
 # NO --pts MODE, ON PURPOSE.
 #
@@ -1472,28 +1470,6 @@ ALL_REWARDS_FILE = "daily_ops_all_rewards.json"
 CHECKLIST_FILE = "daily_ops_reward_checklist.json"
 
 
-def write_checklist_patchlog(data):
-    """Patchlog feed for the checklist items. Same feed name the retired builder
-    wrote, so the patchlog manifest keeps working. The previous version comes
-    from git; if there is none yet (first build of the split file), skip rather
-    than report every item as "added"."""
-    rel = "dist/daily_ops/" + CHECKLIST_FILE
-    prev = _git_show_json("HEAD^", rel)
-    if not (isinstance(prev, dict) and prev.get("pools")):
-        print("patchlog  : skipped (no previous checklist build to diff against)")
-        return
-    write_patchlog_feed(
-        dist_dir=str(OUT_DIR),
-        feed_name="patchlog_latest_df_daily_ops_rewards.json",
-        current_items=_checklist_items(data),
-        key_field="formId",
-        name_field="name",
-        compare_fields=["name", "category", "rarity"],
-        prev_json_path=rel,
-        items_extractor=_checklist_items,
-    )
-
-
 if __name__ == "__main__":
     # Each page's JSON is built and written on its own. If one fails, the other
     # still ships and the old copy of the failed one stays live untouched; the
@@ -1527,7 +1503,6 @@ if __name__ == "__main__":
     try:
         checklist = build_checklist(rows, timer_tiers)
         write_json_atomic(OUT_DIR / CHECKLIST_FILE, checklist)
-        write_checklist_patchlog(checklist)
         print("written   : %s  (%d pools)" % (CHECKLIST_FILE, len(checklist["pools"])))
     except BaseException as e:
         failed.append(CHECKLIST_FILE)

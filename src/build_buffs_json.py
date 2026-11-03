@@ -73,7 +73,6 @@ DATA SOURCES (all committed exports / already-built JSON)
 OUTPUT
   dist/buffs/<page>.json      one per page
   dist/buffs.json             manifest (page list + counts + generated)
-  dist/patchlog_latest_bnb_buffs.json
 
 PIPELINE
   Runs AFTER build_bnb_item_categories_json.py, build_cobj_recipes_json.py
@@ -147,15 +146,6 @@ except Exception:                                             # pragma: no cover
         h = bool(keywords & HERBIVORE_KEYWORDS)
         c = bool(keywords & CARNIVORE_KEYWORDS)
         return "Both" if (h and c) else "Herbivore" if h else "Carnivore" if c else ""
-
-try:
-    from patchlog_utils import write_empty_patchlog_feed      # noqa: E402
-except Exception:                                             # pragma: no cover
-    def write_empty_patchlog_feed(outdir, name, current_count=0):
-        path = os.path.join(outdir, name)
-        with open(path, "w", encoding="utf-8") as f:
-            json.dump({"items": [], "count": current_count}, f, indent=2)
-
 
 # ---------------------------------------------------------------------------
 # Page definitions
@@ -1514,8 +1504,6 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     for w in sources.warnings:
         print(f"[build_buffs_json] WARNING {w}")
 
-    write_empty_patchlog_feed(outdir, "patchlog_latest_bnb_buffs.json",
-                              current_count=total)
     return 0
 
 

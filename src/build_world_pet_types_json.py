@@ -45,7 +45,6 @@ import re
 import argparse
 from pathlib import Path
 
-from patchlog_utils import write_patchlog_feed
 import tsv_source          # one resolver for every export selection
 
 # ---------------------------------------------------------------------------
@@ -1358,29 +1357,5 @@ print(f"  Species: {len(data['species'])}  Skins: {_skin_total}  Foods: {len(dat
 for sp in data["species"]:
     n_desc = sum(1 for s in sp["skins"] if s["description"] and s["description"] != BASE_DESC_NOTE)
     print(f"    {sp['name']:<10} skins={len(sp['skins']):<2} withStoreDesc={n_desc}")
-
-# Patchlog feed — flat list of skins keyed by formId.
-all_skins = []
-for sp in data["species"]:
-    for s in sp["skins"]:
-        all_skins.append({"formId": s["formId"], "name": f"{sp['name']}: {s['name']}",
-                          "description": s["description"]})
-try:
-    write_patchlog_feed(
-        dist_dir=str(OUT_DIR),
-        feed_name="patchlog_latest_world_pet_types.json",
-        current_items=all_skins,
-        key_field="formId",
-        name_field="name",
-        compare_fields=["name", "description"],
-        prev_json_path="dist/world_pet_types.json",
-        items_extractor=lambda d: [
-            {"formId": s["formId"], "name": f"{sp['name']}: {s['name']}",
-             "description": s.get("description", "")}
-            for sp in d.get("species", []) for s in sp.get("skins", [])
-        ],
-    )
-except Exception as e:
-    print(f"  [patchlog] skipped: {e}")
 
 print("Done.")

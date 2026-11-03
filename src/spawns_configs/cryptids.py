@@ -1341,13 +1341,6 @@ def run(argv=None):
     if con:
         con.close()
 
-    try:
-        from patchlog_utils import write_empty_patchlog_feed
-        write_empty_patchlog_feed("dist", "patchlog_latest_df_cryptids.json",
-                                  current_count=len(hub_doc["cryptids"]))
-    except Exception:
-        pass
-
 
 def main(argv=None):
     run(argv)

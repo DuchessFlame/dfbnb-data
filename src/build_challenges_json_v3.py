@@ -35,7 +35,6 @@ import re
 from collections import defaultdict
 from pathlib import Path
 
-from patchlog_utils import diff_item_lists, _write_json, _git_show_json, write_empty_patchlog_feed
 import tsv_source          # one resolver for every export selection
 import plan_sources        # site-wide cut test (is_cut_content)
 
@@ -1874,49 +1873,4 @@ print(f"[challenges] Written: {out_path} ({out_path.stat().st_size:,} bytes)")
 for k, v in sorted(page_meta.items()):
     print(f"    {k}: {v['count']} items" if 'count' in v else f"    {k}: {v}")
 
-# Generate patchlog feed
-# Challenges structure has pages with items, plus quest_pages
-# Extract all challenge items from all pages for diffing
-def extract_all_challenges(data):
-    if not data:
-        return []
-    items = []
-    # Main challenge pages
-    pages = data.get('pages', {})
-    for page_name, page_data in pages.items():
-        if isinstance(page_data, dict):
-            items.extend(page_data.get('items', []))
-    # Quest pages
-    quest_pages = data.get('quest_pages', {})
-    for page_name, page_data in quest_pages.items():
-        if isinstance(page_data, dict):
-            items.extend(page_data.get('items', []))
-    return items
-
-dist_base = str(DIST_DIR.parent)  # Go up one level to dist/
-
-# The patch log is built by diffing the CHAL EXPORTS against each other, not by
-# diffing this file against its own previous git revision. The old way could only
-# ever report what we had already ingested: with the input sitting still, the
-# output sat still, and the page showed "today · Added 0 Removed 0 Changed 0"
-# every six hours whether or not the game had moved.
-import patchlog_utils as _pl
-
-_pl.write_export_patchlog(
-    dist_dir=dist_base,
-    feed_name='patchlog_latest_df_challenges.json',
-    record_type='CHAL',
-    key_col='FormID',
-    name_cols=('FULL', 'EDID'),
-    # Only these columns are worth reporting. A change in a column not listed is
-    # ignored, so export churn can never manufacture a patch note.
-    fields={
-        'SNAM': 'Required count',
-        'CNAM': 'Frequency',
-        'ENAM': 'Category',
-        'MNAM': 'Reward',
-        'FULL': 'Name',
-    },
-    current_count=len(extract_all_challenges(output)),
-)
 print("[challenges] Done.")

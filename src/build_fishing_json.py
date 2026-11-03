@@ -12,7 +12,6 @@ import sys
 import glob
 from datetime import datetime, timezone
 
-from patchlog_utils import write_patchlog_feed
 import tsv_source          # one resolver for every export selection
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -481,17 +480,6 @@ def main():
               (", Burning Springs detected" if has_burning_springs else "") +
               f" written to dist/fishing.json")
 
-        # Generate patchlog feed
-        write_patchlog_feed(
-            dist_dir=DIST_DIR,
-            feed_name="patchlog_latest_df_fishing.json",
-            current_items=list(fish_data.values()),
-            key_field="formId",
-            name_field="name",
-            compare_fields=["name", "size", "regions"],
-            prev_json_path="dist/fishing.json",
-            items_extractor=lambda d: d.get("fish", []),
-        )
 
     except Exception as e:
         print(f"[fishing] Error: {e}", file=sys.stderr)

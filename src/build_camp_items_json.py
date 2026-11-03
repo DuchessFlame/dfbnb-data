@@ -17,7 +17,6 @@ import sys
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set, Tuple
 
-from patchlog_utils import write_patchlog_feed, diff_item_lists
 
 # Shared drop-rate engine — single source of truth. This module used to carry
 # its own standalone copy of the LVLI resolver; it now delegates to rng76.py
@@ -1664,28 +1663,6 @@ def main():
         with open(os.path.join(args.outdir, fname), "w", encoding="utf-8") as f:
             json.dump(out, f, ensure_ascii=False, indent=2)
         print("[OK] {}: {} items".format(fname, len(items)), file=sys.stderr)
-    # Patchlog
-    combined = col_items + res_items
-    prev_combined = []
-    try:
-        import subprocess
-        for jf in ["dist/collectrons.json", "dist/resource_producers.json"]:
-            try:
-                cmd = ["git", "show", "HEAD^:" + jf]
-                o = subprocess.check_output(cmd, stderr=subprocess.DEVNULL, timeout=30)
-                prev_combined.extend(json.loads(o.decode("utf-8")).get("items", []))
-            except Exception:
-                pass
-    except Exception:
-        pass
-    entry = diff_item_lists(
-        prev_items=prev_combined, curr_items=combined, key_field="formId",
-        name_field="displayName,edid",
-        compare_fields=["displayName", "description", "production", "imageUrl"])
-    with open(os.path.join(args.outdir, "patchlog_latest_bnb_camp_items.json"), "w", encoding="utf-8") as f:
-        json.dump({"entries": [entry]}, f, ensure_ascii=False, indent=2)
-    print("[patchlog] current={} added={} removed={} changed={}".format(
-        entry['current'], len(entry["added"]), len(entry["removed"]), len(entry["changed"])), file=sys.stderr)
     if _UNRESOLVED_DROP_NAMES:
         print("[drop-names] {} dropped item(s) have no resolvable FULL name — "
               "showing cleaned EDID (add the matching record export to fix):".format(
