@@ -1975,9 +1975,10 @@ _Couldn't key this file to records; contents differ._
 ## `locations/all_locations.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `make_plan_checklist.json`  ·  +300 / -23 / ~101
+## `make_plan_checklist.json`  ·  +301 / -24 / ~101
 
-**Added (300)**
+**Added (301)**
+- Plan: X-01 Headlamp  `PLAN_0050195E`
 - Plan: Secret Settler Left Leg  `PLAN_007FFEEF`
 - Plan: Secret Settler Helmet  `PLAN_007FFEF0`
 - Plan: Secret Settler Right Leg  `PLAN_007FFEF1`
@@ -2017,10 +2018,10 @@ _Couldn't key this file to records; contents differ._
 - Plan: LMG Aligned Long Barrel  `PLAN_00947F36`
 - Plan: LMG Aligned Standard Barrel  `PLAN_00947F37`
 - Plan: LMG Aligned Stub Barrel  `PLAN_00947F38`
-- Plan: LMG Precise Stock  `PLAN_00947F39`
-- …and 260 more
+- …and 261 more
 
-**Removed (23)**
+**Removed (24)**
+- Plan: ProSnap Deluxe Targeting Lens  `PLAN_003F1215`
 - Deathclaw Leveling Backpack Flair  `RECIPE_008B507F`
 - Cat Leveling Backpack Flair  `RECIPE_008B5081`
 - Dog Leveling Backpack Flair  `RECIPE_008B5082`
@@ -2294,7 +2295,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi  `SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi` — fields: imageUrl
 - SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat  `SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat` — fields: imageUrl
 
-## `plan_master.json`  ·  +314 / -107 / ~1388
+## `plan_master.json`  ·  +314 / -107 / ~1422
 
 **Added (314)**
 - Plan: Brain In a Jar  `PLAN_008AC859`
@@ -2382,7 +2383,7 @@ _Couldn't key this file to records; contents differ._
 - Cursed Harpoon Gun  `UNIQ_CURSED_HARPOON_GUN`
 - …and 67 more
 
-**Changed (1388)**
+**Changed (1422)**
 - Mr. Handy Player Icon  `NWREWARD_003FBB46` — fields: image_source, images
 - Pocket Watch Player Icon  `NWREWARD_003FBB49` — fields: image_source, images
 - MegaSloth Player Icon  `NWREWARD_003FBB4B` — fields: image_source, images
@@ -2401,6 +2402,7 @@ _Couldn't key this file to records; contents differ._
 - Plan: Assault Rifle Fierce Receiver  `PLAN_00000871` — fields: obtain_ledger, obtain_routes, retired_routes
 - Plan: Assault Rifle Vigorous Receiver  `PLAN_00000872` — fields: obtain_ledger, obtain_routes, retired_routes
 - Plan: Assault Rifle Steadfast Receiver  `PLAN_00000873` — fields: obtain_ledger, obtain_routes, retired_routes
+- Plan: Alien Blaster Short NV Scope  `PLAN_00000D8D` — fields: plan_status, status_checked
 - Plan: Ultra-Light Build Robot Armor Chest  `PLAN_0001BF30` — fields: obtain_ledger, obtain_routes
 - Plan: BioCommMesh Robot Armor Lining  `PLAN_0001BF31` — fields: obtain_ledger, obtain_routes
 - Plan: Shadowed Robot Armor Chest  `PLAN_0001BF32` — fields: obtain_ledger, obtain_routes
@@ -2422,8 +2424,7 @@ _Couldn't key this file to records; contents differ._
 - Plan: BioCommMesh Combat Armor Lining  `PLAN_000224FB` — fields: obtain_ledger, obtain_routes, retired_routes
 - Plan: Lead Lined Combat Armor Chest  `PLAN_000224FC` — fields: obtain_ledger, obtain_routes, retired_routes
 - Plan: BoS Combat Armor Chest Piece  `PLAN_000224FD` — fields: obtain_ledger, obtain_routes
-- Plan: Cushioned Combat Armor Legs  `PLAN_00022E98` — fields: obtain_ledger, obtain_routes, retired_routes
-- …and 1348 more
+- …and 1382 more
 
 ## `plan_master_unresolved.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
