@@ -1283,6 +1283,15 @@ jobs:
           python src/build_fishing_challenges_checklist_json.py
           python src/build_fishing_challenges_checklist_json.py --pts
 
+      # --- FISHING ALL REWARDS CHECKLIST (/df/fishing/all-rewards-checklist/) ---
+      # Every unique reward from the fishing challenges (COBJ GNAM / GMRW /
+      # PLYT links) and the Big Fish daily plan pools. Reads the two files
+      # built just above, so it runs after them.
+      - name: Build Fishing All Rewards JSON
+        run: |
+          python src/build_fishing_all_rewards_json.py
+          python src/build_fishing_all_rewards_json.py --pts
+
       # --- SEASONS ---
       # Reads tsv/fallout76_seasons.tsv and emits dist/seasons.json — the
       # canonical season-number -> {name, dates, etc.} lookup. Consumed by

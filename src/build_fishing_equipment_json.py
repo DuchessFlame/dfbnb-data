@@ -473,6 +473,39 @@ def build():
                 new_count += 1
         boot_note = " [bootstrap: seeded existing as not-new]" if bootstrap else ""
 
+    # ---- Picture (Nov 2026) ----
+    # Rods, bobbers and floats live in the shared library folder
+    # guide-images/plan-checklist/fishing-rod/ (named after the item's EDID,
+    # lower case, .avif) so the Fishing Rod plan checklist and this page show
+    # the same picture. image_index answers by FormID / EDID; when it has
+    # nothing, the older rods-bobbers-float-skins/ copy is used if it is on the
+    # server. The page also falls back to imageBases + imageFilename itself.
+    try:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import image_index as _ii
+        _idx = _ii.load(verbose=False)
+    except Exception as _e:                      # pragma: no cover
+        print("[fishing-equipment] image_index unavailable:", _e)
+        _idx = None
+    no_img = []
+    for it in all_items:
+        url = ""
+        if _idx is not None:
+            e = _idx.entry(it["formId"], it["edid"])
+            if e and e.get("url"):
+                url = e["url"]
+            if not url:
+                lib = "/wp-content/uploads/guide-images/plan-checklist/fishing-rod/" + it["edid"].lower() + ".avif"
+                url = _idx.present(lib)
+            if not url:
+                base = IMAGE_BASE_ROD_SKIN if is_rod_skin(it["edid"]) else IMAGE_BASE_BOBBER
+                url = _idx.present(base + it["imageFilename"])
+        it["imageUrl"] = url
+        if not url:
+            no_img.append(it["name"])
+    if no_img:
+        print("[fishing-equipment] no image on the server yet: " + ", ".join(no_img))
+
     payload = {
         "generated": datetime.now(timezone.utc).isoformat(),
         "schemaVersion": 3,

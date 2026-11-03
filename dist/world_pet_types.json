@@ -267,6 +267,18 @@
           0.6,
           0.4,
           0.2
+        ],
+        "health": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "curveLevels": [
+          50,
+          100,
+          150,
+          200
         ]
       }
     }
@@ -283,7 +295,7 @@
     "unusedAltCaps": []
   },
   "levelling": {
-    "totalXp": 303770,
+    "totalXp": 607540,
     "xpCurve": [
       [
         1,
@@ -291,167 +303,167 @@
       ],
       [
         2,
-        210
+        420
       ],
       [
         5,
-        250
-      ],
-      [
-        10,
-        300
-      ],
-      [
-        15,
-        350
-      ],
-      [
-        20,
-        400
-      ],
-      [
-        25,
-        450
-      ],
-      [
-        30,
         500
       ],
       [
-        35,
-        550
-      ],
-      [
-        40,
+        10,
         600
       ],
       [
-        45,
-        650
-      ],
-      [
-        50,
+        15,
         700
       ],
       [
-        55,
-        775
+        20,
+        800
       ],
       [
-        60,
-        850
+        25,
+        900
       ],
       [
-        65,
-        925
-      ],
-      [
-        70,
+        30,
         1000
       ],
       [
-        75,
-        1075
+        35,
+        1100
       ],
       [
-        80,
-        1150
+        40,
+        1200
       ],
       [
-        85,
-        1225
-      ],
-      [
-        90,
+        45,
         1300
       ],
       [
-        95,
-        1375
+        50,
+        1400
       ],
       [
-        100,
-        1450
+        55,
+        1550
       ],
       [
-        105,
-        1525
+        60,
+        1700
       ],
       [
-        110,
-        1600
+        65,
+        1850
       ],
       [
-        115,
-        1675
+        70,
+        2000
       ],
       [
-        120,
-        1750
+        75,
+        2150
       ],
       [
-        125,
-        1825
-      ],
-      [
-        130,
-        1900
-      ],
-      [
-        135,
-        1975
-      ],
-      [
-        140,
-        2050
-      ],
-      [
-        145,
-        2125
-      ],
-      [
-        150,
-        2200
-      ],
-      [
-        155,
+        80,
         2300
       ],
       [
-        160,
-        2400
+        85,
+        2450
       ],
       [
-        165,
-        2500
-      ],
-      [
-        170,
+        90,
         2600
       ],
       [
-        175,
-        2700
+        95,
+        2750
       ],
       [
-        180,
-        2800
-      ],
-      [
-        185,
+        100,
         2900
       ],
       [
+        105,
+        3050
+      ],
+      [
+        110,
+        3200
+      ],
+      [
+        115,
+        3350
+      ],
+      [
+        120,
+        3500
+      ],
+      [
+        125,
+        3650
+      ],
+      [
+        130,
+        3800
+      ],
+      [
+        135,
+        3950
+      ],
+      [
+        140,
+        4100
+      ],
+      [
+        145,
+        4250
+      ],
+      [
+        150,
+        4400
+      ],
+      [
+        155,
+        4600
+      ],
+      [
+        160,
+        4800
+      ],
+      [
+        165,
+        5000
+      ],
+      [
+        170,
+        5200
+      ],
+      [
+        175,
+        5400
+      ],
+      [
+        180,
+        5600
+      ],
+      [
+        185,
+        5800
+      ],
+      [
         190,
-        3000
+        6000
       ],
       [
         195,
-        3100
+        6200
       ],
       [
         200,
-        3200
+        6400
       ]
     ],
     "tickSeconds": 60,
@@ -506,57 +518,71 @@
         "hp": 1981
       },
       {
+        "lvl": 25,
+        "hp": 10140
+      },
+      {
         "lvl": 50,
-        "hp": 19871
+        "hp": 19922
+      },
+      {
+        "lvl": 75,
+        "hp": 32150
       },
       {
         "lvl": 100,
-        "hp": 48628
+        "hp": 48992
+      },
+      {
+        "lvl": 125,
+        "hp": 74530
       },
       {
         "lvl": 150,
-        "hp": 114518
+        "hp": 116459
       }
     ],
     "baseDamage": [
       {
         "lvl": 1,
         "dmg": [
-          40,
-          80,
-          121,
-          161,
-          201
+          40
+        ]
+      },
+      {
+        "lvl": 25,
+        "dmg": [
+          50
         ]
       },
       {
         "lvl": 50,
         "dmg": [
-          62,
-          125,
-          187,
-          249,
-          311
+          62
+        ]
+      },
+      {
+        "lvl": 75,
+        "dmg": [
+          78
         ]
       },
       {
         "lvl": 100,
         "dmg": [
-          97,
-          194,
-          291,
-          388,
-          485
+          97
+        ]
+      },
+      {
+        "lvl": 125,
+        "dmg": [
+          121
         ]
       },
       {
         "lvl": 150,
         "dmg": [
-          151,
-          302,
-          453,
-          604,
-          755
+          151
         ]
       }
     ],
@@ -604,9 +630,10 @@
         "mult": 0.2
       }
     ],
+    "curveSource": "CURV_Export_October_2026_POINTS.tsv",
     "resistances": 0,
     "levelling": {
-      "totalXp": 303770
+      "totalXp": 607540
     },
     "commands": [
       {
@@ -663,9 +690,9 @@
         4
       ],
       "sig2Mag": [
-        null,
-        null,
-        null
+        25,
+        50,
+        75
       ],
       "activity": "Catch Fish with an active Pet Cat",
       "treasure": {
@@ -727,7 +754,38 @@
           ],
           "trigger": "catch",
           "intervalMin": null,
-          "ranks": []
+          "ranks": [
+            {
+              "rank": 1,
+              "item": "Legendary Item",
+              "itemEdid": "",
+              "qty": 25,
+              "qtyStatic": 25,
+              "entitlement": "",
+              "entitlementMissing": false,
+              "fromGlob": "WorldPets_Buff_Cat_megabits01"
+            },
+            {
+              "rank": 2,
+              "item": "Legendary Item",
+              "itemEdid": "",
+              "qty": 50,
+              "qtyStatic": 50,
+              "entitlement": "",
+              "entitlementMissing": false,
+              "fromGlob": "WorldPets_Buff_Cat_megabits02"
+            },
+            {
+              "rank": 3,
+              "item": "Legendary Item",
+              "itemEdid": "",
+              "qty": 75,
+              "qtyStatic": 75,
+              "entitlement": "",
+              "entitlementMissing": false,
+              "fromGlob": "WorldPets_Buff_Cat_megabits03"
+            }
+          ]
         }
       },
       "foodTypes": [
@@ -1869,9 +1927,9 @@
         2
       ],
       "sig2Mag": [
-        null,
-        null,
-        null
+        1,
+        1,
+        1
       ],
       "activity": "Complete Grunt Hunts with an active Pet Dog",
       "treasure": {
@@ -1933,7 +1991,38 @@
           ],
           "trigger": "grunt-hunt",
           "intervalMin": null,
-          "ranks": []
+          "ranks": [
+            {
+              "rank": 1,
+              "item": "Legendary Item",
+              "itemEdid": "",
+              "qty": 1,
+              "qtyStatic": 1,
+              "entitlement": "",
+              "entitlementMissing": false,
+              "fromGlob": "WorldPets_Buff_Dog_bounty01"
+            },
+            {
+              "rank": 2,
+              "item": "Legendary Item",
+              "itemEdid": "",
+              "qty": 1,
+              "qtyStatic": 1,
+              "entitlement": "",
+              "entitlementMissing": false,
+              "fromGlob": "WorldPets_Buff_Dog_bounty02"
+            },
+            {
+              "rank": 3,
+              "item": "Legendary Item",
+              "itemEdid": "",
+              "qty": 1,
+              "qtyStatic": 1,
+              "entitlement": "",
+              "entitlementMissing": false,
+              "fromGlob": "WorldPets_Buff_Dog_bounty03"
+            }
+          ]
         }
       },
       "foodTypes": [
@@ -2872,9 +2961,9 @@
         3
       ],
       "sig2Mag": [
-        null,
-        null,
-        null
+        25,
+        50,
+        75
       ],
       "activity": "Collect Flux with an active Pet Radhog",
       "treasure": {
@@ -2936,7 +3025,38 @@
           ],
           "trigger": "nuke-zone",
           "intervalMin": null,
-          "ranks": []
+          "ranks": [
+            {
+              "rank": 1,
+              "item": "Legendary Item",
+              "itemEdid": "",
+              "qty": 25,
+              "qtyStatic": 25,
+              "entitlement": "",
+              "entitlementMissing": false,
+              "fromGlob": "WorldPets_Buff_Radhog_nukeharvest01"
+            },
+            {
+              "rank": 2,
+              "item": "Legendary Item",
+              "itemEdid": "",
+              "qty": 50,
+              "qtyStatic": 50,
+              "entitlement": "",
+              "entitlementMissing": false,
+              "fromGlob": "WorldPets_Buff_Radhog_nukeharvest02"
+            },
+            {
+              "rank": 3,
+              "item": "Legendary Item",
+              "itemEdid": "",
+              "qty": 75,
+              "qtyStatic": 75,
+              "entitlement": "",
+              "entitlementMissing": false,
+              "fromGlob": "WorldPets_Buff_Radhog_nukeharvest03"
+            }
+          ]
         }
       },
       "foodTypes": [

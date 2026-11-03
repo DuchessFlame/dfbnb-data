@@ -141,6 +141,48 @@ for g in GMRW:
         if k and k.startswith("Ref") and v and v.endswith(":CHAL"):
             gmrw_reward_by_chal[v.split(":")[0].upper()] = label
 
+# ---------------------------------------------------------------------------
+# Title rewards — the tier-3 challenges pay a Player Title or a C.A.M.P. Title
+# (CHAL MNAM "Player Title: Veterinarian" / "C.A.M.P. Title: Cattery"). Look the
+# title up in the PLYT / CMPT exports (WorldPets records only) so the reward
+# carries its real prefix / suffix and EDID. The page's title-art script reads
+# reward_items[].name + .edid and puts the right name-tag picture on it.
+# ---------------------------------------------------------------------------
+def _title_index():
+    idx = {}
+    for kind, pat, ed_keys, name_keys, pre_keys in (
+        ("player", "PLYT_Export_*.tsv", ("EDID - Editor ID", "EDID"), ("ANAM - Male Title", "ANAM"), ("PTPR - Is Prefix", "PTPR")),
+        ("camp",   "CMPT_Export_*.tsv", ("EDID",), ("ANAM",), ("PTPR",)),
+    ):
+        for r in read_tsv(newest(pat)):
+            ed = pick(r, *ed_keys)
+            if "WorldPets" not in ed or ed.lower().startswith("zzz"):
+                continue
+            nm = pick(r, *name_keys).strip()
+            if nm:
+                idx[(kind, nm.lower())] = {
+                    "edid": ed,
+                    "affix": "prefix" if pick(r, *pre_keys).strip().lower() == "true" else "suffix",
+                }
+    return idx
+
+TITLE_IDX = _title_index()
+TITLE_RE = re.compile(r"^\s*(player|c\.?a\.?m\.?p\.?)\s+title\s*:\s*(.+?)\s*$", re.I)
+
+def reward_items_for(reward):
+    """[{name, edid, kind}] for the Reward card. Titles get their affix in the
+    name ("Player Title Prefix: Veterinarian") so the title-art script picks the
+    right blank / real art."""
+    m = TITLE_RE.match(reward or "")
+    if not m:
+        return [{"name": reward, "kind": "currency"}] if reward else []
+    kind = "player" if m.group(1).lower().startswith("p") else "camp"
+    title = m.group(2).strip().strip('"')
+    hit = TITLE_IDX.get((kind, title.lower()), {})
+    label = ("Player Title" if kind == "player" else "C.A.M.P. Title") + \
+        (" " + hit["affix"].capitalize() if hit.get("affix") else "")
+    return [{"name": f"{label}: {title}", "edid": hit.get("edid", ""), "kind": f"{kind}-title"}]
+
 kywd_by_fid = {pick(r, "FormID").upper(): r for r in KYWD if pick(r, "FormID")}
 cndf_by_fid = {pick(r, "FormID").upper(): r for r in CNDF if pick(r, "FormID")}
 entm_by_fid = {pick(r, "FormID"): r for r in ENTM if pick(r, "FormID")}
@@ -351,6 +393,13 @@ for r in wp_rows:
         "counter":   pick(r, "SNAM").lstrip(),
         "desc":      desc,
         "reward":    reward,
+        "reward_items": reward_items_for(reward),
+        # Tier II rows: their old Atoms reward records are retired (zzz_) and
+        # nothing else pays out, so the files give no reward for these tiers.
+        "reward_note": ("" if reward else
+                        "This tier has no reward in the game files. Its old Atoms reward was removed."),
+        "scope":     "Lifetime",
+        "classification": pick(r, "CNAM").strip() or "Lifetime",
         "conditions_display": conditions_display(extract_conditions(r)),
     }
     groups_map.setdefault(group_label, []).append(item)

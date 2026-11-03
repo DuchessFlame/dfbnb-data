@@ -554,6 +554,81 @@ def parse_fish_edid(edid):
 
 # ── Main ─────────────────────────────────────────────────────────────────────
 
+
+# ── Pool splits read from the leveled lists ──────────────────────────────────
+# The cascade's "Generic Fish" step does not pick evenly from all generics. It
+# goes to Fishing_LLS_FishCollection_AllGenerics_SmallPrio (Common bait) or
+# _MediumPrio (Improved bait): a First Match list whose first entry is
+# GetRandomPercent <= N (67 in the Oct 2026 export) for the preferred size, the
+# rest falling to the other size. Each size list is then a plain pick-one.
+# The Weekend Seasonal Fish lists are weighted picks (LVLF bit 9): the entry
+# "ChanceNone" slots are pick weights (Common 110/150/100, Improved 60/40).
+# Both are read here so a Bethesda change shows up on the next build.
+_GENERIC_PRIO_LISTS = {
+    "Common":   ("Fishing_LLS_FishCollection_AllGenerics_SmallPrio", "Small", "Medium"),
+    "Improved": ("Fishing_LLS_FishCollection_AllGenerics_MediumPrio", "Medium", "Small"),
+}
+_WEEKEND_LISTS = {
+    "Common":   "Fishing_LL_LTT_WeekendSeasonalFish_CommonBaited",
+    "Improved": "Fishing_LL_LTT_WeekendSeasonalFish_ImprovedBaited",
+    "Superb":   "Fishing_LL_LTT_WeekendSeasonalFish_SuperbBaited",
+}
+_WEEKEND_KEY = [("SeasonalFish_Uncommon", "seasonalUncommon"),
+                ("AllGenerics_MediumPrio", "genericMedium"),
+                ("AllGenerics_SmallPrio", "genericSmall"),
+                ("AllSawgills", "sawgills"),
+                ("LL_Junk", "junk")]
+
+
+def _lvli_entries_by_edid(lvli_entries_file):
+    out = {}
+    for row in _wb_read_rows(lvli_entries_file)[1:]:
+        if len(row) > 3:
+            out.setdefault(row[1].strip(), []).append(row)
+    return out
+
+
+def parse_generic_split(lvli_entries_file):
+    """{"Common": {"Small": 67, "Medium": 33}, "Improved": {...}} or None."""
+    by = _lvli_entries_by_edid(lvli_entries_file)
+    out = {}
+    for bait, (edid, first, second) in _GENERIC_PRIO_LISTS.items():
+        rows = by.get(edid) or []
+        if not rows:
+            return None
+        m = re.search(r"GetRandomPercent\([^)]*\)\s+[01]{8}\s+([0-9.]+)", "\t".join(rows[0]))
+        if not m:
+            return None
+        pct = float(m.group(1))
+        if "Generic_" + first not in rows[0][3]:
+            return None
+        out[bait] = {first: round(pct, 2), second: round(100 - pct, 2)}
+    return out
+
+
+def parse_weekend_pools(lvli_entries_file):
+    """Weighted-pick weights per bait, keyed like the old hard-coded block."""
+    by = _lvli_entries_by_edid(lvli_entries_file)
+    out = {}
+    for bait, edid in _WEEKEND_LISTS.items():
+        rows = by.get(edid) or []
+        if not rows:
+            return None
+        pools = {}
+        for r in rows:
+            ref = r[3]
+            key = next((k for tok, k in _WEEKEND_KEY if tok in ref), None)
+            if not key:
+                return None
+            try:
+                w = float(r[5]) if len(r) > 5 and r[5].strip() else 0.0
+            except ValueError:
+                w = 0.0
+            # Superb is a plain pick-one of one entry: weight 0 means "all of it".
+            pools[key] = int(w) if w else 100
+        out[bait] = pools
+    return out
+
 def main():
     try:
         fish_file = find_latest_tsv("FISH_Export_*.tsv")
@@ -797,13 +872,20 @@ def main():
         }
 
         # Weekend seasonal fish event data
+        weekend_pools = parse_weekend_pools(lvli_entries_file) or {
+            "Common":   {"seasonalUncommon": 110, "genericMedium": 150, "junk": 100},
+            "Improved": {"seasonalUncommon": 60,  "sawgills": 40},
+            "Superb":   {"seasonalUncommon": 100},
+        }
         weekend_seasonal = {
             "odds": round(weekend_seasonal_fish_odds, 2),
-            "baitPools": {
-                "Common":   {"seasonalUncommon": 110, "genericMedium": 150, "junk": 100},
-                "Improved": {"seasonalUncommon": 60,  "sawgills": 40},
-                "Superb":   {"seasonalUncommon": 100},
-            },
+            "baitPools": weekend_pools,
+        }
+
+        # Generic Fish step: size first (First Match), then 1 of N in that size.
+        generic_split = parse_generic_split(lvli_entries_file) or {
+            "Common":   {"Small": 67.0, "Medium": 33.0},
+            "Improved": {"Medium": 67.0, "Small": 33.0},
         }
 
         # Assemble output
@@ -821,6 +903,7 @@ def main():
             "seasonalFish": seasonal_fish_list,
             "waterloggedGifts": waterlogged_gifts,
             "weekendSeasonalFish": weekend_seasonal,
+            "genericSplit": generic_split,
         }
 
         # Generative "What's Biting" public-events list (Improved Bait sources).

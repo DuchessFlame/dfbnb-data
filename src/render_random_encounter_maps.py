@@ -28,28 +28,12 @@ RollinsLaborCamp01 interior; it has no exterior position and is reported, not dr
 
 OUTPUT (under --out, default "Guides and Stuff\.Random Encounters")
 ======
-<<<<<<< Updated upstream
 POOLS (Duchess, 21 Oct 2026). Skyline Valley and Burning Springs run their OWN
 encounter pools - a Storm_RETrigger* point only ever fires a Skyline Valley
 encounter, a Burn_RETrigger* point only a Burning Springs one, and a bare RETrigger*
 point only an Appalachia one (launch, Wastelanders, Steel Dawn BS_, Blue Moon ...).
 Putting them on one map sends players to Burning Springs for an Appalachia-only
 encounter, so every map is ONE pool. The pool is read from the trigger's base EDID.
-=======
-The local layout MIRRORS the server folder one-for-one, so each folder is dragged
-straight across in FileZilla and every page links the ONE hosted copy
-(/wp-content/uploads/guide-images/random-encounters/...). Never copy these maps into
-another guide's folder - point the page at the server path below instead.
-
-  <root>/random-encounters-full-map.jpg          all types, colour per type
-  <root>/random-encounters-numbered-map.jpg
-  <root>/<region>-spawn-map.jpg                  e.g. the-mire-spawn-map.jpg
-  <root>/<folder>/<folder>-full-map.jpg          folder = SERVER_DIR below
-  <root>/<folder>/<folder>-numbered-map.jpg      (object, scene, travel, camp,
-  <root>/<folder>/<region>-spawn-map.jpg          assault, whitesprings, mining)
-
-Server: guide-images/random-encounters/  (+ /<folder>/ for each type)
->>>>>>> Stashed changes
 
 The local layout MIRRORS the server folder one-for-one
 (/wp-content/uploads/guide-images/random-encounters/...), so a folder is dragged
@@ -123,7 +107,6 @@ def slug(text):
     return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
 
 
-<<<<<<< Updated upstream
 # trigger EDID prefix -> pool (folder name, title)
 POOLS = {"": ("appalachia", "Appalachia"),
          "Storm": ("skyline-valley", "Skyline Valley"),
@@ -137,15 +120,13 @@ def pool_of(eid):
     return POOLS.get(pre, POOLS[""])
 
 
-=======
->>>>>>> Stashed changes
 PET_NOTE = "Tameable pets can be found at Scene encounter locations."
 
 # key -> (folder / legend label, trigger base EDID, quest EDID prefix, dot colour)
 # Order is the legend order on the all-encounters map.
 TYPES = {
     "object":      ("Object",              "RETriggerObject",             "RE_Object",             (255, 193, 7)),
-    "scene":       ("Scene",               "RETriggerScene",              "RE_Scene",              (224, 64, 224)),
+    "scene":       ("Scene",               "RETriggerScene",              "RE_Scene",              (240, 228, 66)),   # yellow - no purple on maps (Duchess)
     "travel":      ("Travel",              "RETriggerTravel",             "RE_Travel",             (41, 182, 246)),
     "camp":        ("CAMP",                "RETriggerCamp",               "RE_Camp",               (102, 187, 106)),
     "assault":     ("Assault",             "RETriggerAssault",            "RE_Assault",            (229, 57, 53)),
@@ -301,7 +282,6 @@ def render(stem, title, layers, out_dir, to_px, boxes, note=None, zoom=False, ti
         rsm.draw_outlined_text(dn, (r["px"] + rsm.DOT_D, r["py"] - 34), str(i), f, w=3)
     numbered_raw = numbered.copy()          # tiles crop this: no legend, not zoomed
 
-<<<<<<< Updated upstream
     if zoom:
         box = _crop_box(rows)
         outs = []
@@ -415,46 +395,6 @@ def write_photo_list(folder, sets):
                 stem = slug(e["name"])
                 fh.write(f"{tdir}\tencounter\t\t{e['name']}\t\t\tencounter-photos/{stem}\t"
                          f"{'yes' if have(enc_dir, stem) else ''}\n")
-=======
-    # flat, server-named files (see OUTPUT above): one folder = one server folder
-    os.makedirs(out_dir, exist_ok=True)
-    stem = "random-encounters" if name == "all" else SERVER_DIR[name]
-    map_watermark.apply(plain).save(os.path.join(out_dir, f"{stem}-full-map.jpg"),
-                                    "JPEG", quality=88, optimize=True)
-    map_watermark.apply(numbered).save(
-        os.path.join(out_dir, f"{stem}-numbered-map.jpg"),
-        "JPEG", quality=88, optimize=True)
-
-    by_region = defaultdict(list)
-    for r in rows:
-        by_region[r["region"]].append(r)
-    tiles = 0
-    for region, rrows in sorted(by_region.items()):
-        box = boxes.get(region)
-        if box:
-            x0, y0 = to_px(box[0], box[3])
-            x1, y1 = to_px(box[2], box[1])
-        else:
-            xs = [r["px"] for r in rrows]; ys = [r["py"] for r in rrows]
-            x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
-        pad = 120
-        x0 = max(0, int(x0 - pad)); y0 = max(0, int(y0 - pad))
-        x1 = min(S, int(x1 + pad)); y1 = min(S, int(y1 + pad))
-        if x1 - x0 < 200 or y1 - y0 < 200:
-            cx, cy = (x0 + x1) // 2, (y0 + y1) // 2
-            x0, x1 = max(0, cx - 400), min(S, cx + 400)
-            y0, y1 = max(0, cy - 400), min(S, cy + 400)
-        crop = numbered.crop((x0, y0, x1, y1))
-        w, h = crop.size
-        crop = crop.resize((TILE_WIDTH, max(1, int(h * TILE_WIDTH / w))), Image.LANCZOS)
-        if note:
-            draw_note_box(crop, note)
-        crop = map_watermark.apply(crop, corner="bottom-right")
-        crop.save(os.path.join(out_dir, f"{slug(region)}-spawn-map.jpg"),
-                  "JPEG", quality=88, optimize=True)
-        tiles += 1
-    print(f"  {name:12} points={len(rows):4} regions={tiles}")
->>>>>>> Stashed changes
 
 
 # ---------------------------------------------------------------- main
@@ -521,7 +461,6 @@ def main():
         if k not in args.types:
             continue
         label = TYPES[k][0]
-<<<<<<< Updated upstream
         for pool in POOL_ORDER:
             pts = [dict(p) for p in trig[k] if p["pool"] == pool]
             if not pts:
@@ -539,12 +478,6 @@ def main():
             print(f"  (photo list for {os.path.basename(folder)} left as is - run all types to refresh it)")
             continue
         write_photo_list(folder, sets)
-=======
-        render(k, f"{label} Random Encounters", [(k, [dict(p) for p in trig[k]])],
-               os.path.join(args.out, SERVER_DIR[k]), to_px, boxes,
-               note=PET_NOTE if k == "scene" else None)
-
->>>>>>> Stashed changes
 
 if __name__ == "__main__":
     main()

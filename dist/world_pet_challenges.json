@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-03T06:09:32.320022Z",
+  "generated": "2026-11-03T13:20:24.819281Z",
   "source": "CHAL/CNDF TSV exports (build_world_pet_challenges_json.py)",
   "total": 20,
   "groups": [
@@ -19,6 +19,15 @@
           "counter": "World Pet Activated",
           "desc": "Activate a World Pet from your Pip-Boy. Only one pet can be active at a time.",
           "reward": "50 Caps",
+          "reward_items": [
+            {
+              "name": "50 Caps",
+              "kind": "currency"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Lifetime",
+          "classification": "Lifetime",
           "conditions_display": [
             ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
           ]
@@ -36,6 +45,15 @@
           "counter": "World Pet Commanded",
           "desc": "Issue a command to your active pet from the Pet Command Wheel (Follow, Stay, Attack or Protect).",
           "reward": "50 Caps",
+          "reward_items": [
+            {
+              "name": "50 Caps",
+              "kind": "currency"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Lifetime",
+          "classification": "Lifetime",
           "conditions_display": [
             ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
           ]
@@ -53,6 +71,10 @@
           "counter": "World Pet Healed",
           "desc": "Heal your active pet with a Stimpak when it is hurt or wounded.",
           "reward": "",
+          "reward_items": [],
+          "reward_note": "This tier has no reward in the game files. Its old Atoms reward was removed.",
+          "scope": "Lifetime",
+          "classification": "Lifetime",
           "conditions_display": [
             ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
           ]
@@ -70,6 +92,10 @@
           "counter": "World Pet Healed",
           "desc": "Heal your active pet with a Stimpak when it is hurt or wounded.",
           "reward": "",
+          "reward_items": [],
+          "reward_note": "This tier has no reward in the game files. Its old Atoms reward was removed.",
+          "scope": "Lifetime",
+          "classification": "Lifetime",
           "conditions_display": [
             ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
           ]
@@ -87,6 +113,16 @@
           "counter": "World Pet Healed",
           "desc": "Heal your active pet with a Stimpak when it is hurt or wounded.",
           "reward": "Player Title: Veterinarian",
+          "reward_items": [
+            {
+              "name": "Player Title Prefix: Veterinarian",
+              "edid": "WorldPets_PlayerTitles_Prefix_AnyPet01",
+              "kind": "player-title"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Lifetime",
+          "classification": "Lifetime",
           "conditions_display": [
             ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
           ]
@@ -104,6 +140,10 @@
           "counter": "Total Enemies Killed",
           "desc": "Have your active World Pet land the killing blow on hostiles.",
           "reward": "",
+          "reward_items": [],
+          "reward_note": "This tier has no reward in the game files. Its old Atoms reward was removed.",
+          "scope": "Lifetime",
+          "classification": "Lifetime",
           "conditions_display": [
             ".CHAL_DoesTargetWeaponHaveKeyword(World Pets Unarmed [KYWD:008C90FB]) = 1",
             ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
@@ -122,6 +162,10 @@
           "counter": "Total Enemies Killed",
           "desc": "Have your active World Pet land the killing blow on hostiles.",
           "reward": "",
+          "reward_items": [],
+          "reward_note": "This tier has no reward in the game files. Its old Atoms reward was removed.",
+          "scope": "Lifetime",
+          "classification": "Lifetime",
           "conditions_display": [
             ".CHAL_DoesTargetWeaponHaveKeyword(World Pets Unarmed [KYWD:008C90FB]) = 1",
             ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
@@ -140,6 +184,16 @@
           "counter": "Total Enemies Killed",
           "desc": "Have your active World Pet land the killing blow on hostiles.",
           "reward": "Player Title: Predator",
+          "reward_items": [
+            {
+              "name": "Player Title Prefix: Predator",
+              "edid": "WorldPets_PlayerTitles_Prefix_AnyPet02",
+              "kind": "player-title"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Lifetime",
+          "classification": "Lifetime",
           "conditions_display": [
             ".CHAL_DoesTargetWeaponHaveKeyword(World Pets Unarmed [KYWD:008C90FB]) = 1",
             ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
@@ -163,6 +217,15 @@
           "counter": "Fish Caught",
           "desc": "Catch fish while a Pet Cat is your active World Pet.",
           "reward": "300 Caps",
+          "reward_items": [
+            {
+              "name": "300 Caps",
+              "kind": "currency"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Lifetime",
+          "classification": "Lifetime",
           "conditions_display": [
             ".HasKeyword(Cat [KYWD:0079AF1D]) = 1"
           ]
@@ -180,6 +243,10 @@
           "counter": "Fish Caught",
           "desc": "Catch fish while a Pet Cat is your active World Pet.",
           "reward": "",
+          "reward_items": [],
+          "reward_note": "This tier has no reward in the game files. Its old Atoms reward was removed.",
+          "scope": "Lifetime",
+          "classification": "Lifetime",
           "conditions_display": [
             ".HasKeyword(Cat [KYWD:0079AF1D]) = 1"
           ]
@@ -197,6 +264,16 @@
           "counter": "Fish Caught",
           "desc": "Catch fish while a Pet Cat is your active World Pet.",
           "reward": "C.A.M.P. Title: Cattery",
+          "reward_items": [
+            {
+              "name": "C.A.M.P. Title Prefix: Cattery",
+              "edid": "WorldPets_CampTitles_Prefix_LifetimeChallenge_Cat01",
+              "kind": "camp-title"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Lifetime",
+          "classification": "Lifetime",
           "conditions_display": [
             ".HasKeyword(Cat [KYWD:0079AF1D]) = 1"
           ]
@@ -219,6 +296,15 @@
           "counter": "Quests Completed",
           "desc": "Complete Grunt Hunts or Head Hunts while a Pet Dog is active.",
           "reward": "300 Caps",
+          "reward_items": [
+            {
+              "name": "300 Caps",
+              "kind": "currency"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Lifetime",
+          "classification": "Lifetime",
           "conditions_display": [
             ".HasKeyword(Dog [KYWD:0079AF1C]) = 1",
             "Target.IsInList(Burn Bounty Completed Head Hunts [FLST:00843165]) = 1",
@@ -238,6 +324,10 @@
           "counter": "Quests Completed",
           "desc": "Complete Grunt Hunts or Head Hunts while a Pet Dog is active.",
           "reward": "",
+          "reward_items": [],
+          "reward_note": "This tier has no reward in the game files. Its old Atoms reward was removed.",
+          "scope": "Lifetime",
+          "classification": "Lifetime",
           "conditions_display": [
             ".HasKeyword(Dog [KYWD:0079AF1C]) = 1",
             "Target.IsInList(Burn Bounty Completed Head Hunts [FLST:00843165]) = 1",
@@ -257,6 +347,16 @@
           "counter": "Quests Completed",
           "desc": "Complete Grunt Hunts or Head Hunts while a Pet Dog is active.",
           "reward": "C.A.M.P. Title: Kennel",
+          "reward_items": [
+            {
+              "name": "C.A.M.P. Title Prefix: Kennel",
+              "edid": "WorldPets_CampTitles_Prefix_LifetimeChallenge_Dog01",
+              "kind": "camp-title"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Lifetime",
+          "classification": "Lifetime",
           "conditions_display": [
             ".HasKeyword(Dog [KYWD:0079AF1C]) = 1",
             "Target.IsInList(Burn Bounty Completed Head Hunts [FLST:00843165]) = 1",
@@ -281,6 +381,15 @@
           "counter": "Plants Harvested",
           "desc": "Collect Flux while a Pet Radhog is active.",
           "reward": "300 Caps",
+          "reward_items": [
+            {
+              "name": "300 Caps",
+              "kind": "currency"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Lifetime",
+          "classification": "Lifetime",
           "conditions_display": [
             ".HasKeyword(Radhog [KYWD:0084FB8C]) = 1",
             "Target.HasKeyword(PlantTypeFluxYellow [KYWD:004713D0]) = 1",
@@ -303,6 +412,10 @@
           "counter": "Plants Harvested",
           "desc": "Collect Flux while a Pet Radhog is active.",
           "reward": "",
+          "reward_items": [],
+          "reward_note": "This tier has no reward in the game files. Its old Atoms reward was removed.",
+          "scope": "Lifetime",
+          "classification": "Lifetime",
           "conditions_display": [
             ".HasKeyword(Radhog [KYWD:0084FB8C]) = 1",
             "Target.HasKeyword(PlantTypeFluxYellow [KYWD:004713D0]) = 1",
@@ -325,6 +438,16 @@
           "counter": "Plants Harvested",
           "desc": "Collect Flux while a Pet Radhog is active.",
           "reward": "C.A.M.P. Title: PigPen",
+          "reward_items": [
+            {
+              "name": "C.A.M.P. Title Prefix: PigPen",
+              "edid": "WorldPets_CampTitles_Prefix_LifetimeChallenge_Radhog01",
+              "kind": "camp-title"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Lifetime",
+          "classification": "Lifetime",
           "conditions_display": [
             ".HasKeyword(Radhog [KYWD:0084FB8C]) = 1",
             "Target.HasKeyword(PlantTypeFluxYellow [KYWD:004713D0]) = 1",
@@ -352,6 +475,15 @@
           "counter": "Total Enemies Killed",
           "desc": "Kill Infestation enemies while a Pet Deathclaw is active.",
           "reward": "300 Caps",
+          "reward_items": [
+            {
+              "name": "300 Caps",
+              "kind": "currency"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Lifetime",
+          "classification": "Lifetime",
           "conditions_display": [
             ".HasKeyword(Deathclaw [KYWD:008A52BB]) = 1",
             ".PlayerHasQuest(Infestation [QUST:00865FA8]) = 1"
@@ -370,6 +502,10 @@
           "counter": "Total Enemies Killed",
           "desc": "Kill Infestation enemies while a Pet Deathclaw is active.",
           "reward": "",
+          "reward_items": [],
+          "reward_note": "This tier has no reward in the game files. Its old Atoms reward was removed.",
+          "scope": "Lifetime",
+          "classification": "Lifetime",
           "conditions_display": [
             ".HasKeyword(Deathclaw [KYWD:008A52BB]) = 1",
             ".PlayerHasQuest(Infestation [QUST:00865FA8]) = 1"
@@ -388,6 +524,16 @@
           "counter": "Total Enemies Killed",
           "desc": "Kill Infestation enemies while a Pet Deathclaw is active.",
           "reward": "C.A.M.P. Title: Lair",
+          "reward_items": [
+            {
+              "name": "C.A.M.P. Title Prefix: Lair",
+              "edid": "WorldPets_CampTitles_Prefix_LifetimeChallenge_Deathclaw01",
+              "kind": "camp-title"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Lifetime",
+          "classification": "Lifetime",
           "conditions_display": [
             ".HasKeyword(Deathclaw [KYWD:008A52BB]) = 1",
             ".PlayerHasQuest(Infestation [QUST:00865FA8]) = 1"

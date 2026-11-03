@@ -1448,6 +1448,8 @@ jobs:
         run: python src/build_fishing_daily_rewards_json.py
       - name: Build Fishing Challenges Checklist JSON
         run: python src/build_fishing_challenges_checklist_json.py
+      - name: Build Fishing All Rewards JSON
+        run: python src/build_fishing_all_rewards_json.py
 
       # --- SEASONS ---
       # Reads tsv/fallout76_seasons.tsv and emits dist/seasons.json — the

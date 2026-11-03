@@ -841,21 +841,6 @@
             "dmg_all": 1,
             "fire_res": 0.3
           }
-        },
-        "support": {
-          "label": "Support / Team Healer",
-          "ranged": true,
-          "skip": [
-            "damage_type"
-          ],
-          "weights": {
-            "stimpak_heal": 0.6,
-            "cha": 1,
-            "max_hp": 0.8,
-            "heal_rate": 0.6,
-            "ap": 0.3,
-            "end": 0.3
-          }
         }
       }
     },
@@ -880,7 +865,6 @@
             "dr": 0.5,
             "er": 0.5,
             "per": 0.6,
-            "cha": 0.6,
             "int": 0.6,
             "agi": 0.6,
             "ap": 0.4,
@@ -1076,7 +1060,8 @@
             "vats_acc": 0.8,
             "ap_regen": 0.7,
             "luck": 0.8,
-            "agi": 0.6
+            "agi": 0.6,
+            "ap_refill": 0.5
           },
           "fallback_add": {
             "ap": 0.5
@@ -1254,14 +1239,12 @@
           "goals": {
             "xp": 1
           },
-          "add": {
-            "cha": 1
-          },
+          "add": {},
           "fallback_add": {
             "xp": 1,
             "int": 0.7
           },
-          "note": "XP: XP buffs, Intelligence, and Charisma in a team."
+          "note": "XP: XP buffs and Intelligence."
         }
       }
     },
@@ -1380,7 +1363,8 @@
         "barter": {
           "label": "Better prices when trading with NPCs",
           "add": {
-            "barter": 1
+            "barter": 1,
+            "cha": 1
           }
         },
         "detect": {
@@ -1464,7 +1448,7 @@
       "link": "/bnb/specials-stats/endurance/endurance-guide/"
     },
     "cha": {
-      "t": "Charisma gets you better prices when you trade with NPC vendors (not other players), and more XP when you're in a team.",
+      "t": "Charisma makes your Inspirational, Bodyguards or Lone Wanderer perk card stronger, and gets you better prices with NPC vendors (not other players).",
       "link": "/bnb/specials-stats/charisma/charisma-guide/"
     },
     "int": {
@@ -1736,10 +1720,7 @@
   "_team_play_readme": "Weights added by the Solo / In a team page option (not a question). Kat 27 Oct: Charisma is wanted in a team (Inspirational: Charisma-keyed XP for you and an XP aura for teammates, only in a team), when XP is important, or when exploring & looting (barter). Solo + XP not important + combat = no Charisma.",
   "team_play": {
     "team": {
-      "add": {
-        "cha": 0.6
-      },
-      "note": "In a team: Charisma means more XP for you and your team."
+      "add": {}
     }
   },
   "_damage_first_readme": "Chems and alcohol only get ONE slot each (dispel groups), so that slot goes to DAMAGE OUTPUT: buffs in the 'Damage' slot group count in full, everything else counts at non_damage_share. Carry Weight also counts in full when they say they struggle with carry weight (that is the only time Rad Ant Lager wins). full_when (Kat 27 Oct): the listed slots also count in full when question q has answer a. Strength counts in full for Melee / Unarmed (it IS their damage), and Strength + carry weight count in full in Power Armour (carry weight is low in PA) and when they struggle with carry weight.",
@@ -1837,6 +1818,14 @@
       },
       "slot": "ap_refill",
       "type": "food"
+    },
+    {
+      "when": {
+        "melee_vats": "yes"
+      },
+      "slot": "ap_refill",
+      "type": "food",
+      "_why": "Kat 4 Nov: Hack and Slash burns AP on every swing, so melee V.A.T.S. gets the AP refill snack too"
     }
   ],
   "_gatling_readme": "Kat 2 Nov 2026: the Gatling Laser has WeaponTypeEnergy + WeaponTypeHeavyGun but NOT WeaponTypeLaser, so laser / energy crit magazines (STAT_CritDamagePerk) and Energy damage (STAT_DmgEnergy: energy AND NOT heavy gun) don't reach it. Heavy gun buffs do.",
@@ -2240,5 +2229,50 @@
   "_tie_prefer_readme": "When two items give the same buff (same score), these win before the cheaper Buffs n Brew price decides. Kat 2 Nov: Squirrel On A Stick over Fried Radroach On A Stick (same +3 Agility, 60 min) - easier for the chefs to craft.",
   "tie_prefer": [
     "Squirrel On A Stick"
+  ],
+  "_charisma_cards_readme": "Kat 4 Nov: Charisma buffs only help through these three cards (they read your current Charisma, buffs included, through a curve) or NPC prices (Quality of life tick). Perk sharing uses your own SPECIAL points, not buffs, so it doesn't count. Each card only shows in Your Perk Cards when 'show' matches (answers + solo / team); when shown AND running, its 'add' counts. Game files: Inspirational AbPerkInspirational -> AbFortifyXP, curve InspirationalSelfBonus on Charisma, IsMemberOfAPlayerTeam = 1. Bodyguards AbPerkBodyguards01 -> DR + ER, curve BodyguardsBonus on Charisma, teammates > 0, x2 / x3 with 2 / 3 teammates. Lone Wanderer abPerkLoneWanderer -> AP Regen (LoneWandererAPRegenBonus) + less damage taken (LoneWandererDRBonus) on Charisma, not in a team.",
+  "charisma_cards": [
+    {
+      "opt": "insp",
+      "name": "Inspirational",
+      "special": "Charisma",
+      "text": "In a team, you get more XP the higher your Charisma.",
+      "show": {
+        "answers": {
+          "xp": "yes"
+        },
+        "team": "team"
+      },
+      "add": {
+        "cha": 1
+      }
+    },
+    {
+      "opt": "bodyg",
+      "name": "Bodyguards",
+      "special": "Charisma",
+      "text": "In a team, you get more Damage and Energy Resistance the higher your Charisma, and more again for each teammate.",
+      "show": {
+        "answers": {
+          "deaths": "yes"
+        },
+        "team": "team"
+      },
+      "add": {
+        "cha": 0.8
+      }
+    },
+    {
+      "opt": "lonew",
+      "name": "Lone Wanderer",
+      "special": "Charisma",
+      "text": "Playing solo, you get more AP Regen and take less damage the higher your Charisma.",
+      "show": {
+        "team": "solo"
+      },
+      "add": {
+        "cha": 0.8
+      }
+    }
   ]
 }

@@ -713,6 +713,20 @@ def build_species_buffs(sk, meta):
                         if sk == "radhog" else None),
         "ranks":       lvli_rank_rows(meta["sig2Lvli"]),
     }
+    if not sig2["ranks"]:
+        # Dog Bounty Sniffer / Deathclaw Fun-Festation hand out an extra Legendary
+        # Item, not an LVLI item, so their only per-rank numbers are the GLOBs
+        # WorldPets_Buff_<Species>_<Buff>0N (Oct 2026 PTS). The in-game help text
+        # says "Get additional Legendary Item ...".
+        stem = f"worldpets_buff_{cap.lower()}_"
+        for ed, v in sorted(glob_by_edid.items()):
+            mm = re.match(re.escape(stem) + r"([a-z]+?)0([123])$", ed)
+            if mm and v is not None and mm.group(1) not in ("petcarrier",):
+                sig2["ranks"].append({"rank": int(mm.group(2)), "item": "Legendary Item",
+                                      "itemEdid": "", "qty": v, "qtyStatic": v,
+                                      "entitlement": "", "entitlementMissing": False,
+                                      "fromGlob": f"WorldPets_Buff_{cap}_{mm.group(1)}0{mm.group(2)}"})
+        sig2["ranks"].sort(key=lambda r: r["rank"])
     return {"sig1": sig1, "sig2": sig2}
 
 
@@ -1082,7 +1096,17 @@ def _gmrw_amount(g):
 
 def _entm_for(gmrw_edid):
     ed = gmrw_edid.replace("WorldPets_LvReward_", "WorldPets_ENTM_", 1)
-    return entm_by_edid_lc.get(ed.lower())
+    hit = entm_by_edid_lc.get(ed.lower())
+    if hit:
+        return hit
+    # Oct 2026 PTS: the GMRW and ENTM names drifted apart
+    # (WorldPets_LvReward_Dog_COSM_01_TamerOutfit -> WorldPets_ENTM_Dog_COSM_01_DogTamer).
+    # Same prefix, and the ENTM name holds the GMRW's first word ("Tamer").
+    head, _, tail = ed.lower().rpartition("_")
+    word = re.match(r"[a-z]+?(?=[A-Z]|$)", tail) and re.findall(r"[A-Z]?[a-z]+", ed.rpartition("_")[2])
+    key = (word[0].lower() if word else tail)
+    cands = [v for k, v in entm_by_edid_lc.items() if k.startswith(head + "_") and key in k[len(head) + 1:]]
+    return cands[0] if len(cands) == 1 else None
 
 
 def build_reward_track():
@@ -1092,7 +1116,11 @@ def build_reward_track():
         cap = meta["cap"]
         buffs = build_species_buffs(sk, meta)
         rows = []
-        for e in flst_entries.get(f"WorldPets_LvRewards_{cap}", []):
+        # The 28 Oct 2026 PTS renamed the lists zzz_WorldPets_LvRewards_<Species> (17
+        # rewards each, no buff ranks) — read whichever name the export carries.
+        entries = (flst_entries.get(f"WorldPets_LvRewards_{cap}")
+                   or flst_entries.get(f"zzz_WorldPets_LvRewards_{cap}") or [])
+        for e in entries:
             gmrw_edid = e.get("Entry_EDID", "")
             m = GMRW_RE.match(gmrw_edid)
             if not m:
@@ -1101,11 +1129,17 @@ def build_reward_track():
             g = gmrw_by_edid.get(gmrw_edid, {})
             direct = _gmrw_chal_slot(g) if g else None
             slot = direct or _kind_slot(meta, kind, rest)
-            level = _level_for_slot(cap, slot) if slot else None
+            # Only a reward the files tie to a level (via its own level CHAL) gets one.
+            # Since the 28 Oct 2026 PTS nothing in the ESM says which level gives which
+            # reward; the slot's old challenge level is kept as oldLevel for reference,
+            # never shown as the level.
+            old_level = _level_for_slot(cap, slot) if slot else None
+            level = old_level if direct else None
             entm = _entm_for(gmrw_edid) or {}
             row = {
                 "level":          level,
                 "levelConfirmed": bool(direct),
+                "oldLevel":       None if direct else old_level,
                 "slot":           slot,
                 "type":           KIND_TYPE.get(kind, "cosmetic"),
                 "kind":           kind,
@@ -1199,8 +1233,14 @@ def build_buffs():
                 "levels":     [lv("prowess", i) for i in (1, 2, 3, 4)],
                 "damage":     [g2(f"WorldPets_Buff_All_PetProwess0{i}_Damage",
                                   f"WorldPets_Buff_AnyPet_PetProwess_Damage0{i}") for i in (1, 2, 3, 4)],
-                "damageMult": [2, 3.5, 5.5, 8],
-                "takenMult":  [0.8, 0.6, 0.4, 0.2],
+                # CURV CT_WorldPets_PetProwess_DamageMult0 / _IncomingDamageMult0
+                # (newest POINTS export), one step per Prowess upgrade.
+                "damageMult": [b["mult"] for b in _step_bands("CT_WorldPets_PetProwess_DamageMult0")][1:5],
+                "takenMult":  [b["mult"] for b in _step_bands("CT_WorldPets_PetProwess_IncomingDamageMult0")][1:5],
+                # Oct 2026 PTS: WorldPets_Buff_All_PetProwess0N_Health (0.8 / 0.6667 / 0.5714 / 0.5).
+                "health":     [glob_val(f"WorldPets_Buff_All_PetProwess0{i}_Health") for i in (1, 2, 3, 4)],
+                # The pet level each upgrade starts at = where the DamageMult curve steps up.
+                "curveLevels": [int(b["progLvl"].split("-")[0]) for b in _step_bands("CT_WorldPets_PetProwess_DamageMult0")][1:5],
             },
         },
     }
@@ -1209,16 +1249,86 @@ def build_buffs():
 # ---------------------------------------------------------------------------
 # LEVELLING — Pet XP rules, the Pet Rested daily bonus, and the in-game help copy
 # ---------------------------------------------------------------------------
+# Curve tables come from the newest CURV POINTS export (CURV_Export_<Month>_POINTS.tsv,
+# columns FormID / EDID / X / Y / JsonPath). Before Nov 2026 these were typed in from
+# the June 2026 JSON dump; the live October 2026 game doubled the Pet XP curve
+# (level 2: 210 -> 420, level 200: 3200 -> 6400) and changed base health, so the
+# typed copies were wrong. Read them from the export every build instead.
+def _load_curves():
+    try:
+        path = os.environ.get("CURV_POINTS_TSV")
+        if not path:
+            cands = [tsv_source.newest("CURV_Export_*_POINTS.tsv", channel=c, required=False)
+                     for c in (("live", "pts") if PTS_MODE else ("live",))]
+            cands = [c for c in cands if c]
+            # A PTS tree may carry an older POINTS export than live (Sept PTS vs
+            # Oct live) — the newer export wins.
+            path = max(cands, key=lambda c: tsv_source.export_key(c)) if cands else None
+    except Exception:
+        path = None
+    if not path:
+        cands = sorted(glob.glob(str(TSV_DIR / "CURV_Export_*_POINTS.tsv")), key=_tsv_date_key)
+        path = cands[-1] if cands else None
+    out = {}
+    if not path:
+        return out, None
+    with open(path, encoding="utf-8", errors="replace") as f:
+        for r in csv.DictReader(f, delimiter="\t"):
+            e = (r.get("EDID") or "").strip()
+            if "WorldPets" not in e:
+                continue
+            try:
+                out.setdefault(e, []).append([float(r["X"]), float(r["Y"])])
+            except (TypeError, ValueError, KeyError):
+                pass
+    for k in out:
+        out[k].sort()
+    return out, path
+
+
+CURVES, CURV_PATH = _load_curves()
+
+
+def _num(v):
+    return int(v) if float(v).is_integer() else round(v, 4)
+
+
+def _curve(edid):
+    pts = CURVES.get(edid) or []
+    return [[_num(x), _num(y)] for x, y in pts]
+
+
+def _curve_at(edid, lvl):
+    pts = CURVES.get(edid) or []
+    if not pts:
+        return None
+    if lvl <= pts[0][0]:
+        return _num(pts[0][1])
+    for (x0, y0), (x1, y1) in zip(pts, pts[1:]):
+        if x0 <= lvl <= x1:
+            return _num(round(y0 + (y1 - y0) * (lvl - x0) / (x1 - x0)) if (x1 - x0) else y0)
+    return _num(pts[-1][1])
+
+
+def _step_bands(edid, top=200):
+    """A stepped curve (1:1 49:1 50:2 ...) as [{progLvl: '1-49', mult: 1}, ...]."""
+    pts = CURVES.get(edid) or []
+    steps = []
+    for x, y in pts:
+        if not steps or steps[-1][1] != y:
+            steps.append([int(x), y])
+    bands = []
+    for i, (x, y) in enumerate(steps):
+        end = steps[i + 1][0] - 1 if i + 1 < len(steps) else top
+        bands.append({"progLvl": (f"{x}-{end}" if end > x else f"{x}"), "mult": _num(y)})
+    return bands
+
+
 # CURV 008AFDF9 CT_WorldPets_XP_LevelingProgression -> WorldPets_PetXp_02.json.
-# y = Pet XP to advance one level at level x (linear between points). The PTS
-# CURV POINTS table is not exported yet, so these are the June JSON values.
-XP_CURVE = [[1, 0], [2, 210], [5, 250], [10, 300], [15, 350], [20, 400], [25, 450],
-            [30, 500], [35, 550], [40, 600], [45, 650], [50, 700], [55, 775], [60, 850],
-            [65, 925], [70, 1000], [75, 1075], [80, 1150], [85, 1225], [90, 1300],
-            [95, 1375], [100, 1450], [105, 1525], [110, 1600], [115, 1675], [120, 1750],
-            [125, 1825], [130, 1900], [135, 1975], [140, 2050], [145, 2125], [150, 2200],
-            [155, 2300], [160, 2400], [165, 2500], [170, 2600], [175, 2700], [180, 2800],
-            [185, 2900], [190, 3000], [195, 3100], [200, 3200]]
+# y = Pet XP to advance one level at level x (linear between points).
+XP_CURVE = _curve("CT_WorldPets_XP_LevelingProgression")
+if not XP_CURVE:
+    raise SystemExit("CT_WorldPets_XP_LevelingProgression missing from the CURV POINTS export")
 
 
 def _xp_at(lvl):
@@ -1274,40 +1384,20 @@ def build_stats():
             "maxLvl": glob_val("WorldPets_MaxLVL", 150),
         },
         "progressionMax": 200,
-        # Base health — CURV WorldPets_PetProwess_Health0.json (key levels).
-        "baseHealth": [
-            {"lvl": 1,   "hp": 1981},
-            {"lvl": 50,  "hp": 19871},
-            {"lvl": 100, "hp": 48628},
-            {"lvl": 150, "hp": 114518},
-        ],
-        # Base damage per hit — CURVs WorldPets_PetProwess_Damage{0-4}.json (key levels).
-        # Each row: combat level -> [prowess 0, prowess 1, prowess 2, prowess 3, prowess 4].
-        "baseDamage": [
-            {"lvl": 1,   "dmg": [40, 80, 121, 161, 201]},
-            {"lvl": 50,  "dmg": [62, 125, 187, 249, 311]},
-            {"lvl": 100, "dmg": [97, 194, 291, 388, 485]},
-            {"lvl": 150, "dmg": [151, 302, 453, 604, 755]},
-        ],
-        # Damage dealt multiplier — CURV WorldPets_PetProwess_DamageMult0.json.
-        # Keyed by pet progression level (steps at 50/100/150/200).
-        "damageMult": [
-            {"progLvl": "1-49",    "mult": 1},
-            {"progLvl": "50-99",   "mult": 2},
-            {"progLvl": "100-149", "mult": 3.5},
-            {"progLvl": "150-199", "mult": 5.5},
-            {"progLvl": "200",     "mult": 8},
-        ],
-        # Incoming damage multiplier — CURV WorldPets_PetProwess_IncomingDamageMult0.json.
-        "incomingDamageMult": [
-            {"progLvl": "1-49",    "mult": 1},
-            {"progLvl": "50-99",   "mult": 0.8},
-            {"progLvl": "100-149", "mult": 0.6},
-            {"progLvl": "150-199", "mult": 0.4},
-            {"progLvl": "200",     "mult": 0.2},
-        ],
-        # All six WorldPets_Resist_* curves read 0 (placeholders, June 2026).
-        "resistances": 0,
+        # Base health — CURV CT_WorldPets_PetProwess_Health0 (newest POINTS export).
+        "baseHealth": [{"lvl": l, "hp": _curve_at("CT_WorldPets_PetProwess_Health0", l)}
+                       for l in (1, 25, 50, 75, 100, 125, 150)],
+        # Base damage per hit — CURV CT_WorldPets_PetProwess_Damage0 (used by every
+        # pet's unarmed weapon). Damage1-4 curves exist but nothing references them
+        # any more: Pet Prowess now scales damage through the DamageMult curve below.
+        "baseDamage": [{"lvl": l, "dmg": [_curve_at("CT_WorldPets_PetProwess_Damage0", l)]}
+                       for l in (1, 25, 50, 75, 100, 125, 150)],
+        # Damage dealt / taken multiplier by pet progression level.
+        "damageMult": _step_bands("CT_WorldPets_PetProwess_DamageMult0"),
+        "incomingDamageMult": _step_bands("CT_WorldPets_PetProwess_IncomingDamageMult0"),
+        "curveSource": os.path.basename(str(CURV_PATH)) if CURV_PATH else None,
+        # Highest value on any of the six WorldPets_Resist_* curves (0 = no resistances).
+        "resistances": _num(max([y for k, v in CURVES.items() if "_Resist_" in k for _x, y in v] or [0])),
         # Legacy mirror of LEVELLING["totalXp"] (the full block is top-level `levelling`).
         "levelling": {"totalXp": LEVELLING["totalXp"]},
         "commands": build_commands(),
