@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated": "2026-11-02T16:38:24.981458+00:00",
+  "generated": "2026-11-03T00:01:20.345680+00:00",
   "count": 4284,
   "source_files": {
     "WEAP": "WEAP_Export_October_2026_Base.tsv",
@@ -336,18 +336,6 @@
             "Vault 63 Organics Sector",
             "Vault-Tec Ag Research Center",
             "Vault-Tec University"
-          ],
-          "conditions": [
-            "Only in Cranberry Bog"
-          ]
-        },
-        {
-          "route": "ENB Clinic (Enclave vendor)",
-          "source_type": "vendor",
-          "rate": 1.0,
-          "rate_display": "100%",
-          "lvli": [
-            "002B801F"
           ],
           "conditions": [
             "Only in Cranberry Bog"
@@ -868,24 +856,24 @@
         {
           "label": "Caps",
           "routes": [
-            1,
-            2
+            1
           ]
         },
         {
           "label": "Containers",
           "routes": [
             0,
-            5,
+            4,
+            36,
             37,
-            38,
-            39
+            38
           ]
         },
         {
           "label": "Events & Activities",
           "routes": [
-            3,
+            2,
+            5,
             6,
             7,
             8,
@@ -894,24 +882,24 @@
             11,
             12,
             13,
-            14,
+            20,
             21,
             22,
             23,
-            24,
-            25
+            24
           ]
         },
         {
           "label": "Quests",
           "routes": [
-            4,
+            3,
+            14,
             15,
             16,
             17,
             18,
             19,
-            20,
+            25,
             26,
             27,
             28,
@@ -921,8 +909,7 @@
             32,
             33,
             34,
-            35,
-            36
+            35
           ]
         }
       ],
@@ -974,6 +961,24 @@
           "retired_because": [
             "cut source"
           ]
+        },
+        {
+          "route": "ENB Clinic (Enclave vendor)",
+          "source_type": "vendor",
+          "rate": 1.0,
+          "rate_display": "100%",
+          "lvli": [
+            "002B801F"
+          ],
+          "conditions": [
+            "Only in Cranberry Bog"
+          ],
+          "retired_because": [
+            "no vendor stands in that region"
+          ],
+          "region_detail": {
+            "002B801F": "ENB_DialogueFaction_MODUS_Vendor_Clinic: no region"
+          }
         },
         {
           "route": "Activity: Always Vigilant",
@@ -1663,18 +1668,6 @@
           ]
         },
         {
-          "route": "ENB Clinic (Enclave vendor)",
-          "source_type": "vendor",
-          "rate": 1.0,
-          "rate_display": "100%",
-          "lvli": [
-            "002B801F"
-          ],
-          "conditions": [
-            "Only in Ash Heap"
-          ]
-        },
-        {
           "route": "Travelling merchant (random encounter, clinic goods)",
           "source_type": "vendor",
           "rate": 1.0,
@@ -2102,55 +2095,54 @@
         {
           "label": "Caps",
           "routes": [
-            1,
-            2
+            1
           ]
         },
         {
           "label": "Containers",
           "routes": [
             0,
+            6,
             7,
-            8,
-            32,
-            33
+            31,
+            32
           ]
         },
         {
           "label": "Events & Activities",
           "routes": [
-            4,
-            6,
+            3,
+            5,
+            8,
             9,
             10,
             11,
             12,
             13,
             14,
-            15,
+            19,
             20,
             21,
-            22,
-            23
+            22
           ]
         },
         {
           "label": "Quests",
           "routes": [
-            3,
-            5,
+            2,
+            4,
+            15,
             16,
             17,
             18,
-            19,
+            23,
             24,
             25,
             26,
             27,
             28,
             29,
-            30,
-            31
+            30
           ]
         }
       ],
@@ -2202,6 +2194,24 @@
           "retired_because": [
             "cut source"
           ]
+        },
+        {
+          "route": "ENB Clinic (Enclave vendor)",
+          "source_type": "vendor",
+          "rate": 1.0,
+          "rate_display": "100%",
+          "lvli": [
+            "002B801F"
+          ],
+          "conditions": [
+            "Only in Ash Heap"
+          ],
+          "retired_because": [
+            "no vendor stands in that region"
+          ],
+          "region_detail": {
+            "002B801F": "ENB_DialogueFaction_MODUS_Vendor_Clinic: no region"
+          }
         },
         {
           "route": "Activity: AWOL Armaments",
@@ -4484,18 +4494,6 @@
           ]
         },
         {
-          "route": "ENB Clinic (Enclave vendor)",
-          "source_type": "vendor",
-          "rate": 1.0,
-          "rate_display": "100%",
-          "lvli": [
-            "002B801F"
-          ],
-          "conditions": [
-            "Only in Toxic Valley"
-          ]
-        },
-        {
           "route": "Travelling merchant (random encounter, clinic goods)",
           "source_type": "vendor",
           "rate": 1.0,
@@ -5093,24 +5091,24 @@
         {
           "label": "Caps",
           "routes": [
-            1,
-            2
+            1
           ]
         },
         {
           "label": "Containers",
           "routes": [
             0,
+            42,
             43,
             44,
-            45,
-            46
+            45
           ]
         },
         {
           "label": "Events & Activities",
           "routes": [
-            3,
+            2,
+            9,
             10,
             11,
             12,
@@ -5121,29 +5119,29 @@
             17,
             18,
             19,
-            20,
+            26,
             27,
-            28,
-            31
+            30
           ]
         },
         {
           "label": "Quests",
           "routes": [
+            3,
             4,
             5,
             6,
             7,
             8,
-            9,
+            20,
             21,
             22,
             23,
             24,
             25,
-            26,
+            28,
             29,
-            30,
+            31,
             32,
             33,
             34,
@@ -5153,8 +5151,7 @@
             38,
             39,
             40,
-            41,
-            42
+            41
           ]
         }
       ],
@@ -5206,6 +5203,24 @@
           "retired_because": [
             "cut source"
           ]
+        },
+        {
+          "route": "ENB Clinic (Enclave vendor)",
+          "source_type": "vendor",
+          "rate": 1.0,
+          "rate_display": "100%",
+          "lvli": [
+            "002B801F"
+          ],
+          "conditions": [
+            "Only in Toxic Valley"
+          ],
+          "retired_because": [
+            "no vendor stands in that region"
+          ],
+          "region_detail": {
+            "002B801F": "ENB_DialogueFaction_MODUS_Vendor_Clinic: no region"
+          }
         },
         {
           "route": "Activity: Always Vigilant",
@@ -5946,18 +5961,6 @@
           ]
         },
         {
-          "route": "ENB Clinic (Enclave vendor)",
-          "source_type": "vendor",
-          "rate": 1.0,
-          "rate_display": "100%",
-          "lvli": [
-            "002B801F"
-          ],
-          "conditions": [
-            "Only in The Mire"
-          ]
-        },
-        {
           "route": "Travelling merchant (random encounter, clinic goods)",
           "source_type": "vendor",
           "rate": 1.0,
@@ -6452,51 +6455,51 @@
         {
           "label": "Caps",
           "routes": [
-            1,
-            2
+            1
           ]
         },
         {
           "label": "Containers",
           "routes": [
             0,
+            34,
             35,
             36,
-            37,
-            38
+            37
           ]
         },
         {
           "label": "Events & Activities",
           "routes": [
-            4,
+            3,
+            8,
             9,
             10,
             11,
             12,
-            13,
+            20,
             21,
             22,
             23,
-            24,
-            25
+            24
           ]
         },
         {
           "label": "Quests",
           "routes": [
-            3,
+            2,
+            4,
             5,
             6,
             7,
-            8,
+            13,
             14,
             15,
             16,
             17,
             18,
             19,
-            20,
+            25,
             26,
             27,
             28,
@@ -6504,8 +6507,7 @@
             30,
             31,
             32,
-            33,
-            34
+            33
           ]
         }
       ],
@@ -6557,6 +6559,24 @@
           "retired_because": [
             "cut source"
           ]
+        },
+        {
+          "route": "ENB Clinic (Enclave vendor)",
+          "source_type": "vendor",
+          "rate": 1.0,
+          "rate_display": "100%",
+          "lvli": [
+            "002B801F"
+          ],
+          "conditions": [
+            "Only in The Mire"
+          ],
+          "retired_because": [
+            "no vendor stands in that region"
+          ],
+          "region_detail": {
+            "002B801F": "ENB_DialogueFaction_MODUS_Vendor_Clinic: no region"
+          }
         },
         {
           "route": "Activity: Always Vigilant",
@@ -7360,18 +7380,6 @@
           ]
         },
         {
-          "route": "ENB Clinic (Enclave vendor)",
-          "source_type": "vendor",
-          "rate": 1.0,
-          "rate_display": "100%",
-          "lvli": [
-            "002B801F"
-          ],
-          "conditions": [
-            "Only in Savage Divide"
-          ]
-        },
-        {
           "route": "Travelling merchant (random encounter, clinic goods)",
           "source_type": "vendor",
           "rate": 1.0,
@@ -7897,41 +7905,41 @@
         {
           "label": "Caps",
           "routes": [
-            1,
-            2
+            1
           ]
         },
         {
           "label": "Containers",
           "routes": [
             0,
-            6,
+            5,
+            37,
             38,
-            39,
-            40
+            39
           ]
         },
         {
           "label": "Events & Activities",
           "routes": [
-            3,
-            5,
+            2,
+            4,
+            6,
             7,
             8,
             9,
             10,
             11,
-            12,
+            20,
             21,
             22,
-            23,
-            25
+            24
           ]
         },
         {
           "label": "Quests",
           "routes": [
-            4,
+            3,
+            12,
             13,
             14,
             15,
@@ -7939,8 +7947,8 @@
             17,
             18,
             19,
-            20,
-            24,
+            23,
+            25,
             26,
             27,
             28,
@@ -7951,8 +7959,7 @@
             33,
             34,
             35,
-            36,
-            37
+            36
           ]
         }
       ],
@@ -8004,6 +8011,24 @@
           "retired_because": [
             "cut source"
           ]
+        },
+        {
+          "route": "ENB Clinic (Enclave vendor)",
+          "source_type": "vendor",
+          "rate": 1.0,
+          "rate_display": "100%",
+          "lvli": [
+            "002B801F"
+          ],
+          "conditions": [
+            "Only in Savage Divide"
+          ],
+          "retired_because": [
+            "no vendor stands in that region"
+          ],
+          "region_detail": {
+            "002B801F": "ENB_DialogueFaction_MODUS_Vendor_Clinic: no region"
+          }
         },
         {
           "route": "Activity: AWOL Armaments",
@@ -168786,18 +168811,6 @@
           "conditions": []
         },
         {
-          "route": "ENB Clinic (Enclave vendor)",
-          "source_type": "vendor",
-          "rate": 1.0,
-          "rate_display": "100%",
-          "lvli": [
-            "002B801F"
-          ],
-          "conditions": [
-            "Only in Toxic Valley"
-          ]
-        },
-        {
           "route": "Travelling merchant (random encounter, clinic goods)",
           "source_type": "vendor",
           "rate": 1.0,
@@ -168854,22 +168867,41 @@
         {
           "label": "Caps",
           "routes": [
-            1,
-            2
+            1
           ]
         },
         {
           "label": "Containers",
           "routes": [
             0,
-            4
+            3
           ]
         },
         {
           "label": "Events & Activities",
           "routes": [
-            3
+            2
           ]
+        }
+      ],
+      "retired_routes": [
+        {
+          "route": "ENB Clinic (Enclave vendor)",
+          "source_type": "vendor",
+          "rate": 1.0,
+          "rate_display": "100%",
+          "lvli": [
+            "002B801F"
+          ],
+          "conditions": [
+            "Only in Toxic Valley"
+          ],
+          "retired_because": [
+            "no vendor stands in that region"
+          ],
+          "region_detail": {
+            "002B801F": "ENB_DialogueFaction_MODUS_Vendor_Clinic: no region"
+          }
         }
       ],
       "source_tag": "Vendor",
@@ -683772,18 +683804,6 @@
       "category_label": "Consumable Recipe",
       "obtain_routes": [
         {
-          "route": "ENB Clinic (Enclave vendor)",
-          "source_type": "vendor",
-          "rate": 0.1428571429,
-          "rate_display": "14.2857%",
-          "lvli": [
-            "002B801F"
-          ],
-          "conditions": [
-            "Only in Cranberry Bog"
-          ]
-        },
-        {
           "route": "Travelling merchant (random encounter, clinic goods)",
           "source_type": "vendor",
           "rate": 0.1428571429,
@@ -683860,23 +683880,42 @@
         {
           "label": "Caps",
           "routes": [
-            0,
-            1
+            0
           ]
         },
         {
           "label": "Containers",
           "routes": [
+            2,
             3,
-            4,
-            5
+            4
           ]
         },
         {
           "label": "Events & Activities",
           "routes": [
-            2
+            1
           ]
+        }
+      ],
+      "retired_routes": [
+        {
+          "route": "ENB Clinic (Enclave vendor)",
+          "source_type": "vendor",
+          "rate": 0.1428571429,
+          "rate_display": "14.2857%",
+          "lvli": [
+            "002B801F"
+          ],
+          "conditions": [
+            "Only in Cranberry Bog"
+          ],
+          "retired_because": [
+            "no vendor stands in that region"
+          ],
+          "region_detail": {
+            "002B801F": "ENB_DialogueFaction_MODUS_Vendor_Clinic: no region"
+          }
         }
       ],
       "source_tag": "Vendor",
@@ -683900,18 +683939,6 @@
       "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
       "category_label": "Consumable Recipe",
       "obtain_routes": [
-        {
-          "route": "ENB Clinic (Enclave vendor)",
-          "source_type": "vendor",
-          "rate": 0.1428571429,
-          "rate_display": "14.2857%",
-          "lvli": [
-            "002B801F"
-          ],
-          "conditions": [
-            "Only in Ash Heap"
-          ]
-        },
         {
           "route": "Travelling merchant (random encounter, clinic goods)",
           "source_type": "vendor",
@@ -684340,54 +684367,53 @@
         {
           "label": "Caps",
           "routes": [
-            0,
-            1
+            0
           ]
         },
         {
           "label": "Containers",
           "routes": [
-            6,
+            5,
+            29,
             30,
-            31,
-            32
+            31
           ]
         },
         {
           "label": "Events & Activities",
           "routes": [
+            3,
             4,
-            5,
+            6,
             7,
             8,
             9,
             10,
             11,
             12,
-            13,
+            17,
             18,
             19,
-            20,
-            21
+            20
           ]
         },
         {
           "label": "Quests",
           "routes": [
+            1,
             2,
-            3,
+            13,
             14,
             15,
             16,
-            17,
+            21,
             22,
             23,
             24,
             25,
             26,
             27,
-            28,
-            29
+            28
           ]
         }
       ],
@@ -684439,6 +684465,24 @@
           "retired_because": [
             "cut source"
           ]
+        },
+        {
+          "route": "ENB Clinic (Enclave vendor)",
+          "source_type": "vendor",
+          "rate": 0.1428571429,
+          "rate_display": "14.2857%",
+          "lvli": [
+            "002B801F"
+          ],
+          "conditions": [
+            "Only in Ash Heap"
+          ],
+          "retired_because": [
+            "no vendor stands in that region"
+          ],
+          "region_detail": {
+            "002B801F": "ENB_DialogueFaction_MODUS_Vendor_Clinic: no region"
+          }
         },
         {
           "route": "Activity: AWOL Armaments",
@@ -686653,18 +686697,6 @@
       "category_label": "Consumable Recipe",
       "obtain_routes": [
         {
-          "route": "ENB Clinic (Enclave vendor)",
-          "source_type": "vendor",
-          "rate": 0.1428571429,
-          "rate_display": "14.2857%",
-          "lvli": [
-            "002B801F"
-          ],
-          "conditions": [
-            "Only in Toxic Valley"
-          ]
-        },
-        {
           "route": "Travelling merchant (random encounter, clinic goods)",
           "source_type": "vendor",
           "rate": 0.1428571429,
@@ -687262,22 +687294,22 @@
         {
           "label": "Caps",
           "routes": [
-            0,
-            1
+            0
           ]
         },
         {
           "label": "Containers",
           "routes": [
+            41,
             42,
             43,
-            44,
-            45
+            44
           ]
         },
         {
           "label": "Events & Activities",
           "routes": [
+            7,
             8,
             9,
             10,
@@ -687289,29 +687321,29 @@
             16,
             17,
             18,
-            19,
+            25,
             26,
-            27,
-            30
+            29
           ]
         },
         {
           "label": "Quests",
           "routes": [
+            1,
             2,
             3,
             4,
             5,
             6,
-            7,
+            19,
             20,
             21,
             22,
             23,
             24,
-            25,
+            27,
             28,
-            29,
+            30,
             31,
             32,
             33,
@@ -687321,8 +687353,7 @@
             37,
             38,
             39,
-            40,
-            41
+            40
           ]
         }
       ],
@@ -687374,6 +687405,24 @@
           "retired_because": [
             "cut source"
           ]
+        },
+        {
+          "route": "ENB Clinic (Enclave vendor)",
+          "source_type": "vendor",
+          "rate": 0.1428571429,
+          "rate_display": "14.2857%",
+          "lvli": [
+            "002B801F"
+          ],
+          "conditions": [
+            "Only in Toxic Valley"
+          ],
+          "retired_because": [
+            "no vendor stands in that region"
+          ],
+          "region_detail": {
+            "002B801F": "ENB_DialogueFaction_MODUS_Vendor_Clinic: no region"
+          }
         },
         {
           "route": "Activity: Always Vigilant",
@@ -689508,18 +689557,6 @@
       "category_label": "Consumable Recipe",
       "obtain_routes": [
         {
-          "route": "ENB Clinic (Enclave vendor)",
-          "source_type": "vendor",
-          "rate": 0.1428571429,
-          "rate_display": "14.2857%",
-          "lvli": [
-            "002B801F"
-          ],
-          "conditions": [
-            "Only in The Forest"
-          ]
-        },
-        {
           "route": "Travelling merchant (random encounter, clinic goods)",
           "source_type": "vendor",
           "rate": 0.1428571429,
@@ -690117,22 +690154,22 @@
         {
           "label": "Caps",
           "routes": [
-            0,
-            1
+            0
           ]
         },
         {
           "label": "Containers",
           "routes": [
+            40,
             41,
             42,
-            43,
-            44
+            43
           ]
         },
         {
           "label": "Events & Activities",
           "routes": [
+            7,
             8,
             9,
             10,
@@ -690142,28 +690179,28 @@
             14,
             15,
             16,
-            17,
-            24,
-            26,
-            40
+            23,
+            25,
+            39
           ]
         },
         {
           "label": "Quests",
           "routes": [
+            1,
             2,
             3,
             4,
             5,
             6,
-            7,
+            17,
             18,
             19,
             20,
             21,
             22,
-            23,
-            25,
+            24,
+            26,
             27,
             28,
             29,
@@ -690175,8 +690212,7 @@
             35,
             36,
             37,
-            38,
-            39
+            38
           ],
           "unlocks": [
             0
@@ -690245,6 +690281,24 @@
           "retired_because": [
             "cut source"
           ]
+        },
+        {
+          "route": "ENB Clinic (Enclave vendor)",
+          "source_type": "vendor",
+          "rate": 0.1428571429,
+          "rate_display": "14.2857%",
+          "lvli": [
+            "002B801F"
+          ],
+          "conditions": [
+            "Only in The Forest"
+          ],
+          "retired_because": [
+            "no vendor stands in that region"
+          ],
+          "region_detail": {
+            "002B801F": "ENB_DialogueFaction_MODUS_Vendor_Clinic: no region"
+          }
         },
         {
           "route": "Activity: AWOL Armaments",
@@ -699325,18 +699379,6 @@
       "category_label": "Consumable Recipe",
       "obtain_routes": [
         {
-          "route": "ENB Clinic (Enclave vendor)",
-          "source_type": "vendor",
-          "rate": 0.1428571429,
-          "rate_display": "14.2857%",
-          "lvli": [
-            "002B801F"
-          ],
-          "conditions": [
-            "Only in The Mire"
-          ]
-        },
-        {
           "route": "Travelling merchant (random encounter, clinic goods)",
           "source_type": "vendor",
           "rate": 0.1428571429,
@@ -699413,23 +699455,42 @@
         {
           "label": "Caps",
           "routes": [
-            0,
-            1
+            0
           ]
         },
         {
           "label": "Containers",
           "routes": [
+            2,
             3,
-            4,
-            5
+            4
           ]
         },
         {
           "label": "Events & Activities",
           "routes": [
-            2
+            1
           ]
+        }
+      ],
+      "retired_routes": [
+        {
+          "route": "ENB Clinic (Enclave vendor)",
+          "source_type": "vendor",
+          "rate": 0.1428571429,
+          "rate_display": "14.2857%",
+          "lvli": [
+            "002B801F"
+          ],
+          "conditions": [
+            "Only in The Mire"
+          ],
+          "retired_because": [
+            "no vendor stands in that region"
+          ],
+          "region_detail": {
+            "002B801F": "ENB_DialogueFaction_MODUS_Vendor_Clinic: no region"
+          }
         }
       ],
       "source_tag": "Vendor",
