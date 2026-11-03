@@ -1184,11 +1184,11 @@ def apply_plan_status(s, items, status, master_path):
         pid = ((it.get("plan_item") or {}).get("formid") or "").upper()
         if pid and not it.get("recipe_only"):
             rows.setdefault(pid, it)
-    moved = {fid for fid, v in status.items() if v["status"] in ("unreleased", "legacy")}
+    moved = {fid for fid, v in status.items() if v["status"] in ("unreleased", "legacy", "learnt", "cut")}
     keep = []
     for x in items:
         st = (status.get(x["id"]) or {}).get("status")
-        if st in ("unreleased", "legacy"):
+        if st in ("unreleased", "legacy", "learnt", "cut"):   # learnt / cut: 2 Nov 2026
             continue
         if st:
             x["status"] = st

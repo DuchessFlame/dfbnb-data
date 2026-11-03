@@ -111,9 +111,16 @@ QUEST_UNLOCK_BY_HAND = {
 #                 "No longer drops — old copies can still be traded." Never cut.
 #   bugged     -> stays as it is (tradeable, no source), status_checked: true
 #   leave      -> no change (status_checked: true)
+#   learnt     -> (2 Nov 2026) the item IS in the game, but you learn it from a quest
+#                 or know it from the start: no plan to find. Not tradeable (off the
+#                 plan check and mule lists), but NOT cut, so the item stays on the
+#                 site with the note as its "how to obtain" line. The zzz_/CUT_/POST_
+#                 rule still wins: a plan the files mark cut stays cut.
+#   cut        -> (2 Nov 2026) cut content: cut, not tradeable. A file rule's own
+#                 cut reason is kept; otherwise "cut (Duchess, <date>) — <note>".
 #   no entry   -> a tradeable plan with no source gets status_checked: false
 STATUS_PATH = os.path.join(os.path.dirname(HERE), "data", "plan_status.json")
-STATUSES = ("bugged", "unreleased", "legacy", "leave")
+STATUSES = ("bugged", "unreleased", "legacy", "leave", "learnt", "cut")
 LEGACY_OBTAIN = "No longer drops — old copies can still be traded."
 _MONTHS = ("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
 
@@ -340,6 +347,35 @@ def apply_status(items, status, stats, changed):
                 stats["not checked yet"] += 1
             continue
         st = entry["status"]
+        if st in ("learnt", "cut"):
+            # these two are about the plan item, not its sources: a quest unlock or
+            # a challenge route doesn't make them outdated
+            note = entry.get("note") or ""
+            it["plan_status"] = st
+            it["status_checked"] = True
+            it["tradeable"] = False
+            if st == "cut":
+                if not it.get("cut"):
+                    it["cut_reason"] = (f"cut ({entry.get('by') or 'Duchess'}, {_kat_date(entry.get('decided'))})"
+                                        + (f" — {note}" if note else ""))
+                it["cut"] = True
+            else:
+                # "default" = known from the start (Brewmaster words it that way); else learnt from a quest
+                it["learnt"] = "default" if note.lower().startswith("known by default") else "quest"
+                if not _dev((it.get("plan_item") or {}).get("edid")) and not it.get("plan_duplicate"):
+                    # an earlier rule may have cut it as "teaches nothing" — the item is real
+                    if it.get("cut"):
+                        it["cut"] = False
+                        it.pop("cut_reason", None)
+                    it.pop("unused_plan", None)
+                if not it.get("obtain_unlocks") and note:
+                    it["obtain_unlocks"] = [note[0].upper() + note[1:] + "."]
+                    it["obtain"] = ("There is no plan to find — you already know this recipe, "
+                                    "so there is no plan item to trade.")
+                _finish(it)
+            stats[f"{st} (Duchess)"] += 1
+            changed.append((it, st))
+            continue
         if not _no_source(it):
             # a source turned up since Duchess decided — the decision no longer
             # applies. The row is left exactly as the route walk made it (a real
