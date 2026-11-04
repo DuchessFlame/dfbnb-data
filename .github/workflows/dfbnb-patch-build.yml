@@ -293,6 +293,15 @@ jobs:
       - name: Build Challenges JSON
         run: python src/build_challenges_json_v3.py
 
+      # --- GRUNT HUNT AND HEAD HUNT CHALLENGES PAGE ---
+      # /df/bounty-hunting/grunt-and-head-hunt-challenges/ - reads the
+      # challenges.json built just above (leaf-expanded conditions, rewards,
+      # META -> SUB) and sorts every bounty challenge into a root per hunt
+      # (Grunt / Burning Springs Head / Skyline Valley Head), Daily -> Weekly ->
+      # Event -> Lifetime -> World Pets inside each. Nothing hand-listed.
+      - name: Build Bounty Hunting Challenges Page JSON
+        run: python src/build_bounty_challenges_page_json.py
+
       # --- RANDOM ENCOUNTERS (split out of the challenges build, Sept 2026) ---
       # Must run before build_cryptids_json.py, which reads its output.
       - name: Build Random Encounters JSON
