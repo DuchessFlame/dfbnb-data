@@ -498,6 +498,28 @@ def build(data_dir, dist_dir):
             p = mgef_perk.get((r.get("EFID_MGEF_EDID") or "").strip())
             if p and p not in diet_perks[key]:
                 diet_perks[key].append(p)
+    # Hybrid (Kat 4 Nov 2026, her "Hybrid 60 min buffs" graphic): Herbivore mutation + a
+    # Herbivore Serum every hour. The serum's 1-hour effect switches off every Mutation_Herbivore
+    # effect whose SPEL condition is IsSpellTarget(Serum_Herbivore) = 0 - that's Mutation_EatNoMeat.
+    # So plant dishes stay x2, meat is no longer blocked (x1), and meat dishes with a herb / fruit
+    # keyword (Smoked Mirelurk Fillets, Seared Venison With Berries) get the Herbivore x2.
+    # Kat 4 Nov: a second Hybrid - Carnivore + a Carnivore Serum every hour (Mutation_EatNoVeggies
+    # has IsSpellTarget(Serum_Carnivore) = 0 the same way). dm keys: y = herbivore hybrid, z = carnivore hybrid.
+    for hk, mut, serum in (("hybrid", "Mutation_Herbivore", "Serum_Herbivore"),
+                           ("carnhybrid", "Mutation_Carnivore", "Serum_Carnivore")):
+        diet_perks[hk] = []
+        for fid, rows in S.spel_effects.items():
+            if (S.spel.get(fid) or {}).get("SPEL_EDID", "") != mut:
+                continue
+            for r in rows:
+                if re.search(r"IsSpellTarget\(" + serum + r"\b[^)]*\)\s*=\s*0", r.get("Conditions") or ""):
+                    continue
+                p = mgef_perk.get((r.get("EFID_MGEF_EDID") or "").strip())
+                if p and p not in diet_perks[hk]:
+                    diet_perks[hk].append(p)
+        base = "herbivore" if hk == "hybrid" else "carnivore"
+        if diet_perks[hk] == diet_perks[base]:
+            warn(f"{hk}: no {serum} condition found on {mut} - {hk} = {base}")
     diet_rules = {k: [rr for p in v for rr in perk_rules(perkep, p, all_item_kws, all_eff_kws)]
                   for k, v in diet_perks.items()}
     for k, v in diet_rules.items():
@@ -682,9 +704,9 @@ def build(data_dir, dist_dir):
             for d, rr in diet_rules.items():
                 n, s = mult_for(rr, kw, ek, "normal"), mult_for(rr, kw, ek, "super")
                 if n != 1 or s != 1:
-                    dm[d[0]] = [n, s]
+                    dm[{"hybrid": "y", "carnhybrid": "z"}.get(d, d[0])] = [n, s]
             pm = []
-            if typ == "alcohol" and party["rank1"]:
+            if party["rank1"]:   # Kat 4 Nov: by keyword, not type - Sweetwater Special Blend is a tea with DrinkTypeAlcohol
                 p1 = mult_for(party["rank1"], kw, ek, None)
                 p2 = mult_for(party["rank2"], kw, ek, None) if party["rank2"] else p1
                 if (p1 != 1 or p2 != 1) and not neg:
@@ -764,8 +786,8 @@ def build(data_dir, dist_dir):
         buff_stacks = [f["st"] for f in fx if not f.get("neg") and f["s"] in rules["slots"]]
         if typ != "food" and buff_stacks and all(st.startswith("FoodDispelEffect_") for st in buff_stacks):
             typ = "food"
-            for f in fx:
-                f.pop("pm", None)
+            # Kat 4 Nov: keep Party Boy / Girl (pm) - its perk only checks DrinkTypeAlcohol, so
+            # Sweetwater still gets x2 / x3 in game ("with party boy it gets up to like 25 perception")
         diet = sorted(k.replace("IngredientType", "") for k in kw
                       if k in ("IngredientTypeMeat", "IngredientTypeVegetable", "IngredientTypeHerb", "IngredientTypeFruit"))
         menu = menu_by_fid.get(fid) or menu_by_edid.get(edid) or menu_by_name.get(name.lower())
