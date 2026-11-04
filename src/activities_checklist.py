@@ -345,6 +345,103 @@ def add_images(rows, ev_slug, pm=None, index=None, stats=None):
     return rows
 
 
+# ── tradeable for weapons, armour and weapon mod boxes (game files) ─────────
+# Plans and titles get `tradeable` from the plan checklists (add_images). The
+# reward tree carries none for WEAP / ARMO / MISC, which left those rows with
+# no pill while the plans beside them had one (Duchess, 4 Nov 2026: every row
+# shows a tradeable pill). Same rule as the Unique Weapons & Armour build
+# (uwa_effects.apply_tradeable): a unique takes the flag that build already
+# worked out from its unique mod + record; anything else can't be traded when
+# its own WEAP / ARMO / MISC record carries the NonPlayerTradable keyword.
+
+_TRADE_CTX = None
+
+
+def _npt_records(path, fid_cols, edid_cols):
+    """{FormID: (EDID, has NonPlayerTradable)} from one export. The keyword
+    columns differ per export (Keywords / KW1..KWn), so the whole row is
+    searched - EditorIDs never contain the keyword name."""
+    import csv
+    out = {}
+    if not path:
+        return out
+    csv.field_size_limit(min(sys.maxsize, 2 ** 31 - 1))
+    with open(path, encoding="utf-8", errors="replace", newline="") as fh:
+        rd = csv.reader(fh, delimiter="\t")
+        h = next(rd, [])
+        i_f = next((h.index(c) for c in fid_cols if c in h), None)
+        i_e = next((h.index(c) for c in edid_cols if c in h), None)
+        if i_f is None:
+            return out
+        for r in rd:
+            if len(r) <= i_f:
+                continue
+            fid = r[i_f].strip('"').upper()[-8:].zfill(8)
+            edid = r[i_e].strip('"') if i_e is not None and len(r) > i_e else ""
+            out[fid] = (edid, any("NonPlayerTradable" in c for c in r))
+    return out
+
+
+def _trade_ctx():
+    global _TRADE_CTX
+    if _TRADE_CTX is not None:
+        return _TRADE_CTX
+    ctx = {"rec": {}, "uwa": {}}
+    try:
+        if str(SRC_DIR) not in sys.path:
+            sys.path.insert(0, str(SRC_DIR))
+        import tsv_source
+        ch = tsv_source.channel_of()
+        pick = lambda pat, ex=None: tsv_source.newest(pat, channel=ch, exclude=ex, required=False)
+        for sig, pat, ex, fcols, ecols in (
+                ("WEAP", "WEAP_Export_*_Base.tsv", None, ("WEAP_FormID",), ("WEAP_EDID",)),
+                ("ARMO", "ARMO_Export_*_ARMOUR.tsv", None, ("ARMO_FormID",), ("ARMO_EDID",)),
+                ("MISC", "MISC_Export_*.tsv", None, ("FormID", "MISC_FormID"), ("EDID", "MISC_EDID"))):
+            try:
+                ctx["rec"][sig] = _npt_records(pick(pat, ex), fcols, ecols)
+            except Exception as e:            # noqa: BLE001
+                print("  [activities_checklist] {} keywords not read: {}".format(sig, e))
+                ctx["rec"][sig] = {}
+        uwa_path = REPO_ROOT / "dist" / ("pts" if ch == "pts" else "") / "unique_weapons_armour" / "unique_weapons_armour.json"
+        if not uwa_path.exists():
+            uwa_path = REPO_ROOT / "dist" / "unique_weapons_armour" / "unique_weapons_armour.json"
+        with open(uwa_path, encoding="utf-8") as f:
+            for it in (json.load(f).get("items") or []):
+                if not isinstance(it.get("tradeable"), bool):
+                    continue
+                for m in it.get("uniqueMods") or []:
+                    n = str(m.get("name") or "").strip().lower()
+                    if m.get("kind") == "unique" and n:
+                        ctx["uwa"].setdefault(n, it["tradeable"])
+    except Exception as e:                    # tradeable is never fatal
+        print("  [activities_checklist] tradeable lookup partly skipped: {}".format(e))
+    _TRADE_CTX = ctx
+    return ctx
+
+
+_LEGACY_REC = re.compile(r"^(Survival|NW|NuclearWinter|DEPRECATED)_", re.I)
+
+
+def add_tradeable(rows, stats=None):
+    ctx = _trade_ctx()
+    for r in rows:
+        if isinstance(r.get("tradeable"), bool) or r.get("sig") not in ("WEAP", "ARMO", "MISC"):
+            continue
+        mod = str(r.get("customModName") or "").strip().lower()
+        if mod and mod in ctx["uwa"]:
+            r["tradeable"] = ctx["uwa"][mod]
+        else:
+            rec = ctx["rec"].get(r["sig"], {}).get(r["formid"])
+            if rec is None or _LEGACY_REC.match(rec[0]):
+                if stats is not None:
+                    stats["trade-unknown"] = stats.get("trade-unknown", 0) + 1
+                continue
+            r["tradeable"] = not rec[1]
+        if stats is not None:
+            stats["trade-set"] = stats.get("trade-set", 0) + 1
+    return rows
+
+
 def _is_activity_key(key, page):
     k = str(key or "")
     if k.startswith(ACTIVITY_PATH):
@@ -367,6 +464,7 @@ def add_to_pages(by_page, verbose=True):
         ad = page.setdefault("activityData", {})
         rows = build_checklist(page)
         add_images(rows, event_slug(key), pm=pm, stats=stats)
+        add_tradeable(rows, stats=stats)
         ad["checklist"] = rows
         total += len(rows)
         if not rows:
@@ -395,6 +493,7 @@ def _patch_dist(do_slices=True, do_mono=True):
         if es not in built:
             r = build_checklist(page)
             add_images(r, es, pm=pm, stats=stats)
+            add_tradeable(r, stats=stats)
             built[es] = r
         return built[es]
 

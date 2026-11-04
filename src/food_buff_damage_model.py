@@ -66,7 +66,8 @@ def damage_mechanics(rules, data_dir, warn=print):
     p = {k: _newest(data_dir, pat) for k, pat in {
         "base": "WEAP_Export_*_Base.tsv", "dnam": "WEAP_Export_*_DNAM.tsv",
         "spel": "SPEL_Export_*_EFFECTS.tsv", "glob": "GLOB_Export_*.tsv",
-        "curv": "CURV_Export_*_POINTS.tsv", "perkep": "PERKEP_Export_*.tsv"}.items()}
+        "curv": "CURV_Export_*_POINTS.tsv", "perkep": "PERKEP_Export_*.tsv",
+        "gmst": "GMST_Export_*.tsv"}.items()}
     miss = [k for k, v in p.items() if not v]
     if miss:
         warn(f"damage model: missing exports {miss} - damage buffs fall back to rules weights")
@@ -149,6 +150,20 @@ def damage_mechanics(rules, data_dir, warn=print):
     for k, b in (dm.get("builds") or {}).items():
         builds[k] = {"weapons": b.get("weapons") or {}, "cards": cards(b.get("cards")),
                      "scoped": bool(b.get("scoped")), "explosive": cards(b.get("explosive_cards"))}
+    # ---- Strength -> melee / unarmed damage (Kat 4 Nov) -----------------------------
+    gm = {(r.get("EDID") or "").strip(): _f(r.get("Value")) for r in _rows(p["gmst"])}
+    strength = None
+    sd = dm.get("strength")
+    if sd:
+        pp = {}
+        for b, edid in (sd.get("builds") or {}).items():
+            v = gm.get(edid)
+            if v is None:
+                warn(f"damage model: Strength setting {edid} not in the GMST export")
+                continue
+            pp[b] = round(v * 100, 4)          # 0.05 -> 5 (% per point)
+        strength = {"slot": sd.get("slot", "str"), "base": sd.get("base", 15), "perPoint": pp,
+                    "src": {b: e for b, e in (sd.get("builds") or {}).items()}}
     luck = curves.get(dm.get("luck_curve", "CT_LuckVATSCriticalCharge"))
     if not luck:
         warn("damage model: Luck crit meter curve missing")
@@ -165,5 +180,6 @@ def damage_mechanics(rules, data_dir, warn=print):
         "weapons": weapons,
         "slots": dm.get("slots") or {},
         "enemyShare": dm.get("enemy_share", 1),
+        "strength": strength,
         "src": {k: os.path.basename(v) for k, v in p.items()},
     }

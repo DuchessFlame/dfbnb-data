@@ -1848,6 +1848,15 @@
     "luck_curve": "CT_LuckVATSCriticalCharge",
     "crit_cost_perk": "CriticalSavvy03",
     "crit_bonus_perk": "BetterCriticals03",
+    "_strength_readme": "Kat 4 Nov: Strength food gets a real damage value on melee / unarmed builds (game settings: fAVDMeleeDamageMult = % melee damage per Strength, fDamageStrengthMult = % unarmed damage per Strength; they add to the other damage bonuses - bCombatUseAdditiveStrengthAttackBonus). base = the build's typical Strength before food (its points sit in the damage bonus). The Strength weight becomes the bigger of SpaceLime's weight and this damage value, so carry weight etc. still count.",
+    "strength": {
+      "slot": "str",
+      "base": 15,
+      "builds": {
+        "melee": "fAVDMeleeDamageMult",
+        "unarmed": "fDamageStrengthMult"
+      }
+    },
     "enemy_share": 1,
     "all_builds": [
       {
