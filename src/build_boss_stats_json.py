@@ -7,6 +7,8 @@ Builds the data behind three flat written-guide pages on buffsnbrew.com:
   /df/infestations/infestation-boss-stats/          -> dist/boss_stats/infestations.json
   /df/daily-ops/daily-ops-boss-stats/                -> dist/boss_stats/daily_ops.json
   /df/bounty-hunting/head-hunts/head-hunt-groups/    -> dist/boss_stats/head_hunts.json
+  /df/bounty-hunting/head-hunts/skyline-valley-head-hunt-boss-stats/
+                                                      -> dist/boss_stats/head_hunts_skyline.json
   /df/hideouts/hideout-boss-stats/                   -> dist/boss_stats/hideouts.json (PTS only for now)
                                                         (page title: Head Hunt Boss Stats)
 
@@ -715,17 +717,33 @@ INTRO = {
         "npcs": "Other Drifter records in the game files: the levelled versions that Hideouts actually spawn.",
     },
     "head_hunts": {
-        "title": "Bounty Hunting - Head Hunt Boss Stats",
-        "blurb": ("Each Head Hunt boss comes with a distinct weapon setup and a signature mechanic, and the "
-                  "gang they bring follows the same theme. This page lists every boss by group with their "
-                  "weapons, health, damage and resistances, plus the gang members and support wave that "
-                  "fight alongside them. Tick bosses off as you complete them."),
-        "profiles": "Bosses are grouped the same way as the Head Hunt Groups lifetime challenges. Tick a boss when you have killed it — ticking every boss in a group completes the group.",
+        "title": "Bounty Hunting - Burning Springs Head Hunt Boss Stats",
+        "blurb": ("Each Burning Springs Head Hunt boss comes with a distinct weapon setup and a signature "
+                  "mechanic, and the gang they bring follows the same theme. This page lists every boss by "
+                  "group with their weapons, health, damage and resistances, plus the gang members and "
+                  "support wave that fight alongside them. All numbers are read straight from the game "
+                  "files and update with every patch."),
+        "profiles": "Bosses are grouped the same way as the Head Hunt Groups lifetime challenges. Track your kills on the Grunt Hunt and Head Hunt Challenges page.",
         "mutations": "Mutation effects used by bounty targets. One-star outlaws are named after theirs, and some Head Hunt bosses carry a forced mutation as part of their signature attack.",
-        "mechanics": "Head Hunt bosses share the following stats.",
+        "mechanics": "Burning Springs Head Hunt bosses share the following stats.",
         "health": "Health is read from the curve table assigned to each boss across the bounty level range. Bosses on the same curve share a row.",
         "damage": "Damage per hit from each boss's main weapon at the bottom and top of the bounty level range.",
-        "support": "Every Head Hunt also sends a support wave that fights alongside the boss and its gang.",
+        "support": "Every Burning Springs Head Hunt also sends a support wave that fights alongside the boss and its gang.",
+        "npcs": "Each boss brings its own gang members, listed with the boss they belong to.",
+    },
+    "head_hunts_skyline": {
+        "title": "Bounty Hunting - Skyline Valley Head Hunt Boss Stats",
+        "blurb": ("Each Skyline Valley Head Hunt boss comes with a distinct weapon setup and a signature "
+                  "mechanic, and the gang they bring follows the same theme. This page lists every boss by "
+                  "group with their weapons, health, damage and resistances, plus the gang members and "
+                  "support waves that fight alongside them. All numbers are read straight from the game "
+                  "files and update with every patch."),
+        "profiles": "Bosses are grouped the same way as the Skyline Valley Head Hunt Groups lifetime challenges. Track your kills on the Grunt Hunt and Head Hunt Challenges page.",
+        "mutations": "Mutation effects used by bounty targets. One-star outlaws are named after theirs, and some Head Hunt bosses carry a forced mutation as part of their signature attack.",
+        "mechanics": "Skyline Valley Head Hunt bosses share the following stats.",
+        "health": "Health is read from the curve table assigned to each boss across the bounty level range. Bosses on the same curve share a row.",
+        "damage": "Damage per hit from each boss's main weapon at the bottom and top of the bounty level range.",
+        "support": "Every Skyline Valley Head Hunt sends one of these support waves alongside the boss and its gang. Blood Eagles are the usual wave; a few bosses bring a different one that suits their theme.",
         "npcs": "Each boss brings its own gang members, listed with the boss they belong to.",
     },
 }
@@ -1283,32 +1301,75 @@ def load_head_hunt_json():
     return None
 
 
-def build_head_hunts(game: Game):
+# Boss actors: live keeps the original Burn_BountyTarget_BIG_* records; the
+# Skyline Valley update renamed them to BountyHunt_HeadHunt_{Burn|Skyline}_Boss_*.
+# The region token in the EDID decides which page a boss belongs on.
+HH_BOSS_RE = re.compile(r"^(?:Burn_BountyTarget_BIG_|BountyHunt_HeadHunt_(Burn|Skyline)_Boss_)")
+HH_SUPPORT_RE = re.compile(r"^BountyHunt_(Burn|Skyline)_HeadHuntSupport_(\w+?)_WaveEnc$")
+HH_REGIONS = {
+    "burn": {"page": "head_hunts", "token": "Burn", "label": "Burning Springs"},
+    "skyline": {"page": "head_hunts_skyline", "token": "Skyline", "label": "Skyline Valley"},
+}
+
+
+def hh_region_of(edid: str) -> str:
+    """'skyline' or 'burn' for a boss actor / challenge EDID."""
+    return "skyline" if re.search(r"Skyline|RTSV", edid or "") else "burn"
+
+
+def hh_wave_label(token: str) -> str:
+    """'BloodEagles' -> 'Blood Eagles', 'RobcoBots' -> 'RobCo Bots', 'Commies' -> 'Communists'."""
+    t = humanise(token)
+    t = re.sub(r"\bRobco\b", "RobCo", t)
+    return {"Commies": "Communists", "Honey Beast": "Honey Beasts"}.get(t, t)
+
+
+def build_head_hunts(game: Game, region: str = "burn"):
+    cfg = HH_REGIONS[region]
     hh = load_head_hunt_json() or {"groups": []}
     targets = {}
     for e, r in game.npc.items():
-        if re.match(r"^Burn_BountyTarget_BIG_", e) and r.get("FULL") and not DO_SKIP.search(e):
+        if HH_BOSS_RE.match(e) and r.get("FULL") and not DO_SKIP.search(e):
             targets.setdefault(r["FULL"].strip().lower(), e)
 
-    groups, all_bosses, gang_rows = [], [], []
+    # Regroup every boss by the region and group number of its own
+    # "Kill the Target" challenge (Challenge_Lifetime_{BurnBounty|SkylineBounty}
+    # _CompleteHeadGroups_GroupNN_*). Bosses without one (seasonal) keep the
+    # group they were listed in and fall back to their actor's region.
+    buckets: dict = {}
     for g in hh.get("groups", []):
-        gb = []
         for hb in g.get("bosses", []):
             e = targets.get(hb["name"].strip().lower())
+            chal = (hb.get("challenge") or {}).get("edid", "")
+            reg = hh_region_of(chal) if chal else hh_region_of(e or "")
+            if reg != region:
+                continue
+            m = re.search(r"_Group0*(\d+)_", chal)
+            num = int(m.group(1)) if m and not g.get("seasonal") else g.get("groupNumber")
+            key = (bool(g.get("seasonal")), num)
+            bk = buckets.setdefault(key, {"groupNumber": num, "seasonal": bool(g.get("seasonal")),
+                                          "label": (g.get("label") if g.get("seasonal") else None)
+                                          or f"Head Hunter Group {num}",
+                                          "blurb": g.get("blurb"), "items": []})
+            bk["items"].append((hb, e))
+
+    groups, all_bosses, gang_rows = [], [], []
+    for key in sorted(buckets, key=lambda k: (k[0], k[1] or 0)):
+        g = buckets[key]
+        gb = []
+        for hb, e in sorted(g["items"], key=lambda x: x[0]["name"].lower()):
             b = game.npc_stats(e) if e else {"name": hb["name"], "levelMin": None, "levelMax": None}
             b["name"] = hb["name"]
             b["gang"] = hb.get("gangName", "")
             b["imageSlug"] = hb.get("imageSlug", "")
-            if hb.get("challenge"):
-                b["challenge"] = hb["challenge"]
             weps = []
-            for key, label in (("weapon", "Main"), ("meleeWeapon", "Secondary"), ("grenade", "Thrown")):
-                w = hb.get(key)
+            for wkey, label in (("weapon", "Main"), ("meleeWeapon", "Secondary"), ("grenade", "Thrown")):
+                w = hb.get(wkey)
                 if not w:
                     continue
                 wo = game.weapon(w.get("baseEdid", ""), b.get("levelMin"), b.get("levelMax")) or {}
                 wo.update({"name": w.get("name"), "slot": label,
-                           "type": "Grenade" if key == "grenade" else (wo.get("type") or w.get("weaponType", "")),
+                           "type": "Grenade" if wkey == "grenade" else (wo.get("type") or w.get("weaponType", "")),
                            "ammo": wo.get("ammo") or quoted_name(w.get("ammo", "")),
                            "range": wo.get("range") or round(fnum(w.get("maxRange")))})
                 if w.get("legendaryMods"):
@@ -1335,12 +1396,12 @@ def build_head_hunts(game: Game):
                 specials.append({"name": "Note", "text": hb["note"]})
             b["specials"] = specials
 
-            # Gang members: every non-boss NPC on the same WAVE record(s).
+            # Gang members: every non-boss NPC on the boss's own WAVE record(s).
             gang = []
             if e:
                 for wave in game.lists_containing(e, "WAVE"):
                     for m in game.members_of(wave, "WAVE"):
-                        if m == e or m in [x["edid"] for x in gang] or "BIG_" in m:
+                        if m == e or m in [x["edid"] for x in gang] or HH_BOSS_RE.match(m) or "BIG_" in m:
                             continue
                         n = game.npc_stats(m)
                         n["boss"] = hb["name"]
@@ -1350,62 +1411,81 @@ def build_head_hunts(game: Game):
             gang_rows.extend(gang)
             gb.append(b)
             all_bosses.append(b)
-        grp = {"groupNumber": g.get("groupNumber"), "label": g.get("label") or f"Head Hunter Group {g.get('groupNumber')}",
-               "seasonal": bool(g.get("seasonal")), "bosses": gb}
-        if g.get("metaChallenge"):
-            grp["metaChallenge"] = g["metaChallenge"]
+        grp = {"groupNumber": g["groupNumber"], "label": g["label"], "seasonal": g["seasonal"], "bosses": gb}
         if g.get("blurb"):
             grp["blurb"] = g["blurb"]
         groups.append(grp)
 
-    # Support wave: the Rust Raider actors on the Head Hunt support keyword.
-    support = []
-    for e in sorted(game.npc):
-        if e.startswith("Burn_LvlRustRaider") and not DO_SKIP.search(e):
+    # Support waves: BountyHunt_{Region}_HeadHuntSupport_<Faction>_WaveEnc (PTS
+    # onwards). Live has no such WAVE yet, so Burning Springs falls back to the
+    # Rust Raider actors the support keyword spawns.
+    support, waves = [], []
+    for w in sorted(game.refs_by):
+        m = HH_SUPPORT_RE.match(w)
+        if m and m.group(1) == cfg["token"]:
+            waves.append((hh_wave_label(m.group(2)), game.members_of(w, "WAVE")))
+    if not waves and region == "burn":
+        waves = [("Rust Raiders", [e for e in sorted(game.npc) if re.match(r"(?i)^Burn_LvlRustRaider", e)])]
+    for label, members in waves:
+        for e in members:
+            if e not in game.npc or DO_SKIP.search(e):
+                continue
             n = game.npc_stats(e)
-            if not game.npc[e].get("FULL"):
+            if not game.npc[e].get("FULL") and re.match(r"(?i)^Burn_LvlRustRaider", e):
                 parts = e.split("_")
                 cls = re.sub(r"\bRaider\b", "", humanise(parts[2] if len(parts) > 2 else "")).strip()
                 n["name"] = f"Rust Raider ({cls})" if cls else "Rust Raider"
+            n["faction"] = label
             support.append(n)
 
-    # Mutations: forced NPC mutation spells + outlaw mutation effects.
+    # Mutations: forced NPC mutation spells + outlaw mutation effects (shared by both regions).
     muts = []
     for sp in sorted(game.spel):
         if re.match(r"^Burn_Bounty_Mutation_", sp):
             s = game.spel[sp]
             muts.append({"edid": sp, "name": re.sub(r"^(NPC|Forced|Bounty)\s+", "", s.get("SPEL_FULL", "")) or humanise(sp),
                          "summary": (s.get("SPEL_DESC") or "").strip(), "detail": MUTATION_DETAIL.get(sp, "")})
-    outlaws = sorted({(game.npc[e].get("FULL") or "") for e in game.npc
-                      if e.startswith("Burn_BountyTarget_SML_") and re.search(r"_[MF]$", e)} - {""})
+    outlaws = sorted({(game.npc[e].get("FULL") or "").strip() for e in game.npc
+                      if re.match(r"^(?:Burn_BountyTarget_SML_|BountyHunt_GruntHunt_)", e)
+                      and (game.npc[e].get("FULL") or "").strip().endswith("Outlaw")} - {""})
 
     real = [b for b in all_bosses if b.get("levelMin") is not None]
-    b0 = real[0] if real else {}
     mech_rows = []
-    if b0:
-        mech_rows.append(["Bounty level range", f"{b0.get('levelMin')} – {b0.get('levelMax')}"])
-        if b0.get("speedMult"):
-            mech_rows.append(["Move speed", f"{int(b0['speedMult'])}% of normal"])
-    mech_rows.append(["Bosses", f"{sum(1 for g in groups if not g['seasonal'] for _ in g['bosses'])} across {sum(1 for g in groups if not g['seasonal'])} groups"])
-    if support:
-        mech_rows.append(["Support wave", hh.get("sidekickType") or "Rust Raiders"])
+    if real:
+        lo = min(b["levelMin"] for b in real)
+        hi = max(b["levelMax"] for b in real)
+        mech_rows.append(["Bounty level range", f"{lo} – {hi}"])
+        odd = [b for b in real if (b["levelMin"], b["levelMax"]) != (lo, hi)]
+        if odd and len(odd) < len(real):
+            mech_rows.append(["Different level range", ", ".join(f"{b['name']} ({range_txt(b)})" for b in odd)])
+        sp = [b.get("speedMult") for b in real if b.get("speedMult")]
+        if sp and len(set(sp)) == 1:
+            mech_rows.append(["Move speed", f"{int(sp[0])}% of normal"])
+    core = [g for g in groups if not g["seasonal"]]
+    mech_rows.append(["Bosses", f"{sum(len(g['bosses']) for g in core)} across {len(core)} groups"])
+    if waves:
+        mech_rows.append(["Support wave" + ("s" if len(waves) > 1 else ""), ", ".join(w[0] for w in waves)])
 
+    intro = INTRO[cfg["page"]]
     return {
-        "page": "head_hunts",
-        "intro": INTRO["head_hunts"],
-        "storeKey": "dfbnb_hh_bosses_v1",
-        "allChallenge": hh.get("allChallenge"),
+        "page": cfg["page"],
+        "region": cfg["label"],
+        "intro": intro,
         "groups": groups,
         "bosses": all_bosses,
-        "mutations": {"intro": INTRO["head_hunts"]["mutations"], "list": muts,
-                      "outlaws": outlaws},
-        "mechanics": {"intro": INTRO["head_hunts"]["mechanics"], "rows": mech_rows,
+        "mutations": {"intro": intro["mutations"], "list": muts, "outlaws": outlaws},
+        "mechanics": {"intro": intro["mechanics"], "rows": mech_rows,
                       "resist": [{"name": b["name"], **(b.get("resist") or {})} for b in real]},
-        "health": build_health_section(game, real, 25, INTRO["head_hunts"]["health"]),
-        "damage": build_damage_section(real, INTRO["head_hunts"]["damage"]),
-        "support": {"intro": INTRO["head_hunts"]["support"], "rows": support},
-        "npcs": {"intro": INTRO["head_hunts"]["npcs"], "rows": gang_rows},
+        "health": build_health_section(game, real, 25, intro["health"]),
+        "damage": build_damage_section(real, intro["damage"]),
+        "support": {"intro": intro["support"], "rows": support},
+        "npcs": {"intro": intro["npcs"], "rows": gang_rows},
     }
+
+
+def range_txt(b) -> str:
+    lo, hi = b.get("levelMin"), b.get("levelMax")
+    return f"Lv {lo}" if lo == hi else f"Lv {lo}–{hi}"
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -1430,7 +1510,7 @@ def main():
     game = Game()
     hto = build_infestations(game)
     do = build_daily_ops(game)
-    hh = build_head_hunts(game)
+    hh = build_head_hunts(game, "burn")
     # Guard: never overwrite a good page with an empty one.
     for name, d in (("infestations", hto), ("daily_ops", do), ("head_hunts", hh)):
         if not d["bosses"]:
@@ -1441,6 +1521,14 @@ def main():
     write("infestations", hto)
     write("daily_ops", do)
     write("head_hunts", hh)
+    # Skyline Valley Head Hunts are PTS-only until the update ships: no Skyline
+    # boss actors on live, so skip quietly there like Hideouts.
+    sv = build_head_hunts(game, "skyline")
+    if sv["bosses"]:
+        add_body_parts(game, sv["bosses"])
+        write("head_hunts_skyline", sv)
+    else:
+        print("[Boss Stats] head_hunts_skyline: no Skyline Valley Head Hunt bosses on this channel — not written.")
     # Hideouts are PTS-only until the update ships: no HIDE_ actors on live, so
     # skip quietly there instead of failing the guard above.
     hide = build_hideouts(game)

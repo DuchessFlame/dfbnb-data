@@ -625,6 +625,21 @@ def _fmt_surv(seconds: Optional[float]) -> Optional[str]:
 
 
 def effect_display_line(eff: Dict[str, Any]) -> str:
+    """Kat 4 Nov 2026: players call it HP (Max HP, HP Regen, Restores N HP), not Health."""
+    return hp_words(_effect_display_line(eff))
+
+
+def hp_words(t: str) -> str:
+    if not t:
+        return t
+    t = re.sub(r"\bHealth Regen(eration)?\b", "HP Regen", t)
+    t = re.sub(r"\bmax(imum)? health\b", "Max HP", t, flags=re.I)
+    t = re.sub(r"^Restores (.*)\bHealth\b", r"Restores \1HP", t)
+    t = re.sub(r"^([+-][\d.]+) Health\b", r"\1 Max HP", t)
+    return t
+
+
+def _effect_display_line(eff: Dict[str, Any]) -> str:
     """One player-facing line for an effect. The DURATION is rendered
     separately by the front-end, so it is not repeated here — except for a
     hunger/thirst value, where the number IS the magnitude."""

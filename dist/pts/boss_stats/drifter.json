@@ -1,20 +1,20 @@
 {
- "generated": "2026-11-03T23:42:02+00:00",
+ "generated": "2026-11-04T01:59:37+00:00",
  "channel": "pts",
  "isPts": true,
  "sources": {
-  "BPTD": "tsv/BPTD_Export_October_2026.tsv",
-  "CURV_POINTS": "tsv/CURV_Export_October_2026_POINTS.tsv",
-  "FLST_Entries": "tsv/FLST_Export_October_2026_Entries.tsv",
-  "GLOB": "tsv/GLOB_Export_October_2026.tsv",
-  "KYWD": "tsv/KYWD_Export_October_2026.tsv",
-  "LVLI_Entries": "tsv/LVLI_Export_October_2026_LVLI_Entries.tsv",
-  "NPC": "tsv/NPC_Export_October_2026.tsv",
-  "NPC_PRPS": "tsv/NPC_Export_October_2026_PRPS.tsv",
-  "NPC_Refs": "tsv/NPC_Export_October_2026_Refs.tsv",
-  "SPEL_HEADER": "tsv/SPEL_Export_October_2026_HEADER.tsv",
-  "WEAP_DNAM": "tsv/WEAP_Export_October_2026_DNAM.tsv",
-  "head_hunt_bosses": "dist/bounty-hunting/head_hunt_bosses.json"
+  "BPTD": "tsv/pts/BPTD_Export_PTS_2026-10-28_0509.tsv",
+  "CURV_POINTS": "tsv/pts/CURV_Export_PTS_2026-09-14_2013_POINTS.tsv",
+  "FLST_Entries": "tsv/pts/FLST_Export_PTS_2026-10-28_0520_Entries.tsv",
+  "GLOB": "tsv/pts/GLOB_Export_PTS_2026-10-28_0508.tsv",
+  "KYWD": "tsv/pts/KYWD_Export_PTS_2026-10-28_0509.tsv",
+  "LVLI_Entries": "tsv/pts/LVLI_Export_PTS_2026-10-28_0513_LVLI_Entries.tsv",
+  "NPC": "tsv/pts/NPC_Export_PTS_2026-10-28_0510.tsv",
+  "NPC_PRPS": "tsv/pts/NPC_Export_PTS_2026-10-28_0510_PRPS.tsv",
+  "NPC_Refs": "tsv/pts/NPC_Export_PTS_2026-10-28_0510_Refs.tsv",
+  "SPEL_HEADER": "tsv/pts/SPEL_Export_PTS_2026-10-28_0508_HEADER.tsv",
+  "WEAP_DNAM": "tsv/pts/WEAP_Export_PTS_2026-10-28_0523_DNAM.tsv",
+  "head_hunt_bosses": "dist/pts/bounty-hunting/head_hunt_bosses.json"
  },
  "page": "drifter",
  "labels": {
@@ -40,17 +40,17 @@
    "race": "HIDE_Drifter",
    "levelMin": 250,
    "levelMax": 300,
-   "hpMin": 208457,
-   "hpMax": 452402,
+   "hpMin": 207972,
+   "hpMax": 415905,
    "healthCurve": "CT_Creatures_Health_Universal_Tier40",
    "statsFrom": "",
    "resist": {
-    "DR": 733,
-    "ER": 733,
-    "Fire": 545,
-    "Cryo": 427,
-    "Poison": 545,
-    "Rad": 545
+    "DR": 718,
+    "ER": 718,
+    "Fire": 531,
+    "Cryo": 414,
+    "Poison": 531,
+    "Rad": 531
    },
    "speedMult": 100.0,
    "epicRank": 4.0,
@@ -63,8 +63,8 @@
      "ammo": "10mm Round",
      "range": 1250,
      "type": "Gun",
-     "damageMin": 171,
-     "damageMax": 328,
+     "damageMin": 170,
+     "damageMax": 307,
      "damageCurve": "CT_Creatures_Damage_Universal_Tier15"
     },
     {
@@ -73,8 +73,8 @@
      "ammo": "",
      "range": 256,
      "type": "OneHandSword",
-     "damageMin": 387,
-     "damageMax": 702,
+     "damageMin": 386,
+     "damageMax": 661,
      "damageCurve": "CT_Creatures_Damage_Universal_Tier25"
     },
     {
@@ -93,8 +93,8 @@
      "ammo": "40mm Grenade Round",
      "range": 5000,
      "type": "Gun",
-     "damageMin": 49,
-     "damageMax": 102,
+     "damageMin": 50,
+     "damageMax": 95,
      "damageCurve": "CT_Creatures_Damage_Universal_Tier01"
     }
    ],
@@ -104,8 +104,8 @@
      "name": "Head",
      "pct": 20.0,
      "mult": 1.0,
-     "hpMin": 41691,
-     "hpMax": 90480,
+     "hpMin": 41594,
+     "hpMax": 83181,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -114,8 +114,8 @@
      "name": "Torso",
      "pct": 80.0,
      "mult": 1.0,
-     "hpMin": 166766,
-     "hpMax": 361922,
+     "hpMin": 166378,
+     "hpMax": 332724,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -124,8 +124,8 @@
      "name": "Arms (each)",
      "pct": 20.0,
      "mult": 1.0,
-     "hpMin": 41691,
-     "hpMax": 90480,
+     "hpMin": 41594,
+     "hpMax": 83181,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -134,8 +134,8 @@
      "name": "Legs (each)",
      "pct": 25.0,
      "mult": 1.0,
-     "hpMin": 52114,
-     "hpMax": 113100,
+     "hpMin": 51993,
+     "hpMax": 103976,
      "severable": false,
      "alsoHitVia": [
       "Feet"
@@ -146,8 +146,8 @@
      "name": "Air Tank",
      "pct": 5.0,
      "mult": 1.25,
-     "hpMin": 10423,
-     "hpMax": 22620,
+     "hpMin": 10399,
+     "hpMax": 20795,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": true
@@ -232,12 +232,12 @@
   "resist": [
    {
     "name": "The Drifter",
-    "DR": 733,
-    "ER": 733,
-    "Fire": 545,
-    "Cryo": 427,
-    "Poison": 545,
-    "Rad": 545
+    "DR": 718,
+    "ER": 718,
+    "Fire": 531,
+    "Cryo": 414,
+    "Poison": 531,
+    "Rad": 531
    }
   ]
  },
@@ -259,12 +259,12 @@
     ],
     "curve": "CT_Creatures_Health_Universal_Tier40",
     "values": [
-     208457,
-     241791,
-     281451,
-     328709,
-     385085,
-     452402
+     207972,
+     241010,
+     280486,
+     327810,
+     383995,
+     415905
     ]
    }
   ]
@@ -277,8 +277,8 @@
     "weapon": "Tempest",
     "levelMin": 250,
     "levelMax": 300,
-    "damageMin": 387,
-    "damageMax": 702
+    "damageMin": 386,
+    "damageMax": 661
    }
   ]
  },
@@ -296,17 +296,17 @@
     "race": "HIDE_Drifter",
     "levelMin": 250,
     "levelMax": 300,
-    "hpMin": 208457,
-    "hpMax": 452402,
+    "hpMin": 207972,
+    "hpMax": 415905,
     "healthCurve": "CT_Creatures_Health_Universal_Tier40",
     "statsFrom": "",
     "resist": {
-     "DR": 733,
-     "ER": 733,
-     "Fire": 545,
-     "Cryo": 427,
-     "Poison": 545,
-     "Rad": 545
+     "DR": 718,
+     "ER": 718,
+     "Fire": 531,
+     "Cryo": 414,
+     "Poison": 531,
+     "Rad": 531
     },
     "speedMult": 100.0,
     "epicRank": 4.0,
@@ -321,17 +321,17 @@
     "race": "HIDE_Drifter",
     "levelMin": 250,
     "levelMax": 300,
-    "hpMin": 208457,
-    "hpMax": 452402,
+    "hpMin": 207972,
+    "hpMax": 415905,
     "healthCurve": "CT_Creatures_Health_Universal_Tier40",
     "statsFrom": "",
     "resist": {
-     "DR": 733,
-     "ER": 733,
-     "Fire": 545,
-     "Cryo": 427,
-     "Poison": 545,
-     "Rad": 545
+     "DR": 718,
+     "ER": 718,
+     "Fire": 531,
+     "Cryo": 414,
+     "Poison": 531,
+     "Rad": 531
     },
     "speedMult": 100.0,
     "epicRank": 4.0,

@@ -892,6 +892,9 @@ def build(data_dir, dist_dir):
     for n in rules.get("never_recommend") or []:          # Kat 2 Nov: stays on the pages, never picked
         if not any(i["n"] == n for i in items):
             warn(f"rules.json never_recommend: no item called '{n}'")
+    for n in (rules.get("not_for_slots") or {}):          # Kat 4 Nov: Brain Bombs never the AP refill
+        if n not in item_names:
+            warn(f"rules.json not_for_slots: no item called '{n}'")
     for n in rules.get("exclude_items") or []:
         if n not in item_names:
             warn(f"rules.json exclude_items: no item called '{n}'")

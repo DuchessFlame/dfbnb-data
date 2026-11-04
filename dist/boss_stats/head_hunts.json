@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-04T04:51:06+00:00",
+ "generated": "2026-11-04T01:59:35+00:00",
  "channel": "live",
  "isPts": false,
  "sources": {
@@ -17,22 +17,17 @@
   "head_hunt_bosses": "dist/bounty-hunting/head_hunt_bosses.json"
  },
  "page": "head_hunts",
+ "region": "Burning Springs",
  "intro": {
-  "title": "Bounty Hunting - Head Hunt Boss Stats",
-  "blurb": "Each Head Hunt boss comes with a distinct weapon setup and a signature mechanic, and the gang they bring follows the same theme. This page lists every boss by group with their weapons, health, damage and resistances, plus the gang members and support wave that fight alongside them. Tick bosses off as you complete them.",
-  "profiles": "Bosses are grouped the same way as the Head Hunt Groups lifetime challenges. Tick a boss when you have killed it — ticking every boss in a group completes the group.",
+  "title": "Bounty Hunting - Burning Springs Head Hunt Boss Stats",
+  "blurb": "Each Burning Springs Head Hunt boss comes with a distinct weapon setup and a signature mechanic, and the gang they bring follows the same theme. This page lists every boss by group with their weapons, health, damage and resistances, plus the gang members and support wave that fight alongside them. All numbers are read straight from the game files and update with every patch.",
+  "profiles": "Bosses are grouped the same way as the Head Hunt Groups lifetime challenges. Track your kills on the Grunt Hunt and Head Hunt Challenges page.",
   "mutations": "Mutation effects used by bounty targets. One-star outlaws are named after theirs, and some Head Hunt bosses carry a forced mutation as part of their signature attack.",
-  "mechanics": "Head Hunt bosses share the following stats.",
+  "mechanics": "Burning Springs Head Hunt bosses share the following stats.",
   "health": "Health is read from the curve table assigned to each boss across the bounty level range. Bosses on the same curve share a row.",
   "damage": "Damage per hit from each boss's main weapon at the bottom and top of the bounty level range.",
-  "support": "Every Head Hunt also sends a support wave that fights alongside the boss and its gang.",
+  "support": "Every Burning Springs Head Hunt also sends a support wave that fights alongside the boss and its gang.",
   "npcs": "Each boss brings its own gang members, listed with the boss they belong to."
- },
- "storeKey": "dfbnb_hh_bosses_v1",
- "allChallenge": {
-  "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_All_META",
-  "formId": "0084312F",
-  "name": "Complete All Head Hunt Groups"
  },
  "groups": [
   {
@@ -47,8 +42,8 @@
      "race": "Human",
      "levelMin": 25,
      "levelMax": 175,
-     "hpMin": 2868,
-     "hpMax": 30035,
+     "hpMin": 2871,
+     "hpMax": 30087,
      "healthCurve": "CT_Creatures_Health_Universal_Tier34",
      "statsFrom": "",
      "resist": {
@@ -62,11 +57,6 @@
      "speedMult": 120.0,
      "gang": "Famine",
      "imageSlug": "the-black-horseman",
-     "challenge": {
-      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group01_KillFamine_SUB",
-      "formId": "00843111",
-      "name": "Kill the Target - The Black Horseman"
-     },
      "weapons": [
       {
        "edid": "crGatlingPlasma",
@@ -107,7 +97,7 @@
        "pct": 20.0,
        "mult": 1.5,
        "hpMin": 574,
-       "hpMax": 6007,
+       "hpMax": 6017,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": true
@@ -116,8 +106,8 @@
        "name": "Torso",
        "pct": 75.0,
        "mult": 1.0,
-       "hpMin": 2151,
-       "hpMax": 22526,
+       "hpMin": 2153,
+       "hpMax": 22565,
        "severable": false,
        "alsoHitVia": [],
        "weakSpot": false
@@ -126,8 +116,8 @@
        "name": "Arms (each)",
        "pct": 25.0,
        "mult": 1.0,
-       "hpMin": 717,
-       "hpMax": 7509,
+       "hpMin": 718,
+       "hpMax": 7522,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": false
@@ -136,8 +126,8 @@
        "name": "Legs (each)",
        "pct": 35.0,
        "mult": 1.0,
-       "hpMin": 1004,
-       "hpMax": 10512,
+       "hpMin": 1005,
+       "hpMax": 10530,
        "severable": true,
        "alsoHitVia": [
         "Feet"
@@ -154,12 +144,12 @@
      "race": "Ghoul",
      "levelMin": 25,
      "levelMax": 175,
-     "hpMin": 2868,
-     "hpMax": 30035,
+     "hpMin": 2871,
+     "hpMax": 30087,
      "healthCurve": "CT_Creatures_Health_Universal_Tier34",
      "statsFrom": "",
      "resist": {
-      "DR": 854,
+      "DR": 855,
       "ER": 559,
       "Fire": 719,
       "Cryo": 719,
@@ -169,11 +159,6 @@
      "speedMult": 120.0,
      "gang": "Death",
      "imageSlug": "the-pale-horseman",
-     "challenge": {
-      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group01_KillDeath_SUB",
-      "formId": "00843141",
-      "name": "Kill the Target - The Pale Horseman"
-     },
      "weapons": [
       {
        "edid": "cr50CalMachineGun",
@@ -214,7 +199,7 @@
        "pct": 20.0,
        "mult": 1.5,
        "hpMin": 574,
-       "hpMax": 6007,
+       "hpMax": 6017,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": true
@@ -223,8 +208,8 @@
        "name": "Torso",
        "pct": 75.0,
        "mult": 1.0,
-       "hpMin": 2151,
-       "hpMax": 22526,
+       "hpMin": 2153,
+       "hpMax": 22565,
        "severable": false,
        "alsoHitVia": [],
        "weakSpot": false
@@ -233,8 +218,8 @@
        "name": "Arms (each)",
        "pct": 25.0,
        "mult": 1.0,
-       "hpMin": 717,
-       "hpMax": 7509,
+       "hpMin": 718,
+       "hpMax": 7522,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": false
@@ -243,8 +228,8 @@
        "name": "Legs (each)",
        "pct": 35.0,
        "mult": 1.0,
-       "hpMin": 1004,
-       "hpMax": 10512,
+       "hpMin": 1005,
+       "hpMax": 10530,
        "severable": true,
        "alsoHitVia": [
         "Feet"
@@ -261,12 +246,12 @@
      "race": "Human",
      "levelMin": 25,
      "levelMax": 175,
-     "hpMin": 2868,
-     "hpMax": 30035,
+     "hpMin": 2871,
+     "hpMax": 30087,
      "healthCurve": "CT_Creatures_Health_Universal_Tier34",
      "statsFrom": "",
      "resist": {
-      "DR": 854,
+      "DR": 855,
       "ER": 476,
       "Fire": 933,
       "Cryo": 660,
@@ -276,11 +261,6 @@
      "speedMult": 120.0,
      "gang": "War",
      "imageSlug": "the-red-rider",
-     "challenge": {
-      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group01_KillWar_SUB",
-      "formId": "00843120",
-      "name": "Kill the Target - The Red Rider"
-     },
      "weapons": [
       {
        "edid": "crCremator",
@@ -321,7 +301,7 @@
        "pct": 20.0,
        "mult": 1.5,
        "hpMin": 574,
-       "hpMax": 6007,
+       "hpMax": 6017,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": true
@@ -330,8 +310,8 @@
        "name": "Torso",
        "pct": 75.0,
        "mult": 1.0,
-       "hpMin": 2151,
-       "hpMax": 22526,
+       "hpMin": 2153,
+       "hpMax": 22565,
        "severable": false,
        "alsoHitVia": [],
        "weakSpot": false
@@ -340,8 +320,8 @@
        "name": "Arms (each)",
        "pct": 25.0,
        "mult": 1.0,
-       "hpMin": 717,
-       "hpMax": 7509,
+       "hpMin": 718,
+       "hpMax": 7522,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": false
@@ -350,8 +330,8 @@
        "name": "Legs (each)",
        "pct": 35.0,
        "mult": 1.0,
-       "hpMin": 1004,
-       "hpMax": 10512,
+       "hpMin": 1005,
+       "hpMax": 10530,
        "severable": true,
        "alsoHitVia": [
         "Feet"
@@ -368,8 +348,8 @@
      "race": "Human",
      "levelMin": 25,
      "levelMax": 175,
-     "hpMin": 2868,
-     "hpMax": 30035,
+     "hpMin": 2871,
+     "hpMax": 30087,
      "healthCurve": "CT_Creatures_Health_Universal_Tier34",
      "statsFrom": "",
      "resist": {
@@ -383,11 +363,6 @@
      "speedMult": 120.0,
      "gang": "Pestilence",
      "imageSlug": "the-white-horseman",
-     "challenge": {
-      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group01_KillPest_SUB",
-      "formId": "00843107",
-      "name": "Kill the Target - The White Horseman"
-     },
      "weapons": [
       {
        "edid": "crPlasmaCaster",
@@ -396,7 +371,7 @@
        "range": 4410,
        "type": "Gun",
        "damageMin": 24,
-       "damageMax": 144,
+       "damageMax": 145,
        "damageCurve": "CT_Creatures_Damage_Universal_Tier24",
        "slot": "Main"
       },
@@ -428,7 +403,7 @@
        "pct": 20.0,
        "mult": 1.5,
        "hpMin": 574,
-       "hpMax": 6007,
+       "hpMax": 6017,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": true
@@ -437,8 +412,8 @@
        "name": "Torso",
        "pct": 75.0,
        "mult": 1.0,
-       "hpMin": 2151,
-       "hpMax": 22526,
+       "hpMin": 2153,
+       "hpMax": 22565,
        "severable": false,
        "alsoHitVia": [],
        "weakSpot": false
@@ -447,8 +422,8 @@
        "name": "Arms (each)",
        "pct": 25.0,
        "mult": 1.0,
-       "hpMin": 717,
-       "hpMax": 7509,
+       "hpMin": 718,
+       "hpMax": 7522,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": false
@@ -457,8 +432,8 @@
        "name": "Legs (each)",
        "pct": 35.0,
        "mult": 1.0,
-       "hpMin": 1004,
-       "hpMax": 10512,
+       "hpMin": 1005,
+       "hpMax": 10530,
        "severable": true,
        "alsoHitVia": [
         "Feet"
@@ -468,12 +443,7 @@
      ],
      "bodyPartData": "HumanBodyPartData"
     }
-   ],
-   "metaChallenge": {
-    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group01_META",
-    "formId": "0084310A",
-    "name": "Kill Bounties from Group 1"
-   }
+   ]
   },
   {
    "groupNumber": 2,
@@ -487,26 +457,21 @@
      "race": "Human",
      "levelMin": 25,
      "levelMax": 175,
-     "hpMin": 3405,
-     "hpMax": 35139,
+     "hpMin": 3408,
+     "hpMax": 35198,
      "healthCurve": "CT_Creatures_Health_Universal_Tier35",
      "statsFrom": "",
      "resist": {
       "DR": 440,
       "ER": 407,
       "Fire": 407,
-      "Cryo": 607,
+      "Cryo": 608,
       "Poison": 349,
       "Rad": 349
      },
      "speedMult": 120.0,
      "gang": "Nuka",
      "imageSlug": "anna-the-nuka-queen",
-     "challenge": {
-      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group02_KillNuka_SUB",
-      "formId": "00843117",
-      "name": "Kill the Target - Anna The Nuka-Queen"
-     },
      "weapons": [
       {
        "edid": "crHuntingRifle",
@@ -546,8 +511,8 @@
        "name": "Head",
        "pct": 20.0,
        "mult": 1.5,
-       "hpMin": 681,
-       "hpMax": 7028,
+       "hpMin": 682,
+       "hpMax": 7040,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": true
@@ -556,8 +521,8 @@
        "name": "Torso",
        "pct": 75.0,
        "mult": 1.0,
-       "hpMin": 2554,
-       "hpMax": 26354,
+       "hpMin": 2556,
+       "hpMax": 26398,
        "severable": false,
        "alsoHitVia": [],
        "weakSpot": false
@@ -566,8 +531,8 @@
        "name": "Arms (each)",
        "pct": 25.0,
        "mult": 1.0,
-       "hpMin": 851,
-       "hpMax": 8785,
+       "hpMin": 852,
+       "hpMax": 8800,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": false
@@ -576,8 +541,8 @@
        "name": "Legs (each)",
        "pct": 35.0,
        "mult": 1.0,
-       "hpMin": 1192,
-       "hpMax": 12299,
+       "hpMin": 1193,
+       "hpMax": 12319,
        "severable": true,
        "alsoHitVia": [
         "Feet"
@@ -594,13 +559,13 @@
      "race": "Human",
      "levelMin": 25,
      "levelMax": 175,
-     "hpMin": 3405,
-     "hpMax": 35139,
+     "hpMin": 3408,
+     "hpMax": 35198,
      "healthCurve": "CT_Creatures_Health_Universal_Tier35",
      "statsFrom": "",
      "resist": {
-      "DR": 607,
-      "ER": 607,
+      "DR": 608,
+      "ER": 608,
       "Fire": 1117,
       "Cryo": 324,
       "Poison": 349,
@@ -609,11 +574,6 @@
      "speedMult": 120.0,
      "gang": "Rad Cleaners",
      "imageSlug": "cletus-brimstone",
-     "challenge": {
-      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group02_KillRadCleaners_SUB",
-      "formId": "00843118",
-      "name": "Kill the Target - Cletus Brimstone"
-     },
      "weapons": [
       {
        "edid": "crCremator",
@@ -657,8 +617,8 @@
        "name": "Head",
        "pct": 20.0,
        "mult": 1.5,
-       "hpMin": 681,
-       "hpMax": 7028,
+       "hpMin": 682,
+       "hpMax": 7040,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": true
@@ -667,8 +627,8 @@
        "name": "Torso",
        "pct": 75.0,
        "mult": 1.0,
-       "hpMin": 2554,
-       "hpMax": 26354,
+       "hpMin": 2556,
+       "hpMax": 26398,
        "severable": false,
        "alsoHitVia": [],
        "weakSpot": false
@@ -677,8 +637,8 @@
        "name": "Arms (each)",
        "pct": 25.0,
        "mult": 1.0,
-       "hpMin": 851,
-       "hpMax": 8785,
+       "hpMin": 852,
+       "hpMax": 8800,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": false
@@ -687,8 +647,8 @@
        "name": "Legs (each)",
        "pct": 35.0,
        "mult": 1.0,
-       "hpMin": 1192,
-       "hpMax": 12299,
+       "hpMin": 1193,
+       "hpMax": 12319,
        "severable": true,
        "alsoHitVia": [
         "Feet"
@@ -705,26 +665,21 @@
      "race": "Human",
      "levelMin": 25,
      "levelMax": 175,
-     "hpMin": 3405,
-     "hpMax": 35139,
+     "hpMin": 3408,
+     "hpMax": 35198,
      "healthCurve": "CT_Creatures_Health_Universal_Tier35",
      "statsFrom": "",
      "resist": {
       "DR": 476,
-      "ER": 607,
-      "Fire": 607,
-      "Cryo": 607,
-      "Poison": 607,
-      "Rad": 1224
+      "ER": 608,
+      "Fire": 608,
+      "Cryo": 608,
+      "Poison": 608,
+      "Rad": 1225
      },
      "speedMult": 120.0,
      "gang": "Rad Cult",
      "imageSlug": "irene-the-irradiated",
-     "challenge": {
-      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group02_KillRadCult_SUB",
-      "formId": "0084311D",
-      "name": "Kill the Target - Irene The Irradiated"
-     },
      "weapons": [
       {
        "edid": "crGammaGun",
@@ -764,8 +719,8 @@
        "name": "Head",
        "pct": 20.0,
        "mult": 1.5,
-       "hpMin": 681,
-       "hpMax": 7028,
+       "hpMin": 682,
+       "hpMax": 7040,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": true
@@ -774,8 +729,8 @@
        "name": "Torso",
        "pct": 75.0,
        "mult": 1.0,
-       "hpMin": 2554,
-       "hpMax": 26354,
+       "hpMin": 2556,
+       "hpMax": 26398,
        "severable": false,
        "alsoHitVia": [],
        "weakSpot": false
@@ -784,8 +739,8 @@
        "name": "Arms (each)",
        "pct": 25.0,
        "mult": 1.0,
-       "hpMin": 851,
-       "hpMax": 8785,
+       "hpMin": 852,
+       "hpMax": 8800,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": false
@@ -794,8 +749,8 @@
        "name": "Legs (each)",
        "pct": 35.0,
        "mult": 1.0,
-       "hpMin": 1192,
-       "hpMax": 12299,
+       "hpMin": 1193,
+       "hpMax": 12319,
        "severable": true,
        "alsoHitVia": [
         "Feet"
@@ -812,8 +767,8 @@
      "race": "Human",
      "levelMin": 25,
      "levelMax": 175,
-     "hpMin": 3405,
-     "hpMax": 35139,
+     "hpMin": 3408,
+     "hpMax": 35198,
      "healthCurve": "CT_Creatures_Health_Universal_Tier35",
      "statsFrom": "",
      "resist": {
@@ -822,16 +777,11 @@
       "Fire": 559,
       "Cryo": 407,
       "Poison": 719,
-      "Rad": 607
+      "Rad": 608
      },
      "speedMult": 120.0,
      "gang": "Abraxo",
      "imageSlug": "the-cleaner",
-     "challenge": {
-      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group02_KillAbraxo_SUB",
-      "formId": "0084310F",
-      "name": "Kill the Target - The Cleaner"
-     },
      "weapons": [
       {
        "edid": "crPlasmaGun",
@@ -876,8 +826,8 @@
        "name": "Head",
        "pct": 20.0,
        "mult": 1.5,
-       "hpMin": 681,
-       "hpMax": 7028,
+       "hpMin": 682,
+       "hpMax": 7040,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": true
@@ -886,8 +836,8 @@
        "name": "Torso",
        "pct": 75.0,
        "mult": 1.0,
-       "hpMin": 2554,
-       "hpMax": 26354,
+       "hpMin": 2556,
+       "hpMax": 26398,
        "severable": false,
        "alsoHitVia": [],
        "weakSpot": false
@@ -896,8 +846,8 @@
        "name": "Arms (each)",
        "pct": 25.0,
        "mult": 1.0,
-       "hpMin": 851,
-       "hpMax": 8785,
+       "hpMin": 852,
+       "hpMax": 8800,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": false
@@ -906,8 +856,8 @@
        "name": "Legs (each)",
        "pct": 35.0,
        "mult": 1.0,
-       "hpMin": 1192,
-       "hpMax": 12299,
+       "hpMin": 1193,
+       "hpMax": 12319,
        "severable": true,
        "alsoHitVia": [
         "Feet"
@@ -924,8 +874,8 @@
      "race": "Human",
      "levelMin": 25,
      "levelMax": 175,
-     "hpMin": 3405,
-     "hpMax": 35139,
+     "hpMin": 3408,
+     "hpMax": 35198,
      "healthCurve": "CT_Creatures_Health_Universal_Tier35",
      "statsFrom": "",
      "resist": {
@@ -939,11 +889,6 @@
      "speedMult": 120.0,
      "gang": "Quack Doctors",
      "imageSlug": "the-malpractitioner",
-     "challenge": {
-      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group02_KillQuackDocs_SUB",
-      "formId": "00843133",
-      "name": "Kill the Target - The Malpractitioner"
-     },
      "weapons": [
       {
        "edid": "cr44_MedicalMalpractice",
@@ -952,7 +897,7 @@
        "range": 2978,
        "type": "Gun",
        "damageMin": 100,
-       "damageMax": 497,
+       "damageMax": 498,
        "damageCurve": "CT_Creatures_Damage_Universal_Tier38",
        "slot": "Main",
        "legendary": [
@@ -992,8 +937,8 @@
        "name": "Head",
        "pct": 20.0,
        "mult": 1.5,
-       "hpMin": 681,
-       "hpMax": 7028,
+       "hpMin": 682,
+       "hpMax": 7040,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": true
@@ -1002,8 +947,8 @@
        "name": "Torso",
        "pct": 75.0,
        "mult": 1.0,
-       "hpMin": 2554,
-       "hpMax": 26354,
+       "hpMin": 2556,
+       "hpMax": 26398,
        "severable": false,
        "alsoHitVia": [],
        "weakSpot": false
@@ -1012,8 +957,8 @@
        "name": "Arms (each)",
        "pct": 25.0,
        "mult": 1.0,
-       "hpMin": 851,
-       "hpMax": 8785,
+       "hpMin": 852,
+       "hpMax": 8800,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": false
@@ -1022,8 +967,8 @@
        "name": "Legs (each)",
        "pct": 35.0,
        "mult": 1.0,
-       "hpMin": 1192,
-       "hpMax": 12299,
+       "hpMin": 1193,
+       "hpMax": 12319,
        "severable": true,
        "alsoHitVia": [
         "Feet"
@@ -1033,12 +978,7 @@
      ],
      "bodyPartData": "HumanBodyPartData"
     }
-   ],
-   "metaChallenge": {
-    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group02_META",
-    "formId": "00843134",
-    "name": "Kill Bounties from Group 2"
-   }
+   ]
   },
   {
    "groupNumber": 3,
@@ -1052,26 +992,21 @@
      "race": "Human",
      "levelMin": 25,
      "levelMax": 150,
-     "hpMin": 3405,
-     "hpMax": 25742,
+     "hpMin": 3408,
+     "hpMax": 25795,
      "healthCurve": "CT_Creatures_Health_Universal_Tier35",
      "statsFrom": "",
      "resist": {
       "DR": 532,
       "ER": 532,
-      "Fire": 353,
-      "Cryo": 353,
+      "Fire": 354,
+      "Cryo": 354,
       "Poison": 302,
       "Rad": 302
      },
      "speedMult": 120.0,
      "gang": "Jazz",
      "imageSlug": "ragtime-randy",
-     "challenge": {
-      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group03_KillJazz_SUB",
-      "formId": "0084313E",
-      "name": "Kill the Target - Ragtime Randy"
-     },
      "weapons": [
       {
        "edid": "crE09A_Broadsider_GrandFinale",
@@ -1106,7 +1041,7 @@
        "range": 10,
        "type": "OneHandSword",
        "damageMin": 19,
-       "damageMax": 89,
+       "damageMax": 90,
        "damageCurve": "CT_Creatures_Damage_Universal_Tier22",
        "slot": "Secondary",
        "legendary": [
@@ -1136,8 +1071,8 @@
        "name": "Head",
        "pct": 20.0,
        "mult": 1.5,
-       "hpMin": 681,
-       "hpMax": 5148,
+       "hpMin": 682,
+       "hpMax": 5159,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": true
@@ -1146,8 +1081,8 @@
        "name": "Torso",
        "pct": 75.0,
        "mult": 1.0,
-       "hpMin": 2554,
-       "hpMax": 19306,
+       "hpMin": 2556,
+       "hpMax": 19346,
        "severable": false,
        "alsoHitVia": [],
        "weakSpot": false
@@ -1156,8 +1091,8 @@
        "name": "Arms (each)",
        "pct": 25.0,
        "mult": 1.0,
-       "hpMin": 851,
-       "hpMax": 6436,
+       "hpMin": 852,
+       "hpMax": 6449,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": false
@@ -1166,8 +1101,8 @@
        "name": "Legs (each)",
        "pct": 35.0,
        "mult": 1.0,
-       "hpMin": 1192,
-       "hpMax": 9010,
+       "hpMin": 1193,
+       "hpMax": 9028,
        "severable": true,
        "alsoHitVia": [
         "Feet"
@@ -1184,26 +1119,21 @@
      "race": "Human",
      "levelMin": 25,
      "levelMax": 175,
-     "hpMin": 4043,
-     "hpMax": 41128,
+     "hpMin": 4047,
+     "hpMax": 41195,
      "healthCurve": "CT_Creatures_Health_Universal_Tier36",
      "statsFrom": "",
      "resist": {
-      "DR": 607,
-      "ER": 607,
+      "DR": 608,
+      "ER": 608,
       "Fire": 407,
-      "Cryo": 607,
+      "Cryo": 608,
       "Poison": 349,
       "Rad": 349
      },
      "speedMult": 120.0,
      "gang": "Pilot",
      "imageSlug": "the-ace",
-     "challenge": {
-      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group03_KillPilot_SUB",
-      "formId": "00843114",
-      "name": "Kill the Target - The Ace"
-     },
      "weapons": [
       {
        "edid": "crMobsterAutoGrenadeLauncher",
@@ -1239,7 +1169,7 @@
        "pct": 20.0,
        "mult": 1.5,
        "hpMin": 809,
-       "hpMax": 8226,
+       "hpMax": 8239,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": true
@@ -1248,8 +1178,8 @@
        "name": "Torso",
        "pct": 75.0,
        "mult": 1.0,
-       "hpMin": 3032,
-       "hpMax": 30846,
+       "hpMin": 3035,
+       "hpMax": 30896,
        "severable": false,
        "alsoHitVia": [],
        "weakSpot": false
@@ -1258,8 +1188,8 @@
        "name": "Arms (each)",
        "pct": 25.0,
        "mult": 1.0,
-       "hpMin": 1011,
-       "hpMax": 10282,
+       "hpMin": 1012,
+       "hpMax": 10299,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": false
@@ -1268,8 +1198,8 @@
        "name": "Legs (each)",
        "pct": 35.0,
        "mult": 1.0,
-       "hpMin": 1415,
-       "hpMax": 14395,
+       "hpMin": 1416,
+       "hpMax": 14418,
        "severable": true,
        "alsoHitVia": [
         "Feet"
@@ -1286,8 +1216,8 @@
      "race": "Human",
      "levelMin": 25,
      "levelMax": 175,
-     "hpMin": 3405,
-     "hpMax": 35139,
+     "hpMin": 3408,
+     "hpMax": 35198,
      "healthCurve": "CT_Creatures_Health_Universal_Tier35",
      "statsFrom": "",
      "resist": {
@@ -1301,11 +1231,6 @@
      "speedMult": 120.0,
      "gang": "Vault-Tec",
      "imageSlug": "the-chief-researcher",
-     "challenge": {
-      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group03_KillVaultTec_SUB",
-      "formId": "00843108",
-      "name": "Kill the Target - The Chief Researcher"
-     },
      "weapons": [
       {
        "edid": "crMeltdown",
@@ -1340,8 +1265,8 @@
        "name": "Head",
        "pct": 20.0,
        "mult": 1.5,
-       "hpMin": 681,
-       "hpMax": 7028,
+       "hpMin": 682,
+       "hpMax": 7040,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": true
@@ -1350,8 +1275,8 @@
        "name": "Torso",
        "pct": 75.0,
        "mult": 1.0,
-       "hpMin": 2554,
-       "hpMax": 26354,
+       "hpMin": 2556,
+       "hpMax": 26398,
        "severable": false,
        "alsoHitVia": [],
        "weakSpot": false
@@ -1360,8 +1285,8 @@
        "name": "Arms (each)",
        "pct": 25.0,
        "mult": 1.0,
-       "hpMin": 851,
-       "hpMax": 8785,
+       "hpMin": 852,
+       "hpMax": 8800,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": false
@@ -1370,8 +1295,8 @@
        "name": "Legs (each)",
        "pct": 35.0,
        "mult": 1.0,
-       "hpMin": 1192,
-       "hpMax": 12299,
+       "hpMin": 1193,
+       "hpMax": 12319,
        "severable": true,
        "alsoHitVia": [
         "Feet"
@@ -1388,26 +1313,21 @@
      "race": "Human",
      "levelMin": 25,
      "levelMax": 150,
-     "hpMin": 3405,
-     "hpMax": 25742,
+     "hpMin": 3408,
+     "hpMax": 25795,
      "healthCurve": "CT_Creatures_Health_Universal_Tier35",
      "statsFrom": "",
      "resist": {
       "DR": 532,
       "ER": 532,
-      "Fire": 353,
-      "Cryo": 353,
+      "Fire": 354,
+      "Cryo": 354,
       "Poison": 302,
       "Rad": 302
      },
      "speedMult": 120.0,
      "gang": "Commie",
      "imageSlug": "the-proletariat-punisher",
-     "challenge": {
-      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group03_KillCommies_SUB",
-      "formId": "00843131",
-      "name": "Kill the Target - The Proletariat Punisher"
-     },
      "weapons": [
       {
        "edid": "crHandMadeGun",
@@ -1447,8 +1367,8 @@
        "name": "Head",
        "pct": 20.0,
        "mult": 1.5,
-       "hpMin": 681,
-       "hpMax": 5148,
+       "hpMin": 682,
+       "hpMax": 5159,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": true
@@ -1457,8 +1377,8 @@
        "name": "Torso",
        "pct": 75.0,
        "mult": 1.0,
-       "hpMin": 2554,
-       "hpMax": 19306,
+       "hpMin": 2556,
+       "hpMax": 19346,
        "severable": false,
        "alsoHitVia": [],
        "weakSpot": false
@@ -1467,8 +1387,8 @@
        "name": "Arms (each)",
        "pct": 25.0,
        "mult": 1.0,
-       "hpMin": 851,
-       "hpMax": 6436,
+       "hpMin": 852,
+       "hpMax": 6449,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": false
@@ -1477,8 +1397,8 @@
        "name": "Legs (each)",
        "pct": 35.0,
        "mult": 1.0,
-       "hpMin": 1192,
-       "hpMax": 9010,
+       "hpMin": 1193,
+       "hpMax": 9028,
        "severable": true,
        "alsoHitVia": [
         "Feet"
@@ -1495,8 +1415,8 @@
      "race": "Human",
      "levelMin": 25,
      "levelMax": 175,
-     "hpMin": 3405,
-     "hpMax": 35139,
+     "hpMin": 3408,
+     "hpMax": 35198,
      "healthCurve": "CT_Creatures_Health_Universal_Tier35",
      "statsFrom": "",
      "resist": {
@@ -1510,11 +1430,6 @@
      "speedMult": 120.0,
      "gang": "Astronaut",
      "imageSlug": "the-space-ranger",
-     "challenge": {
-      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group03_KillAstronauts_SUB",
-      "formId": "00843113",
-      "name": "Kill the Target - The Space Ranger"
-     },
      "weapons": [
       {
        "edid": "crAlienBlaster_Cryo",
@@ -1558,8 +1473,8 @@
        "name": "Head",
        "pct": 20.0,
        "mult": 1.5,
-       "hpMin": 681,
-       "hpMax": 7028,
+       "hpMin": 682,
+       "hpMax": 7040,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": true
@@ -1568,8 +1483,8 @@
        "name": "Torso",
        "pct": 75.0,
        "mult": 1.0,
-       "hpMin": 2554,
-       "hpMax": 26354,
+       "hpMin": 2556,
+       "hpMax": 26398,
        "severable": false,
        "alsoHitVia": [],
        "weakSpot": false
@@ -1578,8 +1493,8 @@
        "name": "Arms (each)",
        "pct": 25.0,
        "mult": 1.0,
-       "hpMin": 851,
-       "hpMax": 8785,
+       "hpMin": 852,
+       "hpMax": 8800,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": false
@@ -1588,8 +1503,8 @@
        "name": "Legs (each)",
        "pct": 35.0,
        "mult": 1.0,
-       "hpMin": 1192,
-       "hpMax": 12299,
+       "hpMin": 1193,
+       "hpMax": 12319,
        "severable": true,
        "alsoHitVia": [
         "Feet"
@@ -1599,12 +1514,7 @@
      ],
      "bodyPartData": "HumanBodyPartData"
     }
-   ],
-   "metaChallenge": {
-    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group03_META",
-    "formId": "00843145",
-    "name": "Kill Bounties from Group 3"
-   }
+   ]
   },
   {
    "groupNumber": 4,
@@ -1618,13 +1528,13 @@
      "race": "Human",
      "levelMin": 25,
      "levelMax": 175,
-     "hpMin": 2868,
-     "hpMax": 30035,
+     "hpMin": 2871,
+     "hpMax": 30087,
      "healthCurve": "CT_Creatures_Health_Universal_Tier34",
      "statsFrom": "",
      "resist": {
-      "DR": 854,
-      "ER": 854,
+      "DR": 855,
+      "ER": 855,
       "Fire": 660,
       "Cryo": 660,
       "Poison": 242,
@@ -1633,11 +1543,6 @@
      "speedMult": 120.0,
      "gang": "Old Money",
      "imageSlug": "baron-boris-wazie",
-     "challenge": {
-      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group04_KillOldMoney_SUB",
-      "formId": "00843132",
-      "name": "Kill the Target - Baron Boris Wazie"
-     },
      "weapons": [
       {
        "edid": "crBlackPowder_Rifle_Dragon",
@@ -1646,7 +1551,7 @@
        "range": 4469,
        "type": "Gun",
        "damageMin": 288,
-       "damageMax": 1240,
+       "damageMax": 1241,
        "damageCurve": "CT_Creatures_Damage_Universal_Tier48",
        "slot": "Main",
        "legendary": [
@@ -1694,7 +1599,7 @@
        "pct": 20.0,
        "mult": 1.5,
        "hpMin": 574,
-       "hpMax": 6007,
+       "hpMax": 6017,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": true
@@ -1703,8 +1608,8 @@
        "name": "Torso",
        "pct": 75.0,
        "mult": 1.0,
-       "hpMin": 2151,
-       "hpMax": 22526,
+       "hpMin": 2153,
+       "hpMax": 22565,
        "severable": false,
        "alsoHitVia": [],
        "weakSpot": false
@@ -1713,8 +1618,8 @@
        "name": "Arms (each)",
        "pct": 25.0,
        "mult": 1.0,
-       "hpMin": 717,
-       "hpMax": 7509,
+       "hpMin": 718,
+       "hpMax": 7522,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": false
@@ -1723,8 +1628,8 @@
        "name": "Legs (each)",
        "pct": 35.0,
        "mult": 1.0,
-       "hpMin": 1004,
-       "hpMax": 10512,
+       "hpMin": 1005,
+       "hpMax": 10530,
        "severable": true,
        "alsoHitVia": [
         "Feet"
@@ -1741,26 +1646,21 @@
      "race": "DLC01RoboBrain",
      "levelMin": 100,
      "levelMax": 100,
-     "hpMin": 11804,
-     "hpMax": 11804,
+     "hpMin": 11799,
+     "hpMax": 11799,
      "healthCurve": "CT_Creatures_Health_Universal_Tier34",
      "statsFrom": "",
      "resist": {
       "DR": 327,
-      "ER": 556,
+      "ER": 555,
       "Fire": 424,
       "Cryo": 424,
-      "Poison": 182,
-      "Rad": 182
+      "Poison": 183,
+      "Rad": 183
      },
      "speedMult": 120.0,
      "gang": "Robobrain",
      "imageSlug": "chief-engineer-lewis",
-     "challenge": {
-      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group04_KillRobobrains_SUB",
-      "formId": "00843124",
-      "name": "Kill the Target - Chief Engineer Lewis"
-     },
      "weapons": [
       {
        "edid": "crPlasmaGun",
@@ -1800,8 +1700,8 @@
        "name": "Head",
        "pct": 50.0,
        "mult": 1.15,
-       "hpMin": 5902,
-       "hpMax": 5902,
+       "hpMin": 5900,
+       "hpMax": 5900,
        "severable": false,
        "alsoHitVia": [],
        "weakSpot": true
@@ -1810,8 +1710,8 @@
        "name": "Torso",
        "pct": 80.0,
        "mult": 1.0,
-       "hpMin": 9443,
-       "hpMax": 9443,
+       "hpMin": 9439,
+       "hpMax": 9439,
        "severable": false,
        "alsoHitVia": [],
        "weakSpot": false
@@ -1820,8 +1720,8 @@
        "name": "Arms (each)",
        "pct": 25.0,
        "mult": 1.0,
-       "hpMin": 2951,
-       "hpMax": 2951,
+       "hpMin": 2950,
+       "hpMax": 2950,
        "severable": false,
        "alsoHitVia": [],
        "weakSpot": false
@@ -1830,8 +1730,8 @@
        "name": "Legs (each)",
        "pct": 35.0,
        "mult": 0.9,
-       "hpMin": 4131,
-       "hpMax": 4131,
+       "hpMin": 4130,
+       "hpMax": 4130,
        "severable": false,
        "alsoHitVia": [
         "Feet"
@@ -1858,8 +1758,8 @@
      "race": "Human",
      "levelMin": 25,
      "levelMax": 175,
-     "hpMin": 2868,
-     "hpMax": 30035,
+     "hpMin": 2871,
+     "hpMax": 30087,
      "healthCurve": "CT_Creatures_Health_Universal_Tier34",
      "statsFrom": "",
      "resist": {
@@ -1873,11 +1773,6 @@
      "speedMult": 120.0,
      "gang": "Patriot",
      "imageSlug": "corporal-jane",
-     "challenge": {
-      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group04_KillPatriots_SUB",
-      "formId": "0084310B",
-      "name": "Kill the Target - Corporal Jane"
-     },
      "weapons": [
       {
        "edid": "crMissileLauncher",
@@ -1918,7 +1813,7 @@
        "pct": 20.0,
        "mult": 1.5,
        "hpMin": 574,
-       "hpMax": 6007,
+       "hpMax": 6017,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": true
@@ -1927,8 +1822,8 @@
        "name": "Torso",
        "pct": 75.0,
        "mult": 1.0,
-       "hpMin": 2151,
-       "hpMax": 22526,
+       "hpMin": 2153,
+       "hpMax": 22565,
        "severable": false,
        "alsoHitVia": [],
        "weakSpot": false
@@ -1937,8 +1832,8 @@
        "name": "Arms (each)",
        "pct": 25.0,
        "mult": 1.0,
-       "hpMin": 717,
-       "hpMax": 7509,
+       "hpMin": 718,
+       "hpMax": 7522,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": false
@@ -1947,8 +1842,8 @@
        "name": "Legs (each)",
        "pct": 35.0,
        "mult": 1.0,
-       "hpMin": 1004,
-       "hpMax": 10512,
+       "hpMin": 1005,
+       "hpMax": 10530,
        "severable": true,
        "alsoHitVia": [
         "Feet"
@@ -1965,26 +1860,21 @@
      "race": "Human",
      "levelMin": 25,
      "levelMax": 175,
-     "hpMin": 3405,
-     "hpMax": 35139,
+     "hpMin": 3408,
+     "hpMax": 35198,
      "healthCurve": "CT_Creatures_Health_Universal_Tier35",
      "statsFrom": "",
      "resist": {
       "DR": 476,
       "ER": 933,
       "Fire": 301,
-      "Cryo": 607,
+      "Cryo": 608,
       "Poison": 349,
       "Rad": 349
      },
      "speedMult": 120.0,
      "gang": "Robot",
      "imageSlug": "tincan-toni",
-     "challenge": {
-      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group04_KillRobots_SUB",
-      "formId": "00843105",
-      "name": "Kill the Target - Tincan Toni"
-     },
      "weapons": [
       {
        "edid": "cr10mm_CircuitBreaker",
@@ -2028,8 +1918,8 @@
        "name": "Head",
        "pct": 20.0,
        "mult": 1.5,
-       "hpMin": 681,
-       "hpMax": 7028,
+       "hpMin": 682,
+       "hpMax": 7040,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": true
@@ -2038,8 +1928,8 @@
        "name": "Torso",
        "pct": 75.0,
        "mult": 1.0,
-       "hpMin": 2554,
-       "hpMax": 26354,
+       "hpMin": 2556,
+       "hpMax": 26398,
        "severable": false,
        "alsoHitVia": [],
        "weakSpot": false
@@ -2048,8 +1938,8 @@
        "name": "Arms (each)",
        "pct": 25.0,
        "mult": 1.0,
-       "hpMin": 851,
-       "hpMax": 8785,
+       "hpMin": 852,
+       "hpMax": 8800,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": false
@@ -2058,8 +1948,8 @@
        "name": "Legs (each)",
        "pct": 35.0,
        "mult": 1.0,
-       "hpMin": 1192,
-       "hpMax": 12299,
+       "hpMin": 1193,
+       "hpMax": 12319,
        "severable": true,
        "alsoHitVia": [
         "Feet"
@@ -2069,12 +1959,7 @@
      ],
      "bodyPartData": "HumanBodyPartData"
     }
-   ],
-   "metaChallenge": {
-    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group04_META",
-    "formId": "0084311A",
-    "name": "Kill Bounties from Group 4"
-   }
+   ]
   },
   {
    "groupNumber": 5,
@@ -2088,26 +1973,21 @@
      "race": "Human",
      "levelMin": 25,
      "levelMax": 150,
-     "hpMin": 3405,
-     "hpMax": 25742,
+     "hpMin": 3408,
+     "hpMax": 25795,
      "healthCurve": "CT_Creatures_Health_Universal_Tier35",
      "statsFrom": "",
      "resist": {
       "DR": 532,
       "ER": 532,
-      "Fire": 353,
-      "Cryo": 353,
+      "Fire": 354,
+      "Cryo": 354,
       "Poison": 302,
       "Rad": 302
      },
      "speedMult": 120.0,
      "gang": "Boxer",
      "imageSlug": "becca-the-heavyweight",
-     "challenge": {
-      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group05_KillBoxer_SUB",
-      "formId": "0084313B",
-      "name": "Kill the Target - Becca The Heavyweight"
-     },
      "weapons": [
       {
        "edid": "crKnuckles",
@@ -2146,8 +2026,8 @@
        "name": "Head",
        "pct": 20.0,
        "mult": 1.5,
-       "hpMin": 681,
-       "hpMax": 5148,
+       "hpMin": 682,
+       "hpMax": 5159,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": true
@@ -2156,8 +2036,8 @@
        "name": "Torso",
        "pct": 75.0,
        "mult": 1.0,
-       "hpMin": 2554,
-       "hpMax": 19306,
+       "hpMin": 2556,
+       "hpMax": 19346,
        "severable": false,
        "alsoHitVia": [],
        "weakSpot": false
@@ -2166,8 +2046,8 @@
        "name": "Arms (each)",
        "pct": 25.0,
        "mult": 1.0,
-       "hpMin": 851,
-       "hpMax": 6436,
+       "hpMin": 852,
+       "hpMax": 6449,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": false
@@ -2176,8 +2056,8 @@
        "name": "Legs (each)",
        "pct": 35.0,
        "mult": 1.0,
-       "hpMin": 1192,
-       "hpMax": 9010,
+       "hpMin": 1193,
+       "hpMax": 9028,
        "severable": true,
        "alsoHitVia": [
         "Feet"
@@ -2194,26 +2074,21 @@
      "race": "Human",
      "levelMin": 25,
      "levelMax": 150,
-     "hpMin": 3405,
-     "hpMax": 25742,
+     "hpMin": 3408,
+     "hpMax": 25795,
      "healthCurve": "CT_Creatures_Health_Universal_Tier35",
      "statsFrom": "",
      "resist": {
       "DR": 532,
       "ER": 532,
-      "Fire": 353,
-      "Cryo": 353,
+      "Fire": 354,
+      "Cryo": 354,
       "Poison": 302,
       "Rad": 302
      },
      "speedMult": 120.0,
      "gang": "Sniper",
      "imageSlug": "charlie-half-cocked",
-     "challenge": {
-      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group05_KillSniper_SUB",
-      "formId": "00843125",
-      "name": "Kill the Target - Charlie Half-Cocked"
-     },
      "weapons": [
       {
        "edid": "crHuntingRifle",
@@ -2222,7 +2097,7 @@
        "range": 5225,
        "type": "Gun",
        "damageMin": 36,
-       "damageMax": 153,
+       "damageMax": 154,
        "damageCurve": "CT_Creatures_Damage_Universal_Tier28",
        "slot": "Main",
        "legendary": [
@@ -2258,8 +2133,8 @@
        "name": "Head",
        "pct": 20.0,
        "mult": 1.5,
-       "hpMin": 681,
-       "hpMax": 5148,
+       "hpMin": 682,
+       "hpMax": 5159,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": true
@@ -2268,8 +2143,8 @@
        "name": "Torso",
        "pct": 75.0,
        "mult": 1.0,
-       "hpMin": 2554,
-       "hpMax": 19306,
+       "hpMin": 2556,
+       "hpMax": 19346,
        "severable": false,
        "alsoHitVia": [],
        "weakSpot": false
@@ -2278,8 +2153,8 @@
        "name": "Arms (each)",
        "pct": 25.0,
        "mult": 1.0,
-       "hpMin": 851,
-       "hpMax": 6436,
+       "hpMin": 852,
+       "hpMax": 6449,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": false
@@ -2288,8 +2163,8 @@
        "name": "Legs (each)",
        "pct": 35.0,
        "mult": 1.0,
-       "hpMin": 1192,
-       "hpMax": 9010,
+       "hpMin": 1193,
+       "hpMax": 9028,
        "severable": true,
        "alsoHitVia": [
         "Feet"
@@ -2306,26 +2181,21 @@
      "race": "Human",
      "levelMin": 25,
      "levelMax": 150,
-     "hpMin": 3405,
-     "hpMax": 25742,
+     "hpMin": 3408,
+     "hpMax": 25795,
      "healthCurve": "CT_Creatures_Health_Universal_Tier35",
      "statsFrom": "",
      "resist": {
       "DR": 532,
       "ER": 532,
-      "Fire": 353,
-      "Cryo": 353,
+      "Fire": 354,
+      "Cryo": 354,
       "Poison": 302,
       "Rad": 302
      },
      "speedMult": 120.0,
      "gang": "Gunslinger",
      "imageSlug": "cowgirl-janine",
-     "challenge": {
-      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group05_KillGunslinger_SUB",
-      "formId": "0084310C",
-      "name": "Kill the Target - Cowgirl Janine"
-     },
      "weapons": [
       {
        "edid": "crRevolver",
@@ -2360,8 +2230,8 @@
        "name": "Head",
        "pct": 20.0,
        "mult": 1.5,
-       "hpMin": 681,
-       "hpMax": 5148,
+       "hpMin": 682,
+       "hpMax": 5159,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": true
@@ -2370,8 +2240,8 @@
        "name": "Torso",
        "pct": 75.0,
        "mult": 1.0,
-       "hpMin": 2554,
-       "hpMax": 19306,
+       "hpMin": 2556,
+       "hpMax": 19346,
        "severable": false,
        "alsoHitVia": [],
        "weakSpot": false
@@ -2380,8 +2250,8 @@
        "name": "Arms (each)",
        "pct": 25.0,
        "mult": 1.0,
-       "hpMin": 851,
-       "hpMax": 6436,
+       "hpMin": 852,
+       "hpMax": 6449,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": false
@@ -2390,8 +2260,8 @@
        "name": "Legs (each)",
        "pct": 35.0,
        "mult": 1.0,
-       "hpMin": 1192,
-       "hpMax": 9010,
+       "hpMin": 1193,
+       "hpMax": 9028,
        "severable": true,
        "alsoHitVia": [
         "Feet"
@@ -2408,8 +2278,8 @@
      "race": "Human",
      "levelMin": 25,
      "levelMax": 175,
-     "hpMin": 3405,
-     "hpMax": 35139,
+     "hpMin": 3408,
+     "hpMax": 35198,
      "healthCurve": "CT_Creatures_Health_Universal_Tier35",
      "statsFrom": "",
      "resist": {
@@ -2423,11 +2293,6 @@
      "speedMult": 120.0,
      "gang": "Big Gun",
      "imageSlug": "richie-finesse",
-     "challenge": {
-      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group05_KillBigGun_SUB",
-      "formId": "00843136",
-      "name": "Kill the Target - Richie Finesse"
-     },
      "weapons": [
       {
        "edid": "crMinigun",
@@ -2467,8 +2332,8 @@
        "name": "Head",
        "pct": 20.0,
        "mult": 1.5,
-       "hpMin": 681,
-       "hpMax": 7028,
+       "hpMin": 682,
+       "hpMax": 7040,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": true
@@ -2477,8 +2342,8 @@
        "name": "Torso",
        "pct": 75.0,
        "mult": 1.0,
-       "hpMin": 2554,
-       "hpMax": 26354,
+       "hpMin": 2556,
+       "hpMax": 26398,
        "severable": false,
        "alsoHitVia": [],
        "weakSpot": false
@@ -2487,8 +2352,8 @@
        "name": "Arms (each)",
        "pct": 25.0,
        "mult": 1.0,
-       "hpMin": 851,
-       "hpMax": 8785,
+       "hpMin": 852,
+       "hpMax": 8800,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": false
@@ -2497,8 +2362,8 @@
        "name": "Legs (each)",
        "pct": 35.0,
        "mult": 1.0,
-       "hpMin": 1192,
-       "hpMax": 12299,
+       "hpMin": 1193,
+       "hpMax": 12319,
        "severable": true,
        "alsoHitVia": [
         "Feet"
@@ -2508,12 +2373,7 @@
      ],
      "bodyPartData": "HumanBodyPartData"
     }
-   ],
-   "metaChallenge": {
-    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group05_META",
-    "formId": "00843121",
-    "name": "Kill Bounties from Group 5"
-   }
+   ]
   },
   {
    "groupNumber": 6,
@@ -2527,8 +2387,8 @@
      "race": "Human",
      "levelMin": 25,
      "levelMax": 175,
-     "hpMin": 3405,
-     "hpMax": 35139,
+     "hpMin": 3408,
+     "hpMax": 35198,
      "healthCurve": "CT_Creatures_Health_Universal_Tier35",
      "statsFrom": "",
      "resist": {
@@ -2542,11 +2402,6 @@
      "speedMult": 120.0,
      "gang": "Hunter",
      "imageSlug": "colt-the-bolt",
-     "challenge": {
-      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group06_KillHunter_SUB",
-      "formId": "00843148",
-      "name": "Kill the Target - Colt the Bolt"
-     },
      "weapons": [
       {
        "edid": "crLightningGun",
@@ -2570,8 +2425,8 @@
        "ammo": "",
        "range": 0,
        "type": "HandToHandMelee",
-       "damageMin": 21,
-       "damageMax": 132,
+       "damageMin": 22,
+       "damageMax": 133,
        "damageCurve": "CT_Creatures_Damage_Universal_Tier23",
        "slot": "Secondary"
       },
@@ -2602,8 +2457,8 @@
        "name": "Head",
        "pct": 20.0,
        "mult": 1.5,
-       "hpMin": 681,
-       "hpMax": 7028,
+       "hpMin": 682,
+       "hpMax": 7040,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": true
@@ -2612,8 +2467,8 @@
        "name": "Torso",
        "pct": 75.0,
        "mult": 1.0,
-       "hpMin": 2554,
-       "hpMax": 26354,
+       "hpMin": 2556,
+       "hpMax": 26398,
        "severable": false,
        "alsoHitVia": [],
        "weakSpot": false
@@ -2622,8 +2477,8 @@
        "name": "Arms (each)",
        "pct": 25.0,
        "mult": 1.0,
-       "hpMin": 851,
-       "hpMax": 8785,
+       "hpMin": 852,
+       "hpMax": 8800,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": false
@@ -2632,8 +2487,8 @@
        "name": "Legs (each)",
        "pct": 35.0,
        "mult": 1.0,
-       "hpMin": 1192,
-       "hpMax": 12299,
+       "hpMin": 1193,
+       "hpMax": 12319,
        "severable": true,
        "alsoHitVia": [
         "Feet"
@@ -2650,26 +2505,21 @@
      "race": "Human",
      "levelMin": 25,
      "levelMax": 150,
-     "hpMin": 3405,
-     "hpMax": 25742,
+     "hpMin": 3408,
+     "hpMax": 25795,
      "healthCurve": "CT_Creatures_Health_Universal_Tier35",
      "statsFrom": "",
      "resist": {
       "DR": 532,
       "ER": 532,
-      "Fire": 353,
-      "Cryo": 353,
+      "Fire": 354,
+      "Cryo": 354,
       "Poison": 302,
       "Rad": 302
      },
      "speedMult": 120.0,
      "gang": "Golden Oldies",
      "imageSlug": "granny-dolores",
-     "challenge": {
-      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group06_KillGolden_SUB",
-      "formId": "00843149",
-      "name": "Kill the Target - Granny Dolores"
-     },
      "weapons": [
       {
        "edid": "crWalkingCane",
@@ -2678,7 +2528,7 @@
        "range": 10,
        "type": "OneHandSword",
        "damageMin": 19,
-       "damageMax": 89,
+       "damageMax": 90,
        "damageCurve": "CT_Creatures_Damage_Universal_Tier22",
        "slot": "Main"
       },
@@ -2713,8 +2563,8 @@
        "name": "Head",
        "pct": 20.0,
        "mult": 1.5,
-       "hpMin": 681,
-       "hpMax": 5148,
+       "hpMin": 682,
+       "hpMax": 5159,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": true
@@ -2723,8 +2573,8 @@
        "name": "Torso",
        "pct": 75.0,
        "mult": 1.0,
-       "hpMin": 2554,
-       "hpMax": 19306,
+       "hpMin": 2556,
+       "hpMax": 19346,
        "severable": false,
        "alsoHitVia": [],
        "weakSpot": false
@@ -2733,8 +2583,8 @@
        "name": "Arms (each)",
        "pct": 25.0,
        "mult": 1.0,
-       "hpMin": 851,
-       "hpMax": 6436,
+       "hpMin": 852,
+       "hpMax": 6449,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": false
@@ -2743,8 +2593,8 @@
        "name": "Legs (each)",
        "pct": 35.0,
        "mult": 1.0,
-       "hpMin": 1192,
-       "hpMax": 9010,
+       "hpMin": 1193,
+       "hpMax": 9028,
        "severable": true,
        "alsoHitVia": [
         "Feet"
@@ -2761,13 +2611,13 @@
      "race": "Human",
      "levelMin": 25,
      "levelMax": 175,
-     "hpMin": 3405,
-     "hpMax": 35139,
+     "hpMin": 3408,
+     "hpMax": 35198,
      "healthCurve": "CT_Creatures_Health_Universal_Tier35",
      "statsFrom": "",
      "resist": {
-      "DR": 607,
-      "ER": 607,
+      "DR": 608,
+      "ER": 608,
       "Fire": 324,
       "Cryo": 301,
       "Poison": 476,
@@ -2776,11 +2626,6 @@
      "speedMult": 120.0,
      "gang": "Blue Devils",
      "imageSlug": "the-devil-of-defiance",
-     "challenge": {
-      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group06_KillBlueDevils_SUB",
-      "formId": "00843129",
-      "name": "Kill the Target - The Devil of Defiance"
-     },
      "weapons": [
       {
        "edid": "crDoubleBarrelShotgun",
@@ -2788,7 +2633,7 @@
        "ammo": "Shotgun Shell",
        "range": 1439,
        "type": "Gun",
-       "damageMin": 39,
+       "damageMin": 40,
        "damageMax": 224,
        "damageCurve": "CT_Creatures_Damage_Universal_Tier29",
        "slot": "Main",
@@ -2830,8 +2675,8 @@
        "name": "Head",
        "pct": 20.0,
        "mult": 1.5,
-       "hpMin": 681,
-       "hpMax": 7028,
+       "hpMin": 682,
+       "hpMax": 7040,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": true
@@ -2840,8 +2685,8 @@
        "name": "Torso",
        "pct": 75.0,
        "mult": 1.0,
-       "hpMin": 2554,
-       "hpMax": 26354,
+       "hpMin": 2556,
+       "hpMax": 26398,
        "severable": false,
        "alsoHitVia": [],
        "weakSpot": false
@@ -2850,8 +2695,8 @@
        "name": "Arms (each)",
        "pct": 25.0,
        "mult": 1.0,
-       "hpMin": 851,
-       "hpMax": 8785,
+       "hpMin": 852,
+       "hpMax": 8800,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": false
@@ -2860,8 +2705,8 @@
        "name": "Legs (each)",
        "pct": 35.0,
        "mult": 1.0,
-       "hpMin": 1192,
-       "hpMax": 12299,
+       "hpMin": 1193,
+       "hpMax": 12319,
        "severable": true,
        "alsoHitVia": [
         "Feet"
@@ -2878,26 +2723,21 @@
      "race": "Human",
      "levelMin": 25,
      "levelMax": 150,
-     "hpMin": 3405,
-     "hpMax": 25742,
+     "hpMin": 3408,
+     "hpMax": 25795,
      "healthCurve": "CT_Creatures_Health_Universal_Tier35",
      "statsFrom": "",
      "resist": {
       "DR": 532,
       "ER": 532,
-      "Fire": 353,
-      "Cryo": 353,
+      "Fire": 354,
+      "Cryo": 354,
       "Poison": 302,
       "Rad": 302
      },
      "speedMult": 120.0,
      "gang": "Gambler",
      "imageSlug": "vito-the-vic-bronco",
-     "challenge": {
-      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group06_KillGambler_SUB",
-      "formId": "0084311E",
-      "name": "Kill the Target - Vito \"The Vic\" Bronco"
-     },
      "weapons": [
       {
        "edid": "crPipeRevolver",
@@ -2905,7 +2745,7 @@
        "ammo": ".45 Round",
        "range": 2792,
        "type": "Gun",
-       "damageMin": 21,
+       "damageMin": 22,
        "damageMax": 98,
        "damageCurve": "CT_Creatures_Damage_Universal_Tier23",
        "slot": "Main"
@@ -2941,8 +2781,8 @@
        "name": "Head",
        "pct": 20.0,
        "mult": 1.5,
-       "hpMin": 681,
-       "hpMax": 5148,
+       "hpMin": 682,
+       "hpMax": 5159,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": true
@@ -2951,8 +2791,8 @@
        "name": "Torso",
        "pct": 75.0,
        "mult": 1.0,
-       "hpMin": 2554,
-       "hpMax": 19306,
+       "hpMin": 2556,
+       "hpMax": 19346,
        "severable": false,
        "alsoHitVia": [],
        "weakSpot": false
@@ -2961,8 +2801,8 @@
        "name": "Arms (each)",
        "pct": 25.0,
        "mult": 1.0,
-       "hpMin": 851,
-       "hpMax": 6436,
+       "hpMin": 852,
+       "hpMax": 6449,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": false
@@ -2971,8 +2811,8 @@
        "name": "Legs (each)",
        "pct": 35.0,
        "mult": 1.0,
-       "hpMin": 1192,
-       "hpMax": 9010,
+       "hpMin": 1193,
+       "hpMax": 9028,
        "severable": true,
        "alsoHitVia": [
         "Feet"
@@ -2982,12 +2822,7 @@
      ],
      "bodyPartData": "HumanBodyPartData"
     }
-   ],
-   "metaChallenge": {
-    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group06_META",
-    "formId": "0084311C",
-    "name": "Kill Bounties from Group 6"
-   }
+   ]
   },
   {
    "groupNumber": 7,
@@ -3001,8 +2836,8 @@
      "race": "Human",
      "levelMin": 25,
      "levelMax": 175,
-     "hpMin": 3405,
-     "hpMax": 35139,
+     "hpMin": 3408,
+     "hpMax": 35198,
      "healthCurve": "CT_Creatures_Health_Universal_Tier35",
      "statsFrom": "",
      "resist": {
@@ -3016,11 +2851,6 @@
      "speedMult": 120.0,
      "gang": "Fishermen",
      "imageSlug": "amadi-the-piranha",
-     "challenge": {
-      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group07_KillFisherman_SUB",
-      "formId": "00843116",
-      "name": "Kill the Target - Amadi the Piranha"
-     },
      "weapons": [
       {
        "edid": "crLightningGun",
@@ -3044,8 +2874,8 @@
        "ammo": "Harpoon",
        "range": 5060,
        "type": "Grenade",
-       "damageMin": 90,
-       "damageMax": 454,
+       "damageMin": 91,
+       "damageMax": 455,
        "damageCurve": "CT_Creatures_Damage_Universal_Tier37",
        "slot": "Thrown"
       }
@@ -3073,8 +2903,8 @@
        "name": "Head",
        "pct": 20.0,
        "mult": 1.5,
-       "hpMin": 681,
-       "hpMax": 7028,
+       "hpMin": 682,
+       "hpMax": 7040,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": true
@@ -3083,8 +2913,8 @@
        "name": "Torso",
        "pct": 75.0,
        "mult": 1.0,
-       "hpMin": 2554,
-       "hpMax": 26354,
+       "hpMin": 2556,
+       "hpMax": 26398,
        "severable": false,
        "alsoHitVia": [],
        "weakSpot": false
@@ -3093,8 +2923,8 @@
        "name": "Arms (each)",
        "pct": 25.0,
        "mult": 1.0,
-       "hpMin": 851,
-       "hpMax": 8785,
+       "hpMin": 852,
+       "hpMax": 8800,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": false
@@ -3103,8 +2933,8 @@
        "name": "Legs (each)",
        "pct": 35.0,
        "mult": 1.0,
-       "hpMin": 1192,
-       "hpMax": 12299,
+       "hpMin": 1193,
+       "hpMax": 12319,
        "severable": true,
        "alsoHitVia": [
         "Feet"
@@ -3121,26 +2951,21 @@
      "race": "Human",
      "levelMin": 25,
      "levelMax": 150,
-     "hpMin": 3405,
-     "hpMax": 25742,
+     "hpMin": 3408,
+     "hpMax": 25795,
      "healthCurve": "CT_Creatures_Health_Universal_Tier35",
      "statsFrom": "",
      "resist": {
       "DR": 532,
       "ER": 532,
-      "Fire": 353,
-      "Cryo": 353,
+      "Fire": 354,
+      "Cryo": 354,
       "Poison": 302,
       "Rad": 302
      },
      "speedMult": 120.0,
      "gang": "Crusher",
      "imageSlug": "gentle-gary",
-     "challenge": {
-      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group07_KillCrusher_SUB",
-      "formId": "00843142",
-      "name": "Kill the Target - Gentle Gary"
-     },
      "weapons": [
       {
        "edid": "crGaussRifle",
@@ -3149,7 +2974,7 @@
        "range": 5500,
        "type": "Gun",
        "damageMin": 124,
-       "damageMax": 458,
+       "damageMax": 459,
        "damageCurve": "CT_Creatures_Damage_Universal_Tier40",
        "slot": "Main"
       },
@@ -3191,8 +3016,8 @@
        "name": "Head",
        "pct": 20.0,
        "mult": 1.5,
-       "hpMin": 681,
-       "hpMax": 5148,
+       "hpMin": 682,
+       "hpMax": 5159,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": true
@@ -3201,8 +3026,8 @@
        "name": "Torso",
        "pct": 75.0,
        "mult": 1.0,
-       "hpMin": 2554,
-       "hpMax": 19306,
+       "hpMin": 2556,
+       "hpMax": 19346,
        "severable": false,
        "alsoHitVia": [],
        "weakSpot": false
@@ -3211,8 +3036,8 @@
        "name": "Arms (each)",
        "pct": 25.0,
        "mult": 1.0,
-       "hpMin": 851,
-       "hpMax": 6436,
+       "hpMin": 852,
+       "hpMax": 6449,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": false
@@ -3221,8 +3046,8 @@
        "name": "Legs (each)",
        "pct": 35.0,
        "mult": 1.0,
-       "hpMin": 1192,
-       "hpMax": 9010,
+       "hpMin": 1193,
+       "hpMax": 9028,
        "severable": true,
        "alsoHitVia": [
         "Feet"
@@ -3239,26 +3064,21 @@
      "race": "Human",
      "levelMin": 25,
      "levelMax": 175,
-     "hpMin": 3405,
-     "hpMax": 35139,
+     "hpMin": 3408,
+     "hpMax": 35198,
      "healthCurve": "CT_Creatures_Health_Universal_Tier35",
      "statsFrom": "",
      "resist": {
-      "DR": 607,
+      "DR": 608,
       "ER": 476,
       "Fire": 407,
       "Cryo": 407,
-      "Poison": 607,
+      "Poison": 608,
       "Rad": 196
      },
      "speedMult": 120.0,
      "gang": "Scout",
      "imageSlug": "scout-leader-karen",
-     "challenge": {
-      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group07_KillScout_SUB",
-      "formId": "00843126",
-      "name": "Kill the Target - Scout Leader Karen"
-     },
      "weapons": [
       {
        "edid": "crcrossbow",
@@ -3298,8 +3118,8 @@
        "name": "Head",
        "pct": 20.0,
        "mult": 1.5,
-       "hpMin": 681,
-       "hpMax": 7028,
+       "hpMin": 682,
+       "hpMax": 7040,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": true
@@ -3308,8 +3128,8 @@
        "name": "Torso",
        "pct": 75.0,
        "mult": 1.0,
-       "hpMin": 2554,
-       "hpMax": 26354,
+       "hpMin": 2556,
+       "hpMax": 26398,
        "severable": false,
        "alsoHitVia": [],
        "weakSpot": false
@@ -3318,8 +3138,8 @@
        "name": "Arms (each)",
        "pct": 25.0,
        "mult": 1.0,
-       "hpMin": 851,
-       "hpMax": 8785,
+       "hpMin": 852,
+       "hpMax": 8800,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": false
@@ -3328,8 +3148,8 @@
        "name": "Legs (each)",
        "pct": 35.0,
        "mult": 1.0,
-       "hpMin": 1192,
-       "hpMax": 12299,
+       "hpMin": 1193,
+       "hpMax": 12319,
        "severable": true,
        "alsoHitVia": [
         "Feet"
@@ -3346,8 +3166,8 @@
      "race": "Human",
      "levelMin": 25,
      "levelMax": 175,
-     "hpMin": 2868,
-     "hpMax": 30035,
+     "hpMin": 2871,
+     "hpMax": 30087,
      "healthCurve": "CT_Creatures_Health_Universal_Tier34",
      "statsFrom": "",
      "resist": {
@@ -3361,11 +3181,6 @@
      "speedMult": 120.0,
      "gang": "Miner",
      "imageSlug": "the-foreman",
-     "challenge": {
-      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group07_KillMiner_SUB",
-      "formId": "00843123",
-      "name": "Kill the Target - The Foreman"
-     },
      "weapons": [
       {
        "edid": "crCombatRifle",
@@ -3389,9 +3204,7 @@
        "damageCurve": "CT_Creatures_Damage_Universal_Tier26",
        "slot": "Secondary",
        "legendary": [
-        "1★ Assassin's",
-        "2★ Rapid",
-        "3★ Lightweight"
+        "2★ Rapid"
        ]
       },
       {
@@ -3417,7 +3230,7 @@
        "pct": 20.0,
        "mult": 1.5,
        "hpMin": 574,
-       "hpMax": 6007,
+       "hpMax": 6017,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": true
@@ -3426,8 +3239,8 @@
        "name": "Torso",
        "pct": 75.0,
        "mult": 1.0,
-       "hpMin": 2151,
-       "hpMax": 22526,
+       "hpMin": 2153,
+       "hpMax": 22565,
        "severable": false,
        "alsoHitVia": [],
        "weakSpot": false
@@ -3436,8 +3249,8 @@
        "name": "Arms (each)",
        "pct": 25.0,
        "mult": 1.0,
-       "hpMin": 717,
-       "hpMax": 7509,
+       "hpMin": 718,
+       "hpMax": 7522,
        "severable": true,
        "alsoHitVia": [],
        "weakSpot": false
@@ -3446,8 +3259,8 @@
        "name": "Legs (each)",
        "pct": 35.0,
        "mult": 1.0,
-       "hpMin": 1004,
-       "hpMax": 10512,
+       "hpMin": 1005,
+       "hpMax": 10530,
        "severable": true,
        "alsoHitVia": [
         "Feet"
@@ -3457,12 +3270,7 @@
      ],
      "bodyPartData": "HumanBodyPartData"
     }
-   ],
-   "metaChallenge": {
-    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group07_META",
-    "formId": "0084311F",
-    "name": "Kill Bounties from Group 7"
-   }
+   ]
   }
  ],
  "bosses": [
@@ -3473,8 +3281,8 @@
    "race": "Human",
    "levelMin": 25,
    "levelMax": 175,
-   "hpMin": 2868,
-   "hpMax": 30035,
+   "hpMin": 2871,
+   "hpMax": 30087,
    "healthCurve": "CT_Creatures_Health_Universal_Tier34",
    "statsFrom": "",
    "resist": {
@@ -3488,11 +3296,6 @@
    "speedMult": 120.0,
    "gang": "Famine",
    "imageSlug": "the-black-horseman",
-   "challenge": {
-    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group01_KillFamine_SUB",
-    "formId": "00843111",
-    "name": "Kill the Target - The Black Horseman"
-   },
    "weapons": [
     {
      "edid": "crGatlingPlasma",
@@ -3533,7 +3336,7 @@
      "pct": 20.0,
      "mult": 1.5,
      "hpMin": 574,
-     "hpMax": 6007,
+     "hpMax": 6017,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": true
@@ -3542,8 +3345,8 @@
      "name": "Torso",
      "pct": 75.0,
      "mult": 1.0,
-     "hpMin": 2151,
-     "hpMax": 22526,
+     "hpMin": 2153,
+     "hpMax": 22565,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -3552,8 +3355,8 @@
      "name": "Arms (each)",
      "pct": 25.0,
      "mult": 1.0,
-     "hpMin": 717,
-     "hpMax": 7509,
+     "hpMin": 718,
+     "hpMax": 7522,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": false
@@ -3562,8 +3365,8 @@
      "name": "Legs (each)",
      "pct": 35.0,
      "mult": 1.0,
-     "hpMin": 1004,
-     "hpMax": 10512,
+     "hpMin": 1005,
+     "hpMax": 10530,
      "severable": true,
      "alsoHitVia": [
       "Feet"
@@ -3580,12 +3383,12 @@
    "race": "Ghoul",
    "levelMin": 25,
    "levelMax": 175,
-   "hpMin": 2868,
-   "hpMax": 30035,
+   "hpMin": 2871,
+   "hpMax": 30087,
    "healthCurve": "CT_Creatures_Health_Universal_Tier34",
    "statsFrom": "",
    "resist": {
-    "DR": 854,
+    "DR": 855,
     "ER": 559,
     "Fire": 719,
     "Cryo": 719,
@@ -3595,11 +3398,6 @@
    "speedMult": 120.0,
    "gang": "Death",
    "imageSlug": "the-pale-horseman",
-   "challenge": {
-    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group01_KillDeath_SUB",
-    "formId": "00843141",
-    "name": "Kill the Target - The Pale Horseman"
-   },
    "weapons": [
     {
      "edid": "cr50CalMachineGun",
@@ -3640,7 +3438,7 @@
      "pct": 20.0,
      "mult": 1.5,
      "hpMin": 574,
-     "hpMax": 6007,
+     "hpMax": 6017,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": true
@@ -3649,8 +3447,8 @@
      "name": "Torso",
      "pct": 75.0,
      "mult": 1.0,
-     "hpMin": 2151,
-     "hpMax": 22526,
+     "hpMin": 2153,
+     "hpMax": 22565,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -3659,8 +3457,8 @@
      "name": "Arms (each)",
      "pct": 25.0,
      "mult": 1.0,
-     "hpMin": 717,
-     "hpMax": 7509,
+     "hpMin": 718,
+     "hpMax": 7522,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": false
@@ -3669,8 +3467,8 @@
      "name": "Legs (each)",
      "pct": 35.0,
      "mult": 1.0,
-     "hpMin": 1004,
-     "hpMax": 10512,
+     "hpMin": 1005,
+     "hpMax": 10530,
      "severable": true,
      "alsoHitVia": [
       "Feet"
@@ -3687,12 +3485,12 @@
    "race": "Human",
    "levelMin": 25,
    "levelMax": 175,
-   "hpMin": 2868,
-   "hpMax": 30035,
+   "hpMin": 2871,
+   "hpMax": 30087,
    "healthCurve": "CT_Creatures_Health_Universal_Tier34",
    "statsFrom": "",
    "resist": {
-    "DR": 854,
+    "DR": 855,
     "ER": 476,
     "Fire": 933,
     "Cryo": 660,
@@ -3702,11 +3500,6 @@
    "speedMult": 120.0,
    "gang": "War",
    "imageSlug": "the-red-rider",
-   "challenge": {
-    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group01_KillWar_SUB",
-    "formId": "00843120",
-    "name": "Kill the Target - The Red Rider"
-   },
    "weapons": [
     {
      "edid": "crCremator",
@@ -3747,7 +3540,7 @@
      "pct": 20.0,
      "mult": 1.5,
      "hpMin": 574,
-     "hpMax": 6007,
+     "hpMax": 6017,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": true
@@ -3756,8 +3549,8 @@
      "name": "Torso",
      "pct": 75.0,
      "mult": 1.0,
-     "hpMin": 2151,
-     "hpMax": 22526,
+     "hpMin": 2153,
+     "hpMax": 22565,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -3766,8 +3559,8 @@
      "name": "Arms (each)",
      "pct": 25.0,
      "mult": 1.0,
-     "hpMin": 717,
-     "hpMax": 7509,
+     "hpMin": 718,
+     "hpMax": 7522,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": false
@@ -3776,8 +3569,8 @@
      "name": "Legs (each)",
      "pct": 35.0,
      "mult": 1.0,
-     "hpMin": 1004,
-     "hpMax": 10512,
+     "hpMin": 1005,
+     "hpMax": 10530,
      "severable": true,
      "alsoHitVia": [
       "Feet"
@@ -3794,8 +3587,8 @@
    "race": "Human",
    "levelMin": 25,
    "levelMax": 175,
-   "hpMin": 2868,
-   "hpMax": 30035,
+   "hpMin": 2871,
+   "hpMax": 30087,
    "healthCurve": "CT_Creatures_Health_Universal_Tier34",
    "statsFrom": "",
    "resist": {
@@ -3809,11 +3602,6 @@
    "speedMult": 120.0,
    "gang": "Pestilence",
    "imageSlug": "the-white-horseman",
-   "challenge": {
-    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group01_KillPest_SUB",
-    "formId": "00843107",
-    "name": "Kill the Target - The White Horseman"
-   },
    "weapons": [
     {
      "edid": "crPlasmaCaster",
@@ -3822,7 +3610,7 @@
      "range": 4410,
      "type": "Gun",
      "damageMin": 24,
-     "damageMax": 144,
+     "damageMax": 145,
      "damageCurve": "CT_Creatures_Damage_Universal_Tier24",
      "slot": "Main"
     },
@@ -3854,7 +3642,7 @@
      "pct": 20.0,
      "mult": 1.5,
      "hpMin": 574,
-     "hpMax": 6007,
+     "hpMax": 6017,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": true
@@ -3863,8 +3651,8 @@
      "name": "Torso",
      "pct": 75.0,
      "mult": 1.0,
-     "hpMin": 2151,
-     "hpMax": 22526,
+     "hpMin": 2153,
+     "hpMax": 22565,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -3873,8 +3661,8 @@
      "name": "Arms (each)",
      "pct": 25.0,
      "mult": 1.0,
-     "hpMin": 717,
-     "hpMax": 7509,
+     "hpMin": 718,
+     "hpMax": 7522,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": false
@@ -3883,8 +3671,8 @@
      "name": "Legs (each)",
      "pct": 35.0,
      "mult": 1.0,
-     "hpMin": 1004,
-     "hpMax": 10512,
+     "hpMin": 1005,
+     "hpMax": 10530,
      "severable": true,
      "alsoHitVia": [
       "Feet"
@@ -3901,26 +3689,21 @@
    "race": "Human",
    "levelMin": 25,
    "levelMax": 175,
-   "hpMin": 3405,
-   "hpMax": 35139,
+   "hpMin": 3408,
+   "hpMax": 35198,
    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
    "statsFrom": "",
    "resist": {
     "DR": 440,
     "ER": 407,
     "Fire": 407,
-    "Cryo": 607,
+    "Cryo": 608,
     "Poison": 349,
     "Rad": 349
    },
    "speedMult": 120.0,
    "gang": "Nuka",
    "imageSlug": "anna-the-nuka-queen",
-   "challenge": {
-    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group02_KillNuka_SUB",
-    "formId": "00843117",
-    "name": "Kill the Target - Anna The Nuka-Queen"
-   },
    "weapons": [
     {
      "edid": "crHuntingRifle",
@@ -3960,8 +3743,8 @@
      "name": "Head",
      "pct": 20.0,
      "mult": 1.5,
-     "hpMin": 681,
-     "hpMax": 7028,
+     "hpMin": 682,
+     "hpMax": 7040,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": true
@@ -3970,8 +3753,8 @@
      "name": "Torso",
      "pct": 75.0,
      "mult": 1.0,
-     "hpMin": 2554,
-     "hpMax": 26354,
+     "hpMin": 2556,
+     "hpMax": 26398,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -3980,8 +3763,8 @@
      "name": "Arms (each)",
      "pct": 25.0,
      "mult": 1.0,
-     "hpMin": 851,
-     "hpMax": 8785,
+     "hpMin": 852,
+     "hpMax": 8800,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": false
@@ -3990,8 +3773,8 @@
      "name": "Legs (each)",
      "pct": 35.0,
      "mult": 1.0,
-     "hpMin": 1192,
-     "hpMax": 12299,
+     "hpMin": 1193,
+     "hpMax": 12319,
      "severable": true,
      "alsoHitVia": [
       "Feet"
@@ -4008,13 +3791,13 @@
    "race": "Human",
    "levelMin": 25,
    "levelMax": 175,
-   "hpMin": 3405,
-   "hpMax": 35139,
+   "hpMin": 3408,
+   "hpMax": 35198,
    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
    "statsFrom": "",
    "resist": {
-    "DR": 607,
-    "ER": 607,
+    "DR": 608,
+    "ER": 608,
     "Fire": 1117,
     "Cryo": 324,
     "Poison": 349,
@@ -4023,11 +3806,6 @@
    "speedMult": 120.0,
    "gang": "Rad Cleaners",
    "imageSlug": "cletus-brimstone",
-   "challenge": {
-    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group02_KillRadCleaners_SUB",
-    "formId": "00843118",
-    "name": "Kill the Target - Cletus Brimstone"
-   },
    "weapons": [
     {
      "edid": "crCremator",
@@ -4071,8 +3849,8 @@
      "name": "Head",
      "pct": 20.0,
      "mult": 1.5,
-     "hpMin": 681,
-     "hpMax": 7028,
+     "hpMin": 682,
+     "hpMax": 7040,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": true
@@ -4081,8 +3859,8 @@
      "name": "Torso",
      "pct": 75.0,
      "mult": 1.0,
-     "hpMin": 2554,
-     "hpMax": 26354,
+     "hpMin": 2556,
+     "hpMax": 26398,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -4091,8 +3869,8 @@
      "name": "Arms (each)",
      "pct": 25.0,
      "mult": 1.0,
-     "hpMin": 851,
-     "hpMax": 8785,
+     "hpMin": 852,
+     "hpMax": 8800,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": false
@@ -4101,8 +3879,8 @@
      "name": "Legs (each)",
      "pct": 35.0,
      "mult": 1.0,
-     "hpMin": 1192,
-     "hpMax": 12299,
+     "hpMin": 1193,
+     "hpMax": 12319,
      "severable": true,
      "alsoHitVia": [
       "Feet"
@@ -4119,26 +3897,21 @@
    "race": "Human",
    "levelMin": 25,
    "levelMax": 175,
-   "hpMin": 3405,
-   "hpMax": 35139,
+   "hpMin": 3408,
+   "hpMax": 35198,
    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
    "statsFrom": "",
    "resist": {
     "DR": 476,
-    "ER": 607,
-    "Fire": 607,
-    "Cryo": 607,
-    "Poison": 607,
-    "Rad": 1224
+    "ER": 608,
+    "Fire": 608,
+    "Cryo": 608,
+    "Poison": 608,
+    "Rad": 1225
    },
    "speedMult": 120.0,
    "gang": "Rad Cult",
    "imageSlug": "irene-the-irradiated",
-   "challenge": {
-    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group02_KillRadCult_SUB",
-    "formId": "0084311D",
-    "name": "Kill the Target - Irene The Irradiated"
-   },
    "weapons": [
     {
      "edid": "crGammaGun",
@@ -4178,8 +3951,8 @@
      "name": "Head",
      "pct": 20.0,
      "mult": 1.5,
-     "hpMin": 681,
-     "hpMax": 7028,
+     "hpMin": 682,
+     "hpMax": 7040,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": true
@@ -4188,8 +3961,8 @@
      "name": "Torso",
      "pct": 75.0,
      "mult": 1.0,
-     "hpMin": 2554,
-     "hpMax": 26354,
+     "hpMin": 2556,
+     "hpMax": 26398,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -4198,8 +3971,8 @@
      "name": "Arms (each)",
      "pct": 25.0,
      "mult": 1.0,
-     "hpMin": 851,
-     "hpMax": 8785,
+     "hpMin": 852,
+     "hpMax": 8800,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": false
@@ -4208,8 +3981,8 @@
      "name": "Legs (each)",
      "pct": 35.0,
      "mult": 1.0,
-     "hpMin": 1192,
-     "hpMax": 12299,
+     "hpMin": 1193,
+     "hpMax": 12319,
      "severable": true,
      "alsoHitVia": [
       "Feet"
@@ -4226,8 +3999,8 @@
    "race": "Human",
    "levelMin": 25,
    "levelMax": 175,
-   "hpMin": 3405,
-   "hpMax": 35139,
+   "hpMin": 3408,
+   "hpMax": 35198,
    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
    "statsFrom": "",
    "resist": {
@@ -4236,16 +4009,11 @@
     "Fire": 559,
     "Cryo": 407,
     "Poison": 719,
-    "Rad": 607
+    "Rad": 608
    },
    "speedMult": 120.0,
    "gang": "Abraxo",
    "imageSlug": "the-cleaner",
-   "challenge": {
-    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group02_KillAbraxo_SUB",
-    "formId": "0084310F",
-    "name": "Kill the Target - The Cleaner"
-   },
    "weapons": [
     {
      "edid": "crPlasmaGun",
@@ -4290,8 +4058,8 @@
      "name": "Head",
      "pct": 20.0,
      "mult": 1.5,
-     "hpMin": 681,
-     "hpMax": 7028,
+     "hpMin": 682,
+     "hpMax": 7040,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": true
@@ -4300,8 +4068,8 @@
      "name": "Torso",
      "pct": 75.0,
      "mult": 1.0,
-     "hpMin": 2554,
-     "hpMax": 26354,
+     "hpMin": 2556,
+     "hpMax": 26398,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -4310,8 +4078,8 @@
      "name": "Arms (each)",
      "pct": 25.0,
      "mult": 1.0,
-     "hpMin": 851,
-     "hpMax": 8785,
+     "hpMin": 852,
+     "hpMax": 8800,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": false
@@ -4320,8 +4088,8 @@
      "name": "Legs (each)",
      "pct": 35.0,
      "mult": 1.0,
-     "hpMin": 1192,
-     "hpMax": 12299,
+     "hpMin": 1193,
+     "hpMax": 12319,
      "severable": true,
      "alsoHitVia": [
       "Feet"
@@ -4338,8 +4106,8 @@
    "race": "Human",
    "levelMin": 25,
    "levelMax": 175,
-   "hpMin": 3405,
-   "hpMax": 35139,
+   "hpMin": 3408,
+   "hpMax": 35198,
    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
    "statsFrom": "",
    "resist": {
@@ -4353,11 +4121,6 @@
    "speedMult": 120.0,
    "gang": "Quack Doctors",
    "imageSlug": "the-malpractitioner",
-   "challenge": {
-    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group02_KillQuackDocs_SUB",
-    "formId": "00843133",
-    "name": "Kill the Target - The Malpractitioner"
-   },
    "weapons": [
     {
      "edid": "cr44_MedicalMalpractice",
@@ -4366,7 +4129,7 @@
      "range": 2978,
      "type": "Gun",
      "damageMin": 100,
-     "damageMax": 497,
+     "damageMax": 498,
      "damageCurve": "CT_Creatures_Damage_Universal_Tier38",
      "slot": "Main",
      "legendary": [
@@ -4406,8 +4169,8 @@
      "name": "Head",
      "pct": 20.0,
      "mult": 1.5,
-     "hpMin": 681,
-     "hpMax": 7028,
+     "hpMin": 682,
+     "hpMax": 7040,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": true
@@ -4416,8 +4179,8 @@
      "name": "Torso",
      "pct": 75.0,
      "mult": 1.0,
-     "hpMin": 2554,
-     "hpMax": 26354,
+     "hpMin": 2556,
+     "hpMax": 26398,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -4426,8 +4189,8 @@
      "name": "Arms (each)",
      "pct": 25.0,
      "mult": 1.0,
-     "hpMin": 851,
-     "hpMax": 8785,
+     "hpMin": 852,
+     "hpMax": 8800,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": false
@@ -4436,8 +4199,8 @@
      "name": "Legs (each)",
      "pct": 35.0,
      "mult": 1.0,
-     "hpMin": 1192,
-     "hpMax": 12299,
+     "hpMin": 1193,
+     "hpMax": 12319,
      "severable": true,
      "alsoHitVia": [
       "Feet"
@@ -4454,26 +4217,21 @@
    "race": "Human",
    "levelMin": 25,
    "levelMax": 150,
-   "hpMin": 3405,
-   "hpMax": 25742,
+   "hpMin": 3408,
+   "hpMax": 25795,
    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
    "statsFrom": "",
    "resist": {
     "DR": 532,
     "ER": 532,
-    "Fire": 353,
-    "Cryo": 353,
+    "Fire": 354,
+    "Cryo": 354,
     "Poison": 302,
     "Rad": 302
    },
    "speedMult": 120.0,
    "gang": "Jazz",
    "imageSlug": "ragtime-randy",
-   "challenge": {
-    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group03_KillJazz_SUB",
-    "formId": "0084313E",
-    "name": "Kill the Target - Ragtime Randy"
-   },
    "weapons": [
     {
      "edid": "crE09A_Broadsider_GrandFinale",
@@ -4508,7 +4266,7 @@
      "range": 10,
      "type": "OneHandSword",
      "damageMin": 19,
-     "damageMax": 89,
+     "damageMax": 90,
      "damageCurve": "CT_Creatures_Damage_Universal_Tier22",
      "slot": "Secondary",
      "legendary": [
@@ -4538,8 +4296,8 @@
      "name": "Head",
      "pct": 20.0,
      "mult": 1.5,
-     "hpMin": 681,
-     "hpMax": 5148,
+     "hpMin": 682,
+     "hpMax": 5159,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": true
@@ -4548,8 +4306,8 @@
      "name": "Torso",
      "pct": 75.0,
      "mult": 1.0,
-     "hpMin": 2554,
-     "hpMax": 19306,
+     "hpMin": 2556,
+     "hpMax": 19346,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -4558,8 +4316,8 @@
      "name": "Arms (each)",
      "pct": 25.0,
      "mult": 1.0,
-     "hpMin": 851,
-     "hpMax": 6436,
+     "hpMin": 852,
+     "hpMax": 6449,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": false
@@ -4568,8 +4326,8 @@
      "name": "Legs (each)",
      "pct": 35.0,
      "mult": 1.0,
-     "hpMin": 1192,
-     "hpMax": 9010,
+     "hpMin": 1193,
+     "hpMax": 9028,
      "severable": true,
      "alsoHitVia": [
       "Feet"
@@ -4586,26 +4344,21 @@
    "race": "Human",
    "levelMin": 25,
    "levelMax": 175,
-   "hpMin": 4043,
-   "hpMax": 41128,
+   "hpMin": 4047,
+   "hpMax": 41195,
    "healthCurve": "CT_Creatures_Health_Universal_Tier36",
    "statsFrom": "",
    "resist": {
-    "DR": 607,
-    "ER": 607,
+    "DR": 608,
+    "ER": 608,
     "Fire": 407,
-    "Cryo": 607,
+    "Cryo": 608,
     "Poison": 349,
     "Rad": 349
    },
    "speedMult": 120.0,
    "gang": "Pilot",
    "imageSlug": "the-ace",
-   "challenge": {
-    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group03_KillPilot_SUB",
-    "formId": "00843114",
-    "name": "Kill the Target - The Ace"
-   },
    "weapons": [
     {
      "edid": "crMobsterAutoGrenadeLauncher",
@@ -4641,7 +4394,7 @@
      "pct": 20.0,
      "mult": 1.5,
      "hpMin": 809,
-     "hpMax": 8226,
+     "hpMax": 8239,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": true
@@ -4650,8 +4403,8 @@
      "name": "Torso",
      "pct": 75.0,
      "mult": 1.0,
-     "hpMin": 3032,
-     "hpMax": 30846,
+     "hpMin": 3035,
+     "hpMax": 30896,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -4660,8 +4413,8 @@
      "name": "Arms (each)",
      "pct": 25.0,
      "mult": 1.0,
-     "hpMin": 1011,
-     "hpMax": 10282,
+     "hpMin": 1012,
+     "hpMax": 10299,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": false
@@ -4670,8 +4423,8 @@
      "name": "Legs (each)",
      "pct": 35.0,
      "mult": 1.0,
-     "hpMin": 1415,
-     "hpMax": 14395,
+     "hpMin": 1416,
+     "hpMax": 14418,
      "severable": true,
      "alsoHitVia": [
       "Feet"
@@ -4688,8 +4441,8 @@
    "race": "Human",
    "levelMin": 25,
    "levelMax": 175,
-   "hpMin": 3405,
-   "hpMax": 35139,
+   "hpMin": 3408,
+   "hpMax": 35198,
    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
    "statsFrom": "",
    "resist": {
@@ -4703,11 +4456,6 @@
    "speedMult": 120.0,
    "gang": "Vault-Tec",
    "imageSlug": "the-chief-researcher",
-   "challenge": {
-    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group03_KillVaultTec_SUB",
-    "formId": "00843108",
-    "name": "Kill the Target - The Chief Researcher"
-   },
    "weapons": [
     {
      "edid": "crMeltdown",
@@ -4742,8 +4490,8 @@
      "name": "Head",
      "pct": 20.0,
      "mult": 1.5,
-     "hpMin": 681,
-     "hpMax": 7028,
+     "hpMin": 682,
+     "hpMax": 7040,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": true
@@ -4752,8 +4500,8 @@
      "name": "Torso",
      "pct": 75.0,
      "mult": 1.0,
-     "hpMin": 2554,
-     "hpMax": 26354,
+     "hpMin": 2556,
+     "hpMax": 26398,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -4762,8 +4510,8 @@
      "name": "Arms (each)",
      "pct": 25.0,
      "mult": 1.0,
-     "hpMin": 851,
-     "hpMax": 8785,
+     "hpMin": 852,
+     "hpMax": 8800,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": false
@@ -4772,8 +4520,8 @@
      "name": "Legs (each)",
      "pct": 35.0,
      "mult": 1.0,
-     "hpMin": 1192,
-     "hpMax": 12299,
+     "hpMin": 1193,
+     "hpMax": 12319,
      "severable": true,
      "alsoHitVia": [
       "Feet"
@@ -4790,26 +4538,21 @@
    "race": "Human",
    "levelMin": 25,
    "levelMax": 150,
-   "hpMin": 3405,
-   "hpMax": 25742,
+   "hpMin": 3408,
+   "hpMax": 25795,
    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
    "statsFrom": "",
    "resist": {
     "DR": 532,
     "ER": 532,
-    "Fire": 353,
-    "Cryo": 353,
+    "Fire": 354,
+    "Cryo": 354,
     "Poison": 302,
     "Rad": 302
    },
    "speedMult": 120.0,
    "gang": "Commie",
    "imageSlug": "the-proletariat-punisher",
-   "challenge": {
-    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group03_KillCommies_SUB",
-    "formId": "00843131",
-    "name": "Kill the Target - The Proletariat Punisher"
-   },
    "weapons": [
     {
      "edid": "crHandMadeGun",
@@ -4849,8 +4592,8 @@
      "name": "Head",
      "pct": 20.0,
      "mult": 1.5,
-     "hpMin": 681,
-     "hpMax": 5148,
+     "hpMin": 682,
+     "hpMax": 5159,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": true
@@ -4859,8 +4602,8 @@
      "name": "Torso",
      "pct": 75.0,
      "mult": 1.0,
-     "hpMin": 2554,
-     "hpMax": 19306,
+     "hpMin": 2556,
+     "hpMax": 19346,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -4869,8 +4612,8 @@
      "name": "Arms (each)",
      "pct": 25.0,
      "mult": 1.0,
-     "hpMin": 851,
-     "hpMax": 6436,
+     "hpMin": 852,
+     "hpMax": 6449,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": false
@@ -4879,8 +4622,8 @@
      "name": "Legs (each)",
      "pct": 35.0,
      "mult": 1.0,
-     "hpMin": 1192,
-     "hpMax": 9010,
+     "hpMin": 1193,
+     "hpMax": 9028,
      "severable": true,
      "alsoHitVia": [
       "Feet"
@@ -4897,8 +4640,8 @@
    "race": "Human",
    "levelMin": 25,
    "levelMax": 175,
-   "hpMin": 3405,
-   "hpMax": 35139,
+   "hpMin": 3408,
+   "hpMax": 35198,
    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
    "statsFrom": "",
    "resist": {
@@ -4912,11 +4655,6 @@
    "speedMult": 120.0,
    "gang": "Astronaut",
    "imageSlug": "the-space-ranger",
-   "challenge": {
-    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group03_KillAstronauts_SUB",
-    "formId": "00843113",
-    "name": "Kill the Target - The Space Ranger"
-   },
    "weapons": [
     {
      "edid": "crAlienBlaster_Cryo",
@@ -4960,8 +4698,8 @@
      "name": "Head",
      "pct": 20.0,
      "mult": 1.5,
-     "hpMin": 681,
-     "hpMax": 7028,
+     "hpMin": 682,
+     "hpMax": 7040,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": true
@@ -4970,8 +4708,8 @@
      "name": "Torso",
      "pct": 75.0,
      "mult": 1.0,
-     "hpMin": 2554,
-     "hpMax": 26354,
+     "hpMin": 2556,
+     "hpMax": 26398,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -4980,8 +4718,8 @@
      "name": "Arms (each)",
      "pct": 25.0,
      "mult": 1.0,
-     "hpMin": 851,
-     "hpMax": 8785,
+     "hpMin": 852,
+     "hpMax": 8800,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": false
@@ -4990,8 +4728,8 @@
      "name": "Legs (each)",
      "pct": 35.0,
      "mult": 1.0,
-     "hpMin": 1192,
-     "hpMax": 12299,
+     "hpMin": 1193,
+     "hpMax": 12319,
      "severable": true,
      "alsoHitVia": [
       "Feet"
@@ -5008,13 +4746,13 @@
    "race": "Human",
    "levelMin": 25,
    "levelMax": 175,
-   "hpMin": 2868,
-   "hpMax": 30035,
+   "hpMin": 2871,
+   "hpMax": 30087,
    "healthCurve": "CT_Creatures_Health_Universal_Tier34",
    "statsFrom": "",
    "resist": {
-    "DR": 854,
-    "ER": 854,
+    "DR": 855,
+    "ER": 855,
     "Fire": 660,
     "Cryo": 660,
     "Poison": 242,
@@ -5023,11 +4761,6 @@
    "speedMult": 120.0,
    "gang": "Old Money",
    "imageSlug": "baron-boris-wazie",
-   "challenge": {
-    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group04_KillOldMoney_SUB",
-    "formId": "00843132",
-    "name": "Kill the Target - Baron Boris Wazie"
-   },
    "weapons": [
     {
      "edid": "crBlackPowder_Rifle_Dragon",
@@ -5036,7 +4769,7 @@
      "range": 4469,
      "type": "Gun",
      "damageMin": 288,
-     "damageMax": 1240,
+     "damageMax": 1241,
      "damageCurve": "CT_Creatures_Damage_Universal_Tier48",
      "slot": "Main",
      "legendary": [
@@ -5084,7 +4817,7 @@
      "pct": 20.0,
      "mult": 1.5,
      "hpMin": 574,
-     "hpMax": 6007,
+     "hpMax": 6017,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": true
@@ -5093,8 +4826,8 @@
      "name": "Torso",
      "pct": 75.0,
      "mult": 1.0,
-     "hpMin": 2151,
-     "hpMax": 22526,
+     "hpMin": 2153,
+     "hpMax": 22565,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -5103,8 +4836,8 @@
      "name": "Arms (each)",
      "pct": 25.0,
      "mult": 1.0,
-     "hpMin": 717,
-     "hpMax": 7509,
+     "hpMin": 718,
+     "hpMax": 7522,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": false
@@ -5113,8 +4846,8 @@
      "name": "Legs (each)",
      "pct": 35.0,
      "mult": 1.0,
-     "hpMin": 1004,
-     "hpMax": 10512,
+     "hpMin": 1005,
+     "hpMax": 10530,
      "severable": true,
      "alsoHitVia": [
       "Feet"
@@ -5131,26 +4864,21 @@
    "race": "DLC01RoboBrain",
    "levelMin": 100,
    "levelMax": 100,
-   "hpMin": 11804,
-   "hpMax": 11804,
+   "hpMin": 11799,
+   "hpMax": 11799,
    "healthCurve": "CT_Creatures_Health_Universal_Tier34",
    "statsFrom": "",
    "resist": {
     "DR": 327,
-    "ER": 556,
+    "ER": 555,
     "Fire": 424,
     "Cryo": 424,
-    "Poison": 182,
-    "Rad": 182
+    "Poison": 183,
+    "Rad": 183
    },
    "speedMult": 120.0,
    "gang": "Robobrain",
    "imageSlug": "chief-engineer-lewis",
-   "challenge": {
-    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group04_KillRobobrains_SUB",
-    "formId": "00843124",
-    "name": "Kill the Target - Chief Engineer Lewis"
-   },
    "weapons": [
     {
      "edid": "crPlasmaGun",
@@ -5190,8 +4918,8 @@
      "name": "Head",
      "pct": 50.0,
      "mult": 1.15,
-     "hpMin": 5902,
-     "hpMax": 5902,
+     "hpMin": 5900,
+     "hpMax": 5900,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": true
@@ -5200,8 +4928,8 @@
      "name": "Torso",
      "pct": 80.0,
      "mult": 1.0,
-     "hpMin": 9443,
-     "hpMax": 9443,
+     "hpMin": 9439,
+     "hpMax": 9439,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -5210,8 +4938,8 @@
      "name": "Arms (each)",
      "pct": 25.0,
      "mult": 1.0,
-     "hpMin": 2951,
-     "hpMax": 2951,
+     "hpMin": 2950,
+     "hpMax": 2950,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -5220,8 +4948,8 @@
      "name": "Legs (each)",
      "pct": 35.0,
      "mult": 0.9,
-     "hpMin": 4131,
-     "hpMax": 4131,
+     "hpMin": 4130,
+     "hpMax": 4130,
      "severable": false,
      "alsoHitVia": [
       "Feet"
@@ -5248,8 +4976,8 @@
    "race": "Human",
    "levelMin": 25,
    "levelMax": 175,
-   "hpMin": 2868,
-   "hpMax": 30035,
+   "hpMin": 2871,
+   "hpMax": 30087,
    "healthCurve": "CT_Creatures_Health_Universal_Tier34",
    "statsFrom": "",
    "resist": {
@@ -5263,11 +4991,6 @@
    "speedMult": 120.0,
    "gang": "Patriot",
    "imageSlug": "corporal-jane",
-   "challenge": {
-    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group04_KillPatriots_SUB",
-    "formId": "0084310B",
-    "name": "Kill the Target - Corporal Jane"
-   },
    "weapons": [
     {
      "edid": "crMissileLauncher",
@@ -5308,7 +5031,7 @@
      "pct": 20.0,
      "mult": 1.5,
      "hpMin": 574,
-     "hpMax": 6007,
+     "hpMax": 6017,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": true
@@ -5317,8 +5040,8 @@
      "name": "Torso",
      "pct": 75.0,
      "mult": 1.0,
-     "hpMin": 2151,
-     "hpMax": 22526,
+     "hpMin": 2153,
+     "hpMax": 22565,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -5327,8 +5050,8 @@
      "name": "Arms (each)",
      "pct": 25.0,
      "mult": 1.0,
-     "hpMin": 717,
-     "hpMax": 7509,
+     "hpMin": 718,
+     "hpMax": 7522,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": false
@@ -5337,8 +5060,8 @@
      "name": "Legs (each)",
      "pct": 35.0,
      "mult": 1.0,
-     "hpMin": 1004,
-     "hpMax": 10512,
+     "hpMin": 1005,
+     "hpMax": 10530,
      "severable": true,
      "alsoHitVia": [
       "Feet"
@@ -5355,26 +5078,21 @@
    "race": "Human",
    "levelMin": 25,
    "levelMax": 175,
-   "hpMin": 3405,
-   "hpMax": 35139,
+   "hpMin": 3408,
+   "hpMax": 35198,
    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
    "statsFrom": "",
    "resist": {
     "DR": 476,
     "ER": 933,
     "Fire": 301,
-    "Cryo": 607,
+    "Cryo": 608,
     "Poison": 349,
     "Rad": 349
    },
    "speedMult": 120.0,
    "gang": "Robot",
    "imageSlug": "tincan-toni",
-   "challenge": {
-    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group04_KillRobots_SUB",
-    "formId": "00843105",
-    "name": "Kill the Target - Tincan Toni"
-   },
    "weapons": [
     {
      "edid": "cr10mm_CircuitBreaker",
@@ -5418,8 +5136,8 @@
      "name": "Head",
      "pct": 20.0,
      "mult": 1.5,
-     "hpMin": 681,
-     "hpMax": 7028,
+     "hpMin": 682,
+     "hpMax": 7040,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": true
@@ -5428,8 +5146,8 @@
      "name": "Torso",
      "pct": 75.0,
      "mult": 1.0,
-     "hpMin": 2554,
-     "hpMax": 26354,
+     "hpMin": 2556,
+     "hpMax": 26398,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -5438,8 +5156,8 @@
      "name": "Arms (each)",
      "pct": 25.0,
      "mult": 1.0,
-     "hpMin": 851,
-     "hpMax": 8785,
+     "hpMin": 852,
+     "hpMax": 8800,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": false
@@ -5448,8 +5166,8 @@
      "name": "Legs (each)",
      "pct": 35.0,
      "mult": 1.0,
-     "hpMin": 1192,
-     "hpMax": 12299,
+     "hpMin": 1193,
+     "hpMax": 12319,
      "severable": true,
      "alsoHitVia": [
       "Feet"
@@ -5466,26 +5184,21 @@
    "race": "Human",
    "levelMin": 25,
    "levelMax": 150,
-   "hpMin": 3405,
-   "hpMax": 25742,
+   "hpMin": 3408,
+   "hpMax": 25795,
    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
    "statsFrom": "",
    "resist": {
     "DR": 532,
     "ER": 532,
-    "Fire": 353,
-    "Cryo": 353,
+    "Fire": 354,
+    "Cryo": 354,
     "Poison": 302,
     "Rad": 302
    },
    "speedMult": 120.0,
    "gang": "Boxer",
    "imageSlug": "becca-the-heavyweight",
-   "challenge": {
-    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group05_KillBoxer_SUB",
-    "formId": "0084313B",
-    "name": "Kill the Target - Becca The Heavyweight"
-   },
    "weapons": [
     {
      "edid": "crKnuckles",
@@ -5524,8 +5237,8 @@
      "name": "Head",
      "pct": 20.0,
      "mult": 1.5,
-     "hpMin": 681,
-     "hpMax": 5148,
+     "hpMin": 682,
+     "hpMax": 5159,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": true
@@ -5534,8 +5247,8 @@
      "name": "Torso",
      "pct": 75.0,
      "mult": 1.0,
-     "hpMin": 2554,
-     "hpMax": 19306,
+     "hpMin": 2556,
+     "hpMax": 19346,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -5544,8 +5257,8 @@
      "name": "Arms (each)",
      "pct": 25.0,
      "mult": 1.0,
-     "hpMin": 851,
-     "hpMax": 6436,
+     "hpMin": 852,
+     "hpMax": 6449,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": false
@@ -5554,8 +5267,8 @@
      "name": "Legs (each)",
      "pct": 35.0,
      "mult": 1.0,
-     "hpMin": 1192,
-     "hpMax": 9010,
+     "hpMin": 1193,
+     "hpMax": 9028,
      "severable": true,
      "alsoHitVia": [
       "Feet"
@@ -5572,26 +5285,21 @@
    "race": "Human",
    "levelMin": 25,
    "levelMax": 150,
-   "hpMin": 3405,
-   "hpMax": 25742,
+   "hpMin": 3408,
+   "hpMax": 25795,
    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
    "statsFrom": "",
    "resist": {
     "DR": 532,
     "ER": 532,
-    "Fire": 353,
-    "Cryo": 353,
+    "Fire": 354,
+    "Cryo": 354,
     "Poison": 302,
     "Rad": 302
    },
    "speedMult": 120.0,
    "gang": "Sniper",
    "imageSlug": "charlie-half-cocked",
-   "challenge": {
-    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group05_KillSniper_SUB",
-    "formId": "00843125",
-    "name": "Kill the Target - Charlie Half-Cocked"
-   },
    "weapons": [
     {
      "edid": "crHuntingRifle",
@@ -5600,7 +5308,7 @@
      "range": 5225,
      "type": "Gun",
      "damageMin": 36,
-     "damageMax": 153,
+     "damageMax": 154,
      "damageCurve": "CT_Creatures_Damage_Universal_Tier28",
      "slot": "Main",
      "legendary": [
@@ -5636,8 +5344,8 @@
      "name": "Head",
      "pct": 20.0,
      "mult": 1.5,
-     "hpMin": 681,
-     "hpMax": 5148,
+     "hpMin": 682,
+     "hpMax": 5159,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": true
@@ -5646,8 +5354,8 @@
      "name": "Torso",
      "pct": 75.0,
      "mult": 1.0,
-     "hpMin": 2554,
-     "hpMax": 19306,
+     "hpMin": 2556,
+     "hpMax": 19346,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -5656,8 +5364,8 @@
      "name": "Arms (each)",
      "pct": 25.0,
      "mult": 1.0,
-     "hpMin": 851,
-     "hpMax": 6436,
+     "hpMin": 852,
+     "hpMax": 6449,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": false
@@ -5666,8 +5374,8 @@
      "name": "Legs (each)",
      "pct": 35.0,
      "mult": 1.0,
-     "hpMin": 1192,
-     "hpMax": 9010,
+     "hpMin": 1193,
+     "hpMax": 9028,
      "severable": true,
      "alsoHitVia": [
       "Feet"
@@ -5684,26 +5392,21 @@
    "race": "Human",
    "levelMin": 25,
    "levelMax": 150,
-   "hpMin": 3405,
-   "hpMax": 25742,
+   "hpMin": 3408,
+   "hpMax": 25795,
    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
    "statsFrom": "",
    "resist": {
     "DR": 532,
     "ER": 532,
-    "Fire": 353,
-    "Cryo": 353,
+    "Fire": 354,
+    "Cryo": 354,
     "Poison": 302,
     "Rad": 302
    },
    "speedMult": 120.0,
    "gang": "Gunslinger",
    "imageSlug": "cowgirl-janine",
-   "challenge": {
-    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group05_KillGunslinger_SUB",
-    "formId": "0084310C",
-    "name": "Kill the Target - Cowgirl Janine"
-   },
    "weapons": [
     {
      "edid": "crRevolver",
@@ -5738,8 +5441,8 @@
      "name": "Head",
      "pct": 20.0,
      "mult": 1.5,
-     "hpMin": 681,
-     "hpMax": 5148,
+     "hpMin": 682,
+     "hpMax": 5159,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": true
@@ -5748,8 +5451,8 @@
      "name": "Torso",
      "pct": 75.0,
      "mult": 1.0,
-     "hpMin": 2554,
-     "hpMax": 19306,
+     "hpMin": 2556,
+     "hpMax": 19346,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -5758,8 +5461,8 @@
      "name": "Arms (each)",
      "pct": 25.0,
      "mult": 1.0,
-     "hpMin": 851,
-     "hpMax": 6436,
+     "hpMin": 852,
+     "hpMax": 6449,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": false
@@ -5768,8 +5471,8 @@
      "name": "Legs (each)",
      "pct": 35.0,
      "mult": 1.0,
-     "hpMin": 1192,
-     "hpMax": 9010,
+     "hpMin": 1193,
+     "hpMax": 9028,
      "severable": true,
      "alsoHitVia": [
       "Feet"
@@ -5786,8 +5489,8 @@
    "race": "Human",
    "levelMin": 25,
    "levelMax": 175,
-   "hpMin": 3405,
-   "hpMax": 35139,
+   "hpMin": 3408,
+   "hpMax": 35198,
    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
    "statsFrom": "",
    "resist": {
@@ -5801,11 +5504,6 @@
    "speedMult": 120.0,
    "gang": "Big Gun",
    "imageSlug": "richie-finesse",
-   "challenge": {
-    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group05_KillBigGun_SUB",
-    "formId": "00843136",
-    "name": "Kill the Target - Richie Finesse"
-   },
    "weapons": [
     {
      "edid": "crMinigun",
@@ -5845,8 +5543,8 @@
      "name": "Head",
      "pct": 20.0,
      "mult": 1.5,
-     "hpMin": 681,
-     "hpMax": 7028,
+     "hpMin": 682,
+     "hpMax": 7040,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": true
@@ -5855,8 +5553,8 @@
      "name": "Torso",
      "pct": 75.0,
      "mult": 1.0,
-     "hpMin": 2554,
-     "hpMax": 26354,
+     "hpMin": 2556,
+     "hpMax": 26398,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -5865,8 +5563,8 @@
      "name": "Arms (each)",
      "pct": 25.0,
      "mult": 1.0,
-     "hpMin": 851,
-     "hpMax": 8785,
+     "hpMin": 852,
+     "hpMax": 8800,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": false
@@ -5875,8 +5573,8 @@
      "name": "Legs (each)",
      "pct": 35.0,
      "mult": 1.0,
-     "hpMin": 1192,
-     "hpMax": 12299,
+     "hpMin": 1193,
+     "hpMax": 12319,
      "severable": true,
      "alsoHitVia": [
       "Feet"
@@ -5893,8 +5591,8 @@
    "race": "Human",
    "levelMin": 25,
    "levelMax": 175,
-   "hpMin": 3405,
-   "hpMax": 35139,
+   "hpMin": 3408,
+   "hpMax": 35198,
    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
    "statsFrom": "",
    "resist": {
@@ -5908,11 +5606,6 @@
    "speedMult": 120.0,
    "gang": "Hunter",
    "imageSlug": "colt-the-bolt",
-   "challenge": {
-    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group06_KillHunter_SUB",
-    "formId": "00843148",
-    "name": "Kill the Target - Colt the Bolt"
-   },
    "weapons": [
     {
      "edid": "crLightningGun",
@@ -5936,8 +5629,8 @@
      "ammo": "",
      "range": 0,
      "type": "HandToHandMelee",
-     "damageMin": 21,
-     "damageMax": 132,
+     "damageMin": 22,
+     "damageMax": 133,
      "damageCurve": "CT_Creatures_Damage_Universal_Tier23",
      "slot": "Secondary"
     },
@@ -5968,8 +5661,8 @@
      "name": "Head",
      "pct": 20.0,
      "mult": 1.5,
-     "hpMin": 681,
-     "hpMax": 7028,
+     "hpMin": 682,
+     "hpMax": 7040,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": true
@@ -5978,8 +5671,8 @@
      "name": "Torso",
      "pct": 75.0,
      "mult": 1.0,
-     "hpMin": 2554,
-     "hpMax": 26354,
+     "hpMin": 2556,
+     "hpMax": 26398,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -5988,8 +5681,8 @@
      "name": "Arms (each)",
      "pct": 25.0,
      "mult": 1.0,
-     "hpMin": 851,
-     "hpMax": 8785,
+     "hpMin": 852,
+     "hpMax": 8800,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": false
@@ -5998,8 +5691,8 @@
      "name": "Legs (each)",
      "pct": 35.0,
      "mult": 1.0,
-     "hpMin": 1192,
-     "hpMax": 12299,
+     "hpMin": 1193,
+     "hpMax": 12319,
      "severable": true,
      "alsoHitVia": [
       "Feet"
@@ -6016,26 +5709,21 @@
    "race": "Human",
    "levelMin": 25,
    "levelMax": 150,
-   "hpMin": 3405,
-   "hpMax": 25742,
+   "hpMin": 3408,
+   "hpMax": 25795,
    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
    "statsFrom": "",
    "resist": {
     "DR": 532,
     "ER": 532,
-    "Fire": 353,
-    "Cryo": 353,
+    "Fire": 354,
+    "Cryo": 354,
     "Poison": 302,
     "Rad": 302
    },
    "speedMult": 120.0,
    "gang": "Golden Oldies",
    "imageSlug": "granny-dolores",
-   "challenge": {
-    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group06_KillGolden_SUB",
-    "formId": "00843149",
-    "name": "Kill the Target - Granny Dolores"
-   },
    "weapons": [
     {
      "edid": "crWalkingCane",
@@ -6044,7 +5732,7 @@
      "range": 10,
      "type": "OneHandSword",
      "damageMin": 19,
-     "damageMax": 89,
+     "damageMax": 90,
      "damageCurve": "CT_Creatures_Damage_Universal_Tier22",
      "slot": "Main"
     },
@@ -6079,8 +5767,8 @@
      "name": "Head",
      "pct": 20.0,
      "mult": 1.5,
-     "hpMin": 681,
-     "hpMax": 5148,
+     "hpMin": 682,
+     "hpMax": 5159,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": true
@@ -6089,8 +5777,8 @@
      "name": "Torso",
      "pct": 75.0,
      "mult": 1.0,
-     "hpMin": 2554,
-     "hpMax": 19306,
+     "hpMin": 2556,
+     "hpMax": 19346,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -6099,8 +5787,8 @@
      "name": "Arms (each)",
      "pct": 25.0,
      "mult": 1.0,
-     "hpMin": 851,
-     "hpMax": 6436,
+     "hpMin": 852,
+     "hpMax": 6449,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": false
@@ -6109,8 +5797,8 @@
      "name": "Legs (each)",
      "pct": 35.0,
      "mult": 1.0,
-     "hpMin": 1192,
-     "hpMax": 9010,
+     "hpMin": 1193,
+     "hpMax": 9028,
      "severable": true,
      "alsoHitVia": [
       "Feet"
@@ -6127,13 +5815,13 @@
    "race": "Human",
    "levelMin": 25,
    "levelMax": 175,
-   "hpMin": 3405,
-   "hpMax": 35139,
+   "hpMin": 3408,
+   "hpMax": 35198,
    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
    "statsFrom": "",
    "resist": {
-    "DR": 607,
-    "ER": 607,
+    "DR": 608,
+    "ER": 608,
     "Fire": 324,
     "Cryo": 301,
     "Poison": 476,
@@ -6142,11 +5830,6 @@
    "speedMult": 120.0,
    "gang": "Blue Devils",
    "imageSlug": "the-devil-of-defiance",
-   "challenge": {
-    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group06_KillBlueDevils_SUB",
-    "formId": "00843129",
-    "name": "Kill the Target - The Devil of Defiance"
-   },
    "weapons": [
     {
      "edid": "crDoubleBarrelShotgun",
@@ -6154,7 +5837,7 @@
      "ammo": "Shotgun Shell",
      "range": 1439,
      "type": "Gun",
-     "damageMin": 39,
+     "damageMin": 40,
      "damageMax": 224,
      "damageCurve": "CT_Creatures_Damage_Universal_Tier29",
      "slot": "Main",
@@ -6196,8 +5879,8 @@
      "name": "Head",
      "pct": 20.0,
      "mult": 1.5,
-     "hpMin": 681,
-     "hpMax": 7028,
+     "hpMin": 682,
+     "hpMax": 7040,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": true
@@ -6206,8 +5889,8 @@
      "name": "Torso",
      "pct": 75.0,
      "mult": 1.0,
-     "hpMin": 2554,
-     "hpMax": 26354,
+     "hpMin": 2556,
+     "hpMax": 26398,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -6216,8 +5899,8 @@
      "name": "Arms (each)",
      "pct": 25.0,
      "mult": 1.0,
-     "hpMin": 851,
-     "hpMax": 8785,
+     "hpMin": 852,
+     "hpMax": 8800,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": false
@@ -6226,8 +5909,8 @@
      "name": "Legs (each)",
      "pct": 35.0,
      "mult": 1.0,
-     "hpMin": 1192,
-     "hpMax": 12299,
+     "hpMin": 1193,
+     "hpMax": 12319,
      "severable": true,
      "alsoHitVia": [
       "Feet"
@@ -6244,26 +5927,21 @@
    "race": "Human",
    "levelMin": 25,
    "levelMax": 150,
-   "hpMin": 3405,
-   "hpMax": 25742,
+   "hpMin": 3408,
+   "hpMax": 25795,
    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
    "statsFrom": "",
    "resist": {
     "DR": 532,
     "ER": 532,
-    "Fire": 353,
-    "Cryo": 353,
+    "Fire": 354,
+    "Cryo": 354,
     "Poison": 302,
     "Rad": 302
    },
    "speedMult": 120.0,
    "gang": "Gambler",
    "imageSlug": "vito-the-vic-bronco",
-   "challenge": {
-    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group06_KillGambler_SUB",
-    "formId": "0084311E",
-    "name": "Kill the Target - Vito \"The Vic\" Bronco"
-   },
    "weapons": [
     {
      "edid": "crPipeRevolver",
@@ -6271,7 +5949,7 @@
      "ammo": ".45 Round",
      "range": 2792,
      "type": "Gun",
-     "damageMin": 21,
+     "damageMin": 22,
      "damageMax": 98,
      "damageCurve": "CT_Creatures_Damage_Universal_Tier23",
      "slot": "Main"
@@ -6307,8 +5985,8 @@
      "name": "Head",
      "pct": 20.0,
      "mult": 1.5,
-     "hpMin": 681,
-     "hpMax": 5148,
+     "hpMin": 682,
+     "hpMax": 5159,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": true
@@ -6317,8 +5995,8 @@
      "name": "Torso",
      "pct": 75.0,
      "mult": 1.0,
-     "hpMin": 2554,
-     "hpMax": 19306,
+     "hpMin": 2556,
+     "hpMax": 19346,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -6327,8 +6005,8 @@
      "name": "Arms (each)",
      "pct": 25.0,
      "mult": 1.0,
-     "hpMin": 851,
-     "hpMax": 6436,
+     "hpMin": 852,
+     "hpMax": 6449,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": false
@@ -6337,8 +6015,8 @@
      "name": "Legs (each)",
      "pct": 35.0,
      "mult": 1.0,
-     "hpMin": 1192,
-     "hpMax": 9010,
+     "hpMin": 1193,
+     "hpMax": 9028,
      "severable": true,
      "alsoHitVia": [
       "Feet"
@@ -6355,8 +6033,8 @@
    "race": "Human",
    "levelMin": 25,
    "levelMax": 175,
-   "hpMin": 3405,
-   "hpMax": 35139,
+   "hpMin": 3408,
+   "hpMax": 35198,
    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
    "statsFrom": "",
    "resist": {
@@ -6370,11 +6048,6 @@
    "speedMult": 120.0,
    "gang": "Fishermen",
    "imageSlug": "amadi-the-piranha",
-   "challenge": {
-    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group07_KillFisherman_SUB",
-    "formId": "00843116",
-    "name": "Kill the Target - Amadi the Piranha"
-   },
    "weapons": [
     {
      "edid": "crLightningGun",
@@ -6398,8 +6071,8 @@
      "ammo": "Harpoon",
      "range": 5060,
      "type": "Grenade",
-     "damageMin": 90,
-     "damageMax": 454,
+     "damageMin": 91,
+     "damageMax": 455,
      "damageCurve": "CT_Creatures_Damage_Universal_Tier37",
      "slot": "Thrown"
     }
@@ -6427,8 +6100,8 @@
      "name": "Head",
      "pct": 20.0,
      "mult": 1.5,
-     "hpMin": 681,
-     "hpMax": 7028,
+     "hpMin": 682,
+     "hpMax": 7040,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": true
@@ -6437,8 +6110,8 @@
      "name": "Torso",
      "pct": 75.0,
      "mult": 1.0,
-     "hpMin": 2554,
-     "hpMax": 26354,
+     "hpMin": 2556,
+     "hpMax": 26398,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -6447,8 +6120,8 @@
      "name": "Arms (each)",
      "pct": 25.0,
      "mult": 1.0,
-     "hpMin": 851,
-     "hpMax": 8785,
+     "hpMin": 852,
+     "hpMax": 8800,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": false
@@ -6457,8 +6130,8 @@
      "name": "Legs (each)",
      "pct": 35.0,
      "mult": 1.0,
-     "hpMin": 1192,
-     "hpMax": 12299,
+     "hpMin": 1193,
+     "hpMax": 12319,
      "severable": true,
      "alsoHitVia": [
       "Feet"
@@ -6475,26 +6148,21 @@
    "race": "Human",
    "levelMin": 25,
    "levelMax": 150,
-   "hpMin": 3405,
-   "hpMax": 25742,
+   "hpMin": 3408,
+   "hpMax": 25795,
    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
    "statsFrom": "",
    "resist": {
     "DR": 532,
     "ER": 532,
-    "Fire": 353,
-    "Cryo": 353,
+    "Fire": 354,
+    "Cryo": 354,
     "Poison": 302,
     "Rad": 302
    },
    "speedMult": 120.0,
    "gang": "Crusher",
    "imageSlug": "gentle-gary",
-   "challenge": {
-    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group07_KillCrusher_SUB",
-    "formId": "00843142",
-    "name": "Kill the Target - Gentle Gary"
-   },
    "weapons": [
     {
      "edid": "crGaussRifle",
@@ -6503,7 +6171,7 @@
      "range": 5500,
      "type": "Gun",
      "damageMin": 124,
-     "damageMax": 458,
+     "damageMax": 459,
      "damageCurve": "CT_Creatures_Damage_Universal_Tier40",
      "slot": "Main"
     },
@@ -6545,8 +6213,8 @@
      "name": "Head",
      "pct": 20.0,
      "mult": 1.5,
-     "hpMin": 681,
-     "hpMax": 5148,
+     "hpMin": 682,
+     "hpMax": 5159,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": true
@@ -6555,8 +6223,8 @@
      "name": "Torso",
      "pct": 75.0,
      "mult": 1.0,
-     "hpMin": 2554,
-     "hpMax": 19306,
+     "hpMin": 2556,
+     "hpMax": 19346,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -6565,8 +6233,8 @@
      "name": "Arms (each)",
      "pct": 25.0,
      "mult": 1.0,
-     "hpMin": 851,
-     "hpMax": 6436,
+     "hpMin": 852,
+     "hpMax": 6449,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": false
@@ -6575,8 +6243,8 @@
      "name": "Legs (each)",
      "pct": 35.0,
      "mult": 1.0,
-     "hpMin": 1192,
-     "hpMax": 9010,
+     "hpMin": 1193,
+     "hpMax": 9028,
      "severable": true,
      "alsoHitVia": [
       "Feet"
@@ -6593,26 +6261,21 @@
    "race": "Human",
    "levelMin": 25,
    "levelMax": 175,
-   "hpMin": 3405,
-   "hpMax": 35139,
+   "hpMin": 3408,
+   "hpMax": 35198,
    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
    "statsFrom": "",
    "resist": {
-    "DR": 607,
+    "DR": 608,
     "ER": 476,
     "Fire": 407,
     "Cryo": 407,
-    "Poison": 607,
+    "Poison": 608,
     "Rad": 196
    },
    "speedMult": 120.0,
    "gang": "Scout",
    "imageSlug": "scout-leader-karen",
-   "challenge": {
-    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group07_KillScout_SUB",
-    "formId": "00843126",
-    "name": "Kill the Target - Scout Leader Karen"
-   },
    "weapons": [
     {
      "edid": "crcrossbow",
@@ -6652,8 +6315,8 @@
      "name": "Head",
      "pct": 20.0,
      "mult": 1.5,
-     "hpMin": 681,
-     "hpMax": 7028,
+     "hpMin": 682,
+     "hpMax": 7040,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": true
@@ -6662,8 +6325,8 @@
      "name": "Torso",
      "pct": 75.0,
      "mult": 1.0,
-     "hpMin": 2554,
-     "hpMax": 26354,
+     "hpMin": 2556,
+     "hpMax": 26398,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -6672,8 +6335,8 @@
      "name": "Arms (each)",
      "pct": 25.0,
      "mult": 1.0,
-     "hpMin": 851,
-     "hpMax": 8785,
+     "hpMin": 852,
+     "hpMax": 8800,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": false
@@ -6682,8 +6345,8 @@
      "name": "Legs (each)",
      "pct": 35.0,
      "mult": 1.0,
-     "hpMin": 1192,
-     "hpMax": 12299,
+     "hpMin": 1193,
+     "hpMax": 12319,
      "severable": true,
      "alsoHitVia": [
       "Feet"
@@ -6700,8 +6363,8 @@
    "race": "Human",
    "levelMin": 25,
    "levelMax": 175,
-   "hpMin": 2868,
-   "hpMax": 30035,
+   "hpMin": 2871,
+   "hpMax": 30087,
    "healthCurve": "CT_Creatures_Health_Universal_Tier34",
    "statsFrom": "",
    "resist": {
@@ -6715,11 +6378,6 @@
    "speedMult": 120.0,
    "gang": "Miner",
    "imageSlug": "the-foreman",
-   "challenge": {
-    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group07_KillMiner_SUB",
-    "formId": "00843123",
-    "name": "Kill the Target - The Foreman"
-   },
    "weapons": [
     {
      "edid": "crCombatRifle",
@@ -6743,9 +6401,7 @@
      "damageCurve": "CT_Creatures_Damage_Universal_Tier26",
      "slot": "Secondary",
      "legendary": [
-      "1★ Assassin's",
-      "2★ Rapid",
-      "3★ Lightweight"
+      "2★ Rapid"
      ]
     },
     {
@@ -6771,7 +6427,7 @@
      "pct": 20.0,
      "mult": 1.5,
      "hpMin": 574,
-     "hpMax": 6007,
+     "hpMax": 6017,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": true
@@ -6780,8 +6436,8 @@
      "name": "Torso",
      "pct": 75.0,
      "mult": 1.0,
-     "hpMin": 2151,
-     "hpMax": 22526,
+     "hpMin": 2153,
+     "hpMax": 22565,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -6790,8 +6446,8 @@
      "name": "Arms (each)",
      "pct": 25.0,
      "mult": 1.0,
-     "hpMin": 717,
-     "hpMax": 7509,
+     "hpMin": 718,
+     "hpMax": 7522,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": false
@@ -6800,8 +6456,8 @@
      "name": "Legs (each)",
      "pct": 35.0,
      "mult": 1.0,
-     "hpMin": 1004,
-     "hpMax": 10512,
+     "hpMin": 1005,
+     "hpMax": 10530,
      "severable": true,
      "alsoHitVia": [
       "Feet"
@@ -6863,11 +6519,15 @@
   ]
  },
  "mechanics": {
-  "intro": "Head Hunt bosses share the following stats.",
+  "intro": "Burning Springs Head Hunt bosses share the following stats.",
   "rows": [
    [
     "Bounty level range",
     "25 – 175"
+   ],
+   [
+    "Different level range",
+    "Ragtime Randy (Lv 25–150), The Proletariat Punisher (Lv 25–150), Chief Engineer Lewis (Lv 100), Becca The Heavyweight (Lv 25–150), Charlie Half-Cocked (Lv 25–150), Cowgirl Janine (Lv 25–150), Granny Dolores (Lv 25–150), Vito \"The Vic\" Bronco (Lv 25–150), Gentle Gary (Lv 25–150)"
    ],
    [
     "Move speed",
@@ -6894,7 +6554,7 @@
    },
    {
     "name": "The Pale Horseman",
-    "DR": 854,
+    "DR": 855,
     "ER": 559,
     "Fire": 719,
     "Cryo": 719,
@@ -6903,7 +6563,7 @@
    },
    {
     "name": "The Red Rider",
-    "DR": 854,
+    "DR": 855,
     "ER": 476,
     "Fire": 933,
     "Cryo": 660,
@@ -6924,14 +6584,14 @@
     "DR": 440,
     "ER": 407,
     "Fire": 407,
-    "Cryo": 607,
+    "Cryo": 608,
     "Poison": 349,
     "Rad": 349
    },
    {
     "name": "Cletus Brimstone",
-    "DR": 607,
-    "ER": 607,
+    "DR": 608,
+    "ER": 608,
     "Fire": 1117,
     "Cryo": 324,
     "Poison": 349,
@@ -6940,11 +6600,11 @@
    {
     "name": "Irene The Irradiated",
     "DR": 476,
-    "ER": 607,
-    "Fire": 607,
-    "Cryo": 607,
-    "Poison": 607,
-    "Rad": 1224
+    "ER": 608,
+    "Fire": 608,
+    "Cryo": 608,
+    "Poison": 608,
+    "Rad": 1225
    },
    {
     "name": "The Cleaner",
@@ -6953,7 +6613,7 @@
     "Fire": 559,
     "Cryo": 407,
     "Poison": 719,
-    "Rad": 607
+    "Rad": 608
    },
    {
     "name": "The Malpractitioner",
@@ -6968,17 +6628,17 @@
     "name": "Ragtime Randy",
     "DR": 532,
     "ER": 532,
-    "Fire": 353,
-    "Cryo": 353,
+    "Fire": 354,
+    "Cryo": 354,
     "Poison": 302,
     "Rad": 302
    },
    {
     "name": "The Ace",
-    "DR": 607,
-    "ER": 607,
+    "DR": 608,
+    "ER": 608,
     "Fire": 407,
-    "Cryo": 607,
+    "Cryo": 608,
     "Poison": 349,
     "Rad": 349
    },
@@ -6995,8 +6655,8 @@
     "name": "The Proletariat Punisher",
     "DR": 532,
     "ER": 532,
-    "Fire": 353,
-    "Cryo": 353,
+    "Fire": 354,
+    "Cryo": 354,
     "Poison": 302,
     "Rad": 302
    },
@@ -7011,8 +6671,8 @@
    },
    {
     "name": "Baron Boris Wazie",
-    "DR": 854,
-    "ER": 854,
+    "DR": 855,
+    "ER": 855,
     "Fire": 660,
     "Cryo": 660,
     "Poison": 242,
@@ -7021,11 +6681,11 @@
    {
     "name": "Chief Engineer Lewis",
     "DR": 327,
-    "ER": 556,
+    "ER": 555,
     "Fire": 424,
     "Cryo": 424,
-    "Poison": 182,
-    "Rad": 182
+    "Poison": 183,
+    "Rad": 183
    },
    {
     "name": "Corporal Jane",
@@ -7041,7 +6701,7 @@
     "DR": 476,
     "ER": 933,
     "Fire": 301,
-    "Cryo": 607,
+    "Cryo": 608,
     "Poison": 349,
     "Rad": 349
    },
@@ -7049,8 +6709,8 @@
     "name": "Becca The Heavyweight",
     "DR": 532,
     "ER": 532,
-    "Fire": 353,
-    "Cryo": 353,
+    "Fire": 354,
+    "Cryo": 354,
     "Poison": 302,
     "Rad": 302
    },
@@ -7058,8 +6718,8 @@
     "name": "Charlie Half-Cocked",
     "DR": 532,
     "ER": 532,
-    "Fire": 353,
-    "Cryo": 353,
+    "Fire": 354,
+    "Cryo": 354,
     "Poison": 302,
     "Rad": 302
    },
@@ -7067,8 +6727,8 @@
     "name": "Cowgirl Janine",
     "DR": 532,
     "ER": 532,
-    "Fire": 353,
-    "Cryo": 353,
+    "Fire": 354,
+    "Cryo": 354,
     "Poison": 302,
     "Rad": 302
    },
@@ -7094,15 +6754,15 @@
     "name": "Granny Dolores",
     "DR": 532,
     "ER": 532,
-    "Fire": 353,
-    "Cryo": 353,
+    "Fire": 354,
+    "Cryo": 354,
     "Poison": 302,
     "Rad": 302
    },
    {
     "name": "The Devil of Defiance",
-    "DR": 607,
-    "ER": 607,
+    "DR": 608,
+    "ER": 608,
     "Fire": 324,
     "Cryo": 301,
     "Poison": 476,
@@ -7112,8 +6772,8 @@
     "name": "Vito \"The Vic\" Bronco",
     "DR": 532,
     "ER": 532,
-    "Fire": 353,
-    "Cryo": 353,
+    "Fire": 354,
+    "Cryo": 354,
     "Poison": 302,
     "Rad": 302
    },
@@ -7130,18 +6790,18 @@
     "name": "Gentle Gary",
     "DR": 532,
     "ER": 532,
-    "Fire": 353,
-    "Cryo": 353,
+    "Fire": 354,
+    "Cryo": 354,
     "Poison": 302,
     "Rad": 302
    },
    {
     "name": "Scout Leader Karen",
-    "DR": 607,
+    "DR": 608,
     "ER": 476,
     "Fire": 407,
     "Cryo": 407,
-    "Poison": 607,
+    "Poison": 608,
     "Rad": 196
    },
    {
@@ -7181,13 +6841,13 @@
     ],
     "curve": "CT_Creatures_Health_Universal_Tier34",
     "values": [
-     2868,
-     5449,
-     8357,
-     11804,
-     16134,
-     21905,
-     30035
+     2871,
+     5455,
+     8364,
+     11799,
+     16153,
+     21951,
+     30087
     ]
    },
    {
@@ -7217,13 +6877,13 @@
     ],
     "curve": "CT_Creatures_Health_Universal_Tier35",
     "values": [
-     3405,
-     6463,
-     9900,
-     13958,
-     19026,
-     25742,
-     35139
+     3408,
+     6470,
+     9907,
+     13951,
+     19049,
+     25795,
+     35198
     ]
    },
    {
@@ -7233,13 +6893,13 @@
     ],
     "curve": "CT_Creatures_Health_Universal_Tier36",
     "values": [
-     4043,
-     7666,
-     11729,
-     16506,
-     22443,
-     30261,
-     41128
+     4047,
+     7674,
+     11738,
+     16498,
+     22468,
+     30321,
+     41195
     ]
    }
   ]
@@ -7253,7 +6913,7 @@
     "levelMin": 25,
     "levelMax": 175,
     "damageMin": 288,
-    "damageMax": 1240
+    "damageMax": 1241
    },
    {
     "boss": "The Malpractitioner",
@@ -7261,7 +6921,7 @@
     "levelMin": 25,
     "levelMax": 175,
     "damageMin": 100,
-    "damageMax": 497
+    "damageMax": 498
    },
    {
     "boss": "Gentle Gary",
@@ -7269,14 +6929,14 @@
     "levelMin": 25,
     "levelMax": 150,
     "damageMin": 124,
-    "damageMax": 458
+    "damageMax": 459
    },
    {
     "boss": "The Devil of Defiance",
     "weapon": "Double-Barrel Shotgun",
     "levelMin": 25,
     "levelMax": 175,
-    "damageMin": 39,
+    "damageMin": 40,
     "damageMax": 224
    },
    {
@@ -7309,7 +6969,7 @@
     "levelMin": 25,
     "levelMax": 150,
     "damageMin": 36,
-    "damageMax": 153
+    "damageMax": 154
    },
    {
     "boss": "The White Horseman",
@@ -7317,15 +6977,15 @@
     "levelMin": 25,
     "levelMax": 175,
     "damageMin": 24,
-    "damageMax": 144
+    "damageMax": 145
    },
    {
     "boss": "Colt the Bolt",
     "weapon": "Meat Hook",
     "levelMin": 25,
     "levelMax": 175,
-    "damageMin": 21,
-    "damageMax": 132
+    "damageMin": 22,
+    "damageMax": 133
    },
    {
     "boss": "Cowgirl Janine",
@@ -7340,7 +7000,7 @@
     "weapon": "Pipe Revolver",
     "levelMin": 25,
     "levelMax": 150,
-    "damageMin": 21,
+    "damageMin": 22,
     "damageMax": 98
    },
    {
@@ -7349,7 +7009,7 @@
     "levelMin": 25,
     "levelMax": 150,
     "damageMin": 19,
-    "damageMax": 89
+    "damageMax": 90
    },
    {
     "boss": "Granny Dolores",
@@ -7357,7 +7017,7 @@
     "levelMin": 25,
     "levelMax": 150,
     "damageMin": 19,
-    "damageMax": 89
+    "damageMax": 90
    },
    {
     "boss": "The Pale Horseman",
@@ -7490,8 +7150,470 @@
   ]
  },
  "support": {
-  "intro": "Every Head Hunt also sends a support wave that fights alongside the boss and its gang.",
+  "intro": "Every Burning Springs Head Hunt also sends a support wave that fights alongside the boss and its gang.",
   "rows": [
+   {
+    "edid": "BURN_LvlRustRaider",
+    "formId": "007BD568",
+    "name": "Rust Raider",
+    "race": "Human",
+    "levelMin": 25,
+    "levelMax": 100,
+    "hpMin": 313,
+    "hpMax": 1368,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier21",
+    "statsFrom": "",
+    "resist": {
+     "DR": 122,
+     "ER": 122,
+     "Fire": 122,
+     "Cryo": 122,
+     "Poison": 122,
+     "Rad": 122
+    },
+    "speedMult": 100.0,
+    "faction": "Rust Raiders"
+   },
+   {
+    "edid": "BURN_LvlRustRaider_DeathclawHandler",
+    "formId": "007F0A68",
+    "name": "Deathclaw Handler",
+    "race": "Human",
+    "levelMin": 10,
+    "levelMax": 75,
+    "hpMin": 360,
+    "hpMax": 2171,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier26",
+    "statsFrom": "",
+    "resist": {
+     "DR": 48,
+     "ER": 33,
+     "Fire": 40,
+     "Cryo": 17,
+     "Poison": 33,
+     "Rad": 17
+    },
+    "speedMult": 100.0,
+    "faction": "Rust Raiders"
+   },
+   {
+    "edid": "BURN_LvlRustRaider_GuardCrowd",
+    "formId": "00818AD6",
+    "name": "Rust Guard",
+    "race": "Human",
+    "levelMin": 10,
+    "levelMax": 75,
+    "hpMin": 360,
+    "hpMax": 2171,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier26",
+    "statsFrom": "",
+    "resist": {
+     "DR": 48,
+     "ER": 33,
+     "Fire": 40,
+     "Cryo": 17,
+     "Poison": 33,
+     "Rad": 17
+    },
+    "speedMult": 100.0,
+    "faction": "Rust Raiders"
+   },
+   {
+    "edid": "BURN_LvlRustRaider_GuardMelee",
+    "formId": "007F0A6A",
+    "name": "Rust Guard",
+    "race": "Human",
+    "levelMin": 10,
+    "levelMax": 75,
+    "hpMin": 360,
+    "hpMax": 2171,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier26",
+    "statsFrom": "",
+    "resist": {
+     "DR": 48,
+     "ER": 33,
+     "Fire": 40,
+     "Cryo": 17,
+     "Poison": 33,
+     "Rad": 17
+    },
+    "speedMult": 100.0,
+    "faction": "Rust Raiders"
+   },
+   {
+    "edid": "BURN_LvlRustRaider_GuardMelee_Heavy",
+    "formId": "007F0A6C",
+    "name": "Rust Guard Crusher",
+    "race": "Human",
+    "levelMin": 20,
+    "levelMax": 100,
+    "hpMin": 1200,
+    "hpMax": 6047,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier30",
+    "statsFrom": "",
+    "resist": {
+     "DR": 168,
+     "ER": 122,
+     "Fire": 122,
+     "Cryo": 63,
+     "Poison": 63,
+     "Rad": 122
+    },
+    "speedMult": 100.0,
+    "faction": "Rust Raiders"
+   },
+   {
+    "edid": "BURN_LvlRustRaider_GuardMelee_Heavy_Boss",
+    "formId": "008280B0",
+    "name": "Rust Raider (Guard Melee)",
+    "race": "Human",
+    "levelMin": 20,
+    "levelMax": 100,
+    "hpMin": 2007,
+    "hpMax": 9980,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier33",
+    "statsFrom": "",
+    "resist": {
+     "DR": 168,
+     "ER": 122,
+     "Fire": 122,
+     "Cryo": 63,
+     "Poison": 63,
+     "Rad": 122
+    },
+    "speedMult": 100.0,
+    "faction": "Rust Raiders"
+   },
+   {
+    "edid": "BURN_LvlRustRaider_GuardRanged",
+    "formId": "007F0A6B",
+    "name": "Rust Guard",
+    "race": "Human",
+    "levelMin": 10,
+    "levelMax": 75,
+    "hpMin": 360,
+    "hpMax": 2171,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier26",
+    "statsFrom": "",
+    "resist": {
+     "DR": 48,
+     "ER": 33,
+     "Fire": 40,
+     "Cryo": 17,
+     "Poison": 33,
+     "Rad": 17
+    },
+    "speedMult": 100.0,
+    "faction": "Rust Raiders"
+   },
+   {
+    "edid": "BURN_LvlRustRaider_GuardRanged_Heavy",
+    "formId": "007F0A6D",
+    "name": "Rust Guard Punisher",
+    "race": "Human",
+    "levelMin": 20,
+    "levelMax": 100,
+    "hpMin": 1200,
+    "hpMax": 6047,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier30",
+    "statsFrom": "",
+    "resist": {
+     "DR": 168,
+     "ER": 122,
+     "Fire": 122,
+     "Cryo": 63,
+     "Poison": 63,
+     "Rad": 122
+    },
+    "speedMult": 100.0,
+    "faction": "Rust Raiders"
+   },
+   {
+    "edid": "BURN_LvlRustRaider_GuardRanged_Heavy_Boss",
+    "formId": "008280B2",
+    "name": "Rust Raider (Guard Ranged)",
+    "race": "Human",
+    "levelMin": 20,
+    "levelMax": 100,
+    "hpMin": 2007,
+    "hpMax": 9980,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier33",
+    "statsFrom": "",
+    "resist": {
+     "DR": 168,
+     "ER": 122,
+     "Fire": 122,
+     "Cryo": 63,
+     "Poison": 63,
+     "Rad": 122
+    },
+    "speedMult": 100.0,
+    "faction": "Rust Raiders"
+   },
+   {
+    "edid": "BURN_LvlRustRaider_RaiderCrowd",
+    "formId": "00818AD5",
+    "name": "Rust Raider",
+    "race": "Human",
+    "levelMin": 5,
+    "levelMax": 60,
+    "hpMin": 102,
+    "hpMax": 732,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier21",
+    "statsFrom": "",
+    "resist": {
+     "DR": 41,
+     "ER": 27,
+     "Fire": 34,
+     "Cryo": 14,
+     "Poison": 27,
+     "Rad": 14
+    },
+    "speedMult": 100.0,
+    "faction": "Rust Raiders"
+   },
+   {
+    "edid": "BURN_LvlRustRaider_RaiderMelee",
+    "formId": "007F0A64",
+    "name": "Rust Raider",
+    "race": "Human",
+    "levelMin": 5,
+    "levelMax": 60,
+    "hpMin": 102,
+    "hpMax": 732,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier21",
+    "statsFrom": "",
+    "resist": {
+     "DR": 41,
+     "ER": 27,
+     "Fire": 34,
+     "Cryo": 14,
+     "Poison": 27,
+     "Rad": 14
+    },
+    "speedMult": 100.0,
+    "faction": "Rust Raiders"
+   },
+   {
+    "edid": "BURN_LvlRustRaider_RaiderMelee_Heavy",
+    "formId": "007F0A66",
+    "name": "Rust Raider Brawler",
+    "race": "Human",
+    "levelMin": 5,
+    "levelMax": 60,
+    "hpMin": 102,
+    "hpMax": 732,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier21",
+    "statsFrom": "",
+    "resist": {
+     "DR": 41,
+     "ER": 27,
+     "Fire": 34,
+     "Cryo": 14,
+     "Poison": 27,
+     "Rad": 14
+    },
+    "speedMult": 100.0,
+    "faction": "Rust Raiders"
+   },
+   {
+    "edid": "BURN_LvlRustRaider_RaiderRanged",
+    "formId": "007F0A65",
+    "name": "Rust Raider Gunner",
+    "race": "Human",
+    "levelMin": 5,
+    "levelMax": 60,
+    "hpMin": 102,
+    "hpMax": 732,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier21",
+    "statsFrom": "",
+    "resist": {
+     "DR": 41,
+     "ER": 27,
+     "Fire": 34,
+     "Cryo": 14,
+     "Poison": 27,
+     "Rad": 14
+    },
+    "speedMult": 100.0,
+    "faction": "Rust Raiders"
+   },
+   {
+    "edid": "BURN_LvlRustRaider_RaiderRanged_Grenadier",
+    "formId": "008325F7",
+    "name": "Rust Raider Grenadier",
+    "race": "Human",
+    "levelMin": 5,
+    "levelMax": 60,
+    "hpMin": 102,
+    "hpMax": 732,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier21",
+    "statsFrom": "",
+    "resist": {
+     "DR": 41,
+     "ER": 27,
+     "Fire": 34,
+     "Cryo": 14,
+     "Poison": 27,
+     "Rad": 14
+    },
+    "speedMult": 100.0,
+    "faction": "Rust Raiders"
+   },
+   {
+    "edid": "BURN_LvlRustRaider_RaiderRanged_Heavy",
+    "formId": "007F0A67",
+    "name": "Rust Raider Gunner",
+    "race": "Human",
+    "levelMin": 5,
+    "levelMax": 60,
+    "hpMin": 102,
+    "hpMax": 732,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier21",
+    "statsFrom": "",
+    "resist": {
+     "DR": 41,
+     "ER": 27,
+     "Fire": 34,
+     "Cryo": 14,
+     "Poison": 27,
+     "Rad": 14
+    },
+    "speedMult": 100.0,
+    "faction": "Rust Raiders"
+   },
+   {
+    "edid": "BURN_LvlRustRaider_RaiderRanged_Marksman",
+    "formId": "008325F4",
+    "name": "Rust Raider Marksman",
+    "race": "Human",
+    "levelMin": 5,
+    "levelMax": 60,
+    "hpMin": 102,
+    "hpMax": 732,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier21",
+    "statsFrom": "",
+    "resist": {
+     "DR": 41,
+     "ER": 27,
+     "Fire": 34,
+     "Cryo": 14,
+     "Poison": 27,
+     "Rad": 14
+    },
+    "speedMult": 100.0,
+    "faction": "Rust Raiders"
+   },
+   {
+    "edid": "BURN_LvlRustRaider_RaiderRanged_Missile",
+    "formId": "008325F6",
+    "name": "Rust Raider Gunner",
+    "race": "Human",
+    "levelMin": 5,
+    "levelMax": 60,
+    "hpMin": 102,
+    "hpMax": 732,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier21",
+    "statsFrom": "",
+    "resist": {
+     "DR": 41,
+     "ER": 27,
+     "Fire": 34,
+     "Cryo": 14,
+     "Poison": 27,
+     "Rad": 14
+    },
+    "speedMult": 100.0,
+    "faction": "Rust Raiders"
+   },
+   {
+    "edid": "BURN_LvlRustRaider_RaiderRanged_POI46",
+    "formId": "00821220",
+    "name": "Rust Raider (Ranged)",
+    "race": "Human",
+    "levelMin": 5,
+    "levelMax": 60,
+    "hpMin": 102,
+    "hpMax": 732,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier21",
+    "statsFrom": "",
+    "resist": {
+     "DR": 41,
+     "ER": 27,
+     "Fire": 34,
+     "Cryo": 14,
+     "Poison": 27,
+     "Rad": 14
+    },
+    "speedMult": 100.0,
+    "faction": "Rust Raiders"
+   },
+   {
+    "edid": "BURN_LvlRustRaider_RaiderRanged_Pistols",
+    "formId": "008325F5",
+    "name": "Rust Raider",
+    "race": "Human",
+    "levelMin": 5,
+    "levelMax": 60,
+    "hpMin": 102,
+    "hpMax": 732,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier21",
+    "statsFrom": "",
+    "resist": {
+     "DR": 41,
+     "ER": 27,
+     "Fire": 34,
+     "Cryo": 14,
+     "Poison": 27,
+     "Rad": 14
+    },
+    "speedMult": 100.0,
+    "faction": "Rust Raiders"
+   },
+   {
+    "edid": "BURN_LvlRustRaider_RaiderRanged_Shotguns",
+    "formId": "008325F3",
+    "name": "Rust Raider Shotgunner",
+    "race": "Human",
+    "levelMin": 5,
+    "levelMax": 60,
+    "hpMin": 102,
+    "hpMax": 732,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier21",
+    "statsFrom": "",
+    "resist": {
+     "DR": 41,
+     "ER": 27,
+     "Fire": 34,
+     "Cryo": 14,
+     "Poison": 27,
+     "Rad": 14
+    },
+    "speedMult": 100.0,
+    "faction": "Rust Raiders"
+   },
+   {
+    "edid": "BURN_LvlRustRaider_RaiderSuicider",
+    "formId": "0083A20F",
+    "name": "Rust Suicider",
+    "race": "Human",
+    "levelMin": 5,
+    "levelMax": 60,
+    "hpMin": 102,
+    "hpMax": 732,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier21",
+    "statsFrom": "",
+    "resist": {
+     "DR": 41,
+     "ER": 27,
+     "Fire": 34,
+     "Cryo": 14,
+     "Poison": 27,
+     "Rad": 14
+    },
+    "speedMult": 100.0,
+    "faction": "Rust Raiders"
+   },
    {
     "edid": "Burn_LvlRustRaider_RaiderRanged_Workshop",
     "formId": "008244C3",
@@ -7500,18 +7622,19 @@
     "levelMin": 5,
     "levelMax": 60,
     "hpMin": 102,
-    "hpMax": 731,
+    "hpMax": 732,
     "healthCurve": "CT_Creatures_Health_Universal_Tier21",
     "statsFrom": "",
     "resist": {
-     "DR": 40,
-     "ER": 28,
+     "DR": 41,
+     "ER": 27,
      "Fire": 34,
      "Cryo": 14,
-     "Poison": 28,
+     "Poison": 27,
      "Rad": 14
     },
-    "speedMult": 100.0
+    "speedMult": 100.0,
+    "faction": "Rust Raiders"
    }
   ]
  },
@@ -7526,11 +7649,11 @@
     "levelMin": 25,
     "levelMax": 175,
     "hpMin": 224,
-    "hpMax": 3032,
+    "hpMax": 3040,
     "healthCurve": "CT_Creatures_Health_Universal_Tier19",
     "statsFrom": "",
     "resist": {
-     "DR": 61,
+     "DR": 62,
      "ER": 91,
      "Fire": 52,
      "Cryo": 0.0,
@@ -7548,8 +7671,8 @@
     "race": "Ghoul",
     "levelMin": 25,
     "levelMax": 175,
-    "hpMin": 3405,
-    "hpMax": 35139,
+    "hpMin": 3408,
+    "hpMax": 35198,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "resist": {
@@ -7571,8 +7694,8 @@
     "race": "Ghoul",
     "levelMin": 25,
     "levelMax": 175,
-    "hpMin": 3405,
-    "hpMax": 35139,
+    "hpMin": 3408,
+    "hpMax": 35198,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "resist": {
@@ -7595,7 +7718,7 @@
     "levelMin": 1,
     "levelMax": 100,
     "hpMin": 26,
-    "hpMax": 614,
+    "hpMax": 613,
     "healthCurve": "CT_Creatures_Health_Universal_Tier16",
     "statsFrom": "",
     "speedMult": 100.0,
@@ -7609,8 +7732,8 @@
     "race": "Ghoul",
     "levelMin": 25,
     "levelMax": 175,
-    "hpMin": 3405,
-    "hpMax": 35139,
+    "hpMin": 3408,
+    "hpMax": 35198,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "resist": {
@@ -7632,8 +7755,8 @@
     "race": "Human",
     "levelMin": 25,
     "levelMax": 175,
-    "hpMin": 3405,
-    "hpMax": 35139,
+    "hpMin": 3408,
+    "hpMax": 35198,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "resist": {
@@ -7655,8 +7778,8 @@
     "race": "Ghoul",
     "levelMin": 25,
     "levelMax": 175,
-    "hpMin": 3405,
-    "hpMax": 35139,
+    "hpMin": 3408,
+    "hpMax": 35198,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "resist": {
@@ -7678,8 +7801,8 @@
     "race": "Ghoul",
     "levelMin": 20,
     "levelMax": 100,
-    "hpMin": 2827,
-    "hpMax": 13958,
+    "hpMin": 2829,
+    "hpMax": 13951,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "resist": {
@@ -7687,8 +7810,8 @@
      "ER": 276,
      "Fire": 276,
      "Cryo": 254,
-     "Poison": 388,
-     "Rad": 388
+     "Poison": 389,
+     "Rad": 389
     },
     "speedMult": 100.0,
     "boss": "The Cleaner",
@@ -7701,8 +7824,8 @@
     "race": "Ghoul",
     "levelMin": 25,
     "levelMax": 175,
-    "hpMin": 3405,
-    "hpMax": 35139,
+    "hpMin": 3408,
+    "hpMax": 35198,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "resist": {
@@ -7724,8 +7847,8 @@
     "race": "Ghoul",
     "levelMin": 25,
     "levelMax": 175,
-    "hpMin": 3405,
-    "hpMax": 35139,
+    "hpMin": 3408,
+    "hpMax": 35198,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "resist": {
@@ -7747,8 +7870,8 @@
     "race": "Ghoul",
     "levelMin": 25,
     "levelMax": 175,
-    "hpMin": 3405,
-    "hpMax": 35139,
+    "hpMin": 3408,
+    "hpMax": 35198,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "resist": {
@@ -7771,11 +7894,11 @@
     "levelMin": 25,
     "levelMax": 175,
     "hpMin": 224,
-    "hpMax": 3032,
+    "hpMax": 3040,
     "healthCurve": "CT_Creatures_Health_Universal_Tier19",
     "statsFrom": "",
     "resist": {
-     "DR": 61,
+     "DR": 62,
      "ER": 91,
      "Fire": 52,
      "Cryo": 0.0,
@@ -7793,8 +7916,8 @@
     "race": "Ghoul",
     "levelMin": 25,
     "levelMax": 175,
-    "hpMin": 3405,
-    "hpMax": 35139,
+    "hpMin": 3408,
+    "hpMax": 35198,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "resist": {
@@ -7816,8 +7939,8 @@
     "race": "Ghoul",
     "levelMin": 25,
     "levelMax": 175,
-    "hpMin": 3405,
-    "hpMax": 35139,
+    "hpMin": 3408,
+    "hpMax": 35198,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "resist": {
@@ -7839,8 +7962,8 @@
     "race": "Ghoul",
     "levelMin": 25,
     "levelMax": 175,
-    "hpMin": 3405,
-    "hpMax": 35139,
+    "hpMin": 3408,
+    "hpMax": 35198,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "resist": {
@@ -7862,8 +7985,8 @@
     "race": "Assaultron",
     "levelMin": 25,
     "levelMax": 175,
-    "hpMin": 3405,
-    "hpMax": 35139,
+    "hpMin": 3408,
+    "hpMax": 35198,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "resist": {
@@ -7885,8 +8008,8 @@
     "race": "Ghoul",
     "levelMin": 25,
     "levelMax": 175,
-    "hpMin": 3405,
-    "hpMax": 35139,
+    "hpMin": 3408,
+    "hpMax": 35198,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "resist": {
@@ -7908,8 +8031,8 @@
     "race": "ProtectronFast",
     "levelMin": 25,
     "levelMax": 175,
-    "hpMin": 3405,
-    "hpMax": 35139,
+    "hpMin": 3408,
+    "hpMax": 35198,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "resist": {
@@ -7931,8 +8054,8 @@
     "race": "Ghoul",
     "levelMin": 25,
     "levelMax": 175,
-    "hpMin": 3405,
-    "hpMax": 35139,
+    "hpMin": 3408,
+    "hpMax": 35198,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "resist": {
@@ -7954,8 +8077,8 @@
     "race": "Ghoul",
     "levelMin": 25,
     "levelMax": 175,
-    "hpMin": 3405,
-    "hpMax": 35139,
+    "hpMin": 3408,
+    "hpMax": 35198,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "resist": {
@@ -7977,8 +8100,8 @@
     "race": "Ghoul",
     "levelMin": 25,
     "levelMax": 175,
-    "hpMin": 3405,
-    "hpMax": 35139,
+    "hpMin": 3408,
+    "hpMax": 35198,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "resist": {
@@ -8000,8 +8123,8 @@
     "race": "Ghoul",
     "levelMin": 25,
     "levelMax": 175,
-    "hpMin": 3405,
-    "hpMax": 35139,
+    "hpMin": 3408,
+    "hpMax": 35198,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "resist": {
@@ -8023,8 +8146,8 @@
     "race": "Human",
     "levelMin": 25,
     "levelMax": 175,
-    "hpMin": 3405,
-    "hpMax": 35139,
+    "hpMin": 3408,
+    "hpMax": 35198,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "resist": {
@@ -8046,8 +8169,8 @@
     "race": "Ghoul",
     "levelMin": 25,
     "levelMax": 175,
-    "hpMin": 3405,
-    "hpMax": 35139,
+    "hpMin": 3408,
+    "hpMax": 35198,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "resist": {
@@ -8069,8 +8192,8 @@
     "race": "MutatedWolf",
     "levelMin": 25,
     "levelMax": 175,
-    "hpMin": 3405,
-    "hpMax": 35139,
+    "hpMin": 3408,
+    "hpMax": 35198,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "resist": {
@@ -8092,8 +8215,8 @@
     "race": "Ghoul",
     "levelMin": 25,
     "levelMax": 175,
-    "hpMin": 3405,
-    "hpMax": 35139,
+    "hpMin": 3408,
+    "hpMax": 35198,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "resist": {
@@ -8115,8 +8238,8 @@
     "race": "Ghoul",
     "levelMin": 25,
     "levelMax": 175,
-    "hpMin": 3405,
-    "hpMax": 35139,
+    "hpMin": 3408,
+    "hpMax": 35198,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "resist": {
@@ -8138,8 +8261,8 @@
     "race": "Ghoul",
     "levelMin": 25,
     "levelMax": 175,
-    "hpMin": 3405,
-    "hpMax": 35139,
+    "hpMin": 3408,
+    "hpMax": 35198,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "resist": {
@@ -8161,8 +8284,8 @@
     "race": "Ghoul",
     "levelMin": 25,
     "levelMax": 175,
-    "hpMin": 3405,
-    "hpMax": 35139,
+    "hpMin": 3408,
+    "hpMax": 35198,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "resist": {
@@ -8184,8 +8307,8 @@
     "race": "Ghoul",
     "levelMin": 25,
     "levelMax": 175,
-    "hpMin": 3405,
-    "hpMax": 35139,
+    "hpMin": 3408,
+    "hpMax": 35198,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "resist": {

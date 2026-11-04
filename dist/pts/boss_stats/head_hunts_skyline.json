@@ -1,0 +1,5867 @@
+{
+ "generated": "2026-11-04T01:59:37+00:00",
+ "channel": "pts",
+ "isPts": true,
+ "sources": {
+  "BPTD": "tsv/pts/BPTD_Export_PTS_2026-10-28_0509.tsv",
+  "CURV_POINTS": "tsv/pts/CURV_Export_PTS_2026-09-14_2013_POINTS.tsv",
+  "FLST_Entries": "tsv/pts/FLST_Export_PTS_2026-10-28_0520_Entries.tsv",
+  "GLOB": "tsv/pts/GLOB_Export_PTS_2026-10-28_0508.tsv",
+  "KYWD": "tsv/pts/KYWD_Export_PTS_2026-10-28_0509.tsv",
+  "LVLI_Entries": "tsv/pts/LVLI_Export_PTS_2026-10-28_0513_LVLI_Entries.tsv",
+  "NPC": "tsv/pts/NPC_Export_PTS_2026-10-28_0510.tsv",
+  "NPC_PRPS": "tsv/pts/NPC_Export_PTS_2026-10-28_0510_PRPS.tsv",
+  "NPC_Refs": "tsv/pts/NPC_Export_PTS_2026-10-28_0510_Refs.tsv",
+  "SPEL_HEADER": "tsv/pts/SPEL_Export_PTS_2026-10-28_0508_HEADER.tsv",
+  "WEAP_DNAM": "tsv/pts/WEAP_Export_PTS_2026-10-28_0523_DNAM.tsv",
+  "head_hunt_bosses": "dist/pts/bounty-hunting/head_hunt_bosses.json"
+ },
+ "page": "head_hunts_skyline",
+ "region": "Skyline Valley",
+ "intro": {
+  "title": "Bounty Hunting - Skyline Valley Head Hunt Boss Stats",
+  "blurb": "Each Skyline Valley Head Hunt boss comes with a distinct weapon setup and a signature mechanic, and the gang they bring follows the same theme. This page lists every boss by group with their weapons, health, damage and resistances, plus the gang members and support waves that fight alongside them. All numbers are read straight from the game files and update with every patch.",
+  "profiles": "Bosses are grouped the same way as the Skyline Valley Head Hunt Groups lifetime challenges. Track your kills on the Grunt Hunt and Head Hunt Challenges page.",
+  "mutations": "Mutation effects used by bounty targets. One-star outlaws are named after theirs, and some Head Hunt bosses carry a forced mutation as part of their signature attack.",
+  "mechanics": "Skyline Valley Head Hunt bosses share the following stats.",
+  "health": "Health is read from the curve table assigned to each boss across the bounty level range. Bosses on the same curve share a row.",
+  "damage": "Damage per hit from each boss's main weapon at the bottom and top of the bounty level range.",
+  "support": "Every Skyline Valley Head Hunt sends one of these support waves alongside the boss and its gang. Blood Eagles are the usual wave; a few bosses bring a different one that suits their theme.",
+  "npcs": "Each boss brings its own gang members, listed with the boss they belong to."
+ },
+ "groups": [
+  {
+   "groupNumber": 1,
+   "label": "Head Hunter Group 1",
+   "seasonal": false,
+   "bosses": [
+    {
+     "edid": "BountyHunt_HeadHunt_Skyline_Boss_Gobbler",
+     "formId": "008ABF91",
+     "name": "Bird of Prey",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 3405,
+     "hpMax": 35139,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 719,
+      "ER": 660,
+      "Fire": 440,
+      "Cryo": 440,
+      "Poison": 301,
+      "Rad": 301
+     },
+     "speedMult": 120.0,
+     "gang": "",
+     "imageSlug": "bird-of-prey",
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": 11,
+       "damageMax": 77,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "11 damage per second for 6 seconds"
+      }
+     ],
+     "gangMembers": [
+      "Pack Hunter"
+     ],
+     "weakSpot": "Head — takes 1.5× damage",
+     "limbs": [
+      {
+       "name": "Head",
+       "pct": 20.0,
+       "mult": 1.5,
+       "hpMin": 681,
+       "hpMax": 7028,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": true
+      },
+      {
+       "name": "Torso",
+       "pct": 75.0,
+       "mult": 1.0,
+       "hpMin": 2554,
+       "hpMax": 26354,
+       "severable": false,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Arms (each)",
+       "pct": 25.0,
+       "mult": 1.0,
+       "hpMin": 851,
+       "hpMax": 8785,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Legs (each)",
+       "pct": 35.0,
+       "mult": 1.0,
+       "hpMin": 1192,
+       "hpMax": 12299,
+       "severable": true,
+       "alsoHitVia": [
+        "Feet"
+       ],
+       "weakSpot": false
+      }
+     ],
+     "bodyPartData": "HumanBodyPartData"
+    },
+    {
+     "edid": "BountyHunt_HeadHunt_Skyline_Boss_Beekeeper",
+     "formId": "008B739D",
+     "name": "Buzzkill",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 3405,
+     "hpMax": 35139,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 1117,
+      "ER": 854,
+      "Fire": 660,
+      "Cryo": 660,
+      "Poison": 301,
+      "Rad": 301
+     },
+     "speedMult": 120.0,
+     "gang": "",
+     "imageSlug": "buzzkill",
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": 11,
+       "damageMax": 77,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "11 damage per second for 6 seconds"
+      }
+     ],
+     "gangMembers": [
+      "Belligerent Beekeeper"
+     ],
+     "weakSpot": "Head — takes 1.5× damage",
+     "limbs": [
+      {
+       "name": "Head",
+       "pct": 20.0,
+       "mult": 1.5,
+       "hpMin": 681,
+       "hpMax": 7028,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": true
+      },
+      {
+       "name": "Torso",
+       "pct": 75.0,
+       "mult": 1.0,
+       "hpMin": 2554,
+       "hpMax": 26354,
+       "severable": false,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Arms (each)",
+       "pct": 25.0,
+       "mult": 1.0,
+       "hpMin": 851,
+       "hpMax": 8785,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Legs (each)",
+       "pct": 35.0,
+       "mult": 1.0,
+       "hpMin": 1192,
+       "hpMax": 12299,
+       "severable": true,
+       "alsoHitVia": [
+        "Feet"
+       ],
+       "weakSpot": false
+      }
+     ],
+     "bodyPartData": "HumanBodyPartData"
+    },
+    {
+     "edid": "BountyHunt_HeadHunt_Skyline_Boss_Papa",
+     "formId": "008D7C1D",
+     "name": "Dada",
+     "race": "SuperMutant",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 3405,
+     "hpMax": 35139,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 719,
+      "ER": 660,
+      "Fire": 440,
+      "Cryo": 440,
+      "Poison": 301,
+      "Rad": 301
+     },
+     "speedMult": 120.0,
+     "gang": "",
+     "imageSlug": "dada",
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": 11,
+       "damageMax": 77,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "11 damage per second for 6 seconds"
+      }
+     ],
+     "gangMembers": [
+      "Dada's Hound"
+     ],
+     "weakSpot": "Head — takes 1.25× damage",
+     "limbs": [
+      {
+       "name": "Head",
+       "pct": 20.0,
+       "mult": 1.25,
+       "hpMin": 681,
+       "hpMax": 7028,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": true
+      },
+      {
+       "name": "Torso",
+       "pct": 75.0,
+       "mult": 0.9,
+       "hpMin": 2554,
+       "hpMax": 26354,
+       "severable": false,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Arms (each)",
+       "pct": 30.0,
+       "mult": 1.0,
+       "hpMin": 1022,
+       "hpMax": 10542,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Legs (each)",
+       "pct": 35.0,
+       "mult": 1.0,
+       "hpMin": 1192,
+       "hpMax": 12299,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": false
+      }
+     ],
+     "bodyPartData": "SuperMutantBodyPartData"
+    },
+    {
+     "edid": "BountyHunt_HeadHunt_Skyline_Boss_Winter",
+     "formId": "008AB689",
+     "name": "Detonation Dave",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 3405,
+     "hpMax": 35139,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 719,
+      "ER": 660,
+      "Fire": 440,
+      "Cryo": 440,
+      "Poison": 301,
+      "Rad": 301
+     },
+     "speedMult": 120.0,
+     "gang": "",
+     "imageSlug": "detonation-dave",
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": 11,
+       "damageMax": 77,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "11 damage per second for 6 seconds"
+      }
+     ],
+     "gangMembers": [
+      "Bewildered Bomber"
+     ],
+     "weakSpot": "Head — takes 1.5× damage",
+     "limbs": [
+      {
+       "name": "Head",
+       "pct": 20.0,
+       "mult": 1.5,
+       "hpMin": 681,
+       "hpMax": 7028,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": true
+      },
+      {
+       "name": "Torso",
+       "pct": 75.0,
+       "mult": 1.0,
+       "hpMin": 2554,
+       "hpMax": 26354,
+       "severable": false,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Arms (each)",
+       "pct": 25.0,
+       "mult": 1.0,
+       "hpMin": 851,
+       "hpMax": 8785,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Legs (each)",
+       "pct": 35.0,
+       "mult": 1.0,
+       "hpMin": 1192,
+       "hpMax": 12299,
+       "severable": true,
+       "alsoHitVia": [
+        "Feet"
+       ],
+       "weakSpot": false
+      }
+     ],
+     "bodyPartData": "HumanBodyPartData"
+    },
+    {
+     "edid": "BountyHunt_HeadHunt_Skyline_Boss_Conductor",
+     "formId": "008A8633",
+     "name": "Il Maestro",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 3405,
+     "hpMax": 35139,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 719,
+      "ER": 660,
+      "Fire": 440,
+      "Cryo": 440,
+      "Poison": 301,
+      "Rad": 301
+     },
+     "speedMult": 120.0,
+     "gang": "",
+     "imageSlug": "il-maestro",
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": 11,
+       "damageMax": 77,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "11 damage per second for 6 seconds"
+      }
+     ],
+     "gangMembers": [
+      "Provocative Performer"
+     ],
+     "weakSpot": "Head — takes 1.5× damage",
+     "limbs": [
+      {
+       "name": "Head",
+       "pct": 20.0,
+       "mult": 1.5,
+       "hpMin": 681,
+       "hpMax": 7028,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": true
+      },
+      {
+       "name": "Torso",
+       "pct": 75.0,
+       "mult": 1.0,
+       "hpMin": 2554,
+       "hpMax": 26354,
+       "severable": false,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Arms (each)",
+       "pct": 25.0,
+       "mult": 1.0,
+       "hpMin": 851,
+       "hpMax": 8785,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Legs (each)",
+       "pct": 35.0,
+       "mult": 1.0,
+       "hpMin": 1192,
+       "hpMax": 12299,
+       "severable": true,
+       "alsoHitVia": [
+        "Feet"
+       ],
+       "weakSpot": false
+      }
+     ],
+     "bodyPartData": "HumanBodyPartData"
+    },
+    {
+     "edid": "BountyHunt_HeadHunt_Skyline_Boss_VaultOverseer",
+     "formId": "008AA4DE",
+     "name": "The Oversearer",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 3405,
+     "hpMax": 35139,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 1117,
+      "ER": 854,
+      "Fire": 660,
+      "Cryo": 660,
+      "Poison": 301,
+      "Rad": 301
+     },
+     "speedMult": 120.0,
+     "gang": "",
+     "imageSlug": "the-oversearer",
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": 11,
+       "damageMax": 77,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "11 damage per second for 6 seconds"
+      }
+     ],
+     "gangMembers": [
+      "Vault Wannabe",
+      "Vault Wannabe"
+     ],
+     "weakSpot": "Head — takes 1.5× damage",
+     "limbs": [
+      {
+       "name": "Head",
+       "pct": 20.0,
+       "mult": 1.5,
+       "hpMin": 681,
+       "hpMax": 7028,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": true
+      },
+      {
+       "name": "Torso",
+       "pct": 75.0,
+       "mult": 1.0,
+       "hpMin": 2554,
+       "hpMax": 26354,
+       "severable": false,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Arms (each)",
+       "pct": 25.0,
+       "mult": 1.0,
+       "hpMin": 851,
+       "hpMax": 8785,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Legs (each)",
+       "pct": 35.0,
+       "mult": 1.0,
+       "hpMin": 1192,
+       "hpMax": 12299,
+       "severable": true,
+       "alsoHitVia": [
+        "Feet"
+       ],
+       "weakSpot": false
+      }
+     ],
+     "bodyPartData": "HumanBodyPartData"
+    },
+    {
+     "edid": "BountyHunt_HeadHunt_Skyline_Boss_Underminer",
+     "formId": "008AAB85",
+     "name": "The Pied Pipebomber",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 3405,
+     "hpMax": 35139,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 719,
+      "ER": 660,
+      "Fire": 440,
+      "Cryo": 440,
+      "Poison": 301,
+      "Rad": 301
+     },
+     "speedMult": 120.0,
+     "gang": "",
+     "imageSlug": "the-pied-pipebomber",
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": 11,
+       "damageMax": 77,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "11 damage per second for 6 seconds"
+      }
+     ],
+     "gangMembers": [
+      "Tunneling Terror"
+     ],
+     "weakSpot": "Head — takes 1.5× damage",
+     "limbs": [
+      {
+       "name": "Head",
+       "pct": 20.0,
+       "mult": 1.5,
+       "hpMin": 681,
+       "hpMax": 7028,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": true
+      },
+      {
+       "name": "Torso",
+       "pct": 75.0,
+       "mult": 1.0,
+       "hpMin": 2554,
+       "hpMax": 26354,
+       "severable": false,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Arms (each)",
+       "pct": 25.0,
+       "mult": 1.0,
+       "hpMin": 851,
+       "hpMax": 8785,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Legs (each)",
+       "pct": 35.0,
+       "mult": 1.0,
+       "hpMin": 1192,
+       "hpMax": 12299,
+       "severable": true,
+       "alsoHitVia": [
+        "Feet"
+       ],
+       "weakSpot": false
+      }
+     ],
+     "bodyPartData": "HumanBodyPartData"
+    }
+   ]
+  },
+  {
+   "groupNumber": 2,
+   "label": "Head Hunter Group 2",
+   "seasonal": false,
+   "bosses": [
+    {
+     "edid": "BountyHunt_HeadHunt_Skyline_Boss_Secret",
+     "formId": "008B50A1",
+     "name": "Ayam Legion",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 3405,
+     "hpMax": 35139,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 1117,
+      "ER": 854,
+      "Fire": 660,
+      "Cryo": 660,
+      "Poison": 301,
+      "Rad": 301
+     },
+     "speedMult": 120.0,
+     "gang": "",
+     "imageSlug": "ayam-legion",
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": 11,
+       "damageMax": 77,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "11 damage per second for 6 seconds"
+      }
+     ],
+     "gangMembers": [
+      "Legion's Lieutenant"
+     ],
+     "weakSpot": "Head — takes 1.5× damage",
+     "limbs": [
+      {
+       "name": "Head",
+       "pct": 20.0,
+       "mult": 1.5,
+       "hpMin": 681,
+       "hpMax": 7028,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": true
+      },
+      {
+       "name": "Torso",
+       "pct": 75.0,
+       "mult": 1.0,
+       "hpMin": 2554,
+       "hpMax": 26354,
+       "severable": false,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Arms (each)",
+       "pct": 25.0,
+       "mult": 1.0,
+       "hpMin": 851,
+       "hpMax": 8785,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Legs (each)",
+       "pct": 35.0,
+       "mult": 1.0,
+       "hpMin": 1192,
+       "hpMax": 12299,
+       "severable": true,
+       "alsoHitVia": [
+        "Feet"
+       ],
+       "weakSpot": false
+      }
+     ],
+     "bodyPartData": "HumanBodyPartData"
+    },
+    {
+     "edid": "BountyHunt_HeadHunt_Skyline_Boss_Jammer",
+     "formId": "008B4B88",
+     "name": "Jaques the Jammer",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 3405,
+     "hpMax": 35139,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 719,
+      "ER": 660,
+      "Fire": 440,
+      "Cryo": 440,
+      "Poison": 301,
+      "Rad": 301
+     },
+     "speedMult": 120.0,
+     "gang": "",
+     "imageSlug": "jaques-the-jammer",
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": 11,
+       "damageMax": 77,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "11 damage per second for 6 seconds"
+      }
+     ],
+     "gangMembers": [
+      "Ticked Off Technician"
+     ],
+     "weakSpot": "Head — takes 1.5× damage",
+     "limbs": [
+      {
+       "name": "Head",
+       "pct": 20.0,
+       "mult": 1.5,
+       "hpMin": 681,
+       "hpMax": 7028,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": true
+      },
+      {
+       "name": "Torso",
+       "pct": 75.0,
+       "mult": 1.0,
+       "hpMin": 2554,
+       "hpMax": 26354,
+       "severable": false,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Arms (each)",
+       "pct": 25.0,
+       "mult": 1.0,
+       "hpMin": 851,
+       "hpMax": 8785,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Legs (each)",
+       "pct": 35.0,
+       "mult": 1.0,
+       "hpMin": 1192,
+       "hpMax": 12299,
+       "severable": true,
+       "alsoHitVia": [
+        "Feet"
+       ],
+       "weakSpot": false
+      }
+     ],
+     "bodyPartData": "HumanBodyPartData"
+    },
+    {
+     "edid": "BountyHunt_HeadHunt_Skyline_Boss_Responder",
+     "formId": "008B3E48",
+     "name": "Mercy's End",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 3405,
+     "hpMax": 35139,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 719,
+      "ER": 660,
+      "Fire": 440,
+      "Cryo": 440,
+      "Poison": 301,
+      "Rad": 301
+     },
+     "speedMult": 120.0,
+     "gang": "",
+     "imageSlug": "mercys-end",
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": 11,
+       "damageMax": 77,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "11 damage per second for 6 seconds"
+      }
+     ],
+     "gangMembers": [
+      "Runaway Responder"
+     ],
+     "weakSpot": "Head — takes 1.5× damage",
+     "limbs": [
+      {
+       "name": "Head",
+       "pct": 20.0,
+       "mult": 1.5,
+       "hpMin": 681,
+       "hpMax": 7028,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": true
+      },
+      {
+       "name": "Torso",
+       "pct": 75.0,
+       "mult": 1.0,
+       "hpMin": 2554,
+       "hpMax": 26354,
+       "severable": false,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Arms (each)",
+       "pct": 25.0,
+       "mult": 1.0,
+       "hpMin": 851,
+       "hpMax": 8785,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Legs (each)",
+       "pct": 35.0,
+       "mult": 1.0,
+       "hpMin": 1192,
+       "hpMax": 12299,
+       "severable": true,
+       "alsoHitVia": [
+        "Feet"
+       ],
+       "weakSpot": false
+      }
+     ],
+     "bodyPartData": "HumanBodyPartData"
+    },
+    {
+     "edid": "BountyHunt_HeadHunt_Skyline_Boss_Micro",
+     "formId": "008A7961",
+     "name": "Micro Mike",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 3405,
+     "hpMax": 35139,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 719,
+      "ER": 660,
+      "Fire": 440,
+      "Cryo": 440,
+      "Poison": 301,
+      "Rad": 301
+     },
+     "speedMult": 120.0,
+     "gang": "",
+     "imageSlug": "micro-mike",
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": 11,
+       "damageMax": 77,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "11 damage per second for 6 seconds"
+      }
+     ],
+     "gangMembers": [
+      "Radioactive Raider"
+     ],
+     "weakSpot": "Head — takes 1.5× damage",
+     "limbs": [
+      {
+       "name": "Head",
+       "pct": 20.0,
+       "mult": 1.5,
+       "hpMin": 681,
+       "hpMax": 7028,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": true
+      },
+      {
+       "name": "Torso",
+       "pct": 75.0,
+       "mult": 1.0,
+       "hpMin": 2554,
+       "hpMax": 26354,
+       "severable": false,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Arms (each)",
+       "pct": 25.0,
+       "mult": 1.0,
+       "hpMin": 851,
+       "hpMax": 8785,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Legs (each)",
+       "pct": 35.0,
+       "mult": 1.0,
+       "hpMin": 1192,
+       "hpMax": 12299,
+       "severable": true,
+       "alsoHitVia": [
+        "Feet"
+       ],
+       "weakSpot": false
+      }
+     ],
+     "bodyPartData": "HumanBodyPartData"
+    },
+    {
+     "edid": "BountyHunt_HeadHunt_Skyline_Boss_Chainer",
+     "formId": "008C025E",
+     "name": "Storm Warning",
+     "race": "Lost",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 3405,
+     "hpMax": 35139,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 1117,
+      "ER": 854,
+      "Fire": 660,
+      "Cryo": 660,
+      "Poison": 301,
+      "Rad": 301
+     },
+     "speedMult": 120.0,
+     "gang": "",
+     "imageSlug": "storm-warning",
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": 11,
+       "damageMax": 77,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "11 damage per second for 6 seconds"
+      }
+     ],
+     "gangMembers": [
+      "Sadistic Shocker"
+     ],
+     "weakSpot": "Head — takes 1.5× damage",
+     "limbs": [
+      {
+       "name": "Head",
+       "pct": 20.0,
+       "mult": 1.5,
+       "hpMin": 681,
+       "hpMax": 7028,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": true
+      },
+      {
+       "name": "Torso",
+       "pct": 75.0,
+       "mult": 1.0,
+       "hpMin": 2554,
+       "hpMax": 26354,
+       "severable": false,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Arms (each)",
+       "pct": 25.0,
+       "mult": 1.0,
+       "hpMin": 851,
+       "hpMax": 8785,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Legs (each)",
+       "pct": 35.0,
+       "mult": 1.0,
+       "hpMin": 1192,
+       "hpMax": 12299,
+       "severable": true,
+       "alsoHitVia": [
+        "Feet"
+       ],
+       "weakSpot": false
+      }
+     ],
+     "bodyPartData": "HumanBodyPartData"
+    },
+    {
+     "edid": "BountyHunt_HeadHunt_Skyline_Boss_Eliminator",
+     "formId": "008AB2C7",
+     "name": "The Secret Weapon",
+     "race": "SentryBot",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 3405,
+     "hpMax": 35139,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 1117,
+      "ER": 854,
+      "Fire": 660,
+      "Cryo": 660,
+      "Poison": 301,
+      "Rad": 301
+     },
+     "speedMult": 120.0,
+     "gang": "",
+     "imageSlug": "the-secret-weapon",
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": 11,
+       "damageMax": 77,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "11 damage per second for 6 seconds"
+      }
+     ],
+     "gangMembers": [
+      "Stealth Killer"
+     ],
+     "weakSpot": "Fusion Cores — takes 4× damage",
+     "limbs": [
+      {
+       "name": "Head",
+       "pct": 50.0,
+       "mult": 0.9,
+       "hpMin": 1702,
+       "hpMax": 17570,
+       "severable": false,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Torso",
+       "pct": 80.0,
+       "mult": 0.9,
+       "hpMin": 2724,
+       "hpMax": 28111,
+       "severable": false,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Arms (each)",
+       "pct": 30.0,
+       "mult": 1.0,
+       "hpMin": 1022,
+       "hpMax": 10542,
+       "severable": false,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Legs (each)",
+       "pct": 25.0,
+       "mult": 1.0,
+       "hpMin": 851,
+       "hpMax": 8785,
+       "severable": false,
+       "alsoHitVia": [
+        "Feet"
+       ],
+       "weakSpot": false
+      },
+      {
+       "name": "Back Leg",
+       "pct": 25.0,
+       "mult": 1.0,
+       "hpMin": 851,
+       "hpMax": 8785,
+       "severable": false,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Fusion Cores",
+       "pct": 50.0,
+       "mult": 4.0,
+       "hpMin": 1702,
+       "hpMax": 17570,
+       "severable": false,
+       "alsoHitVia": [],
+       "weakSpot": true
+      },
+      {
+       "name": "Shoulder Left",
+       "pct": 20.0,
+       "mult": 1.0,
+       "hpMin": 681,
+       "hpMax": 7028,
+       "severable": false,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Shoulder Right",
+       "pct": 20.0,
+       "mult": 1.0,
+       "hpMin": 681,
+       "hpMax": 7028,
+       "severable": false,
+       "alsoHitVia": [],
+       "weakSpot": false
+      }
+     ],
+     "bodyPartData": "SentryBotBodyPartData"
+    },
+    {
+     "edid": "BountyHunt_HeadHunt_Skyline_Boss_Gunner",
+     "formId": "008AA4DD",
+     "name": "The Sharpshooter",
+     "race": "Human",
+     "levelMin": 100,
+     "levelMax": 100,
+     "hpMin": 13958,
+     "hpMax": 13958,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 356,
+      "ER": 300,
+      "Fire": 276,
+      "Cryo": 254,
+      "Poison": 388,
+      "Rad": 112
+     },
+     "speedMult": 120.0,
+     "gang": "",
+     "imageSlug": "the-sharpshooter",
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": 30,
+       "damageMax": 30,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "11 damage per second for 6 seconds"
+      }
+     ],
+     "gangMembers": [
+      "Mutinous Cannoneer"
+     ],
+     "weakSpot": "Head — takes 1.5× damage",
+     "limbs": [
+      {
+       "name": "Head",
+       "pct": 20.0,
+       "mult": 1.5,
+       "hpMin": 2792,
+       "hpMax": 2792,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": true
+      },
+      {
+       "name": "Torso",
+       "pct": 75.0,
+       "mult": 1.0,
+       "hpMin": 10468,
+       "hpMax": 10468,
+       "severable": false,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Arms (each)",
+       "pct": 25.0,
+       "mult": 1.0,
+       "hpMin": 3490,
+       "hpMax": 3490,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Legs (each)",
+       "pct": 35.0,
+       "mult": 1.0,
+       "hpMin": 4885,
+       "hpMax": 4885,
+       "severable": true,
+       "alsoHitVia": [
+        "Feet"
+       ],
+       "weakSpot": false
+      }
+     ],
+     "bodyPartData": "HumanBodyPartData"
+    }
+   ]
+  },
+  {
+   "groupNumber": 3,
+   "label": "Head Hunter Group 3",
+   "seasonal": false,
+   "bosses": [
+    {
+     "edid": "BountyHunt_HeadHunt_Skyline_Boss_Weather",
+     "formId": "008AC7E7",
+     "name": "Chief Meteorologist Sally McSun",
+     "race": "Ghoul",
+     "levelMin": 100,
+     "levelMax": 100,
+     "hpMin": 13958,
+     "hpMax": 13958,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 388,
+      "ER": 805,
+      "Fire": 254,
+      "Cryo": 215,
+      "Poison": 215,
+      "Rad": 215
+     },
+     "speedMult": 120.0,
+     "gang": "",
+     "imageSlug": "chief-meteorologist-sally-mcsun",
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": 30,
+       "damageMax": 30,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "11 damage per second for 6 seconds"
+      }
+     ],
+     "gangMembers": [
+      "Underpaid Crew Member"
+     ],
+     "weakSpot": "Head — takes 1.5× damage",
+     "limbs": [
+      {
+       "name": "Head",
+       "pct": 20.0,
+       "mult": 1.5,
+       "hpMin": 2792,
+       "hpMax": 2792,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": true
+      },
+      {
+       "name": "Torso",
+       "pct": 75.0,
+       "mult": 1.0,
+       "hpMin": 10468,
+       "hpMax": 10468,
+       "severable": false,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Arms (each)",
+       "pct": 25.0,
+       "mult": 1.0,
+       "hpMin": 3490,
+       "hpMax": 3490,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Legs (each)",
+       "pct": 35.0,
+       "mult": 1.0,
+       "hpMin": 4885,
+       "hpMax": 4885,
+       "severable": true,
+       "alsoHitVia": [
+        "Feet"
+       ],
+       "weakSpot": false
+      }
+     ],
+     "bodyPartData": "HumanBodyPartData"
+    },
+    {
+     "edid": "BountyHunt_HeadHunt_Skyline_Boss_Stabitha",
+     "formId": "008AA4DF",
+     "name": "Greasehands Greta",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 2868,
+     "hpMax": 30035,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier34",
+     "statsFrom": "",
+     "resist": {
+      "DR": 516,
+      "ER": 324,
+      "Fire": 139,
+      "Cryo": 139,
+      "Poison": 607,
+      "Rad": 196
+     },
+     "speedMult": 120.0,
+     "gang": "",
+     "imageSlug": "greasehands-greta",
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": 11,
+       "damageMax": 77,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "11 damage per second for 6 seconds"
+      }
+     ],
+     "gangMembers": [
+      "Greasy Motorhead"
+     ],
+     "weakSpot": "Head — takes 1.5× damage",
+     "limbs": [
+      {
+       "name": "Head",
+       "pct": 20.0,
+       "mult": 1.5,
+       "hpMin": 574,
+       "hpMax": 6007,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": true
+      },
+      {
+       "name": "Torso",
+       "pct": 75.0,
+       "mult": 1.0,
+       "hpMin": 2151,
+       "hpMax": 22526,
+       "severable": false,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Arms (each)",
+       "pct": 25.0,
+       "mult": 1.0,
+       "hpMin": 717,
+       "hpMax": 7509,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Legs (each)",
+       "pct": 35.0,
+       "mult": 1.0,
+       "hpMin": 1004,
+       "hpMax": 10512,
+       "severable": true,
+       "alsoHitVia": [
+        "Feet"
+       ],
+       "weakSpot": false
+      }
+     ],
+     "bodyPartData": "HumanBodyPartData"
+    },
+    {
+     "edid": "BountyHunt_HeadHunt_Skyline_Boss_Florist",
+     "formId": "008AA8FE",
+     "name": "Lilly Oleander",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 3405,
+     "hpMax": 35139,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 719,
+      "ER": 660,
+      "Fire": 440,
+      "Cryo": 440,
+      "Poison": 301,
+      "Rad": 301
+     },
+     "speedMult": 120.0,
+     "gang": "",
+     "imageSlug": "lilly-oleander",
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": 11,
+       "damageMax": 77,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "11 damage per second for 6 seconds"
+      }
+     ],
+     "gangMembers": [
+      "Frenzied Florist"
+     ],
+     "weakSpot": "Head — takes 1.5× damage",
+     "limbs": [
+      {
+       "name": "Head",
+       "pct": 20.0,
+       "mult": 1.5,
+       "hpMin": 681,
+       "hpMax": 7028,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": true
+      },
+      {
+       "name": "Torso",
+       "pct": 75.0,
+       "mult": 1.0,
+       "hpMin": 2554,
+       "hpMax": 26354,
+       "severable": false,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Arms (each)",
+       "pct": 25.0,
+       "mult": 1.0,
+       "hpMin": 851,
+       "hpMax": 8785,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Legs (each)",
+       "pct": 35.0,
+       "mult": 1.0,
+       "hpMin": 1192,
+       "hpMax": 12299,
+       "severable": true,
+       "alsoHitVia": [
+        "Feet"
+       ],
+       "weakSpot": false
+      }
+     ],
+     "bodyPartData": "HumanBodyPartData"
+    },
+    {
+     "edid": "BountyHunt_HeadHunt_Skyline_Boss_Cultist",
+     "formId": "008B4607",
+     "name": "The Inquisitionor",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 3405,
+     "hpMax": 35139,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 719,
+      "ER": 660,
+      "Fire": 440,
+      "Cryo": 440,
+      "Poison": 301,
+      "Rad": 301
+     },
+     "speedMult": 120.0,
+     "gang": "",
+     "imageSlug": "the-inquisitionor",
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": 11,
+       "damageMax": 77,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "11 damage per second for 6 seconds"
+      }
+     ],
+     "gangMembers": [
+      "Inquisitionor's Desciple"
+     ],
+     "weakSpot": "Head — takes 1.5× damage",
+     "limbs": [
+      {
+       "name": "Head",
+       "pct": 20.0,
+       "mult": 1.5,
+       "hpMin": 681,
+       "hpMax": 7028,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": true
+      },
+      {
+       "name": "Torso",
+       "pct": 75.0,
+       "mult": 1.0,
+       "hpMin": 2554,
+       "hpMax": 26354,
+       "severable": false,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Arms (each)",
+       "pct": 25.0,
+       "mult": 1.0,
+       "hpMin": 851,
+       "hpMax": 8785,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Legs (each)",
+       "pct": 35.0,
+       "mult": 1.0,
+       "hpMin": 1192,
+       "hpMax": 12299,
+       "severable": true,
+       "alsoHitVia": [
+        "Feet"
+       ],
+       "weakSpot": false
+      }
+     ],
+     "bodyPartData": "HumanBodyPartData"
+    },
+    {
+     "edid": "BountyHunt_HeadHunt_Skyline_Boss_Captain",
+     "formId": "008AB860",
+     "name": "The Pirate King",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 3405,
+     "hpMax": 35139,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 719,
+      "ER": 660,
+      "Fire": 440,
+      "Cryo": 440,
+      "Poison": 301,
+      "Rad": 301
+     },
+     "speedMult": 120.0,
+     "gang": "",
+     "imageSlug": "the-pirate-king",
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": 11,
+       "damageMax": 77,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "11 damage per second for 6 seconds"
+      }
+     ],
+     "gangMembers": [
+      "Crewmate"
+     ],
+     "weakSpot": "Head — takes 1.5× damage",
+     "limbs": [
+      {
+       "name": "Head",
+       "pct": 20.0,
+       "mult": 1.5,
+       "hpMin": 681,
+       "hpMax": 7028,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": true
+      },
+      {
+       "name": "Torso",
+       "pct": 75.0,
+       "mult": 1.0,
+       "hpMin": 2554,
+       "hpMax": 26354,
+       "severable": false,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Arms (each)",
+       "pct": 25.0,
+       "mult": 1.0,
+       "hpMin": 851,
+       "hpMax": 8785,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Legs (each)",
+       "pct": 35.0,
+       "mult": 1.0,
+       "hpMin": 1192,
+       "hpMax": 12299,
+       "severable": true,
+       "alsoHitVia": [
+        "Feet"
+       ],
+       "weakSpot": false
+      }
+     ],
+     "bodyPartData": "HumanBodyPartData"
+    },
+    {
+     "edid": "BountyHunt_HeadHunt_Skyline_Boss_Subjugator",
+     "formId": "008A74BA",
+     "name": "The Pseudo Subjugator",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 3405,
+     "hpMax": 35139,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 719,
+      "ER": 660,
+      "Fire": 440,
+      "Cryo": 440,
+      "Poison": 301,
+      "Rad": 301
+     },
+     "speedMult": 120.0,
+     "gang": "",
+     "imageSlug": "the-pseudo-subjugator",
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": 11,
+       "damageMax": 77,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "11 damage per second for 6 seconds"
+      }
+     ],
+     "gangMembers": [
+      "Aspiring Red Viper"
+     ],
+     "weakSpot": "Head — takes 1.5× damage",
+     "limbs": [
+      {
+       "name": "Head",
+       "pct": 20.0,
+       "mult": 1.5,
+       "hpMin": 681,
+       "hpMax": 7028,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": true
+      },
+      {
+       "name": "Torso",
+       "pct": 75.0,
+       "mult": 1.0,
+       "hpMin": 2554,
+       "hpMax": 26354,
+       "severable": false,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Arms (each)",
+       "pct": 25.0,
+       "mult": 1.0,
+       "hpMin": 851,
+       "hpMax": 8785,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Legs (each)",
+       "pct": 35.0,
+       "mult": 1.0,
+       "hpMin": 1192,
+       "hpMax": 12299,
+       "severable": true,
+       "alsoHitVia": [
+        "Feet"
+       ],
+       "weakSpot": false
+      }
+     ],
+     "bodyPartData": "HumanBodyPartData"
+    },
+    {
+     "edid": "BountyHunt_HeadHunt_Skyline_Boss_Time",
+     "formId": "008AA8FF",
+     "name": "The Temporal Technician",
+     "race": "Ghoul",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 3405,
+     "hpMax": 35139,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 1117,
+      "ER": 854,
+      "Fire": 660,
+      "Cryo": 660,
+      "Poison": 301,
+      "Rad": 301
+     },
+     "speedMult": 120.0,
+     "gang": "",
+     "imageSlug": "the-temporal-technician",
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": 11,
+       "damageMax": 77,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "11 damage per second for 6 seconds"
+      }
+     ],
+     "gangMembers": [
+      "Time Tourist"
+     ],
+     "weakSpot": "Head — takes 1.5× damage",
+     "limbs": [
+      {
+       "name": "Head",
+       "pct": 20.0,
+       "mult": 1.5,
+       "hpMin": 681,
+       "hpMax": 7028,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": true
+      },
+      {
+       "name": "Torso",
+       "pct": 75.0,
+       "mult": 1.0,
+       "hpMin": 2554,
+       "hpMax": 26354,
+       "severable": false,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Arms (each)",
+       "pct": 25.0,
+       "mult": 1.0,
+       "hpMin": 851,
+       "hpMax": 8785,
+       "severable": true,
+       "alsoHitVia": [],
+       "weakSpot": false
+      },
+      {
+       "name": "Legs (each)",
+       "pct": 35.0,
+       "mult": 1.0,
+       "hpMin": 1192,
+       "hpMax": 12299,
+       "severable": true,
+       "alsoHitVia": [
+        "Feet"
+       ],
+       "weakSpot": false
+      }
+     ],
+     "bodyPartData": "HumanBodyPartData"
+    }
+   ]
+  }
+ ],
+ "bosses": [
+  {
+   "edid": "BountyHunt_HeadHunt_Skyline_Boss_Gobbler",
+   "formId": "008ABF91",
+   "name": "Bird of Prey",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 3405,
+   "hpMax": 35139,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 719,
+    "ER": 660,
+    "Fire": 440,
+    "Cryo": 440,
+    "Poison": 301,
+    "Rad": 301
+   },
+   "speedMult": 120.0,
+   "gang": "",
+   "imageSlug": "bird-of-prey",
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": 11,
+     "damageMax": 77,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "11 damage per second for 6 seconds"
+    }
+   ],
+   "gangMembers": [
+    "Pack Hunter"
+   ],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.5,
+     "hpMin": 681,
+     "hpMax": 7028,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 1.0,
+     "hpMin": 2554,
+     "hpMax": 26354,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 851,
+     "hpMax": 8785,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 1192,
+     "hpMax": 12299,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "HumanBodyPartData"
+  },
+  {
+   "edid": "BountyHunt_HeadHunt_Skyline_Boss_Beekeeper",
+   "formId": "008B739D",
+   "name": "Buzzkill",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 3405,
+   "hpMax": 35139,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 1117,
+    "ER": 854,
+    "Fire": 660,
+    "Cryo": 660,
+    "Poison": 301,
+    "Rad": 301
+   },
+   "speedMult": 120.0,
+   "gang": "",
+   "imageSlug": "buzzkill",
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": 11,
+     "damageMax": 77,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "11 damage per second for 6 seconds"
+    }
+   ],
+   "gangMembers": [
+    "Belligerent Beekeeper"
+   ],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.5,
+     "hpMin": 681,
+     "hpMax": 7028,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 1.0,
+     "hpMin": 2554,
+     "hpMax": 26354,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 851,
+     "hpMax": 8785,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 1192,
+     "hpMax": 12299,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "HumanBodyPartData"
+  },
+  {
+   "edid": "BountyHunt_HeadHunt_Skyline_Boss_Papa",
+   "formId": "008D7C1D",
+   "name": "Dada",
+   "race": "SuperMutant",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 3405,
+   "hpMax": 35139,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 719,
+    "ER": 660,
+    "Fire": 440,
+    "Cryo": 440,
+    "Poison": 301,
+    "Rad": 301
+   },
+   "speedMult": 120.0,
+   "gang": "",
+   "imageSlug": "dada",
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": 11,
+     "damageMax": 77,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "11 damage per second for 6 seconds"
+    }
+   ],
+   "gangMembers": [
+    "Dada's Hound"
+   ],
+   "weakSpot": "Head — takes 1.25× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.25,
+     "hpMin": 681,
+     "hpMax": 7028,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 0.9,
+     "hpMin": 2554,
+     "hpMax": 26354,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 30.0,
+     "mult": 1.0,
+     "hpMin": 1022,
+     "hpMax": 10542,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 1192,
+     "hpMax": 12299,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "SuperMutantBodyPartData"
+  },
+  {
+   "edid": "BountyHunt_HeadHunt_Skyline_Boss_Winter",
+   "formId": "008AB689",
+   "name": "Detonation Dave",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 3405,
+   "hpMax": 35139,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 719,
+    "ER": 660,
+    "Fire": 440,
+    "Cryo": 440,
+    "Poison": 301,
+    "Rad": 301
+   },
+   "speedMult": 120.0,
+   "gang": "",
+   "imageSlug": "detonation-dave",
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": 11,
+     "damageMax": 77,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "11 damage per second for 6 seconds"
+    }
+   ],
+   "gangMembers": [
+    "Bewildered Bomber"
+   ],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.5,
+     "hpMin": 681,
+     "hpMax": 7028,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 1.0,
+     "hpMin": 2554,
+     "hpMax": 26354,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 851,
+     "hpMax": 8785,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 1192,
+     "hpMax": 12299,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "HumanBodyPartData"
+  },
+  {
+   "edid": "BountyHunt_HeadHunt_Skyline_Boss_Conductor",
+   "formId": "008A8633",
+   "name": "Il Maestro",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 3405,
+   "hpMax": 35139,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 719,
+    "ER": 660,
+    "Fire": 440,
+    "Cryo": 440,
+    "Poison": 301,
+    "Rad": 301
+   },
+   "speedMult": 120.0,
+   "gang": "",
+   "imageSlug": "il-maestro",
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": 11,
+     "damageMax": 77,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "11 damage per second for 6 seconds"
+    }
+   ],
+   "gangMembers": [
+    "Provocative Performer"
+   ],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.5,
+     "hpMin": 681,
+     "hpMax": 7028,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 1.0,
+     "hpMin": 2554,
+     "hpMax": 26354,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 851,
+     "hpMax": 8785,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 1192,
+     "hpMax": 12299,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "HumanBodyPartData"
+  },
+  {
+   "edid": "BountyHunt_HeadHunt_Skyline_Boss_VaultOverseer",
+   "formId": "008AA4DE",
+   "name": "The Oversearer",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 3405,
+   "hpMax": 35139,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 1117,
+    "ER": 854,
+    "Fire": 660,
+    "Cryo": 660,
+    "Poison": 301,
+    "Rad": 301
+   },
+   "speedMult": 120.0,
+   "gang": "",
+   "imageSlug": "the-oversearer",
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": 11,
+     "damageMax": 77,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "11 damage per second for 6 seconds"
+    }
+   ],
+   "gangMembers": [
+    "Vault Wannabe",
+    "Vault Wannabe"
+   ],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.5,
+     "hpMin": 681,
+     "hpMax": 7028,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 1.0,
+     "hpMin": 2554,
+     "hpMax": 26354,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 851,
+     "hpMax": 8785,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 1192,
+     "hpMax": 12299,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "HumanBodyPartData"
+  },
+  {
+   "edid": "BountyHunt_HeadHunt_Skyline_Boss_Underminer",
+   "formId": "008AAB85",
+   "name": "The Pied Pipebomber",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 3405,
+   "hpMax": 35139,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 719,
+    "ER": 660,
+    "Fire": 440,
+    "Cryo": 440,
+    "Poison": 301,
+    "Rad": 301
+   },
+   "speedMult": 120.0,
+   "gang": "",
+   "imageSlug": "the-pied-pipebomber",
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": 11,
+     "damageMax": 77,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "11 damage per second for 6 seconds"
+    }
+   ],
+   "gangMembers": [
+    "Tunneling Terror"
+   ],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.5,
+     "hpMin": 681,
+     "hpMax": 7028,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 1.0,
+     "hpMin": 2554,
+     "hpMax": 26354,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 851,
+     "hpMax": 8785,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 1192,
+     "hpMax": 12299,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "HumanBodyPartData"
+  },
+  {
+   "edid": "BountyHunt_HeadHunt_Skyline_Boss_Secret",
+   "formId": "008B50A1",
+   "name": "Ayam Legion",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 3405,
+   "hpMax": 35139,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 1117,
+    "ER": 854,
+    "Fire": 660,
+    "Cryo": 660,
+    "Poison": 301,
+    "Rad": 301
+   },
+   "speedMult": 120.0,
+   "gang": "",
+   "imageSlug": "ayam-legion",
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": 11,
+     "damageMax": 77,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "11 damage per second for 6 seconds"
+    }
+   ],
+   "gangMembers": [
+    "Legion's Lieutenant"
+   ],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.5,
+     "hpMin": 681,
+     "hpMax": 7028,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 1.0,
+     "hpMin": 2554,
+     "hpMax": 26354,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 851,
+     "hpMax": 8785,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 1192,
+     "hpMax": 12299,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "HumanBodyPartData"
+  },
+  {
+   "edid": "BountyHunt_HeadHunt_Skyline_Boss_Jammer",
+   "formId": "008B4B88",
+   "name": "Jaques the Jammer",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 3405,
+   "hpMax": 35139,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 719,
+    "ER": 660,
+    "Fire": 440,
+    "Cryo": 440,
+    "Poison": 301,
+    "Rad": 301
+   },
+   "speedMult": 120.0,
+   "gang": "",
+   "imageSlug": "jaques-the-jammer",
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": 11,
+     "damageMax": 77,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "11 damage per second for 6 seconds"
+    }
+   ],
+   "gangMembers": [
+    "Ticked Off Technician"
+   ],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.5,
+     "hpMin": 681,
+     "hpMax": 7028,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 1.0,
+     "hpMin": 2554,
+     "hpMax": 26354,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 851,
+     "hpMax": 8785,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 1192,
+     "hpMax": 12299,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "HumanBodyPartData"
+  },
+  {
+   "edid": "BountyHunt_HeadHunt_Skyline_Boss_Responder",
+   "formId": "008B3E48",
+   "name": "Mercy's End",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 3405,
+   "hpMax": 35139,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 719,
+    "ER": 660,
+    "Fire": 440,
+    "Cryo": 440,
+    "Poison": 301,
+    "Rad": 301
+   },
+   "speedMult": 120.0,
+   "gang": "",
+   "imageSlug": "mercys-end",
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": 11,
+     "damageMax": 77,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "11 damage per second for 6 seconds"
+    }
+   ],
+   "gangMembers": [
+    "Runaway Responder"
+   ],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.5,
+     "hpMin": 681,
+     "hpMax": 7028,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 1.0,
+     "hpMin": 2554,
+     "hpMax": 26354,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 851,
+     "hpMax": 8785,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 1192,
+     "hpMax": 12299,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "HumanBodyPartData"
+  },
+  {
+   "edid": "BountyHunt_HeadHunt_Skyline_Boss_Micro",
+   "formId": "008A7961",
+   "name": "Micro Mike",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 3405,
+   "hpMax": 35139,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 719,
+    "ER": 660,
+    "Fire": 440,
+    "Cryo": 440,
+    "Poison": 301,
+    "Rad": 301
+   },
+   "speedMult": 120.0,
+   "gang": "",
+   "imageSlug": "micro-mike",
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": 11,
+     "damageMax": 77,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "11 damage per second for 6 seconds"
+    }
+   ],
+   "gangMembers": [
+    "Radioactive Raider"
+   ],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.5,
+     "hpMin": 681,
+     "hpMax": 7028,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 1.0,
+     "hpMin": 2554,
+     "hpMax": 26354,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 851,
+     "hpMax": 8785,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 1192,
+     "hpMax": 12299,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "HumanBodyPartData"
+  },
+  {
+   "edid": "BountyHunt_HeadHunt_Skyline_Boss_Chainer",
+   "formId": "008C025E",
+   "name": "Storm Warning",
+   "race": "Lost",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 3405,
+   "hpMax": 35139,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 1117,
+    "ER": 854,
+    "Fire": 660,
+    "Cryo": 660,
+    "Poison": 301,
+    "Rad": 301
+   },
+   "speedMult": 120.0,
+   "gang": "",
+   "imageSlug": "storm-warning",
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": 11,
+     "damageMax": 77,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "11 damage per second for 6 seconds"
+    }
+   ],
+   "gangMembers": [
+    "Sadistic Shocker"
+   ],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.5,
+     "hpMin": 681,
+     "hpMax": 7028,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 1.0,
+     "hpMin": 2554,
+     "hpMax": 26354,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 851,
+     "hpMax": 8785,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 1192,
+     "hpMax": 12299,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "HumanBodyPartData"
+  },
+  {
+   "edid": "BountyHunt_HeadHunt_Skyline_Boss_Eliminator",
+   "formId": "008AB2C7",
+   "name": "The Secret Weapon",
+   "race": "SentryBot",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 3405,
+   "hpMax": 35139,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 1117,
+    "ER": 854,
+    "Fire": 660,
+    "Cryo": 660,
+    "Poison": 301,
+    "Rad": 301
+   },
+   "speedMult": 120.0,
+   "gang": "",
+   "imageSlug": "the-secret-weapon",
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": 11,
+     "damageMax": 77,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "11 damage per second for 6 seconds"
+    }
+   ],
+   "gangMembers": [
+    "Stealth Killer"
+   ],
+   "weakSpot": "Fusion Cores — takes 4× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 50.0,
+     "mult": 0.9,
+     "hpMin": 1702,
+     "hpMax": 17570,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Torso",
+     "pct": 80.0,
+     "mult": 0.9,
+     "hpMin": 2724,
+     "hpMax": 28111,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 30.0,
+     "mult": 1.0,
+     "hpMin": 1022,
+     "hpMax": 10542,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 851,
+     "hpMax": 8785,
+     "severable": false,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    },
+    {
+     "name": "Back Leg",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 851,
+     "hpMax": 8785,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Fusion Cores",
+     "pct": 50.0,
+     "mult": 4.0,
+     "hpMin": 1702,
+     "hpMax": 17570,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Shoulder Left",
+     "pct": 20.0,
+     "mult": 1.0,
+     "hpMin": 681,
+     "hpMax": 7028,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Shoulder Right",
+     "pct": 20.0,
+     "mult": 1.0,
+     "hpMin": 681,
+     "hpMax": 7028,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "SentryBotBodyPartData"
+  },
+  {
+   "edid": "BountyHunt_HeadHunt_Skyline_Boss_Gunner",
+   "formId": "008AA4DD",
+   "name": "The Sharpshooter",
+   "race": "Human",
+   "levelMin": 100,
+   "levelMax": 100,
+   "hpMin": 13958,
+   "hpMax": 13958,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 356,
+    "ER": 300,
+    "Fire": 276,
+    "Cryo": 254,
+    "Poison": 388,
+    "Rad": 112
+   },
+   "speedMult": 120.0,
+   "gang": "",
+   "imageSlug": "the-sharpshooter",
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": 30,
+     "damageMax": 30,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "11 damage per second for 6 seconds"
+    }
+   ],
+   "gangMembers": [
+    "Mutinous Cannoneer"
+   ],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.5,
+     "hpMin": 2792,
+     "hpMax": 2792,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 1.0,
+     "hpMin": 10468,
+     "hpMax": 10468,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 3490,
+     "hpMax": 3490,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 4885,
+     "hpMax": 4885,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "HumanBodyPartData"
+  },
+  {
+   "edid": "BountyHunt_HeadHunt_Skyline_Boss_Weather",
+   "formId": "008AC7E7",
+   "name": "Chief Meteorologist Sally McSun",
+   "race": "Ghoul",
+   "levelMin": 100,
+   "levelMax": 100,
+   "hpMin": 13958,
+   "hpMax": 13958,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 388,
+    "ER": 805,
+    "Fire": 254,
+    "Cryo": 215,
+    "Poison": 215,
+    "Rad": 215
+   },
+   "speedMult": 120.0,
+   "gang": "",
+   "imageSlug": "chief-meteorologist-sally-mcsun",
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": 30,
+     "damageMax": 30,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "11 damage per second for 6 seconds"
+    }
+   ],
+   "gangMembers": [
+    "Underpaid Crew Member"
+   ],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.5,
+     "hpMin": 2792,
+     "hpMax": 2792,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 1.0,
+     "hpMin": 10468,
+     "hpMax": 10468,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 3490,
+     "hpMax": 3490,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 4885,
+     "hpMax": 4885,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "HumanBodyPartData"
+  },
+  {
+   "edid": "BountyHunt_HeadHunt_Skyline_Boss_Stabitha",
+   "formId": "008AA4DF",
+   "name": "Greasehands Greta",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 2868,
+   "hpMax": 30035,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier34",
+   "statsFrom": "",
+   "resist": {
+    "DR": 516,
+    "ER": 324,
+    "Fire": 139,
+    "Cryo": 139,
+    "Poison": 607,
+    "Rad": 196
+   },
+   "speedMult": 120.0,
+   "gang": "",
+   "imageSlug": "greasehands-greta",
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": 11,
+     "damageMax": 77,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "11 damage per second for 6 seconds"
+    }
+   ],
+   "gangMembers": [
+    "Greasy Motorhead"
+   ],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.5,
+     "hpMin": 574,
+     "hpMax": 6007,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 1.0,
+     "hpMin": 2151,
+     "hpMax": 22526,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 717,
+     "hpMax": 7509,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 1004,
+     "hpMax": 10512,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "HumanBodyPartData"
+  },
+  {
+   "edid": "BountyHunt_HeadHunt_Skyline_Boss_Florist",
+   "formId": "008AA8FE",
+   "name": "Lilly Oleander",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 3405,
+   "hpMax": 35139,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 719,
+    "ER": 660,
+    "Fire": 440,
+    "Cryo": 440,
+    "Poison": 301,
+    "Rad": 301
+   },
+   "speedMult": 120.0,
+   "gang": "",
+   "imageSlug": "lilly-oleander",
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": 11,
+     "damageMax": 77,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "11 damage per second for 6 seconds"
+    }
+   ],
+   "gangMembers": [
+    "Frenzied Florist"
+   ],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.5,
+     "hpMin": 681,
+     "hpMax": 7028,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 1.0,
+     "hpMin": 2554,
+     "hpMax": 26354,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 851,
+     "hpMax": 8785,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 1192,
+     "hpMax": 12299,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "HumanBodyPartData"
+  },
+  {
+   "edid": "BountyHunt_HeadHunt_Skyline_Boss_Cultist",
+   "formId": "008B4607",
+   "name": "The Inquisitionor",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 3405,
+   "hpMax": 35139,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 719,
+    "ER": 660,
+    "Fire": 440,
+    "Cryo": 440,
+    "Poison": 301,
+    "Rad": 301
+   },
+   "speedMult": 120.0,
+   "gang": "",
+   "imageSlug": "the-inquisitionor",
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": 11,
+     "damageMax": 77,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "11 damage per second for 6 seconds"
+    }
+   ],
+   "gangMembers": [
+    "Inquisitionor's Desciple"
+   ],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.5,
+     "hpMin": 681,
+     "hpMax": 7028,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 1.0,
+     "hpMin": 2554,
+     "hpMax": 26354,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 851,
+     "hpMax": 8785,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 1192,
+     "hpMax": 12299,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "HumanBodyPartData"
+  },
+  {
+   "edid": "BountyHunt_HeadHunt_Skyline_Boss_Captain",
+   "formId": "008AB860",
+   "name": "The Pirate King",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 3405,
+   "hpMax": 35139,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 719,
+    "ER": 660,
+    "Fire": 440,
+    "Cryo": 440,
+    "Poison": 301,
+    "Rad": 301
+   },
+   "speedMult": 120.0,
+   "gang": "",
+   "imageSlug": "the-pirate-king",
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": 11,
+     "damageMax": 77,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "11 damage per second for 6 seconds"
+    }
+   ],
+   "gangMembers": [
+    "Crewmate"
+   ],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.5,
+     "hpMin": 681,
+     "hpMax": 7028,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 1.0,
+     "hpMin": 2554,
+     "hpMax": 26354,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 851,
+     "hpMax": 8785,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 1192,
+     "hpMax": 12299,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "HumanBodyPartData"
+  },
+  {
+   "edid": "BountyHunt_HeadHunt_Skyline_Boss_Subjugator",
+   "formId": "008A74BA",
+   "name": "The Pseudo Subjugator",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 3405,
+   "hpMax": 35139,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 719,
+    "ER": 660,
+    "Fire": 440,
+    "Cryo": 440,
+    "Poison": 301,
+    "Rad": 301
+   },
+   "speedMult": 120.0,
+   "gang": "",
+   "imageSlug": "the-pseudo-subjugator",
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": 11,
+     "damageMax": 77,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "11 damage per second for 6 seconds"
+    }
+   ],
+   "gangMembers": [
+    "Aspiring Red Viper"
+   ],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.5,
+     "hpMin": 681,
+     "hpMax": 7028,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 1.0,
+     "hpMin": 2554,
+     "hpMax": 26354,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 851,
+     "hpMax": 8785,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 1192,
+     "hpMax": 12299,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "HumanBodyPartData"
+  },
+  {
+   "edid": "BountyHunt_HeadHunt_Skyline_Boss_Time",
+   "formId": "008AA8FF",
+   "name": "The Temporal Technician",
+   "race": "Ghoul",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 3405,
+   "hpMax": 35139,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 1117,
+    "ER": 854,
+    "Fire": 660,
+    "Cryo": 660,
+    "Poison": 301,
+    "Rad": 301
+   },
+   "speedMult": 120.0,
+   "gang": "",
+   "imageSlug": "the-temporal-technician",
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": 11,
+     "damageMax": 77,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "11 damage per second for 6 seconds"
+    }
+   ],
+   "gangMembers": [
+    "Time Tourist"
+   ],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.5,
+     "hpMin": 681,
+     "hpMax": 7028,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 1.0,
+     "hpMin": 2554,
+     "hpMax": 26354,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 851,
+     "hpMax": 8785,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 1192,
+     "hpMax": 12299,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "HumanBodyPartData"
+  }
+ ],
+ "mutations": {
+  "intro": "Mutation effects used by bounty targets. One-star outlaws are named after theirs, and some Head Hunt bosses carry a forced mutation as part of their signature attack.",
+  "list": [
+   {
+    "edid": "Burn_Bounty_Mutation_Chameleon",
+    "name": "Chameleon",
+    "summary": "",
+    "detail": "Turns invisible while it stands still."
+   },
+   {
+    "edid": "Burn_Bounty_Mutation_ElectricallyCharged",
+    "name": "Electrically Charged",
+    "summary": "Slow targets down on attack",
+    "detail": "Can shock melee attackers."
+   },
+   {
+    "edid": "Burn_Bounty_Mutation_FreezingTouch",
+    "name": "Freezing Touch",
+    "summary": "Slow targets down on attack",
+    "detail": "Melee hits slow the target down."
+   },
+   {
+    "edid": "Burn_Bounty_Mutation_HerdMentality",
+    "name": "Herd Mentality",
+    "summary": "-2 SPECIAL solo, +2 SPECIAL grouped",
+    "detail": "Weaker alone, stronger while grouped with its gang."
+   },
+   {
+    "edid": "Burn_Bounty_Mutation_PlagueWalker",
+    "name": "Plague Walker",
+    "summary": "",
+    "detail": "Emits a poison aura while it is sick."
+   },
+   {
+    "edid": "Burn_Bounty_Mutation_UnstableIsotope",
+    "name": "Unstable Isotope",
+    "summary": "",
+    "detail": "Forced Unstable Isotope — can release a radiation burst when struck."
+   }
+  ],
+  "outlaws": [
+   "Frosty Outlaw",
+   "Healing Outlaw",
+   "Resilient Outlaw",
+   "Stealthy Outlaw",
+   "Swift-Footed Outlaw",
+   "Toxic Outlaw",
+   "Volatile Outlaw"
+  ]
+ },
+ "mechanics": {
+  "intro": "Skyline Valley Head Hunt bosses share the following stats.",
+  "rows": [
+   [
+    "Bounty level range",
+    "25 – 175"
+   ],
+   [
+    "Different level range",
+    "The Sharpshooter (Lv 100), Chief Meteorologist Sally McSun (Lv 100)"
+   ],
+   [
+    "Move speed",
+    "120% of normal"
+   ],
+   [
+    "Bosses",
+    "21 across 3 groups"
+   ],
+   [
+    "Support waves",
+    "Blood Eagles, Communists, Honey Beasts, RobCo Bots, Super Mutants"
+   ]
+  ],
+  "resist": [
+   {
+    "name": "Bird of Prey",
+    "DR": 719,
+    "ER": 660,
+    "Fire": 440,
+    "Cryo": 440,
+    "Poison": 301,
+    "Rad": 301
+   },
+   {
+    "name": "Buzzkill",
+    "DR": 1117,
+    "ER": 854,
+    "Fire": 660,
+    "Cryo": 660,
+    "Poison": 301,
+    "Rad": 301
+   },
+   {
+    "name": "Dada",
+    "DR": 719,
+    "ER": 660,
+    "Fire": 440,
+    "Cryo": 440,
+    "Poison": 301,
+    "Rad": 301
+   },
+   {
+    "name": "Detonation Dave",
+    "DR": 719,
+    "ER": 660,
+    "Fire": 440,
+    "Cryo": 440,
+    "Poison": 301,
+    "Rad": 301
+   },
+   {
+    "name": "Il Maestro",
+    "DR": 719,
+    "ER": 660,
+    "Fire": 440,
+    "Cryo": 440,
+    "Poison": 301,
+    "Rad": 301
+   },
+   {
+    "name": "The Oversearer",
+    "DR": 1117,
+    "ER": 854,
+    "Fire": 660,
+    "Cryo": 660,
+    "Poison": 301,
+    "Rad": 301
+   },
+   {
+    "name": "The Pied Pipebomber",
+    "DR": 719,
+    "ER": 660,
+    "Fire": 440,
+    "Cryo": 440,
+    "Poison": 301,
+    "Rad": 301
+   },
+   {
+    "name": "Ayam Legion",
+    "DR": 1117,
+    "ER": 854,
+    "Fire": 660,
+    "Cryo": 660,
+    "Poison": 301,
+    "Rad": 301
+   },
+   {
+    "name": "Jaques the Jammer",
+    "DR": 719,
+    "ER": 660,
+    "Fire": 440,
+    "Cryo": 440,
+    "Poison": 301,
+    "Rad": 301
+   },
+   {
+    "name": "Mercy's End",
+    "DR": 719,
+    "ER": 660,
+    "Fire": 440,
+    "Cryo": 440,
+    "Poison": 301,
+    "Rad": 301
+   },
+   {
+    "name": "Micro Mike",
+    "DR": 719,
+    "ER": 660,
+    "Fire": 440,
+    "Cryo": 440,
+    "Poison": 301,
+    "Rad": 301
+   },
+   {
+    "name": "Storm Warning",
+    "DR": 1117,
+    "ER": 854,
+    "Fire": 660,
+    "Cryo": 660,
+    "Poison": 301,
+    "Rad": 301
+   },
+   {
+    "name": "The Secret Weapon",
+    "DR": 1117,
+    "ER": 854,
+    "Fire": 660,
+    "Cryo": 660,
+    "Poison": 301,
+    "Rad": 301
+   },
+   {
+    "name": "The Sharpshooter",
+    "DR": 356,
+    "ER": 300,
+    "Fire": 276,
+    "Cryo": 254,
+    "Poison": 388,
+    "Rad": 112
+   },
+   {
+    "name": "Chief Meteorologist Sally McSun",
+    "DR": 388,
+    "ER": 805,
+    "Fire": 254,
+    "Cryo": 215,
+    "Poison": 215,
+    "Rad": 215
+   },
+   {
+    "name": "Greasehands Greta",
+    "DR": 516,
+    "ER": 324,
+    "Fire": 139,
+    "Cryo": 139,
+    "Poison": 607,
+    "Rad": 196
+   },
+   {
+    "name": "Lilly Oleander",
+    "DR": 719,
+    "ER": 660,
+    "Fire": 440,
+    "Cryo": 440,
+    "Poison": 301,
+    "Rad": 301
+   },
+   {
+    "name": "The Inquisitionor",
+    "DR": 719,
+    "ER": 660,
+    "Fire": 440,
+    "Cryo": 440,
+    "Poison": 301,
+    "Rad": 301
+   },
+   {
+    "name": "The Pirate King",
+    "DR": 719,
+    "ER": 660,
+    "Fire": 440,
+    "Cryo": 440,
+    "Poison": 301,
+    "Rad": 301
+   },
+   {
+    "name": "The Pseudo Subjugator",
+    "DR": 719,
+    "ER": 660,
+    "Fire": 440,
+    "Cryo": 440,
+    "Poison": 301,
+    "Rad": 301
+   },
+   {
+    "name": "The Temporal Technician",
+    "DR": 1117,
+    "ER": 854,
+    "Fire": 660,
+    "Cryo": 660,
+    "Poison": 301,
+    "Rad": 301
+   }
+  ]
+ },
+ "health": {
+  "intro": "Health is read from the curve table assigned to each boss across the bounty level range. Bosses on the same curve share a row.",
+  "levels": [
+   25,
+   50,
+   75,
+   100,
+   125,
+   150,
+   175
+  ],
+  "rows": [
+   {
+    "label": "Bird of Prey, Buzzkill, Dada, Detonation Dave, Il Maestro, The Oversearer, The Pied Pipebomber, Ayam Legion, Jaques the Jammer, Mercy's End, Micro Mike, Storm Warning, The Secret Weapon, The Sharpshooter, Chief Meteorologist Sally McSun, Lilly Oleander, The Inquisitionor, The Pirate King, The Pseudo Subjugator, The Temporal Technician",
+    "bosses": [
+     "Bird of Prey",
+     "Buzzkill",
+     "Dada",
+     "Detonation Dave",
+     "Il Maestro",
+     "The Oversearer",
+     "The Pied Pipebomber",
+     "Ayam Legion",
+     "Jaques the Jammer",
+     "Mercy's End",
+     "Micro Mike",
+     "Storm Warning",
+     "The Secret Weapon",
+     "The Sharpshooter",
+     "Chief Meteorologist Sally McSun",
+     "Lilly Oleander",
+     "The Inquisitionor",
+     "The Pirate King",
+     "The Pseudo Subjugator",
+     "The Temporal Technician"
+    ],
+    "curve": "CT_Creatures_Health_Universal_Tier35",
+    "values": [
+     3405,
+     6463,
+     9900,
+     13958,
+     19026,
+     25742,
+     35139
+    ]
+   },
+   {
+    "label": "Greasehands Greta",
+    "bosses": [
+     "Greasehands Greta"
+    ],
+    "curve": "CT_Creatures_Health_Universal_Tier34",
+    "values": [
+     2868,
+     5449,
+     8357,
+     11804,
+     16134,
+     21905,
+     30035
+    ]
+   }
+  ]
+ },
+ "damage": {
+  "intro": "Damage per hit from each boss's main weapon at the bottom and top of the bounty level range.",
+  "rows": [
+   {
+    "boss": "Bird of Prey",
+    "weapon": ".50 Cal Machine Gun",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 11,
+    "damageMax": 77
+   },
+   {
+    "boss": "Buzzkill",
+    "weapon": ".50 Cal Machine Gun",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 11,
+    "damageMax": 77
+   },
+   {
+    "boss": "Dada",
+    "weapon": ".50 Cal Machine Gun",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 11,
+    "damageMax": 77
+   },
+   {
+    "boss": "Detonation Dave",
+    "weapon": ".50 Cal Machine Gun",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 11,
+    "damageMax": 77
+   },
+   {
+    "boss": "Il Maestro",
+    "weapon": ".50 Cal Machine Gun",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 11,
+    "damageMax": 77
+   },
+   {
+    "boss": "The Oversearer",
+    "weapon": ".50 Cal Machine Gun",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 11,
+    "damageMax": 77
+   },
+   {
+    "boss": "The Pied Pipebomber",
+    "weapon": ".50 Cal Machine Gun",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 11,
+    "damageMax": 77
+   },
+   {
+    "boss": "Ayam Legion",
+    "weapon": ".50 Cal Machine Gun",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 11,
+    "damageMax": 77
+   },
+   {
+    "boss": "Jaques the Jammer",
+    "weapon": ".50 Cal Machine Gun",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 11,
+    "damageMax": 77
+   },
+   {
+    "boss": "Mercy's End",
+    "weapon": ".50 Cal Machine Gun",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 11,
+    "damageMax": 77
+   },
+   {
+    "boss": "Micro Mike",
+    "weapon": ".50 Cal Machine Gun",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 11,
+    "damageMax": 77
+   },
+   {
+    "boss": "Storm Warning",
+    "weapon": ".50 Cal Machine Gun",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 11,
+    "damageMax": 77
+   },
+   {
+    "boss": "The Secret Weapon",
+    "weapon": ".50 Cal Machine Gun",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 11,
+    "damageMax": 77
+   },
+   {
+    "boss": "Greasehands Greta",
+    "weapon": ".50 Cal Machine Gun",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 11,
+    "damageMax": 77
+   },
+   {
+    "boss": "Lilly Oleander",
+    "weapon": ".50 Cal Machine Gun",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 11,
+    "damageMax": 77
+   },
+   {
+    "boss": "The Inquisitionor",
+    "weapon": ".50 Cal Machine Gun",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 11,
+    "damageMax": 77
+   },
+   {
+    "boss": "The Pirate King",
+    "weapon": ".50 Cal Machine Gun",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 11,
+    "damageMax": 77
+   },
+   {
+    "boss": "The Pseudo Subjugator",
+    "weapon": ".50 Cal Machine Gun",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 11,
+    "damageMax": 77
+   },
+   {
+    "boss": "The Temporal Technician",
+    "weapon": ".50 Cal Machine Gun",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 11,
+    "damageMax": 77
+   },
+   {
+    "boss": "The Sharpshooter",
+    "weapon": ".50 Cal Machine Gun",
+    "levelMin": 100,
+    "levelMax": 100,
+    "damageMin": 30,
+    "damageMax": 30
+   },
+   {
+    "boss": "Chief Meteorologist Sally McSun",
+    "weapon": ".50 Cal Machine Gun",
+    "levelMin": 100,
+    "levelMax": 100,
+    "damageMin": 30,
+    "damageMax": 30
+   }
+  ]
+ },
+ "support": {
+  "intro": "Every Skyline Valley Head Hunt sends one of these support waves alongside the boss and its gang. Blood Eagles are the usual wave; a few bosses bring a different one that suits their theme.",
+  "rows": [
+   {
+    "edid": "LvlBloodEagleShotgun",
+    "formId": "0053C535",
+    "name": "Blood Eagle Shotgun",
+    "race": "Ghoul",
+    "levelMin": 40,
+    "levelMax": 75,
+    "hpMin": 294,
+    "hpMax": 577,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier18",
+    "statsFrom": "",
+    "resist": {
+     "DR": 33,
+     "ER": 30,
+     "Fire": 33,
+     "Cryo": 22,
+     "Poison": 30,
+     "Rad": 15
+    },
+    "speedMult": 100.0,
+    "faction": "Blood Eagles"
+   },
+   {
+    "edid": "LvlBloodEagleMelee",
+    "formId": "0053C52F",
+    "name": "Blood Eagle Melee",
+    "race": "Ghoul",
+    "levelMin": 40,
+    "levelMax": 75,
+    "hpMin": 294,
+    "hpMax": 577,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier18",
+    "statsFrom": "",
+    "resist": {
+     "DR": 33,
+     "ER": 30,
+     "Fire": 33,
+     "Cryo": 22,
+     "Poison": 30,
+     "Rad": 15
+    },
+    "speedMult": 100.0,
+    "faction": "Blood Eagles"
+   },
+   {
+    "edid": "LvlBloodEagleRifleAuto",
+    "formId": "0053C534",
+    "name": "Blood Eagle Rifle Auto",
+    "race": "Ghoul",
+    "levelMin": 40,
+    "levelMax": 75,
+    "hpMin": 294,
+    "hpMax": 577,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier18",
+    "statsFrom": "",
+    "resist": {
+     "DR": 33,
+     "ER": 30,
+     "Fire": 33,
+     "Cryo": 22,
+     "Poison": 30,
+     "Rad": 15
+    },
+    "speedMult": 100.0,
+    "faction": "Blood Eagles"
+   },
+   {
+    "edid": "LvlBloodEaglePistol",
+    "formId": "0053C530",
+    "name": "Blood Eagle Pistol",
+    "race": "Ghoul",
+    "levelMin": 40,
+    "levelMax": 75,
+    "hpMin": 294,
+    "hpMax": 577,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier18",
+    "statsFrom": "",
+    "resist": {
+     "DR": 33,
+     "ER": 30,
+     "Fire": 33,
+     "Cryo": 22,
+     "Poison": 30,
+     "Rad": 15
+    },
+    "speedMult": 100.0,
+    "faction": "Blood Eagles"
+   },
+   {
+    "edid": "LvlBloodEagleSniper",
+    "formId": "0053C532",
+    "name": "Blood Eagle Sniper",
+    "race": "Ghoul",
+    "levelMin": 40,
+    "levelMax": 75,
+    "hpMin": 294,
+    "hpMax": 577,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier18",
+    "statsFrom": "",
+    "resist": {
+     "DR": 33,
+     "ER": 30,
+     "Fire": 33,
+     "Cryo": 22,
+     "Poison": 30,
+     "Rad": 15
+    },
+    "speedMult": 100.0,
+    "faction": "Blood Eagles"
+   },
+   {
+    "edid": "LvlBloodEagleRifleSemiAuto",
+    "formId": "0053C533",
+    "name": "Blood Eagle Rifle Semi Auto",
+    "race": "Ghoul",
+    "levelMin": 40,
+    "levelMax": 75,
+    "hpMin": 294,
+    "hpMax": 577,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier18",
+    "statsFrom": "",
+    "resist": {
+     "DR": 33,
+     "ER": 30,
+     "Fire": 33,
+     "Cryo": 22,
+     "Poison": 30,
+     "Rad": 15
+    },
+    "speedMult": 100.0,
+    "faction": "Blood Eagles"
+   },
+   {
+    "edid": "LvlBloodEagleDog",
+    "formId": "00588087",
+    "name": "Blood Eagle Attack Dog",
+    "race": "RaiderDog",
+    "levelMin": 10,
+    "levelMax": 50,
+    "hpMin": 66,
+    "hpMax": 265,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier16",
+    "statsFrom": "",
+    "speedMult": 100.0,
+    "faction": "Blood Eagles"
+   },
+   {
+    "edid": "LvlBloodEaglePowerArmor",
+    "formId": "0059B11F",
+    "name": "Blood Eagle Power Armor",
+    "race": "Ghoul",
+    "levelMin": 40,
+    "levelMax": 75,
+    "hpMin": 675,
+    "hpMax": 1314,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier23",
+    "statsFrom": "",
+    "resist": {
+     "DR": 136,
+     "ER": 98,
+     "Fire": 69,
+     "Cryo": 37,
+     "Poison": 69,
+     "Rad": 98
+    },
+    "speedMult": 100.0,
+    "faction": "Blood Eagles"
+   },
+   {
+    "edid": "LvlBloodEagleFlamer",
+    "formId": "005AE185",
+    "name": "Blood Eagle Flamer",
+    "race": "Ghoul",
+    "levelMin": 40,
+    "levelMax": 75,
+    "hpMin": 294,
+    "hpMax": 577,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier18",
+    "statsFrom": "",
+    "resist": {
+     "DR": 33,
+     "ER": 30,
+     "Fire": 33,
+     "Cryo": 22,
+     "Poison": 30,
+     "Rad": 15
+    },
+    "speedMult": 100.0,
+    "faction": "Blood Eagles"
+   },
+   {
+    "edid": "EncLiberator00",
+    "formId": "003A4DB3",
+    "name": "Liberator Mk 0",
+    "race": "Liberator",
+    "levelMin": 1,
+    "levelMax": 50,
+    "hpMin": 26,
+    "hpMax": 265,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier16",
+    "statsFrom": "",
+    "speedMult": 100.0,
+    "faction": "Communists"
+   },
+   {
+    "edid": "Storm_Communist_Sniper_Leather",
+    "formId": "006F7D92",
+    "name": "Communist Sniper",
+    "race": "Human",
+    "levelMin": 1,
+    "levelMax": 50,
+    "hpMin": 36,
+    "hpMax": 367,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier18",
+    "statsFrom": "",
+    "resist": {
+     "DR": 17,
+     "ER": 21,
+     "Fire": 21,
+     "Cryo": 26,
+     "Poison": 29,
+     "Rad": 21
+    },
+    "speedMult": 100.0,
+    "faction": "Communists"
+   },
+   {
+    "edid": "Storm_Communist_Soldier_Metal",
+    "formId": "006F7D93",
+    "name": "Communist Soldier",
+    "race": "Human",
+    "levelMin": 1,
+    "levelMax": 50,
+    "hpMin": 36,
+    "hpMax": 367,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier18",
+    "statsFrom": "",
+    "resist": {
+     "DR": 17,
+     "ER": 21,
+     "Fire": 21,
+     "Cryo": 26,
+     "Poison": 29,
+     "Rad": 21
+    },
+    "speedMult": 100.0,
+    "faction": "Communists"
+   },
+   {
+    "edid": "Storm_Communist_Rookie",
+    "formId": "006F7D94",
+    "name": "Communist Rookie",
+    "race": "Human",
+    "levelMin": 1,
+    "levelMax": 50,
+    "hpMin": 36,
+    "hpMax": 367,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier18",
+    "statsFrom": "",
+    "resist": {
+     "DR": 17,
+     "ER": 21,
+     "Fire": 21,
+     "Cryo": 26,
+     "Poison": 29,
+     "Rad": 21
+    },
+    "speedMult": 100.0,
+    "faction": "Communists"
+   },
+   {
+    "edid": "Storm_Communist_Attack_Dog",
+    "formId": "006F7D90",
+    "name": "Communist Attack Dog",
+    "race": "RaiderDog",
+    "levelMin": 1,
+    "levelMax": 50,
+    "hpMin": 26,
+    "hpMax": 265,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier16",
+    "statsFrom": "",
+    "speedMult": 100.0,
+    "faction": "Communists"
+   },
+   {
+    "edid": "LvlHoneyBeast",
+    "formId": "0026BA73",
+    "name": "Glowing Honey Beast",
+    "race": "HoneyBeast",
+    "levelMin": 1,
+    "levelMax": 100,
+    "hpMin": 103,
+    "hpMax": 2238,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier24",
+    "statsFrom": "",
+    "speedMult": 100.0,
+    "faction": "Honey Beasts"
+   },
+   {
+    "edid": "LvlProtectron_Hostile",
+    "formId": "00186E01",
+    "name": "Protectron Hostile",
+    "race": "Protectron",
+    "levelMin": 1,
+    "levelMax": 50,
+    "hpMin": 73,
+    "hpMax": 713,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier22",
+    "statsFrom": "",
+    "speedMult": 100.0,
+    "faction": "RobCo Bots"
+   },
+   {
+    "edid": "LvlEyeBotHostile",
+    "formId": "00530EB8",
+    "name": "EyeBot",
+    "race": "EyeBot",
+    "levelMin": 1,
+    "levelMax": 50,
+    "hpMin": 9,
+    "hpMax": 104,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier10",
+    "statsFrom": "",
+    "speedMult": 100.0,
+    "faction": "RobCo Bots"
+   },
+   {
+    "edid": "LvlEyeBotSuicider",
+    "formId": "0040F96E",
+    "name": "EyeBomb",
+    "race": "EyeBot",
+    "levelMin": 1,
+    "levelMax": 50,
+    "hpMin": 9,
+    "hpMax": 104,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier10",
+    "statsFrom": "",
+    "speedMult": 100.0,
+    "faction": "RobCo Bots"
+   },
+   {
+    "edid": "LvlSupermutantMelee",
+    "formId": "00088F14",
+    "name": "Super Mutant Melee",
+    "race": "SuperMutant",
+    "levelMin": 1,
+    "levelMax": 100,
+    "hpMin": 87,
+    "hpMax": 1899,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier23",
+    "statsFrom": "",
+    "resist": {
+     "DR": 88,
+     "ER": 68,
+     "Fire": 104,
+     "Cryo": 68,
+     "Poison": 327,
+     "Rad": 974
+    },
+    "speedMult": 100.0,
+    "faction": "Super Mutants"
+   },
+   {
+    "edid": "LvlSupermutantRifle",
+    "formId": "000D228A",
+    "name": "Super Mutant Rifle",
+    "race": "SuperMutant",
+    "levelMin": 1,
+    "levelMax": 100,
+    "hpMin": 87,
+    "hpMax": 1899,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier23",
+    "statsFrom": "",
+    "resist": {
+     "DR": 88,
+     "ER": 68,
+     "Fire": 104,
+     "Cryo": 68,
+     "Poison": 327,
+     "Rad": 974
+    },
+    "speedMult": 100.0,
+    "faction": "Super Mutants"
+   },
+   {
+    "edid": "LvlSupermutantMinigun",
+    "formId": "0010924D",
+    "name": "Super Mutant Minigun",
+    "race": "SuperMutant",
+    "levelMin": 1,
+    "levelMax": 100,
+    "hpMin": 87,
+    "hpMax": 1899,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier23",
+    "statsFrom": "",
+    "resist": {
+     "DR": 88,
+     "ER": 68,
+     "Fire": 104,
+     "Cryo": 68,
+     "Poison": 327,
+     "Rad": 974
+    },
+    "speedMult": 100.0,
+    "faction": "Super Mutants"
+   },
+   {
+    "edid": "LvlSupermutantSuicider",
+    "formId": "0014AE58",
+    "name": "Super Mutant Suicider",
+    "race": "SuperMutant",
+    "levelMin": 1,
+    "levelMax": 100,
+    "hpMin": 87,
+    "hpMax": 1899,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier23",
+    "statsFrom": "",
+    "resist": {
+     "DR": 88,
+     "ER": 68,
+     "Fire": 104,
+     "Cryo": 68,
+     "Poison": 327,
+     "Rad": 974
+    },
+    "speedMult": 100.0,
+    "faction": "Super Mutants"
+   }
+  ]
+ },
+ "npcs": {
+  "intro": "Each boss brings its own gang members, listed with the boss they belong to.",
+  "rows": [
+   {
+    "edid": "BountyHunt_HeadHunt_Skyline_Lackey_RadTurkey",
+    "formId": "008ABF92",
+    "name": "Pack Hunter",
+    "race": "RadTurkey",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 2416,
+    "hpMax": 25683,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier33",
+    "statsFrom": "",
+    "resist": {
+     "DR": 440,
+     "ER": 440,
+     "Fire": 377,
+     "Cryo": 377,
+     "Poison": 377,
+     "Rad": 377
+    },
+    "speedMult": 100.0,
+    "boss": "Bird of Prey",
+    "gang": ""
+   },
+   {
+    "edid": "BountyHunt_HeadHunt_Skyline_Lackey_Beekeeper",
+    "formId": "008B739F",
+    "name": "Belligerent Beekeeper",
+    "race": "Human",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 2416,
+    "hpMax": 25683,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier33",
+    "statsFrom": "",
+    "resist": {
+     "DR": 440,
+     "ER": 440,
+     "Fire": 377,
+     "Cryo": 377,
+     "Poison": 377,
+     "Rad": 377
+    },
+    "speedMult": 100.0,
+    "boss": "Buzzkill",
+    "gang": ""
+   },
+   {
+    "edid": "BountyHunt_HeadHunt_Skyline_Lackey_Hound",
+    "formId": "008B73A0",
+    "name": "Dada's Hound",
+    "race": "FEVHound",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 2416,
+    "hpMax": 25683,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier33",
+    "statsFrom": "",
+    "resist": {
+     "DR": 440,
+     "ER": 440,
+     "Fire": 377,
+     "Cryo": 377,
+     "Poison": 377,
+     "Rad": 377
+    },
+    "speedMult": 100.0,
+    "boss": "Dada",
+    "gang": ""
+   },
+   {
+    "edid": "BountyHunt_HeadHunt_Skyline_Lackey_Winter",
+    "formId": "008AC360",
+    "name": "Bewildered Bomber",
+    "race": "Ghoul",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 2416,
+    "hpMax": 25683,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier33",
+    "statsFrom": "",
+    "resist": {
+     "DR": 440,
+     "ER": 440,
+     "Fire": 377,
+     "Cryo": 377,
+     "Poison": 377,
+     "Rad": 377
+    },
+    "speedMult": 100.0,
+    "boss": "Detonation Dave",
+    "gang": ""
+   },
+   {
+    "edid": "BountyHunt_HeadHunt_Skyline_Lackey_Chorus",
+    "formId": "008A8634",
+    "name": "Provocative Performer",
+    "race": "Ghoul",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 2416,
+    "hpMax": 25683,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier33",
+    "statsFrom": "",
+    "resist": {
+     "DR": 440,
+     "ER": 440,
+     "Fire": 377,
+     "Cryo": 377,
+     "Poison": 377,
+     "Rad": 377
+    },
+    "speedMult": 100.0,
+    "boss": "Il Maestro",
+    "gang": ""
+   },
+   {
+    "edid": "BountyHunt_HeadHunt_Skyline_Lackey_VaultBoyLooter",
+    "formId": "008AA4C9",
+    "name": "Vault Wannabe",
+    "race": "Ghoul",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 2416,
+    "hpMax": 25683,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier33",
+    "statsFrom": "",
+    "resist": {
+     "DR": 440,
+     "ER": 440,
+     "Fire": 377,
+     "Cryo": 377,
+     "Poison": 377,
+     "Rad": 377
+    },
+    "speedMult": 100.0,
+    "boss": "The Oversearer",
+    "gang": ""
+   },
+   {
+    "edid": "BountyHunt_HeadHunt_Skyline_Lackey_VaultGirlLooter",
+    "formId": "008AA4CC",
+    "name": "Vault Wannabe",
+    "race": "Ghoul",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 2416,
+    "hpMax": 25683,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier33",
+    "statsFrom": "",
+    "resist": {
+     "DR": 440,
+     "ER": 440,
+     "Fire": 377,
+     "Cryo": 377,
+     "Poison": 377,
+     "Rad": 377
+    },
+    "speedMult": 100.0,
+    "boss": "The Oversearer",
+    "gang": ""
+   },
+   {
+    "edid": "BountyHunt_HeadHunt_Skyline_Lackey_Underminer",
+    "formId": "008AC50F",
+    "name": "Tunneling Terror",
+    "race": "Ghoul",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 2416,
+    "hpMax": 25683,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier33",
+    "statsFrom": "",
+    "resist": {
+     "DR": 440,
+     "ER": 440,
+     "Fire": 377,
+     "Cryo": 377,
+     "Poison": 377,
+     "Rad": 377
+    },
+    "speedMult": 100.0,
+    "boss": "The Pied Pipebomber",
+    "gang": ""
+   },
+   {
+    "edid": "BountyHunt_HeadHunt_Skyline_Lackey_Secret",
+    "formId": "008B50A0",
+    "name": "Legion's Lieutenant",
+    "race": "Human",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 2416,
+    "hpMax": 25683,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier33",
+    "statsFrom": "",
+    "resist": {
+     "DR": 440,
+     "ER": 440,
+     "Fire": 377,
+     "Cryo": 377,
+     "Poison": 377,
+     "Rad": 377
+    },
+    "speedMult": 100.0,
+    "boss": "Ayam Legion",
+    "gang": ""
+   },
+   {
+    "edid": "BountyHunt_HeadHunt_Skyline_Lackey_Jammer",
+    "formId": "008B4B89",
+    "name": "Ticked Off Technician",
+    "race": "Ghoul",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 2416,
+    "hpMax": 25683,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier33",
+    "statsFrom": "",
+    "resist": {
+     "DR": 440,
+     "ER": 440,
+     "Fire": 377,
+     "Cryo": 377,
+     "Poison": 377,
+     "Rad": 377
+    },
+    "speedMult": 100.0,
+    "boss": "Jaques the Jammer",
+    "gang": ""
+   },
+   {
+    "edid": "BountyHunt_HeadHunt_Skyline_Lackey_Responder",
+    "formId": "008B3E47",
+    "name": "Runaway Responder",
+    "race": "Human",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 2416,
+    "hpMax": 25683,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier33",
+    "statsFrom": "",
+    "resist": {
+     "DR": 440,
+     "ER": 440,
+     "Fire": 377,
+     "Cryo": 377,
+     "Poison": 377,
+     "Rad": 377
+    },
+    "speedMult": 100.0,
+    "boss": "Mercy's End",
+    "gang": ""
+   },
+   {
+    "edid": "BountyHunt_HeadHunt_Skyline_Lackey_Micro",
+    "formId": "008A7968",
+    "name": "Radioactive Raider",
+    "race": "Ghoul",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 2416,
+    "hpMax": 25683,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier33",
+    "statsFrom": "",
+    "resist": {
+     "DR": 440,
+     "ER": 440,
+     "Fire": 377,
+     "Cryo": 377,
+     "Poison": 377,
+     "Rad": 377
+    },
+    "speedMult": 100.0,
+    "boss": "Micro Mike",
+    "gang": ""
+   },
+   {
+    "edid": "BountyHunt_HeadHunt_Skyline_Lackey_Chainer",
+    "formId": "008CD138",
+    "name": "Sadistic Shocker",
+    "race": "Lost",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 2416,
+    "hpMax": 25683,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier33",
+    "statsFrom": "",
+    "resist": {
+     "DR": 440,
+     "ER": 440,
+     "Fire": 377,
+     "Cryo": 377,
+     "Poison": 377,
+     "Rad": 377
+    },
+    "speedMult": 100.0,
+    "boss": "Storm Warning",
+    "gang": ""
+   },
+   {
+    "edid": "BountyHunt_HeadHunt_Skyline_Lackey_Eliminator",
+    "formId": "008AB2C6",
+    "name": "Stealth Killer",
+    "race": "Assaultron",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 2416,
+    "hpMax": 25683,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier33",
+    "statsFrom": "",
+    "resist": {
+     "DR": 440,
+     "ER": 440,
+     "Fire": 377,
+     "Cryo": 377,
+     "Poison": 377,
+     "Rad": 377
+    },
+    "speedMult": 100.0,
+    "boss": "The Secret Weapon",
+    "gang": ""
+   },
+   {
+    "edid": "BountyHunt_HeadHunt_Skyline_Lackey_Crew",
+    "formId": "008AA4CA",
+    "name": "Mutinous Cannoneer",
+    "race": "Human",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 2416,
+    "hpMax": 25683,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier33",
+    "statsFrom": "",
+    "resist": {
+     "DR": 440,
+     "ER": 440,
+     "Fire": 377,
+     "Cryo": 377,
+     "Poison": 377,
+     "Rad": 377
+    },
+    "speedMult": 100.0,
+    "boss": "The Sharpshooter",
+    "gang": ""
+   },
+   {
+    "edid": "BountyHunt_HeadHunt_Skyline_Lackey_Weather",
+    "formId": "008AC7E6",
+    "name": "Underpaid Crew Member",
+    "race": "Ghoul",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 2416,
+    "hpMax": 25683,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier33",
+    "statsFrom": "",
+    "resist": {
+     "DR": 440,
+     "ER": 440,
+     "Fire": 377,
+     "Cryo": 377,
+     "Poison": 377,
+     "Rad": 377
+    },
+    "speedMult": 100.0,
+    "boss": "Chief Meteorologist Sally McSun",
+    "gang": ""
+   },
+   {
+    "edid": "BountyHunt_HeadHunt_Skyline_Lackey_ToughGuy",
+    "formId": "008AA4CB",
+    "name": "Greasy Motorhead",
+    "race": "Human",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 2416,
+    "hpMax": 25683,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier33",
+    "statsFrom": "",
+    "resist": {
+     "DR": 440,
+     "ER": 440,
+     "Fire": 377,
+     "Cryo": 377,
+     "Poison": 377,
+     "Rad": 377
+    },
+    "speedMult": 100.0,
+    "boss": "Greasehands Greta",
+    "gang": ""
+   },
+   {
+    "edid": "BountyHunt_HeadHunt_Skyline_Lackey_Florist",
+    "formId": "008AB0A8",
+    "name": "Frenzied Florist",
+    "race": "Ghoul",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 2416,
+    "hpMax": 25683,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier33",
+    "statsFrom": "",
+    "resist": {
+     "DR": 440,
+     "ER": 440,
+     "Fire": 377,
+     "Cryo": 377,
+     "Poison": 377,
+     "Rad": 377
+    },
+    "speedMult": 100.0,
+    "boss": "Lilly Oleander",
+    "gang": ""
+   },
+   {
+    "edid": "BountyHunt_HeadHunt_Skyline_Lackey_Cultist",
+    "formId": "008B4606",
+    "name": "Inquisitionor's Desciple",
+    "race": "Human",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 2416,
+    "hpMax": 25683,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier33",
+    "statsFrom": "",
+    "resist": {
+     "DR": 440,
+     "ER": 440,
+     "Fire": 377,
+     "Cryo": 377,
+     "Poison": 377,
+     "Rad": 377
+    },
+    "speedMult": 100.0,
+    "boss": "The Inquisitionor",
+    "gang": ""
+   },
+   {
+    "edid": "BountyHunt_HeadHunt_Skyline_Lackey_Captain",
+    "formId": "008AB861",
+    "name": "Crewmate",
+    "race": "Ghoul",
+    "levelMin": 20,
+    "levelMax": 100,
+    "hpMin": 2827,
+    "hpMax": 13958,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+    "statsFrom": "",
+    "resist": {
+     "DR": 327,
+     "ER": 327,
+     "Fire": 254,
+     "Cryo": 254,
+     "Poison": 300,
+     "Rad": 300
+    },
+    "speedMult": 100.0,
+    "boss": "The Pirate King",
+    "gang": ""
+   },
+   {
+    "edid": "BountyHunt_HeadHunt_Skyline_Lackey_RedViper",
+    "formId": "008A74BB",
+    "name": "Aspiring Red Viper",
+    "race": "Human",
+    "levelMin": 20,
+    "levelMax": 100,
+    "hpMin": 2827,
+    "hpMax": 13958,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+    "statsFrom": "",
+    "resist": {
+     "DR": 327,
+     "ER": 327,
+     "Fire": 254,
+     "Cryo": 254,
+     "Poison": 300,
+     "Rad": 300
+    },
+    "speedMult": 100.0,
+    "boss": "The Pseudo Subjugator",
+    "gang": ""
+   },
+   {
+    "edid": "BountyHunt_HeadHunt_Skyline_Lackey_Time",
+    "formId": "008AB0A7",
+    "name": "Time Tourist",
+    "race": "Ghoul",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 2416,
+    "hpMax": 25683,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier33",
+    "statsFrom": "",
+    "resist": {
+     "DR": 440,
+     "ER": 440,
+     "Fire": 377,
+     "Cryo": 377,
+     "Poison": 377,
+     "Rad": 377
+    },
+    "speedMult": 100.0,
+    "boss": "The Temporal Technician",
+    "gang": ""
+   }
+  ]
+ }
+}

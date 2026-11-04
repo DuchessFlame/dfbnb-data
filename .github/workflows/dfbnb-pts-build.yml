@@ -386,6 +386,7 @@ jobs:
         run: |
           python src/build_boss_stats_json.py
           test -f dist/boss_stats/hideouts.json && echo "OK hideouts.json" || echo "NOTE no hideouts.json (no HIDE_ gang leaders in this export)"
+          test -f dist/boss_stats/head_hunts_skyline.json && echo "OK head_hunts_skyline.json" || echo "NOTE no head_hunts_skyline.json (no Skyline Valley Head Hunt bosses in this export)"
 
       # --- HIDEOUTS (Guide / Leads / Locations / All Rewards) ---
       # Rates from rng76 over tsv/pts (DFBNB_CHANNEL=pts); Hideout Cache + Drifter Loot

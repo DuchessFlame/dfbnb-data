@@ -90,9 +90,9 @@
     "dmg_fistknife",
     "fusion_core",
     "gun_acc",
-    "heal_rate",
     "crit_heavy",
     "dmg_heavy",
+    "heal_rate",
     "invis",
     "crit_energy",
     "crit_laser",
@@ -316,14 +316,14 @@
       "group": "Defence"
     },
     "max_hp": {
-      "label": "Max Health",
-      "fmt": "+{v} Max Health",
+      "label": "Max HP",
+      "fmt": "+{v} Max HP",
       "ref": 40,
       "group": "Defence"
     },
     "heal_rate": {
-      "label": "Health Regen",
-      "fmt": "+{v} Health Regen",
+      "label": "HP Regen",
+      "fmt": "+{v} HP Regen",
       "ref": 0.25,
       "group": "Defence"
     },
@@ -1123,7 +1123,7 @@
             "heal_rate": 0.6,
             "limb_dmg": 0.3
           },
-          "note": "Not in Power Armour: Endurance, Max Health and Health Regen."
+          "note": "Not in Power Armour: Endurance, Max HP and HP Regen."
         },
         "none": {
           "label": "Berserker's (no armour)",
@@ -1139,12 +1139,12 @@
             "end": 0.6,
             "heal_rate": 0.6
           },
-          "note": "Berserker's: no DR buffs (they lower your damage). Endurance, Max Health and Health Regen instead."
+          "note": "Berserker's: no DR buffs (they lower your damage). Endurance, Max HP and HP Regen instead."
         }
       }
     },
     "health": {
-      "label": "Bloodied or full health?",
+      "label": "Bloodied or Full Health?",
       "options": {
         "bloodied": {
           "label": "Bloodied (low health)",
@@ -1159,7 +1159,7 @@
           "note": "Bloodied: take your rads first, then Rad Resistance so more rads don't kill you."
         },
         "full": {
-          "label": "Full health"
+          "label": "Full Health"
         }
       }
     },
@@ -1214,14 +1214,17 @@
           },
           "add": {
             "stimpak_heal": 0.3,
-            "avoid_all": 0.5
+            "avoid_all": 0.5,
+            "dr": 0.8,
+            "er": 0.8
           },
           "fallback_add": {
             "max_hp": 0.8,
             "heal_rate": 0.8,
             "end": 0.5
           },
-          "note": "Die a lot: more health and health regen."
+          "note": "Die a lot: more HP, HP regen, Damage Resistance and Energy Resistance.",
+          "_why": "Kat 4 Nov: 'if I selected die a lot there should def be a Damage Resistance and Energy Resistance buff' - on top of SpaceLime's HP weights. Power Armour still zeroes DR / ER (armour.power mult); Berserker's (armour none) still avoids DR."
         }
       }
     },
@@ -1447,7 +1450,7 @@
       "link": "/bnb/specials-stats/perception/perception-guide/"
     },
     "end": {
-      "t": "Endurance gives you a bigger health bar, so you can take more hits.",
+      "t": "Endurance gives you a bigger HP bar, so you can take more hits.",
       "link": "/bnb/specials-stats/endurance/endurance-guide/"
     },
     "cha": {
@@ -1570,7 +1573,7 @@
       "t": "Steadier aim when you shoot without V.A.T.S."
     },
     "max_hp": {
-      "t": "A bigger health bar, so you can take more hits.",
+      "t": "A bigger HP bar, so you can take more hits.",
       "link": "/bnb/specials-stats/hp/hp-guide/"
     },
     "heal_rate": {
@@ -2225,7 +2228,7 @@
       }
     }
   },
-  "_never_recommend_readme": "Items the Recommended Food Buff Calculator never picks on its own (it's meant to push people to order from Buffs n Brew). Kat 2 Nov: Scorchbeast Mixed Meat Stew - there are always better 30 / 60 min food buffs. Kat 4 Nov: Esme's three venison stews (Spicy / Spiked / Restorative Venison and Tato Stew) - not tradeable, so BnB can't sell them. Kat 4 Nov: Super Chem MK II - not tradeable either (MK I, MK III and SuperChem added too, same reason - MK III took MK II's place). CALCULATOR ONLY: the Buffs guide pages don't read this list and must keep showing / recommending these. Unlike exclude_items they stay everywhere else; they just never show up as a pick, swap-in or out-of-season pick.",
+  "_never_recommend_readme": "Items the Recommended Food Buff Calculator never picks on its own (it's meant to push people to order from Buffs n Brew). Kat 2 Nov: Scorchbeast Mixed Meat Stew - there are always better 30 / 60 min food buffs. Kat 4 Nov: Esme's three venison stews (Spicy / Spiked / Restorative Venison and Tato Stew) - not tradeable, so BnB can't sell them. Kat 4 Nov: Super Chem MK II - not tradeable either (MK I, MK III and SuperChem added too, same reason - MK III took MK II's place). Kat 4 Nov: Rudy's Canned Pozole - tradeable but not on the BnB menu. CALCULATOR ONLY: the Buffs guide pages don't read this list and must keep showing / recommending these. Unlike exclude_items they stay everywhere else; they just never show up as a pick, swap-in or out-of-season pick.",
   "never_recommend": [
     "Scorchbeast Mixed Meat Stew",
     "Spicy Venison and Tato Stew",
@@ -2234,7 +2237,8 @@
     "Super Chem MK II",
     "Super Chem MK I",
     "Super Chem MK III",
-    "SuperChem"
+    "SuperChem",
+    "Rudy's Canned Pozole"
   ],
   "_tie_prefer_readme": "When two items give the same buff (same score), these win before the cheaper Buffs n Brew price decides. Kat 2 Nov: Squirrel On A Stick over Fried Radroach On A Stick (same +3 Agility, 60 min) - easier for the chefs to craft.",
   "tie_prefer": [
@@ -2249,7 +2253,8 @@
     "Mutant Hound Chops",
     "Steeped Aster Tea",
     "Pemmican",
-    "Sweetwater Special Blend"
+    "Sweetwater Special Blend",
+    "Smoked Mirelurk Fillets"
   ],
   "_charisma_cards_readme": "Kat 4 Nov: Charisma buffs only help through these three cards (they read your current Charisma, buffs included, through a curve) or NPC prices (Quality of life tick). Perk sharing uses your own SPECIAL points, not buffs, so it doesn't count. Each card only shows in Your Perk Cards when 'show' matches (answers + solo / team); when shown AND running, its 'add' counts. Game files: Inspirational AbPerkInspirational -> AbFortifyXP, curve InspirationalSelfBonus on Charisma, IsMemberOfAPlayerTeam = 1. Bodyguards AbPerkBodyguards01 -> DR + ER, curve BodyguardsBonus on Charisma, teammates > 0, x2 / x3 with 2 / 3 teammates. Lone Wanderer abPerkLoneWanderer -> AP Regen (LoneWandererAPRegenBonus) + less damage taken (LoneWandererDRBonus) on Charisma, not in a team.",
   "charisma_cards": [
@@ -2295,5 +2300,14 @@
         "cha": 0.8
       }
     }
-  ]
+  ],
+  "_not_for_slots_readme": "Item -> stats the calculator must never pick it for (it can still be picked for its other buffs). Kat 4 Nov: Brain Bombs is never the AP refill - lots of ingredients; Canned Coffee / Sunshine Oil do the same for cheaper.",
+  "not_for_slots": {
+    "Brain Bombs": [
+      "ap_refill"
+    ],
+    "Canned Brain Bombs": [
+      "ap_refill"
+    ]
+  }
 }
