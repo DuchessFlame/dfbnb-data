@@ -17,7 +17,7 @@ the rest as dev questions (Kat 4 Nov: game files only, no assumptions).
   Luck        SPEL AbLgnPerkLuck (Legendary Luck), OMOD mod_Legendary_Armor2_StatLuck /
               PowerArmor2 / Weapon3 (legendary Luck), CURV CT_Legendary_Armor_
               LowHealthIncreasesStats (Unyielding), SPEL P62_Legendary_Armor_Crusaders
-              SPECIALSpell, Mutation_HerdMentality, abUnderArmor_*_Buffs, GHL_AbPerk
+              SPECIALSpell, Mutation_HerdMentality, OMOD mod_armor_UnderArmor_style_* (Luck), GHL_AbPerk
               UnitedOrdeal, ALCH Perk Happy-Go-Lucky effects, Magazine_LiveAndLove05Spell,
               GLOB BobbleHead_SPECIALGlobal, NWOT_FortuneSpell (Lady G), food / drink /
               chem Luck items from dist/calculators/food_buff_calculator.json (diet x).
@@ -60,6 +60,111 @@ def fnum(v, d=None):
         return float(str(v).strip())
     except (TypeError, ValueError):
         return d
+
+
+CRIT_REACH_FALLBACK = {}
+
+
+def build_crit(src, spel, ep, omod, omod_name, gl, rows, fnum, warn):
+    import json as _j
+    # which buff reaches which weapon: STAT_CritDamagePerk entries (AV + weapon keyword conditions)
+    reach = {}
+    for r in ep.get("STAT_CritDamagePerk", []):
+        av = re.search(r"Actor Value=(STAT_CritDmg\w+)", r.get("Raw") or "")
+        if not av: continue
+        kws = re.findall(r"HasKeyword\((WeaponType\w+)", r.get("Conditions") or "")
+        reach[av.group(1)] = {"any": sorted(set(kws)), "per": fnum(r.get("Value"))}
+    slot_av = {"crit_dmg": "STAT_CritDmgAll", "crit_melee": "STAT_CritDmgMelee", "crit_ballistic": "STAT_CritDmgBallistic",
+               "crit_laser": "STAT_CritDmgLaser", "crit_plasma": "STAT_CritDmgPlasma", "crit_energy": "STAT_CritDmgEnergy",
+               "crit_heavy": "STAT_CritDmgHeavyGuns"}
+
+    def ep_adds(perks):
+        out = []
+        for pk in perks:
+            v = None
+            for r in ep.get(pk, []):
+                if r.get("EntryPoint") == "Mod My Critical Hit Damage Mult" and r.get("Function") == "Add Value": v = fnum(r.get("Value"))
+            if v is None: warn(f"{pk}: no crit damage add")
+            out.append(v)
+        return out
+
+    # weapons (player list = Kat's builds data; every number from WEAP)
+    try:
+        bw = _j.load(open(os.path.join(ROOT, "dist", "builds", "builds_data.json"), encoding="utf-8"))["weapons"]
+    except Exception as e:  # noqa: BLE001
+        warn(f"builds_data weapons not read ({e})"); bw = []
+    dn = {r["WEAP_EDID"]: r for r in rows(src["dnam"])}
+    base = {r["WEAP_EDID"]: r for r in rows(newest("WEAP_Export_*_Base.tsv"))}
+    # OMOD crit damage per mod, following the included parent templates
+    head = {r["OMOD_EDID"].strip(): r for r in rows(src["omodh"])}
+
+    def own(e):
+        mul, add = 1.0, 0.0
+        for r in omod.get(e, []):
+            if r.get("PropertyName") != "CriticalDamageMult": continue
+            v1, v2 = fnum(r.get("Value1"), 0), fnum(r.get("Value2"), 0)
+            if r.get("FunctionType") == "ADD": add += v1
+            elif r.get("FunctionType") == "MUL+ADD": mul *= (1 + v1); add += v2
+        return mul, add
+
+    def total(e, seen=None):
+        seen = seen or set()
+        if e in seen: return 1.0, 0.0
+        seen.add(e)
+        mul, add = own(e)
+        for inc in re.findall(r"(\w+) \"\"[^\"]*\"\" \[OMOD:", (head.get(e) or {}).get("Includes_Flat") or ""):
+            m2, a2 = total(inc, seen); mul *= m2; add += a2
+        return mul, add
+
+    mods_by_kw = {}
+    for e, h in head.items():
+        if "egendary" in e or e.startswith(("_PARENT", "zzz", "DEL_", "CUT_", "PARENT")): continue
+        mul, add = total(e)
+        if abs(mul - 1) < 1e-9 and abs(add) < 1e-9: continue
+        for kw in re.findall(r"(ma_\w+)", h.get("MNAM_TargetKWDs") or ""):
+            mods_by_kw.setdefault(kw, []).append({"n": (h.get("FULL") or e).strip(), "slot": (h.get("AttachPoint_Name") or "").strip(), "mul": round(mul, 4), "add": round(add, 4), "e": e})
+    weapons = []
+    for w in bw:
+        e = w.get("edid"); d = dn.get(e); b = base.get(e)
+        if not d or not b: warn(f"weapon {e} not in WEAP export"); continue
+        kw = b.get("Keywords") or ""
+        tags = sorted(set(re.findall(r"(WeaponType\w+)", kw)))
+        mas = sorted(set(re.findall(r"(ma_\w+)", kw)))
+        mods = {}
+        for m in mas:
+            for x in mods_by_kw.get(m, []): mods[x["n"] + "|" + x["slot"]] = x
+        weapons.append({"n": w.get("name") or b.get("WEAP_FULL"), "e": e, "cls": (w.get("classes") or [""])[0],
+                        "crit": fnum(d.get("CRDT_CritDamageMult")), "tags": tags,
+                        "mods": sorted(mods.values(), key=lambda x: (x["slot"], -(x["add"]), x["n"]))})
+    weapons.sort(key=lambda x: (x["cls"], x["n"]))
+
+    # buffs from the food buff calculator data (diet x already there)
+    buffs = []
+    try:
+        fd = _j.load(open(FOOD, encoding="utf-8"))
+        for it in fd["items"]:
+            for f in it["fx"]:
+                av = slot_av.get(f.get("s"))
+                if av and not f.get("neg"):
+                    buffs.append({"n": it["n"], "t": it["t"], "v": f.get("m"), "d": f.get("d"), "dm": f.get("dm"), "av": av,
+                                  "bnb": (it.get("menu") or {}).get("px") is not None if isinstance(it.get("menu"), dict) else False})
+    except Exception as e:  # noqa: BLE001
+        warn(f"food data not read for crit buffs ({e})")
+    eagle = {}
+    for r in spel.get("Mutation_EagleEyes", []):
+        if (r.get("EFID_MGEF_EDID") or "") == "Mutation_FortifyCrits":
+            eagle["sin" if "SuperVersion" in (r.get("Conditions") or "") else "normal"] = fnum(r.get("EFIT_Magnitude"))
+    vital = None
+    for r in omod.get("mod_Legendary_Weapon2_DmgCrits", []):
+        if r.get("PropertyName") == "CriticalDamageMult": vital = fnum(r.get("Value1"))
+    return {
+        "reach": reach, "weapons": weapons, "buffs": buffs,
+        "betterCrits": ep_adds(["BetterCriticals01", "BetterCriticals02", "BetterCriticals03"]),
+        "glowingCrits": ep_adds(["GHL_GlowingCriticals01", "GHL_GlowingCriticals02", "GHL_GlowingCriticals03"]),
+        "unarmedBobble": ep_adds(["Bobblehead_UnarmedPerk"])[0],
+        "vital": vital, "vitalName": omod_name.get("mod_Legendary_Weapon2_DmgCrits", "Vital"),
+        "eagleEyes": eagle,
+    }
 
 
 def main():
@@ -158,12 +263,15 @@ def main():
         e, mag, c = r.get("EFID_MGEF_EDID") or "", fnum(r.get("EFIT_Magnitude"), 0), r.get("Conditions") or ""
         if e == "Mutation_FortifyLuck_Hidden": herd["teamSin" if "SuperVersion" in c else "team"] = mag
         if e == "Mutation_ReduceLuck_Hidden": herd["solo"] = -mag
+    # Underarmour: the STYLE mods carry the Luck (OMOD mod_armor_UnderArmor_style_*, Actor Values).
+    # The old abUnderArmor_*_Buffs lining spells / EnchUnderArmor_* aren't used by any item (FO4 leftovers).
     under = {}
-    for k, lab in (("abUnderArmor_VaultSuit_Buffs", "Vault Suit"), ("abUnderArmor_Casual_Buffs", "Casual"), ("abUnderArmor_Raider_Buffs", "Raider")):
-        lv = []
-        for mag, c in spel_luck(k):
-            m = re.search(r"dn_VaultSuitLining(\d)", c); lv.append(int(m.group(1)) if m else 0)
-        under[lab] = {"v": 1, "minLining": min(lv) if lv else 0}
+    for e, props in sorted(omod.items()):
+        if not e.startswith("mod_armor_UnderArmor_style_"): continue
+        for r in props:
+            if r.get("PropertyName") == "Actor Values" and "Luck" in (r.get("Value1") or ""):
+                under[omod_name.get(e) or e] = {"v": fnum(r.get("Value2")), "minLining": 0, "omod": e}
+    if not under: warn("no underarmour style with Luck")
     ordeal = [m for m, c in spel_luck("GHL_AbPerkUnitedOrdeal")]
     crus = None
     for mag, c in spel_luck("P62_Legendary_Armor_CrusadersSPECIALSpell"):
@@ -211,9 +319,14 @@ def main():
         warn(f"food buff data not read ({e})"); party = None
     items.sort(key=lambda x: (x["t"], -(x["v"] or 0), x["n"]))
 
+    # ---- crit damage (Kat 4 Nov: second tab) -------------------------------------------
+    # Every piece is a file number; HOW they add up (weapon mult vs the "Mod My Critical Hit
+    # Damage Mult" adds) is server-side -> dev question, so the page shows pieces, no total.
+    crit = build_crit(src, spel, ep, omod, omod_name, gl, rows, fnum, warn)
+
     out = {"version": 1, "generated": datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
            "page": {"path": "/bnb/calculators/vats-crit-luck-calculator/", "title": "VATS Crit & Luck Calculator"},
-           "meter": meter, "luck": luck, "items": items, "partyBoy": party, "defaults": rules.get("defaults", {}),
+           "meter": meter, "luck": luck, "crit": crit, "items": items, "partyBoy": party, "defaults": rules.get("defaults", {}),
            "sources": {k: os.path.basename(v) for k, v in src.items()}, "warnings": WARN}
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, "w", encoding="utf-8") as f:
