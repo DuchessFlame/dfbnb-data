@@ -16,8 +16,11 @@ How the pieces combine (STAT_DamagePerk / STAT_DamageVsPerk add into one Damage
 Bonus total, STAT_CritDamagePerk adds into the crit mult, Mod Weapon Attack Damage
 multiplies) is written up in the project doc "Food Buff Calculator - next thread
 prompt.md". The crit meter and crit damage maths themselves run on Bethesda's
-servers (no PC code reads fVATSCritical* / fCriticalDamageMult), so the share of
-crits is: meter per hit / (meter per hit + meter per crit).
+servers (no PC code reads fVATSCritical* / fCriticalDamageMult).
+Crit meter (Kat 5 Nov 2026, matches the community crit table - same rule as the VATS Crit &
+Luck Calculator): meter per hit = Luck curve + GMST fVATSCriticalChargeBase + the weapon's
+CRDT_CritChargeBonus; the crit shot adds nothing, so a crit comes every
+ceil(cost / meter per hit) + 1 shots and the share of crits is 1 / that.
 """
 from __future__ import annotations
 import csv, glob, os, re
@@ -91,7 +94,9 @@ def damage_mechanics(rules, data_dir, warn=print):
     for b in (dm.get("builds") or {}).values():
         want.update((b.get("weapons") or {}).values())
     want.update((dm.get("weapon_option") or {}).values())
-    crit = {r["WEAP_EDID"]: _f(r.get("CRDT_CritDamageMult")) for r in _rows(p["dnam"]) if r.get("WEAP_EDID") in want}
+    dn = [r for r in _rows(p["dnam"]) if r.get("WEAP_EDID") in want]
+    crit = {r["WEAP_EDID"]: _f(r.get("CRDT_CritDamageMult")) for r in dn}
+    charge = {r["WEAP_EDID"]: _f(r.get("CRDT_CritChargeBonus")) for r in dn}
     weapons = {}
     for r in _rows(p["base"]):
         e = r.get("WEAP_EDID")
@@ -99,7 +104,8 @@ def damage_mechanics(rules, data_dir, warn=print):
             continue
         kw = r.get("Keywords") or ""
         tags = sorted(set(re.findall(r"WeaponType(\w+)(?: \"[^\"]*\")? \[KYWD", kw)))
-        weapons[e] = {"n": r.get("WEAP_FULL") or e, "crit": crit.get(e) or 2.0, "tags": tags}
+        weapons[e] = {"n": r.get("WEAP_FULL") or e, "crit": crit.get(e) or 2.0,
+                      "charge": charge.get(e) or 0.0, "tags": tags}
     for e in sorted(want - set(weapons)):
         warn(f"damage model: weapon {e} not in the WEAP export")
 
@@ -171,6 +177,7 @@ def damage_mechanics(rules, data_dir, warn=print):
         "scale": dm.get("scale", 10),
         "luck": dm.get("luck", 15),
         "luckCurve": sorted(luck or []),
+        "critBase": gm.get("fVATSCriticalChargeBase") or 0,
         "critCost": ep_value(dm.get("crit_cost_perk", "CriticalSavvy03"), "Mod VATS Critical Cost") or 100,
         "betterCrit": ep_value(dm.get("crit_bonus_perk", "BetterCriticals03"), "Mod My Critical Hit Damage Mult") or 0,
         "allBuilds": cards(dm.get("all_builds")),

@@ -1,0 +1,1292 @@
+{
+ "_generated_by": "src/build_bugged_plans_json.py",
+ "generated": "2026-11-05",
+ "channel": "live",
+ "exports": {
+  "WEAP": "WEAP_Export_October_2026_Base.tsv",
+  "ARMO": "ARMO_Export_October_2026_ARMOUR.tsv",
+  "OMOD": "OMOD_Export_October_2026.tsv",
+  "BOOK": "BOOK_Export_October_2026.tsv",
+  "GMRW": "GMRW_Export_October_2026.tsv",
+  "COBJ": "COBJ_Export_October_2026.tsv",
+  "CNDF": "CNDF_Export_October_2026.tsv",
+  "LVLI_List": "LVLI_Export_October_2026_LVLI_List.tsv",
+  "LVLI_Entries": "LVLI_Export_October_2026_LVLI_Entries.tsv",
+  "LVLI_Refs": "LVLI_Export_October_2026_LVLI_Refs.tsv",
+  "PLYT": "PLYT_Export_October_2026.tsv",
+  "CMPT": "CMPT_Export_October_2026.tsv"
+ },
+ "stats": {
+  "lists_total": 10980,
+  "dead_entries_shadowed_switch": 6,
+  "dead_entries_never_rolls": 66,
+  "dead_entries_shadowed": 6,
+  "lists_live": 8580,
+  "plans_scanned": 2963,
+  "plans_cut": 308,
+  "plans_via_unreferenced_gmrw": 27,
+  "scrap_scanned": 863,
+  "titles_scanned": 493,
+  "titles_entitlement_or_default": 254,
+  "titles_skipped_cut_or_atom": 151,
+  "titles_checked": 52,
+  "moved_to_cut_content": 14,
+  "kat_unreleased": 67,
+  "kat_legacy_left_off": 1
+ },
+ "counts": {
+  "total": 3,
+  "broken_item": 3,
+  "conf_check": 2,
+  "conf_strong": 1,
+  "confirmed": 0,
+  "titles": 0,
+  "plans": 3,
+  "not_checked": 0,
+  "kat_bugged": 0,
+  "unreleased": 67
+ },
+ "sections": [
+  {
+   "key": "bugged",
+   "title": "Bugged",
+   "source": "items",
+   "blurb": "Plans the game files say are broken, plans the Duchess has confirmed are bugged, and plans with no known source that haven't been checked yet."
+  },
+  {
+   "key": "unreleased",
+   "title": "Unreleased / leftover content",
+   "source": "unreleased",
+   "blurb": "Plans that were never released. They're still in the game files, but nothing gives them out. This is leftover content that needs tidying up, not a player problem."
+  }
+ ],
+ "items": [
+  {
+   "id": "003E9FA7",
+   "name": "Recipe: Delbert's Delicious Deerskins",
+   "kind": "plan",
+   "severity": "broken_item",
+   "bugs": [
+    {
+     "kind": "no_recipe",
+     "title": "Teaches nothing",
+     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
+     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
+    }
+   ],
+   "still_from": [
+    "Back to School - Deerskins"
+   ],
+   "technical": {
+    "plan": {
+     "form_id": "003E9FA7",
+     "edid": "RSVP00_Book_Recipe05_Deerskins",
+     "type": "BOOK"
+    },
+    "recipes": [],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "004E8541",
+   "name": "Plan: Stone Fountain",
+   "kind": "plan",
+   "severity": "broken_item",
+   "bugs": [
+    {
+     "kind": "no_recipe",
+     "title": "Teaches nothing",
+     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
+     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
+    }
+   ],
+   "still_from": [
+    "Daily: A Better Tomorrow",
+    "SPOTLIGHT Workshop",
+    "Whitespring Art Gallery vendor",
+    "Workshop",
+    "Workshop Common"
+   ],
+   "technical": {
+    "plan": {
+     "form_id": "004E8541",
+     "edid": "Recipe_Workshop_FloorDecor_Statues_Fountain01",
+     "type": "BOOK"
+    },
+    "recipes": [],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "005D0F04",
+   "name": "Plan: The Gutter",
+   "kind": "plan",
+   "severity": "broken_item",
+   "bugs": [
+    {
+     "kind": "wrong_item",
+     "strong": true,
+     "title": "Teaches the wrong item",
+     "records": [
+      {
+       "form_id": "005D9D18",
+       "edid": "co_Weapon_Melee_DLC01_AssaultronBlade_TheGutter",
+       "type": "COBJ"
+      },
+      {
+       "form_id": "0047B7F2",
+       "edid": "_DELETE_Note",
+       "type": "BOOK"
+      },
+      {
+       "form_id": "005E6F9E",
+       "edid": "DLC01_AssaultronBlade_TheGutter",
+       "type": "WEAP"
+      },
+      {
+       "form_id": "005DAE95",
+       "edid": "co_mod_AssaultronBlade_Weapon_Paint_TheGutter",
+       "type": "COBJ"
+      }
+     ],
+     "should_teach": "The Gutter",
+     "teaches": "The Gutter Paint",
+     "old_recipe": "co_Weapon_Melee_DLC01_AssaultronBlade_TheGutter",
+     "stale_checks": [
+      "DailyOps_AllChaseRareRecipesKnown_Condition",
+      "MPE_AllChaseUltraRareRecipesKnown_Condition"
+     ],
+     "summary": "Reading this plan should let you craft The Gutter, but it unlocks The Gutter Paint instead.",
+     "detail": "This plan should teach you to craft The Gutter, but it teaches The Gutter Paint instead. The Gutter's own crafting recipe (co_Weapon_Melee_DLC01_AssaultronBlade_TheGutter) was left behind: it no longer makes anything and it is unlocked by a deleted record (_DELETE_Note), so there is no way to learn to craft The Gutter. These game checks still look for that old recipe, so they can never pass: DailyOps_AllChaseRareRecipesKnown_Condition, MPE_AllChaseUltraRareRecipesKnown_Condition."
+    }
+   ],
+   "still_from": [
+    "Daily Ops - High Chase Rare",
+    "Minerva (Gold Bullion vendor)",
+    "Mutated Public Events - Ultra Rare Plans"
+   ],
+   "technical": {
+    "plan": {
+     "form_id": "005D0F04",
+     "edid": "Recipe_Weapon_Melee_AssaultronBlade_TheGutter",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "005DAE95",
+      "edid": "co_mod_AssaultronBlade_Weapon_Paint_TheGutter",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "005D982A",
+      "edid": "mod_AssaultronBlade_Weapon_Paint_TheGutter",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "strong",
+   "confirmed": false,
+   "first_seen": "2026-10-25",
+   "is_new": false,
+   "report": {
+    "title": "Plan: The Gutter teaches The Gutter Paint instead of the crafting recipe for The Gutter",
+    "description": "This plan should teach you to craft The Gutter, but it teaches The Gutter Paint instead. The Gutter's own crafting recipe (co_Weapon_Melee_DLC01_AssaultronBlade_TheGutter) was left behind: it no longer makes anything and it is unlocked by a deleted record (_DELETE_Note), so there is no way to learn to craft The Gutter. These game checks still look for that old recipe, so they can never pass: DailyOps_AllChaseRareRecipesKnown_Condition, MPE_AllChaseUltraRareRecipesKnown_Condition.",
+    "steps": "1. Get Plan: The Gutter (Daily Ops - High Chase Rare / Minerva (Gold Bullion vendor) / Mutated Public Events - Ultra Rare Plans)\n2. Learn the plan\n3. Go to a Weapons Workbench and look for The Gutter",
+    "expected": "Learning Plan: The Gutter unlocks crafting The Gutter.",
+    "actual": "It unlocks The Gutter Paint. The Gutter can't be crafted, and there is no other way to learn it.",
+    "dept": "System Design",
+    "cause": "The plan's recipe was switched to The Gutter Paint. The Gutter's own recipe (co_Weapon_Melee_DLC01_AssaultronBlade_TheGutter) now makes nothing and is unlocked by a deleted record. Pointing the plan back at the recipe for The Gutter should fix it. These condition forms still check the old recipe, so they can never pass for anyone: DailyOps_AllChaseRareRecipesKnown_Condition, MPE_AllChaseUltraRareRecipesKnown_Condition.\n\nRecords: Recipe_Weapon_Melee_AssaultronBlade_TheGutter [BOOK:005D0F04], co_Weapon_Melee_DLC01_AssaultronBlade_TheGutter [COBJ:005D9D18], _DELETE_Note [BOOK:0047B7F2], DLC01_AssaultronBlade_TheGutter [WEAP:005E6F9E], co_mod_AssaultronBlade_Weapon_Paint_TheGutter [COBJ:005DAE95]",
+    "filename": "bethesda-bug-report-the-gutter-wrong-item.txt"
+   }
+  }
+ ],
+ "unreleased": [
+  {
+   "id": "003F4769",
+   "name": "Plan: Alpine Horn",
+   "edid": "Recipe_Workshop_FloorDecor_Fasnacht_AlpineHorn",
+   "note": "the item was later sold in the Atom Shop",
+   "decided": "2026-11-03",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "007F5441",
+   "name": "Plan: Arena Champ Photopose",
+   "edid": "Burn_Workshop_Recipe_DeathclawTamingPhotopose",
+   "note": "",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "006369B8",
+   "name": "Plan: Atom Cats Leather Armor Paint",
+   "edid": "Recipe_mod_armor_Leather_Material_Paint_AtomCats_NW",
+   "note": "only on a Minerva list that was never used; the paint was a Nuclear Winter reward",
+   "decided": "2026-11-03",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "006B2E79",
+   "name": "Plan: Beast of Beckley Poster",
+   "edid": "Moon_Recipe_Workshop_StandalonePoster_Beast",
+   "note": "the poster was later released as a Season 13 Scoreboard reward",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "006B2E78",
+   "name": "Plan: Blue Devil Poster",
+   "edid": "Moon_Recipe_Workshop_StandalonePoster_BlueDevil",
+   "note": "the poster was later released as a Season 13 Scoreboard reward",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "0083E70B",
+   "name": "Plan: Bogey Plushie",
+   "edid": "BURN_Workshop_Recipe_DinoGolfPlushie",
+   "note": "never released as a plan",
+   "decided": "2026-10-31",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "006369C3",
+   "name": "Plan: BOS Combat Armor Paint",
+   "edid": "Recipe_mod_armor_Combat_Material_Paint_BOS_NW",
+   "note": "only on a Minerva list that was never used; the paint was a Nuclear Winter reward",
+   "decided": "2026-11-03",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "006369BD",
+   "name": "Plan: BOS Leather Armor Paint",
+   "edid": "Recipe_mod_armor_Leather_Material_Paint_BOS_NW",
+   "note": "only on a Minerva list that was never used; the paint was a Nuclear Winter reward",
+   "decided": "2026-11-03",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "005D0F08",
+   "name": "Plan: Bubble Turret",
+   "edid": "Recipe_Workshop_DefensiveStructures_BubbleTurret",
+   "note": "nothing has given it out since at least March 2026",
+   "decided": "2026-10-31",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "0072BC1A",
+   "name": "Plan: C.A.M.P. Certification",
+   "edid": "NPE_Recipe_Workshop_CAMPCertification",
+   "note": "",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "006369BB",
+   "name": "Plan: Camouflage Gauss Shotgun Paint",
+   "edid": "Recipe_mod_GaussShotgun_Material_Paint_SurvivorsPaint_Survivors2020_NW",
+   "note": "only on a Minerva list that was never used; the paint was a Nuclear Winter reward",
+   "decided": "2026-11-03",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "0069759E",
+   "name": "Plan: Card Display Case",
+   "edid": "MOON_General_Workshop_Recipe_CardFrame",
+   "note": "the item was later released as a Season 13 Scoreboard reward",
+   "decided": "2026-11-03",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "00182F4E",
+   "name": "Plan: Chainsaw Flamer",
+   "edid": "recipe_mod_Chainsaw_Flamer",
+   "note": "only in a test chest in the game files",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "00802193",
+   "name": "Plan: Chaos Engine",
+   "edid": "P62_Recipe_Weapon_Ranged_ChaosEngine",
+   "note": "",
+   "decided": "2026-11-03",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "0073BF8C",
+   "name": "Plan: Corrupted Handmade Skin",
+   "edid": "Recipe_mod_Handmade_Material_Paint_Corrupted",
+   "note": "rereleased as Plan: Shattered Grounds Handmade Paint from Regs",
+   "decided": "2026-11-03",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "007FFFDA",
+   "name": "Plan: Crackler Grenade",
+   "edid": "P62_Recipe_Tinkers_Grenade_Crackler",
+   "note": "",
+   "decided": "2026-11-03",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "0083E70A",
+   "name": "Plan: Deathclaw Plushie",
+   "edid": "BURN_Workshop_Recipe_DeathclawPlushie",
+   "note": "never released as a plan",
+   "decided": "2026-10-31",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "00833B24",
+   "name": "Plan: Dino Diner Sign",
+   "edid": "Burn_Workshop_Recipe_DinoDinerSign",
+   "note": "rereleased as Dino Golf Diner Sign from the Season 23 Scoreboard",
+   "decided": "2026-11-03",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "007F5AF2",
+   "name": "Plan: Dino Golf Info Board",
+   "edid": "Burn_Workshop_Recipe_DinoInfoBoard",
+   "note": "the item was later released as a Season 23 Scoreboard reward",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "007FDC35",
+   "name": "Plan: Dino Golf Rope Fence",
+   "edid": "Burn_Workshop_Recipe_DinoGolfFence",
+   "note": "rereleased as Dino Golf Fence Set from the Season 23 Scoreboard",
+   "decided": "2026-11-03",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "007F543F",
+   "name": "Plan: Dino Peak Bogey Shirt",
+   "edid": "Burn_Workshop_Recipe_DinoTshirt01",
+   "note": "rereleased as Dino Peak Bogey Shirt from the Season 23 Scoreboard",
+   "decided": "2026-11-03",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "007F2666",
+   "name": "Plan: Dino Peak Trashcan",
+   "edid": "Burn_Workshop_Recipe_DinoEggBin",
+   "note": "rereleased as Dino Bins and Empty Dino Bins from the Season 23 Scoreboard",
+   "decided": "2026-11-03",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "007F5AF4",
+   "name": "Plan: Dino Peaks Entrance Sign",
+   "edid": "Burn_Workshop_Recipe_DinoEntranceSign",
+   "note": "the item was later released as a Season 23 Scoreboard reward",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "007F5440",
+   "name": "Plan: Dino Theme T-Shirt 2",
+   "edid": "Burn_Workshop_Recipe_DinoTshirt02",
+   "note": "rereleased as Ace the Tee Rex Shirt from the Season 23 Scoreboard",
+   "decided": "2026-11-04",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "003D6501",
+   "name": "Plan: Display Cases",
+   "edid": "Recipe_Workshop_Shelves_WksDisplayCaseWood",
+   "note": "only in a test chest in the game files",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "007FDC37",
+   "name": "Plan: Drive-In UFO Sculpture",
+   "edid": "Burn_Workshop_Recipe_DriveInStatue",
+   "note": "the item was later released as a Season 24 Scoreboard reward",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "007B9272",
+   "name": "Plan: Fish Display Hooks",
+   "edid": "Fishing_Workshop_Recipe_FishDisplay_Hooks",
+   "note": "the item was later released as a Season 21 Scoreboard reward",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "006B2E7A",
+   "name": "Plan: Flatwoods Monster Poster",
+   "edid": "Moon_Recipe_Workshop_StandalonePoster_Flatwoods",
+   "note": "the poster was later released as a Season 13 Scoreboard reward",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "006B2E7B",
+   "name": "Plan: Grafton Monster Poster",
+   "edid": "Moon_Recipe_Workshop_StandalonePoster_Grafton",
+   "note": "the poster was later released as a Season 13 Scoreboard reward",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "006B2E7C",
+   "name": "Plan: Jersey Devil Poster",
+   "edid": "Moon_Recipe_Workshop_StandalonePoster_Jersey",
+   "note": "the poster was later released as a Season 13 Scoreboard reward",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "008591ED",
+   "name": "Plan: Loveland Frog Plushie",
+   "edid": "BURN_Workshop_Recipe_LovelandFrogPlushie",
+   "note": "never released",
+   "decided": "2026-10-31",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "0082BB81",
+   "name": "Plan: Marshal Mallow Rod",
+   "edid": "Fishing_Recipe_mod_FishingRod_RodBase01_MarshalMallowRod",
+   "note": "the item was later released as a 2025 mini-season Scoreboard reward (Marshal Mallow Fishing Rod Paint)",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "00748755",
+   "name": "Plan: Moe the Mole Plushie",
+   "edid": "Storm_Recipe_Workshop_FloorDecor_MoetheMole_Plushie",
+   "note": "the item was later sold in the Skyline Valley Lost Treasures bundle (June 2024)",
+   "decided": "2026-11-02",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "006B2E7D",
+   "name": "Plan: Mothman Poster",
+   "edid": "Moon_Recipe_Workshop_StandalonePoster_Mothman",
+   "note": "the poster was later released as a Season 13 Scoreboard reward",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "004E9FDD",
+   "name": "Plan: Mounted Mirelurk Queen Claw",
+   "edid": "Recipe_Workshop_WallDecor_Taxidermy_MirelurkQueen",
+   "note": "",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "00770816",
+   "name": "Plan: Nature Trail Sign Dinosaur Footprints",
+   "edid": "Storm_Recipe_Workshop_FloorDecor_WildLifeSign07",
+   "note": "never added to any reward list (signs 01/03/04/08 drop from Dangerous Pastimes)",
+   "decided": "2026-10-31",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "00770819",
+   "name": "Plan: Nature Trail Sign Natural Bridge",
+   "edid": "Storm_Recipe_Workshop_FloorDecor_WildLifeSign06",
+   "note": "never added to any reward list (signs 01/03/04/08 drop from Dangerous Pastimes)",
+   "decided": "2026-10-31",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "00770814",
+   "name": "Plan: Nature Trail Sign Steel Jack",
+   "edid": "Storm_Recipe_Workshop_FloorDecor_WildLifeSign02",
+   "note": "never added to any reward list (signs 01/03/04/08 drop from Dangerous Pastimes)",
+   "decided": "2026-10-31",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "0077081A",
+   "name": "Plan: Nature Trail Sign Water Features",
+   "edid": "Storm_Recipe_Workshop_FloorDecor_WildLifeSign05",
+   "note": "never added to any reward list (signs 01/03/04/08 drop from Dangerous Pastimes)",
+   "decided": "2026-10-31",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "006B2E7E",
+   "name": "Plan: Ogua Poster",
+   "edid": "Moon_Recipe_Workshop_StandalonePoster_Ogua",
+   "note": "the poster was later released as a Season 13 Scoreboard reward",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "0086DBE5",
+   "name": "Plan: Plasma Caster Automatic Barrel",
+   "edid": "recipe_mod_PlasmaCaster_Barrel_Auto",
+   "note": "",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "0086DBE7",
+   "name": "Plan: Plasma Caster Gamma Wave Emitter",
+   "edid": "recipe_mod_PlasmaCaster_Receiver_Burning",
+   "note": "",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "00590FC5",
+   "name": "Plan: Plasma Caster Short Scope",
+   "edid": "recipe_mod_PlasmaCaster_SCOPE_ShortScope",
+   "note": "",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "0086DBE6",
+   "name": "Plan: Plasma Caster Splitter Barrel",
+   "edid": "recipe_mod_PlasmaCaster_Barrel_Splitter",
+   "note": "",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "003F1215",
+   "name": "Plan: ProSnap Deluxe Targeting Lens",
+   "edid": "Recipe_Mod_Camera_SnapMatic_Lens_Targeting",
+   "note": "",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "007F5AF3",
+   "name": "Plan: Rust Kingdom Gateway",
+   "edid": "Burn_Workshop_Recipe_DeathclawSkullEntrance",
+   "note": "never released as a plan",
+   "decided": "2026-10-31",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "0078C78C",
+   "name": "Plan: Rusty Saxophone",
+   "edid": "MILE_Workshop_Recipie_Saxophone",
+   "note": "",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "007FFEF4",
+   "name": "Plan: Secret Settler Chest Piece",
+   "edid": "P62_Recipe_Armor_SecretServiceDrifter_Torso",
+   "note": "",
+   "decided": "2026-11-03",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "007FFEF0",
+   "name": "Plan: Secret Settler Helmet",
+   "edid": "P62_Recipe_Armor_SecretServiceDrifter_Helmet",
+   "note": "",
+   "decided": "2026-11-03",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "007FFEF2",
+   "name": "Plan: Secret Settler Left Arm",
+   "edid": "P62_Recipe_Armor_SecretServiceDrifter_ArmLeft",
+   "note": "",
+   "decided": "2026-11-03",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "007FFEEF",
+   "name": "Plan: Secret Settler Left Leg",
+   "edid": "P62_Recipe_Armor_SecretServiceDrifter_LegLeft",
+   "note": "",
+   "decided": "2026-11-03",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "007FFEF3",
+   "name": "Plan: Secret Settler Right Arm",
+   "edid": "P62_Recipe_Armor_SecretServiceDrifter_ArmRight",
+   "note": "",
+   "decided": "2026-11-03",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "007FFEF1",
+   "name": "Plan: Secret Settler Right Leg",
+   "edid": "P62_Recipe_Armor_SecretServiceDrifter_LegRight",
+   "note": "",
+   "decided": "2026-11-03",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "00467FC0",
+   "name": "Plan: Smoke Grenade",
+   "edid": "Recipe_Weapon_Thrown_SmokeGrenade",
+   "note": "",
+   "decided": "2026-10-31",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "00802194",
+   "name": "Plan: Splinter",
+   "edid": "P62_Recipe_Weapon_Ranged_Splinter",
+   "note": "",
+   "decided": "2026-11-03",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "007FDC36",
+   "name": "Plan: Starlight Drive-In Marquee",
+   "edid": "Burn_Workshop_Recipe_DriveInSign",
+   "note": "never released as a plan; the sign is a Season 24 Scoreboard item",
+   "decided": "2026-10-31",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "0077082F",
+   "name": "Plan: Steel Jack Statue",
+   "edid": "Storm_Recipe_Workshop_FloorDecor_SteelJackStatue",
+   "note": "the Steel Jack statues trail is an unmarked questline with no reward or plan at the end; none of its six loot spots holds the plan",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "00833F55",
+   "name": "Plan: Super Duper Mart Sign",
+   "edid": "BURN_Workshop_Recipe_RetailParkSign",
+   "note": "never released as a plan",
+   "decided": "2026-10-31",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "0055549A",
+   "name": "Plan: Super Mutant BBQ Grill",
+   "edid": "Recipe_Workshop_FloorDecor_Misc_MeatWeek_BBQGrill",
+   "note": "",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "00556F1D",
+   "name": "Plan: Super Mutant Grill",
+   "edid": "Recipe_Workshop_Appliances_Grill_SuperMutant",
+   "note": "",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "00501911",
+   "name": "Plan: T-51b Winterized Coating",
+   "edid": "recipe_mod_PowerArmor_T51_Material_Paint_Winterized",
+   "note": "only in a test chest in the game files",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "00802192",
+   "name": "Plan: Tempest",
+   "edid": "P62_Recipe_Weapon_Melee_Tempest",
+   "note": "",
+   "decided": "2026-11-03",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "007284E7",
+   "name": "Plan: Tesla Rifle Lobber Barrel",
+   "edid": "recipe_DLC01_mod_LightningGun_Barrel_Lobber",
+   "note": "",
+   "decided": "2026-10-31",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "006A044F",
+   "name": "Plan: Turkey Plushie",
+   "edid": "Storm_Recipe_Workshop_FloorDecor_Turkey_Plushie",
+   "note": "",
+   "decided": "2026-11-01",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "00749CD2",
+   "name": "Plan: Vault 63 Door Display",
+   "edid": "Storm_Recipe_Workshop_FloorDecor_Vault63Door",
+   "note": "the item was later sold in the Skyline Valley Lost Treasures bundle (June 2024)",
+   "decided": "2026-11-02",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "003F446B",
+   "name": "Recipe: Firecracker Whiskey Manhattan",
+   "edid": "Recipe_Brewing_FirecrackerWhiskey_Manhattan",
+   "note": "",
+   "decided": "2026-11-02",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  },
+  {
+   "id": "003F446C",
+   "name": "Recipe: Firecracker Whiskey Old Fashioned",
+   "edid": "Recipe_Brewing_FirecrackerWhiskey_OldFashioned",
+   "note": "",
+   "decided": "2026-11-02",
+   "by": "Duchess",
+   "in_files": true,
+   "cut_in_files": false
+  }
+ ],
+ "parked_lists": [
+  {
+   "list": {
+    "form_id": "00618512",
+    "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog",
+    "type": "LVLI"
+   },
+   "source": "Minerva (Gold Bullion vendor)",
+   "plans": [
+    "Plan: Ammo Converter"
+   ]
+  },
+  {
+   "list": {
+    "form_id": "0063671E",
+    "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog_02",
+    "type": "LVLI"
+   },
+   "source": "Minerva (Gold Bullion vendor)",
+   "plans": [
+    "Plan: 10mm Halloween Paint",
+    "Plan: Antler Chandelier",
+    "Plan: Assault Rifle Bat Paint",
+    "Plan: Atom Cats Leather Armor Paint",
+    "Plan: BOS Combat Armor Paint",
+    "Plan: BOS Leather Armor Paint",
+    "Plan: Camouflage Gauss Shotgun Paint",
+    "Plan: Combat Armor Jack O' Lantern Paint",
+    "Plan: Combat Rifle Jack O' Lantern Paint",
+    "Plan: Fur-lined Jacket and Jeans",
+    "Plan: Ghillie Suit",
+    "Plan: Ghillie Suit Hood",
+    "Plan: Glowing Skeleton Costume",
+    "Plan: Glowing Skeleton Hood",
+    "Plan: Holiday Tree",
+    "Plan: Holiday Wreath",
+    "Plan: Hot Rod Flames Gatling Laser Paint",
+    "Plan: Hunting Rifle Wrapping Paper Paint",
+    "Plan: Marine Camouflage Gatling Laser Paint",
+    "Plan: Marine Camouflage Leather Armor Paint",
+    "Plan: Metal Armor Snowflakes Paint",
+    "Plan: Minigun Bats Paint",
+    "Plan: Nuclear Winter Beanie",
+    "Plan: Nuclear Winter Letterman Jacket",
+    "Plan: Nuclear Winter Tracksuit",
+    "Plan: Ring of Fire Pit",
+    "Plan: Shi Leather Armor Paint",
+    "Plan: Survivor's Bow Skin",
+    "Plan: Survivor's Cattle Prod Skin",
+    "Plan: Survivors Denim Underarmor",
+    "Plan: Vault-Tec University Diploma",
+    "Plan: Vault-Tec University Pennant",
+    "Plan: Vault-Tec University Poster",
+    "Plan: Wasteland Loveseat",
+    "Plan: Wrapped Presents"
+   ]
+  }
+ ],
+ "fixed": [
+  {
+   "id": "0068B8F0",
+   "name": "Recipe: Brahmin Burgers",
+   "fixed_on": "2026-10-22"
+  },
+  {
+   "id": "0068B8F1",
+   "name": "Recipe: Caramel Mutfruit",
+   "fixed_on": "2026-10-22"
+  },
+  {
+   "id": "0068B8F2",
+   "name": "Recipe: Carnival Pie",
+   "fixed_on": "2026-10-22"
+  },
+  {
+   "id": "0065DD0A",
+   "name": "Plan: Cupid Cappy Sign",
+   "fixed_on": "2026-10-22"
+  },
+  {
+   "id": "0068B8EE",
+   "name": "Recipe: Fried Radroach On A Stick",
+   "fixed_on": "2026-10-22"
+  },
+  {
+   "id": "0068B8EF",
+   "name": "Recipe: Fried Scorpion On A Stick",
+   "fixed_on": "2026-10-22"
+  },
+  {
+   "id": "0068B8ED",
+   "name": "Recipe: Gulper Stuffed Foot",
+   "fixed_on": "2026-10-22"
+  },
+  {
+   "id": "008F20F0",
+   "name": "Plan: Love Tap Paint",
+   "fixed_on": "2026-10-22"
+  },
+  {
+   "id": "0068B8EB",
+   "name": "Recipe: Nuka-Dog",
+   "fixed_on": "2026-10-22"
+  },
+  {
+   "id": "0068B8F3",
+   "name": "Recipe: Radscorpion Kebab",
+   "fixed_on": "2026-10-22"
+  },
+  {
+   "id": "00682118",
+   "name": "Plan: Tunnel of Love Poster",
+   "fixed_on": "2026-10-22"
+  },
+  {
+   "id": "0067F169",
+   "name": "Plan: Tunnel of Love Snow Globe",
+   "fixed_on": "2026-10-22"
+  },
+  {
+   "id": "0068B8EC",
+   "name": "Recipe: Yao Guai Pastry",
+   "fixed_on": "2026-10-22"
+  },
+  {
+   "id": "00796709",
+   "name": "Plan: Axel's Snow Globe",
+   "fixed_on": "2026-10-21"
+  },
+  {
+   "id": "00767AC7",
+   "name": "Plan: Deathclaw Head Backpack",
+   "fixed_on": "2026-10-21"
+  },
+  {
+   "id": "00745090",
+   "name": "Plan: Deathclaw Skin Outfit",
+   "fixed_on": "2026-10-21"
+  },
+  {
+   "id": "008BA7E8",
+   "name": "Plan: Dom Pedro",
+   "fixed_on": "2026-10-21"
+  },
+  {
+   "id": "008BA7E3",
+   "name": "Plan: Dom Pedro Explosive Mods",
+   "fixed_on": "2026-10-21"
+  },
+  {
+   "id": "008BA7E4",
+   "name": "Plan: Dom Pedro Grip Mods",
+   "fixed_on": "2026-10-21"
+  },
+  {
+   "id": "008BA7E5",
+   "name": "Plan: Dom Pedro Magazine Mods",
+   "fixed_on": "2026-10-21"
+  },
+  {
+   "id": "008BA7E6",
+   "name": "Plan: Dom Pedro Receiver Mods",
+   "fixed_on": "2026-10-21"
+  },
+  {
+   "id": "008BA7E7",
+   "name": "Plan: Dom Pedro Sight Mods",
+   "fixed_on": "2026-10-21"
+  },
+  {
+   "id": "008BA7E9",
+   "name": "Plan: Dom Pedro Stock 1 Mods",
+   "fixed_on": "2026-10-21"
+  },
+  {
+   "id": "008BA7EA",
+   "name": "Plan: Dom Pedro Stock 2 Mods",
+   "fixed_on": "2026-10-21"
+  },
+  {
+   "id": "00773A31",
+   "name": "Plan: Gulper Plushie",
+   "fixed_on": "2026-10-21"
+  },
+  {
+   "id": "007734F1",
+   "name": "Plan: Gulper Skin Hood",
+   "fixed_on": "2026-10-21"
+  },
+  {
+   "id": "007734F2",
+   "name": "Plan: Gulper Skin Outfit",
+   "fixed_on": "2026-10-21"
+  },
+  {
+   "id": "0076DE20",
+   "name": "Plan: Hunter's Hanbok Outfit",
+   "fixed_on": "2026-10-21"
+  },
+  {
+   "id": "007734F3",
+   "name": "Plan: Ogua Shell Throne",
+   "fixed_on": "2026-10-21"
+  },
+  {
+   "id": "007525E8",
+   "name": "Plan: Pheasant Foot Backpack Flair",
+   "fixed_on": "2026-10-21"
+  },
+  {
+   "id": "0079670E",
+   "name": "Plan: Windy's Snow Globe",
+   "fixed_on": "2026-10-21"
+  },
+  {
+   "id": "0040DF45",
+   "name": "Plan: Deer Skull",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "00435856",
+   "name": "Plan: Mounted Antlers",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "0043585F",
+   "name": "Plan: Mounted Beaver",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "004E9FF1",
+   "name": "Plan: Mounted Brahmin Heads",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "004E9FE9",
+   "name": "Plan: Mounted Cat Head",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "004E9FFB",
+   "name": "Plan: Mounted Deathclaw Head",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "00435857",
+   "name": "Plan: Mounted Deer Head",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "004E9FD4",
+   "name": "Plan: Mounted Dog Head",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "004E9FF3",
+   "name": "Plan: Mounted Feral Ghoul Head",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "00435859",
+   "name": "Plan: Mounted Fox",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "00435860",
+   "name": "Plan: Mounted Frog",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "004E9FF7",
+   "name": "Plan: Mounted Glowing One Head",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "0040DF43",
+   "name": "Plan: Mounted Gorilla Head",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "0043585A",
+   "name": "Plan: Mounted Honey Beast",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "004E9FFD",
+   "name": "Plan: Mounted Mirelurk Claw",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "004E9FF9",
+   "name": "Plan: Mounted Mirelurk Hunter Head",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "004E9FDB",
+   "name": "Plan: Mounted Mirelurk King Head",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "004E9FEB",
+   "name": "Plan: Mounted Molerat Head",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "004E9FDF",
+   "name": "Plan: Mounted Mongrel Head",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "0043585C",
+   "name": "Plan: Mounted Mothman",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "004E9FF5",
+   "name": "Plan: Mounted Mutant Hound Head",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "0043585D",
+   "name": "Plan: Mounted Opossum",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "004E9FE3",
+   "name": "Plan: Mounted Radscorpion",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "00435862",
+   "name": "Plan: Mounted Radtoad",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "00435863",
+   "name": "Plan: Mounted Scorchbeast",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "00435865",
+   "name": "Plan: Mounted Snallygaster",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "00435861",
+   "name": "Plan: Mounted Squirrel",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "00921E5B",
+   "name": "Plan: Resolve Breaker Paint",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "005AFDEE",
+   "name": "Plan: Sitting Gorilla",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "005AD986",
+   "name": "Plan: Standing Gorilla",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "0043585B",
+   "name": "Plan: Mounted Mega Sloth",
+   "fixed_on": "2026-10-06"
+  }
+ ],
+ "held_back": [],
+ "hidden_not_a_bug": 0,
+ "checklist_dead_routes": [],
+ "switched_off_starts": [
+  {
+   "quest": "Defeat The Drifter",
+   "quest_edid": "P62_TheDrifter_Quest",
+   "start_item": "Drifter Activation Card",
+   "start_item_edid": "P62_TheDrifter_Keycard",
+   "ways_out_switched_off": 10,
+   "switches": [
+    {
+     "glob": "P62_LCP_TheDrifter_KeycardChance_EventsGeneric",
+     "value": 0.0
+    },
+    {
+     "glob": "P62_LCP_TheDrifter_KeycardChance_EventsPublic",
+     "value": 0.0
+    },
+    {
+     "glob": "P62_LCP_TheDrifter_KeycardChance_Expeditions",
+     "value": 0.0
+    },
+    {
+     "glob": "P62_LCP_TheDrifter_KeycardChance_RAIDS",
+     "value": 0.0
+    },
+    {
+     "glob": "QuestLegendaryDropChance",
+     "value": 15.0
+    }
+   ],
+   "reward_records": 2,
+   "confirmed_cut": true,
+   "plan_routes": 92
+  }
+ ]
+}

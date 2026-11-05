@@ -122,7 +122,8 @@ RX_COND_ENTM = re.compile(r"HasEntitlement\(.*?\[ENTM:([0-9A-Fa-f]{8})\]")
 # An orphaned list whose EditorID says it is a holding pen is parked stock that
 # Bethesda never marked cut (e.g. Minerva's ..._GoldVendor_Backlog_02, 0 refs since
 # at least July 2026). Those are reported in their own "cut but not zzz'd" section,
-# never as a plan bug — the plan was retired, not broken.
+# never as a plan bug — the plan was retired, not broken. Only plans with no
+# other way in are reported; a parked copy of a plan that drops elsewhere is skipped.
 RX_PARKED = re.compile(r"backlog|(^|_)temp(_|$)|unused|placeholder", re.I)
 # A route whose lists top out at a list with no references at all: no vendor
 # chest, quest reward, NPC, container or placed object rolls it (see
@@ -653,7 +654,9 @@ class Scan:
             if dead_routes:
                 obtainable = bool(live_routes or proof or switch or alt)
                 severity = "route_broken" if obtainable else "unobtainable"
-                found = self.describe_dead(b, dead_routes)
+                # a parked list only reports plans whose ONLY source it is (Duchess,
+                # 5 Nov 2026): 20 of Minerva's 32 backlog plans drop live elsewhere
+                found = self.describe_dead(b, dead_routes, park=not obtainable)
                 if obtainable:
                     # an orphaned list next to a working route is legacy wiring, not a
                     # player-facing bug; only real roll defects are worth listing
@@ -767,13 +770,17 @@ class Scan:
                 out.append(re.sub(r"\(.*?\)", "", c).split()[0] if c.strip() else c)
         return out
 
-    def describe_dead(self, b, dead_routes, noun="plan"):
+    def describe_dead(self, b, dead_routes, noun="plan", park=True):
+        """park=False: the plan has another way in (a live route, an unlock, a
+        switched route or another way to learn), so a parked list that also holds
+        it is only a dead spare copy -- it is skipped, never reported."""
         bugs, seen = [], set()
         for dr in dead_routes:
             holder = self.lvli[dr["holder"]]
             for r in dr["reasons"]:
                 if r["kind"] == "orphan" and RX_PARKED.search(self.lvli[r["list"]]["edid"]):
-                    self.parked[r["list"]].add(b["fid"])
+                    if park:
+                        self.parked[r["list"]].add(b["fid"])
                     continue
                 if r["kind"] == "cut_source":
                     key = ("cut_source", r["source"])
@@ -952,7 +959,7 @@ class Scan:
                              "text": f"The title only unlocks once a recipe is learned, but that recipe "
                                      f"({', '.join(missing)}) isn't in the game files, so it can never unlock."})
             if dead_routes:
-                found = self.describe_dead({"fid": roll_id}, dead_routes, noun=noun)
+                found = self.describe_dead({"fid": roll_id}, dead_routes, noun=noun, park=not live_any)
                 if live_any:
                     found = [x for x in found if x["kind"] not in ("orphan", "cut_source")]
                 bugs.extend(found)
