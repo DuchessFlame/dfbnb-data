@@ -4,24 +4,42 @@
  "subtitle": "How to start {quest} in Skyline Valley, what Dr. Regina Marcs wants with all those brains, how the hand-ins and the finale work, and every reward for collecting all {total} Brains in Jars.",
  "intro": {
   "title": "How to Start {quest}",
-  "html": "<p>Brains in Jars are glass containers with a brain floating inside. There are <strong>{total}</strong> of them: {regions}. You don't need to do anything to start the quest. The first time you pick one up, your Pip-Boy picks up a signal with coordinates to a \"recall\" location and <strong>{quest}</strong> starts with the objective <em>Find the source of the signal</em>.</p><h4>Step 1 &ndash; Pick up any Brain in a Jar</h4><p>Any brain will do. Each jar makes a beeping noise that gets louder the closer you get, so listen out for it. If you want the closest one to a fast travel point, start with Brain in a Jar 1 at Three Ponds (see the location pages below).</p><h4>Step 2 &ndash; Follow the signal to Rapidan Camp</h4><p>The coordinates lead to <strong>Rapidan Camp</strong> in Skyline Valley, and specifically to the <strong>Brown House</strong>. Fast travel to Rapidan Camp, follow the quest marker to the Brown House and go inside.</p><h4>Step 3 &ndash; Speak to the Ghoul</h4><p>Inside is a Ghoul who isn't pleased to see you and warns you she's armed. Talk to her and she soon notices the brain jar you're carrying. She is <strong>Dr. Regina Marcs</strong>, and she's collecting the brains.</p><h4>Step 4 &ndash; Make the deal</h4><p>Hand over your brain and Marcs gives you a new weapon, the <strong>V63-Z Custom</strong>, a two-handed blade she calls \"very fancy chopping power\". She promises upgrades for it and recordings decoded from the brains if you keep bringing more. From here the objective is <em>Collect brains in jars</em>, then <em>Return brain jars to Marcs</em>.</p>",
-  "images": ["brain-in-a-jar", "start-pickup-brain", "start-brown-house", "start-meet-marcs", "start-v63z-custom"]
+  "html": "<p>Brains in Jars are glass containers with a brain floating inside. There are <strong>{total}</strong> of them: {regions}. You don't need to do anything to start the quest. The first time you pick one up, your Pip-Boy picks up a signal with coordinates to a \"recall\" location and <strong>{quest}</strong> starts with the objective <em>Find the source of the signal</em>.</p><h4>Step 1 &ndash; Pick up any Brain in a Jar</h4><p>Any brain will do. Each jar makes a beeping noise that gets louder the closer you get, so listen out for it, and at night the jars glow green, which makes them easier to spot in the dark. Pick one up and a message pops up: your Pip-Boy has registered a set of coordinates, some sort of recall signal. This also completes the lifetime challenge <em>Find your first Brain in a Jar</em>. If you want the closest one to a fast travel point, start with Brain in a Jar 1 at Three Ponds (see the location pages below).</p><h4>Step 2 &ndash; Follow the signal to Rapidan Camp</h4><p>The coordinates lead to <strong>Rapidan Camp</strong> in Skyline Valley, and specifically to the <strong>Brown House</strong>. Fast travel to Rapidan Camp, follow the quest marker to the Brown House and go inside.</p><h4>Step 3 &ndash; Speak to the Ghoul</h4><p>Inside is a Ghoul who isn't pleased to see you and warns you she's armed. Talk to her and she soon notices the brain jar you're carrying. She is <strong>Dr. Regina Marcs</strong>, and she's collecting the brains.</p><h4>Step 4 &ndash; Make the deal</h4><p>Hand over your brain and Marcs gives you a new weapon, the <strong>V63-Z Custom</strong>, a two-handed blade she calls \"very fancy chopping power\". She promises upgrades for it and recordings decoded from the brains if you keep bringing more. From here the objective is <em>Collect brains in jars</em>, then <em>Return brain jars to Marcs</em>.</p>",
+  "images": [
+   "brain-in-a-jar",
+   "start-take-brain",
+   "start-pickup-brain",
+   "start-quest-log",
+   "start-signal-map",
+   "start-brown-house",
+   "start-meet-marcs",
+   "start-v63z-custom"
+  ]
  },
  "sections": [
   {
    "title": "Handing In Brains to Dr. Marcs",
    "html": "<p>Marcs takes the brains in <strong>{batch_count}</strong> batches. Each batch is bigger than the last, and the quest objective shows how many you still need for the next one. Finishing the quest takes <strong>{quest_brains}</strong> brains in total, so you don't need all {total} for the quest itself.</p>{batch_table}<p>Every time you hand in a batch, Marcs pays you some caps and gives you a holotape she has decoded from the brains. There are {holotape_count} of these Scan holotapes in total, listed further down. Listen as you go: they tell the story of where the brains came from and what Marcs is really after.</p><p>Each brain you pick up is worth a base of <strong>{pickup_xp} XP</strong>. Brains in Jars can't be dropped, traded or sold.</p>",
-   "images": ["handin-give-brains", "handin-scan-holotape"]
+   "images": [
+    "handin-give-brains",
+    "handin-scan-holotape"
+   ]
   },
   {
    "title": "The Finale (spoilers)",
    "html": "<p>When you hand in the final batch, Marcs asks you to help her open a bunker hidden <strong>below the Brown House</strong>. She says the man inside may have gone feral, so expect a fight. You can say no and walk away with your rewards, but she makes it clear there's a bonus if you escort her down.</p><h4>Step 1 &ndash; Get the last tape</h4><p>Agree to help and Marcs gives you the last holotape she decoded. It's a set of song lyrics, and it's the key to the bunker.</p><h4>Step 2 &ndash; Follow Marcs downstairs</h4><p>Tell her you're ready and follow her down to the bunker door. Marcs says the password is <strong>565 characters long</strong>, the length of the song's lyrics without spaces or punctuation. She types it in for you and the door opens.</p><p>The password, if you want to see it:</p>{password_block}<h4>Step 3 &ndash; Find Iggy</h4><p>The man inside is <strong>Iggy Stolz</strong>, and he's already dead. Ask Marcs about it and the truth comes out: she shot him herself after he stole her weather machine plans, and he crawled down here before he died.</p><h4>Step 4 &ndash; Deal with Marcs</h4><p>Marcs wants to tie up loose ends, and you're one of them. The quest then turns into <em>Kill Marcs</em> or <em>Flee the Brown House</em>. Some answers in the conversation let you talk your way out of it; most end in a fight. Either way, finishing the quest pays <strong>{caps} caps</strong>, XP and a Skyline Valley loot roll.</p>",
-   "images": ["finale-bunker-door", "finale-iggy", "finale-marcs"]
+   "images": [
+    "finale-bunker-door",
+    "finale-iggy",
+    "finale-marcs"
+   ]
   },
   {
    "title": "The {camp_name} CAMP Item",
    "html": "<p>Finishing {quest} unlocks the <strong>{camp_name}</strong> for your CAMP. It costs {camp_cost}, and you can place up to 10 of them.</p>",
-   "images": ["camp-brain-jar"]
+   "images": [
+    "camp-brain-jar"
+   ]
   },
   {
    "title": "The Story Behind the Brains (spoilers)",
@@ -33,9 +51,15 @@
  "holotapes_html": "Marcs hands these over as she decodes the brains. In order:",
  "faq": {
   "title": "FAQ and Important Info",
-  "html": "<h4>Do I have to do the quest to get the lifetime rewards?</h4><p>No. The lifetime challenges count every brain you find, all the way to {total}. The quest only needs {quest_brains} brains handed in to Marcs.</p><h4>How much XP is each brain worth?</h4><p>A base of {pickup_xp} XP every time you pick one up.</p><h4>Can I give spare brains to a friend?</h4><p>No. Brains in Jars can't be dropped, traded or sold.</p><h4>Is there a way to find the brains without a guide?</h4><p>Yes. Every jar makes a beeping noise that gets louder the closer you get to it. Follow the beeping and you'll find it.</p><h4>Where do I start the route?</h4><p>At Three Ponds. The pages follow one route, so work through them in order. Each page tells you which fast travel point to start from.</p><p><em>This guide is built from the Public Test Server and is subject to change pending porting to live servers.</em></p>"
+  "html": "<h4>Do I have to do the quest to get the lifetime rewards?</h4><p>No. The lifetime challenges count every brain you find, all the way to {total}. The quest only needs {quest_brains} brains handed in to Marcs.</p><h4>How much XP is each brain worth?</h4><p>A base of {pickup_xp} XP every time you pick one up.</p><h4>Can I give spare brains to a friend?</h4><p>No. Brains in Jars can't be dropped, traded or sold.</p><h4>Is there a way to find the brains without a guide?</h4><p>Yes. Every jar makes a beeping noise that gets louder the closer you get to it, and at night the jars glow green, so they stand out in the dark. Follow the beeping, or go looking after dark.</p><h4>Where do I start the route?</h4><p>At Three Ponds. The pages follow one route, so work through them in order. Each page tells you which fast travel point to start from.</p><p><em>This guide is built from the Public Test Server and is subject to change pending porting to live servers.</em></p>",
+  "images": [
+   "brain-glow-night"
+  ]
  },
  "image_dims": {
-  "brain-in-a-jar": [472, 886]
+  "brain-in-a-jar": [
+   472,
+   886
+  ]
  }
 }

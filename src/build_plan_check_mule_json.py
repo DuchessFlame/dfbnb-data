@@ -20,7 +20,7 @@ Brewmaster (the Discord bot) owns the lists. It commits one file per mule:
     dist/missing_plans_<platform>.json              e.g. missing_plans_xbox.json
     dist/missing_plans_<platform>_<mule>.json       e.g. missing_plans_xbox_facebook.json
 
-Each file's "source" field names the mule ("discord", "facebook"). A file with
+Each file's "source" field names the mule ("discord", "facebook", "reddit"). A file with
 no "source" takes it from the filename suffix, and a bare
 missing_plans_<platform>.json with neither is the Discord mule. Rows can be
 listed flat under "items" or grouped under "groups[].items" -- both are read.
@@ -116,6 +116,11 @@ def facebook_donate(url, chefs=True):
     return {"via": "Facebook", "url": url, "link": "Request to join the group", "text": text}
 
 
+def reddit_donate(url):
+    return {"via": "Reddit", "url": url, "link": "Join the sub",
+            "text": "then make a post letting us know which plans you can donate."}
+
+
 PAGES = {
     "xbox": {
         "title": "XBOX Plan Check Mule Missing Plans List",
@@ -126,11 +131,13 @@ PAGES = {
         "about": ABOUT,
         # Same How to donate panel as PlayStation and PC, in the intro card.
         "donate": [discord_donate(),
-                   facebook_donate("https://www.facebook.com/groups/theduchessflame", chefs=False)],
+                   facebook_donate("https://www.facebook.com/groups/theduchessflame", chefs=False),
+                   reddit_donate("https://www.reddit.com/r/fo76FilthyCasuals/")],
         "thanks": THANKS,
         # One root expand per mule, in this order. Their plans are sub-expands.
         "mules": [
             ("facebook", "XBOX - Facebook Plan Check Mule", []),
+            ("reddit",   "XBOX - Reddit Plan Check Mule",   []),
             ("discord",  "XBOX - Discord Plan Check Mule",  []),
         ],
     },
