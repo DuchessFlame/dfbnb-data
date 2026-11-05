@@ -270,6 +270,7 @@ def main():
             "directions": prev.get("directions", ""),
             "image_top": prev.get("image_top", ""),
             "image_bottom": prev.get("image_bottom", ""),
+            "image_map": prev.get("image_map", ""),
             "exists": True,
             "coords": [round(float(r["X"]), 1), round(float(r["Y"]), 1), round(float(r["Z"]), 1)],
             "page": page["slug"],
@@ -440,6 +441,8 @@ def build_guide(doc, channel):
     secs.append({"title": "Lifetime Milestone Rewards",
                  "html": f"<p>{fill(g.get('milestones_html', ''))}</p><ul>{miles}</ul>"
                          f"<p>Tick them off on the <a href=\"{URL_BASE}checklist/\">Brain in a Jar Reward Checklist</a>.</p>"})
+    if pics(g.get("milestones_images")):
+        secs[-1]["images"] = pics(g.get("milestones_images"))
     if tapes:
         secs.append({"title": "The Scan Holotapes",
                      "html": f"<p>{fill(g.get('holotapes_html', ''))}</p><ol>{tapes}</ol>"})
