@@ -174,6 +174,37 @@ def page_ranges(total):
     return out
 
 
+SERVER_LISTING = os.path.join(REPO, "data", "server_listing.tsv")
+_LISTING = None
+
+
+def on_server(url):
+    """True when url's file is on data/server_listing.tsv (Duchess's FileZilla uploads).
+    The Maps expand only shows maps that are up, so the page never shows a 404."""
+    global _LISTING
+    if _LISTING is None:
+        _LISTING = set()
+        if os.path.exists(SERVER_LISTING):
+            with open(SERVER_LISTING, encoding="utf-8") as fh:
+                _LISTING = {ln.split("\t", 1)[0].strip() for ln in fh if not ln.startswith("#")}
+    return url.replace("/wp-content/uploads/", "", 1) in _LISTING
+
+
+def page_maps(page, doc):
+    """Cards for one location page's Maps expand (guide-maps-expand rule, 5 Nov 2026):
+    this page's route map, Full 4K map, Numbered 4K map, then region maps A-Z.
+    Only maps on the server are listed."""
+    cards = [{"url": page["map"], "name": f"Route map {page['from']} \u2013 {page['to']}",
+              "desc": "This page's brains, in order", "file": f"{page['slug']}-map.jpg"},
+             {"url": doc["full_map"], "name": "Full 4K map", "desc": "All 150 brains",
+              "file": "brain-in-a-jar-full-map.jpg"},
+             {"url": doc["numbered_map"], "name": "Numbered 4K map", "desc": "Matches the pages",
+              "file": "brain-in-a-jar-numbered-map.jpg"}]
+    for reg, u in sorted(doc["region_maps"].items(), key=lambda kv: re.sub(r"^the ", "", kv[0].lower())):
+        cards.append({"url": u, "name": reg, "desc": "", "file": "brain-in-a-jar-" + u.rsplit("/", 1)[1]})
+    return [c for c in cards if on_server(c["url"])]
+
+
 def _index(d):
     return {l["ref"]: l for l in (d or {}).get("locations", []) if l.get("ref")}
 
@@ -267,6 +298,8 @@ def main():
         "rewards": {"milestones": tiers, "hand_in": hand_in},
         "holotapes": build_holotapes(channel),
     }
+    for pg in pages:
+        pg["maps"] = page_maps(pg, doc)
     os.makedirs(OUT_DIR, exist_ok=True)
     with open(out_path, "w", encoding="utf-8", newline="\n") as fh:
         json.dump(doc, fh, indent=1, ensure_ascii=False)

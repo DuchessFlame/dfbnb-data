@@ -19,6 +19,8 @@ name: Refresh Images
 #        they are on the list).
 #   6    One-weapon guides (The Pipe).
 #   7    Unique Weapons & Armour (live + PTS).
+#   8    The Slasher Unique Rewards checklist.
+#   9    Brain in a Jar location pages (PTS): the Maps expand lists only maps on the list.
 # Not here on purpose: add_weapon_groups.py on its own clears the plan rows'
 # pictures (it is meant to run before plan_images inside the full build).
 
@@ -79,6 +81,12 @@ jobs:
         run: |
           python src/build_slasher_uniques.py --dist dist
           python src/build_slasher_uniques.py --dist dist/pts
+
+      - name: "[9] Brain in a Jar location pages (PTS) - Maps expand"
+        env:
+          DFBNB_CHANNEL: pts
+          OUT_DIR: dist/pts
+        run: python src/build_brain_in_a_jar_json.py
 
       - name: Commit and push
         run: |
