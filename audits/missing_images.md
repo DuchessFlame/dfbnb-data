@@ -1,8 +1,8 @@
 # Missing images
 
-Every item on a reward page with no picture anywhere: not in the shared library, not in its own event folder, not on any other page. Built 2026-11-01 from the server listing of 2026-11-01T01:41:47Z.
+Every item on a reward page with no picture anywhere: not in the shared library, not in its own event folder, not on any other page. Built 2026-11-05 from the server listing of 2026-11-01T01:41:47Z.
 
-**3309 items have no picture on the server**: 342 are already on your computer and just need uploading, 2967 need art found (7200 rows - the same item can appear on several pages; one upload fixes every page it is on).
+**3307 items have no picture on the server**: 342 are already on your computer and just need uploading, 2965 need art found (7198 rows - the same item can appear on several pages; one upload fixes every page it is on).
 
 Upload each file to the folder shown, named exactly as shown. Outfits: the folded item-only render is the `_go` file; a mannequin view, if you have one, is `<FormID>_c1.avif` beside it. Never upload a mannequin-only picture as the main image.
 
@@ -694,22 +694,20 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Ruby Leather Collar (Cat) | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `008D4738.avif` |
 | Tan Leather Collar (Cat) | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `008D4737.avif` |
 
-## Plan Checklists - Fishing Rod (6)
+## Plan Checklists - Fishing Rod (4)
 
 | Item | Upload to | File name |
 |---|---|---|
 | Makeshift Rod Replica | `wp-content/uploads/guide-images/plan-checklist/fishing-rod/` | `00803E3B.avif` |
 | Pint-Sized Slasher Fishing Bobber | `wp-content/uploads/guide-images/plan-checklist/fishing-rod/` | `008F4DF3.avif` |
-| Plan: Baby Rattle Bobber *(cut)* | `wp-content/uploads/guide-images/plan-checklist/fishing-rod/` | `007F5561.avif` |
 | Plan: Fishing Rod Display | `wp-content/uploads/guide-images/plan-checklist/fishing-rod/` | `00803E38.avif` |
-| Plan: Nuka Bobber *(cut)* | `wp-content/uploads/guide-images/plan-checklist/fishing-rod/` | `007F555F.avif` |
 | Plan: Shishkebab Rod *(cut)* | `wp-content/uploads/guide-images/plan-checklist/fishing-rod/` | `007F556A.avif` |
 
 ## Plan Checklists - Legacy Nuclear Winter (7)
 
 | Item | Upload to | File name |
 |---|---|---|
-| Plan: Atom Cats Leather Armor Paint | `wp-content/uploads/guide-images/plan-checklist/legacy-nuclear-winter/` | `006369B8.avif` |
+| Plan: Atom Cats Leather Armor Paint *(cut)* | `wp-content/uploads/guide-images/plan-checklist/legacy-nuclear-winter/` | `006369B8.avif` |
 | Plan: BOS Combat Armor Paint *(cut)* | `wp-content/uploads/guide-images/plan-checklist/legacy-nuclear-winter/` | `006369C3.avif` |
 | Plan: BOS Leather Armor Paint *(cut)* | `wp-content/uploads/guide-images/plan-checklist/legacy-nuclear-winter/` | `006369BD.avif` |
 | Plan: Marine Camouflage Gatling Laser Paint | `wp-content/uploads/guide-images/plan-checklist/legacy-nuclear-winter/` | `006369BA.avif` |
@@ -1128,7 +1126,7 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: X-01 Cooling Vent | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `001D0271.avif` |
 | Plan: X-01 Core Assembly | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `001D0320.avif` |
 | Plan: X-01 Emergency Protocols | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `001D032B.avif` |
-| Plan: X-01 Headlamp *(cut)* | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `0016B6E5.avif` |
+| Plan: X-01 Headlamp | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `0016B6E5.avif` |
 | Plan: X-01 Headlamp Blue | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `001EC0EB.avif` |
 | Plan: X-01 Headlamp Bright | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `001EC0EC.avif` |
 | Plan: X-01 Headlamp Purple | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `001EC0EE.avif` |
