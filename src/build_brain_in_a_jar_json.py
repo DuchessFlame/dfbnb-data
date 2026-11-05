@@ -19,8 +19,10 @@ Inputs (nothing typed - every name comes from the exports):
   GLOB_Export_*.tsv     caps value of that reward
   NOTE_Export_*.tsv     the Scan holotapes (RTSV_SQ01_Collectible_Holotape_##)
 
-Hand-authored fields (fast_travel, directions, image_top, image_bottom) are kept
-across rebuilds, keyed by the brain's REF FormID, never by its number.
+Hand-authored fields (fast_travel, directions, image_top, image_bottom) live in
+data/brain_in_a_jar/hand.json (written by brain_photo.py), keyed by the brain's REF
+FormID, never by its number; older ones are kept from the last build.
+Page breaks: data/brain_in_a_jar/pages.tsv (pages can run past 30).
 
 Channel: DFBNB_CHANNEL=pts (or --pts) reads tsv/pts + placements_pts.tsv. Output goes
 to OUT_DIR (default dist/); the PTS workflow relocates dist/ -> dist/pts/.
@@ -149,6 +151,29 @@ def build_holotapes(channel):
     return sorted(out, key=lambda h: h["name"])
 
 
+def page_ranges(total):
+    """Location page breaks. data/brain_in_a_jar/pages.tsv (from<TAB>to, one row per
+    page, in order) lets a page run past 30 so it never cuts the route in half
+    (Duchess, 5 Nov 2026); anything after the last listed page falls back to 30s."""
+    out, nxt = [], 1
+    path = os.path.join(DATA, "pages.tsv")
+    if os.path.exists(path):
+        with open(path, encoding="utf-8") as fh:
+            for ln in fh:
+                ln = ln.strip()
+                if not ln or ln.startswith("#") or ln.lower().startswith("from"):
+                    continue
+                a, b = (int(x) for x in ln.split("\t")[:2])
+                if a != nxt or b < a:
+                    raise SystemExit(f"pages.tsv: page {a}-{b} doesn't follow on from {nxt - 1}")
+                out.append((a, min(b, total))); nxt = b + 1
+                if nxt > total:
+                    return out
+    for a in range(nxt, total + 1, PAGE_SIZE):
+        out.append((a, min(a + PAGE_SIZE - 1, total)))
+    return out
+
+
 def _index(d):
     return {l["ref"]: l for l in (d or {}).get("locations", []) if l.get("ref")}
 
@@ -186,11 +211,18 @@ def main():
 
     out_path = os.path.join(OUT_DIR, OUT_NAME)
     old = load_existing(out_path, channel)
+    # Photos + directions as Duchess sends them (5 Nov 2026), keyed by REF FormID:
+    # data/brain_in_a_jar/hand.json {ref: {directions, image_top, image_bottom, fast_travel}}.
+    # Wins over the last build's copy, and lives in data/ so no rebuild can lose it.
+    hand_path = os.path.join(DATA, "hand.json")
+    hand = {}
+    if os.path.exists(hand_path):
+        with open(hand_path, encoding="utf-8") as fh:
+            hand = {k.upper(): v for k, v in json.load(fh).items()}
 
     total = len(place)
     pages = []
-    for a in range(1, total + 1, PAGE_SIZE):
-        b = min(a + PAGE_SIZE - 1, total)
+    for a, b in page_ranges(total):
         slug = f"brain-in-a-jar-locations-{a}-{b}"
         pages.append({"slug": slug, "title": f"Brain in a Jar Locations {a} - {b}",
                       "from": a, "to": b, "url": f"{URL_BASE}{slug}/",
@@ -199,8 +231,8 @@ def main():
     locs = []
     for r in place:
         ref = r["RefFormID"]; n = num[ref]
-        prev = old.get(ref, {})
-        page = pages[(n - 1) // PAGE_SIZE]
+        prev = {**old.get(ref, {}), **hand.get(ref, {})}
+        page = next(p for p in pages if p["from"] <= n <= p["to"])
         locs.append({
             "n": n, "ref": ref, "region": r["region"], "marker": r["marker"],
             "fast_travel": prev.get("fast_travel") or r["marker"],
@@ -272,7 +304,7 @@ def build_guide(doc, channel):
     if g["intro"].get("images"):          # names under <IMAGE_BASE>guide-images/<name>.avif
         intro["images"] = list(g["intro"]["images"])
     secs = [intro,
-            {"title": "Brain in a Jar Locations", "html": f"<p>The brains are split into pages of {PAGE_SIZE}, in route order.</p><ul>{locs}</ul><h4>Maps</h4><ul>{maps}</ul>"},
+            {"title": "Brain in a Jar Locations", "html": f"<p>The brains are split into pages in route order.</p><ul>{locs}</ul><h4>Maps</h4><ul>{maps}</ul>"},
             {"title": "Milestone Rewards", "html": f"<ul>{miles}</ul><p>Tick them off on the <a href=\"{URL_BASE}checklist/\">Brain in a Jar Reward Checklist</a>.</p>"}]
     if tapes:
         secs.append({"title": "The Scan Holotapes", "html": f"<p>{len(doc['holotapes'])} holotapes go with the questline.</p><ul>{tapes}</ul>"})

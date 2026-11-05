@@ -32,6 +32,7 @@ if HERE not in sys.path:
     sys.path.insert(0, HERE)
 import render_spawn_maps as rsm
 import map_watermark
+import render_event_swap_maps as esw   # in-game map-marker icons (Duchess, 5 Nov 2026: every map has them)
 
 DATA = os.path.join(REPO, "data", "brain_in_a_jar")
 PAGE_SIZE = 30
@@ -39,6 +40,9 @@ DEFAULT_OUT = os.path.join(os.path.expanduser("~"), "OneDrive", "Guides and Stuf
                            ".Collectables", "Brain in a Jar Locations")
 CONTEXT_FILL = (150, 150, 150)
 CONTEXT_D = 18
+TILE_ICON_PX = 64      # map-marker icon size on a region / page tile (drawn natively, stays sharp)
+_MARKS = []            # [(px, py, label, icon)] in 4096 space, filled in main()
+_ICON_CACHE = {}
 
 
 def load_points(channel):
@@ -69,6 +73,15 @@ def draw_crop(bg, rows, box, context=(), title=None, legend="Brain in a Jar", la
     crop = bg.crop((x0, y0, x1, y1))
     k = rsm.TILE_WIDTH / (x1 - x0)
     crop = crop.resize((rsm.TILE_WIDTH, max(1, int((y1 - y0) * k))), Image.LANCZOS)
+    for mx, my, _lbl, im in _MARKS:          # icons pasted at tile size, under the dots
+        cx, cy = (mx - x0) * k, (my - y0) * k
+        if -TILE_ICON_PX < cx < crop.width + TILE_ICON_PX and -TILE_ICON_PX < cy < crop.height + TILE_ICON_PX:
+            key = id(im)
+            if key not in _ICON_CACHE:
+                big = im.copy(); w = TILE_ICON_PX
+                _ICON_CACHE[key] = big.resize((w, max(1, int(im.height * w / im.width))), Image.LANCZOS)
+            ic = _ICON_CACHE[key]
+            crop.paste(ic, (int(cx - ic.width / 2), int(cy - ic.height / 2)), ic)
     d = ImageDraw.Draw(crop)
     for c in context:
         cx, cy = (c["px"] - x0) * k, (c["py"] - y0) * k
@@ -105,6 +118,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--channel", default="pts", choices=["pts", "live"])
     ap.add_argument("--out", default=DEFAULT_OUT)
+    ap.add_argument("--no-pages", action="store_true", help="skip 04 Page Maps + photo folders")
     a = ap.parse_args()
     out = a.out
     pts = load_points(a.channel)
@@ -115,8 +129,15 @@ def main():
     for p in pts:
         p["px"], p["py"] = to_px(p["x"], p["y"])
 
-    bg_path = os.path.join(rsm.MAPPALACHIA, "img", "wrld", "Appalachia_menu.jpg")
-    bg = Image.open(bg_path).convert("RGB")
+    plain_bg = os.path.join(rsm.MAPPALACHIA, "img", "wrld", "Appalachia_menu.jpg")
+    # 4096 maps: icons pasted on the background (temp JPEG, render_exterior takes a path).
+    # Tiles: plain background, icons pasted natively at tile size in draw_crop.
+    marks = esw.map_marker_icons(size=TILE_ICON_PX * 2)   # source icons, scaled per use
+    for mx, my, lbl, im in marks:
+        px, py = to_px(mx, my)
+        _MARKS.append((px, py, lbl, im))
+    bg_path = esw._icon_background(plain_bg, to_px)
+    bg = Image.open(plain_bg).convert("RGB")
     if bg.size != (rsm.S, rsm.S):
         bg = bg.resize((rsm.S, rsm.S), Image.LANCZOS)
 
@@ -143,7 +164,7 @@ def main():
 
     # 04 — one map per location page + its photo folder
     pdir = os.path.join(out, "04 Page Maps"); os.makedirs(pdir, exist_ok=True)
-    for lo, hi in pages_for(len(pts)):
+    for lo, hi in ([] if a.no_pages else pages_for(len(pts))):
         rr = [p for p in pts if lo <= p["n"] <= hi]
         ctx = [p for p in pts if not lo <= p["n"] <= hi]
         img = draw_crop(bg, rr, bbox(rr), context=ctx, title=f"Brains in Jars {lo} - {hi}")
