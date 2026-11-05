@@ -18,6 +18,7 @@ import re
 from datetime import date
 from pathlib import Path
 import tsv_source          # one resolver for every export selection
+import plan_sources        # the one site-wide cut test
 
 # ── CLI ────────────────────────────────────────────────────────────────────────
 parser = argparse.ArgumentParser(
@@ -192,12 +193,15 @@ _SHARD_COBJ_RE = re.compile(
 )
 
 # Strip star symbols ★☆ and replacement chars � from CNAM_FULL
-_STARS_PREFIX_RE = re.compile(r"^[★☆�\s]+")
+# "¬" is how the export spells the in-game star glyph (U+00AC) - 5 Nov 2026
+_STARS_PREFIX_RE = re.compile(r"^[★☆�¬\s]+")
 
 
-def _is_disabled(cobj_edid):
-    """True if the record is disabled / WIP / deleted."""
-    return cobj_edid.startswith("zzz_") or cobj_edid.startswith("DEL_")
+def _is_disabled(cobj_edid, *more):
+    """True if the record is disabled / deleted, or cut content by the one
+    site-wide test (plan_sources.is_cut_content: zzz / CUT / DEL records and
+    confirmed cut families such as the Drifter's P62_ mod boxes)."""
+    return plan_sources.is_cut_content(cobj_edid, *more)
 
 
 def _detect_source(cobj_edid):
@@ -223,18 +227,21 @@ def _normalise_slot(raw):
 
 
 def _build_category(slot_type, stars, source, is_random=False):
-    """Build the category string shown in the planner UI."""
+    """Build the category string shown in the planner UI.
+
+    5 Nov 2026: one dash style (an em dash, as the page has always shown) and no
+    separate "HTO / Raid Exclusive" groups - the page folded those into the
+    normal star group anyway, under a "--" spelling that split every 4-Star
+    group in two. Where a mod comes from stays in `source`."""
     if is_random:
         if slot_type == "PowerArmor":
-            return "Random Roll -- Power Armor"
-        return f"Random Roll -- {slot_type}"
-    if source == "HTO":
-        return f"HTO Exclusive -- {stars}-Star"
-    if source == "Raid":
-        return f"Raid Exclusive -- {stars}-Star"
+            return "Random Roll \u2014 Power Armor"
+        return f"Random Roll \u2014 {slot_type}"
     if slot_type == "Shared":
-        return f"Shared (Armor & Weapon) -- {stars}-Star"
-    return f"{slot_type} -- {stars}-Star"
+        return f"Shared (Armor & Weapon) \u2014 {stars}-Star"
+    if slot_type == "PowerArmor":
+        return f"Armor \u2014 {stars}-Star"
+    return f"{slot_type} \u2014 {stars}-Star"
 
 
 def _parse_fvpa(fvpa_str, curves, name_lookup):
@@ -320,7 +327,7 @@ def main():
             cnam_full = pick(row, "CNAM_FULL")
 
             m = _SHARD_CNAM_RE.match(cnam_edid)
-            if not m:
+            if not m or _is_disabled(cobj_edid, cnam_edid):
                 continue
 
             slot_raw   = m.group(1)

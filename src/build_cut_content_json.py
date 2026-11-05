@@ -17,6 +17,7 @@ zzz / CUT / DEL records). This only collects their cut rows:
 
     dist/plan_master.json                         plans & recipes  (cut: true)
     dist/unique_weapons_armour/cut_uniques.json   unique weapons & armour
+    dist/cut_legendary_mods.json                  legendary mods (build_legendary_mods_json.py)
     dist/titles_player.json, titles_camp.json     player / C.A.M.P. titles (cutContent)
     dist/challenges/challenges.json               challenges (page "cut") + quests (is_cut)
     plan_sources.CONFIRMED_CUT_SOURCE_PATTERNS    the cut families themselves
@@ -116,6 +117,17 @@ def unique_rows(doc):
             why = why[0].upper() + why[1:]
         out[group].append({"name": x.get("name"), "type": x.get("subType") or x.get("kind") or "",
                            "why": why, "was": x.get("was") or [], "id": x.get("formId") or ""})
+    return out
+
+
+def legendary_rows(doc):
+    """Cut legendary mods (dist/cut_legendary_mods.json, build_legendary_mods_json.py)."""
+    out = collections.defaultdict(list)
+    for x in (doc or {}).get("items", []):
+        out["Legendary Mods"].append({"name": x.get("name"),
+                                      "type": f"{x.get('star')}\u2605 Legendary Mod",
+                                      "why": why_for(x.get("edid")), "was": [],
+                                      "id": x.get("formid") or ""})
     return out
 
 
@@ -231,7 +243,7 @@ GROUP_ORDER = ["Weapon Plans", "Mines and Grenades Plans", "Body Armour Plans",
                "Backpack Mod Plans", "Backpack Skin & Flair Plans", "CAMP Plans", "Snow Globes Plans",
                "Fishing Rod Plans", "Camera Mod Plans", "Recipe Plans",
                "Legacy Nuclear Winter Plans",
-               "Unique Weapons", "Unique Armour",
+               "Unique Weapons", "Unique Armour", "Legendary Mods",
                "CAMP Items", "Collectables",
                "Player Titles", "C.A.M.P. Titles", "Quests", "Challenges"]
 
@@ -241,6 +253,7 @@ def build(dist):
     groups = collections.defaultdict(list)
     for part in (plan_rows(pm),
                  unique_rows(_load(os.path.join(dist, "unique_weapons_armour", "cut_uniques.json"))),
+                 legendary_rows(_load(os.path.join(dist, "cut_legendary_mods.json"))),
                  title_rows(_load(os.path.join(dist, "titles_player.json")),
                             _load(os.path.join(dist, "titles_camp.json"))),
                  challenge_rows(_load(os.path.join(dist, "challenges", "challenges.json"))),

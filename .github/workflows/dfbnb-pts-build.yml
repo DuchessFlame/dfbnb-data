@@ -1195,6 +1195,15 @@ jobs:
       - name: Build Legendary Star Pages JSON
         run: python src/build_legendary_star_pages_json.py
 
+      # Legendary Mod Checklist + Cut Content, again, now the star pages exist:
+      # the checklist's 1-4 star groups are read from dist/legendary_star_pages
+      # (same mods, ids and rates; cut mods drop off) and it writes
+      # dist/cut_legendary_mods.json, which Cut Content collects (5 Nov 2026).
+      - name: Legendary Mod Checklist + Cut Content from the star pages
+        run: |
+          python src/build_legendary_mods_json.py
+          python src/build_cut_content_json.py
+
       # --- NPC SPAWNS (Score Challenges spawn-location pages) ---
       # tools/build_npc_spawns.py outputs dist/npc_spawns.json for df-bnb-npc-spawns.js.
       # The Mappalachia DB is large and local-only, so in CI this runs in CACHE

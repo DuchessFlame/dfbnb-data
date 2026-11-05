@@ -38,6 +38,7 @@ import os
 import re
 from datetime import date
 import tsv_source          # one resolver for every export selection
+import plan_sources        # the one site-wide cut test
 
 # ── tier display names (from the retired star pages) ──────────────
 TIER_NAME = {1: "Prefix", 2: "Major", 3: "Minor", 4: "Minor Extra"}
@@ -416,6 +417,93 @@ def build_unique(uw_path, descs):
     return out
 
 
+
+# ── star groups from the N★ star pages (game-file mod box list) ─────────────
+# Duchess, 5 Nov 2026: the checklist and the N★ pages must list the same mods,
+# and cut content drops off by itself. dist/legendary_star_pages/<N>-star.json
+# (build_legendary_star_pages_json.py) is built from the mod box records, with
+# plan_sources.is_cut_content already applied, so the checklist reads it.
+STAR_PAGE_URL = "/bnb/legendary-mods/{n}-star-legendary-mods/"
+APPLIES = {"Weapons": "Weapon", "Armour": "Armour", "Power Armour": "Power Armour"}
+
+
+def _edid_fid(s):
+    m = re.match(r"^\s*(\S+)\s*\[\w+:([0-9A-Fa-f]{8})\]", s or "")
+    return (m.group(1), m.group(2).upper()) if m else ((s or "").strip(), "")
+
+
+def _pool_words(text):
+    """Roll-pool line in plain words (same wording as the N-star pages)."""
+    t = re.sub(r":\s*1 in \d+\s*$", "", text or "")
+    t = re.sub(r" from the standard pool", " (legendary enemies, vendors, quest and event rewards)", t, flags=re.I)
+    return re.sub(r" from the Bounty pool", " (Bounty Hunting rewards)", t, flags=re.I)
+
+
+def _top(lines, n=3):
+    lines = sorted(lines, key=lambda x: -(x.get("rate") or 0))
+    return " · ".join(f"{x['label']} ({x['rateText']})" for x in lines[:n] if x.get("rateText"))
+
+
+def star_page_routes(it):
+    """Short How to Obtain lines for one star-page item (rates from rng76 via the star page)."""
+    o, n, nm = it.get("obtain") or {}, it["star"], it["name"]
+    out = []
+    lr = o.get("learn") or {}
+    if "scrap" in (lr.get("method") or "").lower():
+        out.append({"route": "Scrap to Learn",
+                    "note": f"Scrap a legendary item that has {nm} as its {n}\u2605 effect: "
+                            f"{lr.get('chanceText') or '?'} chance per scrap. Once learned, "
+                            f"make its mod box at a Tinker's Workbench."})
+    elif lr.get("method"):
+        out.append({"route": "Scrap to Learn",
+                    "note": f"Not learned by scrapping (the recipe is set to \"{lr['method']}\")."})
+    pv = o.get("purveyor") or []
+    if pv:
+        best = max(pv, key=lambda p: p.get("rate") or 0)
+        out.append({"route": "Purveyor Murmrgh",
+                    "note": f"Buy legendary gear at The Rusty Pick and scrap it: up to {best.get('rateText')} "
+                            f"per item that its {n}\u2605 effect is {nm}."})
+    rr = o.get("randomRoll") or []
+    if rr:
+        out.append({"route": "Random legendary items",
+                    "note": "Rolls on: " + _top([{"label": _pool_words(r.get("text")),
+                                                 "rate": r.get("rate"), "rateText": r.get("rateText")} for r in rr], 4)})
+    bd = o.get("boxDrops") or []
+    if bd:
+        out.append({"route": "Mod box drops",
+                    "note": f"{len(bd)} source{'s' if len(bd) != 1 else ''}, best: " +
+                            _top([{"label": d.get("source"), "rate": d.get("rate"), "rateText": d.get("rateText")} for d in bd])})
+    fx = o.get("fixedOn") or []
+    if fx:
+        out.append({"route": "Comes fixed on", "note": ", ".join(f["name"] for f in fx)})
+    out.append({"route": "Every source and drop rate", "note": f"{n}\u2605 Legendary Mods page",
+                "url": STAR_PAGE_URL.format(n=n)})
+    return out
+
+
+def star_page_mods(dist_dir, master):
+    """{star: [mods]} from dist(/pts)/legendary_star_pages, or None when missing."""
+    compat = {(m["star"], m["name"].lower()): m.get("weaponCompat") for m in master}
+    res = {}
+    for n in (1, 2, 3, 4):
+        p = os.path.join(dist_dir, "legendary_star_pages", f"{n}-star.json")
+        if not os.path.exists(p):
+            return None
+        doc = json.load(open(p, encoding="utf-8"))
+        mods = []
+        for it in doc.get("items", []):
+            ed, fid = _edid_fid(((it.get("technical") or {}).get("mods") or [""])[0])
+            mods.append({
+                "id": f"star{it['id']}", "name": it["name"], "star": n,
+                "types": [APPLIES.get(t, t) for t in (it.get("appliesTo") or [])],
+                "effect": it.get("headline") or "", "edid": ed, "formid": fid,
+                "weaponCompat": compat.get((n, it["name"].lower())),
+                "obtainRoutes": star_page_routes(it),
+            })
+        res[n] = sorted(mods, key=lambda m: m["name"].lower())
+    return res
+
+
 def build_channel(channel, base, tsv_dir, dist_dir):
     """Build legendary_mods.json + murmrgh_legendary_mods.json for one channel."""
     src_dir = os.path.join(base, "src")
@@ -444,10 +532,30 @@ def build_channel(channel, base, tsv_dir, dist_dir):
         print(f"  [warn] {uw_path} not found; Unique group will be empty this run")
         unique = []
 
+    # star groups: the N★ pages' game-file list when built, else the old pools
+    sp = star_page_mods(dist_dir, master)
+    listed = {m["id"] for v in (sp or {}).values() for m in v}
+    # cut mods (site-wide test) -> dist/cut_legendary_mods.json for Cut Content;
+    # never on this page. Generative: a mod whose own records are cut content.
+    cut = [m for m in master if m.get("edid") and plan_sources.is_cut_content(m["edid"])
+           and m["id"] not in listed]
+    with open(os.path.join(dist_dir, "cut_legendary_mods.json"), "w", encoding="utf-8") as f:
+        json.dump({"generated": str(date.today()), "items": [
+            {"name": m["name"], "star": m["star"], "types": m["types"], "edid": m["edid"],
+             "formid": m["formid"]} for m in sorted(cut, key=lambda m: (m["star"], m["name"].lower()))]},
+            f, indent=2, ensure_ascii=False)
+    if sp is None:
+        print("  [warn] legendary_star_pages missing; star groups from the curated pools this run")
+    else:
+        dropped = sorted(m["id"] for m in master if m["id"] not in listed)
+        print(f"  star groups from legendary_star_pages; {len(cut)} cut, not listed: {', '.join(dropped)}")
     groups = []
     for star in (1, 2, 3, 4):
-        mods = sorted([m for m in master if m["star"] == star],
-                      key=lambda m: m["name"].lower())
+        if sp is not None:
+            mods = sp[star]
+        else:
+            mods = sorted([m for m in master if m["star"] == star and m not in cut],
+                          key=lambda m: m["name"].lower())
         groups.append({
             "id": f"star{star}", "title": GROUP_TITLE[star], "star": star,
             "tierName": TIER_NAME[star], "note": None, "mods": mods,
@@ -456,13 +564,18 @@ def build_channel(channel, base, tsv_dir, dist_dir):
         "id": "star5", "title": GROUP_TITLE[5], "star": 5, "tierName": None,
         "note": "There are currently no 5 star mods in the game.", "mods": [],
     })
+    for m in unique:
+        m["trackable"] = False   # fixed on its unique item: no recipe teaches or makes it
     groups.append({
         "id": "unique", "title": GROUP_TITLE["unique"], "star": None,
-        "tierName": None, "note": None,
+        "tierName": None,
+        "note": "These effects come fixed on their unique item. No recipe in the game files "
+                "teaches or makes them, so they can't be learned, crafted or put on other gear. "
+                "Listed for reference only and not counted in your progress.",
         "mods": sorted(unique, key=lambda m: m["name"].lower()),
     })
 
-    total = sum(len(g["mods"]) for g in groups)
+    total = sum(1 for g in groups for m in g["mods"] if m.get("trackable", True))
     out = {
         "version": 1, "generated": str(date.today()),
         "source_files": [os.path.basename(omod_path),

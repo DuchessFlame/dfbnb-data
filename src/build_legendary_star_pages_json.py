@@ -72,6 +72,7 @@ REF_RE = re.compile(r"^([0-9A-Fa-f]{8}):([^:]*):([A-Z_]{4})$")
 
 # Where the item pictures live on the server (one per mod-box look).
 IMG_DIR = "/wp-content/uploads/guide-images/legendary-mods/"
+MOD_BOX_IMG = "/wp-content/uploads/guide-images/category-images/legendary-mods-category-image.avif"
 
 # Item kinds, from the mod's target keyword (OMOD MNAM).
 KIND_BY_KW = {
@@ -1083,6 +1084,19 @@ def tranche(edid):
     return " - final tranche" if m.group(1) == "XX" else f" - tranche {int(m.group(1))}"
 
 
+def _cut_drop(d):
+    """True when a mod box drop's list or holder is cut content (site-wide test)."""
+    eds = [re.sub(r"\s*\[.*$", "", d.get(k) or "") for k in ("list", "holder")]
+    return plan_sources.is_cut_content(*eds)
+
+
+def _cut_item(it):
+    """True when a mod's own mod box / mod records are cut content."""
+    t = it.get("technical") or {}
+    eds = [t.get("modBox") or ""] + list(t.get("mods") or [])
+    return plan_sources.is_cut_content(*[re.sub(r"\s*\[.*$", "", e) for e in eds])
+
+
 def box_drop_routes(D, shard_fid):
     """every list path from a holder down to the mod box, rated by rng76"""
     out, seen = [], set()
@@ -1394,6 +1408,8 @@ def build(src, outdir, channel):
                            "recipe": q(a["COBJ_EDID"]) + " [COBJ:" + q(a["COBJ_FormID"]).upper() + "]"})
 
         drops = box_drop_routes(D, e["fid"]) if e.get("fid") else []
+        # cut sources (e.g. The Drifter) live only on Data Mining > Cut Content
+        drops = [d for d in drops if not _cut_drop(d)]
         rolls = random_roll_routes(D, P, omods)
         purv = purveyor_routes(D, P, omods)
         fixed = fixed_on(D, omods)
@@ -1401,9 +1417,9 @@ def build(src, outdir, channel):
         if not omods and not drops and not (learn and learn.get("method")):
             print(f"{TAG} skipped {e['star']}{STAR} {e['name']}: no mod record, recipe or drop", file=sys.stderr)
             continue
-        # every mod box is the same crate; its colour swap goes by star
-        # (MISC MODS -> MSWP_LegendaryShard_<N>Star, none on 1-star boxes)
-        img = (IMG_DIR + f"legendary-mod-box-{e['star']}-star.avif") if e.get("fid") else ""
+        # every mod uses the site's universal green legendary mod box picture
+        # (Duchess, 5 Nov 2026 — the per-star box pictures were never made)
+        img = MOD_BOX_IMG if e.get("fid") else ""
 
         item = {
             "id": slug(f"{e['star']}-{e['name']}"),
@@ -1454,6 +1470,8 @@ def build(src, outdir, channel):
     stamp = datetime.date.today().isoformat()
     counts = {}
     for s, items in pages.items():
+        # cut mods (e.g. the Drifter's own P62_ mods) go on Cut Content only
+        items[:] = [x for x in items if not _cut_item(x)]
         items.sort(key=lambda x: (x["name"].lower().lstrip("'"), x["name"]))
         doc = {"version": 1, "generated": stamp, "channel": channel, "star": s, "count": len(items),
                "shared": shared, "items": items,
