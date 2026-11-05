@@ -309,10 +309,87 @@ def main():
     print("brain_in_a_jar_guide.json written")
 
 
+GUIDE_IMG_BASE = IMAGE_BASE + "guide-images/"
+
+
+def _quest_facts(channel):
+    """Numbers the guide quotes, all from the exports (nothing typed):
+    batches  - CollectablesNeededPerBatch on RTSV_SQ01_Collectible (QUST2 _ScriptProps), in order
+    xp       - RTSV_SQ01_CollectablePickUp_XP (GLOB), base XP per brain picked up
+    camp     - the Brain Jar CAMP item (COBJ RTSV_Workshop_CO_BrainInJar): name + components."""
+    f = {"batches": [], "xp": None, "camp_name": "", "camp_cost": ""}
+    for r in _rows("QUST2_Export_*_ScriptProps.tsv", channel):
+        if r.get("QuestEDID") == QUEST_EDID and r.get("Property") == "CollectablesNeededPerBatch":
+            try:
+                f["batches"].append(int(float(r.get("Value") or 0)))
+            except ValueError:
+                pass
+    for r in _rows("GLOB_Export_*.tsv", channel):
+        vals = list(r.values())
+        if len(vals) > 2 and vals[1] == "RTSV_SQ01_CollectablePickUp_XP":
+            try:
+                f["xp"] = int(float(vals[2]))
+            except ValueError:
+                pass
+    names = {}
+    for pat, ek, fk in (("MISC_Export_*.tsv", "EDID", "FULL"), ("ALCH_Export_*.tsv", "ALCH_EDID", "FULL")):
+        for r in _rows(pat, channel):
+            if r.get(ek) and r.get(fk):
+                names.setdefault(r[ek], r[fk])
+    for r in _rows("COBJ_Export_*.tsv", channel):
+        if r.get("COBJ_EDID") == "RTSV_Workshop_CO_BrainInJar":
+            f["camp_name"] = r.get("CNAM_FULL") or "Brain Jar"
+            parts = []
+            for c in (r.get("FVPA") or "").split("|"):
+                bits = c.split(":")
+                if len(bits) >= 2 and bits[0]:
+                    nm = names.get(bits[0]) or re.sub(r"^c_", "", bits[0])
+                    parts.append(f"{bits[1]} {nm}")
+            f["camp_cost"] = ", ".join(parts)
+    return f
+
+
+def password_block(doc, channel):
+    """The bunker password, as a redacted block the reader clicks to show (Duchess,
+    5 Nov 2026: greyed out every time the page opens). The password is the lyrics on
+    the last Scan holotape (Marcs: "exactly the length of this song without spaces or
+    punctuation"), read from the ALLYDLG _Lore export: that tape's verses in line
+    order, stage directions (*...*) and Iggy's one-line asides left out."""
+    import html as _h
+    if not doc.get("holotapes"):
+        return ""
+    tape = doc["holotapes"][-1]["form_id"]
+    verses = {}
+    order = []
+    for r in _rows("ALLYDLG_Export_*_Lore.tsv", channel):
+        if r.get("HolotapeFormID") != tape:
+            continue
+        t = (r.get("Text") or "").strip()
+        if not t or re.fullmatch(r"\*.*\*", t):
+            continue
+        k = r.get("InfoFormID")
+        if k not in verses:
+            verses[k] = []; order.append((int(r.get("LineOrder") or 0), k))
+        verses[k].append((int(r.get("LineOrder") or 0), t))
+    vs = [[t for _, t in sorted(verses[k])] for _, k in sorted(order) if len(verses[k]) >= 4]
+    if not vs:
+        return ""
+    E = _h.escape
+    body = "".join("<p>" + "<br>".join(E(l) for l in v) + "</p>" for v in vs)
+    return ('<div class="abg-redact" role="button" tabindex="0" aria-expanded="false" '
+            'aria-label="Hidden: click to show the bunker password">'
+            '<span class="abg-redact__label">Click to show the password</span>'
+            f'<div class="abg-redact__text">{body}</div></div>')
+
+
 def build_guide(doc, channel):
     """dist/brain_in_a_jar_guide.json - the shape df-bnb-brain-in-a-jar.js mounts
-    (title / subtitle / sections[{title, html}]). Prose from data/brain_in_a_jar/guide.json,
-    everything countable generated from doc."""
+    (title / subtitle / sections[{title, html, images}]). Prose from
+    data/brain_in_a_jar/guide.json (written 5 Nov 2026 from the quest's own logs,
+    objectives and dialogue); everything countable is generated here.
+    Order: intro, the hand-written story sections, Locations, Milestone Rewards,
+    Scan Holotapes, FAQ. A section's pictures are listed only once they are on the
+    server (data/server_listing.tsv), so the page never shows a broken picture."""
     import html as _h
     with open(os.path.join(DATA, "guide.json"), encoding="utf-8") as fh:
         g = json.load(fh)
@@ -322,26 +399,51 @@ def build_guide(doc, channel):
     regions = ", ".join(f"{n} in {r}" for r, n in sorted(by_reg.items(), key=lambda kv: -kv[1]))
     hi = (doc.get("rewards") or {}).get("hand_in") or {}
     caps = f"{hi['caps']:,}" if hi.get("caps") is not None else "an unknown number of"
-    fill = lambda t: (t.replace("{total}", str(doc["total_real"])).replace("{quest}", doc["quest"])
-                      .replace("{terminal}", g.get("terminal", "")).replace("{caps}", caps)
-                      .replace("{regions}", regions))
+    qf = _quest_facts(channel)
+    pw = password_block(doc, channel)
+    batches = qf["batches"]
+    need = sum(batches)
     E = _h.escape
+    rows, run = [], 0
+    for i, n in enumerate(batches, 1):
+        run += n
+        rows.append(f"<tr><td>{i}</td><td>{n}</td><td>{run}</td></tr>")
+    table = ("<table class=\"abg-table\"><thead><tr><th>Hand-in</th><th>Brains</th><th>Running total</th></tr></thead>"
+             f"<tbody>{''.join(rows)}</tbody></table>") if rows else ""
+    fill = lambda t: (t.replace("{total}", str(doc["total_real"])).replace("{quest}", doc["quest"])
+                      .replace("{caps}", caps).replace("{regions}", regions)
+                      .replace("{batch_count}", str(len(batches))).replace("{quest_brains}", str(need))
+                      .replace("{batch_table}", table)
+                      .replace("{pickup_xp}", f"{qf['xp']:,}" if qf["xp"] is not None else "some")
+                      .replace("{camp_name}", E(qf["camp_name"] or "Brain Jar"))
+                      .replace("{camp_cost}", E(qf["camp_cost"] or "a few components"))
+                      .replace("{holotape_count}", str(len(doc["holotapes"])))
+                      .replace("{password_block}", pw))
+
+    def pics(names):
+        return [n for n in (names or []) if on_server(GUIDE_IMG_BASE + n + ".avif")]
+
+    def sec(s):
+        out = {"title": fill(s["title"]), "html": fill(s["html"])}
+        im = pics(s.get("images"))
+        if im:
+            out["images"] = im
+        return out
+
     locs = "".join(f'<li><a href="{E(p["url"])}">{E(p["title"])}</a></li>' for p in doc["pages"])
-    maps = "".join(f'<li><a href="{E(u)}" target="_blank" rel="noopener">{E(r)} map</a></li>'
-                   for r, u in doc.get("region_maps", {}).items())
-    maps += f'<li><a href="{E(doc["full_map"])}" target="_blank" rel="noopener">Full 4K map</a></li>'
     miles = "".join(f'<li><strong>{m["milestone"]}</strong> {"brain" if m["milestone"] == 1 else "brains"}: {E(m["name"])}</li>'
                     for m in doc["rewards"]["milestones"])
     tapes = "".join(f"<li>{E(h['name'])}</li>" for h in doc["holotapes"])
-    intro = {"title": fill(g["intro"]["title"]), "html": fill(g["intro"]["html"])}
-    if g["intro"].get("images"):          # names under <IMAGE_BASE>guide-images/<name>.avif
-        intro["images"] = list(g["intro"]["images"])
-    secs = [intro,
-            {"title": "Brain in a Jar Locations", "html": f"<p>The brains are split into pages in route order.</p><ul>{locs}</ul><h4>Maps</h4><ul>{maps}</ul>"},
-            {"title": "Milestone Rewards", "html": f"<ul>{miles}</ul><p>Tick them off on the <a href=\"{URL_BASE}checklist/\">Brain in a Jar Reward Checklist</a>.</p>"}]
+    secs = [sec(g["intro"])] + [sec(s) for s in g.get("sections", [])]
+    secs.append({"title": "Brain in a Jar Locations",
+                 "html": f"<p>{fill(g.get('locations_html', ''))}</p><ul>{locs}</ul>"})
+    secs.append({"title": "Lifetime Milestone Rewards",
+                 "html": f"<p>{fill(g.get('milestones_html', ''))}</p><ul>{miles}</ul>"
+                         f"<p>Tick them off on the <a href=\"{URL_BASE}checklist/\">Brain in a Jar Reward Checklist</a>.</p>"})
     if tapes:
-        secs.append({"title": "The Scan Holotapes", "html": f"<p>{len(doc['holotapes'])} holotapes go with the questline.</p><ul>{tapes}</ul>"})
-    secs.append({"title": fill(g["faq"]["title"]), "html": fill(g["faq"]["html"])})
+        secs.append({"title": "The Scan Holotapes",
+                     "html": f"<p>{fill(g.get('holotapes_html', ''))}</p><ol>{tapes}</ol>"})
+    secs.append(sec(g["faq"]))
     out = {"_meta": doc["_meta"], "title": fill(g["title"]), "subtitle": fill(g["subtitle"]), "sections": secs}
     if g.get("image_dims"):               # [w, h] per guide image, so the page reserves the space
         out["image_dims"] = g["image_dims"]
