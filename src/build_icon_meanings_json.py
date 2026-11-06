@@ -10,8 +10,8 @@ Output: dist/icon_meanings.json      Renderer: assets/df-bnb-icon-meanings.js
 The icon art comes from the game's interface files (hudmenu.swf,
 newpipboy_statspage.swf, mapmarkerslibrary.swf, vendingiconlibrary.swf),
 rendered to .avif by Claude (Oct 2026) and uploaded by Duchess to
-  /wp-content/uploads/guide-images/data-mining/hud-icon-meanings/
-  /wp-content/uploads/guide-images/camp/camp-icon-meanings/
+  /wp-content/uploads/guide-images/data-mining/HUD-icons/
+  /wp-content/uploads/guide-images/camp/CAMP-icons/
 
 The words are hand-written below in plain player language (Duchess's rule:
 no record names on guide pages). The only thing read from the exports is the
@@ -28,8 +28,8 @@ REPO = os.path.dirname(HERE)
 TSV = os.path.join(REPO, "tsv")
 OUT = os.path.join(REPO, "dist", "icon_meanings.json")
 
-HUD_IMG = "/wp-content/uploads/guide-images/data-mining/hud-icon-meanings/"
-CAMP_IMG = "/wp-content/uploads/guide-images/camp/camp-icon-meanings/"
+HUD_IMG = "/wp-content/uploads/guide-images/data-mining/HUD-icons/"
+CAMP_IMG = "/wp-content/uploads/guide-images/camp/CAMP-icons/"
 AWR_IMG = "/wp-content/uploads/guide-images/specials-&-stats/awareness-bar-meaning/"
 
 # --------------------------------------------------------------------------

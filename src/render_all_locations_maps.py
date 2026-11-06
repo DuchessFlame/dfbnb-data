@@ -113,7 +113,7 @@ for r in data["regions"]:
         d.ellipse([tx-R-3, ty-R-3, tx+R+3, ty+R+3], outline=(15, 15, 15), width=13)
         d.ellipse([tx-R, ty-R, tx+R, ty+R], outline=LIME, width=7)
         labels(im, near, LOC_ICON, F_LOC, 26, focus=(tx, ty))
-        save(im, os.path.join(OUT, "01 Location Maps", l["id"] + ".jpg"))
+        save(im, os.path.join(OUT, "01 Location Maps", l["id"] + ".jpg"))  # converted to .avif afterwards (one-off, 7 Nov 2026)
         done += 1
         if done % 25 == 0: print("locations", done, flush=True)
 print("DONE locations", done)

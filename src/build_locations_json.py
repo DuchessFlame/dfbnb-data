@@ -568,7 +568,7 @@ def main():
             "type": icon_label(m["icon"]),
             "icon": m["icon"],
             "x": m["x"], "y": m["y"],
-            "image": f"{IMAGE_BASE}{lid}.jpg",   # maps stay JPEG (sharp when zoomed)
+            "image": f"{IMAGE_BASE}{lid}.avif",   # one-off: location maps are AVIF (Duchess, 7 Nov 2026); region maps stay JPEG
             "lctn": [{"form_id": f, "edid": recs[f]["edid"], "name": recs[f]["full"]}
                      for f in sorted(m["_lctn"]) if f in recs],
             "match": m["_how"],
