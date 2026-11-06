@@ -72,9 +72,10 @@ MARKER_CACHE = os.path.join(REPO, "data", "locations", "mappalachia_markers.json
 WORLDSPACE = xref.WORLDSPACE
 CELL = 4096.0
 
-# Region order on the page — the order a new character meets them.
-REGION_ORDER = ["Forest", "Toxic Valley", "Ash Heap", "Savage Divide", "The Mire",
-                "Cranberry Bog", "Skyline Valley", "Burning Springs"]
+# Region order on the page — A to Z, with "The Mire" filed under M (Duchess, 6 Nov 2026).
+# df-bnb-locations.js sorts the same way, so the page is right even before a rebuild.
+REGION_ORDER = ["Ash Heap", "Burning Springs", "Cranberry Bog", "Forest", "The Mire",
+                "Savage Divide", "Skyline Valley", "Toxic Valley"]
 
 IMAGE_BASE = "/wp-content/uploads/guide-images/data-mining/all-locations/"
 

@@ -1,0 +1,62 @@
+name: Build Awareness Bar Calculator
+
+# Data for the Awareness Bar calculator on
+#   /bnb/specials-stats/special-stat-guides/awareness-bar-meaning/
+# Output: dist/calculators/awareness_bar.json (df-bnb-awareness-bar.js).
+# Race resistances, enemy immunity perks, enemy types and leveled-list names come
+# from tsv/AWARE_Export_*.tsv, made by tools/esm_awareness_extract.py on the PC
+# after a patch. The full patch / PTS builds also run this builder.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - 'tsv/AWARE_*.tsv'
+      - 'tsv/NPC*_*.tsv'
+      - 'tsv/GLOB_*.tsv'
+      - 'tsv/CURV_*.tsv'
+      - 'tsv/SPEL_*.tsv'
+      - 'tsv/MGEF_*.tsv'
+      - 'tsv/PERK*_*.tsv'
+      - 'tsv/OMOD_*.tsv'
+      - 'tsv/WEAP_*.tsv'
+      - 'dist/builds/builds_data.json'
+      - 'data/awareness_bar/**'
+      - 'src/build_awareness_bar_json.py'
+      - '.github/workflows/build-awareness-bar.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-awareness-bar
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Build Awareness Bar JSON
+        run: python src/build_awareness_bar_json.py
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dist/calculators/awareness_bar.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Build Awareness Bar calculator data"
+            git pull --rebase
+            git push
+          fi

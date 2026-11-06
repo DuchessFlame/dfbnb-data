@@ -1,0 +1,189 @@
+{
+  "_readme": "What the Awareness Bar calculator SHOWS. No game numbers live here - every number (resistance curves, levels, immunities, perk multipliers, armour penetration) is read from the game exports by src/build_awareness_bar_json.py. Edit labels / wording here; rebuild to apply.",
+  "types": [
+    {
+      "key": "phys",
+      "label": "Physical",
+      "av": [
+        "DamageResist"
+      ],
+      "icon": "resist-physical"
+    },
+    {
+      "key": "energy",
+      "label": "Energy",
+      "av": [
+        "EnergyResist"
+      ],
+      "icon": "resist-energy"
+    },
+    {
+      "key": "rad",
+      "label": "Radiation",
+      "av": [
+        "RadResistExposure"
+      ],
+      "icon": "resist-radiation"
+    },
+    {
+      "key": "fire",
+      "label": "Fire",
+      "av": [
+        "FireResist"
+      ],
+      "icon": "resist-fire"
+    },
+    {
+      "key": "cryo",
+      "label": "Cryo",
+      "av": [
+        "FrostResist"
+      ],
+      "icon": "resist-cryo"
+    },
+    {
+      "key": "poison",
+      "label": "Poison",
+      "av": [
+        "PoisonResist"
+      ],
+      "icon": "resist-poison"
+    }
+  ],
+  "_immune_readme": "Perks on an enemy that zero a damage type (Set Value 0). Which bar slot each one blanks is read from the perk's own conditions (dtPoison / DamageTypeRadiation ...); this only maps the damage-type record to a bar slot.",
+  "damage_type_slots": {
+    "dtPhysical": "phys",
+    "DamageTypePhysical": "phys",
+    "dtEnergy": "energy",
+    "DamageTypeEnergy": "energy",
+    "dtRadiationExposure": "rad",
+    "DamageTypeRadiation": "rad",
+    "dtFire": "fire",
+    "DamageTypeFire": "fire",
+    "dtCryo": "cryo",
+    "dtFrost": "cryo",
+    "DamageTypeCryo": "cryo",
+    "dtPoison": "poison",
+    "DamageTypePoison": "poison"
+  },
+  "_skip_readme": "Enemy records left off the picker: editor-only, test, cut and corpse records.",
+  "skip_edid": "^(zzz|ZZZ|DEL|DELETED|CUT|Test|TEST|test|Debug|DEBUG|POST|MightDelete|Dummy|NPCTest|DONOTUSE|DefaultHostileDetectionActor)|Test_|_Test|Corpse|DialogueTest|Template$|_Template",
+  "skip_name": "^\\s*$|^[A-Z0-9]{2,5} |\\[|TEST",
+  "_variant_words_readme": "Words added to a version's label when the record name says where it comes from. Plain player words only.",
+  "variant_words": {
+    "Watoga": "Watoga",
+    "Glowing": "Glowing",
+    "DailyOps": "Daily Ops",
+    "Workshop": "Workshop attack",
+    "Events": "Event",
+    "Vault": "Vault raid",
+    "Legendary": "Legendary",
+    "Boss": "Boss",
+    "Expedition": "Expedition",
+    "XPD": "Expedition",
+    "Raid": "Raid",
+    "RD01": "Gleaming Depths",
+    "Infestation": "Infestation",
+    "HTO": "Infestation",
+    "Bounty": "Bounty",
+    "Burn": "Burning Springs",
+    "Scorched": "Scorched",
+    "Mutated": "Mutated",
+    "Ally": "Ally",
+    "Pet": "Pet",
+    "Enclave": "Enclave"
+  },
+  "_cards_readme": "Perk cards that lower an enemy's resistance. Ranks, numbers and the weapons / enemies each rank works with come from the PERK entry points (Mod Target Damage Resistance).",
+  "cards": [
+    {
+      "id": "tk",
+      "label": "Tank Killer",
+      "special": "Perception",
+      "edid": "^TankKiller0(\\d)$"
+    },
+    {
+      "id": "bbm",
+      "label": "Bow Before Me",
+      "special": "Perception",
+      "edid": "^BowBeforeMe0(\\d)$"
+    },
+    {
+      "id": "stb",
+      "label": "Stabilized",
+      "special": "Intelligence",
+      "edid": "^Stabilized0(\\d)$",
+      "pa": true
+    },
+    {
+      "id": "inc",
+      "label": "Incisor",
+      "special": "Strength",
+      "edid": "^Incisor0(\\d)$"
+    },
+    {
+      "id": "ext",
+      "label": "Exterminator",
+      "special": "Charisma",
+      "edid": "^Exterminator0(\\d)$"
+    }
+  ],
+  "_pen_readme": "Weapon mods that add Armour Penetration (the weapon's own stat). The number is read from the mod; ModArmorPenetrationPerk turns it into the cut on the enemy's resistance.",
+  "pen_perk": "ModArmorPenetrationPerk",
+  "pen_mods": [
+    {
+      "id": "antiarmor",
+      "label": "Anti-Armor (1★ legendary)",
+      "omod": "mod_Legendary_Weapon1_AntiArmor",
+      "kind": "legendary"
+    },
+    {
+      "id": "ap",
+      "label": "Armor-piercing mod (gun)",
+      "omod": "_PARENT_mod_WEAPON_GENERIC_ArmorPiercing",
+      "kind": "mod"
+    },
+    {
+      "id": "barbed",
+      "label": "Barbed (melee mod)",
+      "omod": "_PARENT_mod_melee_weapon_Barbed",
+      "kind": "mod"
+    },
+    {
+      "id": "spikes",
+      "label": "Spiked (melee mod)",
+      "omod": "_PARENT_mod_melee_weapon_Spikes",
+      "kind": "mod"
+    },
+    {
+      "id": "spikesL",
+      "label": "Large spikes (melee mod)",
+      "omod": "_PARENT_mod_melee_weapon_SpikesLarge",
+      "kind": "mod"
+    },
+    {
+      "id": "hooked",
+      "label": "Hooked (melee mod)",
+      "omod": "_PARENT_mod_melee_weapon_Hooked",
+      "kind": "mod"
+    },
+    {
+      "id": "saw",
+      "label": "Saw blades (melee mod)",
+      "omod": "_PARENT_mod_melee_weapon_SawBlades",
+      "kind": "mod"
+    },
+    {
+      "id": "bowbar",
+      "label": "Bow bar (Chainsaw)",
+      "omod": "mod_Chainsaw_Bar_Bow",
+      "kind": "mod"
+    },
+    {
+      "id": "salt",
+      "label": "Salt (Meat Tenderizer)",
+      "omod": "mod_melee_MeatTenderizer_Salt",
+      "kind": "mod"
+    }
+  ],
+  "weapon_keywords": "^WeaponType"
+}

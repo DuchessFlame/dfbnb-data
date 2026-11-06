@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated": "2026-10-25T14:13:21Z",
+ "generated": "2026-11-06T07:50:01Z",
  "source": "KYWD_Export_October_2026_Refs.tsv",
  "pages": {
   "hud": {
@@ -2399,12 +2399,17 @@
     {
      "key": "numbers",
      "title": "What the Numbers Mean",
-     "html": "<p>The number is the enemy's resistance to that damage type. <b>The higher the number, the more of that damage the enemy shrugs off.</b> A low number is a weak spot.</p><p>The number on the bar is not the same as the raw resistance stored in the game files. For example, the Ultracite Terror's physical resistance is 276 in the files, but the bar shows 183. The game works out the bar number itself. We have asked the developers for the exact formula and will add it, with a calculator, once we know.</p><p>Even without the exact formula, the bar is easy to use: compare the numbers against each other. The lowest number is the damage type that will hurt that enemy the most.</p><p>A <b>crossed-out circle</b> means the enemy is <b>immune</b>: that damage type does nothing to it. Robots, for example, are usually immune to poison and radiation. If your weapon only does an immune damage type, switch weapons.</p>"
+     "html": "<p>Each number is the enemy's resistance to that damage type. <b>The higher the number, the less damage that type does.</b> The lowest number is its weak spot.</p><p>The numbers are worked out for <b>you</b>, so two players can see different numbers on the same enemy:</p><ul><li><b>Your level counts.</b> The enemy's resistance is read at the level on its bar. That level follows yours, up to the highest level that enemy can be where you are.</li><li><b>Your perk cards and weapon count.</b> Tank Killer, Bow Before Me, Incisor, Stabilized, Exterminator, an Anti-Armor weapon and armour-piercing mods all lower the numbers you see.</li><li><b>The numbers are rounded down.</b></li></ul><p>A <b>crossed-out circle</b> means the enemy is <b>immune</b> to that damage type. It does nothing to it, no matter how strong your weapon is.</p>"
+    },
+    {
+     "key": "calc",
+     "title": "Work Out an Enemy's Numbers",
+     "html": "<p>Pick an enemy, the level on its bar and your perk cards to see what its bar shows for you.</p><div class=\"abcHost\"></div>"
     },
     {
      "key": "tips",
      "title": "Using It to Pick Your Damage",
-     "html": "<ul><li><b>Go for the lowest number.</b> If an enemy's energy number is much lower than its physical number, an energy weapon will do more damage than a gun of the same power.</li><li><b>Never rely on an immune type.</b> Damage of an immune type is wasted. Weapons that mix damage types (for example plasma, or weapons with fire, cryo or poison effects) still do their other types.</li><li><b>Big hits get through resistance better.</b> Resistance cuts a share of each hit, and that share is smaller when the hit is big compared to the resistance. Against very resistant enemies, a few big hits beat lots of small ones.</li><li><b>Lower the enemy's resistance.</b> Perks and effects that ignore or reduce armour (such as Tank Killer, Stabilized and Incisor, or armour-piercing mods) help most against enemies with high numbers.</li><li><b>Damage over time shows too.</b> When you set an enemy burning, poisoned, bleeding and so on, a small triangle appears beside its health bar - see <i>Damage Over Time Icons</i> below.</li></ul>"
+     "html": "<ul><li><b>Go for the lowest number.</b> If an enemy's energy number is much lower than its physical number, an energy weapon will do more damage than a gun of the same power.</li><li><b>Never rely on an immune type.</b> Damage of an immune type is wasted. Weapons that mix damage types (for example plasma, or weapons with fire, cryo or poison effects) still do their other types.</li><li><b>Lower the enemy's resistance.</b> The perk cards and weapon effects above help most against enemies with high numbers. Use the calculator to see how much.</li><li><b>Damage over time shows too.</b> When you set an enemy burning, poisoned, bleeding and so on, a small triangle appears beside its health bar - see <i>Damage Over Time Icons</i> below.</li></ul>"
     },
     {
      "key": "icons",
@@ -2513,9 +2518,7 @@
        ],
        "pill": "Resistance",
        "meaning": "Shown instead of a number when the enemy is immune to that damage type - it does nothing to them.",
-       "when": [
-        "Robots are usually immune to poison and radiation; many bosses are immune to radiation or poison too."
-       ],
+       "when": [],
        "examples": []
       }
      ],
