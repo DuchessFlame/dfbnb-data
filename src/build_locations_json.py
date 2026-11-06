@@ -226,6 +226,64 @@ def load_markers():
 
 
 # ── LCTN records, regions and references ─────────────────────────────────────
+# Local Legend fish (Duchess, 7 Nov 2026): each one bites at ONE place, set by the
+# GetInCurrentLocation condition on its entry in Fishing_LLS_FishCollection_LocalLegends
+# (LVLI 00804F7F). Read from the game files every build — nothing typed here. The
+# seasonal Local Legends sit in the same list and also carry a Seasonal_<Season> FISH
+# keyword. Plain seasonal / regional / common fish roll anywhere in a region, so they
+# are deliberately NOT tied to a location.
+LEGEND_LIST_EDID = "Fishing_LLS_FishCollection_LocalLegends"
+_LCTN_COND = re.compile(r"GetInCurrentLocation\(.*?\[LCTN:([0-9A-Fa-f]{8})\]")
+
+
+def load_local_legends():
+    """LCTN formid -> [{name, edid, form_id, season}] from the Local Legend list."""
+    path = tsv_source.newest("LVLI_Export_*_LVLI_Entries.tsv", channel=CHANNEL, required=False)
+    if not path:
+        return {}
+    fish_info = {}
+    try:
+        with open(os.path.join(DIST, "fishing.json"), encoding="utf-8") as f:
+            for x in json.load(f).get("fish", []):
+                fish_info[x.get("edid") or ""] = x
+    except (OSError, ValueError):
+        pass
+    out = defaultdict(list)
+    for row in read_tsv(path):
+        if (row.get("LVLI_EDID") or "") != LEGEND_LIST_EDID:
+            continue
+        ref = (row.get("LVLO_Reference") or "").split(":")
+        if len(ref) < 3 or ref[2] != "FISH":
+            continue
+        conds = " ".join(v for k, v in row.items() if k and k.startswith("Cond") and v)
+        m = _LCTN_COND.search(conds)
+        if not m:
+            continue
+        info = fish_info.get(ref[1], {})
+        out[m.group(1).upper()].append({
+            "name": info.get("name") or ref[1],
+            "edid": ref[1], "form_id": ref[0].upper(),
+            "season": info.get("season") or "",
+        })
+    return out
+
+
+def legend_fish_for(lctn_ids, legends, recs):
+    """Local Legends that bite at this marker: the legend's LCTN is one of the marker's
+    own, or a child of one (e.g. the Organ Cave interior sits under Organ Cave South)."""
+    mine = set(lctn_ids)
+    found = []
+    for lf, fish in legends.items():
+        cur, seen = lf, set()
+        while cur and cur not in seen:
+            if cur in mine:
+                found.extend(fish)
+                break
+            seen.add(cur)
+            cur = (recs.get(cur) or {}).get("pnam")
+    return sorted(found, key=lambda f: f["name"].lower())
+
+
 def load_lctn():
     path = tsv_source.newest("LCTN_Export_*_LCTN.tsv", channel=CHANNEL)
     recs = {}
@@ -480,6 +538,7 @@ def main():
     markers, refr_pos, game_ver = load_markers()
     rings, _ = xref.load_mappalachia()
     recs = load_lctn()
+    legends = load_local_legends()
     refs = load_lctn_refs()
     quests = load_quests()
     event_locs = load_event_locations()
@@ -577,6 +636,7 @@ def main():
             "challenges": [{"name": c["name"], "type": c["type"], "required": c["required"],
                             "parent": c["parent"], "edid": c["edid"], "form_id": c["form_id"]}
                            for c in cl],
+            "fish": legend_fish_for(m["_lctn"], legends, recs),
         })
 
     out_regions = []
