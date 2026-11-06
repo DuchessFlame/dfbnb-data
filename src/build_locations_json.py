@@ -568,7 +568,7 @@ def main():
             "type": icon_label(m["icon"]),
             "icon": m["icon"],
             "x": m["x"], "y": m["y"],
-            "image": f"{IMAGE_BASE}{lid}.avif",
+            "image": f"{IMAGE_BASE}{lid}.jpg",   # maps stay JPEG (sharp when zoomed)
             "lctn": [{"form_id": f, "edid": recs[f]["edid"], "name": recs[f]["full"]}
                      for f in sorted(m["_lctn"]) if f in recs],
             "match": m["_how"],
@@ -640,6 +640,9 @@ def main():
         "image_base": IMAGE_BASE,
         "count": total,
         "regions": out_regions,
+        # Region map tiles (Maps root expand). Drawn locally by render_all_locations_maps.py,
+        # which also writes the list; the page HEAD-checks each one before showing it.
+        "region_maps": _region_maps(),
         "unlinked": {
             "quests": unl_q,
             "challenges": unl_c,
@@ -659,6 +662,15 @@ def main():
           f"{len(doc['unlinked']['markers_without_lctn'])}")
     if total < 400:
         raise SystemExit(f"[locations] only {total} locations — refusing to publish a short page.")
+
+
+def _region_maps():
+    p = os.path.join(REPO, "data", "locations", "region_maps.json")
+    try:
+        with open(p, encoding="utf-8") as f:
+            return json.load(f).get("maps", [])
+    except (OSError, ValueError):
+        return []
 
 
 if __name__ == "__main__":

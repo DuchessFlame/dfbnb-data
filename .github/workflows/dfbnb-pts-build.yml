@@ -1067,6 +1067,18 @@ jobs:
       - name: Build Awareness Bar JSON
         run: python src/build_awareness_bar_json.py
 
+    # --- CARRY WEIGHT CALCULATOR (after SPECIALs & Stats: reads dist/specials_stats.json) ---
+      - name: Build Carry Weight Calculator JSON
+        run: python src/build_carry_weight_calculator_json.py --pts
+
+    # --- HP CALCULATOR (+ Endurance tab; reads dist/specials_stats.json) ---
+      - name: Build HP Calculator JSON
+        run: python src/build_hp_calculator_json.py --pts
+
+    # --- AP REFRESH CALCULATOR (AP Refresh | Max AP; reads dist/specials_stats.json) ---
+      - name: Build AP Calculator JSON
+        run: python src/build_ap_calculator_json.py --pts
+
       # --- STARFIELD ---
       - name: Build Starfield JSON
         run: python src/build_starfield_json.py

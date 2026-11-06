@@ -1,0 +1,629 @@
+{
+ "version": 1,
+ "generated": "2026-11-06T13:00:07+00:00",
+ "channel": "live",
+ "sources": {
+  "specials_stats": "dist/specials_stats.json",
+  "curv": "CURV_Export_October_2026_POINTS.tsv",
+  "omod": "OMOD_Export_October_2026_Properties.tsv",
+  "ench": "ENCH_Export_October_2026.tsv"
+ },
+ "base": {
+  "value": 150,
+  "src": {
+   "type": "GMST",
+   "edid": "fAVDCarryWeightBase",
+   "formId": "000F92CB"
+  }
+ },
+ "perStrength": {
+  "value": 5,
+  "src": {
+   "type": "GMST",
+   "edid": "fAVDCarryWeightMult",
+   "formId": "000F92CC"
+  }
+ },
+ "strongBack": {
+  "points": [
+   [
+    1,
+    10
+   ],
+   [
+    15,
+    40
+   ],
+   [
+    30,
+    65
+   ],
+   [
+    60,
+    85
+   ],
+   [
+    100,
+    100
+   ]
+  ],
+  "src": {
+   "type": "CURV",
+   "edid": "StrongBackBonus"
+  }
+ },
+ "backpacks": [
+  {
+   "id": "mod_BackPack_Small_CarryCapacity",
+   "label": "Small backpack",
+   "curve": "CT_BackPack_Small_CarryCapacity",
+   "curveFormId": "00564077",
+   "scale": 1.0,
+   "points": [
+    [
+     1,
+     5
+    ],
+    [
+     10,
+     10
+    ],
+    [
+     20,
+     15
+    ],
+    [
+     30,
+     20
+    ],
+    [
+     40,
+     25
+    ],
+    [
+     50,
+     30
+    ],
+    [
+     1000,
+     30
+    ]
+   ],
+   "src": {
+    "type": "OMOD",
+    "edid": "mod_BackPack_Small_CarryCapacity"
+   }
+  },
+  {
+   "id": "mod_BackPack_Base_CarryCapacity",
+   "label": "Standard backpack",
+   "curve": "CT_BackPack_Base_CarryCapacity",
+   "curveFormId": "0047EF2F",
+   "scale": 1.0,
+   "points": [
+    [
+     1,
+     10
+    ],
+    [
+     10,
+     20
+    ],
+    [
+     20,
+     30
+    ],
+    [
+     30,
+     40
+    ],
+    [
+     40,
+     50
+    ],
+    [
+     50,
+     60
+    ],
+    [
+     1000,
+     60
+    ]
+   ],
+   "src": {
+    "type": "OMOD",
+    "edid": "mod_BackPack_Base_CarryCapacity"
+   }
+  }
+ ],
+ "backpackMods": [
+  {
+   "id": "",
+   "label": "No mod / other mod",
+   "curve": null,
+   "points": []
+  },
+  {
+   "id": "mod_BackPack_Effect_HighCapacity",
+   "label": "High Capacity",
+   "curve": "CT_BackPack_Mod_Effect_HighCapacity",
+   "curveFormId": "0047879C",
+   "scale": 1.0,
+   "points": [
+    [
+     1,
+     10
+    ],
+    [
+     10,
+     20
+    ],
+    [
+     20,
+     30
+    ],
+    [
+     30,
+     40
+    ],
+    [
+     40,
+     50
+    ],
+    [
+     50,
+     60
+    ],
+    [
+     1000,
+     60
+    ]
+   ],
+   "src": {
+    "type": "OMOD",
+    "edid": "mod_BackPack_Effect_HighCapacity"
+   }
+  },
+  {
+   "id": "mod_BackPack_Effect_ArmorPlated",
+   "label": "Armor Plated",
+   "curve": "CT_BackPack_Mod_Effect_CarryPenalty_High",
+   "curveFormId": "0047879D",
+   "scale": 1.0,
+   "points": [
+    [
+     1,
+     -5
+    ],
+    [
+     10,
+     -10
+    ],
+    [
+     20,
+     -15
+    ],
+    [
+     30,
+     -20
+    ],
+    [
+     40,
+     -25
+    ],
+    [
+     50,
+     -30
+    ],
+    [
+     1000,
+     -30
+    ]
+   ],
+   "src": {
+    "type": "OMOD",
+    "edid": "mod_BackPack_Effect_ArmorPlated"
+   }
+  },
+  {
+   "id": "mod_BackPack_Effect_LeadLined",
+   "label": "Lead Lined",
+   "curve": "CT_BackPack_Mod_Effect_CarryPenalty_High",
+   "curveFormId": "0047879D",
+   "scale": 1.0,
+   "points": [
+    [
+     1,
+     -5
+    ],
+    [
+     10,
+     -10
+    ],
+    [
+     20,
+     -15
+    ],
+    [
+     30,
+     -20
+    ],
+    [
+     40,
+     -25
+    ],
+    [
+     50,
+     -30
+    ],
+    [
+     1000,
+     -30
+    ]
+   ],
+   "src": {
+    "type": "OMOD",
+    "edid": "mod_BackPack_Effect_LeadLined"
+   }
+  },
+  {
+   "id": "mod_BackPack_Effect_Insulated",
+   "label": "Insulated",
+   "curve": "CT_BackPack_Mod_Effect_CarryPenalty_High",
+   "curveFormId": "0047879D",
+   "scale": 1.0,
+   "points": [
+    [
+     1,
+     -5
+    ],
+    [
+     10,
+     -10
+    ],
+    [
+     20,
+     -15
+    ],
+    [
+     30,
+     -20
+    ],
+    [
+     40,
+     -25
+    ],
+    [
+     50,
+     -30
+    ],
+    [
+     1000,
+     -30
+    ]
+   ],
+   "src": {
+    "type": "OMOD",
+    "edid": "mod_BackPack_Effect_Insulated"
+   }
+  },
+  {
+   "id": "mod_BackPack_Effect_Refrigerated",
+   "label": "Refrigerated",
+   "curve": "CT_BackPack_Mod_Effect_CarryPenalty_High",
+   "curveFormId": "0047879D",
+   "scale": 1.0,
+   "points": [
+    [
+     1,
+     -5
+    ],
+    [
+     10,
+     -10
+    ],
+    [
+     20,
+     -15
+    ],
+    [
+     30,
+     -20
+    ],
+    [
+     40,
+     -25
+    ],
+    [
+     50,
+     -30
+    ],
+    [
+     1000,
+     -30
+    ]
+   ],
+   "src": {
+    "type": "OMOD",
+    "edid": "mod_BackPack_Effect_Refrigerated"
+   }
+  }
+ ],
+ "linings": [
+  {
+   "id": "pocketed",
+   "label": "Pocketed",
+   "torso": 10,
+   "limb": 5
+  },
+  {
+   "id": "deep-pocketed",
+   "label": "Deep Pocketed",
+   "torso": 20,
+   "limb": 10
+  }
+ ],
+ "calibratedShocks": {
+  "value": 50,
+  "src": {
+   "type": "OMOD",
+   "name": "Calibrated Shocks"
+  }
+ },
+ "excavator": {
+  "value": 100.0,
+  "src": {
+   "type": "ENCH",
+   "edid": "EnchPowerArmor_Generic_Excavator_Torso",
+   "formId": "006D7187"
+  }
+ },
+ "hauler": {
+  "label": "Hauler's",
+  "star": 4,
+  "value": 30,
+  "armour": true,
+  "pa": true
+ },
+ "foods": [
+  {
+   "diet": "Carnivore",
+   "dish": "Yao Guai Pastry",
+   "id": "0066D3F1",
+   "durationSec": 3600,
+   "base": 30,
+   "mutation": 60,
+   "sin": 75,
+   "stacks": "FoodDispelEffect_CarryWeight",
+   "recommended": true,
+   "category": "Carnivore - Recommended",
+   "seasonal": false
+  },
+  {
+   "diet": "Carnivore",
+   "dish": "Carry Weight Booster",
+   "id": "006029FC",
+   "durationSec": 1800,
+   "base": 50,
+   "mutation": 50,
+   "sin": 50,
+   "stacks": "FortifyCarryWeight",
+   "recommended": true,
+   "category": "Carnivore - Recommended",
+   "seasonal": false
+  },
+  {
+   "diet": "Carnivore",
+   "dish": "Canned Smoked Mirelurk Fillets",
+   "id": "008D3862",
+   "durationSec": 5400,
+   "base": 30,
+   "mutation": 60,
+   "sin": 75,
+   "stacks": "FoodDispelEffect_CarryWeight",
+   "recommended": false,
+   "category": "Carnivore - Alternative",
+   "seasonal": false
+  },
+  {
+   "diet": "Carnivore",
+   "dish": "Smoked Mirelurk Fillets",
+   "id": "003D5F41",
+   "durationSec": 5400,
+   "base": 30,
+   "mutation": 60,
+   "sin": 75,
+   "stacks": "FoodDispelEffect_CarryWeight",
+   "recommended": false,
+   "category": "Carnivore - Alternative",
+   "seasonal": false
+  },
+  {
+   "diet": "Carnivore",
+   "dish": "Pepperoni Roll",
+   "id": "0058F9E1",
+   "durationSec": 3600,
+   "base": 30,
+   "mutation": 60,
+   "sin": 75,
+   "stacks": "FoodDispelEffect_CarryWeight",
+   "recommended": false,
+   "category": "Carnivore - Alternative",
+   "seasonal": false
+  },
+  {
+   "diet": "Carnivore",
+   "dish": "Fried Radtoad Legs",
+   "id": "003D7499",
+   "durationSec": 3600,
+   "base": 20,
+   "mutation": 40,
+   "sin": 50,
+   "stacks": "FoodDispelEffect_CarryWeight",
+   "recommended": false,
+   "category": "Carnivore - Alternative",
+   "seasonal": false
+  },
+  {
+   "diet": "Carnivore",
+   "dish": "Canned Ribeye Steak",
+   "id": "007FDA57",
+   "durationSec": 1800,
+   "base": 20,
+   "mutation": 40,
+   "sin": 50,
+   "stacks": "FoodDispelEffect_CarryWeight",
+   "recommended": false,
+   "category": "Carnivore - Alternative",
+   "seasonal": false
+  },
+  {
+   "diet": "Carnivore",
+   "dish": "Cramburger",
+   "id": "003E9FA6",
+   "durationSec": 1800,
+   "base": 20,
+   "mutation": 40,
+   "sin": 50,
+   "stacks": "FoodDispelEffect_CarryWeight",
+   "recommended": false,
+   "category": "Carnivore - Alternative",
+   "seasonal": false
+  },
+  {
+   "diet": "Carnivore",
+   "dish": "Grilled Radstag",
+   "id": "00046952",
+   "durationSec": 1800,
+   "base": 20,
+   "mutation": 40,
+   "sin": 50,
+   "stacks": "FoodDispelEffect_CarryWeight",
+   "recommended": false,
+   "category": "Carnivore - Alternative",
+   "seasonal": false
+  },
+  {
+   "diet": "Carnivore",
+   "dish": "Mystery Meat Pie",
+   "id": "0040FC27",
+   "durationSec": 1800,
+   "base": 20,
+   "mutation": 40,
+   "sin": 50,
+   "stacks": "FoodDispelEffect_CarryWeight",
+   "recommended": false,
+   "category": "Carnivore - Alternative",
+   "seasonal": false
+  },
+  {
+   "diet": "Carnivore",
+   "dish": "Ribeye Steak",
+   "id": "0004695A",
+   "durationSec": 1800,
+   "base": 20,
+   "mutation": 40,
+   "sin": 50,
+   "stacks": "FoodDispelEffect_CarryWeight",
+   "recommended": false,
+   "category": "Carnivore - Alternative",
+   "seasonal": false
+  },
+  {
+   "diet": "Carnivore",
+   "dish": "Grilled Radtoad",
+   "id": "0003E055",
+   "durationSec": 1800,
+   "base": 10,
+   "mutation": 20,
+   "sin": 25,
+   "stacks": "FoodDispelEffect_CarryWeight",
+   "recommended": false,
+   "category": "Carnivore - Alternative",
+   "seasonal": false
+  },
+  {
+   "diet": "Carnivore",
+   "dish": "Roasted Ant",
+   "id": "001142F9",
+   "durationSec": 1800,
+   "base": 10,
+   "mutation": 20,
+   "sin": 25,
+   "stacks": "FoodDispelEffect_CarryWeight",
+   "recommended": false,
+   "category": "Carnivore - Alternative",
+   "seasonal": false
+  },
+  {
+   "diet": "Herbivore",
+   "dish": "Carry Weight Booster",
+   "id": "006029FC",
+   "durationSec": 1800,
+   "base": 50,
+   "mutation": 50,
+   "sin": 50,
+   "stacks": "FortifyCarryWeight",
+   "recommended": true,
+   "category": "Herbivore - Recommended",
+   "seasonal": false
+  },
+  {
+   "diet": "Herbivore",
+   "dish": "Pickled Pumpkin",
+   "id": "008B73C3",
+   "durationSec": 1800,
+   "base": 10,
+   "mutation": 20,
+   "sin": 25,
+   "stacks": "FoodDispelEffect_CarryWeight",
+   "recommended": false,
+   "category": "Herbivore - Alternative",
+   "seasonal": false
+  }
+ ],
+ "alcohol": [
+  {
+   "name": "Rad Ant Lager",
+   "id": "003EC3DF",
+   "value": 50.0,
+   "sin": null,
+   "duration": "2 min",
+   "other": [
+    "+2 Luck",
+    "+3 Luck",
+    "Quenches thirst (900/15 min)",
+    "20% chance of addiction"
+   ]
+  }
+ ],
+ "magazines": [
+  {
+   "name": "Grognak the Barbarian 9",
+   "id": "004303E5",
+   "value": 25.0,
+   "sin": null,
+   "duration": "30 min",
+   "other": []
+  }
+ ],
+ "mutations": [
+  {
+   "name": "Marsupial Mutation",
+   "id": "004DF1CE",
+   "value": 20.0,
+   "sin": 25,
+   "duration": null,
+   "other": [
+    "+3 Jump Height (+4 Jump Height in a team with Strange In Numbers)",
+    "-4 Intelligence"
+   ]
+  }
+ ],
+ "notes": [
+  "Over-encumbered: running drains AP and you cannot fast travel.",
+  "Hard limit: you cannot go more than 1,500 lb over your current carry weight — anything past that is destroyed if you drop or move it (Duchess, tested in game).",
+  "Carry weight food buffs replace each other — only the most recent one is active."
+ ],
+ "warnings": []
+}

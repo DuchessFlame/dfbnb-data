@@ -728,9 +728,9 @@
       "path": "/bnb/specials-stats/ap-regen/ap-regen-guide/",
       "title": "AP Regen Guide",
       "blurb": "How fast your Action Points refill in Fallout 76, from the game files, and every way to speed it up.",
-      "intro": "AP Regen is how fast your Action Point bar fills back up. Every AP Regen buff adds a percentage on top of the base rate, and they all stack.",
+      "intro": "AP Regen is how fast your Action Point bar fills back up. Some buffs add to your base rate and others raise a % multiplier on top of it, and they all stack.",
       "details": [
-        "Your base AP regen rate comes from your race record ({base}). AP Regen buffs raise the rate multiplier, which starts at {multBase}%.",
+        "Your AP bar refills at a base rate of {base}% of the bar every second (from your race record). Food, drinks, magazines and Powered armour add straight to that base rate. Perk cards, Well Tuned and a full thirst bar raise the multiplier, which starts at {multBase}%. AP regen = base rate × multiplier.",
         "There is no cap on AP regen.",
         "A crippled torso slows AP regen."
       ],
@@ -753,16 +753,23 @@
         {
           "id": "regen",
           "label": "AP regen",
-          "expr": "base * (multBase + bonus) / 100",
-          "unit": "% of max AP / sec",
+          "expr": "(base + flat) * (multBase + pct) / 100",
+          "unit": "% of AP bar / sec",
           "decimals": 1,
           "vars": [
             {
-              "name": "bonus",
-              "label": "AP Regen buffs (%)",
+              "name": "pct",
+              "label": "Multiplier buffs (%) - perks, Well Tuned, thirst",
               "default": 0,
               "min": 0,
               "max": 300
+            },
+            {
+              "name": "flat",
+              "label": "Base rate buffs - food, drinks, magazines, Powered",
+              "default": 0,
+              "min": 0,
+              "max": 60
             }
           ],
           "inputs": {
@@ -785,16 +792,23 @@
         {
           "id": "refill",
           "label": "Seconds to refill an empty bar",
-          "expr": "100 / (base * (multBase + bonus) / 100)",
+          "expr": "100 / ((base + flat) * (multBase + pct) / 100)",
           "unit": "s",
           "decimals": 1,
           "vars": [
             {
-              "name": "bonus",
-              "label": "AP Regen buffs (%)",
+              "name": "pct",
+              "label": "Multiplier buffs (%) - perks, Well Tuned, thirst",
               "default": 0,
               "min": 0,
               "max": 300
+            },
+            {
+              "name": "flat",
+              "label": "Base rate buffs - food, drinks, magazines, Powered",
+              "default": 0,
+              "min": 0,
+              "max": 60
             }
           ],
           "inputs": {
@@ -1556,10 +1570,11 @@
     },
     "ap_regen": {
       "label": "AP regen",
-      "unit": "% AP regen",
+      "unit": "% of AP bar / sec",
       "slots": {
         "ap_regen": {
-          "per_point": 1
+          "per_point": 1,
+          "unit": "% of AP bar / sec"
         }
       }
     },

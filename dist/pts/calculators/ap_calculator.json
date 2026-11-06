@@ -1,0 +1,806 @@
+{
+ "version": 1,
+ "generated": "2026-11-06T15:42:16+00:00",
+ "channel": "pts",
+ "sources": {
+  "specials_stats": "dist/pts/specials_stats.json",
+  "mgef": "MGEF_Export_PTS_2026-10-28_0522.tsv",
+  "spel": "SPEL_Export_PTS_2026-10-28_0508_EFFECTS.tsv",
+  "alchfx": "ALCHFX_Export_October_2026.tsv",
+  "curv": "CURV_Export_PTS_2026-09-14_2013_POINTS.tsv",
+  "omod": "OMOD_Export_PTS_2026-10-28_0509_Properties.tsv",
+  "apx": "APX_Export_PTS_2026-11-06_1535.tsv"
+ },
+ "refresh": {
+  "base": {
+   "value": null,
+   "src": {
+    "type": "RACE PRPS",
+    "edid": "HumanRace",
+    "av": "ActionPointsRate",
+    "missing": true
+   }
+  },
+  "multBase": {
+   "value": null,
+   "src": {
+    "type": "AVIF NAM0",
+    "edid": "ActionPointsRateMult",
+    "missing": true
+   }
+  },
+  "notes": [
+   "Your AP bar refills at a base rate of {base}% of the bar every second (from your race record). Food, drinks, magazines and Powered armour add straight to that base rate. Perk cards, Well Tuned and a full thirst bar raise the multiplier, which starts at {multBase}%. AP regen = base rate × multiplier.",
+   "There is no cap on AP regen.",
+   "A crippled torso slows AP regen."
+  ],
+  "actionBoy": [
+   {
+    "rank": 1,
+    "value": 15,
+    "kind": "mult"
+   },
+   {
+    "rank": 2,
+    "value": 30,
+    "kind": "mult"
+   },
+   {
+    "rank": 3,
+    "value": 45,
+    "kind": "mult"
+   }
+  ],
+  "actionGhoul": [
+   {
+    "rank": 1,
+    "value": 15,
+    "kind": "mult"
+   },
+   {
+    "rank": 2,
+    "value": 30,
+    "kind": "mult"
+   },
+   {
+    "rank": 3,
+    "value": 45,
+    "kind": "mult"
+   }
+  ],
+  "loneWanderer": {
+   "points": [
+    [
+     1,
+     10
+    ],
+    [
+     15,
+     30
+    ],
+    [
+     30,
+     45
+    ],
+    [
+     60,
+     70
+    ],
+    [
+     100,
+     85
+    ]
+   ],
+   "input": "Charisma",
+   "kind": "mult",
+   "src": {
+    "type": "CURV",
+    "edid": "LoneWandererAPRegenBonus"
+   }
+  },
+  "nerdRage": {
+   "points": [
+    [
+     0.05,
+     30
+    ],
+    [
+     0.2,
+     15
+    ],
+    [
+     0.8,
+     1
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "input": "Health (fraction of max HP)",
+   "kind": "mult",
+   "src": {
+    "type": "CURV",
+    "edid": "NerdRageAPBonus"
+   }
+  },
+  "packinLight": {
+   "value": 25,
+   "kind": "mult",
+   "src": {
+    "type": "SPEL",
+    "edid": "AbPerkPackinLight"
+   }
+  },
+  "wellTuned": {
+   "value": 25,
+   "kind": "mult",
+   "src": {
+    "type": "SPEL",
+    "edid": "SURV_WellTunedSpell"
+   }
+  },
+  "injector": {
+   "value": 18,
+   "kind": "flat",
+   "src": {
+    "type": "SPEL",
+    "edid": "PerkInjector01Spell"
+   }
+  },
+  "powered": {
+   "value": 5,
+   "kind": "flat",
+   "star": 2,
+   "src": {
+    "type": "OMOD",
+    "edid": "mod_Legendary_Armor_APRegen"
+   }
+  },
+  "kineticServos": {
+   "value": 1,
+   "kind": "flat",
+   "perLeg": true,
+   "whileMoving": true,
+   "src": {
+    "type": "OMOD+ENCH",
+    "edid": "_PARENT_mod_PowerArmor_GENERIC_APRegen / EnchPowerArmor_KineticServos"
+   }
+  },
+  "coreAssembly": {
+   "value": 6,
+   "points": [
+    [
+     1,
+     6
+    ],
+    [
+     50,
+     6
+    ]
+   ],
+   "kind": "flat",
+   "src": {
+    "type": "OMOD+CURV",
+    "edid": "_PARENT_mod_PowerArmor_GENERIC_BatRegen / CT_PA_Mod_CoreAssembly"
+   }
+  },
+  "vulcanTorso": {
+   "value": 25,
+   "kind": "mult",
+   "src": {
+    "type": "ENCH",
+    "edid": "RD01_PowerArmor_Torso_EnclaveVulcanEnch"
+   }
+  },
+  "hardLemonade": {
+   "value": 10,
+   "durationSec": 600,
+   "mgef": "Alcohol_APRegen"
+  },
+  "nukashine": {
+   "name": "Nukashine",
+   "id": "0047BC14",
+   "value": 5,
+   "mgef": "Nukashine_APRegen",
+   "kind": "flat",
+   "team": false,
+   "duration": "2 min"
+  },
+  "magazines": [
+   {
+    "name": "Live & Love 4",
+    "id": "00432CCA",
+    "value": 10,
+    "mgef": "Magazine_LiveAndLove04Effect",
+    "kind": "flat",
+    "team": true,
+    "duration": "30 min"
+   },
+   {
+    "name": "Guns and Bullets 4",
+    "id": "004303FE",
+    "value": 6,
+    "mgef": "Magazine_FortifyActionPointRegen_Effect",
+    "kind": "flat",
+    "team": false,
+    "duration": "30 min"
+   }
+  ],
+  "foods": [
+   {
+    "diet": "Carnivore",
+    "dish": "Radhog Burnt Ends",
+    "id": "0084B86C",
+    "edid": "BURN_RadhogBurntEndsCooked",
+    "durationSec": 3600,
+    "base": 10,
+    "mutation": 20,
+    "sin": 25,
+    "kind": "flat"
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Tato Salad Surprise",
+    "id": "00529DDD",
+    "edid": "TatoSaladCooked_RSVP02",
+    "durationSec": 1800,
+    "base": 5,
+    "mutation": 5,
+    "sin": 5,
+    "kind": "flat"
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Blackberry Honey Crisp",
+    "id": "003D5F3E",
+    "edid": "BlackberryHoneyCrispGourmet",
+    "durationSec": 5400,
+    "base": 5,
+    "mutation": 5,
+    "sin": 5,
+    "kind": "flat"
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Company Tea",
+    "id": "00120C9B",
+    "edid": "CompanyTea_RSVP02",
+    "durationSec": 3600,
+    "base": 10,
+    "mutation": 10,
+    "sin": 10,
+    "kind": "flat"
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Fried Deerskins",
+    "id": "003E9FA4",
+    "edid": "FriedDeerskinsTasty_RSVP02",
+    "durationSec": 3600,
+    "base": 3,
+    "mutation": 6,
+    "sin": 7.5,
+    "kind": "flat"
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Steeped Fever Blossom Tea",
+    "id": "002944DA",
+    "edid": "FeverBlossomHerbTastyTea",
+    "durationSec": 3600,
+    "base": 5,
+    "mutation": 5,
+    "sin": 5,
+    "kind": "flat"
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Sweet Labrador Tea",
+    "id": "003A2020",
+    "edid": "SweetLabradorTea_RSVP02",
+    "durationSec": 3600,
+    "base": 5,
+    "mutation": 5,
+    "sin": 5,
+    "kind": "flat"
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Mirelurk Egg Omelette",
+    "id": "0004693E",
+    "edid": "MirelurkEggCooked",
+    "durationSec": 1800,
+    "base": 2,
+    "mutation": 4,
+    "sin": 5,
+    "kind": "flat"
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Blackberry Juice",
+    "id": "00294521",
+    "edid": "BlackberryFruitCookedJuice",
+    "durationSec": 1800,
+    "base": 2,
+    "mutation": 2,
+    "sin": 2,
+    "kind": "flat"
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Lemonade",
+    "id": "0045CB9F",
+    "edid": "Lemonade",
+    "durationSec": 1800,
+    "base": 2,
+    "mutation": 2,
+    "sin": 2,
+    "kind": "flat"
+   },
+   {
+    "diet": "Herbivore",
+    "dish": "Company Tea",
+    "id": "00120C9B",
+    "edid": "CompanyTea_RSVP02",
+    "durationSec": 3600,
+    "base": 10,
+    "mutation": 20,
+    "sin": 25,
+    "kind": "flat"
+   },
+   {
+    "diet": "Herbivore",
+    "dish": "Tato Salad Surprise",
+    "id": "00529DDD",
+    "edid": "TatoSaladCooked_RSVP02",
+    "durationSec": 1800,
+    "base": 5,
+    "mutation": 10,
+    "sin": 12.5,
+    "kind": "flat"
+   },
+   {
+    "diet": "Herbivore",
+    "dish": "Blackberry Honey Crisp",
+    "id": "003D5F3E",
+    "edid": "BlackberryHoneyCrispGourmet",
+    "durationSec": 5400,
+    "base": 5,
+    "mutation": 10,
+    "sin": 12.5,
+    "kind": "flat"
+   },
+   {
+    "diet": "Herbivore",
+    "dish": "Steeped Fever Blossom Tea",
+    "id": "002944DA",
+    "edid": "FeverBlossomHerbTastyTea",
+    "durationSec": 3600,
+    "base": 5,
+    "mutation": 10,
+    "sin": 12.5,
+    "kind": "flat"
+   },
+   {
+    "diet": "Herbivore",
+    "dish": "Sweet Labrador Tea",
+    "id": "003A2020",
+    "edid": "SweetLabradorTea_RSVP02",
+    "durationSec": 3600,
+    "base": 5,
+    "mutation": 10,
+    "sin": 12.5,
+    "kind": "flat"
+   },
+   {
+    "diet": "Herbivore",
+    "dish": "Canned Corn Soup",
+    "id": "007FDA65",
+    "edid": "CornVegetableCookedSoup_Cannery",
+    "durationSec": 1800,
+    "base": 3,
+    "mutation": 6,
+    "sin": 7.5,
+    "kind": "flat"
+   },
+   {
+    "diet": "Herbivore",
+    "dish": "Corn Soup",
+    "id": "00294510",
+    "edid": "CornVegetableCookedSoup",
+    "durationSec": 1800,
+    "base": 3,
+    "mutation": 6,
+    "sin": 7.5,
+    "kind": "flat"
+   },
+   {
+    "diet": "Herbivore",
+    "dish": "Blackberry Juice",
+    "id": "00294521",
+    "edid": "BlackberryFruitCookedJuice",
+    "durationSec": 1800,
+    "base": 2,
+    "mutation": 4,
+    "sin": 5,
+    "kind": "flat"
+   },
+   {
+    "diet": "Herbivore",
+    "dish": "Lemonade",
+    "id": "0045CB9F",
+    "edid": "Lemonade",
+    "durationSec": 1800,
+    "base": 2,
+    "mutation": 4,
+    "sin": 5,
+    "kind": "flat"
+   },
+   {
+    "diet": "Herbivore",
+    "dish": "Pickled Prickeye",
+    "id": "008468C5",
+    "edid": "Burn_Food_SlipperCactusVeg_1",
+    "durationSec": 900,
+    "base": 2,
+    "mutation": 4,
+    "sin": 5,
+    "kind": "flat"
+   }
+  ],
+  "thirst": [
+   {
+    "tier": "Fully Hydrated",
+    "rejuv": "r2_low_rads",
+    "value": 60,
+    "kind": "mult"
+   },
+   {
+    "tier": "Fully Hydrated",
+    "rejuv": "r1_or_r2_high_rads",
+    "value": 45,
+    "kind": "mult"
+   },
+   {
+    "tier": "Fully Hydrated",
+    "rejuv": "none",
+    "value": 35,
+    "kind": "mult"
+   },
+   {
+    "tier": "Well Hydrated",
+    "rejuv": "any",
+    "value": 25,
+    "kind": "mult"
+   },
+   {
+    "tier": "Hydrated",
+    "rejuv": "any",
+    "value": 15,
+    "kind": "mult"
+   },
+   {
+    "tier": "Partially Hydrated",
+    "rejuv": "any",
+    "value": 15,
+    "kind": "mult"
+   }
+  ]
+ },
+ "maxAp": {
+  "base": {
+   "value": 60,
+   "src": {
+    "type": "GMST",
+    "edid": "fAVDActionPointsBase",
+    "formId": "0004D878"
+   }
+  },
+  "perAgility": {
+   "value": 10,
+   "src": {
+    "type": "GMST",
+    "edid": "fAVDActionPointsMult",
+    "formId": "0004D879"
+   }
+  },
+  "notes": [
+   "There is no cap on your AP bar.",
+   "Entering V.A.T.S. without a target costs AP; targeting itself does not.",
+   "AP Refill effects (e.g. Canned Coffee) are not a bar-length buff — they stack, so you can drink several in a row."
+  ],
+  "thirstQuencher": {
+   "points": [
+    [
+     1,
+     7
+    ],
+    [
+     15,
+     78
+    ],
+    [
+     30,
+     125
+    ],
+    [
+     60,
+     175
+    ],
+    [
+     100,
+     200
+    ]
+   ],
+   "input": "Endurance",
+   "src": {
+    "type": "CURV",
+    "edid": "ThirstQuencherBonus"
+   }
+  },
+  "active": {
+   "name": "Active",
+   "star": 3,
+   "value": 20
+  },
+  "builds": [
+   {
+    "name": "Ultra-Light Build",
+    "torso": 20,
+    "limb": 10
+   },
+   {
+    "name": "Lighter Build",
+    "torso": 10,
+    "limb": 5
+   }
+  ],
+  "foods": [
+   {
+    "diet": "Carnivore",
+    "dish": "Infused Soot Flower Tea",
+    "id": "003C60F4",
+    "durationSec": 3600,
+    "base": 20,
+    "mutation": 20,
+    "sin": 20
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Cooked Softshell Meat",
+    "id": "00046942",
+    "durationSec": 1800,
+    "base": 20,
+    "mutation": 40,
+    "sin": 50
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Steeped Melon Bloom Tea",
+    "id": "002944DD",
+    "durationSec": 3600,
+    "base": 20,
+    "mutation": 20,
+    "sin": 20
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "S'mores",
+    "id": "0046D292",
+    "durationSec": 3600,
+    "base": 10,
+    "mutation": 10,
+    "sin": 10
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Canned Poached Angler",
+    "id": "007FDA5B",
+    "durationSec": 1800,
+    "base": 20,
+    "mutation": 40,
+    "sin": 50
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Poached Angler",
+    "id": "00110BA5",
+    "durationSec": 1800,
+    "base": 20,
+    "mutation": 40,
+    "sin": 50
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Roasted Mirelurk Meat",
+    "id": "00046941",
+    "durationSec": 1800,
+    "base": 10,
+    "mutation": 20,
+    "sin": 25
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Corpse Seed Juice",
+    "id": "00294522",
+    "durationSec": 1800,
+    "base": 10,
+    "mutation": 10,
+    "sin": 10
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Moo-Moo Curd",
+    "id": "008B73C0",
+    "durationSec": 1800,
+    "base": 10,
+    "mutation": 10,
+    "sin": 10
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Simple Soot Flower Tea",
+    "id": "003D7878",
+    "durationSec": 1800,
+    "base": 10,
+    "mutation": 10,
+    "sin": 10
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Tato Juice",
+    "id": "0029452C",
+    "durationSec": 1800,
+    "base": 10,
+    "mutation": 10,
+    "sin": 10
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Lemonade",
+    "id": "0045CB9F",
+    "durationSec": 1800,
+    "base": 4,
+    "mutation": 4,
+    "sin": 4
+   },
+   {
+    "diet": "Herbivore",
+    "dish": "Infused Soot Flower Tea",
+    "id": "003C60F4",
+    "durationSec": 3600,
+    "base": 20,
+    "mutation": 40,
+    "sin": 50
+   },
+   {
+    "diet": "Herbivore",
+    "dish": "Corpse Seed Juice",
+    "id": "00294522",
+    "durationSec": 1800,
+    "base": 10,
+    "mutation": 20,
+    "sin": 25
+   },
+   {
+    "diet": "Herbivore",
+    "dish": "Steeped Melon Bloom Tea",
+    "id": "002944DD",
+    "durationSec": 3600,
+    "base": 20,
+    "mutation": 40,
+    "sin": 50
+   },
+   {
+    "diet": "Herbivore",
+    "dish": "S'mores",
+    "id": "0046D292",
+    "durationSec": 3600,
+    "base": 10,
+    "mutation": 10,
+    "sin": 10
+   },
+   {
+    "diet": "Herbivore",
+    "dish": "Simple Soot Flower Tea",
+    "id": "003D7878",
+    "durationSec": 1800,
+    "base": 10,
+    "mutation": 20,
+    "sin": 25
+   },
+   {
+    "diet": "Herbivore",
+    "dish": "Tato Juice",
+    "id": "0029452C",
+    "durationSec": 1800,
+    "base": 10,
+    "mutation": 20,
+    "sin": 25
+   },
+   {
+    "diet": "Herbivore",
+    "dish": "Lemonade",
+    "id": "0045CB9F",
+    "durationSec": 1800,
+    "base": 4,
+    "mutation": 8,
+    "sin": 10
+   },
+   {
+    "diet": "Herbivore",
+    "dish": "Moo-Moo Curd",
+    "id": "008B73C0",
+    "durationSec": 1800,
+    "base": 10,
+    "mutation": 10,
+    "sin": 10
+   }
+  ],
+  "alcohol": [
+   {
+    "name": "Wine",
+    "id": "000366C2",
+    "value": 15,
+    "mgef": "FortifyActionPointsAlcohol",
+    "kind": "flat",
+    "team": false,
+    "duration": "3 min"
+   },
+   {
+    "name": "Hard Lemonade",
+    "id": null,
+    "value": 30,
+    "mgef": "FortifyActionPointsAlcohol",
+    "kind": "max",
+    "team": false,
+    "duration": "10 min"
+   }
+  ],
+  "magazines": [
+   {
+    "name": "Astoundingly Awesome Tales 7",
+    "id": "0043039D",
+    "value": 25,
+    "mgef": "Magazine_FortifyActionPoints_Effect",
+    "kind": "max",
+    "team": false,
+    "duration": "30 min"
+   },
+   {
+    "name": "Live & Love 7",
+    "id": "00432CD3",
+    "value": 10,
+    "mgef": "Magazine_LiveAndLove07Effect",
+    "kind": "max",
+    "team": true,
+    "duration": "30 min"
+   }
+  ],
+  "feral": [
+   {
+    "tier": "Hungry",
+    "value": -5
+   },
+   {
+    "tier": "Famished",
+    "value": -10
+   },
+   {
+    "tier": "Starving",
+    "value": -30
+   }
+  ]
+ },
+ "feralTiers": [
+  "Well Fed",
+  "Fed",
+  "Hungry",
+  "Famished",
+  "Starving"
+ ],
+ "warnings": [
+  "no PTS ALCHFX_Export_*.tsv - used live ALCHFX_Export_October_2026.tsv"
+ ]
+}

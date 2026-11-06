@@ -1,0 +1,1255 @@
+{
+ "version": 1,
+ "generated": "2026-11-06T13:14:34+00:00",
+ "channel": "pts",
+ "sources": {
+  "specials_stats": "dist/pts/specials_stats.json",
+  "spel": "SPEL_Export_PTS_2026-10-28_0508_EFFECTS.tsv"
+ },
+ "maxHp": {
+  "player": {
+   "value": 205,
+   "src": {
+    "type": "NPC_ PRPS",
+    "edid": "Player",
+    "formId": "00000007",
+    "av": "Health"
+   }
+  },
+  "race": {
+   "value": 40,
+   "src": {
+    "type": "RACE PRPS",
+    "edid": "HumanRace",
+    "formId": "00013746",
+    "av": "Health"
+   }
+  },
+  "perEndurance": {
+   "value": 5,
+   "src": {
+    "type": "GMST",
+    "edid": "fAVDHealthStartEndMult",
+    "formId": "000E6EAC"
+   }
+  },
+  "offset": {
+   "value": 0,
+   "src": {
+    "type": "GMST",
+    "edid": "fHealthEnduranceOffset",
+    "formId": "000E6F16"
+   }
+  },
+  "notes": [
+   "Max HP = the player's base Health (205) + the race's Health (40) + 5 HP per point of Endurance.",
+   "Level does not add HP (fStatsHealthLevelMult is 0).",
+   "Max HP food buffs are boosted by diet mutations and Strange In Numbers like other food — see the W/Mutation columns in the food table below."
+  ],
+  "lifeGiver": {
+   "points": [
+    [
+     1,
+     10
+    ],
+    [
+     15,
+     120
+    ],
+    [
+     30,
+     180
+    ],
+    [
+     60,
+     230
+    ],
+    [
+     100,
+     250
+    ]
+   ],
+   "src": {
+    "type": "CURV",
+    "edid": "LifeGiverBonus"
+   }
+  },
+  "nocturnal": [
+   {
+    "rank": 1,
+    "value": 50
+   },
+   {
+    "rank": 2,
+    "value": 100
+   }
+  ],
+  "healthy": {
+   "name": "Healthy",
+   "star": 3,
+   "value": 20
+  },
+  "foods": [
+   {
+    "diet": "Carnivore",
+    "dish": "Cranberry Meatball Grinder",
+    "id": "0012D42C",
+    "durationSec": 5400,
+    "base": 40,
+    "mutation": 80,
+    "sin": 100,
+    "recommended": true
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Fasnacht Sausage",
+    "id": "003EEA45",
+    "durationSec": 1800,
+    "base": 40,
+    "mutation": 80,
+    "sin": 100,
+    "recommended": true
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Carnival Pie",
+    "id": "0066D3F2",
+    "durationSec": 3600,
+    "base": 40,
+    "mutation": 40,
+    "sin": 40,
+    "recommended": false
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Bloodbug Steak",
+    "id": "0004693F",
+    "durationSec": 1800,
+    "base": 30,
+    "mutation": 60,
+    "sin": 75,
+    "recommended": false
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Hotdog",
+    "id": "00042828",
+    "durationSec": 1800,
+    "base": 30,
+    "mutation": 60,
+    "sin": 75,
+    "recommended": false
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Nuka-Bottle Dog",
+    "id": "0066D3F4",
+    "durationSec": 1800,
+    "base": 30,
+    "mutation": 60,
+    "sin": 75,
+    "recommended": false
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Nuka-Dog",
+    "id": "0066D3F3",
+    "durationSec": 1800,
+    "base": 30,
+    "mutation": 60,
+    "sin": 75,
+    "recommended": false
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Canned Tato Salad",
+    "id": "008D3859",
+    "durationSec": 1800,
+    "base": 30,
+    "mutation": 30,
+    "sin": 30,
+    "recommended": false
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Soda Bread",
+    "id": "0064735D",
+    "durationSec": 1800,
+    "base": 30,
+    "mutation": 30,
+    "sin": 30,
+    "recommended": false
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Tato Salad",
+    "id": "005527BE",
+    "durationSec": 1800,
+    "base": 30,
+    "mutation": 30,
+    "sin": 30,
+    "recommended": false
+   },
+   {
+    "diet": "Herbivore",
+    "dish": "Spicy Eelgrass Soup",
+    "id": "008EFCA8",
+    "durationSec": 3600,
+    "base": 60,
+    "mutation": 120,
+    "sin": 150,
+    "recommended": true
+   },
+   {
+    "diet": "Herbivore",
+    "dish": "Tato Salad",
+    "id": "005527BE",
+    "durationSec": 1800,
+    "base": 30,
+    "mutation": 60,
+    "sin": 75,
+    "recommended": true
+   },
+   {
+    "diet": "Herbivore",
+    "dish": "Carnival Pie",
+    "id": "0066D3F2",
+    "durationSec": 3600,
+    "base": 40,
+    "mutation": 80,
+    "sin": 100,
+    "recommended": false
+   },
+   {
+    "diet": "Herbivore",
+    "dish": "Pumpkin Pie",
+    "id": "0036899A",
+    "durationSec": 3600,
+    "base": 40,
+    "mutation": 80,
+    "sin": 100,
+    "recommended": false
+   },
+   {
+    "diet": "Herbivore",
+    "dish": "Canned Tato Salad",
+    "id": "008D3859",
+    "durationSec": 1800,
+    "base": 30,
+    "mutation": 60,
+    "sin": 75,
+    "recommended": false
+   },
+   {
+    "diet": "Herbivore",
+    "dish": "Soda Bread",
+    "id": "0064735D",
+    "durationSec": 1800,
+    "base": 30,
+    "mutation": 60,
+    "sin": 75,
+    "recommended": false
+   },
+   {
+    "diet": "Herbivore",
+    "dish": "Pickled Pumpkin",
+    "id": "008B73C3",
+    "durationSec": 1800,
+    "base": 25,
+    "mutation": 50,
+    "sin": 62.5,
+    "recommended": false
+   }
+  ],
+  "chems": [
+   {
+    "mgef": "FortifyHealthChemEffect",
+    "items": [
+     {
+      "name": "Nuclear Don's Custom Chem Blend",
+      "id": "005955A5",
+      "value": 100,
+      "sin": null,
+      "team": false,
+      "duration": "5 min"
+     },
+     {
+      "name": "Bufftats",
+      "id": "00058AA5",
+      "value": 40,
+      "sin": null,
+      "team": false,
+      "duration": "5 min"
+     },
+     {
+      "name": "Buffout",
+      "id": "00033778",
+      "value": 25,
+      "sin": null,
+      "team": false,
+      "duration": "5 min"
+     },
+     {
+      "name": "Skeeto Spit",
+      "id": "00058ABC",
+      "value": 25,
+      "sin": null,
+      "team": false,
+      "duration": "10 min"
+     },
+     {
+      "name": "Super Chem MK II",
+      "id": "005A5DB4",
+      "value": 25,
+      "sin": null,
+      "team": false,
+      "duration": "5 min"
+     },
+     {
+      "name": "Super Chem MK III",
+      "id": "005A5DB5",
+      "value": 25,
+      "sin": null,
+      "team": false,
+      "duration": "5 min"
+     },
+     {
+      "name": "SuperChem",
+      "id": "005A5DB6",
+      "value": 25,
+      "sin": null,
+      "team": false,
+      "duration": "5 min"
+     },
+     {
+      "name": "Surly's Buffout",
+      "id": "0073BB16",
+      "value": 25,
+      "sin": null,
+      "team": false,
+      "duration": "5 min"
+     }
+    ]
+   },
+   {
+    "mgef": "FortifyHealthPsycho",
+    "items": [
+     {
+      "name": "Psychobuff",
+      "id": "00058AAC",
+      "value": 65,
+      "sin": null,
+      "team": false,
+      "duration": "3 min"
+     }
+    ]
+   }
+  ],
+  "alcohol": [
+   {
+    "mgef": "FortifyHealthAlcohol",
+    "items": [
+     {
+      "name": "Cranberry Moonshine",
+      "id": "0016A13C",
+      "value": 25,
+      "sin": null,
+      "team": false,
+      "duration": "5 min"
+     },
+     {
+      "name": "Mountain Honey",
+      "id": "000070A0",
+      "value": 25,
+      "sin": null,
+      "team": false,
+      "duration": "5 min"
+     },
+     {
+      "name": "Vodka",
+      "id": "000366C3",
+      "value": 25,
+      "sin": null,
+      "team": false,
+      "duration": "4 min"
+     }
+    ]
+   }
+  ],
+  "magazines": [
+   {
+    "mgef": "Magazine_LiveAndLove01_Effect",
+    "items": [
+     {
+      "name": "Live & Love 1",
+      "id": "00432CC1",
+      "value": 25,
+      "sin": null,
+      "team": true,
+      "duration": "30 min"
+     }
+    ]
+   }
+  ],
+  "hunger": [
+   {
+    "tier": "Fully Fed",
+    "rejuv": "r2_low_rads",
+    "value": 60,
+    "radsCheck": true
+   },
+   {
+    "tier": "Fully Fed",
+    "rejuv": "r1_or_r2_high_rads",
+    "value": 45,
+    "radsCheck": false
+   },
+   {
+    "tier": "Fully Fed",
+    "rejuv": "none",
+    "value": 35,
+    "radsCheck": false
+   },
+   {
+    "tier": "Well Fed",
+    "rejuv": "any",
+    "value": 25,
+    "radsCheck": false
+   },
+   {
+    "tier": "Fed",
+    "rejuv": "any",
+    "value": 15,
+    "radsCheck": false
+   },
+   {
+    "tier": "Partially Fed",
+    "rejuv": "any",
+    "value": 15,
+    "radsCheck": false
+   }
+  ],
+  "feral": [
+   {
+    "tier": "Well Fed",
+    "value": 30
+   },
+   {
+    "tier": "Fed",
+    "value": 15
+   },
+   {
+    "tier": "Famished",
+    "value": -15
+   },
+   {
+    "tier": "Starving",
+    "value": -30
+   }
+  ]
+ },
+ "endurance": {
+  "min": 1,
+  "max": 100,
+  "notes": [
+   "Endurance starts at 1 and caps at 100 points.",
+   "Your health bar is the player's base Health plus the race's Health plus 5 HP per point of Endurance — level does not add HP (fStatsHealthLevelMult is 0).",
+   "Ghoul characters get the same base Health from their race as humans."
+  ],
+  "sprint": {
+   "id": "sprint",
+   "label": "Sprint AP drain",
+   "expr": "(base + mult * END) * 100",
+   "unit": "% of normal",
+   "decimals": 0,
+   "vars": [
+    {
+     "name": "END",
+     "label": "Endurance",
+     "default": 15
+    }
+   ],
+   "inputs": {
+    "base": {
+     "value": 1.05,
+     "src": {
+      "type": "GMST",
+      "edid": "fSprintActionPointsEndBase",
+      "formId": "00056117"
+     }
+    },
+    "mult": {
+     "value": -0.02,
+     "src": {
+      "type": "GMST",
+      "edid": "fSprintActionPointsEndMult",
+      "formId": "00056118"
+     }
+    }
+   },
+   "note": "Lower is better — the AP you spend per second of sprinting.",
+   "table": [
+    [
+     1,
+     103.0
+    ],
+    [
+     2,
+     101.0
+    ],
+    [
+     3,
+     99.0
+    ],
+    [
+     4,
+     97.0
+    ],
+    [
+     5,
+     95.0
+    ],
+    [
+     6,
+     93.0
+    ],
+    [
+     7,
+     91.0
+    ],
+    [
+     8,
+     89.0
+    ],
+    [
+     9,
+     87.0
+    ],
+    [
+     10,
+     85.0
+    ],
+    [
+     11,
+     83.0
+    ],
+    [
+     12,
+     81.0
+    ],
+    [
+     13,
+     79.0
+    ],
+    [
+     14,
+     77.0
+    ],
+    [
+     15,
+     75.0
+    ],
+    [
+     20,
+     65.0
+    ],
+    [
+     25,
+     55.0
+    ],
+    [
+     30,
+     45.0
+    ],
+    [
+     40,
+     25.0
+    ],
+    [
+     50,
+     5.0
+    ],
+    [
+     75,
+     -45.0
+    ],
+    [
+     100,
+     -95.0
+    ]
+   ],
+   "example": 75.0
+  },
+  "disease": {
+   "id": "disease",
+   "label": "Disease chance multiplier",
+   "expr": "curve(c, END)",
+   "unit": "×",
+   "decimals": 2,
+   "vars": [
+    {
+     "name": "END",
+     "label": "Endurance",
+     "default": 15
+    }
+   ],
+   "inputs": {
+    "c": {
+     "points": [
+      [
+       1,
+       2
+      ],
+      [
+       2,
+       1.9
+      ],
+      [
+       3,
+       1.8
+      ],
+      [
+       4,
+       1.7
+      ],
+      [
+       5,
+       1.6
+      ],
+      [
+       6,
+       1.5
+      ],
+      [
+       7,
+       1.4
+      ],
+      [
+       8,
+       1.3
+      ],
+      [
+       9,
+       1.2
+      ],
+      [
+       10,
+       1.1
+      ],
+      [
+       11,
+       1.05
+      ],
+      [
+       12,
+       1
+      ],
+      [
+       13,
+       0.95
+      ],
+      [
+       14,
+       0.9
+      ],
+      [
+       15,
+       0.85
+      ]
+     ],
+     "src": {
+      "type": "CURV",
+      "edid": "CT_SURV_ScaleDiseaseChance_Endurance",
+      "formId": "0085B1E7"
+     }
+    }
+   },
+   "note": "×1 = normal chance; below 1 means you catch diseases less often. The curve stops at its last point.",
+   "table": [
+    [
+     1,
+     2
+    ],
+    [
+     2,
+     1.9
+    ],
+    [
+     3,
+     1.8
+    ],
+    [
+     4,
+     1.7
+    ],
+    [
+     5,
+     1.6
+    ],
+    [
+     6,
+     1.5
+    ],
+    [
+     7,
+     1.4
+    ],
+    [
+     8,
+     1.3
+    ],
+    [
+     9,
+     1.2
+    ],
+    [
+     10,
+     1.1
+    ],
+    [
+     11,
+     1.05
+    ],
+    [
+     12,
+     1.0
+    ],
+    [
+     13,
+     0.95
+    ],
+    [
+     14,
+     0.9
+    ],
+    [
+     15,
+     0.85
+    ],
+    [
+     20,
+     0.85
+    ],
+    [
+     25,
+     0.85
+    ],
+    [
+     30,
+     0.85
+    ],
+    [
+     40,
+     0.85
+    ],
+    [
+     50,
+     0.85
+    ],
+    [
+     75,
+     0.85
+    ],
+    [
+     100,
+     0.85
+    ]
+   ],
+   "example": 0.85
+  },
+  "legendaryPerk": {
+   "name": "Legendary Endurance",
+   "ranks": 4,
+   "perRank": 1
+  },
+  "solarPowered": 5,
+  "foods": [
+   {
+    "diet": "Carnivore",
+    "dish": "Aged Mirelurk Queen Steak",
+    "id": "003D749D",
+    "durationSec": 3600,
+    "base": 3,
+    "mutation": 6,
+    "sin": 7.5,
+    "recommended": true
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Roasted Scorchbeast Heart",
+    "id": "001C71A0",
+    "durationSec": 1800,
+    "base": 3,
+    "mutation": 6,
+    "sin": 7.5,
+    "recommended": true
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Canned Aged Mirelurk Queen Steak",
+    "id": "007FDA58",
+    "durationSec": 3600,
+    "base": 3,
+    "mutation": 6,
+    "sin": 7.5,
+    "recommended": false
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Dog Meat Steak",
+    "id": "003C60D5",
+    "durationSec": 3600,
+    "base": 3,
+    "mutation": 6,
+    "sin": 7.5,
+    "recommended": false
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Pemmican",
+    "id": "003EFC23",
+    "durationSec": 3600,
+    "base": 3,
+    "mutation": 6,
+    "sin": 7.5,
+    "recommended": false
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Scorchbeast Mixed Meat Stew",
+    "id": "003D749E",
+    "durationSec": 3600,
+    "base": 2,
+    "mutation": 4,
+    "sin": 5,
+    "recommended": false
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Steeped Gourd Blossom Tea",
+    "id": "002944DB",
+    "durationSec": 3600,
+    "base": 2,
+    "mutation": 2,
+    "sin": 2,
+    "recommended": false
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Mystery Meat Pie",
+    "id": "0040FC27",
+    "durationSec": 1800,
+    "base": 3,
+    "mutation": 6,
+    "sin": 7.5,
+    "recommended": false
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Canned Mirelurk Queen Steak",
+    "id": "007FDA59",
+    "durationSec": 1800,
+    "base": 2,
+    "mutation": 4,
+    "sin": 5,
+    "recommended": false
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Chitlins Con Carne",
+    "id": "00529DDE",
+    "durationSec": 1800,
+    "base": 2,
+    "mutation": 4,
+    "sin": 5,
+    "recommended": false
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Mirelurk Queen Steak",
+    "id": "0021C00C",
+    "durationSec": 1800,
+    "base": 2,
+    "mutation": 4,
+    "sin": 5,
+    "recommended": false
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Mutt Chops",
+    "id": "00046940",
+    "durationSec": 1800,
+    "base": 2,
+    "mutation": 4,
+    "sin": 5,
+    "recommended": false
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Grilled Hermit Crab",
+    "id": "0011159D",
+    "durationSec": 1800,
+    "base": 1,
+    "mutation": 2,
+    "sin": 2.5,
+    "recommended": false
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Grilled Radroach",
+    "id": "0019797D",
+    "durationSec": 1800,
+    "base": 1,
+    "mutation": 2,
+    "sin": 2.5,
+    "recommended": false
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Radtoad Omelette",
+    "id": "0003E053",
+    "durationSec": 1800,
+    "base": 1,
+    "mutation": 2,
+    "sin": 2.5,
+    "recommended": false
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Starlight Berry Cobbler",
+    "id": "003D787A",
+    "durationSec": 1800,
+    "base": 1,
+    "mutation": 1,
+    "sin": 1,
+    "recommended": false
+   },
+   {
+    "diet": "Carnivore",
+    "dish": "Grilled Radhog Chops",
+    "id": "0084B86B",
+    "durationSec": 900,
+    "base": 3,
+    "mutation": 6,
+    "sin": 7.5,
+    "recommended": false
+   },
+   {
+    "diet": "Herbivore",
+    "dish": "Steeped Gourd Blossom Tea",
+    "id": "002944DB",
+    "durationSec": 3600,
+    "base": 2,
+    "mutation": 4,
+    "sin": 5,
+    "recommended": true
+   },
+   {
+    "diet": "Herbivore",
+    "dish": "Silt Bean Soup",
+    "id": "0029451F",
+    "durationSec": 1800,
+    "base": 2,
+    "mutation": 4,
+    "sin": 5,
+    "recommended": true
+   },
+   {
+    "diet": "Herbivore",
+    "dish": "Starlight Berry Cobbler",
+    "id": "003D787A",
+    "durationSec": 1800,
+    "base": 1,
+    "mutation": 2,
+    "sin": 2.5,
+    "recommended": false
+   }
+  ],
+  "chems": [
+   {
+    "mgef": "FortifyEnduranceChemEffect",
+    "items": [
+     {
+      "name": "Bufftats",
+      "id": "00058AA5",
+      "value": 3,
+      "sin": null,
+      "team": false,
+      "duration": "5 min"
+     },
+     {
+      "name": "Buffout",
+      "id": "00033778",
+      "value": 2,
+      "sin": null,
+      "team": false,
+      "duration": "5 min"
+     },
+     {
+      "name": "Super Chem MK II",
+      "id": "005A5DB4",
+      "value": 2,
+      "sin": null,
+      "team": false,
+      "duration": "5 min"
+     },
+     {
+      "name": "Super Chem MK III",
+      "id": "005A5DB5",
+      "value": 2,
+      "sin": null,
+      "team": false,
+      "duration": "5 min"
+     },
+     {
+      "name": "SuperChem",
+      "id": "005A5DB6",
+      "value": 2,
+      "sin": null,
+      "team": false,
+      "duration": "5 min"
+     },
+     {
+      "name": "Surly's Buffout",
+      "id": "0073BB16",
+      "value": 2,
+      "sin": null,
+      "team": false,
+      "duration": "5 min"
+     }
+    ]
+   },
+   {
+    "mgef": "FortifyEndurancePsycho",
+    "items": [
+     {
+      "name": "Psychobuff",
+      "id": "00058AAC",
+      "value": 3,
+      "sin": null,
+      "team": false,
+      "duration": "3 min"
+     }
+    ]
+   },
+   {
+    "mgef": "FortifyEnduranceXCell",
+    "items": [
+     {
+      "name": "X-Cell",
+      "id": "001506F4",
+      "value": 2,
+      "sin": null,
+      "team": false,
+      "duration": "2 min"
+     }
+    ]
+   }
+  ],
+  "drinks": [
+   {
+    "mgef": "FortifyEnduranceAlcohol",
+    "items": [
+     {
+      "name": "Bourbon",
+      "id": "000366C4",
+      "value": 1,
+      "sin": null,
+      "team": false,
+      "duration": "4 min"
+     },
+     {
+      "name": "Nuka-Cola Dark",
+      "id": "00113294",
+      "value": 1,
+      "sin": null,
+      "team": false,
+      "duration": "3 min"
+     }
+    ]
+   }
+  ],
+  "mutations": [
+   {
+    "mgef": "Mutation_FortifyEndurance_Hidden",
+    "items": [
+     {
+      "name": "Herd Mentality Mutation",
+      "id": "004E1F1E",
+      "value": 2,
+      "sin": 3,
+      "team": false,
+      "duration": null
+     }
+    ]
+   }
+  ],
+  "herdSolo": 2,
+  "bobbleheads": [
+   {
+    "mgef": "Bobblehead_FortifyEndurance_Effect",
+    "items": [
+     {
+      "name": "Endurance Bobblehead",
+      "id": "004FE4EE",
+      "value": 2,
+      "sin": null,
+      "team": false,
+      "duration": "1 hour"
+     },
+     {
+      "name": "Endurance Bobblehead (Glowing)",
+      "id": "007A2F92",
+      "value": 2,
+      "sin": null,
+      "team": false,
+      "duration": "1 hour"
+     }
+    ]
+   }
+  ],
+  "legendary": [
+   {
+    "name": "Endurance",
+    "star": 2,
+    "value": 2,
+    "armour": true,
+    "weapon": false
+   },
+   {
+    "name": "Endurance",
+    "star": 3,
+    "value": 3,
+    "armour": false,
+    "weapon": true
+   }
+  ],
+  "styles": [
+   {
+    "name": "Secret Service Style",
+    "value": 4,
+    "piece": "Arms / legs"
+   },
+   {
+    "name": "Brotherhood Style",
+    "value": 3,
+    "piece": "Arms / legs"
+   },
+   {
+    "name": "Marine Style",
+    "value": 3,
+    "piece": "Arms / legs"
+   },
+   {
+    "name": "Standard Style",
+    "value": 2,
+    "piece": "Arms / legs"
+   },
+   {
+    "name": "Vault Style",
+    "value": 2,
+    "piece": "Arms / legs"
+   }
+  ],
+  "camp": [
+   {
+    "name": "Enclave Endurance Trainer",
+    "value": 2,
+    "effect": "+2 Endurance"
+   },
+   {
+    "name": "Exercise Bike",
+    "value": 2,
+    "effect": "+2 Endurance"
+   },
+   {
+    "name": "Hot Shot Motorcycle",
+    "value": 2,
+    "effect": "+2 Endurance and +2 Charisma"
+   },
+   {
+    "name": "Motorcycle",
+    "value": 2,
+    "effect": "+2 Endurance and +2 Charisma"
+   }
+  ],
+  "thirst": [
+   {
+    "tier": "Fully Hydrated",
+    "rejuv": "r2_low_rads",
+    "value": 4,
+    "radsCheck": true
+   },
+   {
+    "tier": "Fully Hydrated",
+    "rejuv": "r1_or_r2_high_rads",
+    "value": 2,
+    "radsCheck": false
+   },
+   {
+    "tier": "Fully Hydrated",
+    "rejuv": "none",
+    "value": 1,
+    "radsCheck": false
+   }
+  ],
+  "teams": [
+   {
+    "bond": 1,
+    "value": 1
+   },
+   {
+    "bond": 2,
+    "value": 2
+   },
+   {
+    "bond": 3,
+    "value": 3
+   },
+   {
+    "bond": 4,
+    "value": 4
+   }
+  ],
+  "feral": [
+   {
+    "tier": "Well Fed",
+    "value": 3
+   },
+   {
+    "tier": "Hungry",
+    "value": -1
+   },
+   {
+    "tier": "Famished",
+    "value": -3
+   },
+   {
+    "tier": "Starving",
+    "value": -5
+   }
+  ],
+  "unitedOrdeal": [
+   {
+    "rank": 1,
+    "value": 1
+   },
+   {
+    "rank": 2,
+    "value": 2
+   },
+   {
+    "rank": 3,
+    "value": 3
+   }
+  ]
+ },
+ "feralTiers": [
+  "Well Fed",
+  "Fed",
+  "Hungry",
+  "Famished",
+  "Starving"
+ ],
+ "warnings": []
+}
