@@ -269,7 +269,9 @@ def main():
             "fast_travel": prev.get("fast_travel") or r["marker"],
             "directions": prev.get("directions", ""),
             "image_top": prev.get("image_top", ""),
-            "image_bottom": prev.get("image_bottom", ""),
+            # close-ups are no longer used on the location pages (Duchess, 7 Nov 2026):
+            # only one set in hand.json shows, never one left over from an old build
+            "image_bottom": hand.get(ref, {}).get("image_bottom", ""),
             "image_map": prev.get("image_map", ""),
             "exists": True,
             "coords": [round(float(r["X"]), 1), round(float(r["Y"]), 1), round(float(r["Z"]), 1)],

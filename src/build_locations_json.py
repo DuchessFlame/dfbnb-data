@@ -284,6 +284,97 @@ def legend_fish_for(lctn_ids, legends, recs):
     return sorted(found, key=lambda f: f["name"].lower())
 
 
+# Vendors at each map marker (Duchess, 7 Nov 2026) — joined from dist/vendors.json
+# (build_vendors_json.py: NPC2 export + Mappalachia geo cache + vendor_overrides.tsv).
+# Names only; no stock list. A vendor placed inside an interior cell carries that
+# cell's Mappalachia name, which is not a map marker, so those few are pointed at the
+# marker you walk in from.
+VENDOR_MARKER_ALIASES = {
+    "Highway Town Interior": "Highway Town",
+    "The Crater Core": "The Crater",
+    "Whitespring Mall": "The Whitespring Resort",
+    "Whitespring Refuge": "The Whitespring Resort",
+    "Gold Vault Operations": "Vault 79",
+}
+# Faction word in the vendor faction EDID -> the group players know.
+VENDOR_GROUPS = [("Responders", "Responders"), ("Raider", "Raiders"), ("BoS", "Brotherhood of Steel"),
+                 ("Brotherhood", "Brotherhood of Steel"), ("FreeStates", "Free States"),
+                 ("Settler", "Settlers"), ("Wayward", "The Wayward"), ("Whitespring", "Whitespring"),
+                 ("Fishing", "Fishing"), ("MoleMiner", "Mole Miners"), ("NWOT", "Nuka-World on Tour"),
+                 ("Caravan", "Caravan"), ("Showmen", "Showmen"), ("Mobster", "Mobsters"),
+                 ("_Muni_", "Municipality")]
+
+
+def _norm(s):
+    return re.sub(r"[^a-z0-9]", "", (s or "").lower())
+
+
+def load_vendors_by_marker():
+    """normalised marker name -> [{name, group}] (one row per distinct name+group)."""
+    try:
+        with open(os.path.join(DIST, "vendors.json"), encoding="utf-8") as f:
+            vendors = json.load(f).get("vendors", [])
+    except (OSError, ValueError):
+        return {}
+    out = defaultdict(list)
+    for v in vendors:
+        marker = VENDOR_MARKER_ALIASES.get(v.get("marker") or "", v.get("marker") or "")
+        if not marker or not v.get("name"):
+            continue
+        fac = v.get("faction") or ""
+        group = next((g for tok, g in VENDOR_GROUPS if tok.lower() in fac.lower()), "")
+        key = group.replace("The ", "").split()[0].rstrip("s") if group else ""
+        if key and _norm(key) in _norm(v["name"]):
+            group = ""                                   # "Responders Vendor" already says it
+        row = {"name": v["name"], "group": group}
+        if row not in out[_norm(marker)]:
+            out[_norm(marker)].append(row)
+    for k in out:
+        out[k].sort(key=lambda r: r["name"].lower())
+    return out
+
+
+# The Pitt and Atlantic City (Duchess, 7 Nov 2026). These expedition areas have no map
+# markers and are not in Mappalachia's Appalachia map, so each named area is listed by
+# its LCTN record instead — the names Duchess picked from the game files. Quests,
+# challenges, vendors and fish link through these LCTNs exactly like a marker's. Maps
+# for them are made by hand, so they carry no x/y.
+EXPEDITION_LOCATIONS = [
+    # (region, display name, [LCTN EDIDs — the area plus its Daily Ops copy if any])
+    ("The Pitt", "The Pitt \u2013 Industrial", ["XPD_Pitt01_Exterior_Location"]),
+    ("The Pitt", "The Foundry", ["XPD_Pitt01_Dungeon_Location", "XPD_Pitt01_DailyOpsDungeon_Location"]),
+    ("The Pitt", "Steel Tower", ["XPD_RttP01_SteelTower_Location"]),
+    ("The Pitt", "The Trench", ["XPD_Pitt02_Exterior_Location"]),
+    ("The Pitt", "Sanctum", ["XPD_Pitt02_Dungeon_Location"]),
+    ("The Pitt", "Purgatory", ["XPD_Pitt02_ACCJ_Location"]),
+    ("Atlantic City", "The Boardwalk", ["XPD_AC02_Boardwalk_Location"]),
+    ("Atlantic City", "Showman's Pier", ["XPD_AC02_Pier_Location"]),
+    ("Atlantic City", "Aquarium of the Atlantic", ["XPD_AC02_Aquarium_Location",
+                                                  "XPD_AC02_Aquarium_DailyOpsDungeon_Location"]),
+    ("Atlantic City", "Casino Quarter", ["XPD_AC03_Entertainment_District_Location"]),
+    ("Atlantic City", "The Neapolitan Casino", ["XPD_AC03_Casino_Location"]),
+    ("Atlantic City", "Quentino's Night Club", ["XPD_AC03_Night_Club_Location"]),
+    ("Atlantic City", "Flooded City Center", ["XPD_AC02_Flooded_City_Location"]),
+    ("Atlantic City", "City Hall", ["XPD_AC02_City_Hall_Location"]),
+    ("Atlantic City", "Community Center", ["XPD_AC02_Community_Center_Location",
+                                          "XPD_AC02_Community_Center_DailyOpsDungeon_Location"]),
+]
+
+
+def expedition_markers(recs):
+    """Pseudo-markers for the Pitt / Atlantic City areas (no map position)."""
+    by_edid = {r["edid"]: fid for fid, r in recs.items()}
+    out = []
+    for region, name, edids in EXPEDITION_LOCATIONS:
+        fids = [by_edid[e] for e in edids if e in by_edid]
+        if not fids:
+            print(f"[locations] WARNING: no LCTN for {name} ({edids}) — left off")
+            continue
+        out.append({"label": name, "icon": "", "x": None, "y": None, "cell_locs": [], "near_locs": [],
+                    "_lctn": fids, "_how": "expedition", "_all": set(fids), "_fixed_region": region})
+    return out
+
+
 def load_lctn():
     path = tsv_source.newest("LCTN_Export_*_LCTN.tsv", channel=CHANNEL)
     recs = {}
@@ -539,12 +630,14 @@ def main():
     rings, _ = xref.load_mappalachia()
     recs = load_lctn()
     legends = load_local_legends()
+    vendors_at = load_vendors_by_marker()
     refs = load_lctn_refs()
     quests = load_quests()
     event_locs = load_event_locations()
     chals, chal_lctn, chal_cndf, chal_refr = load_challenges()
 
     match_markers(markers, recs)
+    markers += expedition_markers(recs)
 
     # CNDF -> CHAL through the LCTN refs export (a CNDF that names the LCTN).
     # Challenges placed by a REFR distance check go to the nearest marker.
@@ -552,6 +645,8 @@ def main():
     for ref, (x, y) in refr_pos.items():
         best, bd = None, 1e30
         for i, m in enumerate(markers):
+            if m["x"] is None:
+                continue
             dd = (m["x"] - x) ** 2 + (m["y"] - y) ** 2
             if dd < bd:
                 best, bd = i, dd
@@ -562,16 +657,16 @@ def main():
     regions = defaultdict(list)
     dup = defaultdict(int)
     ids_seen = defaultdict(int)
-    for m in sorted(markers, key=lambda m: (m["label"].lower(), m["x"], m["y"])):
+    for m in sorted(markers, key=lambda m: (m["label"].lower(), m["x"] or 0, m["y"] or 0)):
         ids_seen[slugify(m["label"])] += 1
 
     for idx, m in enumerate(markers):
-        region = ""
-        for fid in m["_lctn"]:
+        region = m.get("_fixed_region", "")
+        for fid in ([] if region else m["_lctn"]):
             region = lctn_region(recs, fid)
             if region:
                 break
-        if region not in REGION_ORDER:
+        if region not in REGION_ORDER and not m.get("_fixed_region"):
             region = xref.region_for_xy(rings, m["x"], m["y"])
         if not region:
             region = xref.MARKER_REGION_OVERRIDES.get(m["label"]) or \
@@ -637,6 +732,7 @@ def main():
                             "parent": c["parent"], "edid": c["edid"], "form_id": c["form_id"]}
                            for c in cl],
             "fish": legend_fish_for(m["_lctn"], legends, recs),
+            "vendors": vendors_at.get(_norm(m["label"]), []),
         })
 
     out_regions = []
