@@ -226,7 +226,11 @@ def main():
             continue
         race = r.get("RNAM_EDID") or ""
         mine, theirs = npc_res.get(ed, {}), race_res.get(race, {})
-        if not mine and not theirs:
+        imm = sorted({s for pk in npc_prk.get(ed, []) for s in imm_perk.get(pk, [])})
+        # No resistances anywhere: drop it (pets, allies, collectrons ...) - unless it has an
+        # encounter skull (raid Mole Miners): those are enemies and their bar shows the
+        # skull + immune circle only.
+        if not mine and not theirs and not skull.get(ed):
             continue
         res = {}
         for t in types:
@@ -243,7 +247,6 @@ def main():
                     used_curves.add(p["c"])
             if parts:
                 res[k] = parts
-        imm = sorted({s for pk in npc_prk.get(ed, []) for s in imm_perk.get(pk, [])})
         lo = glob.get(r.get("AJNG_EDID") or "")
         hi = glob.get(r.get("AJXG_EDID") or "")
         if lo is None or hi is None:

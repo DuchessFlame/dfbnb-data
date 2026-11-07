@@ -66,9 +66,9 @@
     "dtPoison": "poison",
     "DamageTypePoison": "poison"
   },
-  "_skip_readme": "Enemy records left off the picker: editor-only, test, cut and corpse records.",
+  "_skip_readme": "Enemy records left off the picker: editor-only, test, cut and corpse records. skip_name drops editor-only names (resist test dummies '0DR 0ER 0Rad', 'AI Data Template ...', '... Model', '... Voice') - real names that start with capitals and a number (EN06 Guardian, ATLAS Security, NW Machinegun Turret) stay.",
   "skip_edid": "^(zzz|ZZZ|DEL|DELETED|CUT|Test|TEST|test|Debug|DEBUG|POST|MightDelete|Dummy|NPCTest|DONOTUSE|DefaultHostileDetectionActor)|Test_|_Test|Corpse|DialogueTest|Template$|_Template",
-  "skip_name": "^\\s*$|^[A-Z0-9]{2,5} |\\[|TEST",
+  "skip_name": "^\\s*$|^\\d+DR \\d+ER|^AI Data Template|^CAMP |\\[|TEST| Model$| Voice$",
   "_variant_words_readme": "Words added to a version's label when the record name says where it comes from. Plain player words only.",
   "variant_words": {
     "Watoga": "Watoga",

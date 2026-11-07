@@ -74,13 +74,26 @@ def save(im, path):
 
 def slug(s): return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")
 
-data = json.load(open(os.path.join(REPO, "dist/locations/all_locations.json")))
+data = json.load(open(os.path.join(REPO, os.environ.get("LOCATIONS_JSON", "dist/locations/all_locations.json"))))
+# The icons and names drawn are the channel's own map markers, from the locations data
+# (built from the game-file export), not Mappalachia's list: Mappalachia lags the game,
+# so it still had Milepost Zero (taken out) and lacked the new PTS markers (Duchess,
+# 7 Nov 2026). Mappalachia still supplies the background, projection and icon art.
+MARKS = [(to_px(_l["x"], _l["y"]), _l["name"], _l["icon"])
+         for _r in data["regions"] for _l in _r["locations"]
+         if _l.get("x") is not None and _l.get("icon")]
+# PTS maps go in their own folders (the PTS page points at .../all-locations/pts/)
+SUFFIX = " PTS" if (data.get("channel") or "").lower() == "pts" else ""
+LOC_DIR, REG_DIR = "01 Location Maps" + SUFFIX, "02 Region Maps" + SUFFIX
 only = set(sys.argv[1:])
 LOCS_ALL = "locations" in only
 only.discard("locations"); only.discard("--skip-existing")
 F_LOC, F_REG = rsm._font(24), rsm._font(20)
 done = 0
 for r in data["regions"]:
+    r = dict(r, locations=[l for l in r["locations"] if l.get("x") is not None])   # Pitt / AC: hand-made maps
+    if not r["locations"]:
+        continue
     if (not only and not LOCS_ALL) or "regions" in only:
         pts = [to_px(l["x"], l["y"]) for l in r["locations"]]
         pad = 90
@@ -98,12 +111,12 @@ for r in data["regions"]:
                 labels(im, mine, REG_ICON, F_REG, 22)
                 n += 1
                 name = slug(r["name"]) + "-map" + ("-%d" % n if cols * rows > 1 else "") + ".jpg"
-                save(im, os.path.join(OUT, "02 Region Maps", name))
+                save(im, os.path.join(OUT, REG_DIR, name))
         print(r["name"], "region maps:", cols * rows, flush=True)
     if only == {"regions"}: continue
     for l in r["locations"]:
         if only and not LOCS_ALL and l["id"] not in only: continue
-        dest = os.path.join(OUT, "01 Location Maps", l["id"] + ".jpg")
+        dest = os.path.join(OUT, LOC_DIR, l["id"] + ".jpg")
         if "--skip-existing" in sys.argv and os.path.exists(dest) and os.path.getsize(dest) > 1000: continue
         p = to_px(l["x"], l["y"])
         im, on, tr = base(p[0], p[1], LOC_SRC_W, LOC_ICON)
@@ -113,7 +126,7 @@ for r in data["regions"]:
         d.ellipse([tx-R-3, ty-R-3, tx+R+3, ty+R+3], outline=(15, 15, 15), width=13)
         d.ellipse([tx-R, ty-R, tx+R, ty+R], outline=LIME, width=7)
         labels(im, near, LOC_ICON, F_LOC, 26, focus=(tx, ty))
-        save(im, os.path.join(OUT, "01 Location Maps", l["id"] + ".jpg"))  # converted to .avif afterwards (one-off, 7 Nov 2026)
+        save(im, os.path.join(OUT, LOC_DIR, l["id"] + ".jpg"))  # converted to .avif afterwards (one-off, 7 Nov 2026)
         done += 1
         if done % 25 == 0: print("locations", done, flush=True)
 print("DONE locations", done)

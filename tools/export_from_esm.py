@@ -80,8 +80,9 @@ straight from the game files, so these no longer need xEdit:
     TERMPL  TERM_Export_<Month>_<Year>_Placements.tsv  (ExportTERMToTSV.pas _Placements;
             the main TERM file and _Quests are tools/export_term_from_esm.py)
     REFR    REFR_Placements_<Month>_<Year>.tsv  (ExportREFRPlacementsToTSV.pas per base:
-            masks, graves, dig sites, Brain in a Jar, treasure-map mounds, any base
-            already in a REFR_Placements file, plus --bases)
+            masks, graves, dig sites, Brain in a Jar, treasure-map mounds, every
+            map marker (MapMarker, + MarkerName / MarkerType), any base already in
+            a REFR_Placements file, plus --bases)
 
 Every xEdit .pas above stays working as the manual backup.
 Coordinates are correctly rounded; xEdit's own text can differ by one in the last
@@ -4217,7 +4218,11 @@ def exp_refrlvli(esm):
 # collectables (Skyline Valley) and the treasure-map mounds (every ACTI named
 # TreasureMapMoundActivatorNN). Any other base already in
 # a REFR_Placements file in the output folder is refreshed too, and --bases adds more.
-REFR_BASES = [0x008E069E, 0x008F1672, 0x000355A1, 0x008ABB18]
+# 0x00000010 = the STAT MapMarker: every map marker in the game (All Locations page,
+# 7 Nov 2026). Its rows also fill MarkerName / MarkerType from the REFR's own
+# map-marker data, so new markers reach the page without waiting for Mappalachia.
+MAPMARKER_BASE = 0x00000010
+REFR_BASES = [0x008E069E, 0x008F1672, 0x000355A1, 0x008ABB18, MAPMARKER_BASE]
 REFR_BASE_EDID_RE = re.compile(r"^TreasureMapMoundActivator\d+$")
 
 
@@ -4244,6 +4249,32 @@ def _refr_bases(esm):
     return out
 
 
+def _marker_locations(esm, refs, pl):
+    """{marker ref: Location FULL} - the LCTN that lists the placed map marker among
+    its persistent references. Those entries are 12 bytes in LCSR: ref, worldspace,
+    grid Y / X (i16 each); the same subrecord also holds 12-byte specific-ref entries
+    (ref type, ref, cell), so a (marker, the marker's own worldspace) pair is looked
+    for at every 4-byte step. A marker listed by more than one LCTN gets no name here."""
+    wrld = {}
+    for rf in refs:
+        hit = esm._world.get(rf)
+        if hit and hit[3]:
+            wrld[rf] = hit[3]
+    found = {}
+    for l in esm.records.get("LCTN", ()):
+        name = esm.lstring(l.first("FULL"))
+        if not name:
+            continue
+        for k, v in l.subs:
+            if k != "LCSR":
+                continue
+            for i in range(0, len(v) - 7, 4):
+                ref, w = struct.unpack_from("<II", v, i)
+                if ref in wrld and w == wrld[ref]:
+                    found.setdefault(ref, set()).add(name)
+    return {rf: next(iter(n)) for rf, n in found.items() if len(n) == 1}
+
+
 def exp_refr_placements(esm):
     """ExportREFRPlacementsToTSV.pas, per-base file REFR_Placements_<Month>_<Year>.tsv:
     one row per placed reference (REFR) of each base record in _refr_bases, with its
@@ -4258,12 +4289,38 @@ def exp_refr_placements(esm):
     allrefs = {rf for v in refby.values() for rf in v}
     pos = _ref_positions(esm, allrefs)
     pl = _Places(esm, allrefs)
+    # Map markers: the REFR's own FULL (marker name) and TNAM (icon type, first byte).
+    # The .pas writes xEdit's text for the type; this writes the number. The site
+    # learns type -> icon from markers it already knows, so either form works.
+    mk_refs = {rf for rf in refby.get(MAPMARKER_BASE, ()) if refinfo[rf][0] == "REFR"}
+    mk = _world_recs(esm, mk_refs) if mk_refs else {}
+    mk_loc = _marker_locations(esm, mk_refs, pl) if mk_refs else {}
+    head += "\tMarkerName\tMarkerType\tMarkerFlags"
     out = [head]
     for b in bases:
         bf, be, bn = "%08X" % b, cc(esm.edid_of(b)), cc(esm.full_of(b))
         for rf in refby.get(b, ()):
             if refinfo[rf][0] != "REFR":
                 continue
+            mname = mtype = mflags = ""
+            mr = mk.get(rf)
+            if mr is not None:
+                mname = cc(esm.lstring(mr.first("FULL")))
+                tn = mr.first("TNAM")
+                mtype = str(tn[0]) if tn else ""
+                fn = mr.first("FNAM")
+                # FNAM is NOT a Visible flag in 76 (The Whitespring Resort has 0, most
+                # markers 8, region labels 3). Bit 0x08 = the map shows the name of the
+                # marker's Location instead of its own FULL (Duchess's in-game map,
+                # 7 Nov 2026: "Skyline Raider Camp" shows as "Skyline Blockade"; checked
+                # against Mappalachia: 452 of 456 names match with this rule).
+                # Record flag 0x800 = Initially Disabled: not on the in-game map
+                # (Milepost Zero, the unmarked Fissure Sites).
+                mflags = str(fn[0]) if fn else ""
+                if fn and fn[0] & 0x08 and mk_loc.get(rf):
+                    mname = cc(mk_loc[rf])
+                if mr.flags & 0x800:
+                    mflags = (mflags + " Disabled").strip()
             x = y = z = rz = ""
             d = pos.get(rf)
             if d and len(d) >= 24:
@@ -4272,7 +4329,7 @@ def exp_refr_placements(esm):
                 rz = _rot_deg(rzr)
             we, wf, ce, cf, cn, le, ln = pl.cols(rf)
             out.append("\t".join([bf, be, bn, "%08X" % rf, cc(refinfo[rf][1]), we, wf, ce, cf,
-                                   x, y, z, rz, cn, le, ln]))
+                                   x, y, z, rz, cn, le, ln, mname, mtype, mflags]))
     return out
 
 
@@ -5504,7 +5561,7 @@ EXPORTS = {
     "QUEST": (["QUST"], "QUEST_Export", exp_quest),
     "CELL": (["PKIN", "ENTM"], "SurvivalTentInteriors_Export", exp_cell),
     "WTHR": (["WTHR"], "WTHR_Export", exp_wthr),
-    "REFR": (["ACTI"], "REFR_Placements", exp_refr_placements),
+    "REFR": (["ACTI", "LCTN"], "REFR_Placements", exp_refr_placements),
     "LORE": (["NOTE", "BOOK"], "ALLYDLG_Export", exp_lore),
 }
 

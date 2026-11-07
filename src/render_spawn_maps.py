@@ -621,7 +621,7 @@ def legend_rows(rows):
             for t, n in sorted(tally.items(), key=lambda kv: (-kv[1], kv[0]))]
 
 
-def spread_dots(rows):
+def spread_dots(rows, keep_direction=False):
     """Nudge dots that sit on top of each other apart, so every dot can be seen.
 
     Two source types at one marker (a loose egg and a nest at the same POI) cluster
@@ -649,6 +649,17 @@ def spread_dots(rows):
         cx = sum(rows[k]["px"] for k in g) / len(g)
         cy = sum(rows[k]["py"] for k in g) / len(g)
         rad = DOT_D * 0.75 if len(g) == 2 else DOT_D
+        if keep_direction:
+            # keep each dot on the side it really is (Brain in a Jar 1 north of 2, 7 Nov 2026):
+            # ring order follows the real angles, starting from the first dot's real angle
+            real = {k: math.atan2(rows[k]["py"] - cy, rows[k]["px"] - cx) for k in g}
+            g = sorted(g, key=lambda k: real[k])
+            a0 = real[g[0]]
+            for n, k in enumerate(g):
+                ang = a0 + 2 * math.pi * n / len(g)
+                rows[k]["px"] = cx + rad * math.cos(ang)
+                rows[k]["py"] = cy + rad * math.sin(ang)
+            continue
         for n, k in enumerate(g):
             ang = math.pi + 2 * math.pi * n / len(g)
             rows[k]["px"] = cx + rad * math.cos(ang)

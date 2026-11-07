@@ -259,6 +259,16 @@ def main():
                       "from": a, "to": b, "url": f"{URL_BASE}{slug}/",
                       "map": f"{IMAGE_BASE}{slug}-map.jpg"})
 
+    # Fast travel points (Duchess, 7 Nov 2026): data/brain_in_a_jar/fast_travel.tsv {ref: marker}.
+    # Those brains get the "FT <marker>" pill; the rest of a page that has any entry walk on
+    # from the brain before ("Spawn above" pill). Pages with no entries keep the marker pill.
+    ft_path = os.path.join(DATA, "fast_travel.tsv"); ft = {}
+    if os.path.exists(ft_path):
+        for ln in open(ft_path, encoding="utf-8"):
+            if ln.startswith("#") or ln.startswith("ref\t") or not ln.strip(): continue
+            a, b = ln.rstrip("\n").split("\t")[:2]; ft[a.strip().upper()] = b.strip()
+    ft_pages = {next(p["slug"] for p in pages if p["from"] <= num[ref] <= p["to"]) for ref in ft if ref in num}
+
     locs = []
     for r in place:
         ref = r["RefFormID"]; n = num[ref]
@@ -266,18 +276,36 @@ def main():
         page = next(p for p in pages if p["from"] <= n <= p["to"])
         locs.append({
             "n": n, "ref": ref, "region": r["region"], "marker": r["marker"],
-            "fast_travel": prev.get("fast_travel") or r["marker"],
+            "fast_travel": ft.get(ref) or prev.get("fast_travel") or r["marker"],
+            "travel": "ft" if ref in ft else ("walk" if page["slug"] in ft_pages else ""),
             "directions": prev.get("directions", ""),
             "image_top": prev.get("image_top", ""),
             # close-ups are no longer used on the location pages (Duchess, 7 Nov 2026):
             # only one set in hand.json shows, never one left over from an old build
             "image_bottom": hand.get(ref, {}).get("image_bottom", ""),
             "image_map": prev.get("image_map", ""),
+            # Duchess 7 Nov 2026: a locked door on the way gets "You will need Lockpick
+            # Skill N ..." where the directions go, plus her photo of the lock
+            "lockpick": hand.get(ref, {}).get("lockpick", 0),
+            "image_lock": hand.get(ref, {}).get("image_lock", ""),
+            # Duchess 7 Nov 2026: a short how-to-get-there line (e.g. Vault 63 Immortality Sector)
+            "note": hand.get(ref, {}).get("note", ""),
             "exists": True,
             "coords": [round(float(r["X"]), 1), round(float(r["Y"]), 1), round(float(r["Z"]), 1)],
             "page": page["slug"],
         })
     locs.sort(key=lambda l: l["n"])
+    # Duchess 7 Nov 2026: the last brain before a fast travel says where to go next
+    # ("After this one, fast travel back to Three Ponds for Brain 7.")
+    # "back" = fast travelled there before, or this brain is at that same marker
+    # (46 -> "fast travel back to Big Meadows Gas Well for Brain 47")
+    seen = set()
+    for i, l in enumerate(locs):
+        if l.get("travel") == "ft": seen.add(l["fast_travel"])
+        nxt = locs[i + 1] if i + 1 < len(locs) else None
+        l["next_ft"] = ({"n": nxt["n"], "marker": nxt["fast_travel"],
+                         "back": nxt["fast_travel"] in seen or nxt["fast_travel"] == l.get("marker")}
+                        if nxt and nxt.get("travel") == "ft" and nxt["page"] == l["page"] else None)
 
     tiers, hand_in = build_rewards(channel)
     quest = next((q.get("FULL") for q in _rows("QUST2_Export_*_Quests.tsv", channel)

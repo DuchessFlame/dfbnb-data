@@ -70,6 +70,7 @@ OUT = os.path.join(DIST, "locations", "all_locations.json")
 MAPPALACHIA_DB = os.environ.get("MAPPALACHIA_DB", r"D:\Mappalachia\data\mappalachia.db")
 MARKER_CACHE = os.path.join(REPO, "data", "locations", "mappalachia_markers.json")
 WORLDSPACE = xref.WORLDSPACE
+WORLDSPACE_EDID = "APPALACHIA"
 CELL = 4096.0
 
 # Region order on the page — A to Z, with "The Mire" filed under M (Duchess, 6 Nov 2026).
@@ -77,7 +78,11 @@ CELL = 4096.0
 REGION_ORDER = ["Ash Heap", "Burning Springs", "Cranberry Bog", "Forest", "The Mire",
                 "Savage Divide", "Skyline Valley", "Toxic Valley"]
 
-IMAGE_BASE = "/wp-content/uploads/guide-images/data-mining/all-locations/"
+# Live and PTS have their own maps (Duchess, 7 Nov 2026): the markers differ between the
+# two (PTS adds Skyline Blockade, Vault 63 Immortality Sector ...), so every map round a
+# change differs too. PTS maps live in .../all-locations/pts/ (PC: "01 Location Maps PTS",
+# "02 Region Maps PTS", written by render_all_locations_maps.py from the PTS JSON).
+IMAGE_BASE = "/wp-content/uploads/guide-images/data-mining/all-locations/" + ("pts/" if PTS else "")
 
 # Pip-Boy quest categories. Anything not listed (None / Module / Server /
 # dialogue scaffolding) is engine plumbing, not a quest a player sees.
@@ -332,6 +337,100 @@ def load_vendors_by_marker():
     for k in out:
         out[k].sort(key=lambda r: r["name"].lower())
     return out
+
+
+# Map markers straight from the game files (Duchess, 7 Nov 2026). Mappalachia only
+# knows the markers of the game version it was built for, so new ones (PTS, or a
+# patch Mappalachia hasn't caught up with yet) were missing — e.g. Skyline Blockade
+# and Vault 63 Immortality Sector on the PTS. The REFR placements export, run on the
+# STAT MapMarker [00000010], lists every placed marker with its name, icon type,
+# position and cell Location. When that export exists for the channel it is the
+# authority: new markers are added, and (once it clearly holds the whole set)
+# markers the game no longer has are dropped. Mappalachia still supplies icons and
+# the cell->Location table for the markers it knows.
+MAPMARKER_BASE = "00000010"
+# Markers Bethesda has taken out of the game but which still show in Mappalachia's
+# copy (Duchess, 7 Nov 2026). Only needed until the marker export exists: its
+# MarkerFlags column says when a marker is disabled or hidden, and those are dropped.
+MARKERS_REMOVED = {"Milepost Zero"}
+
+
+def marker_hidden(flags):
+    """True when the export's MarkerFlags say the marker is not on the in-game map:
+    the REFR is initially disabled (Milepost Zero, and the Fissure Sites that are
+    unmarked locations - Duchess, 7 Nov 2026). The FNAM byte is NOT a Visible flag
+    in 76: The Whitespring Resort and Vault 79 have 0, most markers 8, region labels
+    3 - so it is never used to hide a marker."""
+    return "disabled" in (flags or "").lower()
+
+
+def load_export_markers():
+    path = tsv_source.newest("REFR_Placements_*.tsv", channel=CHANNEL, required=False)
+    if not path:
+        return [], ""
+    out = []
+    for row in read_tsv(path):
+        if hexid(row.get("BaseFormID")) != MAPMARKER_BASE:
+            continue
+        if (row.get("WorldspaceEDID") or "").upper() != WORLDSPACE_EDID:
+            continue
+        name = (row.get("MarkerName") or "").strip()
+        if marker_hidden(row.get("MarkerFlags")):
+            continue
+        # "$REGION_ASH_HEAP" etc.: the region name labels on the map (an interface
+        # string key, not a place). Not locations - leave them out.
+        if name.startswith("$"):
+            continue
+        try:
+            x, y = float(row.get("X") or ""), float(row.get("Y") or "")
+        except ValueError:
+            continue
+        if name:
+            out.append({"label": name, "type": (row.get("MarkerType") or "").strip(),
+                        "x": round(x, 1), "y": round(y, 1),
+                        "loc_edid": (row.get("LocationEDID") or "").strip()})
+    return out, os.path.basename(path)
+
+
+def merge_export_markers(markers, recs):
+    exp, src = load_export_markers()
+    if not exp:
+        return markers
+    by_edid = {r["edid"]: fid for fid, r in recs.items()}
+    known_icons = {m["icon"] for m in markers if m.get("icon")}
+    seen, added, pending = set(), [], []
+    type_icons = defaultdict(lambda: defaultdict(int))   # learnt: marker type -> icon
+    for e in exp:
+        hit = None
+        for i, m in enumerate(markers):
+            if norm(m["label"]) == norm(e["label"]) and \
+                    (m["x"] - e["x"]) ** 2 + (m["y"] - e["y"]) ** 2 <= (1.5 * CELL) ** 2:
+                hit = i
+                break
+        if hit is not None:
+            seen.add(hit)
+            if e["type"] and markers[hit].get("icon"):
+                type_icons[e["type"]][markers[hit]["icon"]] += 1
+            continue
+        pending.append(e)
+    for e in pending:
+        # Icon: what markers of the same type already use (works whether the export
+        # writes xEdit's type text or the raw number), else a name guess.
+        learnt = type_icons.get(e["type"])
+        guess = re.sub(r"[^A-Za-z0-9]", "", e["type"]) + "Marker"
+        icon = (max(learnt, key=learnt.get) if learnt else
+                guess if guess in known_icons else (e["type"] if e["type"] in known_icons else ""))
+        lf = by_edid.get(e["loc_edid"])
+        added.append({"label": e["label"], "icon": icon, "x": e["x"], "y": e["y"], "type_text": e["type"],
+                      "cell_locs": [lf] if lf else [], "near_locs": [lf] if lf else []})
+    dropped = []
+    if len(exp) >= 300:          # the whole marker set was exported, so it is authoritative
+        dropped = [m["label"] for i, m in enumerate(markers) if i not in seen]
+        markers = [m for i, m in enumerate(markers) if i in seen]
+    print(f"[locations] map markers from {src}: {len(exp)} named; "
+          f"{len(added)} new ({', '.join(a['label'] for a in added) or 'none'}); "
+          f"{len(dropped)} no longer in the game ({', '.join(dropped) or 'none'})")
+    return markers + added
 
 
 # The Pitt and Atlantic City (Duchess, 7 Nov 2026). These expedition areas have no map
@@ -627,6 +726,7 @@ def match_markers(markers, recs):
 
 def main():
     markers, refr_pos, game_ver = load_markers()
+    markers = [m for m in markers if m["label"] not in MARKERS_REMOVED]
     rings, _ = xref.load_mappalachia()
     recs = load_lctn()
     legends = load_local_legends()
@@ -636,6 +736,7 @@ def main():
     event_locs = load_event_locations()
     chals, chal_lctn, chal_cndf, chal_refr = load_challenges()
 
+    markers = merge_export_markers(markers, recs)
     match_markers(markers, recs)
     markers += expedition_markers(recs)
 
@@ -719,7 +820,7 @@ def main():
         regions[region].append({
             "id": lid,
             "name": m["label"],
-            "type": icon_label(m["icon"]),
+            "type": icon_label(m["icon"]) or m.get("type_text", ""),
             "icon": m["icon"],
             "x": m["x"], "y": m["y"],
             "image": f"{IMAGE_BASE}{lid}.avif",   # one-off: location maps are AVIF (Duchess, 7 Nov 2026); region maps stay JPEG
