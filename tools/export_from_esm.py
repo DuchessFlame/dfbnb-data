@@ -569,10 +569,13 @@ def exp_kywd(esm):
 def exp_curv(esm):
     """ExportCURVToTSV.pas - the records file (_CURV). The X/Y points are not in the
     record: extract_curvetables.py refreshes the curve JSONs from Startup.ba2 and
-    CI's build_curv_points_tsv.py makes the _POINTS file from them."""
+    CI's build_curv_points_tsv.py makes the _POINTS file from them.
+    The path sits in JASF or, for about 700 records (most armour DR / ER curves,
+    CT_PA_Mod_CoreAssembly ...), in CRVE instead. No record has both (checked live
+    and PTS, 7 Nov 2026), so CRVE is the fallback when JASF is empty."""
     rows = []
     for r in R.xedit_order(esm, "CURV"):
-        path = cc(_zstr(r.first("JASF")))
+        path = cc(_zstr(r.first("JASF")) or _zstr(r.first("CRVE")))
         refs = _refcells(esm, r.fid)
         rows.append((["%08X" % r.fid, cc(r.edid), path, path.replace("/", "\\").rsplit("\\", 1)[-1],
                       str(len(refs))], refs))

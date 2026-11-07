@@ -21,7 +21,17 @@ Power armour (tsv/APX_Export_* from tools/esm_ap_extract.py, read straight from 
   Core Assembly    OMOD _PARENT_mod_PowerArmor_GENERIC_BatRegen ActionPointsRate on CT_PA_Mod_CoreAssembly
                    (curve JSON from data/curvetables/json; the xEdit CURV export leaves its path blank) -> flat
   Enclave Vulcan   ENCH RD01_PowerArmor_Torso_EnclaveVulcanEnch -> % (ActionPointsRateMult)
-Radioactive-Powered restores AP (actor value ActionPoints), it isn't AP refresh, so it isn't on here.
+AP Refills tab (Kat 7 Nov 2026) - things that put AP straight back, on top of the % refresh:
+  Radioactive-Powered  APX PERSEC rows on ENCH ench_LegendaryPowerArmor_RadioactivePowered: +2 AP / -2 rads a
+                       second per piece, while rads > 0 and the AP bar isn't full
+  Rushing              ENCH BOUNTY_ench_LegendaryArmor_Rushing: BOUNTY_Rushing_RestoreActionPointsEffect, magnitude
+                       GLOB BOUNTY_KillstreakArmorBonus01..10 (one per Kill Streak 1..10), per piece
+  Rejuvenator's        SPEL SURV_Thirst_Ability abRestoreActionPoints rows: curve CT_Legendary_Armor_RejuvenatorT1..T5
+                       with input LGND_RejuvenatorTier (+1 per piece, OMOD), by thirst tier / Rejuvenated; humans only
+  food / drinks        dist/calculators/food_buff_calculator.json effects on slot ap_refill (total AP, seconds)
+  in one go            ALCHFX RestoreActionPoints* with no duration (Nuka-Cola Quantum, Halloween Candy)
+  Grim Reaper's Sprint PERKEP GrimReapersSprint01 Mod VATS Player AP On Kill Chance, CURV GrimReapersSprintBonus
+                       (input Luck) = chance a V.A.T.S. kill fills the whole AP bar
 
 Usage:  python src/build_ap_calculator_json.py [--pts]
 """
@@ -171,6 +181,76 @@ def main():
     else:
         warnings.append("Enclave Vulcan torso not found (APX)")
 
+    # ---- AP Refills tab -----------------------------------------------------
+    refills = {}
+    rp = {r["Field"]: r for r in apx("ench_LegendaryPowerArmor_RadioactivePowered")}
+    if "PERSEC_AP" in rp:
+        refills["radioactivePowered"] = {"apPerSec": tidy(float(rp["PERSEC_AP"]["Value"])),
+                                         "radsPerSec": tidy(float(rp["PERSEC_RADS"]["Value"])) if "PERSEC_RADS" in rp else None,
+                                         "star": 4, "pa": True, "src": {"type": "ENCH", "edid": "ench_LegendaryPowerArmor_RadioactivePowered"}}
+    else:
+        warnings.append("Radioactive-Powered not found (APX PERSEC)")
+    glob_rows, glob_file = read("GLOB_Export_*.tsv")
+    gv = {r["EDID"]: float(r["FLTV"]) for r in glob_rows if r.get("FLTV") not in (None, "")}
+    rush = [tidy(round(gv[k], 4)) for k in ("BOUNTY_KillstreakArmorBonus%02d" % i for i in range(1, 11)) if k in gv]
+    if len(rush) == 10:
+        refills["rushing"] = {"perStreak": rush, "star": 2, "src": {"type": "ENCH+GLOB", "edid": "BOUNTY_ench_LegendaryArmor_Rushing / BOUNTY_KillstreakArmorBonus01-10"}}
+    else:
+        warnings.append(f"Rushing kill streak GLOBs: found {len(rush)} of 10")
+    rej = []
+    for r in spel("SURV_Thirst_Ability"):
+        if r["EFID_MGEF_EDID"] != "abRestoreActionPoints" or r.get("MAGA_AVIF_EDID") != "LGND_RejuvenatorTier":
+            continue
+        c = r["Conditions"]
+        tier = re.search(r"SURV_Thirst \[AVIF:[0-9A-F]+\], 00 00 00 00\) >= SURV_NewThirstThreshold_\d_(\w+) ", c)
+        r1 = re.search(r"HasPerk\(Rejuvenated01 [^\[]*\[PERK:[0-9A-F]+\][^)]*\) = (\d)", c)
+        r2 = re.search(r"HasPerk\(Rejuvenated02 [^\[]*\[PERK:[0-9A-F]+\][^)]*\) = (\d)", c)
+        if r1 and r2 and r1.group(1) == "1" and r2.group(1) == "1":
+            rv = "r2_low_rads"
+        elif r1 and r1.group(1) == "1":
+            rv = "r1_or_r2_high_rads"
+        elif r1 and r1.group(1) == "0":
+            rv = "none"
+        else:
+            rv = "any"
+        names = {"FullyHydrated": "Fully Hydrated", "WellHydrated": "Well Hydrated", "Hydrated": "Hydrated", "PartiallyHydrated": "Partially Hydrated"}
+        pts = curve(r["CVTO_CURV_EDID"])
+        if tier and pts:
+            rej.append({"tier": names.get(tier.group(1), tier.group(1)), "rejuv": rv, "curve": r["CVTO_CURV_EDID"], "points": pts})
+    if rej:
+        refills["rejuvenators"] = {"tiers": rej, "star": 4, "pa": True, "humanOnly": True,
+                                   "src": {"type": "SPEL", "edid": "SURV_Thirst_Ability (abRestoreActionPoints, MAGA LGND_RejuvenatorTier)"}}
+    else:
+        warnings.append("Rejuvenator's thirst rows not found")
+    fb_path = os.path.join(DIST, "calculators", "food_buff_calculator.json")
+    if not os.path.exists(fb_path):
+        fb_path = os.path.join(ROOT, "dist", "calculators", "food_buff_calculator.json")
+    foods_r, seen = [], set()
+    for it in json.load(open(fb_path, encoding="utf-8")).get("items", []):
+        for f in it.get("fx", []):
+            if f.get("s") == "ap_refill" and f.get("m") and f.get("d") and it["n"] not in seen:
+                seen.add(it["n"])
+                foods_r.append({"name": it["n"], "type": it.get("t"), "total": tidy(f["m"]), "seconds": f["d"],
+                                "perSec": tidy(round(f["m"] / f["d"], 3)), "edid": it.get("edid")})
+    foods_r.sort(key=lambda x: (-x["total"], x["name"]))
+    refills["foods"] = foods_r
+    alch_names = {}
+    for r in read("ALCH_Export_*.tsv")[0]:
+        if r.get("ALCH_EDID"):
+            alch_names[r["ALCH_EDID"]] = r.get("FULL") or ""
+    instant = []
+    for r in alch_rows:
+        if r.get("MGEF_EDID", "").startswith("RestoreActionPoints") and float(r.get("Duration") or 0) == 0 and float(r.get("Magnitude") or 0) > 0:
+            nm = alch_names.get(r["ALCH_EDID"]) or r["ALCH_EDID"]
+            if not r["ALCH_EDID"].startswith(("zzz", "AAA", "DEL_", "Test")) and nm not in [x["name"] for x in instant]:
+                instant.append({"name": nm, "ap": tidy(float(r["Magnitude"])), "edid": r["ALCH_EDID"]})
+    refills["instant"] = sorted(instant, key=lambda x: -x["ap"])
+    grs = curve("GrimReapersSprintBonus")
+    if grs:
+        refills["grimReaper"] = {"points": grs, "input": "Luck", "src": {"type": "PERK+CURV", "edid": "GrimReapersSprint01 / GrimReapersSprintBonus"}}
+    else:
+        warnings.append("GrimReapersSprintBonus curve missing")
+
     # Hard Lemonade: curve-valued effects
     hard = {}
     for r in alch_rows:
@@ -251,7 +331,8 @@ def main():
         "generated": datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0).isoformat(),
         "channel": CHANNEL,
         "sources": {"specials_stats": os.path.relpath(ss_path, ROOT).replace("\\", "/"), "mgef": mgef_file, "spel": spel_file,
-                    "alchfx": alch_file, "curv": curv_file, "omod": omod_file, "apx": apx_file},
+                    "alchfx": alch_file, "curv": curv_file, "omod": omod_file, "apx": apx_file, "glob": glob_file,
+                    "foodBuff": os.path.relpath(fb_path, ROOT).replace("\\", "/")},
         "refresh": {
             "base": fregen["inputs"]["base"], "multBase": fregen["inputs"]["multBase"],
             "notes": regen.get("details", []),
@@ -277,6 +358,7 @@ def main():
             "magazines": ap_mags,
             "feral": feral_ap,
         },
+        "refills": refills,
         "feralTiers": [x["tier"] for x in feral_tiers],
         "warnings": warnings,
     }

@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated": "2026-11-07T01:47:33+00:00",
+ "generated": "2026-11-07T03:01:01+00:00",
  "channel": "live",
  "sources": {
   "specials_stats": "dist/specials_stats.json",
@@ -9,7 +9,9 @@
   "alchfx": "ALCHFX_Export_October_2026.tsv",
   "curv": "CURV_Export_October_2026_POINTS.tsv",
   "omod": "OMOD_Export_October_2026_Properties.tsv",
-  "apx": "APX_Export_November_2026.tsv"
+  "apx": "APX_Export_November_2026.tsv",
+  "glob": "GLOB_Export_October_2026.tsv",
+  "foodBuff": "dist/calculators/food_buff_calculator.json"
  },
  "refresh": {
   "base": {
@@ -792,6 +794,549 @@
     "value": -30
    }
   ]
+ },
+ "refills": {
+  "radioactivePowered": {
+   "apPerSec": 2,
+   "radsPerSec": 2,
+   "star": 4,
+   "pa": true,
+   "src": {
+    "type": "ENCH",
+    "edid": "ench_LegendaryPowerArmor_RadioactivePowered"
+   }
+  },
+  "rushing": {
+   "perStreak": [
+    0.3,
+    0.6,
+    0.9,
+    1.2,
+    1.5,
+    1.8,
+    2.1,
+    2.4,
+    2.7,
+    3
+   ],
+   "star": 2,
+   "src": {
+    "type": "ENCH+GLOB",
+    "edid": "BOUNTY_ench_LegendaryArmor_Rushing / BOUNTY_KillstreakArmorBonus01-10"
+   }
+  },
+  "rejuvenators": {
+   "tiers": [
+    {
+     "tier": "Fully Hydrated",
+     "rejuv": "r2_low_rads",
+     "curve": "CT_Legendary_Armor_RejuvenatorT5",
+     "points": [
+      [
+       0,
+       0
+      ],
+      [
+       1,
+       6
+      ],
+      [
+       2,
+       12
+      ],
+      [
+       3,
+       18
+      ],
+      [
+       4,
+       24
+      ],
+      [
+       5,
+       30
+      ]
+     ]
+    },
+    {
+     "tier": "Fully Hydrated",
+     "rejuv": "r1_or_r2_high_rads",
+     "curve": "CT_Legendary_Armor_RejuvenatorT4",
+     "points": [
+      [
+       0,
+       0
+      ],
+      [
+       1,
+       4
+      ],
+      [
+       2,
+       8
+      ],
+      [
+       3,
+       12
+      ],
+      [
+       4,
+       16
+      ],
+      [
+       5,
+       20
+      ]
+     ]
+    },
+    {
+     "tier": "Fully Hydrated",
+     "rejuv": "none",
+     "curve": "CT_Legendary_Armor_RejuvenatorT3",
+     "points": [
+      [
+       0,
+       0
+      ],
+      [
+       1,
+       3
+      ],
+      [
+       2,
+       6
+      ],
+      [
+       3,
+       9
+      ],
+      [
+       4,
+       12
+      ],
+      [
+       5,
+       15
+      ]
+     ]
+    },
+    {
+     "tier": "Well Hydrated",
+     "rejuv": "any",
+     "curve": "CT_Legendary_Armor_RejuvenatorT2",
+     "points": [
+      [
+       0,
+       0
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       2,
+       4
+      ],
+      [
+       3,
+       6
+      ],
+      [
+       4,
+       8
+      ],
+      [
+       5,
+       10
+      ]
+     ]
+    },
+    {
+     "tier": "Hydrated",
+     "rejuv": "any",
+     "curve": "CT_Legendary_Armor_RejuvenatorT1",
+     "points": [
+      [
+       0,
+       0
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       2,
+       2
+      ],
+      [
+       3,
+       3
+      ],
+      [
+       4,
+       4
+      ],
+      [
+       5,
+       5
+      ]
+     ]
+    },
+    {
+     "tier": "Partially Hydrated",
+     "rejuv": "any",
+     "curve": "CT_Legendary_Armor_RejuvenatorT1",
+     "points": [
+      [
+       0,
+       0
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       2,
+       2
+      ],
+      [
+       3,
+       3
+      ],
+      [
+       4,
+       4
+      ],
+      [
+       5,
+       5
+      ]
+     ]
+    }
+   ],
+   "star": 4,
+   "pa": true,
+   "humanOnly": true,
+   "src": {
+    "type": "SPEL",
+    "edid": "SURV_Thirst_Ability (abRestoreActionPoints, MAGA LGND_RejuvenatorTier)"
+   }
+  },
+  "foods": [
+   {
+    "name": "Sunshine Oil",
+    "type": "food",
+    "total": 400,
+    "seconds": 25,
+    "perSec": 16,
+    "edid": "SunshineOil_RSVP02"
+   },
+   {
+    "name": "Blackberry Honey Crisp",
+    "type": "food",
+    "total": 300,
+    "seconds": 25,
+    "perSec": 12,
+    "edid": "BlackberryHoneyCrispGourmet"
+   },
+   {
+    "name": "Brain Bombs",
+    "type": "food",
+    "total": 300,
+    "seconds": 25,
+    "perSec": 12,
+    "edid": "BrainBombsGourmet"
+   },
+   {
+    "name": "Canned Brain Bombs",
+    "type": "food",
+    "total": 300,
+    "seconds": 25,
+    "perSec": 12,
+    "edid": "SCORE_25_BrainBombsGourmet_Cannery_G1"
+   },
+   {
+    "name": "Canned Coffee",
+    "type": "food",
+    "total": 300,
+    "seconds": 25,
+    "perSec": 12,
+    "edid": "SurvivalistCoffee"
+   },
+   {
+    "name": "Slice of Birthday Cake",
+    "type": "food",
+    "total": 300,
+    "seconds": 25,
+    "perSec": 12,
+    "edid": "BirthdayCakeSlice"
+   },
+   {
+    "name": "Slice of Pumpkin Pie",
+    "type": "food",
+    "total": 300,
+    "seconds": 25,
+    "perSec": 12,
+    "edid": "PumpkinPieSlice"
+   },
+   {
+    "name": "Slice of Slime Cake",
+    "type": "food",
+    "total": 300,
+    "seconds": 25,
+    "perSec": 12,
+    "edid": "SlimeCakeSlice"
+   },
+   {
+    "name": "Sweet Roll",
+    "type": "food",
+    "total": 300,
+    "seconds": 25,
+    "perSec": 12,
+    "edid": "SweetRollGourmet"
+   },
+   {
+    "name": "Cranberry Relish",
+    "type": "food",
+    "total": 200,
+    "seconds": 25,
+    "perSec": 8,
+    "edid": "CranberryTastyRelish"
+   },
+   {
+    "name": "Slice of Vault-Tec Gelatin Cake",
+    "type": "food",
+    "total": 200,
+    "seconds": 25,
+    "perSec": 8,
+    "edid": "ATX_VaultTecGelatinCake_CakeSlice"
+   },
+   {
+    "name": "Sweet Blackberry Tea",
+    "type": "food",
+    "total": 200,
+    "seconds": 25,
+    "perSec": 8,
+    "edid": "BlackberryFruitTastyTea"
+   },
+   {
+    "name": "Mud Cookie",
+    "type": "food",
+    "total": 180,
+    "seconds": 15,
+    "perSec": 12,
+    "edid": "MudCookie_RSVP02"
+   },
+   {
+    "name": "Royal Jelly",
+    "type": "food",
+    "total": 120,
+    "seconds": 15,
+    "perSec": 8,
+    "edid": "HoneyBeastRoyalJelly"
+   },
+   {
+    "name": "Royal Jelly Taffy",
+    "type": "food",
+    "total": 120,
+    "seconds": 15,
+    "perSec": 8,
+    "edid": "HoneyBeastRoyalJellyCooked"
+   },
+   {
+    "name": "Tarberry Juice",
+    "type": "food",
+    "total": 120,
+    "seconds": 15,
+    "perSec": 8,
+    "edid": "TarberryFruitCookedJuice"
+   },
+   {
+    "name": "Cotton Candy Bites",
+    "type": "food",
+    "total": 60,
+    "seconds": 15,
+    "perSec": 4,
+    "edid": "DLC04_CottonCandyBites"
+   },
+   {
+    "name": "Gum Drops",
+    "type": "food",
+    "total": 60,
+    "seconds": 15,
+    "perSec": 4,
+    "edid": "Gumdrops"
+   },
+   {
+    "name": "Honey",
+    "type": "food",
+    "total": 60,
+    "seconds": 15,
+    "perSec": 4,
+    "edid": "Honey"
+   },
+   {
+    "name": "Honeycomb",
+    "type": "food",
+    "total": 60,
+    "seconds": 15,
+    "perSec": 4,
+    "edid": "HoneyComb"
+   },
+   {
+    "name": "Nuka Victory Candy",
+    "type": "food",
+    "total": 60,
+    "seconds": 15,
+    "perSec": 4,
+    "edid": "NukaVictoryCandyMachine_Candy"
+   },
+   {
+    "name": "Nuka-Cola Candy",
+    "type": "food",
+    "total": 60,
+    "seconds": 15,
+    "perSec": 4,
+    "edid": "NukaColaCandyMachine_Candy"
+   },
+   {
+    "name": "Nuka-Cola Quantum Candy",
+    "type": "food",
+    "total": 60,
+    "seconds": 15,
+    "perSec": 4,
+    "edid": "NukaQuantumCandyMachine_Candy"
+   },
+   {
+    "name": "Popcorn",
+    "type": "food",
+    "total": 60,
+    "seconds": 15,
+    "perSec": 4,
+    "edid": "PopcornMachine_Popcorn"
+   },
+   {
+    "name": "Razorgrain Flour",
+    "type": "food",
+    "total": 60,
+    "seconds": 15,
+    "perSec": 4,
+    "edid": "Cooking_Razorgrain_Flour"
+   },
+   {
+    "name": "Sugar",
+    "type": "food",
+    "total": 60,
+    "seconds": 15,
+    "perSec": 4,
+    "edid": "CookingFlavor_Sugar"
+   },
+   {
+    "name": "Sugar Bombs",
+    "type": "food",
+    "total": 60,
+    "seconds": 15,
+    "perSec": 4,
+    "edid": "SugarBombs_PreWar_Clean"
+   },
+   {
+    "name": "Nuka-Grape",
+    "type": "food",
+    "total": 50,
+    "seconds": 5,
+    "perSec": 10,
+    "edid": "DLC04_NukaCola_Grape"
+   },
+   {
+    "name": "Nuka-Orange",
+    "type": "food",
+    "total": 50,
+    "seconds": 5,
+    "perSec": 10,
+    "edid": "DLC04_NukaCola_Orange"
+   },
+   {
+    "name": "Watermelon Perk Bubblegum",
+    "type": "gum",
+    "total": 42,
+    "seconds": 120,
+    "perSec": 0.35,
+    "edid": "PerkBubblegumWatermelon"
+   },
+   {
+    "name": "Nuka-Cherry",
+    "type": "food",
+    "total": 25,
+    "seconds": 5,
+    "perSec": 5,
+    "edid": "NukaColaCherry"
+   },
+   {
+    "name": "Nuka-Cola Wild",
+    "type": "food",
+    "total": 25,
+    "seconds": 5,
+    "perSec": 5,
+    "edid": "DLC04_NukaCola_Wild"
+   },
+   {
+    "name": "Nuka-Cola",
+    "type": "food",
+    "total": 10,
+    "seconds": 5,
+    "perSec": 2,
+    "edid": "NukaCola"
+   },
+   {
+    "name": "Nuka-Cola Twist",
+    "type": "food",
+    "total": 10,
+    "seconds": 5,
+    "perSec": 2,
+    "edid": "NukaCola_Twist"
+   }
+  ],
+  "instant": [
+   {
+    "name": "Nuka-Cola Quantum",
+    "ap": 100,
+    "edid": "NukaColaQuantum"
+   },
+   {
+    "name": "Halloween Candy",
+    "ap": 5,
+    "edid": "CB02_HalloweenCandy"
+   }
+  ],
+  "grimReaper": {
+   "points": [
+    [
+     1,
+     0.06
+    ],
+    [
+     15,
+     0.14
+    ],
+    [
+     30,
+     0.2
+    ],
+    [
+     60,
+     0.3
+    ],
+    [
+     100,
+     0.36
+    ]
+   ],
+   "input": "Luck",
+   "src": {
+    "type": "PERK+CURV",
+    "edid": "GrimReapersSprint01 / GrimReapersSprintBonus"
+   }
+  }
  },
  "feralTiers": [
   "Well Fed",

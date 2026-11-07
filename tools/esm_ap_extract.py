@@ -13,6 +13,10 @@ Rows (columns match AWARE_ / STATREC_ exports):
                  when the magnitude comes from an actor value (Kinetic Servos ->
                  PA_KineticServos_AV, set +1 per leg by the OMOD).
                  Field = FLAT or MULT.
+    ENCH         PERSEC  enchantments (armour / legendary mods) with an always-on value
+                 change on ActionPoints or Rads that isn't a fortify (no Recover flag):
+                 the game applies those every second. Radioactive-Powered = +2 AP a
+                 second, -2 rads a second, per piece (Kat 7 Nov 2026).
     CURV  CRVE   the curve-table JSON path of every curve those need
                  (CT_PA_Mod_CoreAssembly ...). The September/October xEdit CURV
                  exports left 617 of these paths blank.
@@ -32,6 +36,7 @@ import esm_reader as R  # noqa: E402
 HDR = ["Signature", "FormID", "EDID", "Field", "Index", "Ref_FormID", "Ref_EDID", "Value", "Curve_FormID", "Curve_EDID"]
 CURVES = ("CT_PA_Mod_CoreAssembly",)
 AV_FLAT, AV_MULT = 0x000002D8, 0x00000359  # ActionPointsRate, ActionPointsRateMult
+AV_AP, AV_RADS = 0x000002D5, 0x000002E1    # ActionPoints, Rads
 
 
 def main():
@@ -50,11 +55,14 @@ def main():
         v = esm.index.get(fid)
         return v[1] if v else ""
 
-    mgef_av = {}
+    mgef_av, mgef_persec = {}, set()
     for m in esm.records["MGEF"]:
         d = m.first("DATA") or b""
         if len(d) >= 76:
             mgef_av[m.fid] = struct.unpack_from("<I", d, 72)[0]
+            flags, arche = struct.unpack_from("<I", d, 0)[0], struct.unpack_from("<I", d, 68)[0]
+            if mgef_av[m.fid] in (AV_AP, AV_RADS) and arche == 0 and not flags & 0x2:
+                mgef_persec.add(m.fid)  # value modifier, no Recover -> applied per second
 
     rows = []
     for sig in ("ENCH", "SPEL"):
@@ -65,7 +73,8 @@ def main():
                     continue
                 mg = struct.unpack("<I", v)[0]
                 av = mgef_av.get(mg)
-                if av not in (AV_FLAT, AV_MULT):
+                persec = sig == "ENCH" and mg in mgef_persec
+                if av not in (AV_FLAT, AV_MULT) and not persec:
                     idx += 1
                     continue
                 efit = maga = None
@@ -78,7 +87,7 @@ def main():
                         maga = vv
                 mag = struct.unpack_from("<f", efit, 4)[0] if efit and len(efit) >= 8 else 0.0
                 mfid = struct.unpack("<I", maga)[0] if maga else 0
-                rows.append([sig, "%08X" % r.fid, r.edid, "FLAT" if av == AV_FLAT else "MULT", str(idx),
+                rows.append([sig, "%08X" % r.fid, r.edid, ("PERSEC_AP" if av == AV_AP else "PERSEC_RADS") if persec else ("FLAT" if av == AV_FLAT else "MULT"), str(idx),
                              "%08X" % mg, name(mg), "%.6f" % mag, ("%08X" % mfid) if mfid else "", name(mfid) if mfid else ""])
                 idx += 1
     for c in esm.records["CURV"]:
@@ -96,8 +105,9 @@ def main():
         f.write("\t".join(HDR) + "\n")
         for r in rows:
             f.write("\t".join(x.replace("\t", " ") for x in r) + "\n")
-    print("wrote %s: %d rows (%d flat, %d mult, %d curves)" % (os.path.relpath(out, REPO), len(rows),
-          sum(r[3] == "FLAT" for r in rows), sum(r[3] == "MULT" for r in rows), sum(r[0] == "CURV" for r in rows)))
+    print("wrote %s: %d rows (%d flat, %d mult, %d per-second, %d curves)" % (os.path.relpath(out, REPO), len(rows),
+          sum(r[3] == "FLAT" for r in rows), sum(r[3] == "MULT" for r in rows),
+          sum(r[3].startswith("PERSEC") for r in rows), sum(r[0] == "CURV" for r in rows)))
 
 
 if __name__ == "__main__":
