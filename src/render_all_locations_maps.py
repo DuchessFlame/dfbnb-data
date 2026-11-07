@@ -3,7 +3,15 @@
                             location, names on the locations inside an oval round it.
 02 Region Maps/<region-slug>-map[-N].jpg   same box size, one fixed (wider) zoom for every
                             region; big regions split into sections; that region's
-                            locations named. Every map watermarked (badge bottom-left)."""
+                            locations named. Every map watermarked (badge bottom-left).
+
+PTS (LOCATIONS_JSON=dist/pts/locations/all_locations.json) draws NO duplicates of the live
+maps (Duchess, 7 Nov 2026): only places new on the PTS ("01 Location Maps PTS/<id>.avif")
+and the regions whose markers changed ("02 Region Maps PTS/<slug>-map[-N]-pts.jpg" —
+"-pts" in the name, so they can never overwrite the live ones). Each run writes its tile
+list: data/locations/region_maps.json (live) or region_maps_pts.json (PTS).
+Location maps are saved as AVIF (one-off for this page; region maps stay JPEG).
+Cut places (taken out of the game) are not drawn on any map and get no new map."""
 import os, sys, json, sqlite3, io, math, re
 os.environ.setdefault("MAPPALACHIA_DIR", os.path.expanduser("~/mnt/Mappalachia"))
 os.environ.setdefault("GUIDES_ROOT", os.path.expanduser("~/mnt/Guides and Stuff"))
@@ -70,7 +78,9 @@ def labels(im, items, isz, font, fh, focus=None):
 
 def save(im, path):
     os.makedirs(os.path.dirname(path), exist_ok=True)
-    map_watermark.apply(im, corner="bottom-left").convert("RGB").save(path, "JPEG", quality=90)
+    im = map_watermark.apply(im, corner="bottom-left").convert("RGB")
+    if path.endswith(".avif"): im.save(path, "AVIF", quality=70)
+    else: im.save(path, "JPEG", quality=90)
 
 def slug(s): return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")
 
@@ -81,20 +91,34 @@ data = json.load(open(os.path.join(REPO, os.environ.get("LOCATIONS_JSON", "dist/
 # 7 Nov 2026). Mappalachia still supplies the background, projection and icon art.
 MARKS = [(to_px(_l["x"], _l["y"]), _l["name"], _l["icon"])
          for _r in data["regions"] for _l in _r["locations"]
-         if _l.get("x") is not None and _l.get("icon")]
+         if _l.get("x") is not None and _l.get("icon") and not _l.get("cut")]
 # PTS maps go in their own folders (the PTS page points at .../all-locations/pts/)
-SUFFIX = " PTS" if (data.get("channel") or "").lower() == "pts" else ""
+IS_PTS = (data.get("channel") or "").lower() == "pts"
+SUFFIX = " PTS" if IS_PTS else ""
 LOC_DIR, REG_DIR = "01 Location Maps" + SUFFIX, "02 Region Maps" + SUFFIX
+def _marks_by_region(d):
+    return {r["name"]: sorted((l["name"], l["x"], l["y"]) for l in r["locations"]
+                              if l.get("x") is not None and not l.get("cut")) for r in d["regions"]}
+if IS_PTS:
+    live = json.load(open(os.path.join(REPO, "dist/locations/all_locations.json")))
+    _lm, _pm = _marks_by_region(live), _marks_by_region(data)
+    CHANGED = {r for r in _pm if _pm[r] != _lm.get(r)}
+    LIVE_IDS = {l["id"] for r in live["regions"] for l in r["locations"]}
+    print("PTS regions changed:", ", ".join(sorted(CHANGED)) or "none", flush=True)
+tiles = []
 only = set(sys.argv[1:])
 LOCS_ALL = "locations" in only
 only.discard("locations"); only.discard("--skip-existing")
 F_LOC, F_REG = rsm._font(24), rsm._font(20)
 done = 0
 for r in data["regions"]:
-    r = dict(r, locations=[l for l in r["locations"] if l.get("x") is not None])   # Pitt / AC: hand-made maps
+    # Pitt / AC: hand-made maps. Cut places: not on the map any more. Places new this
+    # season are named first, so they always get their label when space is tight.
+    r = dict(r, locations=sorted((l for l in r["locations"] if l.get("x") is not None and not l.get("cut")),
+                                 key=lambda l: not l.get("added")))
     if not r["locations"]:
         continue
-    if (not only and not LOCS_ALL) or "regions" in only:
+    if ((not only and not LOCS_ALL) or "regions" in only) and (not IS_PTS or r["name"] in CHANGED):
         pts = [to_px(l["x"], l["y"]) for l in r["locations"]]
         pad = 90
         X0, X1 = min(p[0] for p in pts) - pad, max(p[0] for p in pts) + pad
@@ -110,13 +134,15 @@ for r in data["regions"]:
                 mine = [m for m in mine if 0 <= m[0] <= OUT_W and 0 <= m[1] <= OUT_H]
                 labels(im, mine, REG_ICON, F_REG, 22)
                 n += 1
-                name = slug(r["name"]) + "-map" + ("-%d" % n if cols * rows > 1 else "") + ".jpg"
+                name = slug(r["name"]) + "-map" + ("-%d" % n if cols * rows > 1 else "") + ("-pts" if IS_PTS else "") + ".jpg"
                 save(im, os.path.join(OUT, REG_DIR, name))
+                tiles.append({"region": r["name"], "file": name, "part": n, "parts": cols * rows})
         print(r["name"], "region maps:", cols * rows, flush=True)
     if only == {"regions"}: continue
     for l in r["locations"]:
         if only and not LOCS_ALL and l["id"] not in only: continue
-        dest = os.path.join(OUT, LOC_DIR, l["id"] + ".jpg")
+        if l.get("cut") or (IS_PTS and l["id"] in LIVE_IDS): continue   # cut / live map already covers it
+        dest = os.path.join(OUT, LOC_DIR, l["id"] + ".avif")
         if "--skip-existing" in sys.argv and os.path.exists(dest) and os.path.getsize(dest) > 1000: continue
         p = to_px(l["x"], l["y"])
         im, on, tr = base(p[0], p[1], LOC_SRC_W, LOC_ICON)
@@ -126,7 +152,21 @@ for r in data["regions"]:
         d.ellipse([tx-R-3, ty-R-3, tx+R+3, ty+R+3], outline=(15, 15, 15), width=13)
         d.ellipse([tx-R, ty-R, tx+R, ty+R], outline=LIME, width=7)
         labels(im, near, LOC_ICON, F_LOC, 26, focus=(tx, ty))
-        save(im, os.path.join(OUT, LOC_DIR, l["id"] + ".jpg"))  # converted to .avif afterwards (one-off, 7 Nov 2026)
+        save(im, dest)
         done += 1
         if done % 25 == 0: print("locations", done, flush=True)
 print("DONE locations", done)
+
+# Tile list for the page (build_locations_json.py reads it). Only rewritten when the
+# region maps were drawn this run, and only for the regions drawn.
+if tiles:
+    lst = os.path.join(REPO, "data", "locations", "region_maps_pts.json" if IS_PTS else "region_maps.json")
+    try: old = json.load(open(lst)).get("maps", [])
+    except (OSError, ValueError): old = []
+    drawn = {t["region"] for t in tiles}
+    keep = [] if IS_PTS else [m for m in old if m["region"] not in drawn]
+    json.dump({"_note": "Region map tiles drawn by src/render_all_locations_maps.py (1600x900, one zoom "
+                        "for every region). Read by build_locations_json.py." +
+                        (" PTS: only regions whose markers differ from live." if IS_PTS else ""),
+               "maps": keep + tiles}, open(lst, "w"), indent=1)
+    print("tile list ->", os.path.relpath(lst, REPO), len(keep + tiles), flush=True)

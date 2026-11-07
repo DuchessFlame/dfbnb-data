@@ -1441,6 +1441,10 @@ jobs:
         run: python src/build_plan_check_mule_json.py
 
       # --- SANITY CHECK ---
+      # --- MELEE DAMAGE CALCULATOR (reads builds_data, legendary_star_pages, food + V.A.T.S. calculator JSON) ---
+      - name: Build Melee Damage Calculator JSON
+        run: python src/build_melee_damage_calculator_json.py
+
       - name: Sanity check dist outputs
         run: |
           ls -la dist || true

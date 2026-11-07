@@ -19,6 +19,14 @@ The NPC PRPS export already has the NPC side. This adds:
     NPC_  SPLO  abilities on each NPC
     RACE / NPC_  KWDA  ActorType* keywords (robot, bug, animal ...) - perks like
                 Exterminator only lower the resistance of some enemy types
+    NPC_  PFRN  the power armour an enemy spawns in (a furniture record). The bar
+                counts the power armour frame (ArmorPoweredFrame: 60 DR / ER / Rad)
+                plus whatever the pieces carry - Bloodhound (Gleaming Depths) shows
+                +60 physical and energy over its own record (SpaceLime's video, 7 Nov).
+    FURN  CNTO  what that power armour furniture holds (pieces / leveled lists)
+    LVLI  LVLO  leveled item lists reached from it: entry + level
+    ARMO  DAMA  resistances on those pieces and on the frame: damage type,
+                amount, curve
     LVLN  LVLO  leveled character lists: each entry and the level it starts at.
                 The enemies that spawn (LvlScorchedMelee ...) carry the resistances but
                 no name; the name on the bar ("Blood Eagle Bruiser") comes from the
@@ -38,7 +46,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import esm_buff_rules_extract as E  # noqa: E402
 
-WANT = ("RACE", "NPC_", "PERK", "SPEL", "AVIF", "CURV", "KYWD", "LVLN")
+WANT = ("RACE", "NPC_", "PERK", "SPEL", "AVIF", "CURV", "KYWD", "LVLN", "FURN", "LVLI", "ARMO", "DMGT")
 HDR = ["Signature", "FormID", "EDID", "Field", "Index", "Ref_FormID", "Ref_EDID", "Value",
        "Curve_FormID", "Curve_EDID"]
 
@@ -109,6 +117,61 @@ def main():
                     rank = d[4] if len(d) > 4 else 0
                     rows.append(base + ["PRKR", str(npk), *ref(struct.unpack("<I", d[:4])[0]), str(rank), "", ""])
                     npk += 1
+
+    # ---- power armour: NPC PFRN -> FURN CNTO -> (LVLI LVLO)* -> ARMO DAMA, + the frame
+    import json
+    rules = json.load(open(os.path.join(os.path.dirname(HERE), "data", "awareness_bar", "rules.json"), encoding="utf-8"))
+    frame_ed = rules.get("pa_frame", "ArmorPoweredFrame")
+    furn, lvli, armo = recs.get("FURN") or {}, recs.get("LVLI") or {}, recs.get("ARMO") or {}
+    want_furn, want_lvli, want_armo = set(), set(), {f for f, s in armo.items() if edid_of(s) == frame_ed}
+    for fid, subs in sorted((recs.get("NPC_") or {}).items()):
+        for t, d in subs:
+            if t == "PFRN" and len(d) >= 4:
+                pf = struct.unpack("<I", d[:4])[0]
+                rows.append(["NPC_", "%08X" % fid, edid_of(subs), "PFRN", "0", *ref(pf), "", "", ""])
+                want_furn.add(pf)
+
+    def walk(fid):
+        if fid in armo:
+            want_armo.add(fid)
+        elif fid in lvli and fid not in want_lvli:
+            want_lvli.add(fid)
+            for t, d in lvli[fid]:
+                if t == "LVLO" and len(d) >= 4:
+                    walk(struct.unpack("<I", d[:4])[0])
+    for pf in sorted(want_furn):
+        subs = furn.get(pf) or []
+        n = 0
+        for t, d in subs:
+            if t == "CNTO" and len(d) >= 8:
+                it, cnt = struct.unpack("<Ii", d[:8])
+                rows.append(["FURN", "%08X" % pf, edid_of(subs), "CNTO", str(n), *ref(it), str(cnt), "", ""])
+                n += 1
+                walk(it)
+    for fid in sorted(want_lvli):
+        subs = lvli[fid]
+        base = ["LVLI", "%08X" % fid, edid_of(subs)]
+        for t, d in subs:
+            if t == "LVLF" and d:   # flags: 4 = use all entries (a full set), else one is picked
+                rows.append(base + ["LVLF", "0", "", "", str(d[0]), "", ""])
+        n, cur = 0, None
+        for t, d in subs + [("END", b"")]:
+            if t in ("LVLO", "END") and cur is not None:
+                rows.append(base + ["LVLO", str(n), *ref(cur[0]), fmt(cur[1]), "", ""])
+                n += 1
+                cur = None
+            if t == "LVLO" and len(d) >= 4:
+                cur = [struct.unpack("<I", d[:4])[0], 0.0]
+            elif t == "LVLV" and cur is not None and len(d) >= 4:
+                cur[1] = struct.unpack("<f", d[:4])[0]
+    for fid in sorted(want_armo):
+        subs = armo[fid]
+        n = 0
+        for t, d in subs:
+            if t == "DAMA":
+                for dt, amt, cv in struct.iter_unpack("<III", d[:len(d) // 12 * 12]):
+                    rows.append(["ARMO", "%08X" % fid, edid_of(subs), "DAMA", str(n), *ref(dt), str(amt), *ref(cv)])
+                    n += 1
 
     name = ("AWARE_Export_PTS_%s.tsv" % datetime.datetime.now().strftime("%Y-%m-%d_%H%M")) if a.pts \
         else "AWARE_Export_%s.tsv" % a.stamp

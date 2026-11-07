@@ -78,11 +78,154 @@ CELL = 4096.0
 REGION_ORDER = ["Ash Heap", "Burning Springs", "Cranberry Bog", "Forest", "The Mire",
                 "Savage Divide", "Skyline Valley", "Toxic Valley"]
 
-# Live and PTS have their own maps (Duchess, 7 Nov 2026): the markers differ between the
-# two (PTS adds Skyline Blockade, Vault 63 Immortality Sector ...), so every map round a
-# change differs too. PTS maps live in .../all-locations/pts/ (PC: "01 Location Maps PTS",
-# "02 Region Maps PTS", written by render_all_locations_maps.py from the PTS JSON).
-IMAGE_BASE = "/wp-content/uploads/guide-images/data-mining/all-locations/" + ("pts/" if PTS else "")
+# Maps are NOT duplicated for PTS (Duchess, 7 Nov 2026): the PTS page uses the live map of
+# every place live already has, and only places new on the PTS (and regions whose
+# markers changed) get their own map in .../all-locations/pts/ (PC: "01 Location Maps
+# PTS", "02 Region Maps PTS"; PTS region map files end "-pts" so they can never be
+# mistaken for, or overwrite, the live ones).
+IMAGE_ROOT = "/wp-content/uploads/guide-images/data-mining/all-locations/"
+IMAGE_BASE = IMAGE_ROOT + ("pts/" if PTS else "")
+TODAY = datetime.date.today().isoformat()
+
+# Every place the page has ever listed, per channel, with the date it first showed up
+# (Duchess, 7 Nov 2026). It gives the NEW pill its date (the page shows NEW for the rest
+# of the season a place arrived in), keeps a place's id when Bethesda renames it (ticks
+# are saved by id), and remembers places taken out of the game so they stay on the list
+# as Cut. "baseline" = was already there when the ledger started.
+LEDGER = os.path.join(REPO, "data", "locations", "ledger.json")
+
+
+def load_ledger():
+    try:
+        with open(LEDGER, encoding="utf-8") as f:
+            return json.load(f).get("locations", {}), False
+    except (OSError, ValueError):
+        return {}, True
+
+
+def save_ledger(led):
+    os.makedirs(os.path.dirname(LEDGER), exist_ok=True)
+    with open(LEDGER, "w", encoding="utf-8") as f:
+        json.dump({"_note": "Written by build_locations_json.py. live/pts = date the place first "
+                            "showed on that channel ('baseline' = before the ledger started).",
+                   "locations": dict(sorted(led.items()))}, f, ensure_ascii=False, indent=1)
+
+
+# History notes (Duchess, 7 Nov 2026): every place keeps a log of when it was added,
+# cut or renamed, shown on its row as a note. A change the build spots is dated by the
+# update it came in: live = the newest patch (tsv/fallout76_patches.tsv) released on or
+# before the marker export; PTS = the PTS export's date. Changes from before the log
+# started, or that need better wording, go in data/locations/location_history.tsv
+# (id, channel, event, date, update, note) - a row there wins over the build's guess.
+HISTORY_TSV = os.path.join(REPO, "data", "locations", "location_history.tsv")
+EXPORT_PATH = ""        # the marker export this build read (set by load_export_markers)
+
+
+def _patches():
+    p = os.path.join(REPO, "tsv", "fallout76_patches.tsv")
+    try:
+        return sorted(((r.get("release_date") or "", r) for r in read_tsv(p) if r.get("release_date")),
+                      key=lambda t: t[0])
+    except OSError:
+        return []
+
+
+def change_stamp():
+    """(date, update) a change spotted in this build is put down to."""
+    exp = tsv_source.export_date(EXPORT_PATH).isoformat() if EXPORT_PATH else TODAY
+    if exp.startswith("0001"):
+        exp = TODAY
+    if PTS:
+        return exp, "PTS"
+    best = None
+    for d, r in _patches():
+        if d <= exp:
+            best = (d, f"{r.get('name', '').strip()} {(r.get('type') or 'update').strip().lower()}".strip())
+    return best or (exp, "")
+
+
+def load_history_overrides():
+    out = {}
+    try:
+        for r in read_tsv(HISTORY_TSV):
+            lid, ev = (r.get("id") or "").strip(), (r.get("event") or "").strip().lower()
+            if lid and ev and not lid.startswith("#"):
+                out[(lid, (r.get("channel") or "live").strip().lower(), ev)] = {
+                    k: (r.get(k) or "").strip() for k in ("date", "update", "note")}
+    except OSError:
+        pass
+    return out
+
+
+def log_event(led, event, stamp, **extra):
+    """Add an event to a place's history once (same channel + event + from)."""
+    hist = led.setdefault("history", [])
+    if any(h["channel"] == CHANNEL and h["event"] == event and h.get("from") == extra.get("from")
+           for h in hist):
+        return
+    hist.append(dict(channel=CHANNEL, event=event, date=stamp[0], update=stamp[1], **extra))
+
+
+def _nice_date(d):
+    try:
+        x = datetime.date.fromisoformat(d)
+        return f"{x.day} {x.strftime('%b %Y')}"
+    except (TypeError, ValueError):
+        return ""
+
+
+def history_for(lid, led, overrides):
+    """-> (notes for the page, date it was added for the NEW pill). The live page shows
+    live history; the PTS page shows both."""
+    hist = [dict(h) for h in led.get("history", [])]
+    for (oid, ch, ev), o in overrides.items():
+        if oid != lid:
+            continue
+        h = next((h for h in hist if h["channel"] == ch and h["event"] == ev), None)
+        if h is None:
+            h = {"channel": ch, "event": ev}
+            hist.append(h)
+        h.update({k: v for k, v in o.items() if v})
+    hist = [h for h in hist if CHANNEL == "pts" or h["channel"] == "live"]
+    # PTS page: a PTS event the live game already has (same change) is shown once, as live
+    live_keys = {(h["event"], h.get("from")) for h in hist if h["channel"] == "live"}
+    hist = [h for h in hist if h["channel"] == "live" or (h["event"], h.get("from")) not in live_keys]
+    notes, added = [], ""
+    for h in sorted(hist, key=lambda h: h.get("date") or ""):
+        when = ", ".join(x for x in (h.get("update") if h.get("update") != "PTS" else "",
+                                     _nice_date(h.get("date"))) if x)
+        when = f" ({when})" if when else ""
+        if h.get("note"):
+            notes.append(h["note"])
+        elif h["event"] == "added":
+            notes.append(f"Added on the PTS{when}." if h["channel"] == "pts" else f"Added to the game{when}.")
+        elif h["event"] == "cut":
+            notes.append(f"Taken off the PTS map{when}." if h["channel"] == "pts" else
+                         f"Cut from the game{when} \u2014 its map marker no longer shows on the in-game map.")
+        elif h["event"] == "renamed":
+            notes.append(f"Renamed from {h.get('from', '')}{when}.")
+        if h["event"] == "added" and h.get("date") and h["channel"] == CHANNEL:
+            added = h["date"]
+        elif h["event"] == "added" and h.get("date") and not added:
+            added = h["date"]
+    return notes, added
+
+
+def season_starts():
+    """ISO start dates of every season (dist/seasons.json, D/M/YYYY). The page works out
+    the current season itself, so the NEW pill goes off when the season ends with no
+    rebuild."""
+    try:
+        with open(os.path.join(REPO, "dist", "seasons.json"), encoding="utf-8") as f:
+            ss = json.load(f).get("seasons", {})
+    except (OSError, ValueError):
+        return []
+    out = set()
+    for v in (ss.values() if isinstance(ss, dict) else ss):
+        m = re.match(r"(\d{1,2})/(\d{1,2})/(\d{4})$", (v or {}).get("startDate") or "")
+        if m:
+            out.add(f"{m.group(3)}-{int(m.group(2)):02d}-{int(m.group(1)):02d}")
+    return sorted(out)
 
 # Pip-Boy quest categories. Anything not listed (None / Module / Server /
 # dialogue scaffolding) is engine plumbing, not a quest a player sees.
@@ -346,13 +489,15 @@ def load_vendors_by_marker():
 # STAT MapMarker [00000010], lists every placed marker with its name, icon type,
 # position and cell Location. When that export exists for the channel it is the
 # authority: new markers are added, and (once it clearly holds the whole set)
-# markers the game no longer has are dropped. Mappalachia still supplies icons and
+# markers the game no longer has are kept as Cut. Mappalachia still supplies icons and
 # the cell->Location table for the markers it knows.
 MAPMARKER_BASE = "00000010"
 # Markers Bethesda has taken out of the game but which still show in Mappalachia's
-# copy (Duchess, 7 Nov 2026). Only needed until the marker export exists: its
-# MarkerFlags column says when a marker is disabled or hidden, and those are dropped.
+# copy (Duchess, 7 Nov 2026). They stay on the page with a greyed-out checkbox and a
+# Cut pill rather than vanishing. Only needed until the marker export exists: its
+# MarkerFlags column says when a marker is disabled, and the export is then the list.
 MARKERS_REMOVED = {"Milepost Zero"}
+RENAME_DIST = 0.35 * CELL   # same spot, new name = Bethesda renamed it (Colonel Kelly -> Kelley)
 
 
 def marker_hidden(flags):
@@ -368,6 +513,8 @@ def load_export_markers():
     path = tsv_source.newest("REFR_Placements_*.tsv", channel=CHANNEL, required=False)
     if not path:
         return [], ""
+    global EXPORT_PATH
+    EXPORT_PATH = path
     out = []
     for row in read_tsv(path):
         if hexid(row.get("BaseFormID")) != MAPMARKER_BASE:
@@ -393,9 +540,12 @@ def load_export_markers():
 
 
 def merge_export_markers(markers, recs):
+    """-> (markers on the map now, cut markers). Cut = in Mappalachia's copy but gone
+    from (or disabled in) the game's own marker list, or listed in MARKERS_REMOVED."""
     exp, src = load_export_markers()
     if not exp:
-        return markers
+        return ([m for m in markers if m["label"] not in MARKERS_REMOVED],
+                [dict(m, cut=True) for m in markers if m["label"] in MARKERS_REMOVED])
     by_edid = {r["edid"]: fid for fid, r in recs.items()}
     known_icons = {m["icon"] for m in markers if m.get("icon")}
     seen, added, pending = set(), [], []
@@ -413,6 +563,22 @@ def merge_export_markers(markers, recs):
                 type_icons[e["type"]][markers[hit]["icon"]] += 1
             continue
         pending.append(e)
+    # Renamed in place: an unmatched export marker sitting on an unmatched Mappalachia
+    # marker is the same place under a new name (Hocking Hills Train Station -> Station).
+    still, renamed = [], []
+    for e in pending:
+        hit = None
+        for i, m in enumerate(markers):
+            if i not in seen and (m["x"] - e["x"]) ** 2 + (m["y"] - e["y"]) ** 2 <= RENAME_DIST ** 2:
+                hit = i
+                break
+        if hit is None:
+            still.append(e)
+            continue
+        seen.add(hit)
+        renamed.append(f"{markers[hit]['label']} -> {e['label']}")
+        markers[hit] = dict(markers[hit], label=e["label"], old_label=markers[hit]["label"])
+    pending = still
     for e in pending:
         # Icon: what markers of the same type already use (works whether the export
         # writes xEdit's type text or the raw number), else a name guess.
@@ -423,14 +589,24 @@ def merge_export_markers(markers, recs):
         lf = by_edid.get(e["loc_edid"])
         added.append({"label": e["label"], "icon": icon, "x": e["x"], "y": e["y"], "type_text": e["type"],
                       "cell_locs": [lf] if lf else [], "near_locs": [lf] if lf else []})
-    dropped = []
+    cut = []
     if len(exp) >= 300:          # the whole marker set was exported, so it is authoritative
-        dropped = [m["label"] for i, m in enumerate(markers) if i not in seen]
-        markers = [m for i, m in enumerate(markers) if i in seen]
+        keep = [m for i, m in enumerate(markers) if i in seen]
+        here = {norm(m["label"]) for m in keep + added}
+        for i, m in enumerate(markers):
+            # a name still on the map (the many "Fissure Site"s, some disabled) is not cut
+            if i not in seen and norm(m["label"]) not in here and \
+                    norm(m["label"]) not in {norm(c["label"]) for c in cut}:
+                cut.append(dict(m, cut=True))
+        markers = keep
+    else:
+        cut = [dict(m, cut=True) for m in markers if m["label"] in MARKERS_REMOVED]
+        markers = [m for m in markers if m["label"] not in MARKERS_REMOVED]
     print(f"[locations] map markers from {src}: {len(exp)} named; "
           f"{len(added)} new ({', '.join(a['label'] for a in added) or 'none'}); "
-          f"{len(dropped)} no longer in the game ({', '.join(dropped) or 'none'})")
-    return markers + added
+          f"{len(renamed)} renamed ({', '.join(renamed) or 'none'}); "
+          f"{len(cut)} cut ({', '.join(c['label'] for c in cut) or 'none'})")
+    return markers + added, cut
 
 
 # The Pitt and Atlantic City (Duchess, 7 Nov 2026). These expedition areas have no map
@@ -726,7 +902,7 @@ def match_markers(markers, recs):
 
 def main():
     markers, refr_pos, game_ver = load_markers()
-    markers = [m for m in markers if m["label"] not in MARKERS_REMOVED]
+    ledger, seeding = load_ledger()
     rings, _ = xref.load_mappalachia()
     recs = load_lctn()
     legends = load_local_legends()
@@ -736,9 +912,12 @@ def main():
     event_locs = load_event_locations()
     chals, chal_lctn, chal_cndf, chal_refr = load_challenges()
 
-    markers = merge_export_markers(markers, recs)
+    markers, cut_markers = merge_export_markers(markers, recs)
     match_markers(markers, recs)
     markers += expedition_markers(recs)
+    for m in cut_markers:              # cut: listed, but nothing links to them any more
+        m.update(_lctn=[], _all=set(), _how="cut")
+    markers += cut_markers
 
     # CNDF -> CHAL through the LCTN refs export (a CNDF that names the LCTN).
     # Challenges placed by a REFR distance check go to the nearest marker.
@@ -746,7 +925,7 @@ def main():
     for ref, (x, y) in refr_pos.items():
         best, bd = None, 1e30
         for i, m in enumerate(markers):
-            if m["x"] is None:
+            if m["x"] is None or m.get("cut"):
                 continue
             dd = (m["x"] - x) ** 2 + (m["y"] - y) ** 2
             if dd < bd:
@@ -760,6 +939,16 @@ def main():
     ids_seen = defaultdict(int)
     for m in sorted(markers, key=lambda m: (m["label"].lower(), m["x"] or 0, m["y"] or 0)):
         ids_seen[slugify(m["label"])] += 1
+    led_by_name, _cnt = {}, defaultdict(int)
+    for lid_, e in ledger.items():
+        _cnt[norm(e.get("name"))] += 1
+        led_by_name[norm(e.get("name"))] = lid_
+    led_by_name = {k: v for k, v in led_by_name.items() if _cnt[k] == 1}
+    emitted = set()
+    stamp = change_stamp()
+    hist_over = load_history_overrides()
+    for e in ledger.values():            # older ledger format
+        e.pop("cut_live", None); e.pop("cut_pts", None)
 
     for idx, m in enumerate(markers):
         region = m.get("_fixed_region", "")
@@ -794,6 +983,8 @@ def main():
             if mi == idx:
                 cset |= chal_refr.get(ref, set())
 
+        if m.get("cut"):
+            qset, cset = set(), set()
         ql = [quests[q] for q in qset if q in quests and quests[q]["ok"]]
         cl = [chals[c] for c in cset if c in chals and chals[c]["ok"]]
         linked_q.update(q["form_id"] for q in ql)
@@ -817,13 +1008,42 @@ def main():
         base = slugify(m["label"])
         dup[base] += 1
         lid = base if ids_seen[base] == 1 else f"{base}-{dup[base]}"
+        if ids_seen[base] == 1:
+            # keep the id a place already had (ticks are saved by id) when it is renamed
+            lid = led_by_name.get(norm(m["label"])) or \
+                (slugify(m["old_label"]) if m.get("old_label") else lid)
+        led = ledger.setdefault(lid, {})
+        if not led.get(CHANNEL):
+            if seeding:
+                led[CHANNEL] = "baseline"
+            elif CHANNEL == "pts" and led.get("live"):
+                led[CHANNEL] = led["live"]
+            else:
+                led[CHANNEL] = stamp[0]
+        if led[CHANNEL] != "baseline" and not (CHANNEL == "pts" and led.get("live")):
+            log_event(led, "added", (led[CHANNEL], stamp[1]) if led[CHANNEL] == stamp[0] else
+                      (led[CHANNEL], "PTS" if PTS else ""))
+        old = m.get("old_label") or (led.get("name") if led.get("name") and led["name"] != m["label"] else "")
+        if old and old != m["label"]:
+            log_event(led, "renamed", stamp, **{"from": old})
+        led.update(name=m["label"], icon=m["icon"], x=m["x"], y=m["y"], region=region)
+        if m.get("cut"):
+            log_event(led, "cut", stamp)
+        emitted.add(lid)
+        notes, added = history_for(lid, led, hist_over)
+        on_live = CHANNEL == "live" or bool(led.get("live"))
         regions[region].append({
             "id": lid,
             "name": m["label"],
+            "cut": bool(m.get("cut")),
+            "added": added,
+            "notes": notes,
             "type": icon_label(m["icon"]) or m.get("type_text", ""),
             "icon": m["icon"],
             "x": m["x"], "y": m["y"],
-            "image": f"{IMAGE_BASE}{lid}.avif",   # one-off: location maps are AVIF (Duchess, 7 Nov 2026); region maps stay JPEG
+            # one-off: location maps are AVIF (Duchess, 7 Nov 2026); region maps stay JPEG.
+            # PTS uses the live map unless the place is new on the PTS.
+            "image": f"{IMAGE_ROOT if on_live else IMAGE_BASE}{lid}.avif",
             "lctn": [{"form_id": f, "edid": recs[f]["edid"], "name": recs[f]["full"]}
                      for f in sorted(m["_lctn"]) if f in recs],
             "match": m["_how"],
@@ -832,9 +1052,27 @@ def main():
             "challenges": [{"name": c["name"], "type": c["type"], "required": c["required"],
                             "parent": c["parent"], "edid": c["edid"], "form_id": c["form_id"]}
                            for c in cl],
-            "fish": legend_fish_for(m["_lctn"], legends, recs),
-            "vendors": vendors_at.get(_norm(m["label"]), []),
+            "fish": [] if m.get("cut") else legend_fish_for(m["_lctn"], legends, recs),
+            "vendors": [] if m.get("cut") else vendors_at.get(_norm(m["label"]), []),
         })
+
+    # Places this channel listed before that are gone now (and not under another
+    # name): still listed, as Cut, from what the ledger remembers of them.
+    here = {norm(l["name"]) for locs in regions.values() for l in locs}
+    for lid, e in ledger.items():
+        if lid in emitted or not e.get(CHANNEL) or norm(e.get("name")) in here or not e.get("region"):
+            continue
+        log_event(e, "cut", stamp)
+        notes, added = history_for(lid, e, hist_over)
+        regions[e["region"]].append({
+            "id": lid, "name": e["name"], "cut": True,
+            "added": added, "notes": notes,
+            "type": icon_label(e.get("icon")) if e.get("icon") else "", "icon": e.get("icon", ""),
+            "x": e.get("x"), "y": e.get("y"),
+            "image": f"{IMAGE_ROOT if (CHANNEL == 'live' or e.get('live')) else IMAGE_BASE}{lid}.avif",
+            "lctn": [], "match": "cut", "quests": [], "challenges": [], "fish": [], "vendors": [],
+        })
+    save_ledger(ledger)
 
     out_regions = []
     for name in REGION_ORDER + sorted(r for r in regions if r not in REGION_ORDER):
@@ -887,6 +1125,7 @@ def main():
                     for c in loc_chals if c in chals and chals[c]["ok"] and c not in linked_c),
                    key=lambda c: (c["reason"], c["type"], c["name"].lower()))
     total = sum(r["count"] for r in out_regions)
+    ncut = sum(1 for r in out_regions for l in r["locations"] if l["cut"])
     doc = {
         "version": 1,
         "channel": CHANNEL,
@@ -900,6 +1139,9 @@ def main():
         # Region map tiles (Maps root expand). Drawn locally by render_all_locations_maps.py,
         # which also writes the list; the page HEAD-checks each one before showing it.
         "region_maps": _region_maps(),
+        # NEW pill: a place whose "added" date is on/after the start of the season the
+        # page is viewed in (Duchess, 7 Nov 2026) — the page picks the season from these.
+        "season_starts": season_starts(),
         "unlinked": {
             "quests": unl_q,
             "challenges": unl_c,
@@ -910,24 +1152,35 @@ def main():
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump(doc, f, ensure_ascii=False, indent=1)
 
-    print(f"[locations] {CHANNEL}: {total} locations -> {os.path.relpath(OUT, REPO)}")
+    print(f"[locations] {CHANNEL}: {total} locations ({ncut} cut) -> {os.path.relpath(OUT, REPO)}")
     for r in out_regions:
         nq = sum(1 for l in r["locations"] if l["quests"] or l["challenges"])
         print(f"   {r['name']:<16} {r['count']:>4}   ({nq} with quests/challenges)")
     print(f"   quests linked {len(linked_q)}, unlinked {len(unl_q)}; "
           f"challenges linked {len(linked_c)}, unlinked {len(unl_c)}; markers with no LCTN "
           f"{len(doc['unlinked']['markers_without_lctn'])}")
-    if total < 400:
+    if total - ncut < 400:
         raise SystemExit(f"[locations] only {total} locations — refusing to publish a short page.")
 
 
 def _region_maps():
-    p = os.path.join(REPO, "data", "locations", "region_maps.json")
-    try:
-        with open(p, encoding="utf-8") as f:
-            return json.load(f).get("maps", [])
-    except (OSError, ValueError):
-        return []
+    """Live: data/locations/region_maps.json. PTS: the live tiles, with any region whose
+    markers changed on the PTS swapped for its "-pts" tiles (region_maps_pts.json, written
+    by render_all_locations_maps.py). Every tile carries its own url."""
+    def rd(name):
+        try:
+            with open(os.path.join(REPO, "data", "locations", name), encoding="utf-8") as f:
+                return json.load(f).get("maps", [])
+        except (OSError, ValueError):
+            return []
+    live = [dict(m, url=IMAGE_ROOT + m["file"]) for m in rd("region_maps.json")]
+    if not PTS:
+        return live
+    pts = [dict(m, url=IMAGE_ROOT + "pts/" + m["file"]) for m in rd("region_maps_pts.json")]
+    changed = {m["region"] for m in pts}
+    out = [m for m in live if m["region"] not in changed] + pts
+    order = {r: i for i, r in enumerate(m["region"] for m in live)}
+    return sorted(out, key=lambda m: (order.get(m["region"], 99), m.get("part", 1)))
 
 
 if __name__ == "__main__":

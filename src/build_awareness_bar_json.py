@@ -161,10 +161,29 @@ def main():
     npc_prk = defaultdict(list)
     npc_spl = defaultdict(list)
     lvln = defaultdict(list)
+    # power armour (see tools/esm_awareness_extract.py): NPC -> furniture -> pieces + the frame
+    pa_furn, furn_items, lvli_items, lvli_flags, armo_dama = {}, defaultdict(list), defaultdict(list), {}, defaultdict(list)
     for r in aware:
         sig, ed, fld, ref = r["Signature"], r["EDID"], r["Field"], r["Ref_EDID"]
         if sig == "LVLN" and fld == "LVLO":
             lvln[ed].append(ref)
+            continue
+        if sig == "NPC_" and fld == "PFRN":
+            pa_furn[ed] = ref
+            continue
+        if sig == "FURN" and fld == "CNTO":
+            furn_items[ed].append(ref)
+            continue
+        if sig == "LVLI":
+            if fld == "LVLO":
+                lvli_items[ed].append(ref)
+            elif fld == "LVLF":
+                lvli_flags[ed] = int(fnum(r["Value"], 0) or 0)
+            continue
+        if sig == "ARMO" and fld == "DAMA":
+            slot = dtslot.get(ref)
+            if slot:
+                armo_dama[ed].append((slot, {"c": r["Curve_EDID"]} if r["Curve_EDID"] else {"v": fnum(r["Value"], 0)}))
             continue
         if sig == "RACE" and fld == "PRPS" and ref in av2slot:
             race_res[ed][av2slot[ref]] = {"c": r["Curve_EDID"]} if r["Curve_EDID"] else {"v": fnum(r["Value"], 0)}
@@ -214,6 +233,41 @@ def main():
             name_cache[ed] = out
         return out
 
+    # ---- power armour resistances: the frame always, plus the pieces. A leveled list that
+    # uses all its entries (flag 4) is a full set; one that picks one entry only counts when
+    # every pick gives the same numbers (else it's left out and listed in warnings).
+    frame_ed = R.get("pa_frame", "ArmorPoweredFrame")
+    pa_unsure = set()
+
+    def pa_parts_of(item, seen=None):
+        seen = seen or set()
+        if item in seen:
+            return []
+        seen.add(item)
+        if item in armo_dama:
+            return list(armo_dama[item])
+        if item in lvli_items:
+            subs = [pa_parts_of(x, seen) for x in lvli_items[item]]
+            if lvli_flags.get(item, 0) & 4:
+                return [p for sub in subs for p in sub]
+            keys = {json.dumps(sorted(sub, key=lambda p: (p[0], json.dumps(p[1]))), sort_keys=True) for sub in subs}
+            if len(keys) == 1:
+                return subs[0]
+            pa_unsure.add(item)
+        return []
+
+    def pa_of(ed):
+        cur, n = ed, 0
+        while cur and cur not in pa_furn and n < 8:
+            cur, n = tplt.get(cur, ""), n + 1
+        f = pa_furn.get(cur)
+        if not f:
+            return []
+        out = list(armo_dama.get(frame_ed, []))
+        for it in furn_items.get(f, []):
+            out += pa_parts_of(it)
+        return out
+
     # ---- enemies
     groups = defaultdict(dict)
     used_curves = set()
@@ -232,6 +286,7 @@ def main():
         # skull + immune circle only.
         if not mine and not theirs and not skull.get(ed):
             continue
+        pa = pa_of(ed)
         res = {}
         for t in types:
             k = t["key"]
@@ -239,6 +294,7 @@ def main():
             sp = sum(spell_res[s].get(k, 0) for s in npc_spl.get(ed, []) + race_spl.get(race, []))
             if sp:
                 parts.append({"v": sp})
+            parts += [dict(p, pa=1) for slot, p in pa if slot == k]
             parts = [p for p in parts if p.get("c") or p.get("v")]
             for p in parts:
                 if p.get("c"):
@@ -273,6 +329,9 @@ def main():
                 continue
             g[key] = {"prof": prof, "res": res, "sk": sk, "lo": lo, "hi": hi,
                       "words": {w: 1 for w in words}, "eds": [ed]}
+
+    for item in sorted(pa_unsure):
+        warn(f"power armour list {item} picks one of several pieces with different resistances - pieces left out")
 
     def curve_at(pts, x):
         if not pts:
