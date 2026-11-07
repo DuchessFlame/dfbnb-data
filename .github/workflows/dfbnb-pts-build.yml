@@ -1067,6 +1067,12 @@ jobs:
       - name: Build Awareness Bar JSON
         run: python src/build_awareness_bar_json.py
 
+      # --- ICON MEANINGS (HUD / CAMP / Awareness Bar pages) ---
+      # Re-run every patch: the skull list comes from the NPC exports, and the Hideout
+      # crosshair entry switches itself on when the Hideout "Marked" keyword is in the files.
+      - name: Build Icon Meanings JSON
+        run: python src/build_icon_meanings_json.py
+
     # --- CARRY WEIGHT CALCULATOR (after SPECIALs & Stats: reads dist/specials_stats.json) ---
       - name: Build Carry Weight Calculator JSON
         run: python src/build_carry_weight_calculator_json.py --pts

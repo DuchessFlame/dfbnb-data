@@ -45,6 +45,10 @@ PTS = "--pts" in sys.argv
 DIST = os.path.join(ROOT, "dist", "pts") if PTS else os.path.join(ROOT, "dist")
 OUT = os.path.join(DIST, "calculators", "melee_damage_calculator.json")
 WARN = []
+# Effects whose conditions can never pass (checked in SeventySix.esm, 7 Nov 2026): the Mire Magic Moonshine
+# melee damage effect needs HasActiveMagicEffect(E08A_GulperSmacker_GulpershineBuff_ME), and the only record
+# that gives that effect is the retired enchantment zzzE08A_Weapon_Gulpershine_Damage, which nothing uses.
+NEVER_ACTIVE_EFFECTS = {"E08A_Gulpershine_GulperSmackerBuff_ME"}
 SERVER_SIDE_AVS = {"STAT_DmgPowerAttack", "STAT_DmgVsCrippled", "STAT_DmgVsBleeding", "STAT_DmgPerCrippled",
                    "LGND_ExecuteDmg", "STAT_DmgVsBurning", "STAT_DmgVsPoisoned"}
 
@@ -254,7 +258,8 @@ def main():
         wcls = "unarmed" if "WeaponTypeUnarmed" in tags else "melee"     # the weapon's own keyword decides
         weapons.append({"n": w.get("name") or b.get("WEAP_FULL"), "e": e, "cls": wcls, "tags": tags,
                         "curve": cv, "base": flat, "levels": lv, "extra": extra,
-                        "crit": fnum(d.get("CRDT_CritDamageMult")), "sneak": fnum(d.get("WSAM_SneakAttackMult")),
+                        "crit": fnum(d.get("CRDT_CritDamageMult")), "charge": fnum(d.get("CRDT_CritChargeBonus"), 0),
+                        "sneak": fnum(d.get("WSAM_SneakAttackMult")),
                         "ap": fnum(d.get("DNAM_ActionPointCost")), "mods": mods})
     weapons.sort(key=lambda x: (x["cls"], x["n"]))
     if not weapons: warn("no melee weapons")
@@ -400,6 +405,7 @@ def main():
             if f.get("neg") or f.get("w"): continue
             s = f.get("s")
             if s not in slot_av: continue
+            if (f.get("e") or "") in NEVER_ACTIVE_EFFECTS: continue
             av = mgef_av.get(f.get("e") or "", "") or slot_av[s]
             if s != "str" and av not in reach and av != "STAT_SneakAttackBonus":
                 continue          # e.g. a buff for one named weapon only (Gulper Smacker)

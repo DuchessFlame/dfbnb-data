@@ -310,9 +310,20 @@ def encounter_skulls():
             except ValueError:
                 continue
             nm = names.get(r["NPC_EDID"], "")
-            if tier in out and nm and not SKULL_SKIP.match(r["NPC_EDID"]) and not re.match(r"^[A-Z0-9]{2,5} ", nm) and nm not in out[tier]:
+            if tier in out and nm and not SKULL_SKIP.match(r["NPC_EDID"]) and "Template" not in nm and nm not in out[tier]:
                 out[tier].append(nm)
     return {k: sorted(v, key=str.lower) for k, v in out.items()}
+
+def hideouts_in_game():
+    """Hideouts (PTS, Nov 2026) bring the crosshair version of the encounter icon
+    (SpaceLime: "Those are for marked hideouts"). Its art has been in the HUD file all
+    along; show it on the page only once the game files have the Hideout "Marked"
+    difficulty, so it turns on by itself when Hideouts reach live."""
+    path = newest("KYWD_Export_*_Refs.tsv")
+    if not path:
+        return False
+    with open(path, encoding="utf-8", errors="replace") as fh:
+        return "HIDEDifficultyMarkedKeyword" in fh.read()
 
 def awareness_page():
     A = lambda *a, **k: row(*a, base=AWR_IMG, **k)
@@ -347,20 +358,22 @@ def awareness_page():
     ]
     enemy = [
         A("enemy-skull", "Encounter Skull", "enemy-skull-1", "Enemy",
-          "Shown instead of the level number for encounter enemies (Raids, Infestations, Daily Ops and some events). "
-          "The fancier the skull, the more important the enemy.",
-          ["Plain skull: a standard or support enemy in the encounter.",
-           "Skull with a crown: a tougher elite or mini-boss.",
-           "Skull with a spiked crown and flames: the boss of the encounter.",
-           "Infestations: support enemies get the plain skull, the mob the crowned skull, the boss the spiked crown. "
-           "Daily Ops: the skull follows the difficulty (Medium = crowned, Hard = spiked crown)."],
+          "Shown instead of the level number on some enemies (raids, Infestations and some bosses). "
+          "There are three skulls - the fancier the skull, the tougher the enemy. Their level is fixed.",
+          ["Plain skull: standard enemies.",
+           "Skull with lightning bolts: elite enemies and mini-bosses.",
+           "Big skull with a spiked crown and wings: bosses."],
           ["Boss: " + n for n in sk.get(3, [])] + ["Elite: " + n for n in sk.get(2, [])] + ["Standard: " + n for n in sk.get(1, [])],
           [("enemy-skull-2", "Elite / mini-boss"), ("enemy-skull-3", "Boss")]),
-        A("enemy-target", "Encounter Target", "enemy-target-1", "Enemy",
-          "A crosshair version of the encounter icon, used to mark a target enemy. Like the skull, it comes in "
-          "three levels: plain, one set of flames, two sets of flames.",
-          None, None, [("enemy-target-2", "Tougher"), ("enemy-target-3", "Toughest")]),
+        A("enemy-crown", "Boss Crown", "enemy-crown", "Enemy",
+          "A gold crown on top of the level number or skull. The game puts it on boss enemies."),
     ]
+    if hideouts_in_game():
+        enemy.append(
+            A("enemy-target", "Hideout Crosshair", "enemy-target-1", "Enemy",
+              "Shown instead of the skull on enemies in Hideouts on Marked difficulty. Like the skull, "
+              "there are three - the fancier the crosshair, the tougher the enemy.",
+              None, None, [("enemy-target-2", "Tougher"), ("enemy-target-3", "Toughest")]))
     dot = [
         A("dot-fire", "Burning", "dot-fire", "Damage over time",
             "The enemy is on fire and taking fire damage over time.",
@@ -384,17 +397,17 @@ def awareness_page():
          "<p>When you target an enemy in V.A.T.S., a row of icons and numbers appears under its name and health bar. "
          "This is the Awareness Bar. It tells you how tough the enemy is and how well it stands up to each type of damage, "
          "so you can pick the right weapon before you start shooting.</p>"
-         "<p>You need <b>10 Perception</b> to see the resistance part of the bar.</p>"
+         "<p>You need <b>10 Perception</b> to see the awareness bar.</p>"
          "<p>The <b>Awareness</b> perk card used to be what showed enemy resistances. It doesn't any more - it now gives "
-         "you extra V.A.T.S. accuracy based on your Perception. The resistances come from having 10 Perception.</p>"},
+         "you extra V.A.T.S. accuracy based on your Perception.</p>"},
         {"key": "read", "title": "Reading the Bar", "html":
          "<figure class=\"imSecFig\"><img class=\"imSecImg\" src=\"" + img + "\" alt=\"The Awareness Bar on the Ultracite Terror\" loading=\"lazy\">"
          "<figcaption>The Awareness Bar on the Ultracite Terror, the boss of the Gleaming Depths raid.</figcaption></figure>"
          "<p>Read the bar from left to right:</p>"
          "<ol>"
-         "<li><b>Level or skull.</b> Most enemies show their level here. Encounter enemies (raids, Infestations, Daily Ops "
-         "and some events) show a skull instead. The fancier the skull, the more important the enemy - see "
-         "<i>Encounter Skull Icons</i> below.</li>"
+         "<li><b>Level or skull.</b> Most enemies show their level here. Some (raids, Infestations and some bosses) "
+         "show a skull instead - the fancier the skull, the tougher the enemy. Bosses also get a gold crown on top. "
+         "See <i>Encounter Skull Icons</i> below.</li>"
          "<li><b>Physical</b> (shield) - bullets, melee, arrows and explosions.</li>"
          "<li><b>Energy</b> (lightning bolt) - laser, plasma, Tesla and other energy weapons.</li>"
          "<li><b>Radiation</b> (radiation symbol).</li>"

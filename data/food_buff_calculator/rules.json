@@ -2310,13 +2310,19 @@
       }
     }
   ],
-  "_not_for_slots_readme": "Item -> stats the calculator must never pick it for (it can still be picked for its other buffs). Kat 4 Nov: Brain Bombs is never the AP refill - lots of ingredients; Canned Coffee / Sunshine Oil do the same for cheaper.",
+  "_not_for_slots_readme": "Item -> stats the calculator must never pick it for (it can still be picked for its other buffs). Kat 4 Nov: Brain Bombs is never the AP refill - lots of ingredients; Canned Coffee / Sunshine Oil do the same for cheaper. Kat 7 Nov 2026: Mire Magic Moonshine / Vintage - the melee damage is Gulper Smacker only and its condition (HasActiveMagicEffect E08A_GulperSmacker_GulpershineBuff_ME) is given only by the retired zzzE08A_Weapon_Gulpershine_Damage enchantment, so never recommend them for melee damage; Strength / DR still count.",
   "not_for_slots": {
     "Brain Bombs": [
       "ap_refill"
     ],
     "Canned Brain Bombs": [
       "ap_refill"
+    ],
+    "Mire Magic Moonshine": [
+      "dmg_melee"
+    ],
+    "Vintage Mire Magic Moonshine": [
+      "dmg_melee"
     ]
   },
   "_food_fill_min_readme": "Kat 4 Nov: every stat the build wants at this weight or more gets a food (food buffs all stack). Below it (SpaceLime's 'nice to have', 0.3-0.5) a stat only gets food if it wins a normal pick.",

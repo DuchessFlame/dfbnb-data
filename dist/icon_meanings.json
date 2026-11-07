@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated": "2026-11-06T07:50:01Z",
+ "generated": "2026-11-07T14:38:28Z",
  "source": "KYWD_Export_October_2026_Refs.tsv",
  "pages": {
   "hud": {
@@ -2389,12 +2389,12 @@
     {
      "key": "what",
      "title": "What Is the Awareness Bar?",
-     "html": "<p>When you target an enemy in V.A.T.S., a row of icons and numbers appears under its name and health bar. This is the Awareness Bar. It tells you how tough the enemy is and how well it stands up to each type of damage, so you can pick the right weapon before you start shooting.</p><p>You need <b>10 Perception</b> to see the resistance part of the bar.</p><p>The <b>Awareness</b> perk card used to be what showed enemy resistances. It doesn't any more - it now gives you extra V.A.T.S. accuracy based on your Perception. The resistances come from having 10 Perception.</p>"
+     "html": "<p>When you target an enemy in V.A.T.S., a row of icons and numbers appears under its name and health bar. This is the Awareness Bar. It tells you how tough the enemy is and how well it stands up to each type of damage, so you can pick the right weapon before you start shooting.</p><p>You need <b>10 Perception</b> to see the awareness bar.</p><p>The <b>Awareness</b> perk card used to be what showed enemy resistances. It doesn't any more - it now gives you extra V.A.T.S. accuracy based on your Perception.</p>"
     },
     {
      "key": "read",
      "title": "Reading the Bar",
-     "html": "<figure class=\"imSecFig\"><img class=\"imSecImg\" src=\"/wp-content/uploads/guide-images/specials-&-stats/awareness-bar-meaning/awareness-bar-example.avif\" alt=\"The Awareness Bar on the Ultracite Terror\" loading=\"lazy\"><figcaption>The Awareness Bar on the Ultracite Terror, the boss of the Gleaming Depths raid.</figcaption></figure><p>Read the bar from left to right:</p><ol><li><b>Level or skull.</b> Most enemies show their level here. Encounter enemies (raids, Infestations, Daily Ops and some events) show a skull instead. The fancier the skull, the more important the enemy - see <i>Encounter Skull Icons</i> below.</li><li><b>Physical</b> (shield) - bullets, melee, arrows and explosions.</li><li><b>Energy</b> (lightning bolt) - laser, plasma, Tesla and other energy weapons.</li><li><b>Radiation</b> (radiation symbol).</li><li><b>Fire</b> (flame).</li><li><b>Cryo</b> (snowflake).</li><li><b>Poison</b> (drop).</li></ol><p>Each damage type has either a <b>number</b> or a <b>crossed-out circle</b>. In the picture above, the Ultracite Terror is immune to radiation and poison, and its lowest number is cryo.</p>"
+     "html": "<figure class=\"imSecFig\"><img class=\"imSecImg\" src=\"/wp-content/uploads/guide-images/specials-&-stats/awareness-bar-meaning/awareness-bar-example.avif\" alt=\"The Awareness Bar on the Ultracite Terror\" loading=\"lazy\"><figcaption>The Awareness Bar on the Ultracite Terror, the boss of the Gleaming Depths raid.</figcaption></figure><p>Read the bar from left to right:</p><ol><li><b>Level or skull.</b> Most enemies show their level here. Some (raids, Infestations and some bosses) show a skull instead - the fancier the skull, the tougher the enemy. Bosses also get a gold crown on top. See <i>Encounter Skull Icons</i> below.</li><li><b>Physical</b> (shield) - bullets, melee, arrows and explosions.</li><li><b>Energy</b> (lightning bolt) - laser, plasma, Tesla and other energy weapons.</li><li><b>Radiation</b> (radiation symbol).</li><li><b>Fire</b> (flame).</li><li><b>Cryo</b> (snowflake).</li><li><b>Poison</b> (drop).</li></ol><p>Each damage type has either a <b>number</b> or a <b>crossed-out circle</b>. In the picture above, the Ultracite Terror is immune to radiation and poison, and its lowest number is cryo.</p>"
     },
     {
      "key": "numbers",
@@ -2546,17 +2546,17 @@
         }
        ],
        "pill": "Enemy",
-       "meaning": "Shown instead of the level number for encounter enemies (Raids, Infestations, Daily Ops and some events). The fancier the skull, the more important the enemy.",
+       "meaning": "Shown instead of the level number on some enemies (raids, Infestations and some bosses). There are three skulls - the fancier the skull, the tougher the enemy. Their level is fixed.",
        "when": [
-        "Plain skull: a standard or support enemy in the encounter.",
-        "Skull with a crown: a tougher elite or mini-boss.",
-        "Skull with a spiked crown and flames: the boss of the encounter.",
-        "Infestations: support enemies get the plain skull, the mob the crowned skull, the boss the spiked crown. Daily Ops: the skull follows the difficulty (Medium = crowned, Hard = spiked crown)."
+        "Plain skull: standard enemies.",
+        "Skull with lightning bolts: elite enemies and mini-bosses.",
+        "Big skull with a spiked crown and wings: bosses."
        ],
        "examples": [
         "Boss: Drifter",
         "Boss: Ultracite Terror",
         "Elite: Bloodhound",
+        "Elite: EN06 Guardian",
         "Elite: Lynx",
         "Elite: Ultracite Terror Tail",
         "Elite: Ultragenetic Mole Miner Stalker",
@@ -2579,24 +2579,16 @@
        ]
       },
       {
-       "id": "enemy-target",
-       "name": "Encounter Target",
+       "id": "enemy-crown",
+       "name": "Boss Crown",
        "images": [
         {
-         "src": "/wp-content/uploads/guide-images/specials-&-stats/awareness-bar-meaning/enemy-target-1.avif",
-         "label": "Usual look"
-        },
-        {
-         "src": "/wp-content/uploads/guide-images/specials-&-stats/awareness-bar-meaning/enemy-target-2.avif",
-         "label": "Tougher"
-        },
-        {
-         "src": "/wp-content/uploads/guide-images/specials-&-stats/awareness-bar-meaning/enemy-target-3.avif",
-         "label": "Toughest"
+         "src": "/wp-content/uploads/guide-images/specials-&-stats/awareness-bar-meaning/enemy-crown.avif",
+         "label": ""
         }
        ],
        "pill": "Enemy",
-       "meaning": "A crosshair version of the encounter icon, used to mark a target enemy. Like the skull, it comes in three levels: plain, one set of flames, two sets of flames.",
+       "meaning": "A gold crown on top of the level number or skull. The game puts it on boss enemies.",
        "when": [],
        "examples": []
       }
