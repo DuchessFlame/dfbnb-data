@@ -1,6 +1,6 @@
 # Missing images
 
-Every item on a reward page with no picture anywhere: not in the shared library, not in its own event folder, not on any other page. Built 2026-11-05 from the server listing of 2026-11-01T01:41:47Z.
+Every item on a reward page with no picture anywhere: not in the shared library, not in its own event folder, not on any other page. Built 2026-11-06 from the server listing of 2026-11-06T23:27:51Z.
 
 **3307 items have no picture on the server**: 342 are already on your computer and just need uploading, 2965 need art found (7198 rows - the same item can appear on several pages; one upload fixes every page it is on).
 
@@ -710,9 +710,9 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: Atom Cats Leather Armor Paint *(cut)* | `wp-content/uploads/guide-images/plan-checklist/legacy-nuclear-winter/` | `006369B8.avif` |
 | Plan: BOS Combat Armor Paint *(cut)* | `wp-content/uploads/guide-images/plan-checklist/legacy-nuclear-winter/` | `006369C3.avif` |
 | Plan: BOS Leather Armor Paint *(cut)* | `wp-content/uploads/guide-images/plan-checklist/legacy-nuclear-winter/` | `006369BD.avif` |
-| Plan: Marine Camouflage Gatling Laser Paint | `wp-content/uploads/guide-images/plan-checklist/legacy-nuclear-winter/` | `006369BA.avif` |
-| Plan: Marine Camouflage Leather Armor Paint | `wp-content/uploads/guide-images/plan-checklist/legacy-nuclear-winter/` | `006369BE.avif` |
-| Plan: Shi Leather Armor Paint | `wp-content/uploads/guide-images/plan-checklist/legacy-nuclear-winter/` | `006369C5.avif` |
+| Plan: Marine Camouflage Gatling Laser Paint *(cut)* | `wp-content/uploads/guide-images/plan-checklist/legacy-nuclear-winter/` | `006369BA.avif` |
+| Plan: Marine Camouflage Leather Armor Paint *(cut)* | `wp-content/uploads/guide-images/plan-checklist/legacy-nuclear-winter/` | `006369BE.avif` |
+| Plan: Shi Leather Armor Paint *(cut)* | `wp-content/uploads/guide-images/plan-checklist/legacy-nuclear-winter/` | `006369C5.avif` |
 | Vault-Tec University Steamer Trunk | `wp-content/uploads/guide-images/plan-checklist/legacy-nuclear-winter/` | `.avif` |
 
 ## Plan Checklists - Mines and Grenades (24)
@@ -1534,7 +1534,7 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: Casual Underarmor Style | `wp-content/uploads/guide-images/plan-checklist/underarmour/` | `0089D6C2.avif` |
 | Plan: Civil Engineer Underarmor *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/underarmour/` | `civil-engineer-underarmor.avif` |
 | Plan: Civil Engineer Underarmor Style | `wp-content/uploads/guide-images/plan-checklist/underarmour/` | `0089D6C4.avif` |
-| Plan: Enclave Secret Operative Underarmor | `wp-content/uploads/guide-images/plan-checklist/underarmour/` | `00787E5A_go.avif` |
+| Plan: Enclave Secret Operative Underarmor *(cut)* | `wp-content/uploads/guide-images/plan-checklist/underarmour/` | `00787E5A_go.avif` |
 | Plan: Flannel Shirt and Jeans *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/underarmour/` | `flannel-shirt-and-jeans.avif` |
 | Plan: Harness *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/underarmour/` | `harness.avif` |
 | Plan: Long Johns *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/underarmour/` | `long-johns.avif` |
