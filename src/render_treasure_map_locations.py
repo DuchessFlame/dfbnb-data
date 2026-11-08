@@ -333,7 +333,7 @@ def render(key, out_root, stamp, to_px, boxes):
         redraw_dots(dt, tpts, meta["fill"], meta["shape"], scale=dscale)
         place_labels(dt, tpts, rsm._font(64), crop.size, rsm.DOT_D * dscale / 2.0)
         redraw_dots(dt, tpts, meta["fill"], meta["shape"], scale=dscale)
-        crop = map_watermark.apply(crop, corner="bottom-right")
+        crop = map_watermark.apply(crop, corner="bottom-left")
         crop.save(os.path.join(d_tile, f"{region.replace(' ', '')}_{meta['file']}.jpg"),
                   "JPEG", quality=88, optimize=True)
 

@@ -153,6 +153,16 @@ def main():
                     slots.add(dtslot[c["r"]])
         if slots:
             imm_perk[pk] = sorted(slots)
+    # Perks that make an enemy take no weapon damage at all ("Mod Incoming Weapon
+    # Damage" x0, no conditions) - e.g. RD01_EnemyInvulnerability_Perk on the
+    # Ultragenetic Mole Miner Stalker. The game shows no awareness bar for these
+    # (Kat / SpaceLime, 7-8 Nov 2026: "they're immune to everything").
+    invuln_perk = set()
+    for pk, eps in ep_by_perk.items():
+        for r in eps:
+            if ("Incoming Weapon Damage" in (r.get("EntryPoint") or "") and "Multiply" in (r.get("Function") or "")
+                    and fnum(r.get("Value"), 1) == 0 and not parse_conds(r.get("Conditions"))):
+                invuln_perk.add(pk)
 
     # ---- AWARE: race resists / spells / keywords, NPC perks / spells / keywords
     race_res = defaultdict(dict)
@@ -311,7 +321,8 @@ def main():
             lo, hi = (a, b) if a and b else (lvl, lvl)
         lo, hi = int(max(1, lo)), int(max(lo, hi))
         kws = sorted(kw.get(("NPC_", ed), set()) | kw.get(("RACE", race), set()))
-        prof = json.dumps([res, imm, kws], sort_keys=True)
+        inv = 1 if any(pk in invuln_perk for pk in npc_prk.get(ed, [])) else 0
+        prof = json.dumps([res, imm, kws, inv], sort_keys=True)
         sk = skull.get(ed, 0)
         words = []
         for tok, word in R["variant_words"].items():
@@ -358,8 +369,8 @@ def main():
         for i, v in enumerate(vs):
             if v["prof"] not in prof_ix:
                 prof_ix[v["prof"]] = len(profiles)
-                res_, imm_, kws_ = json.loads(v["prof"])
-                profiles.append({"r": res_, "i": imm_, "k": kws_})
+                res_, imm_, kws_, inv_ = json.loads(v["prof"])
+                profiles.append(dict({"r": res_, "i": imm_, "k": kws_}, **({"x": 1} if inv_ else {})))
             if i == 0:
                 lab = "Standard"
             # a place / mode word labels a version only when most of its records carry it

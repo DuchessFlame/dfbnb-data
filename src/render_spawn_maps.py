@@ -801,7 +801,7 @@ def render_region_tiles(numbered_img, rows, boxes, to_px, out_dir, slug,
         rslug = region.replace(" ", "")
         path = os.path.join(out_dir, name_fn(region) if name_fn else f"{rslug}_{slug}.jpg")
         # A region tile is a crop of the full map, so it carries the mark too.
-        crop = map_watermark.apply(crop, corner="bottom-right")
+        crop = map_watermark.apply(crop, corner="bottom-left")
         crop.save(path, "JPEG", quality=88, optimize=True)
 
         with open(os.path.join(out_dir, f"{rslug}_coords.csv"), "w",

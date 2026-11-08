@@ -1,39 +1,40 @@
-"""Melee Damage Calculator data (Kat 7 Nov 2026).
+"""Melee Damage + Ranged Damage Calculator data (Kat 7 Nov 2026, ranged 8 Nov).
 
-/bnb/calculators/melee-damage-calculator/  ->  dist/calculators/melee_damage_calculator.json
-                                               (--pts -> dist/pts/calculators/...)
+/bnb/calculators/melee-damage-calculator/   ->  dist/calculators/melee_damage_calculator.json
+/bnb/calculators/ranged-damage-calculator/  ->  --ranged: dist/calculators/ranged_damage_calculator.json
+                                                (--pts -> dist/pts/calculators/...)
 
 Every number comes from the game files or data built from them (nothing typed in):
-  weapons     dist/builds/builds_data.json (player melee / unarmed list) + WEAP Base / DNAM:
-              damage curve CVT0 by weapon level (the curve wins over DNAM_BaseDamage - same rule
-              as the weapon guides and boss stats), EILV levels, DAMA extra damage types,
-              CRDT crit mult, WSAM sneak mult, keywords.
-  mods        OMOD (+ included PARENT templates, recursive) on the weapon's ma_ keyword:
-              AttackDamage MUL+ADD (physical x (1 + v1)), DamageBonusMult ADD (adds to the
-              damage bonus), DamageTypeValues (MUL+ADD = % of base damage as that type,
-              ADD = flat), Enchantments -> ENCH Damage effects (amount, or its level curve,
-              over the effect's duration). Same reading as build_weapon_guides_json.py.
-  bonus pile  PERKEP STAT_DamagePerk / STAT_DamageVsPerk "Mod Weapon DMG Bonus Mult"
-              (Add Actor Value Mult) -> which actor value reaches which weapon / enemy.
-  Strength    GMST fAVDMeleeDamageMult (melee weapons, per point) / fDamageStrengthMult
-              (unarmed); additive with the other bonuses (exe bCombatUseAdditiveStrengthAttackBonus).
-              Sources: AbLgnPerkStrength, OMOD *_StatStrength, CURV
-              CT_Legendary_Armor_LowHealthIncreasesStats (Unyielding), Mutation_HerdMentality,
-              underarmour styles, GHL_AbPerkUnitedOrdeal, Crusaders, BobbleHead_SPECIALGlobal.
-  cards       AbPerkAdrenaline (AdrenalineBonus by kill streak), AbPerkNerdRage (NerdRageDamageBonus
-              by HP %), AbPerkIronFist (IronFistBonus by DR), Ninja01-02 (Mod Sneak Attack Mult).
-  mutations   Mutation_TwistedMuscles / Talons (normal + Strange In Numbers), Mutation_AdrenalReaction
-              (AdrenalNormalBonus / AdrenalSuperBonus by kill streak).
-  sneak       PlayerPerk "Mod Sneak Attack Mult" Add Actor Value Mult (STAT_SneakAttackBonus).
-  legendary   dist/legendary_star_pages/{1..5}-star.json outputs (records: actor value, entry point,
-              magnitude, curve + input, conditions).
-  crit        dist/calculators/vats_crit_calculator.json "crit" (same maths as its Crit Damage tab).
-  food etc.   dist/calculators/food_buff_calculator.json items (diet / Party Girl multipliers).
+  weapons     dist/builds/builds_data.json (player list by class) + WEAP Base / DNAM:
+              damage curve CVT0 by weapon level (the curve wins over DNAM_BaseDamage), EILV levels,
+              DAMA extra damage types (energy, fire...), CRDT crit mult, keywords.
+              builds_data sometimes points at an enemy's copy (boss Railway Rifle / Tesla Rifle):
+              the player's own WEAP is used; weapons with only an enemy copy (Splinter, Chaos Engine,
+              Tempest, Slasher Knife) and explosion-only weapons go to "laterWeapons".
+              The PTS WEAP export has no DAMA column yet -> live damage types are borrowed.
+  mods        OMOD (+ included PARENT templates) on the weapon's ma_ keyword:
+              AttackDamage MUL+ADD (physical x (1 + v1)), DamageBonusMult ADD (adds to the bonus),
+              DamageTypeValues (MUL+ADD = % of base as that type, ADD = flat or its level curve),
+              Enchantments -> ENCH Damage effects (amount or curve, over the effect's duration).
+  bonus pile  PERKEP STAT_DamagePerk / STAT_DamageVsPerk "Mod Weapon DMG Bonus Mult" rows ->
+              which actor value reaches which weapon / enemy (STAT_DmgScoped = aiming only).
+  Strength    (melee) GMST fAVDMeleeDamageMult / fDamageStrengthMult, additive.
+  cards       AbPerkAdrenaline, AbPerkNerdRage, AbPerkIronFist (melee), AbPerkHeavyGunner (Bullet Storm,
+              HeavyGunnerDamageBonus 1/2/3 by AmmoSpenderStacks; +10 stacks with HeavyGunnerMaster01),
+              ghoul: GHL_AbPerkRadiationPower (Glow, not power attacks), GHL_AbScienceMonsterSpell
+              (10 s after being hit, Rads), GHL_AbPerkBloodyVats (Glowing Criticals, in V.A.T.S.),
+              GHL_AbPerkMadScientist (energy damage, ranged).
+  mutations   Twisted Muscles / Talons (melee), Adrenal Reaction, ghoul Feral meter (GHL_SURV_Feral_Ability,
+              melee damage at the top tier).
+  legendary   dist/legendary_star_pages/{1..5}-star.json. Furious / Pounder's: 0.01 x the actor value
+              their enchantment names (AVIF NAM0 default, tsv/STATREC_Export_*.tsv): 5% / 10% a hit.
+  crit        dist/calculators/vats_crit_calculator.json "crit" + each weapon's crit mods.
+  food etc.   dist/calculators/food_buff_calculator.json items whose effect reaches these weapons.
 
-Left OFF the page until the devs answer (all server-side, no PC code reads them): power attack
-damage (STAT_DmgPowerAttack - Heavy Hitter card, Heavy Hitter's 2*), damage vs crippled
-(STAT_DmgVsCrippled - Slugger), vs bleeding (STAT_DmgVsBleeding - Wound Salter, Severing 4*),
-per crippled limb (STAT_DmgPerCrippled - Bully's 4*), execute damage (LGND_ExecuteDmg).
+Left OFF the pages (server-side, no PC code reads them): power attacks, vs crippled / bleeding /
+burning / poisoned, per crippled limb, execute, torso, far / close, per AP, Science! energy mult,
+Explosive payload; sneak attacks (Kat 8 Nov: hidden until the devs answer). Those cards are listed
+in "laterCards".
 """
 from __future__ import annotations
 import csv, datetime, glob, json, os, re, sys
@@ -42,19 +43,32 @@ csv.field_size_limit(10 ** 9)
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TSV = os.path.join(ROOT, "tsv")
 PTS = "--pts" in sys.argv
+# Kat 8 Nov 2026: the same builder makes the Ranged Damage Calculator data (--ranged).
+KIND = "ranged" if "--ranged" in sys.argv else "melee"
+KIND_CLASSES = {"melee": ("melee", "unarmed"), "ranged": ("rifle", "pistol", "shotgun", "heavy", "bow")}   # explosives later (Kat)
 DIST = os.path.join(ROOT, "dist", "pts") if PTS else os.path.join(ROOT, "dist")
-OUT = os.path.join(DIST, "calculators", "melee_damage_calculator.json")
+OUT = os.path.join(DIST, "calculators", f"{KIND}_damage_calculator.json")
 WARN = []
 # Effects whose conditions can never pass (checked in SeventySix.esm, 7 Nov 2026): the Mire Magic Moonshine
 # melee damage effect needs HasActiveMagicEffect(E08A_GulperSmacker_GulpershineBuff_ME), and the only record
 # that gives that effect is the retired enchantment zzzE08A_Weapon_Gulpershine_Damage, which nothing uses.
 NEVER_ACTIVE_EFFECTS = {"E08A_Gulpershine_GulperSmackerBuff_ME"}
+# Read only through default objects (DFOB) or damage-type records; no PC code uses them (exe checked 7-8 Nov),
+# so how they stack is server-side -> left off until the devs answer (Ask the Devs #30, #31, #32).
 SERVER_SIDE_AVS = {"STAT_DmgPowerAttack", "STAT_DmgVsCrippled", "STAT_DmgVsBleeding", "STAT_DmgPerCrippled",
-                   "LGND_ExecuteDmg", "STAT_DmgVsBurning", "STAT_DmgVsPoisoned"}
+                   "LGND_ExecuteDmg", "STAT_DmgVsBurning", "STAT_DmgVsPoisoned",
+                   "STAT_DmgVsTorso", "STAT_DmgVsFar", "STAT_DmgVsClose", "STAT_DmgAP", "STAT_DmgMultEnergy",
+                   "LGND_ExplosivePayload",
+                   "STAT_SneakAttackBonus"}   # Kat 8 Nov: sneak off both pages until the devs answer
+# perk cards whose damage is one of those (shown by name only, "not on the calculator yet")
+# cards that only add a server-side bonus (target hit / crippled / far / close / weak spot / sneak)
+LATER_CARDS = {"melee": ["Slugger", "Wound Salter", "Heavy Hitter", "Ninja", "Faulty Spots"],
+               "ranged": ["Center Masochist", "Down Ranger", "Guerrilla", "Gunslinger", "Number Cruncher", "Easy Target",
+                          "Tormentor", "Science!", "Covert Operative", "Faulty Spots"]}
 
 
 def warn(m):
-    WARN.append(m); print("[melee_dmg] WARN", m, file=sys.stderr)
+    WARN.append(m); print(f"[{KIND}_dmg] WARN", m, file=sys.stderr)
 
 
 def newest(pattern):
@@ -99,7 +113,8 @@ def main():
         "curv": "CURV_Export_*_POINTS.tsv", "gmst": "GMST_Export_*.tsv", "perkep": "PERKEP_Export_*.tsv",
         "spel": "SPEL_Export_*_EFFECTS.tsv", "omod": "OMOD_Export_*_Properties.tsv", "omodh": "OMOD_Export_*[0-9].tsv",
         "glob": "GLOB_Export_*.tsv", "dnam": "WEAP_Export_*_DNAM.tsv", "base": "WEAP_Export_*_Base.tsv",
-        "ench": "ENCH_Export_*[0-9].tsv", "mgef": "MGEF_Export_*[0-9].tsv"}.items()}
+        "ench": "ENCH_Export_*[0-9].tsv", "mgef": "MGEF_Export_*[0-9].tsv",
+        "statrec": "STATREC_Export_*.tsv"}.items()}
 
     curves = {}
     for r in rows(src["curv"]):
@@ -126,6 +141,11 @@ def main():
                    for r in rows(src["mgef"])}
     mgef_arch = {r["EDID"].strip(): (r.get("Archetype") or "").strip() for r in rows(src["mgef"])}
     ench = {r["ENCH_EDID"].strip(): r for r in rows(src["ench"])}
+    # actor value defaults (AVIF NAM0 / NAM6) - tools/esm_stat_records_extract.py
+    av_def, av_max = {}, {}
+    for r in rows(src["statrec"]):
+        if r.get("Signature") == "AVIF" and r.get("Field") == "NAM0": av_def[r["EDID"].strip()] = fnum(r.get("Value"))
+        if r.get("Signature") == "AVIF" and r.get("Field") == "NAM6": av_max[r["EDID"].strip()] = fnum(r.get("Value"))
 
     def spel_fx(edid, mgef=None):
         out = []
@@ -148,9 +168,13 @@ def main():
             anyk = re.findall(r"HasKeyword\((WeaponType\w+) \[KYWD:[0-9A-F]+\]\) \d+ 1\.0", cond)
             nonek = re.findall(r"HasKeyword\((WeaponType\w+) \[KYWD:[0-9A-F]+\]\) \d+ 0\.0", cond)
             enemy = perk == "STAT_DamageVsPerk"
-            other = bool(re.search(r"GetInIronSights|IsTrueForConditionForm", cond)) and not enemy
-            reach[av.group(1)] = {"any": sorted(set(anyk)), "none": sorted(set(nonek)), "per": fnum(r.get("Value")),
-                                  "enemy": enemy, "skip": other}
+            aim = bool(re.search(r"GetInIronSights", cond)) and not enemy
+            other = bool(re.search(r"IsTrueForConditionForm", cond)) and not enemy and av.group(1) != "STAT_DmgHeavyGuns"
+            e = {"any": [] if aim else sorted(set(anyk)), "none": sorted(set(nonek)), "per": fnum(r.get("Value")),
+                 "enemy": enemy, "skip": other}
+            if aim: e["aim"] = True          # STAT_DmgScoped: only while aiming down the sights (never V.A.T.S.)
+            if av.group(1) == "STAT_DmgHeavyGuns": e["any"] = sorted(set(anyk) | {"WeaponTypeHeavyGun"})
+            reach[av.group(1)] = e
     if "STAT_DmgAll" not in reach: warn("STAT_DmgAll not in STAT_DamagePerk")
     avif_words = {"STAT_DmgVsHumans": "Humans", "STAT_DmgVsZetans": "Aliens", "STAT_DmgVsYaoGuai": "Yao guai",
                   "STAT_DmgVsMirelurks": "Mirelurks", "STAT_DmgVsSuperMutants": "Super mutants", "STAT_DmgVsRobots": "Robots",
@@ -166,8 +190,14 @@ def main():
     enemy_av.setdefault("Mole rats", []).append("STAT_DmgVsMoleMinersAndRats")
 
     # ---- weapons --------------------------------------------------------------------
+    later_weapons, seen_e = [], set()
     bw = jload("builds", "builds_data.json")["weapons"]
     dn = {r["WEAP_EDID"]: r for r in rows(src["dnam"])}
+    if PTS and dn and "DAMA_DamageTypes" not in next(iter(dn.values())):
+        # the PTS WEAP export has no DAMA column yet - borrow the live damage types (energy, fire...)
+        live = {r["WEAP_EDID"]: r.get("DAMA_DamageTypes") or "" for r in rows(max(glob.glob(os.path.join(TSV, "WEAP_Export_*_DNAM.tsv")), key=os.path.getmtime))}
+        for k, r in dn.items(): r["DAMA_DamageTypes"] = live.get(k, "")
+        warn("PTS WEAP export has no DAMA_DamageTypes - live damage types used")
     base = {r["WEAP_EDID"]: r for r in rows(src["base"])}
 
     def mod_rows(e, seen=None):
@@ -197,7 +227,10 @@ def main():
             elif pn == "DamageBonusMult" and fn == "ADD": pile += v1
             elif pn == "DamageTypeValues":
                 t = dtype_name(r.get("Value1"))
+                ct = (r.get("CurveTable") or "").strip()
+                cv = need(ct) if ct and not ct.startswith("NULL") else []
                 if fn == "MUL+ADD" and v2: split.append({"t": t, "pct": r2(v2)})
+                elif fn == "ADD" and cv: flat.append({"t": t, "curve": cv})       # e.g. Severe receivers: fire by level
                 elif fn == "ADD" and v2: flat.append({"t": t, "v": r2(v2)})
             elif pn == "Enchantments" and fn == "ADD":
                 en = re.match(r"(\S+)", (r.get("Value1") or "").strip())
@@ -215,7 +248,13 @@ def main():
                     if cv: x["curve"] = need(cv)
                     else: x["v"] = r2(fnum(er.get(f"Effect_{i}_Magnitude"), 0))
                     if x.get("curve") or x.get("v"): (dot if d > 0 else flat).append(x)
-        return {"mul": r2(mul), "pile": r2(pile), "split": split, "flat": flat, "dot": dot}
+        def uniq(l):
+            seen, out = set(), []
+            for x in l:
+                k = json.dumps(x, sort_keys=True)
+                if k not in seen: seen.add(k); out.append(x)
+            return out
+        return {"mul": r2(mul), "pile": r2(pile), "split": uniq(split), "flat": uniq(flat), "dot": uniq(dot)}
 
     mods_by_kw = {}
     for e, h in head.items():
@@ -230,10 +269,22 @@ def main():
 
     weapons = []
     for w in bw:
-        cls = [c for c in (w.get("classes") or []) if c in ("melee", "unarmed")]
+        cls = [c for c in (w.get("classes") or []) if c in KIND_CLASSES[KIND]]
+        if w.get("name") == "Tesla": w = dict(w, name="Tesla Rifle")   # DLC01LightningGun, listed twice in builds_data
         if not cls: continue
         e = w.get("edid"); d = dn.get(e); b = base.get(e)
         if not d or not b: warn(f"weapon {e} not in WEAP export"); continue
+        if "CT_Creatures" in (d.get("CVT0_DamageCurve") or "") or re.match(r"(P62_cr|SDOW_|HTO_|cr[A-Z])", e):
+            # builds_data points at an enemy's copy (boss Railway Rifle etc.) - find the player's own WEAP
+            tail = re.sub(r"^.*?(_Boss_|_cr[A-Z][a-z]+(?=[A-Z]))", "", e)
+            tail = re.sub(r"^(SDOW_|HTO_|P62_)?cr", "", tail)
+            alt = next((x for x in (tail, "DLC01" + tail) if x in dn and "CT_Creatures" not in (dn[x].get("CVT0_DamageCurve") or "")), None)
+            if not alt:
+                later_weapons.append(w.get("name")); warn(f"weapon {w.get('name')}: only an enemy copy ({e}) in the WEAP export")
+                continue
+            e = alt; d = dn[e]; b = base[e]
+        if e in seen_e: continue
+        seen_e.add(e)
         kw = b.get("Keywords") or ""
         tags = sorted(set(re.findall(r"(WeaponType\w+)", kw)))
         cv = need(d.get("CVT0_DamageCurve")) if (d.get("CVT0_DamageCurve") or "").strip() and "NULL" not in d.get("CVT0_DamageCurve") else []
@@ -255,7 +306,9 @@ def main():
                 seen.add((mn, ap))
                 mods.append({"n": mn, "slot": ap, **mod_effect(me)})
         mods.sort(key=lambda x: (x["slot"], x["n"]))
-        wcls = "unarmed" if "WeaponTypeUnarmed" in tags else "melee"     # the weapon's own keyword decides
+        if "WeaponTypeExplosive" in tags and not cv and not extra or (not cv and not extra and flat <= 0):
+            later_weapons.append(w.get("name")); continue      # explosion / spell damage - Kat 8 Nov: explosives later
+        wcls = ("unarmed" if "WeaponTypeUnarmed" in tags else "melee") if KIND == "melee" else cls[0]
         weapons.append({"n": w.get("name") or b.get("WEAP_FULL"), "e": e, "cls": wcls, "tags": tags,
                         "curve": cv, "base": flat, "levels": lv, "extra": extra,
                         "crit": fnum(d.get("CRDT_CritDamageMult")), "charge": fnum(d.get("CRDT_CritChargeBonus"), 0),
@@ -302,15 +355,61 @@ def main():
     def curve_fx(edid, mgef):
         x = spel_fx(edid, mgef)
         return need(x[0]["curve"]) if x else []
-    cards = {
-        "adrenaline": curve_fx("AbPerkAdrenaline", "abPerkFortifyDmgAll"),
-        "nerdRage": curve_fx("AbPerkNerdRage", "abPerkFortifyDmgAll"),
-        "ironFist": curve_fx("AbPerkIronFist", "AbPerkFortifyDmgMeleeUnarmed"),
-        "ninja": [fnum(r.get("Value")) for p in ("Ninja01", "Ninja02") for r in ep.get(p, [])
-                  if r.get("EntryPoint") == "Mod Sneak Attack Mult"][:2],
-    }
-    if len(cards["ninja"]) != 2: warn("Ninja ranks not found")
-    sneak_per = None
+
+    def ranks_of(edid, mgef):
+        """per-rank magnitudes (rows are in rank order: rank 1 first)"""
+        return [x["v"] for x in spel_fx(edid, mgef)]
+
+    def pk_name(e, d):
+        try:
+            for c in pcards:
+                if any(rk.get("perkEdid") == e for rk in c.get("ranks") or []): return c["name"], c.get("special")
+        except Exception:  # noqa: BLE001
+            pass
+        return d, None
+    pc = jload("perk_cards.json"); pcards = pc.get("cards") if isinstance(pc, dict) else pc
+    if isinstance(pcards, dict): pcards = list(pcards.values())
+
+    def card(cid, perk, d, **kw):
+        n, sp = pk_name(perk, d)
+        return dict({"id": cid, "n": n, "special": sp}, **kw)
+    # every card here adds into the damage bonus (abPerkFortifyDmgAll -> STAT_DmgAll, etc.)
+    common = [
+        card("adren", "Adrenaline01", "Adrenaline", av="STAT_DmgAll", curve=curve_fx("AbPerkAdrenaline", "abPerkFortifyDmgAll"), input="kills"),
+        card("nerd", "NerdRage01", "Nerd Rage!", av="STAT_DmgAll", curve=curve_fx("AbPerkNerdRage", "abPerkFortifyDmgAll"), input="hp"),
+        card("radpow", "GHL_RadiationPower01", "Radiation Power", av=mgef_av.get("GHL_AbPerkRadioactiveFortifyDmgAllEffect") or "STAT_DmgAll",
+             ranks=ranks_of("GHL_AbPerkRadiationPower", "GHL_AbPerkRadioactiveFortifyDmgAllEffect"), ghoul=True, glow=True),
+        card("scimon", "GHL_ScienceMonster01", "Science Monster", av=mgef_av.get("GHL_abPerkScienceMonsterFortifyDmgAll") or "STAT_DmgAll",
+             ranks=ranks_of("GHL_AbScienceMonsterSpell", "GHL_abPerkScienceMonsterFortifyDmgAll"), ghoul=True, hit=True),
+        # Glowing Criticals: GHL_AbPerkBloodyVats, ghoul + GetIsInVATS
+        card("glowcrit", "GHL_GlowingCriticals01", "Glowing Criticals", av=mgef_av.get("abPerkFortifyDmgAll") or "STAT_DmgAll",
+             ranks=ranks_of("GHL_AbPerkBloodyVats", "abPerkFortifyDmgAll"), ghoul=True, vats=True),
+    ]
+    # Radiation Power's spell turns off while power attacking (IsPowerAttacking = 0)
+    common[2]["notPower"] = any("IsPowerAttacking" in x["cond"] for x in spel_fx("GHL_AbPerkRadiationPower", None))
+    if KIND == "melee":
+        cards = common + [card("iron", "IronFist01", "Iron Fist", av="STAT_DmgMeleeUnarmed",
+                                curve=curve_fx("AbPerkIronFist", "AbPerkFortifyDmgMeleeUnarmed"), input="dr")]
+    else:
+        hg = [x for x in spel_fx("AbPerkHeavyGunner", "abPerkFortifyDmgAll")]
+        stk = spel_fx("AbPerkHeavyGunner", "abAmmoSpenderFortifyStacks")
+        base_st = next((x["v"] for x in stk if not x["cond"]), 10)          # 10 stacks
+        big_st = next((x["v"] for x in stk if "HeavyGunnerMaster01" in x["cond"]), 0)   # +10 with Bringing the Big Guns
+        cards = common + [
+            card("bstorm", "HeavyGunner01", "Bullet Storm", av="STAT_DmgAll", rankCurves=[need(x["curve"]) for x in hg],
+                 input="stacks", maxStacks=base_st, bigGunsStacks=big_st,
+                 bigGunsName=pk_name("HeavyGunnerMaster01", "Bringing the Big Guns")[0], cls=["heavy"]),
+            card("madsci", "GHL_MadScientist01", "Mad Scientist", av=mgef_av.get("AbPerkFortifyDmgEnergy") or "STAT_DmgEnergy",
+                 ranks=ranks_of("GHL_AbPerkMadScientist", "AbPerkFortifyDmgEnergy"), ghoul=True)]
+    # where a spell lookup failed, look the radiation power spell up by its effect
+    for c in cards:
+        if c["id"] == "radpow" and not c.get("ranks"):
+            for k, v in spel.items():
+                vals = [fnum(r.get("EFIT_Magnitude"), 0) for r in v if (r.get("EFID_MGEF_EDID") or "") == "GHL_AbPerkRadioactiveFortifyDmgAllEffect"]
+                if vals: c["ranks"] = vals; break
+            if not c.get("ranks"): warn("Radiation Power ranks not found")
+    later_cards = LATER_CARDS[KIND]
+    sneak_per = None   # sneak hidden (Kat 8 Nov) - kept in the JSON for later
     for r in ep.get("PlayerPerk", []):
         if r.get("EntryPoint") == "Mod Sneak Attack Mult" and "STAT_SneakAttackBonus" in (r.get("Raw") or ""): sneak_per = fnum(r.get("Value"))
     if sneak_per is None: warn("PlayerPerk sneak attack bonus not found")
@@ -323,11 +422,15 @@ def main():
     adr = {}
     for x in spel_fx("Mutation_AdrenalReaction", "abPerkFortifyDmgAll"):
         adr["sin" if "Super" in x["curve"] else "normal"] = need(x["curve"])
-    mutations = {
-        "twisted": {**mut("Mutation_TwistedMuscles", "Mutation_TwistedMusclesEffect"), "av": mgef_av.get("Mutation_TwistedMusclesEffect")},
-        "talons": {**mut("Mutation_Talons", "Mutation_TalonsEffect"), "av": mgef_av.get("Mutation_TalonsEffect")},
-        "adrenal": adr,
-    }
+    mutations = {"adrenal": adr}
+    # ghoul Feral meter: GHL_SURV_Feral_Ability gives melee damage at the top tier
+    feral = [x for x in spel_fx("GHL_SURV_Feral_Ability", None) if mgef_av.get(x["mgef"]) in ("STAT_DmgMelee", "STAT_DmgAll")]
+    if KIND == "melee" and feral:
+        mutations["feral"] = {"v": feral[0]["v"], "av": mgef_av.get(feral[0]["mgef"]),
+                              "tier": (re.search(r"FeralThreshold_\d_(\w+) \[GLOB", feral[0]["cond"]) or [None, ""])[1]}
+    if KIND == "melee":
+        mutations["twisted"] = {**mut("Mutation_TwistedMuscles", "Mutation_TwistedMusclesEffect"), "av": mgef_av.get("Mutation_TwistedMusclesEffect")}
+        mutations["talons"] = {**mut("Mutation_Talons", "Mutation_TalonsEffect"), "av": mgef_av.get("Mutation_TalonsEffect")}
 
     # ---- legendary effects ---------------------------------------------------------------
     def out_kind(o):
@@ -336,7 +439,6 @@ def main():
         epn = (rec.get("entryPoint") or "").strip()
         if av in SERVER_SIDE_AVS: return "later", av
         if av == "Strength": return "str", av
-        if av == "STAT_SneakAttackBonus": return "sneak", av
         if av in reach and not reach[av].get("skip"): return "pile", av
         if epn == "Mod Weapon DMG Bonus Mult" and (rec.get("function") or "").startswith("Add Value"): return "pileEP", "STAT_DmgAll"
         if epn == "Mod Damage on Consecutive Hits": return "stack", "STAT_DmgAll"
@@ -349,7 +451,8 @@ def main():
         for it in jload("legendary_star_pages", f"{s}-star.json")["items"]:
             for blk in it.get("outputs", []):
                 ap = blk.get("appliesTo") or []
-                if not any(a in ("Weapons", "Melee weapons") for a in ap): continue
+                mine = "Melee weapons" if KIND == "melee" else "Ranged weapons"
+                if not any(a in ("Weapons", mine) for a in ap): continue
                 outs, later = [], []
                 for o in blk.get("outputs", []):
                     k, av = out_kind(o)
@@ -366,7 +469,12 @@ def main():
                         x["inPct"] = bool(cv.get("inputIsPercent"))
                     elif k == "pileEP": x["v"] = r2((fnum(rec.get("value"), 0) or 0) * 100)
                     elif k == "stack":
-                        x["per"] = r2((fnum(rec.get("value"), 0) or 0) * 100)
+                        # 0.01 x the actor value the legendary's enchantment names (its default: Furious 5, Pounder's 10)
+                        avn = next((((o2.get("records") or {}).get("curveInput") or "") for o2 in blk.get("outputs", [])
+                                    if ((o2.get("records") or {}).get("curveInput") or "") in av_def), "")
+                        x["per"] = r2((fnum(rec.get("value"), 0) or 0) * (av_def.get(avn) or 1) * 100)
+                        x["cap"] = av_max.get(avn)
+                        if not avn: warn(f"{it['name']}: consecutive-hit actor value default not found (STATREC)")
                     elif k == "crit":
                         m = re.search(r"([0-9.]+)", (rec.get("value") or o.get("text") or "")); x["v"] = fnum(m.group(1)) if m else None
                         if x["v"] and x["v"] > 5: x["v"] = x["v"] / 100
@@ -383,9 +491,9 @@ def main():
                 for o in blk.get("outputs", []):
                     if ((o.get("records") or {}).get("entryPoint") or "") == "Mod Max Consecutive Hits Allowed":
                         for x in outs:
-                            if x["k"] == "stack": x["max"] = 1 + (fnum((o.get("records") or {}).get("value"), 0) or 0)
+                            if x["k"] == "stack": x["max"] = fnum((o.get("records") or {}).get("value"), 0) or 0
                 if outs or later:
-                    lst.append({"n": it["name"], "headline": it.get("headline") or "", "melee": "Melee weapons" in ap,
+                    lst.append({"n": it["name"], "headline": it.get("headline") or "", "only": mine in ap,
                                 "outs": outs, "later": sorted(set(later))})
         lst.sort(key=lambda x: x["n"])
         leg[str(s)] = lst
@@ -398,18 +506,24 @@ def main():
     mgef_text = {r["EDID"].strip(): ((r.get("FULL") or "") + " " + (r.get("DNAM_MagicItemDescription") or "")).lower()
                  for r in rows(src["mgef"])}
     wnames = sorted({(w.get("name") or "") for w in bw if w.get("name")}, key=len, reverse=True)
+    def reaches(av, tags):
+        r = reach.get(av) or {}
+        if r.get("any") and not (set(r["any"]) & tags): return False
+        return not (set(r.get("none") or []) & tags)
     items = []
     for it in fd["items"]:
         fx = []
         for f in it["fx"]:
             if f.get("neg") or f.get("w"): continue
             s = f.get("s")
-            if s not in slot_av: continue
             if (f.get("e") or "") in NEVER_ACTIVE_EFFECTS: continue
-            av = mgef_av.get(f.get("e") or "", "") or slot_av[s]
-            if s != "str" and av not in reach and av != "STAT_SneakAttackBonus":
-                continue          # e.g. a buff for one named weapon only (Gulper Smacker)
-            if s != "str" and av in reach and reach[av].get("enemy"): continue
+            av = mgef_av.get(f.get("e") or "", "") or slot_av.get(s, "")
+            if s == "str" or av == "Strength":
+                if KIND != "melee": continue
+                s, av = "str", "Strength"
+            elif av not in reach or reach[av].get("enemy") or reach[av].get("skip") or av in SERVER_SIDE_AVS:
+                continue          # not a damage bonus for these weapons (or worked out on the servers)
+            if s != "str" and not any(reaches(av, set(wp["tags"])) for wp in weapons): continue
             only = [n for n in wnames if n.lower() in mgef_text.get(f.get("e") or "", "")][:1]
             x = {"s": s, "av": av if s != "str" else "Strength", "v": f.get("m"), "dm": f.get("dm"), "pm": f.get("pm")}
             if only and s != "str": x["only"] = only[0]      # e.g. Mire Magic Moonshine: Gulper Smacker only
@@ -420,15 +534,16 @@ def main():
     items.sort(key=lambda x: (x["t"], x["n"]))
 
     crit = jload("calculators", "vats_crit_calculator.json").get("crit") or {}
-    crit = {k: crit.get(k) for k in ("reach", "buffs", "betterCrits", "vital", "vitalName", "unarmedBobble")}
+    crit = {k: crit.get(k) for k in ("reach", "buffs", "betterCrits", "glowingCrits", "vital", "vitalName", "unarmedBobble")}
     cw = {w["e"]: w for w in jload("calculators", "vats_crit_calculator.json")["crit"].get("weapons", [])}
     for w in weapons:
         c = cw.get(w["e"])
         w["critMods"] = [m for m in (c or {}).get("mods", [])]
 
+    crit["eagleEyes"] = (jload("calculators", "vats_crit_calculator.json").get("crit") or {}).get("eagleEyes")
     out = {"version": 1, "generated": datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
-           "channel": "pts" if PTS else "live",
-           "page": {"path": "/bnb/calculators/melee-damage-calculator/", "title": "Melee Damage Calculator"},
+           "channel": "pts" if PTS else "live", "kind": KIND, "laterCards": later_cards, "laterWeapons": sorted(set(later_weapons)),
+           "page": {"path": f"/bnb/calculators/{KIND}-damage-calculator/", "title": f"{KIND.title()} Damage Calculator"},
            "weapons": weapons, "reach": reach, "enemies": enemy_av, "strength": strength, "cards": cards,
            "sneakPer": sneak_per, "mutations": mutations, "legendary": leg, "items": items,
            "partyBoy": (fd.get("mechanics") or {}).get("partyGirl"), "crit": crit,
@@ -437,7 +552,7 @@ def main():
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, separators=(",", ":"))
-    print(f"[melee_dmg] wrote {OUT}: {len(weapons)} weapons, {sum(len(v) for v in leg.values())} legendaries, "
+    print(f"[{KIND}_dmg] wrote {OUT}: {len(weapons)} weapons, {sum(len(v) for v in leg.values())} legendaries, "
           f"{len(items)} items, warnings {len(WARN)}")
 
 

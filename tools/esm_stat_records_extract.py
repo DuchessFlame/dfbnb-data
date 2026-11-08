@@ -40,6 +40,10 @@ AVIF_KEEP = {
     "SURV_DiseaseResistance", "Rads", "RadsRate", "STAT_XPMult", "STAT_CritDmgAll", "STAT_VATSAccuracy",
     "STAT_GunAccuracy", "STAT_DmgMelee", "STAT_DmgMeleeUnarmed", "STAT_Sneak", "STAT_SneakAttackBonus",
     "STAT_LimbDamageResistance", "AimStability", "EpicInitialBaseHealthAV",
+    # Kat 8 Nov 2026 (damage calculators): Onslaught / stack values - the per-hit bonus is 0.01 x the
+    # actor value's default (Furious 5 a stack, max 45; Pounder's 10 a hit, max 100)
+    "LGND_Furious", "Legendary_Pounders_ConsecutiveHits", "P62_Weapon_Splinter_MaxConsecutiveHits",
+    "AmmoSpenderMaxStacks", "AmmoSpenderStacks", "ConsecutiveHitCount",
 }
 HDR = ["Signature", "FormID", "EDID", "Field", "Index", "Ref_FormID", "Ref_EDID", "Value",
        "Curve_FormID", "Curve_EDID"]

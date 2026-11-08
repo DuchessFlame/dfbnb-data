@@ -326,7 +326,7 @@ def render(stem, title, layers, out_dir, to_px, boxes, note=None, zoom=False, ti
             crop = crop.resize((TILE_WIDTH, max(1, int(h * TILE_WIDTH / w))), Image.LANCZOS)
             if note:
                 draw_note_box(crop, note)
-            _save(crop, os.path.join(out_dir, f"{slug(region)}-spawn-map.jpg"), corner="bottom-right")
+            _save(crop, os.path.join(out_dir, f"{slug(region)}-spawn-map.jpg"), corner="bottom-left")
             n_tiles += 1
     print(f"  {stem:34} points={len(rows):4} tiles={n_tiles}")
     return rows

@@ -205,6 +205,26 @@ def page_maps(page, doc):
     return [c for c in cards if on_server(c["url"])]
 
 
+GALLERY_TSV = os.path.join(REPO, "data", "brain_in_a_jar", "gallery.tsv")
+
+
+def page_gallery(page):
+    """Gallery cards for one location page (Duchess, 8 Nov 2026): data/brain_in_a_jar/gallery.tsv,
+    files in the page's own jars-<from>-<to> folder. Only pictures on the server are listed."""
+    if not os.path.exists(GALLERY_TSV):
+        return []
+    rows = [ln.rstrip("\n").split("\t") for ln in open(GALLERY_TSV, encoding="utf-8")
+            if ln.strip() and not ln.startswith("#") and not ln.startswith("page_from")]
+    cards = []
+    for r in rows:
+        if len(r) < 3 or not r[0].strip().isdigit() or int(r[0]) != page["from"]:
+            continue
+        url = f"{IMAGE_BASE}jars-{page['from']}-{page['to']}/{r[1].strip()}"
+        cards.append({"url": url, "name": r[2].strip(), "desc": (r[3].strip() if len(r) > 3 else ""),
+                      "file": "brain-in-a-jar-" + r[1].strip(), "credit": "Image credit: DuchessFlame"})
+    return [c for c in cards if on_server(c["url"])]
+
+
 def _index(d):
     return {l["ref"]: l for l in (d or {}).get("locations", []) if l.get("ref")}
 
@@ -290,6 +310,8 @@ def main():
             "image_lock": hand.get(ref, {}).get("image_lock", ""),
             # Duchess 7 Nov 2026: a short how-to-get-there line (e.g. Vault 63 Immortality Sector)
             "note": hand.get(ref, {}).get("note", ""),
+            # Duchess 8 Nov 2026: screenshot of the fast-travel choice (e.g. Dark Hollow Manor: Exterior)
+            "image_ft": hand.get(ref, {}).get("image_ft", ""),
             "exists": True,
             "coords": [round(float(r["X"]), 1), round(float(r["Y"]), 1), round(float(r["Z"]), 1)],
             "page": page["slug"],
@@ -304,7 +326,7 @@ def main():
         if l.get("travel") == "ft": seen.add(l["fast_travel"])
         nxt = locs[i + 1] if i + 1 < len(locs) else None
         l["next_ft"] = ({"n": nxt["n"], "marker": nxt["fast_travel"],
-                         "back": nxt["fast_travel"] in seen or nxt["fast_travel"] == l.get("marker")}
+                         "back": nxt["fast_travel"] in seen or nxt["fast_travel"] == l.get("fast_travel")}
                         if nxt and nxt.get("travel") == "ft" and nxt["page"] == l["page"] else None)
 
     tiers, hand_in = build_rewards(channel)
@@ -331,6 +353,7 @@ def main():
     }
     for pg in pages:
         pg["maps"] = page_maps(pg, doc)
+        pg["gallery"] = page_gallery(pg)
     os.makedirs(OUT_DIR, exist_ok=True)
     with open(out_path, "w", encoding="utf-8", newline="\n") as fh:
         json.dump(doc, fh, indent=1, ensure_ascii=False)

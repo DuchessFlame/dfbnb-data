@@ -1451,6 +1451,9 @@ jobs:
       - name: Build Melee Damage Calculator JSON
         run: python src/build_melee_damage_calculator_json.py
 
+      - name: Build Ranged Damage Calculator JSON
+        run: python src/build_melee_damage_calculator_json.py --ranged
+
       - name: Sanity check dist outputs
         run: |
           ls -la dist || true

@@ -257,7 +257,7 @@ def render(out_root, data_dir):
         sc = RSM.TILE_WIDTH / float(w)
         trows = [dict(r, lx=(r["lx"] - x0) * sc, ly=(r["ly"] - y0) * sc) for r in rows]
         draw_legend_box(crop, trows)
-        map_watermark.apply(crop, corner="bottom-right").save(
+        map_watermark.apply(crop, corner="bottom-left").save(
             os.path.join(tiles_dir, name), "JPEG", quality=88, optimize=True)
         made.append((region, name, len(rows)))
 

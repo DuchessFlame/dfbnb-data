@@ -375,7 +375,7 @@ def render_set(key, layer_pts, out_root, to_px, boxes):
         rslug = TILE_SLUGS.get(region, region.replace(" ", ""))
         # A region tile is a crop, so it needs the mark too — badge in the corner
         # that is least likely to sit over markers, plus the repeating tile.
-        crop = map_watermark.apply(crop, corner="bottom-right")
+        crop = map_watermark.apply(crop, corner="bottom-left")
         crop.save(os.path.join(tiles_dir, f"{rslug}_{key}.jpg"), "JPEG",
                   quality=88, optimize=True)
         tiles.append(region)

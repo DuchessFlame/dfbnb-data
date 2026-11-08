@@ -101,7 +101,7 @@ def draw_crop(bg, rows, box, context=(), title=None, legend="Brain in a Jar", la
         rsm.draw_outlined_text(d, r["label_xy"], label(r), f, w=3)
     if title:
         rsm.draw_legend(crop, title, [(legend, len(rows))])
-    return map_watermark.apply(crop, corner="bottom-right")
+    return map_watermark.apply(crop, corner="bottom-left")
 
 
 def bbox(rows, pad=260, min_side=900):
