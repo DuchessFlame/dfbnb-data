@@ -11,6 +11,10 @@ USAGE
   python src/exe_settings.py                      -> dist/exe_settings.json + .tsv (every setting)
   python src/exe_settings.py fSneakAgilitySkillMax  -> also prints the client code that uses it
   --exe "D:/steamlibrary/steamapps/common/Fallout76/Fallout76.exe" (default)
+  --pts  read the PTS game instead (Fallout 76 Playtest\Fallout76.exe + the tsv/pts GMST export)
+         -> dist/pts/exe_settings.json + .tsv. Live and PTS are kept apart because the two
+         exes differ (Nov 2026: Pet XP 5 a second live, 1 on the PTS + fWorldPetKillXpModifier
+         only in the PTS exe). Read by src/build_world_pet_types_json.py (levelling.xpRate).
 
 COLUMNS  name | exe_default | esm_value | in_esm | client_readers
   client_readers = code places that read the setting, other than the setting's own
@@ -22,12 +26,16 @@ import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(HERE)
 ap = argparse.ArgumentParser(); ap.add_argument('names', nargs='*')
-ap.add_argument('--exe', default='D:/steamlibrary/steamapps/common/Fallout76/Fallout76.exe')
+ap.add_argument('--exe', default=None)
+ap.add_argument('--pts', action='store_true')
 a = ap.parse_args()
-exe = a.exe
+CHANNEL = 'pts' if a.pts else 'live'
+GAME_DIR = 'Fallout 76 Playtest' if a.pts else 'Fallout76'
+exe = a.exe or f'D:/steamlibrary/steamapps/common/{GAME_DIR}/Fallout76.exe'
 if not os.path.exists(exe):  # Claude's Linux shell mounts the folder under ~/mnt
-    alt = os.path.expanduser('~/mnt/Fallout76/Fallout76.exe')
+    alt = os.path.expanduser(f'~/mnt/{GAME_DIR}/Fallout76.exe')
     if os.path.exists(alt): exe = alt
+OUT_DIR = os.path.join(ROOT, 'dist', 'pts') if a.pts else os.path.join(ROOT, 'dist')
 b = open(exe, 'rb').read()
 
 pe = struct.unpack_from('<I', b, 0x3c)[0]; nsec = struct.unpack_from('<H', b, pe + 6)[0]
@@ -87,7 +95,7 @@ for s in settings.values():
 tsvdir = os.path.join(ROOT, 'tsv'); esm = {}
 # newest by the date in the file name (tsv_source): in CI every file shares the checkout time
 import tsv_source
-g = tsv_source.newest('GMST_Export_*.tsv', required=False)
+g = tsv_source.newest('GMST_Export_*.tsv', channel=CHANNEL, required=False)
 if g:
     for row in csv.DictReader(open(g, encoding='utf-8', errors='replace'), delimiter='\t'):
         esm[row['EDID']] = row['Value']
@@ -96,13 +104,13 @@ for s in sorted(settings.values(), key=lambda s: s['name'].lower()):
     out.append({'name': s['name'], 'exe_default': s['exe_default'], 'esm_value': esm.get(s['name']),
                 'in_esm': s['name'] in esm, 'client_readers': s['client_readers'],
                 'code': [hex(r) for r in s['refs']]})
-os.makedirs(os.path.join(ROOT, 'dist'), exist_ok=True)
-json.dump({'exe': exe, 'size': len(b), 'settings': out}, open(os.path.join(ROOT, 'dist', 'exe_settings.json'), 'w'), indent=1)
-with open(os.path.join(ROOT, 'dist', 'exe_settings.tsv'), 'w', encoding='utf-8') as f:
+os.makedirs(OUT_DIR, exist_ok=True)
+json.dump({'exe': exe, 'channel': CHANNEL, 'size': len(b), 'settings': out}, open(os.path.join(OUT_DIR, 'exe_settings.json'), 'w'), indent=1)
+with open(os.path.join(OUT_DIR, 'exe_settings.tsv'), 'w', encoding='utf-8') as f:
     f.write('name\texe_default\tesm_value\tin_esm\tclient_readers\n')
     for s in out: f.write(f"{s['name']}\t{s['exe_default']}\t{s['esm_value'] or ''}\t{s['in_esm']}\t{s['client_readers']}\n")
 print(f"[exe_settings] {len(out)} settings, {sum(1 for s in out if not s['in_esm'])} exe-only, "
-      f"{sum(1 for s in out if s['client_readers'])} read by PC code -> dist/exe_settings.json/.tsv")
+      f"{sum(1 for s in out if s['client_readers'])} read by PC code -> {os.path.relpath(OUT_DIR, ROOT)}/exe_settings.json/.tsv ({CHANNEL})")
 
 # 4) show code for named settings
 if a.names:

@@ -1348,6 +1348,68 @@ def _help_paras(edid):
     return [p.strip() for p in re.split(r"\s{3,}", txt) if p.strip()]
 
 
+# Pet XP speed — game settings, per channel (Kat, 9 Nov 2026: the live and PTS exes differ).
+#   per second  fWorldPetExperienceAmount (exe; PTS 1.0) else uWorldPetExperienceAmount (GMST; live 5)
+#   bank time   fWorldPetExperienceTimer (GMST 60; the exe default 300 is overridden)
+#   kill bonus  fWorldPetKillXpModifier (exe-only; PTS 0.1, not in the Oct 2026 live exe -> 0)
+# Read from dist/exe_settings.json (live) or dist/pts/exe_settings.json (PTS), which
+# src/exe_settings.py [--pts] writes on patch day; the ESM value wins over the exe default.
+# Falls back to the GMST export when the exe file is missing.
+XP_RATE_NAMES = {
+    "perSec":    ("fWorldPetExperienceAmount", "uWorldPetExperienceAmount"),
+    "bankSec":   ("fWorldPetExperienceTimer",),
+    "killBonus": ("fWorldPetKillXpModifier",),
+}
+
+
+def build_xp_rate():
+    repo = Path(__file__).resolve().parent.parent
+    exe_path = repo / "dist" / ("pts" if PTS_MODE else "") / "exe_settings.json"
+    exe = {}
+    if exe_path.exists():
+        try:
+            exe = {r["name"]: r for r in json.load(open(exe_path, encoding="utf-8")).get("settings", [])}
+        except Exception as e:
+            print(f"[world_pet_types] WARN could not read {exe_path}: {e}")
+    gmst = {}
+    g = tsv_source.newest("GMST_Export_*.tsv", channel=("pts" if PTS_MODE else "live"), required=False)
+    if g:
+        with open(g, encoding="utf-8", errors="replace") as f:
+            for r in csv.DictReader(f, delimiter="\t"):
+                gmst[r.get("EDID", "")] = r.get("Value")
+
+    def pick(names):
+        for n in names:
+            r = exe.get(n)
+            if r is not None:
+                v = r.get("esm_value")
+                if v in (None, ""):
+                    v = r.get("exe_default")
+                if v not in (None, ""):
+                    return float(v), n, ("ESM" if r.get("in_esm") else "exe")
+        for n in names:
+            if gmst.get(n) not in (None, ""):
+                return float(gmst[n]), n, "ESM"
+        return None, None, None
+
+    out, src = {}, {}
+    for key, names in XP_RATE_NAMES.items():
+        v, n, where = pick(names)
+        if v is None and key == "killBonus" and exe:
+            v, n, where = 0.0, names[0], "not in this exe"
+        out[key] = _num(v) if v is not None else None
+        if n:
+            src[key] = f"{n} ({where})"
+    if out["perSec"] is None or out["bankSec"] is None:
+        print(f"[world_pet_types] WARN Pet XP rate incomplete: {out} — the page falls back to its own numbers")
+    else:
+        out["perMinute"] = _num(round(out["perSec"] * out["bankSec"] * (1 + (out["killBonus"] or 0)), 4))
+    out["settings"] = src
+    out["exeFile"] = str(exe_path.relative_to(repo)).replace(os.sep, "/") if exe else None
+    print(f"[world_pet_types] Pet XP rate: {out}")
+    return out
+
+
 def build_levelling():
     rested_eff = (spel_effects.get("WorldPets_WellRested") or [{}])[0]
     mag = fmt_num(rested_eff.get("EFIT_Magnitude"))
@@ -1360,6 +1422,7 @@ def build_levelling():
         # "every time you earn XP, your Pet will also earn Pet XP. This is limited
         # at once every 1 minute" — HelpWorldPetsLeveling (MESG 008B251E).
         "tickSeconds": 60 if mesg_by_edid.get("HelpWorldPetsLeveling") else None,
+        "xpRate":   build_xp_rate(),
         "rested": ({
             "name":       spell_name("WorldPets_WellRested", "Pet Rested"),
             "desc":       (rested_mgef.get("DNAM_MagicItemDescription") or "").strip(),
