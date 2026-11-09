@@ -45,6 +45,11 @@ QUEST_EDID = "RTSV_SQ01_Collectible"
 CHAL_PREFIX = "Challenge_Lifetime_RTSV_Collect_Brain_Tier"
 HOLO_PREFIX = "RTSV_SQ01_Collectible_Holotape_"
 IMAGE_BASE = "/wp-content/uploads/guide-images/collectables/Brain-in-a-Jar-Locations/"
+# Server layout (Duchess, 8 Nov 2026): guide photos loose in IMAGE_BASE, per-brain photos in
+# jars-<from>-<to>/, every map (full, numbered, region tiles, page maps) in full-maps/,
+# every gallery picture in gallery-images/.
+MAPS_BASE = IMAGE_BASE + "full-maps/"
+GALLERY_BASE = IMAGE_BASE + "gallery-images/"
 URL_BASE = "/df/collectables/brain-in-a-jar/"
 
 # CHAL RNAM (the reward icon) -> the reward type the checklist shows.
@@ -210,7 +215,7 @@ GALLERY_TSV = os.path.join(REPO, "data", "brain_in_a_jar", "gallery.tsv")
 
 def page_gallery(page):
     """Gallery cards for one location page (Duchess, 8 Nov 2026): data/brain_in_a_jar/gallery.tsv,
-    files in the page's own jars-<from>-<to> folder. Only pictures on the server are listed."""
+    files in gallery-images/. Only pictures on the server are listed."""
     if not os.path.exists(GALLERY_TSV):
         return []
     rows = [ln.rstrip("\n").split("\t") for ln in open(GALLERY_TSV, encoding="utf-8")
@@ -219,7 +224,7 @@ def page_gallery(page):
     for r in rows:
         if len(r) < 3 or not r[0].strip().isdigit() or int(r[0]) != page["from"]:
             continue
-        url = f"{IMAGE_BASE}jars-{page['from']}-{page['to']}/{r[1].strip()}"
+        url = f"{GALLERY_BASE}{r[1].strip()}"
         cards.append({"url": url, "name": r[2].strip(), "desc": (r[3].strip() if len(r) > 3 else ""),
                       "file": "brain-in-a-jar-" + r[1].strip(), "credit": "Image credit: DuchessFlame"})
     return [c for c in cards if on_server(c["url"])]
@@ -277,7 +282,7 @@ def main():
         slug = f"brain-in-a-jar-locations-{a}-{b}"
         pages.append({"slug": slug, "title": f"Brain in a Jar Locations {a} - {b}",
                       "from": a, "to": b, "url": f"{URL_BASE}{slug}/",
-                      "map": f"{IMAGE_BASE}{slug}-map.jpg"})
+                      "map": f"{MAPS_BASE}{slug}-map.jpg"})
 
     # Fast travel points (Duchess, 7 Nov 2026): data/brain_in_a_jar/fast_travel.tsv {ref: marker}.
     # Those brains get the "FT <marker>" pill; the rest of a page that has any entry walk on
@@ -321,6 +326,12 @@ def main():
     # ("After this one, fast travel back to Three Ponds for Brain 7.")
     # "back" = fast travelled there before, or this brain is at that same marker
     # (46 -> "fast travel back to Big Meadows Gas Well for Brain 47")
+    # Duchess 8 Nov 2026: a page always starts with a fast travel, never "Spawn above"
+    # (nothing is above the first brain). Not for Milepost Zero (out of the game).
+    for i, l in enumerate(locs):
+        if (i == 0 or locs[i - 1]["page"] != l["page"]) and l.get("travel") != "ft" \
+                and l.get("fast_travel") and l["fast_travel"] != "Milepost Zero":
+            l["travel"] = "ft"
     seen = set()
     for i, l in enumerate(locs):
         if l.get("travel") == "ft": seen.add(l["fast_travel"])
@@ -342,9 +353,9 @@ def main():
         "blurb": f"Every Brain in a Jar for the {quest} collectable quest, in route order. "
                  "Most of them are in Skyline Valley; follow the numbers and the page map.",
         "image_base": IMAGE_BASE,
-        "full_map": IMAGE_BASE + "brain_in_a_jar.jpg",
-        "numbered_map": IMAGE_BASE + "brain_in_a_jar_numbered.jpg",
-        "region_maps": {reg: f"{IMAGE_BASE}{re.sub(r'[^a-z0-9]+', '-', reg.lower()).strip('-')}-spawn-map.jpg"
+        "full_map": MAPS_BASE + "brain_in_a_jar.jpg",
+        "numbered_map": MAPS_BASE + "brain_in_a_jar_numbered.jpg",
+        "region_maps": {reg: f"{MAPS_BASE}{re.sub(r'[^a-z0-9]+', '-', reg.lower()).strip('-')}-spawn-map.jpg"
                         for reg in sorted({l['region'] for l in locs if l['region']})},
         "total_slots": total, "total_real": total,
         "pages": pages, "locations": locs,
@@ -363,7 +374,7 @@ def main():
     print("brain_in_a_jar_guide.json written")
 
 
-GUIDE_IMG_BASE = IMAGE_BASE + "guide-images/"
+GUIDE_IMG_BASE = IMAGE_BASE   # guide photos loose in the root (8 Nov 2026)
 
 
 def _quest_facts(channel):

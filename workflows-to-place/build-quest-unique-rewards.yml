@@ -1,0 +1,70 @@
+name: Build Quest Unique Rewards
+
+on:
+  workflow_dispatch:
+
+  push:
+    paths:
+      - 'tsv/QUEST_Export_*'
+      - 'tsv/QUST2_Export_*_RewardQuests*'
+      - 'tsv/GMRW_Export_*'
+      - 'tsv/LVLI_Export_*'
+      - 'tsv/GLOB_Export_*'
+      - 'tsv/CURV_Export_*'
+      - 'tsv/COBJ_Export_*'
+      - 'tsv/BOOK_Export_*'
+      - 'tsv/ARMO_Export_*'
+      - 'tsv/WEAP_Export_*'
+      - 'tsv/PLYT_Export_*'
+      - 'tsv/CMPT_Export_*'
+      - 'src/build_quest_unique_rewards_json.py'
+      - 'src/rng76.py'
+      - 'src/plan_sources.py'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dist-main
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Build quest unique rewards
+        run: |
+          python -V
+          python src/build_quest_unique_rewards_json.py
+
+      - name: Commit dist outputs
+        shell: bash
+        run: |
+          set -e
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add dist/quest_unique_rewards.json
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Build quest unique rewards"
+
+          git fetch origin main
+          git pull --rebase origin main
+          git push origin main

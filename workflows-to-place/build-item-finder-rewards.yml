@@ -1,0 +1,66 @@
+name: Build Item Finder Rewards
+
+on:
+  workflow_dispatch:
+
+  # the files it reads are mostly written by other workflows, whose bot commits
+  # don't start workflows, so it also re-checks every 6 hours (no change = no commit)
+  schedule:
+    - cron: '17 */6 * * *'
+
+  push:
+    paths:
+      - 'dist/activities/by_page/**'
+      - 'dist/unique_checklists/**'
+      - 'dist/quest_unique_rewards.json'
+      - 'dist/apparel_formids.json'
+      - 'dist/unique_weapons_armour/**'
+      - 'src/build_item_finder_rewards_json.py'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dist-main
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Build item finder rewards
+        run: |
+          python -V
+          python src/build_item_finder_rewards_json.py
+
+      - name: Commit dist outputs
+        shell: bash
+        run: |
+          set -e
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add dist/item_finder/rewards.json
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Build item finder rewards"
+
+          git fetch origin main
+          git pull --rebase origin main
+          git push origin main

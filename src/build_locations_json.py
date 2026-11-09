@@ -42,6 +42,7 @@ exports; a brand-new PTS-only marker cannot appear until Mappalachia has it.
 
 from __future__ import annotations
 
+import hashlib
 import csv
 import datetime
 import json
@@ -78,13 +79,30 @@ CELL = 4096.0
 REGION_ORDER = ["Ash Heap", "Burning Springs", "Cranberry Bog", "Forest", "The Mire",
                 "Savage Divide", "Skyline Valley", "Toxic Valley"]
 
-# Maps are NOT duplicated for PTS (Duchess, 7 Nov 2026): the PTS page uses the live map of
-# every place live already has, and only places new on the PTS (and regions whose
-# markers changed) get their own map in .../all-locations/pts/ (PC: "01 Location Maps
-# PTS", "02 Region Maps PTS"; PTS region map files end "-pts" so they can never be
-# mistaken for, or overwrite, the live ones).
+# ONE map folder for live and PTS (Duchess, 9 Nov 2026; was a separate pts/ folder).
+# PC: "01 Location Maps" + "02 Region Maps"; server: .../all-locations/. A place's map is
+# always <id>.avif there, so a place new on the PTS already has its map waiting when the
+# update reaches live — nothing to move or switch. Maps are still not duplicated: PTS
+# only draws places live doesn't have, and regions whose markers changed get tiles
+# whose names end "-pts" so they can never overwrite the live ones.
 IMAGE_ROOT = "/wp-content/uploads/guide-images/data-mining/all-locations/"
-IMAGE_BASE = IMAGE_ROOT + ("pts/" if PTS else "")
+
+# Quest names the game files only carry as an internal placeholder, and back-end quests a
+# player never sees. data/locations/quest_overrides.tsv (form_id, action rename|hide, name,
+# note) — renames are the quest's own objective text from SeventySix.esm.
+def _load_quest_overrides():
+    out = {}
+    p = os.path.join(REPO, "data", "locations", "quest_overrides.tsv")
+    if os.path.exists(p):
+        with open(p, encoding="utf-8") as f:
+            head = f.readline().rstrip("\n").split("\t")
+            for line in f:
+                if not line.strip() or line.startswith("#"):
+                    continue
+                row = dict(zip(head, line.rstrip("\n").split("\t")))
+                out[(row.get("form_id") or "").strip().upper()] = row
+    return out
+QUEST_OVERRIDES = _load_quest_overrides()
 TODAY = datetime.date.today().isoformat()
 
 # Every place the page has ever listed, per channel, with the date it first showed up
@@ -734,6 +752,11 @@ def load_quests():
               and not re.search(r"template|moduletest", edid, re.I)
               and not name.startswith("[") and not re.search(r"\bMisc Obj\b", name, re.I)
               and fid not in cut and "(cut)" not in name.lower())
+        ov = QUEST_OVERRIDES.get(fid)
+        if ov and ov.get("action") == "hide":
+            ok = False
+        elif ov and ov.get("action") == "rename" and ov.get("name"):
+            name = ov["name"].strip()
         q.update(ok=bool(ok), name=name, type=typ)
         quests[fid] = q
     return quests
@@ -1043,7 +1066,7 @@ def main():
             "x": m["x"], "y": m["y"],
             # one-off: location maps are AVIF (Duchess, 7 Nov 2026); region maps stay JPEG.
             # PTS uses the live map unless the place is new on the PTS.
-            "image": f"{IMAGE_ROOT if on_live else IMAGE_BASE}{lid}.avif",
+            "image": f"{IMAGE_ROOT}{lid}.avif",
             "lctn": [{"form_id": f, "edid": recs[f]["edid"], "name": recs[f]["full"]}
                      for f in sorted(m["_lctn"]) if f in recs],
             "match": m["_how"],
@@ -1069,7 +1092,7 @@ def main():
             "added": added, "notes": notes,
             "type": icon_label(e.get("icon")) if e.get("icon") else "", "icon": e.get("icon", ""),
             "x": e.get("x"), "y": e.get("y"),
-            "image": f"{IMAGE_ROOT if (CHANNEL == 'live' or e.get('live')) else IMAGE_BASE}{lid}.avif",
+            "image": f"{IMAGE_ROOT}{lid}.avif",
             "lctn": [], "match": "cut", "quests": [], "challenges": [], "fish": [], "vendors": [],
         })
     save_ledger(ledger)
@@ -1133,12 +1156,12 @@ def main():
         "observed": tsv_source.observed(),
         "mappalachia_game_version": game_ver,
         "title": "Fallout 76 List of All Locations",
-        "image_base": IMAGE_BASE,
+        "image_base": IMAGE_ROOT,
         "count": total,
         "regions": out_regions,
         # Region map tiles (Maps root expand). Drawn locally by render_all_locations_maps.py,
         # which also writes the list; the page HEAD-checks each one before showing it.
-        "region_maps": _region_maps(),
+        "region_maps": _region_maps(regions),
         # NEW pill: a place whose "added" date is on/after the start of the season the
         # page is viewed in (Duchess, 7 Nov 2026) — the page picks the season from these.
         "season_starts": season_starts(),
@@ -1163,10 +1186,22 @@ def main():
         raise SystemExit(f"[locations] only {total} locations — refusing to publish a short page.")
 
 
-def _region_maps():
+def region_sig(locs):
+    """Fingerprint of a region's drawn markers (name, x, y of every non-cut place).
+    render_all_locations_maps.py stamps it on each "-pts" tile; same maths there."""
+    pts = sorted((l["name"], l["x"], l["y"]) for l in locs
+                 if l.get("x") is not None and not l.get("cut"))
+    return hashlib.sha1(json.dumps(pts).encode("utf-8")).hexdigest()[:16]
+
+
+def _region_maps(regions):
     """Live: data/locations/region_maps.json. PTS: the live tiles, with any region whose
     markers changed on the PTS swapped for its "-pts" tiles (region_maps_pts.json, written
-    by render_all_locations_maps.py). Every tile carries its own url."""
+    by render_all_locations_maps.py). Every tile carries its own url.
+    Live, after a PTS update ships: a region whose live markers now match the "-pts" tiles'
+    fingerprint uses those tiles, so the new places show on the region map straight away.
+    If they don't match (Bethesda moved something), live keeps its own tiles and the build
+    says to re-render that region."""
     def rd(name):
         try:
             with open(os.path.join(REPO, "data", "locations", name), encoding="utf-8") as f:
@@ -1174,9 +1209,16 @@ def _region_maps():
         except (OSError, ValueError):
             return []
     live = [dict(m, url=IMAGE_ROOT + m["file"]) for m in rd("region_maps.json")]
+    pts = [dict(m, url=IMAGE_ROOT + m["file"]) for m in rd("region_maps_pts.json")]
     if not PTS:
-        return live
-    pts = [dict(m, url=IMAGE_ROOT + "pts/" + m["file"]) for m in rd("region_maps_pts.json")]
+        mine = {r: region_sig(locs) for r, locs in regions.items()}
+        pts = [m for m in pts if m.get("sig") and m["sig"] == mine.get(m["region"])]
+        for r in sorted({m["region"] for m in rd("region_maps_pts.json")} - {m["region"] for m in pts}):
+            print(f"   region map: live {r} != its -pts tiles (PTS not shipped yet, or markers moved)")
+        for r in sorted({m["region"] for m in pts}):
+            print(f"   region map: live {r} now uses its -pts tiles (re-render live regions when convenient)")
+    for m in pts:
+        m.pop("sig", None)
     changed = {m["region"] for m in pts}
     out = [m for m in live if m["region"] not in changed] + pts
     order = {r: i for i, r in enumerate(m["region"] for m in live)}

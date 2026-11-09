@@ -170,13 +170,48 @@ def map_marker_icons(size=ROUTE_ICON_PX):
     return out
 
 
-def _icon_background(bg_path, to_px):
+def channel_marker_icons(channel="live", size=ROUTE_ICON_PX):
+    """Same shape as map_marker_icons(), but the markers are the game's own for that
+    channel: dist[/pts]/locations/all_locations.json (build_locations_json.py, from the
+    REFR export) - new PTS markers in, cut / disabled ones (Milepost Zero) out.
+    Mappalachia still supplies the icon art. Falls back to map_marker_icons() when the
+    locations file is missing. (Duchess, 8 Nov 2026.)"""
+    import io, json
+    import cairosvg
+    from PIL import Image
+    repo = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    path = os.path.join(repo, "dist", "pts" if channel == "pts" else "", "locations", "all_locations.json")
+    if not os.path.exists(path):
+        return map_marker_icons(size)
+    d = json.load(open(path, encoding="utf-8"))
+    cache, out = {}, []
+    for r in d.get("regions", []):
+        for l in r.get("locations", []):
+            icon = l.get("icon")
+            if l.get("cut") or not icon or l.get("x") is None:
+                continue
+            if icon not in cache:
+                svg = os.path.join(R.MAPPALACHIA, "img", "mapmarker", icon + ".svg")
+                if not os.path.exists(svg):
+                    cache[icon] = None
+                else:
+                    im = Image.open(io.BytesIO(cairosvg.svg2png(url=svg, output_height=size * 4))).convert("RGBA")
+                    im.thumbnail((size, size), Image.LANCZOS)
+                    cache[icon] = im
+            if cache[icon] is not None:
+                out.append((l["x"], l["y"], l["name"], cache[icon]))
+    return out
+
+
+def _icon_background(bg_path, to_px, marks=None):
     """The background with every map-marker icon pasted on, written to a temp
-    JPEG (render_exterior takes a path). Falls back to the plain background."""
+    JPEG (render_exterior takes a path). Falls back to the plain background.
+    marks = a ready icon list (e.g. channel_marker_icons); default Mappalachia's."""
     import tempfile
     from PIL import Image
     try:
-        marks = map_marker_icons()
+        if marks is None:
+            marks = map_marker_icons()
     except Exception as e:
         print("  [WARN] map-marker icons skipped ({})".format(e))
         return bg_path

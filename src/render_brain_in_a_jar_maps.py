@@ -132,11 +132,14 @@ def main():
     plain_bg = os.path.join(rsm.MAPPALACHIA, "img", "wrld", "Appalachia_menu.jpg")
     # 4096 maps: icons pasted on the background (temp JPEG, render_exterior takes a path).
     # Tiles: plain background, icons pasted natively at tile size in draw_crop.
-    marks = esw.map_marker_icons(size=TILE_ICON_PX * 2)   # source icons, scaled per use
+    # Duchess 8 Nov 2026: the game's own markers for the channel (PTS has new ones;
+    # Milepost Zero is gone), not Mappalachia's older list
+    marks = esw.channel_marker_icons(a.channel, size=TILE_ICON_PX * 2)   # source icons, scaled per use
     for mx, my, lbl, im in marks:
         px, py = to_px(mx, my)
         _MARKS.append((px, py, lbl, im))
-    bg_path = esw._icon_background(plain_bg, to_px)
+    bg_path = esw._icon_background(plain_bg, to_px, marks=esw.channel_marker_icons(a.channel))
+    print("map markers:", len(marks))
     bg = Image.open(plain_bg).convert("RGB")
     if bg.size != (rsm.S, rsm.S):
         bg = bg.resize((rsm.S, rsm.S), Image.LANCZOS)

@@ -5,11 +5,13 @@
                             region; big regions split into sections; that region's
                             locations named. Every map watermarked (badge bottom-left).
 
-PTS (LOCATIONS_JSON=dist/pts/locations/all_locations.json) draws NO duplicates of the live
-maps (Duchess, 7 Nov 2026): only places new on the PTS ("01 Location Maps PTS/<id>.avif")
-and the regions whose markers changed ("02 Region Maps PTS/<slug>-map[-N]-pts.jpg" —
-"-pts" in the name, so they can never overwrite the live ones). Each run writes its tile
-list: data/locations/region_maps.json (live) or region_maps_pts.json (PTS).
+ONE folder for live and PTS (Duchess, 9 Nov 2026). PTS (LOCATIONS_JSON=
+dist/pts/locations/all_locations.json) draws NO duplicates of the live maps: only places
+new on the PTS ("01 Location Maps/<id>.avif" — already waiting there when the update goes
+live) and the regions whose markers changed ("02 Region Maps/<slug>-map[-N]-pts.jpg" —
+"-pts" in the name, so they can never overwrite the live ones; each tile carries a "sig"
+of its region's markers so the live build can use it once live matches). Each run writes
+its tile list: data/locations/region_maps.json (live) or region_maps_pts.json (PTS).
 Location maps are saved as AVIF (one-off for this page; region maps stay JPEG).
 Cut places (taken out of the game) are not drawn on any map and get no new map."""
 import os, sys, json, sqlite3, io, math, re
@@ -92,10 +94,14 @@ data = json.load(open(os.path.join(REPO, os.environ.get("LOCATIONS_JSON", "dist/
 MARKS = [(to_px(_l["x"], _l["y"]), _l["name"], _l["icon"])
          for _r in data["regions"] for _l in _r["locations"]
          if _l.get("x") is not None and _l.get("icon") and not _l.get("cut")]
-# PTS maps go in their own folders (the PTS page points at .../all-locations/pts/)
+# One folder for live and PTS (Duchess, 9 Nov 2026); PTS region tiles end "-pts".
 IS_PTS = (data.get("channel") or "").lower() == "pts"
-SUFFIX = " PTS" if IS_PTS else ""
-LOC_DIR, REG_DIR = "01 Location Maps" + SUFFIX, "02 Region Maps" + SUFFIX
+LOC_DIR, REG_DIR = "01 Location Maps", "02 Region Maps"
+import hashlib
+def region_sig(locs):   # same maths as build_locations_json.region_sig
+    pts = sorted((l["name"], l["x"], l["y"]) for l in locs if l.get("x") is not None and not l.get("cut"))
+    return hashlib.sha1(json.dumps(pts).encode("utf-8")).hexdigest()[:16]
+SIGS = {_r["name"]: region_sig(_r["locations"]) for _r in data["regions"]}
 def _marks_by_region(d):
     return {r["name"]: sorted((l["name"], l["x"], l["y"]) for l in r["locations"]
                               if l.get("x") is not None and not l.get("cut")) for r in d["regions"]}
@@ -136,7 +142,8 @@ for r in data["regions"]:
                 n += 1
                 name = slug(r["name"]) + "-map" + ("-%d" % n if cols * rows > 1 else "") + ("-pts" if IS_PTS else "") + ".jpg"
                 save(im, os.path.join(OUT, REG_DIR, name))
-                tiles.append({"region": r["name"], "file": name, "part": n, "parts": cols * rows})
+                tiles.append(dict({"region": r["name"], "file": name, "part": n, "parts": cols * rows},
+                                  **({"sig": SIGS[r["name"]]} if IS_PTS else {})))
         print(r["name"], "region maps:", cols * rows, flush=True)
     if only == {"regions"}: continue
     for l in r["locations"]:
