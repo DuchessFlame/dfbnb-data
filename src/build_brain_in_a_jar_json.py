@@ -34,6 +34,7 @@ REPO = os.path.dirname(HERE)
 if HERE not in sys.path:
     sys.path.insert(0, HERE)
 import tsv_source
+from shared_images import HOLOTAPE_IMAGE
 
 csv.field_size_limit(10 ** 9)
 DATA = os.path.join(REPO, "data", "brain_in_a_jar")
@@ -143,7 +144,84 @@ def build_rewards(channel):
                        "xp_curve": (g.get("XPCT_XPCurveTable") or "").split(":")[1:2] or None,
                        "loot_list": item[1] if len(item) > 1 else None}
             break
+    if hand_in is not None:
+        hand_in["unlocks"] = quest_unlocks(channel)
+    reward_pictures(tiers, channel)
     return tiers, hand_in
+
+
+def quest_unlocks(channel):
+    """Recipes the finished quest teaches: COBJ2 condition GetNumTimesCompletedQuest on
+    the quest (e.g. the Brain Jar CAMP item). Name + picture from the COBJ export."""
+    names = {r.get("COBJ_FormID"): r for r in _rows("COBJ_Export_*.tsv", channel)}
+    out = []
+    for r in _rows("COBJ2_Export_*.tsv", channel):
+        if "GetNumTimesCompletedQuest" in (r.get("Conditions") or "") and r.get("Quest_EDID") == QUEST_EDID:
+            c = names.get(r.get("COBJ_FormID"), {})
+            name = _clean(c.get("CNAM_FULL")) or r.get("CNAM_EDID", "")
+            bench = c.get("BNAM_EDID", "")
+            kind = "CAMP item" if bench.startswith("Workshop") else "Recipe"
+            out.append({"name": name, "kind": kind, "cobj": r.get("COBJ_FormID", ""),
+                        "cobj_edid": r.get("COBJ_EDID", ""), "item": r.get("CNAM_FormID", ""),
+                        "item_edid": r.get("CNAM_EDID", ""),
+                        "image": next((u for u in (IMAGE_BASE + "brain-in-a-jar.avif",)
+                                       if "BrainInJar" in r.get("CNAM_EDID", "") and on_server(u)), "")})
+    return out
+
+
+CAPS_IMAGE = "/wp-content/uploads/season_images/utility/score_currency_caps.avif"
+LEGENDARY_MOD_IMAGE = "/wp-content/uploads/guide-images/category-images/legendary-mods-category-image.avif"
+
+
+def _json(path):
+    try:
+        with open(path, encoding="utf-8") as fh:
+            return json.load(fh)
+    except (OSError, ValueError):
+        return None
+
+
+def reward_pictures(tiers, channel):
+    """Each milestone gets the picture of what it gives and a 'crafts' line (generative):
+      Caps                      -> the site's caps icon
+      '<Weapon> - <Mod> Recipe' -> the weapon (Unique Weapons & Armour data; its base
+                                   weapon's picture when the unique has none) + weaponMod
+      'Plan: <Legendary mod>'   -> the legendary star pages entry (star + picture)
+    Only pictures on the server are used."""
+    base = os.path.join(REPO, "dist", "pts") if channel == "pts" else os.path.join(REPO, "dist")
+    uwa = _json(os.path.join(base, "unique_weapons_armour", "unique_weapons_armour.json")) or {}
+    by_name = {it.get("name"): it for it in uwa.get("items", [])}
+    legmods = {}
+    for n in range(1, 6):
+        d = _json(os.path.join(base, "legendary_star_pages", f"{n}-star.json")) or {}
+        for it in d.get("items", []):
+            legmods.setdefault(it.get("name"), it)
+    for t in tiers:
+        nm = t["name"]
+        m = re.match(r"^(.+?) - (.+?) Recipe$", nm)
+        p = re.match(r"^Plan: (.+)$", nm)
+        if t["type"] == "Caps":
+            if on_server(CAPS_IMAGE):
+                t["image"] = CAPS_IMAGE
+        elif m and m.group(1) in by_name:
+            w = by_name[m.group(1)]
+            img = w.get("image") or (by_name.get(w.get("base")) or {}).get("image") or ""
+            if img and on_server(img):
+                t["image"] = img
+                if not w.get("image"):
+                    t["image_note"] = f"Picture: {w.get('base')} (the {w['name']} has no picture of its own yet)"
+            t["crafts"] = f"{m.group(2)} (weapon mod for the {w['name']})"
+            mod = next((u for u in w.get("uniqueMods", []) if u.get("kind") == "unique"), None)
+            if mod:
+                t["weapon_mod"] = mod.get("formId", "")
+        elif p and p.group(1) in legmods:
+            lm = legmods[p.group(1)]
+            img = lm.get("image") or LEGENDARY_MOD_IMAGE
+            if on_server(img):
+                t["image"] = img
+            t["crafts"] = f"{lm['name']} ({lm.get('star')}\u2605 legendary mod)"
+            if lm.get("headline"):
+                t["note"] = lm["headline"]
 
 
 def build_holotapes(channel):
@@ -361,6 +439,7 @@ def main():
         "pages": pages, "locations": locs,
         "rewards": {"milestones": tiers, "hand_in": hand_in},
         "holotapes": build_holotapes(channel),
+        "holotape_image": HOLOTAPE_IMAGE,
     }
     for pg in pages:
         pg["maps"] = page_maps(pg, doc)

@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-11-08",
+  "generated": "2026-11-09",
   "channel": "pts",
   "source": "SeventySix.esm placements + CHAL/GMRW/GLOB/NOTE exports",
   "note": "***Subject to change pending porting to live servers***"
@@ -3757,7 +3757,7 @@
     "challenge": "Find your first Brain in a Jar",
     "form_id": "008AF713",
     "edid": "Challenge_Lifetime_RTSV_Collect_Brain_Tier01",
-    "image": "",
+    "image": "/wp-content/uploads/season_images/utility/score_currency_caps.avif",
     "note": ""
    },
    {
@@ -3768,8 +3768,11 @@
     "challenge": "Find more Brains in Jars",
     "form_id": "008AF712",
     "edid": "Challenge_Lifetime_RTSV_Collect_Brain_Tier02",
-    "image": "",
-    "note": ""
+    "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/v63-zweihaender.avif",
+    "note": "",
+    "image_note": "Picture: V63 Zweihaender (the V63-Z Custom has no picture of its own yet)",
+    "crafts": "Static Turbine (weapon mod for the V63-Z Custom)",
+    "weapon_mod": "008B0902"
    },
    {
     "id": "rw-v63-z-custom-kinetic-amplifier-recipe",
@@ -3779,8 +3782,11 @@
     "challenge": "Find more Brains in Jars",
     "form_id": "008AF716",
     "edid": "Challenge_Lifetime_RTSV_Collect_Brain_Tier04",
-    "image": "",
-    "note": ""
+    "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/v63-zweihaender.avif",
+    "note": "",
+    "image_note": "Picture: V63 Zweihaender (the V63-Z Custom has no picture of its own yet)",
+    "crafts": "Kinetic Amplifier (weapon mod for the V63-Z Custom)",
+    "weapon_mod": "008B0902"
    },
    {
     "id": "rw-v63-z-custom-shockwave-concussor-recipe",
@@ -3790,8 +3796,11 @@
     "challenge": "Find more Brains in Jars",
     "form_id": "008AF717",
     "edid": "Challenge_Lifetime_RTSV_Collect_Brain_Tier05",
-    "image": "",
-    "note": ""
+    "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/v63-zweihaender.avif",
+    "note": "",
+    "image_note": "Picture: V63 Zweihaender (the V63-Z Custom has no picture of its own yet)",
+    "crafts": "Shockwave Concussor (weapon mod for the V63-Z Custom)",
+    "weapon_mod": "008B0902"
    },
    {
     "id": "rw-v63-z-custom-overclocked-capacitor-recipe",
@@ -3801,8 +3810,11 @@
     "challenge": "Find more Brains in Jars",
     "form_id": "008AF714",
     "edid": "Challenge_Lifetime_RTSV_Collect_Brain_Tier06",
-    "image": "",
-    "note": ""
+    "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/v63-zweihaender.avif",
+    "note": "",
+    "image_note": "Picture: V63 Zweihaender (the V63-Z Custom has no picture of its own yet)",
+    "crafts": "Overclocked Capacitor (weapon mod for the V63-Z Custom)",
+    "weapon_mod": "008B0902"
    },
    {
     "id": "rw-v63-z-custom-jet-thrusters-recipe",
@@ -3812,8 +3824,11 @@
     "challenge": "Find more Brains in Jars",
     "form_id": "008AF718",
     "edid": "Challenge_Lifetime_RTSV_Collect_Brain_Tier07",
-    "image": "",
-    "note": ""
+    "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/v63-zweihaender.avif",
+    "note": "",
+    "image_note": "Picture: V63 Zweihaender (the V63-Z Custom has no picture of its own yet)",
+    "crafts": "Jet Thrusters (weapon mod for the V63-Z Custom)",
+    "weapon_mod": "008B0902"
    },
    {
     "id": "rw-v63-z-custom-aftershock-blade-recipe",
@@ -3823,8 +3838,11 @@
     "challenge": "Find more Brains in Jars",
     "form_id": "008AF719",
     "edid": "Challenge_Lifetime_RTSV_Collect_Brain_Tier08",
-    "image": "",
-    "note": ""
+    "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/v63-zweihaender.avif",
+    "note": "",
+    "image_note": "Picture: V63 Zweihaender (the V63-Z Custom has no picture of its own yet)",
+    "crafts": "Aftershock Blade (weapon mod for the V63-Z Custom)",
+    "weapon_mod": "008B0902"
    },
    {
     "id": "rw-plan-retaliator-s",
@@ -3834,8 +3852,9 @@
     "challenge": "Find remaining Brains in Jars",
     "form_id": "008AF71A",
     "edid": "Challenge_Lifetime_RTSV_Collect_Brain_Tier09",
-    "image": "",
-    "note": ""
+    "image": "/wp-content/uploads/guide-images/category-images/legendary-mods-category-image.avif",
+    "note": "When hit by a melee attack, your next attack within 5 seconds will deal +50% damage",
+    "crafts": "Retaliator's (4★ legendary mod)"
    }
   ],
   "hand_in": {
@@ -3844,7 +3863,18 @@
    "xp_curve": [
     "CT_Player_XP_Universal_Tier20"
    ],
-   "loot_list": "QuestReward_LLS_SkylineValley_All"
+   "loot_list": "QuestReward_LLS_SkylineValley_All",
+   "unlocks": [
+    {
+     "name": "Brain Jar",
+     "kind": "CAMP item",
+     "cobj": "008AC85A",
+     "cobj_edid": "RTSV_Workshop_CO_BrainInJar",
+     "item": "008AC85B",
+     "item_edid": "RTSV_Workshop_BrainInJar",
+     "image": "/wp-content/uploads/guide-images/collectables/Brain-in-a-Jar-Locations/brain-in-a-jar.avif"
+    }
+   ]
   }
  },
  "holotapes": [
@@ -3923,5 +3953,6 @@
    "edid": "RTSV_SQ01_Collectible_Holotape_15",
    "name": "Scan 15: Sonny, O' My Boy"
   }
- ]
+ ],
+ "holotape_image": "/wp-content/uploads/guide-images/collectables/holotape.avif"
 }
