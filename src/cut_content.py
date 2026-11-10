@@ -25,6 +25,8 @@ from typing import Iterable
 # Case-insensitive, anchored-start unless noted otherwise.
 CUT_PATTERNS = [
     # ── Standard cut-content prefixes ──────────────────────────────────
+    # NEVER add HIDE_ here: it marks upcoming Hideouts content, not cut
+    # (Duchess, 4 Nov 2026).
     re.compile(r"^DEL_?", re.IGNORECASE),
     re.compile(r"^CUT_?", re.IGNORECASE),
     re.compile(r"^POST_?", re.IGNORECASE),

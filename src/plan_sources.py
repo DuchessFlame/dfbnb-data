@@ -125,6 +125,9 @@ from build_collectables_json import parse_ext_cell_location, is_test_cell_name
 # 1. CUT CONTENT
 # ─────────────────────────────────────────────────────────────────────────────
 # Same tuple as build_titles_json.py. If you add one there, add it here.
+# NEVER add "HIDE" here: HIDE_ marks upcoming Hideouts content, not cut
+# (Duchess, 4 Nov 2026). Not all Hideouts content has it, so it isn't a
+# complete list either.
 CUT_PREFIXES = ("DEL", "POST", "CUT", "ZZZ", "ZZZZ")
 CUT_SUFFIXES = ("_COPY01",)
 
@@ -231,6 +234,9 @@ CONFIRMED_CUT_SOURCE_PATTERNS = (
     # 0 in every export since Mar 2026, live and PTS) - the same shape as a
     # seasonal switch, so only a person can call it. The code has to stand on
     # its own between underscores.
+    # The PTS (from 20 Sep 2026) renames this content to HIDE_ (the Hideouts
+    # update), so this rule only catches the live P62_ names. HIDE_ is upcoming,
+    # not cut - look at this rule again when Hideouts reaches live.
     (re.compile(r"(?:^|_)p62(?:_|$)", re.I),
      "The Drifter", "The Drifter is cut content"),
     # Designer practice quests (QDL<name>_LessonNN). QDLBarbara_Lesson06 is
@@ -239,6 +245,14 @@ CONFIRMED_CUT_SOURCE_PATTERNS = (
     # (Duchess, 24 Oct 2026: "this event doesn't exist").
     (re.compile(r"^QDL[A-Za-z]+_Lesson\d+", re.I),
      "a designer practice quest", "designer practice quests are not in the game"),
+    # Event: The Messenger (RE_Scene_MTNZ05_Messenger [QUST:0001A634], its
+    # reward records QuestReward_RE_Scene_MTNZ05_Messenger_Stage500_01 /
+    # _Stage600_01, its dialogue, keywords and challenge records). Duchess,
+    # 3 Nov 2026: cut. Still wired up in the files, so it showed as a drop
+    # source on 96 plans. Checked against every Oct 2026 export: matches only
+    # the Messenger records, not other MTNZ05 records.
+    (re.compile(r"mtnz05_messenger", re.I),
+     "Event: The Messenger", "Event: The Messenger is cut content"),
 )
 
 

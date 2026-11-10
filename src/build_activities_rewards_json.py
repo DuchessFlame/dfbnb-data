@@ -2324,11 +2324,20 @@ def _named_version_slots(root_fid, item_fid, base_name=""):
 _CUT_LVLI_RE = re.compile(r'(?:^|[_\-])(?:CUT|DEL|ZZZ|POST|P62|TheDrifter|Drifter)(?:[_\-]|$)', re.IGNORECASE)
 
 
+# HIDE_ / HIDE<Name> records are upcoming Hideouts content, NOT cut (Duchess,
+# 4 Nov 2026). On the PTS the old Drifter lists were renamed to HIDE_..._Drifter_...,
+# so the "Drifter" word above must never retire them. Also matches "formid:HIDE_...".
+_HIDEOUTS_RE = re.compile(r'(?:^|:)HIDE')
+
+
 def _is_cut(edid):
     """This builder's old cut words OR the site-wide test
     (plan_sources.is_cut_content: confirmed cut families such as the Drifter,
     Milepost Zero, Quickplay PvP, plus zzz/CUT/DEL records). New cut families
-    go into plan_sources.CONFIRMED_CUT_SOURCE_PATTERNS, never into a regex here."""
+    go into plan_sources.CONFIRMED_CUT_SOURCE_PATTERNS, never into a regex here.
+    HIDE_ (upcoming Hideouts content) is never cut."""
+    if _HIDEOUTS_RE.search(edid or ""):
+        return False
     return bool(_CUT_LVLI_RE.search(edid or "")) or plan_sources.is_cut_content(edid)
 
 def _entry_min_level(entry):
@@ -3241,7 +3250,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         edid = (rr.get("EDID") or "").strip()
 
         # Skip cut / deprecated / removed GMRW records
-        if _cut_re.search(edid) or plan_sources.is_cut_content(edid):
+        if not _HIDEOUTS_RE.search(edid) and (_cut_re.search(edid) or plan_sources.is_cut_content(edid)):
             _seen_gmrw_stage[gmrw_fid] = None   # mark seen so we don't re-check
             continue
 
