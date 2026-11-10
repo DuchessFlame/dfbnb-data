@@ -195,7 +195,8 @@ def main():
     dn = {r["WEAP_EDID"]: r for r in rows(src["dnam"])}
     if PTS and dn and "DAMA_DamageTypes" not in next(iter(dn.values())):
         # the PTS WEAP export has no DAMA column yet - borrow the live damage types (energy, fire...)
-        live = {r["WEAP_EDID"]: r.get("DAMA_DamageTypes") or "" for r in rows(max(glob.glob(os.path.join(TSV, "WEAP_Export_*_DNAM.tsv")), key=os.path.getmtime))}
+        sys.path.insert(0, os.path.join(ROOT, "src")); import tsv_source
+        live = {r["WEAP_EDID"]: r.get("DAMA_DamageTypes") or "" for r in rows(tsv_source.newest("WEAP_Export_*_DNAM.tsv", channel="live"))}
         for k, r in dn.items(): r["DAMA_DamageTypes"] = live.get(k, "")
         warn("PTS WEAP export has no DAMA_DamageTypes - live damage types used")
     base = {r["WEAP_EDID"]: r for r in rows(src["base"])}
