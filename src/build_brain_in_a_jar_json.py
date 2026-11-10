@@ -402,6 +402,17 @@ def main():
     locs.sort(key=lambda l: l["n"])
     # Duchess 7 Nov 2026: the last brain before a fast travel says where to go next
     # ("After this one, fast travel back to Three Ponds for Brain 7.")
+    # 9 Nov 2026: "back" for the same marker only when this brain really is near it (~110 m),
+    # not just counted in its group (Camp Liberty's Riprap Overlook brains)
+    _mk = {}
+    try:
+        _ld = json.load(open(os.path.join(REPO, "dist", "pts" if channel == "pts" else "", "locations", "all_locations.json"), encoding="utf-8"))
+        _mk = {x["name"]: (x["x"], x["y"]) for r_ in _ld["regions"] for x in r_["locations"] if x.get("x") is not None}
+    except Exception:
+        pass
+    def _near_marker(l, name):
+        if name not in _mk or not l.get("coords"): return False
+        return math.hypot(l["coords"][0] - _mk[name][0], l["coords"][1] - _mk[name][1]) <= 8000
     # "back" = fast travelled there before, or this brain is at that same marker
     # (46 -> "fast travel back to Big Meadows Gas Well for Brain 47")
     # Duchess 8 Nov 2026: a page always starts with a fast travel, never "Spawn above"
@@ -415,7 +426,7 @@ def main():
         if l.get("travel") == "ft": seen.add(l["fast_travel"])
         nxt = locs[i + 1] if i + 1 < len(locs) else None
         l["next_ft"] = ({"n": nxt["n"], "marker": nxt["fast_travel"],
-                         "back": nxt["fast_travel"] in seen or nxt["fast_travel"] == l.get("fast_travel")}
+                         "back": nxt["fast_travel"] in seen or _near_marker(l, nxt["fast_travel"])}
                         if nxt and nxt.get("travel") == "ft" and nxt["page"] == l["page"] else None)
 
     tiers, hand_in = build_rewards(channel)
