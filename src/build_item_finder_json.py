@@ -602,6 +602,15 @@ def shop_date(day):
     return f"{int(m.group(3))} {_MONTHS[int(m.group(2)) - 1]} {m.group(1)}"
 
 
+def add_shop_line(answer, line):
+    """Put the shop line into a plan answer: above the small-print footer (-# ...), once."""
+    lines = answer.get("lines")
+    if not isinstance(lines, list) or line in lines:
+        return
+    at = len(lines) - 1 if lines and str(lines[-1]).startswith("-# ") else len(lines)
+    lines.insert(at, line)
+
+
 def main():
     pm = json.load(open(os.path.join(DIST, "plan_master.json"), encoding="utf-8"))
     try:
@@ -688,6 +697,7 @@ def main():
     # search(): an entitlement linked to a plan answers AS that plan.
     plan_keys = {e["key"]: e for e in entries}
     aliases = []
+    plan_shop = {}                                    # plan key -> newest "last_shop" of its entitlements
     ent_path = os.environ.get("ITEM_FINDER_ENTM") or os.path.join(ROOT, "data", "brewmaster_entitlements.json")
     if os.path.exists(ent_path):
         try:
@@ -702,6 +712,10 @@ def main():
             linked = plan_keys.get(e.get("linked") or "")
             if linked:
                 aliases.append((linked, name))        # "find X" → the plan's own answer
+                # 🛒 the plan's answer carries the shop date too (newest, if several entitlements share the plan)
+                day = str(e.get("last_shop") or "")
+                if shop_date(day) and day > plan_shop.get(linked["key"], ""):
+                    plan_shop[linked["key"]] = day
                 continue
             srcs = [str(x) for x in e.get("sources") or [] if x]
             lines = [f"🎟️ **Entitlement: {name}**"]
@@ -716,6 +730,8 @@ def main():
                             "label": "Entitlement" + (f" · {e['category']}" if e.get("category") else ""),
                             "thing": "entitlement", "cut": False, "answer": {"lines": clip(lines)},
                             "top": [[x, "", ""] for x in srcs[:3]] or [["No known source yet", "", ""]]})
+        for key, day in plan_shop.items():
+            add_shop_line(plan_keys[key]["answer"], f"🛒 Last listed in the Atomic Shop: {shop_date(day)}")
         print(f"[item finder] entitlements: {len(ents)} read, {len(aliases)} answer as their plan")
 
     # de-dupe keys (same plan listed twice keeps the first)
