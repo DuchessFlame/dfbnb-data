@@ -1067,6 +1067,11 @@ jobs:
       - name: Build Awareness Bar JSON
         run: python src/build_awareness_bar_json.py
 
+      # --- AMMO CONVERTER CALCULATOR (DF Calculators; Kat 11 Nov 2026) ---
+      # Reads the newest AMMOCONV_Export (tools/export_ammo_converter_from_esm.py) + GLOB export.
+      - name: Build Ammo Converter JSON
+        run: python src/build_ammo_converter_json.py
+
       # --- ICON MEANINGS (HUD / CAMP / Awareness Bar pages) ---
       # Re-run every patch: the skull list comes from the NPC exports, and the Hideout
       # crosshair entry switches itself on when the Hideout "Marked" keyword is in the files.
