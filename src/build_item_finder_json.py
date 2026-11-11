@@ -591,6 +591,17 @@ def _pnum(s):
 
 
 # ── main ─────────────────────────────────────────────────────────────────────
+_MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
+
+def shop_date(day):
+    """'2026-11-03' -> '3 Nov 2026' (the same wording Brewmaster uses); '' for anything else."""
+    m = re.match(r"^(\d{4})-(\d\d)-(\d\d)$", str(day or ""))
+    if not m or not 1 <= int(m.group(2)) <= 12:
+        return ""
+    return f"{int(m.group(3))} {_MONTHS[int(m.group(2)) - 1]} {m.group(1)}"
+
+
 def main():
     pm = json.load(open(os.path.join(DIST, "plan_master.json"), encoding="utf-8"))
     try:
@@ -695,6 +706,10 @@ def main():
             srcs = [str(x) for x in e.get("sources") or [] if x]
             lines = [f"🎟️ **Entitlement: {name}**"]
             lines.extend(f"• {x}" for x in srcs) if srcs else lines.append("I don't have a source for this one yet.")
+            # 🛒 newest Bethesda Atomic Shop article that names it (Brewmaster's shopDates.js keeps it current)
+            shop = shop_date(e.get("last_shop"))
+            if shop:
+                lines.append(f"🛒 Last listed in the Atomic Shop: {shop}")
             if e.get("category"):
                 lines.append(f"-# {e['category']}")
             entries.append({"key": "e:" + compact(name), "kind": "entm", "name": name, "bare": name,
