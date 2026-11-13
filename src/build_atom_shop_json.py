@@ -92,6 +92,44 @@ def _sorted_tsv(paths, exclude_substrings=None):
                  if not any(s in os.path.basename(p) for s in exclude_substrings)]
     return sorted(paths, key=lambda p: (_filename_date_key(p), os.path.basename(p)))
 
+LTB_FOUND_FILE = os.path.join(SCRIPT_DIR, "..", "data", "ltb_found.json")
+
+
+def _merge_found_ltb():
+    """Add bundles from data/ltb_found.json (written by Brewmaster) that LTB_BUNDLES doesn't have."""
+    if not os.path.exists(LTB_FOUND_FILE):
+        return
+    try:
+        with open(LTB_FOUND_FILE, encoding="utf-8") as fh:
+            found = json.load(fh).get("bundles", [])
+    except Exception as exc:  # a broken file must never stop the Atom Shop build
+        print(f"[atom_shop] WARNING: could not read {LTB_FOUND_FILE}: {exc}")
+        return
+    def _key(s):
+        return " ".join("".join(ch.lower() if ch.isalnum() else " " for ch in str(s or "")).split())
+    have = {b.get("id") for b in LTB_BUNDLES} | {_key(b.get("name")) for b in LTB_BUNDLES}
+    added = 0
+    for b in found:
+        if not b.get("name") or b.get("id") in have or _key(b.get("name")) in have:
+            continue
+        LTB_BUNDLES.append({
+            "id":        b.get("id") or _key(b.get("name")).replace(" ", "-"),
+            "name":      b["name"],
+            "released":  b.get("released") or "",
+            "update":    b.get("update"),
+            "platforms": b.get("platforms") or ["Steam", "PlayStation", "Xbox"],
+            "imageUrl":  b.get("imageUrl") or "",
+            "items": [{"name": i.get("name", ""), "desc": i.get("desc", ""), "formId": i.get("formId", ""),
+                       "edid": i.get("edid", ""), "imageUrl": i.get("imageUrl", "")}
+                      for i in b.get("items", []) if i.get("name")],
+        })
+        have.add(b.get("id")); have.add(_key(b.get("name")))
+        added += 1
+    if added:
+        LTB_BUNDLES.sort(key=lambda b: str(b.get("released") or ""), reverse=True)   # newest first, as the page expects
+    print(f"[atom_shop] LTB bundles from data/ltb_found.json: {added} added")
+
+
 # ── Limited Time Bundles (real-money platform DLC) ───────────────────
 # Ordered newest-first. status: "active" | "replaced" | "discontinued" | "removed"
 # imageUrl fields use filenames only; LTB_IMAGE_BASE_URL is prepended by the JS.
@@ -1258,6 +1296,11 @@ def main():
             print(f"  {cat:40s} {count:4d}")
     total = sum(cat_counts.values())
     print(f"  {'TOTAL':40s} {total:4d}")
+
+    # ── Limited Time Bundles Brewmaster found in Bethesda's news (13 Nov 2026, Bot Job #662) ──
+    # Brewmaster (ltbWatch.js) commits data/ltb_found.json; each new paid bundle there is added
+    # here. A bundle already typed into LTB_BUNDLES (same id or name) wins, so hand edits always stick.
+    _merge_found_ltb()
 
     # ── Write LTB static data ────────────────────────────────────────
     # LTB imageUrl values are filenames only; the JS prepends LTB_IMAGE_BASE_URL.
