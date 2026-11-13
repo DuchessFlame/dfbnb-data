@@ -528,6 +528,10 @@ jobs:
       - name: Build Slasher Lore JSON
         run: python src/build_slasher_lore_json.py --data-dir tsv --out dist/collectables_slasher_lore.json
 
+      # Brain in a Jar Scan holotapes + Abraxodyne Tapes lore checklists (13 Nov 2026)
+      - name: Build Quest Lore JSON
+        run: python src/build_quest_lore_json.py --data-dir tsv
+
       # --- CAMP ITEMS ---
       - name: Build Camp Items JSON
         run: |

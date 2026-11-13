@@ -8,7 +8,8 @@ does the same: the paper's own texture from the game files + the note's text
 in the game's layout (line breaks, alignment, typewriter / handwriting,
 colours), and saves <slug>-note.avif for the page.
 
-Reads   dist/collectables_slasher_lore.json   (items with "note" + "image")
+Reads   dist/collectables_slasher_lore.json   (items with "note" + "image";
+        any lore JSON of the same shape with --lore, e.g. the quest lore pages)
         the paper textures from the game's Textures ba2s (--data), or from a
         folder of already-pulled .dds / .png files (--paper-dir)
 Writes  <out>/<file name from the item's "image">   e.g.
@@ -53,6 +54,7 @@ PAPER_TEXTURE = {
     "HighPoly_Note_Classified": "Interface/Note/Note_ClassifiedHighPoly_d.dds",
     "HighPoly_NoteRipped": "Interface/Note/NoteRipped_d.dds",
     "HighPoly_SlasherMap": "Interface/Note/Note_LinedPaper_SlasherMap_d.dds",
+    "DotMatrixPrinterNoteINV01": "Interface/Note/DotMatrixPage01_d.dds",
 }
 DEFAULT_PAPER = "Interface/Note/Note_Plain03HighPoly_d.dds"
 
