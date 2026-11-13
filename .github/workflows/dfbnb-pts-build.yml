@@ -1194,6 +1194,13 @@ jobs:
             --tsv-dir tsv \
             --out-dir dist
 
+      # --- WORLD PET LEVELING REWARDS (World Pets - Leveling Rewards checklist) ---
+      # Outputs dist/world_pet_rewards.json for df-bnb-world-pet-rewards.js.
+      # Reads the PGTR export (tools/export_pgtr_from_esm.py) + GMRW, ENTM, ARMO.
+      # No PGTR export in the channel = an empty file (the page then reads PTS).
+      - name: Build World Pet Leveling Rewards JSON
+        run: python src/build_world_pet_rewards_json.py
+
       # --- WEAK SPOT MULTIPLIERS (BnB calculators) ---
       # Outputs dist/calculators/weak_spot_multipliers.json for df-bnb-bnb-calculators.js.
       - name: Build Weak Spot Multipliers JSON
