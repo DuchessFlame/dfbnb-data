@@ -15,6 +15,8 @@ on:
       - "src/build_collectables_json.py"
       - "src/build_slasher_lore_json.py"
       - "src/build_quest_lore_json.py"
+      - "src/build_lore_holotapes_json.py"
+      - "tsv/NOTE2_Export*.tsv"
       - "src/slasher_guide.py"
       - "data/slasher_lore_locations.json"
       - "tsv/NOTE_Export*.tsv"
@@ -53,6 +55,10 @@ jobs:
       # Brain in a Jar Scan holotapes + Abraxodyne Tapes lore checklists (13 Nov 2026)
       - name: Build Quest Lore JSON
         run: python src/build_quest_lore_json.py --data-dir tsv
+
+      # Lore Holotape Checklist (14 Nov 2026)
+      - name: Build Lore Holotapes JSON
+        run: python src/build_lore_holotapes_json.py
 
       - name: Sanity check outputs
         run: |

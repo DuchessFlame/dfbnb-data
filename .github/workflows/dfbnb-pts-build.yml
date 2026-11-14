@@ -532,6 +532,10 @@ jobs:
       - name: Build Quest Lore JSON
         run: python src/build_quest_lore_json.py --data-dir tsv
 
+      # Lore Holotape Checklist (14 Nov 2026)
+      - name: Build Lore Holotapes JSON
+        run: python src/build_lore_holotapes_json.py --pts
+
       # --- CAMP ITEMS ---
       - name: Build Camp Items JSON
         run: |

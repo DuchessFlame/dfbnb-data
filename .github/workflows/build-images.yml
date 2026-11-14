@@ -75,6 +75,8 @@ jobs:
         run: |
           python src/build_quest_lore_json.py --data-dir tsv
           python src/build_quest_lore_json.py --data-dir tsv/pts --pts
+          python src/build_lore_holotapes_json.py
+          python src/build_lore_holotapes_json.py --pts
 
       - name: "[6] One-weapon guides"
         run: python src/build_weapon_guides_json.py

@@ -54,6 +54,7 @@ straight from the game files, so these no longer need xEdit:
     AVTR    AVTR_Export_<Month>_<Year>.tsv          (ExportAVTRToTSV.pas: player icons)
     BOOK    BOOK_Export_<Month>_<Year>.tsv + _Locations  (ExportBOOKToTSV.pas)
     BOOK2   BOOK2_Export_<Month>_<Year>.tsv         (ExportBOOK2ToCSV.pas: note placements)
+    NOTE2   NOTE2_Export_<Month>_<Year>.tsv         (ExportNOTE2ToTSV.pas: holotape placements)
     COBJ    COBJ_Export_<Month>_<Year>.tsv + COBJ2_Export_<Month>_<Year>.tsv  (ExportCOBJToTSV.pas;
             COBJ2 = learn method, learn chance, conditions, first condition quest)
     CONT    CONT_Export_<Month>_<Year>.tsv          (ExportCONTToTSV.pas: containers)
@@ -3562,8 +3563,12 @@ PLACEMENT_SETS = {
               and "temp" not in ed.lower() and "debug" not in ed.lower())],
     # ExportBOOK2ToCSV.pas: every note (the Notes checklist)
     "BOOK": [("notes", lambda fid, ed, r: _is_note_book(r))],
+    # NOTE2 (ExportNOTE2ToTSV.pas): every holotape (Lore Holotape Checklist, 14 Nov 2026)
+    "NOTE": [("holotapes", lambda fid, ed, r: True)],
 }
 PLACEMENT_HOLDERS = {"CONT", "ACTI", "FURN", "MSTT", "SCOL", "STAT", "NPC_", "LVLI"}
+# holotapes also sit in terminals (eject the tape); only the NOTE set walks TERM
+PLACEMENT_EXTRA_HOLDERS = {"NOTE": {"TERM"}}
 
 
 def _placement_set(sig, r):
@@ -3580,6 +3585,7 @@ def _placement_targets(sig):
 misc2_ref_targets = _placement_targets("MISC")
 acti2_ref_targets = _placement_targets("ACTI")
 book2_ref_targets = _placement_targets("BOOK")
+note2_ref_targets = _placement_targets("NOTE")
 
 
 def _set_placements(esm, sig):
@@ -3593,6 +3599,7 @@ def _set_placements(esm, sig):
     scanned = getattr(esm, "_placement_scanned", set())
     esm._placement_scanned = scanned
     rows = []
+    holders = PLACEMENT_HOLDERS | PLACEMENT_EXTRA_HOLDERS.get(sig, set())
 
     def refs_of(fid):
         if fid not in esm.refby and fid not in scanned:
@@ -3616,7 +3623,7 @@ def _set_placements(esm, sig):
     scanned.update(level)   # the main scan covered them (a record with no referrers has no refby entry)
     for depth in (1, 2):
         level = {rf for t in level for rf in esm.refby.get(t, ())
-                 if rf in esm.refinfo and esm.refinfo[rf][0] in PLACEMENT_HOLDERS}
+                 if rf in esm.refinfo and esm.refinfo[rf][0] in holders}
         t0 = time.time()
         prefetch(level)
         if level:
@@ -3645,7 +3652,7 @@ def _set_placements(esm, sig):
                         rows.append((rf, [slug, fid, ed, full, sig, "", "", x, y, z,
                                           "%08X" % rf, holder, "", ""]))
                         continue
-                if depth < 2 and rs in PLACEMENT_HOLDERS:
+                if depth < 2 and rs in holders:
                     walk(rf, holder or esm.refinfo[rf][1], depth + 1)
 
         walk(r.fid, "", 0)
@@ -3676,6 +3683,12 @@ def exp_acti2(esm):
 def exp_book2(esm):
     """ExportBOOK2ToCSV.pas - placements of every note (the Notes checklist)."""
     return _set_placements(esm, "BOOK")
+
+
+def exp_note2(esm):
+    """ExportNOTE2ToTSV.pas - placements of every holotape (Lore Holotape Checklist):
+    placed in the world, or in a container / corpse / terminal placed in the world."""
+    return _set_placements(esm, "NOTE")
 
 
 # ------------------------------------------------------------- ACTI ------
@@ -5496,9 +5509,9 @@ def _lore_notes(esm):
     return out + [x for _, x in rows]
 
 
-NEEDS_REFS = {"OMOD", "PERK", "ARMO2", "AVTR", "BOOK", "BOOK2", "COBJ", "CONT", "ENCH", "ENTM", "FISH", "FLST", "FURN", "GMRW", "KEYM", "LGDI", "LCTN", "MGEF", "NOTE", "PCRD", "QUEST", "WTHR", "ALCH", "QUST2", "LVLI", "GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "ECAT", "CNDF", "LSCR", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
+NEEDS_REFS = {"OMOD", "PERK", "ARMO2", "AVTR", "BOOK", "BOOK2", "COBJ", "CONT", "ENCH", "ENTM", "FISH", "FLST", "FURN", "GMRW", "KEYM", "LGDI", "LCTN", "MGEF", "NOTE", "PCRD", "QUEST", "WTHR", "ALCH", "QUST2", "LVLI", "GLOB", "AVIF", "KYWD", "CURV", "CMPO", "RESO", "BPTD", "ECAT", "CNDF", "LSCR", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2", "NOTE2"}
 # exports that need Referenced By for more than their own records
-REF_TARGETS = {"ARMO2": armo2_ref_targets, "BOOK2": book2_ref_targets, "NPC2": npc2_ref_targets, "MISC2": misc2_ref_targets, "ACTI2": acti2_ref_targets}
+REF_TARGETS = {"ARMO2": armo2_ref_targets, "BOOK2": book2_ref_targets, "NPC2": npc2_ref_targets, "MISC2": misc2_ref_targets, "ACTI2": acti2_ref_targets, "NOTE2": note2_ref_targets}
 
 EXPORTS = {
     # key: (record types to load, file prefix, function)
@@ -5540,6 +5553,7 @@ EXPORTS = {
     "AVTR": (["AVTR"], "AVTR_Export", exp_avtr),
     "BOOK": (["BOOK"], "BOOK_Export", exp_book),
     "BOOK2": (["BOOK"], "BOOK2_Export", exp_book2),
+    "NOTE2": (["NOTE"], "NOTE2_Export", exp_note2),
     "COBJ": (["COBJ"], "COBJ_Export", exp_cobj),
     "CONT": (["CONT"], "CONT_Export", exp_cont),
     "ENCH": (["ENCH"], "ENCH_Export", exp_ench),

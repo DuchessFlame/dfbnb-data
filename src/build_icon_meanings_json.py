@@ -87,7 +87,25 @@ def row(id_, name, img, pill, meaning, when=None, ex=None, extra_imgs=None, base
     return {"id": id_, "name": name, "images": images, "pill": pill,
             "meaning": meaning, "when": when or [], "examples": ex or []}
 
-def hud_page(refs):
+def pet_icon_names():
+    """KYWD EDID -> ENAM icon name for the World Pets UI icon keywords, from the newest
+    KYWD export (the PTS build normalises tsv/pts into tsv/, so this follows the channel)."""
+    path = tsv_source_newest_kywd()
+    out = {}
+    if not path:
+        return out
+    with open(path, encoding="utf-8", errors="replace", newline="") as fh:
+        for row in csv.DictReader(fh, delimiter="\t"):
+            ed = row.get("EDID") or ""
+            if ed.startswith("WorldPets_UI_Icon_"):
+                out[ed] = (row.get("ENAM_IconName") or "").strip()
+    return out
+
+def tsv_source_newest_kywd():
+    import tsv_source
+    return tsv_source.newest("KYWD_Export_*.tsv", exclude=("_Refs",), required=False)
+
+def hud_page(refs, pet_icons=None):
     E = lambda *k, **kw: examples(refs, *k, **kw)
     status = [
         row("chems", "Chems & Buffs", "chems-and-buffs", "Buff",
@@ -228,6 +246,9 @@ def hud_page(refs):
             ["Shows after the banner's revive effect has been used; it can't trigger again until the icon goes."],
             E("Icon_ScoutsCourage")),
     ]
+    pet_icons = pet_icons or {}
+    rested_own_icon = pet_icons.get("WorldPets_UI_Icon_WellRestedBuff") == "PetRested"
+    plain_paw = pet_icons.get("WorldPets_UI_Icon_PetBuff") == "PetBuff"
     pets = [
         row("pet-buff-cat", "Cat Pet Buffs", "pet-buff-cat", "Buff",
             "A buff from your Cat world pet.", ["Shows in the Pip-Boy Effects list while your cat's buffs are active."],
@@ -238,13 +259,31 @@ def hud_page(refs):
         row("pet-buff-deathclaw", "Deathclaw Pet Buffs", "pet-buff-deathclaw", "Buff",
             "A buff from your Deathclaw world pet.", ["Shows in the Pip-Boy Effects list while your deathclaw's buffs are active."],
             E("WorldPets_UI_Icon_DeathclawBuff")),
-        row("pet-buff-radhog", "Radhog Pet Buffs", "pet-buff-radhog", "Buff",
+        # Nov 2026 PTS: Pet Rested gets its own icon (ENAM "PetRested") instead of
+        # borrowing the Radhog one, and the pet-buffs-off icon becomes a plain paw
+        # (ENAM "PetBuff"). Read from the KYWD export, so live switches by itself on patch day.
+        *([row("pet-buff-radhog", "Radhog Pet Buffs", "pet-buff-radhog", "Buff",
+            "A buff from your Radhog world pet.",
+            ["Shows in the Pip-Boy Effects list while your radhog's buffs are active."],
+            E("WorldPets_UI_Icon_RadhogBuff")),
+          row("pet-rested", "Pet Rested", "pet-rested", "Buff",
+            "Your world pet is earning bonus Pet XP.",
+            ["Shows in the Pip-Boy Effects list after you log in and bring out a pet each day.",
+             "Lasts 4 hours of pet time. The timer pauses while no pet is out and resets with the daily challenges."],
+            E("WorldPets_UI_Icon_WellRestedBuff"))]
+          if rested_own_icon else
+          [row("pet-buff-radhog", "Radhog Pet Buffs", "pet-buff-radhog", "Buff",
             "A buff from your Radhog world pet. The pet Well Rested buff uses this icon too.",
             ["Shows in the Pip-Boy Effects list while your radhog's buffs are active."],
-            E("WorldPets_UI_Icon_RadhogBuff", "WorldPets_UI_Icon_WellRestedBuff")),
-        row("pet-prowess", "Pet Prowess", "pet-prowess", "Buff",
-            "The combined buff your world pet gives you.", ["Shows in the Pip-Boy Effects list while your pet's buffs are active."],
-            E("WorldPets_UI_Icon_PetProwess")),
+            E("WorldPets_UI_Icon_RadhogBuff", "WorldPets_UI_Icon_WellRestedBuff"))]),
+        # The icon keyword (008E05E7) sits on SPEL WorldPets_DisabledBuffs "Pet Buffs"
+        # (description "Pet buffs are disabled"), on live and on the PTS. It is NOT a
+        # Pet Prowess icon, whatever the old keyword name said. Image file name kept.
+        row("pet-prowess", "Pet Buffs Off", "pet-buffs-off" if plain_paw else "pet-prowess", "Info",
+            "Your world pet's buffs are switched off.", ["Shows in the Pip-Boy Effects list while your pet buffs are disabled."],
+            # 14 Nov 2026 PTS: the same keyword (008E05E7) was renamed to
+            # WorldPets_UI_Icon_PetBuff (icon PetProwess1Icon -> PetBuff), so read both.
+            E("WorldPets_UI_Icon_PetProwess", "WorldPets_UI_Icon_PetBuff")),
     ]
     team = [
         row("teammate-downed", "Teammate Downed", "teammate-downed", "Info",
@@ -607,7 +646,7 @@ def main():
     data = {"version": 1,
             "generated": datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
             "source": src,
-            "pages": {"hud": hud_page(refs), "camp": camp_page(), "awareness": awareness_page()}}
+            "pages": {"hud": hud_page(refs, pet_icon_names()), "camp": camp_page(), "awareness": awareness_page()}}
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, "w", encoding="utf-8") as fh:
         json.dump(data, fh, ensure_ascii=False, indent=1)
