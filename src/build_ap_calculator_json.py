@@ -326,6 +326,14 @@ def main():
     feral_tiers.sort(key=lambda x: x["value"])
 
     fregen = next(f for f in regen["formulas"] if f["id"] == "regen")
+    # Legendary Agility perk card: one Fortify Agility effect per rank, added up (Kat 13 Nov 2026)
+    leg_agi, tot = [], 0.0
+    for r in spel("AbLgnPerkAgility"):
+        tot += float(r.get("EFIT_Magnitude") or 0); leg_agi.append(tidy(tot))
+    if not leg_agi:
+        warnings.append("SPEL AbLgnPerkAgility: no ranks found")
+    leg_agi = {"ranks": leg_agi, "src": {"type": "SPEL", "edid": "AbLgnPerkAgility"}}
+
     out = {
         "version": 1,
         "generated": datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0).isoformat(),
@@ -351,6 +359,7 @@ def main():
             "base": fap["inputs"]["base"], "perAgility": fap["inputs"]["mult"],
             "notes": ap.get("details", []),
             "thirstQuencher": {"points": tq["points"] if tq else [], "input": "Endurance", "src": {"type": "CURV", "edid": "ThirstQuencherBonus"}},
+            "legendaryAgility": leg_agi,
             "active": active,
             "builds": [{"name": k, **v} for k, v in builds.items()],
             "foods": ap_foods,

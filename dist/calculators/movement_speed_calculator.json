@@ -1,0 +1,174 @@
+{
+ "generated": "2026-11-13",
+ "source": "SPEEDX_Export_November_2026.tsv",
+ "base": 100,
+ "cap": 150,
+ "perks": {
+  "gunRunner": {
+   "name": "Gun Runner",
+   "special": "Agility",
+   "ranks": [
+    10,
+    20
+   ],
+   "when": "run",
+   "group": null,
+   "src": {
+    "type": "SPEL",
+    "edid": "AbPerkGunRunner"
+   },
+   "needs": "ranged"
+  },
+  "squadManeuvers": {
+   "name": "Squad Maneuvers",
+   "special": "Charisma",
+   "ranks": [
+    10,
+    20
+   ],
+   "when": "run",
+   "group": null,
+   "src": {
+    "type": "SPEL",
+    "edid": "AbPerkSquadManeuvers"
+   },
+   "needs": "team"
+  },
+  "portablePower": {
+   "name": "Portable Power",
+   "special": "Strength",
+   "ranks": [
+    10,
+    20,
+    30
+   ],
+   "when": "run",
+   "group": null,
+   "src": {
+    "type": "SPEL",
+    "edid": "AbPerkPortablePower"
+   },
+   "needs": "powerArmour"
+  },
+  "deadManSprinting": {
+   "name": "Dead Man Sprinting",
+   "special": "Agility",
+   "ranks": [
+    10,
+    20
+   ],
+   "when": "sprint",
+   "group": null,
+   "src": {
+    "type": "SPEL",
+    "edid": "AbPerkDeadManSprinting"
+   },
+   "needs": "lowHp",
+   "hpBelow": [
+    40,
+    50
+   ]
+  },
+  "jaguarSpeed": {
+   "name": "Jaguar Speed",
+   "special": "Agility",
+   "ranks": [
+    10,
+    20
+   ],
+   "when": "sprint",
+   "group": null,
+   "src": {
+    "type": "SPEL",
+    "edid": "GHL_AbPerkJaguarSpeed"
+   },
+   "needs": "glow",
+   "ghoulOnly": true,
+   "radsAtLeast": 200
+  }
+ },
+ "speedDemon": {
+  "name": "Speed Demon",
+  "value": 20,
+  "sin": 25,
+  "when": "both",
+  "group": null,
+  "src": {
+   "type": "SPEL",
+   "edid": "Mutation_SpeedDemon"
+  }
+ },
+ "freightTrain": {
+  "name": "Freight Train",
+  "value": 10,
+  "when": "sprint",
+  "group": null,
+  "src": {
+   "type": "SPEL",
+   "edid": "AbPerkFreightTrain"
+  }
+ },
+ "powerArmour": {
+  "overdriveServos": {
+   "name": "Overdrive Servos",
+   "perLeg": 10,
+   "when": "sprint",
+   "group": null,
+   "src": {
+    "type": "OMOD+ENCH",
+    "edid": "_PARENT_mod_PowerArmor_GENERIC_SprintBoost / EnchPowerArmor_OverdriveServos"
+   }
+  },
+  "emergencyProtocols": {
+   "name": "Emergency Protocols",
+   "value": 25,
+   "hpBelow": 20,
+   "orEqual": false,
+   "when": "both",
+   "group": null,
+   "src": {
+    "type": "ENCH",
+    "edid": "EnchPowerArmor_EmergencyProtocols"
+   }
+  },
+  "propelling": {
+   "name": "Propelling",
+   "star": 4,
+   "perPiece": 5,
+   "when": "both",
+   "group": null,
+   "src": {
+    "type": "ENCH",
+    "edid": "ench_LegendaryPowerArmor_Propelling"
+   }
+  }
+ },
+ "food": [
+  {
+   "name": "Wasteland Fish Sandwich",
+   "value": 20,
+   "minutes": 60,
+   "when": "both",
+   "group": null,
+   "src": {
+    "type": "ALCH",
+    "edid": "SeasonalFish_Meal_SummerWastelandFishSandwich"
+   }
+  }
+ ],
+ "encumbered": {
+  "drain": {
+   "DrainMult": 3,
+   "WeightMult": 0,
+   "WeightBase": 1,
+   "EndMult": 0,
+   "EndBase": 1
+  },
+  "apToRunAgain": 40,
+  "src": {
+   "type": "EXE+GMST",
+   "edid": "fEncumberedRunningActionPoints*"
+  }
+ },
+ "warnings": []
+}

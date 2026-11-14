@@ -628,6 +628,152 @@ TERMS_OF_SERVICE = {
 }
 
 
+# ---------------------------------------------------------------------------
+# Buffs n Brew pages (/bnb/buffs-n-brew/...) - written guides, same renderer as
+# the Privacy Policy (renderWrittenGuide in df-bnb-about.js). Kat 14 Nov 2026.
+# Facts from Kat and the three BnB Facebook groups' About pages / group rules
+# (Xbox opened 9 Nov 2021, PC 28 Nov 2023, PlayStation 25 Feb 2024), and the
+# order confirmation in Kat's BnB pricing page (caps / junk, 15,000 caps, 7 days).
+# "splitBefore": true draws the dashed line above that section.
+# ---------------------------------------------------------------------------
+PLACE_AN_ORDER = {
+    "title": "Buffs n Brew - Place an Order",
+    "subtitle": (
+        "How to order from Buffs n Brew on Xbox, PlayStation or PC. Order on "
+        "our Discord or in your platform’s Facebook group."
+    ),
+    "sections": [
+        {
+            "title": "",
+            "html": (
+                "<p>You can order on <strong>Discord</strong> (all platforms) or in the "
+                "<strong>Facebook group</strong> for your platform. Pick whichever suits you.</p>"
+                "<p class=\"ab-guide-note\">Every order needs your <strong>timezone</strong> and your "
+                "<strong>IGN / PSN / GT</strong>. That’s how we give you a chef in your timezone.</p>"
+            ),
+        },
+        {
+            "title": "Discord (All Platforms)",
+            "html": (
+                "<ol>"
+                "<li>Join the Discord: <a href=\"https://discord.gg/GUf4tUWmUH\" target=\"_blank\" rel=\"noopener\">discord.gg/GUf4tUWmUH</a></li>"
+                "<li>Go to the <strong>Role Assignment</strong> channel.</li>"
+                "<li>Pick <strong>Buffs n Brew - {your platform}</strong> and your <strong>Timezone</strong> role.</li>"
+                "<li>That opens two channels for your platform: <strong>{your platform} - place your order here</strong> "
+                "and <strong>{your platform} - order questions</strong>.</li>"
+                "<li>Post your order in <strong>place your order here</strong>, with your timezone and IGN / PSN / GT.</li>"
+                "</ol>"
+                "<p>Got a question before you order? Ask in <strong>order questions</strong>.</p>"
+            ),
+        },
+        {
+            "title": "Xbox (Facebook)",
+            "html": (
+                "<ol>"
+                "<li>Join the group: <a href=\"https://www.facebook.com/groups/buffsnbrewxbox/\" target=\"_blank\" rel=\"noopener\">Buffs n Brew Xbox</a></li>"
+                "<li>Post your order in the group, with your timezone and GT.</li>"
+                "<li>Your order goes into pending, and the next available chef picks it up.</li>"
+                "</ol>"
+            ),
+        },
+        {
+            "title": "PlayStation (Facebook)",
+            "html": (
+                "<ol>"
+                "<li>Join the group: <a href=\"https://www.facebook.com/groups/buffsnbrewps/\" target=\"_blank\" rel=\"noopener\">Buffs n Brew PlayStation</a></li>"
+                "<li>Post your order in the group, with your timezone and PSN.</li>"
+                "<li>Your order goes into pending, and the next available chef picks it up.</li>"
+                "</ol>"
+            ),
+        },
+        {
+            "title": "PC (Facebook)",
+            "html": (
+                "<ol>"
+                "<li>Join the group: <a href=\"https://www.facebook.com/groups/buffsnbrewpc/\" target=\"_blank\" rel=\"noopener\">Buffs n Brew PC</a></li>"
+                "<li>Post your order in the group, with your timezone and IGN.</li>"
+                "<li>Your order goes into pending, and the next available chef picks it up.</li>"
+                "</ol>"
+            ),
+        },
+    ],
+}
+
+ABOUT_FAQ = {
+    "title": "Buffs n Brew - About & FAQ",
+    "subtitle": "",
+    "sections": [
+        {
+            "title": "About Buffs n Brew",
+            "html": (
+                "<p><strong>Buffs n Brew - Wasteland Catering Company</strong> is a team of Fallout 76 players "
+                "who cook food and drink buffs for the community. Run by DuchessFlame, we’ve been feeding "
+                "the wasteland since <strong>November 2021</strong>.</p>"
+                "<p>We’re here to help the community, not to make a profit. Our chefs fit orders in around "
+                "their own work, families and lives, so please be patient and kind with them.</p>"
+                "<p>We also help with food buff know-how: which buffs suit your build, how buffs stack with "
+                "mutations, and how to farm and craft your own.</p>"
+            ),
+        },
+        {
+            "title": "Where We Are",
+            "html": (
+                "<ul>"
+                "<li><strong>Xbox</strong> - our first group, opened <strong>9 November 2021</strong></li>"
+                "<li><strong>PC</strong> - opened <strong>28 November 2023</strong></li>"
+                "<li><strong>PlayStation</strong> - opened <strong>25 February 2024</strong></li>"
+                "<li><strong>Discord</strong> - all platforms in one place</li>"
+                "</ul>"
+                "<p>See <a href=\"../place-an-order/\">Place an Order</a> for how to join and order on each one.</p>"
+            ),
+        },
+        {
+            "title": "FAQ",
+            "splitBefore": True,
+            "html": (
+                "<h3>What do I need to put in my order?</h3>"
+                "<p>What you want and how many, your <strong>timezone</strong>, and your <strong>IGN / PSN / GT</strong>. "
+                "Your timezone lets us give you a chef in your timezone.</p>"
+                "<h3>How do I pay?</h3>"
+                "<p>With <strong>caps</strong>, <strong>junk</strong>, or a mix of both. Your chef sends you an order "
+                "confirmation with the total in caps, plus how much that is in different junk (like ammo, lead or "
+                "flux), so you can pick what suits you.</p>"
+                "<p class=\"ab-guide-note\">Orders over <strong>15,000 caps</strong> can’t be paid all in caps. "
+                "Pay part caps and part junk, or all junk.</p>"
+                "<h3>How long does an order take?</h3>"
+                "<p>Up to <strong>7 days</strong>, counted from the day your order is priced. Your chef will tag you "
+                "when it’s ready.</p>"
+                "<h3>How often can I order?</h3>"
+                "<p>Once every <strong>7 days</strong>, counted from the day your last order was priced.</p>"
+                "<h3>Can I order chems, alcohol or Nuka-Cola on their own?</h3>"
+                "<p>No. If your order has any of these, you also need to add a fresh food or tea buff:</p>"
+                "<ul><li>All chems</li><li>All alcohol</li><li>All Nuka-Cola products</li>"
+                "<li>Pemmican, Canned Coffee, Sunshine Oil and Canned Meat Stew</li></ul>"
+                "<p class=\"ab-guide-note\">Example: 50x Nuka Dark + 50x Sweet Mutfruit Tea.</p>"
+                "<h3>Why did my order amounts change?</h3>"
+                "<p>When we’re busy, we may cut the amounts in an order. We’ll always tell you if we do.</p>"
+                "<h3>Do I need to confirm my order?</h3>"
+                "<p>Yes. Once your order is priced, reply to your order confirmation to say yes within "
+                "<strong>24 hours</strong>, or it gets cancelled. After <strong>3 cancelled orders</strong>, "
+                "you’ll be removed from the group.</p>"
+                "<h3>My order says pending. Did you see it?</h3>"
+                "<p>Yes, we saw it the first time. It goes to the next available chef in your timezone. Please "
+                "don’t delete it or post it again.</p>"
+                "<h3>How do I get my order?</h3>"
+                "<p>We’ll message you when it’s ready. You then have <strong>24 hours</strong> to collect it. "
+                "If you can’t make it in time, tell your chef as soon as you can.</p>"
+                "<p>Not on Facebook much? Give your chef another way to reach you, like Xbox or PlayStation "
+                "messages, or Discord.</p>"
+                "<h3>Can I resell what I get from you?</h3>"
+                "<p>No. Our food and drinks are for you to use, not to sell on.</p>"
+                "<h3>What happens if I break the rules?</h3>"
+                "<p>You can be removed from the group. That includes being rude to our staff.</p>"
+            ),
+        },
+    ],
+}
+
+
 def read_tsv_column(path: Path, column: str) -> list[str]:
     """Read a single column out of a TSV, stripping blanks. Returns [] if the
     file doesn't exist — pages without a TSV yet get an empty list."""
@@ -673,6 +819,10 @@ def build(src_dir: Path) -> dict:
     # Terms of Service — written guide, same shape as the Privacy Policy.
     about["terms-of-service"] = TERMS_OF_SERVICE
 
+    # Buffs n Brew pages (/bnb/buffs-n-brew/<slug>/) - written guides (Kat 14 Nov 2026).
+    about["place-an-order"] = PLACE_AN_ORDER
+    about["about-faq"] = ABOUT_FAQ
+
     # Other /about/ pages — placeholder until content is added.
     # Each is keyed by URL slug; the JS module dispatches by slug.
     for slug, title in [
@@ -710,6 +860,8 @@ def main() -> int:
     print(f"  work-with-me       actions: {len(data['work-with-me']['actions'])}")
     print(f"  privacy-policy     sections: {len(data['privacy-policy']['sections'])}")
     print(f"  terms-of-service   sections: {len(data['terms-of-service']['sections'])}")
+    print(f"  place-an-order     sections: {len(data['place-an-order']['sections'])}")
+    print(f"  about-faq          sections: {len(data['about-faq']['sections'])}")
     print(f"  follow             subtitle={data['follow']['subtitle'][:48]!r}...")
     for k in ("community-groups",):
         print(f"  {k:<18} title={data[k]['title']!r}, subtitle={data[k]['subtitle']!r}")

@@ -914,6 +914,11 @@ jobs:
       - name: Build AP Calculator JSON
         run: python src/build_ap_calculator_json.py
 
+      # --- MOVEMENT SPEED CALCULATOR (BnB Calculators; Kat 14 Nov 2026) ---
+      # Reads the newest SPEEDX_Export (tools/esm_speed_extract.py) + dist/perk_cards.json + OMOD export.
+      - name: Build Movement Speed Calculator JSON
+        run: python src/build_movement_speed_calculator_json.py
+
       # --- STARFIELD ---
       - name: Build Starfield JSON
         run: python src/build_starfield_json.py
