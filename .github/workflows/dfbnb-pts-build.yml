@@ -1630,6 +1630,17 @@ jobs:
 
       # --- SANITY CHECK ---
       # --- MELEE DAMAGE CALCULATOR (reads builds_data, legendary_star_pages, food + V.A.T.S. calculator JSON) ---
+      # vats_crit_calculator.json is built on Sally (src/build_vats_crit_calculator_json.py, no --pts mode)
+      # and committed, so "Clear dist for a clean PTS build" wiped it and the melee/ranged builds failed
+      # with FileNotFoundError every run since 10 Nov. Restore the committed copy first (Kat 14 Nov 2026).
+      - name: Restore vats_crit_calculator.json for the damage calculators
+        run: git checkout HEAD -- dist/calculators/vats_crit_calculator.json
+
+      # Then build the PTS version (Kat 14 Nov 2026) -> dist/pts/calculators/vats_crit_calculator.json,
+      # which the damage calculators read first. The restored live copy stays as their fallback.
+      - name: Build VATS Crit Calculator JSON (PTS)
+        run: python src/build_vats_crit_calculator_json.py --pts
+
       - name: Build Melee Damage Calculator JSON
         run: python src/build_melee_damage_calculator_json.py --pts
 

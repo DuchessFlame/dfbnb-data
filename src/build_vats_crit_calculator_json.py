@@ -1,6 +1,7 @@
 """V.A.T.S. Crit & Luck Calculator data (Kat 4 Nov 2026).
 
 /bnb/calculators/vats-crit-luck-calculator/  ->  dist/calculators/vats_crit_calculator.json
+(--pts -> dist/pts/calculators/vats_crit_calculator.json; built by both patch workflows since 14 Nov 2026)
 (df-bnb-vats-crit-calculator.js reads it).
 
 Every number comes from the game exports in tsv/ (newest of each) - nothing is typed
@@ -28,10 +29,24 @@ import csv, datetime, glob, json, os, re, sys
 csv.field_size_limit(10 ** 9)
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TSV = os.path.join(ROOT, "tsv")
-OUT = os.path.join(ROOT, "dist", "calculators", "vats_crit_calculator.json")
+sys.path.insert(0, os.path.join(ROOT, "src"))
+import tsv_source  # noqa: E402
+
+# --pts (Kat 14 Nov 2026): read tsv/pts (live export when PTS has none, with a warning) and write
+# dist/pts/calculators/. Inputs from other builders come from dist/pts/ first, then dist/.
+CHANNEL = tsv_source.channel_of()
+DIST = os.path.join(ROOT, "dist", "pts") if CHANNEL == "pts" else os.path.join(ROOT, "dist")
+
+
+def dist_in(*parts):
+    p = os.path.join(DIST, *parts)
+    return p if os.path.exists(p) else os.path.join(ROOT, "dist", *parts)
+
+
+OUT = os.path.join(DIST, "calculators", "vats_crit_calculator.json")
 RULES = os.path.join(ROOT, "data", "vats_crit_calculator", "rules.json")
-FOOD = os.path.join(ROOT, "dist", "calculators", "food_buff_calculator.json")
-EXE = os.path.join(ROOT, "dist", "exe_settings.json")
+FOOD = dist_in("calculators", "food_buff_calculator.json")
+EXE = dist_in("exe_settings.json")
 WARN = []
 
 
@@ -40,14 +55,15 @@ def warn(m):
 
 
 def newest(pattern):
-    try:
-        sys.path.insert(0, os.path.join(ROOT, "src")); import tsv_source; key = tsv_source.export_key
-    except Exception:  # noqa: BLE001
-        key = os.path.getmtime
+    if CHANNEL == "pts":
+        p = tsv_source.newest(pattern, channel="pts", required=False)
+        if p:
+            return p
+        warn(f"no PTS {pattern} - used live")
     fs = [f for f in glob.glob(os.path.join(TSV, pattern))]
     if not fs:
         raise SystemExit(f"missing export {pattern}")
-    return max(fs, key=key)
+    return max(fs, key=tsv_source.export_key)
 
 
 def rows(path):
@@ -90,7 +106,7 @@ def build_crit(src, spel, ep, omod, omod_name, gl, rows, fnum, warn):
 
     # weapons (player list = Kat's builds data; every number from WEAP)
     try:
-        bw = _j.load(open(os.path.join(ROOT, "dist", "builds", "builds_data.json"), encoding="utf-8"))["weapons"]
+        bw = _j.load(open(dist_in("builds", "builds_data.json"), encoding="utf-8"))["weapons"]
     except Exception as e:  # noqa: BLE001
         warn(f"builds_data weapons not read ({e})"); bw = []
     dn = {r["WEAP_EDID"]: r for r in rows(src["dnam"])}

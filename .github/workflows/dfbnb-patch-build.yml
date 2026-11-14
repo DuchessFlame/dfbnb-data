@@ -1469,6 +1469,13 @@ jobs:
 
       # --- SANITY CHECK ---
       # --- MELEE DAMAGE CALCULATOR (reads builds_data, legendary_star_pages, food + V.A.T.S. calculator JSON) ---
+      # --- V.A.T.S. CRIT & LUCK CALCULATOR (Kat 14 Nov 2026) ---
+      # Was only built on Sally. Reads the newest CURV/GMST/PERKEP/SPEL/OMOD/GLOB/WEAP/ALCH exports,
+      # dist/calculators/food_buff_calculator.json, dist/builds/builds_data.json and dist/exe_settings.json.
+      # Runs before the damage calculators, which read its crit data.
+      - name: Build VATS Crit Calculator JSON
+        run: python src/build_vats_crit_calculator_json.py
+
       - name: Build Melee Damage Calculator JSON
         run: python src/build_melee_damage_calculator_json.py
 
