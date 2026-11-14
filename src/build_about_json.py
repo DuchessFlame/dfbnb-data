@@ -639,19 +639,9 @@ TERMS_OF_SERVICE = {
 PLACE_AN_ORDER = {
     "title": "Buffs n Brew - Place an Order",
     "subtitle": (
-        "How to order from Buffs n Brew on Xbox, PlayStation or PC. Order on "
-        "our Discord or in your platform’s Facebook group."
+        "How to order from Buffs n Brew on Xbox, PlayStation or PC."
     ),
     "sections": [
-        {
-            "title": "",
-            "html": (
-                "<p>You can order on <strong>Discord</strong> (all platforms) or in the "
-                "<strong>Facebook group</strong> for your platform. Pick whichever suits you.</p>"
-                "<p class=\"ab-guide-note\">Every order needs your <strong>timezone</strong> and your "
-                "<strong>IGN / PSN / GT</strong>. That’s how we give you a chef in your timezone.</p>"
-            ),
-        },
         {
             "title": "Discord (All Platforms)",
             "html": (
