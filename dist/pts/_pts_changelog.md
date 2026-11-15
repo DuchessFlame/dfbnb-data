@@ -2474,7 +2474,7 @@ _Couldn't key this file to records; contents differ._
 ## `survival_tent_interiors.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `titles_camp.json`  ·  +8 / -0 / ~13
+## `titles_camp.json`  ·  +8 / -0 / ~23
 
 **Added (8)**
 - ATX_CAMPTitles_Prefix_Festive  `ATX_CAMPTitles_Prefix_Festive`
@@ -2486,8 +2486,14 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S27_CAMPTitles_Suffix_Arena  `SCORE_S27_CAMPTitles_Suffix_Arena`
 - SCORE_S27_CAMPTitles_Suffix_Coliseum  `SCORE_S27_CAMPTitles_Suffix_Coliseum`
 
-**Changed (13)**
-- CAMPTitles_Lifetime_Suffix_Hideout  `CAMPTitles_Lifetime_Suffix_Hideout` — fields: howToObtain
+**Changed (23)**
+- CAMPTitles_Lifetime_Prefix_PioneerScout  `CAMPTitles_Lifetime_Prefix_PioneerScout` — fields: debug
+- CAMPTitles_Lifetime_Suffix_Hideout  `CAMPTitles_Lifetime_Suffix_Hideout` — fields: debug, howToObtain
+- CAMPTitles_Lifetime_Suffix_Laboratory  `CAMPTitles_Lifetime_Suffix_Laboratory` — fields: debug
+- CAMPTitles_Prefix_Fugitives  `CAMPTitles_Prefix_Fugitives` — fields: debug
+- CAMPTitles_Prefix_Leaders  `CAMPTitles_Prefix_Leaders` — fields: debug
+- CAMPTitles_Suffix_Battery  `CAMPTitles_Suffix_Battery` — fields: debug
+- CAMPTitles_Suffix_CrashSite  `CAMPTitles_Suffix_CrashSite` — fields: debug
 - SCORE_MiniSeason_2026_SockHop_CAMPTitles_Prefix_Varnished  `SCORE_MiniSeason_2026_SockHop_CAMPTitles_Prefix_Varnished` — fields: imageUrl, images
 - SCORE_MiniSeason_2026_SockHop_CAMPTitles_Suffix_Gym  `SCORE_MiniSeason_2026_SockHop_CAMPTitles_Suffix_Gym` — fields: imageUrl, images
 - SCORE_MiniSeason_2026_WeaponsExpert_CAMPTitles_Prefix_Sharpshooters  `SCORE_MiniSeason_2026_WeaponsExpert_CAMPTitles_Prefix_Sharpshooters` — fields: imageUrl, images
@@ -2500,6 +2506,10 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S25_CAMPTitles_Prefix_Safeguarded  `SCORE_S25_CAMPTitles_Prefix_Safeguarded` — fields: imageUrl, images
 - SCORE_S25_CAMPTitles_Suffix_Bunker  `SCORE_S25_CAMPTitles_Suffix_Bunker` — fields: imageUrl, images
 - SCORE_S25_CAMPTitles_Suffix_LastStand  `SCORE_S25_CAMPTitles_Suffix_LastStand` — fields: imageUrl, images
+- WorldPets_CampTitles_Prefix_LifetimeChallenge_Cat01  `WorldPets_CampTitles_Prefix_LifetimeChallenge_Cat01` — fields: debug, howToObtain
+- WorldPets_CampTitles_Prefix_LifetimeChallenge_Deathclaw01  `WorldPets_CampTitles_Prefix_LifetimeChallenge_Deathclaw01` — fields: debug, howToObtain
+- WorldPets_CampTitles_Prefix_LifetimeChallenge_Dog01  `WorldPets_CampTitles_Prefix_LifetimeChallenge_Dog01` — fields: debug, howToObtain
+- WorldPets_CampTitles_Prefix_LifetimeChallenge_Radhog01  `WorldPets_CampTitles_Prefix_LifetimeChallenge_Radhog01` — fields: debug, howToObtain
 
 ## `titles_camp_generator.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
@@ -2507,14 +2517,15 @@ _Couldn't key this file to records; contents differ._
 ## `titles_data.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `titles_player.json`  ·  +23 / -0 / ~37
+## `titles_player.json`  ·  +24 / -1 / ~58
 
-**Added (23)**
+**Added (24)**
 - ATX_PlayerTitles_Prefix_Sudsy  `ATX_PlayerTitles_Prefix_Sudsy`
 - ATX_PlayerTitles_Suffix_Handler  `ATX_PlayerTitles_Suffix_Handler`
 - ATX_PlayerTitles_Suffix_Isotope  `ATX_PlayerTitles_Suffix_Isotope`
 - ATX_PlayerTitles_Suffix_Krampus  `ATX_PlayerTitles_Suffix_Krampus`
 - ATX_PlayerTitles_Suffix_Supporter  `ATX_PlayerTitles_Suffix_Supporter`
+- Fishing_PlayerTitles_Prefix_Gillded  `Fishing_PlayerTitles_Prefix_Gillded`
 - Fishing_PlayerTitles_Prefix_Icy  `Fishing_PlayerTitles_Prefix_Icy`
 - HIDE_PlayerTitles_Both_Commando  `HIDE_PlayerTitles_Both_Commando`
 - HIDE_PlayerTitles_Both_Endurer  `HIDE_PlayerTitles_Both_Endurer`
@@ -2534,13 +2545,19 @@ _Couldn't key this file to records; contents differ._
 - ZZZ_SCORE_S27_PlayerTitles_Prefix_SPECIAL  `ZZZ_SCORE_S27_PlayerTitles_Prefix_SPECIAL`
 - zzz_HTO_PlayerTitles_Both_Terminated  `zzz_HTO_PlayerTitles_Both_Terminated`
 
-**Changed (37)**
+**Removed (1)**
+- zzz_Fishing_PlayerTitles_Prefix_Gillded  `zzz_Fishing_PlayerTitles_Prefix_Gillded`
+
+**Changed (58)**
 - ATX_PlayerTitles_Prefix_AdVictoriam  `ATX_PlayerTitles_Prefix_AdVictoriam` — fields: releaseDate, releaseLabel, releaseYear, source
 - ATX_PlayerTitles_Prefix_Contessa  `ATX_PlayerTitles_Prefix_Contessa` — fields: releaseDate, releaseLabel, source
 - ATX_PlayerTitles_Prefix_Gleaming  `ATX_PlayerTitles_Prefix_Gleaming` — fields: source
 - ATX_PlayerTitles_Prefix_Tribune  `ATX_PlayerTitles_Prefix_Tribune` — fields: releaseDate, releaseLabel, releaseYear, source
 - ATX_PlayerTitles_Suffix_Buoy  `ATX_PlayerTitles_Suffix_Buoy` — fields: releaseDate, releaseLabel, source
 - ATX_PlayerTitles_Suffix_Technician  `ATX_PlayerTitles_Suffix_Technician` — fields: source
+- Fishing_PlayerTitles_Suffix_OfTheMonth  `Fishing_PlayerTitles_Suffix_OfTheMonth` — fields: debug, howToObtain
+- PlayerTitles_Suffix_Researcher  `PlayerTitles_Suffix_Researcher` — fields: debug
+- PlayerTitles_Suffix_Zookeeper  `PlayerTitles_Suffix_Zookeeper` — fields: debug
 - SCORE_MiniSeason_2025_AppalachianOutlaws_PlayerTitles_Suffix_Outlaw  `SCORE_MiniSeason_2025_AppalachianOutlaws_PlayerTitles_Suffix_Outlaw` — fields: imageUrl, images
 - SCORE_MiniSeason_2025_MMMFE_PlayerTitles_Prefix_Salty  `SCORE_MiniSeason_2025_MMMFE_PlayerTitles_Prefix_Salty` — fields: imageUrl, images
 - SCORE_MiniSeason_2025_MMMFE_PlayerTitles_Suffix_MarshalMalow  `SCORE_MiniSeason_2025_MMMFE_PlayerTitles_Suffix_MarshalMalow` — fields: imageUrl, images
@@ -2572,6 +2589,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S25_PlayerTitles_Suffix_Globetrotter  `SCORE_S25_PlayerTitles_Suffix_Globetrotter` — fields: imageUrl, images
 - SCORE_S25_PlayerTitles_Suffix_Pioneer  `SCORE_S25_PlayerTitles_Suffix_Pioneer` — fields: imageUrl, images
 - SFS09_PlayerTitles_Suffix_Manager  `SFS09_PlayerTitles_Suffix_Manager` — fields: debug
+- …and 18 more
 
 ## `titles_player_generator.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
