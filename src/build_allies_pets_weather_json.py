@@ -485,6 +485,9 @@ def storefront_img_url(ecil_val, folder=""):
     if not ecil_val or not ecil_val.strip():
         return None
     name = os.path.splitext(os.path.basename(ecil_val.strip()))[0].lower()
+    # Bethesda typo in one store texture (…_iidlefurniture_radhog_scratchingpost_c2);
+    # the uploaded file uses the correct spelling.
+    name = name.replace("_iidlefurniture_", "_idlefurniture_")
     if not name:
         return None
     base = IMAGE_BASES.get(folder)
