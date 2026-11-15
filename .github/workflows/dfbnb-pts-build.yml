@@ -1220,6 +1220,14 @@ jobs:
       # Outputs dist/world_pet_types.json for df-bnb-world-pets.js.
       # Reads NPC, ENTM, ALCH, ALCH_Effects, COBJ, GLOB TSVs (resolved
       # internally via glob patterns — no explicit env vars needed).
+      # 15 Nov 2026 (Mia #802): 'Clear dist' removes dist/pts/exe_settings.json, so the World Pets Pet XP rate lost its
+      # exe-only kill bonus (fWorldPetKillXpModifier). Put the committed PTS copy back where this (non --pts) build reads it;
+      # the relocate step moves it back into dist/pts unchanged.
+      - name: Restore PTS exe settings for World Pet Types
+        run: |
+          mkdir -p dist
+          git show HEAD:dist/pts/exe_settings.json > dist/exe_settings.json || echo "::warning::no dist/pts/exe_settings.json in HEAD"
+
       - name: Build World Pet Types JSON
         run: |
           python src/build_world_pet_types_json.py \
