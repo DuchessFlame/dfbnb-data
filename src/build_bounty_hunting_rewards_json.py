@@ -7,9 +7,22 @@ Reads GLOB values from TSV for numeric accuracy, structures the reward tree
 manually based on confirmed xEdit data.  Output consumed by the upcoming
 df-bnb-bounty-hunting.js (Phase 2).
 
-Covers both pages:
-  - grunt-hunt-rewards  (Bounty Hunting: Grunt Hunt — daily, solo)
-  - head-hunt-rewards   (Bounty Hunting: Head Hunt — public event)
+Covers these pages:
+  - grunt-hunt-rewards                (Burning Springs Grunt Hunt — daily, solo)
+  - skyline-valley-grunt-hunt-rewards (Skyline Valley Grunt Hunt — PTS until it ships)
+  - head-hunt-rewards                 (Burning Springs Head Hunt — public event, hand-checked tree)
+  - skyline-valley-head-hunt-rewards  (Skyline Valley Head Hunt — generative, PTS until it ships)
+
+GRUNT HUNTS ARE GENERATIVE (Nov 2026). Both regions share one reward list,
+BountyHunt_GruntHunt_LL_QuestRewards [LVLI:007D6A6D]; on the Skyline Valley
+PTS it switches on the bounty's region (LocationHierarchyHasKeyword). The
+grunt pages are walked from the TSVs by bounty_trees.py through rng76, so the
+Legendary Modules, Bounty Sniffer and Hideout Lead entries the PTS added show
+up by themselves, and the Skyline Valley page only exists on a channel whose
+tree has a Skyline Valley branch. The Outlaw's own loot is its death item list
+(NPC INAM, LL_BountyDrop_Grunt) - the Outlaw is the only enemy the hunt spawns
+with bounty loot; the support wave enemies keep their normal loot.
+The Head Hunt page below is still the hand-checked tree it was.
 
 KEY DIFFERENCE FROM INFESTATIONS (HTO):
   Bounty hunts have three separate reward tiers that fire:
@@ -21,14 +34,19 @@ KEY DIFFERENCE FROM INFESTATIONS (HTO):
 Output: dist/bounty-hunting/bounty_hunting_rewards.json
 """
 
-import json, os, glob, csv
+import argparse, json, os, glob, csv, re, sys
 from pathlib import Path
 import tsv_source          # one resolver for every export selection
 
 # ── Paths ───────────────────────────────────────────────────────────────────
+# CI (both channels) runs it bare: tsv/ is already the channel's exports there
+# and the PTS workflow relocates dist/ -> dist/pts/. --tsv-dir / --dist are for
+# a local PTS run:  python src/build_bounty_hunting_rewards_json.py --pts
 _REPO_ROOT = Path(__file__).resolve().parent.parent
 TSV_DIR    = _REPO_ROOT / "tsv"
 DIST_DIR   = _REPO_ROOT / "dist" / "bounty-hunting"
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 
 def newest(pattern):
@@ -69,6 +87,148 @@ TOGGLE_WARNING = (
     "This reward is enabled or disabled at Bethesda's discretion "
     "and may not always be active."
 )
+
+
+# ════════════════════════════════════════════════════════════════════════════
+# GRUNT HUNTS — generative, one page per region (bounty_trees.py + rng76)
+# ════════════════════════════════════════════════════════════════════════════
+
+GRUNT_REWARD_ROOT = "007D6A6D"   # BountyHunt_GruntHunt_LL_QuestRewards (GMRW 007D6A81)
+GRUNT_DEATH_FALLBACK = "007CFA78"  # LL_BountyDrop_Grunt, if the NPC export has no INAM
+
+GRUNT_PAGES = {
+    # slug: (region id, quest FormID, page name)
+    "grunt-hunt-rewards": ("burning-springs", "007D6A80", "Burning Springs: Grunt Hunt"),
+    "skyline-valley-grunt-hunt-rewards": ("skyline-valley", "008A8998", "Skyline Valley: Grunt Hunt"),
+}
+
+
+def _outlaws():
+    """The Grunt Hunt targets (BountyHunt_GruntHunt_Grunt_*): names + death list."""
+    rows = read_tsv(newest("NPC_Export_*.tsv"))
+    names, death = [], {}
+    for r in rows:
+        ed = (r.get("EDID") or "").strip()
+        # PTS: BountyHunt_GruntHunt_Grunt_*; live: Burn_BountyTarget_SML_* (same Outlaws)
+        if not re.match(r"^(BountyHunt_GruntHunt_Grunt_|Burn_BountyTarget_SML_)", ed):
+            continue
+        full = (r.get("FULL") or "").strip()
+        if not full.endswith("Outlaw"):          # skip the template / debug actors
+            continue
+        if full and full not in names:
+            names.append(full)
+        inam = (r.get("INAM_FormID") or "").strip().upper()[-8:]
+        if inam:
+            death[inam] = death.get(inam, 0) + 1
+    death_fid = max(death, key=death.get) if death else GRUNT_DEATH_FALLBACK
+    return sorted(names), death_fid
+
+
+def _tree_has_region(walker, list_id, kw, depth=0):
+    """Does this reward tree switch on region keyword `kw` anywhere near the top?"""
+    for e in walker.L.entries_by_list.get(list_id, []):
+        conds = walker.R._entry_conditions(e)
+        if any("LocationHierarchyHasKeyword" in c and kw in c for c in conds):
+            return True
+        ref = (e.get("LVLO_Reference") or "")
+        if depth < 2 and ref.upper().endswith(":LVLI"):
+            if _tree_has_region(walker, ref.split(":")[0], kw, depth + 1):
+                return True
+    return False
+
+
+HEAD_REWARD_ROOT = "007EBDF3"   # BountyHunt_HeadHunt_LL_QuestRewards (GMRW 007EBDEE)
+
+# Generative Head Hunt pages. Burning Springs keeps the hand-checked tree
+# (head-hunt-rewards, below); Skyline Valley is walked from the files and only
+# exists on a channel that has the Skyline Valley bosses.
+HEAD_PAGES = {
+    "skyline-valley-head-hunt-rewards": ("skyline-valley", "008A8999", "Skyline Valley: Head Hunt",
+                                         r"^BountyHunt_HeadHunt_Skyline_(Boss|Lackey)_"),
+}
+
+
+def _head_cast(edid_re):
+    """{'Boss'|'Lackey': {death list FormID: [names]}} for one region's Head Hunt NPCs."""
+    out = {"Boss": {}, "Lackey": {}}
+    for r in read_tsv(newest("NPC_Export_*.tsv")):
+        m = re.match(edid_re, (r.get("EDID") or "").strip())
+        full = (r.get("FULL") or "").strip()
+        if not m or not full:
+            continue
+        inam = (r.get("INAM_FormID") or "").strip().upper()[-8:]
+        names = out[m.group(1)].setdefault(inam, [])
+        if full not in names:
+            names.append(full)
+    return out
+
+
+def build_head_pages(walker, head_xp, caps, ltt_status, seasonal_groups):
+    pages = {}
+    for slug, (region, quest_fid, name, edid_re) in HEAD_PAGES.items():
+        cast = _head_cast(edid_re)
+        if not cast["Boss"]:
+            print(f"[Bounty] {slug}: no bosses on this channel - not written")
+            continue
+        boss_list = max(cast["Boss"], key=lambda k: len(cast["Boss"][k]))
+        kick_list = max(cast["Lackey"], key=lambda k: len(cast["Lackey"][k])) if cast["Lackey"] else ""
+        other_kicks = sorted(n for k, v in cast["Lackey"].items() if k != kick_list for n in v)
+        pages[slug] = {
+            "name": name, "region": region, "regionName": "Skyline Valley",
+            "questFormID": quest_fid, "gmrwFormID": "007EBDEE", "rewardListFormID": HEAD_REWARD_ROOT,
+            "type": "bountyhunt", "hunt": "head", "generative": True,
+            "xp": head_xp, "caps": caps,
+            "eventRewards": walker.grunt_event_pools(HEAD_REWARD_ROOT, region),
+            "bossLoot": walker.death_pools(boss_list),
+            "mobLoot": walker.death_pools(kick_list) if kick_list else [],
+            "supportLoot": [],
+            "bosses": sorted(n for v in cast["Boss"].values() for n in v),
+            "sidekicks": sorted(cast["Lackey"].get(kick_list, [])),
+            "sidekicksOwnLoot": other_kicks,
+            "bossDeathList": boss_list, "sidekickDeathList": kick_list,
+            "seasonalGroups": seasonal_groups,
+            "lttStatus": ltt_status,
+        }
+    return pages
+
+
+def build_grunt_pages(globs, grunt_xp, caps, ltt_status):
+    import rng76
+    import bounty_trees as bt
+    data = rng76.Rng76Data.from_tsv_root(str(TSV_DIR))
+    walker = bt.GruntTreeWalker(data)
+    outlaws, death_fid = _outlaws()
+    death = walker.death_pools(death_fid)
+    pages = {}
+    for slug, (region, quest_fid, name) in GRUNT_PAGES.items():
+        kw = bt.REGION_KEYWORDS[region]
+        if region != "burning-springs" and not _tree_has_region(walker, GRUNT_REWARD_ROOT, kw):
+            print(f"[Bounty] {slug}: no {bt.REGION_NAMES[region]} branch on this channel - not written")
+            continue
+        pages[slug] = {
+            "name": name,
+            "region": region,
+            "regionName": bt.REGION_NAMES[region],
+            "questFormID": quest_fid,
+            "gmrwFormID": "007D6A81",
+            "rewardListFormID": GRUNT_REWARD_ROOT,
+            "type": "bountyhunt",
+            "hunt": "grunt",
+            "generative": True,
+            "description": (
+                f"Solo {bt.REGION_NAMES[region]} bounty - pick up a Grunt Hunt, track down the "
+                "Outlaw and kill it. The star level of the hunt decides the legendary rank "
+                "of the reward. Only one Grunt Hunt can be active at a time."
+            ),
+            "xp": grunt_xp,
+            "caps": caps,
+            "eventRewards": walker.grunt_event_pools(GRUNT_REWARD_ROOT, region),
+            "outlawLoot": death,
+            "outlawDeathList": death_fid,
+            "outlaws": outlaws,
+            "lttStatus": ltt_status,
+        }
+    return pages, walker
 
 
 # ── Build reward structure ──────────────────────────────────────────────────
@@ -126,152 +286,7 @@ def build_bounty_hunting_rewards():
     is_pts_channel = os.environ.get("DFBNB_CHANNEL", "").strip().lower() == "pts"
     show_slasher   = slasher_present and (slasher_headhunt_on or is_pts_channel)
 
-    # ════════════════════════════════════════════════════════════════════════
-    # GRUNT HUNT  (007D6A6D — Burn_BountyHuntDaily_LL_QuestRewards)
-    # ════════════════════════════════════════════════════════════════════════
-    #
-    # Root LVLI: UseAll (001), 7 entries, max_count=0 → independent.
-    # Entries 0-2: standard BOUNTY legendary (star-level gated, one fires)
-    # Entries 3-5: LTT bonus legendary (toggled + star-level gated)
-    # Entry 6:     Wanted Poster (conditional)
-
-    grunt_event_rewards = []
-
-    # ── 1. Standard BOUNTY Legendary (star-level gated) ────────────────────
-    # Only ONE of these fires per completion — the one matching your star level.
-    # Each wraps a single LGDI template (BOUNTY_LegendaryItems_RankN).
-    grunt_event_rewards.append({
-        "label": "BOUNTY Legendary Item",
-        "formid": "007D6A6D",
-        "blurb": "Guaranteed drop of 1 item · star level matches your chosen bounty difficulty",
-        "dropRate": 100,
-        "children": [
-            {
-                "label": "1★ Bounty",
-                "formid": "00833A15",
-                "blurb": "1★ BOUNTY legendary weapon or armour",
-                "dropRate": 100,
-                "conditions": ["Star level chosen = 1"],
-                "items": [
-                    {"name": "1★ Legendary BOUNTY Item", "formid": "00853B61",
-                     "sig": "LGDI", "qty": 1, "dropRate": 100},
-                ],
-            },
-            {
-                "label": "2★ Bounty",
-                "formid": "00833A14",
-                "blurb": "2★ BOUNTY legendary weapon or armour",
-                "dropRate": 100,
-                "conditions": ["Star level chosen = 2"],
-                "items": [
-                    {"name": "2★ Legendary BOUNTY Item", "formid": "00853B63",
-                     "sig": "LGDI", "qty": 1, "dropRate": 100},
-                ],
-            },
-            {
-                "label": "3★ Bounty",
-                "formid": "0085DCDA",
-                "blurb": "3★ BOUNTY legendary weapon or armour",
-                "dropRate": 100,
-                "conditions": ["Star level chosen = 3"],
-                "items": [
-                    {"name": "3★ Legendary BOUNTY Item", "formid": "00853B62",
-                     "sig": "LGDI", "qty": 1, "dropRate": 100},
-                ],
-            },
-        ],
-        "mode": "starlevel",
-    })
-
-    # ── 2. LTT Bonus Legendary (toggled) ──────────────────────────────────
-    # Toggle GLOB 0085712D = 0 → currently OFF.
-    # When ON, ChanceNone GLOB 008553A2 controls the drop rate.
-    # Each sub-list is pick-one of 5 LGDI templates (3 standard + 2 BOUNTY).
-    ltt_grunt_items_per_star = [
-        {
-            "label": "LTT Bonus 1★ Legendary",
-            "formid": "0085646B",
-            "blurb": "Pick-one of 5 legendary templates · 20% each",
-            "dropRate": ltt_grunt_drop_pct,
-            "warningNote": TOGGLE_WARNING,
-            "conditions": ["Star level chosen = 1", "LTT toggle active"],
-            "items": [
-                {"name": "1★ Legendary Melee Weapon",     "formid": "00417C46", "sig": "LGDI", "qty": 1, "dropRate": 20},
-                {"name": "1★ Legendary Ranged Weapon",    "formid": "00417C42", "sig": "LGDI", "qty": 1, "dropRate": 20},
-                {"name": "1★ Legendary Armour",           "formid": "00417C4B", "sig": "LGDI", "qty": 1, "dropRate": 20},
-                {"name": "1★ Legendary BOUNTY Weapon",    "formid": "00853D1B", "sig": "LGDI", "qty": 1, "dropRate": 20},
-                {"name": "1★ Legendary BOUNTY Armour",    "formid": "00853D1E", "sig": "LGDI", "qty": 1, "dropRate": 20},
-            ],
-            "mode": "pickone",
-        },
-        {
-            "label": "LTT Bonus 2★ Legendary",
-            "formid": "0085646C",
-            "blurb": "Pick-one of 5 legendary templates · 20% each",
-            "dropRate": ltt_grunt_drop_pct,
-            "warningNote": TOGGLE_WARNING,
-            "conditions": ["Star level chosen = 2", "LTT toggle active"],
-            "items": [
-                {"name": "2★ Legendary Melee Weapon",     "formid": "00417C47", "sig": "LGDI", "qty": 1, "dropRate": 20},
-                {"name": "2★ Legendary Ranged Weapon",    "formid": "00417C43", "sig": "LGDI", "qty": 1, "dropRate": 20},
-                {"name": "2★ Legendary Armour",           "formid": "00417C40", "sig": "LGDI", "qty": 1, "dropRate": 20},
-                {"name": "2★ Legendary BOUNTY Weapon",    "formid": "00853D1C", "sig": "LGDI", "qty": 1, "dropRate": 20},
-                {"name": "2★ Legendary BOUNTY Armour",    "formid": "00853D1F", "sig": "LGDI", "qty": 1, "dropRate": 20},
-            ],
-            "mode": "pickone",
-        },
-        {
-            "label": "LTT Bonus 3★ Legendary",
-            "formid": "0085646A",
-            "blurb": "Pick-one of 5 legendary templates · 20% each",
-            "dropRate": ltt_grunt_drop_pct,
-            "warningNote": TOGGLE_WARNING,
-            "conditions": ["Star level chosen = 3", "LTT toggle active"],
-            "items": [
-                {"name": "3★ Legendary Melee Weapon",     "formid": "00417C48", "sig": "LGDI", "qty": 1, "dropRate": 20},
-                {"name": "3★ Legendary Ranged Weapon",    "formid": "00417C44", "sig": "LGDI", "qty": 1, "dropRate": 20},
-                {"name": "3★ Legendary Armour",           "formid": "00417C41", "sig": "LGDI", "qty": 1, "dropRate": 20},
-                {"name": "3★ Legendary BOUNTY Weapon",    "formid": "00853D1D", "sig": "LGDI", "qty": 1, "dropRate": 20},
-                {"name": "3★ Legendary BOUNTY Armour",    "formid": "00853D20", "sig": "LGDI", "qty": 1, "dropRate": 20},
-            ],
-            "mode": "pickone",
-        },
-    ]
-
-    if ltt_grunt_active:
-        status_blurb = f"Currently active · {ltt_grunt_drop_pct}% chance per completion"
-    else:
-        status_blurb = "Currently disabled by Bethesda"
-
-    grunt_event_rewards.append({
-        "label": "LTT Bonus Legendary",
-        "formid": "007D6A6D-ltt",
-        "blurb": f"Bonus legendary from the Live Tuning Table · {status_blurb}",
-        "dropRate": ltt_grunt_drop_pct,
-        "warningNote": TOGGLE_WARNING,
-        "children": ltt_grunt_items_per_star,
-        "mode": "starlevel",
-        "toggleGlob": "0085712D",
-        "chanceNoneGlob": "008553A2",
-    })
-
-    # ── 3. Wanted Poster ──────────────────────────────────────────────────
-    # Conditional: only drops if you don't already have one AND the AVIF flag
-    # is set. Essentially guaranteed on first completion, then gated.
-    grunt_event_rewards.append({
-        "label": "Wanted Poster",
-        "formid": "008206C6",
-        "blurb": "Conditional drop · only if you don't already have one in inventory",
-        "dropRate": 100,
-        "conditions": [
-            "Player does not have a Wanted Poster in inventory",
-            "Bounty target has RewardWantedPoster flag",
-        ],
-        "items": [
-            {"name": "Wanted Poster", "formid": "008206C6",
-             "sig": "MISC", "qty": 1, "dropRate": 100},
-        ],
-    })
+    # GRUNT HUNT pages are built by build_grunt_pages() (generative, see top).
 
     # ════════════════════════════════════════════════════════════════════════
     # HEAD HUNT  (007EBDF3 — Burn_BountyHuntPublic_LL_QuestRewards)
@@ -774,32 +789,6 @@ def build_bounty_hunting_rewards():
 
     output = {
         "byPage": {
-            "grunt-hunt-rewards": {
-                "name": "Bounty Hunting: Grunt Hunt",
-                "questFormID": "007D6A80",
-                "gmrwFormID": "007D6A81",
-                "type": "bountyhunt",
-                "description": (
-                    "Daily solo bounty — choose a 1★, 2★, or 3★ bounty from the "
-                    "Bounty Board. Track and eliminate the target. Star level "
-                    "determines the legendary rank of your reward. Only one grunt "
-                    "hunt can be active at a time."
-                ),
-                "xp": grunt_xp,
-                "caps": caps,
-                "eventRewards": grunt_event_rewards,
-                "bossLoot": _build_boss_loot(),
-                "mobLoot": _build_mob_loot(),
-                "supportLoot": _build_support_loot(),
-                "lttStatus": {
-                    "toggleGlob": "0085712D",
-                    "toggleValue": ltt_grunt_toggle,
-                    "active": ltt_grunt_active,
-                    "chanceNoneGlob": "008553A2",
-                    "chanceNoneValue": ltt_grunt_cn,
-                    "dropPct": ltt_grunt_drop_pct,
-                },
-            },
             "head-hunt-rewards": {
                 "name": "Bounty Hunting: Head Hunt",
                 "questFormID": "007EBDF4",
@@ -831,12 +820,38 @@ def build_bounty_hunting_rewards():
         }
     }
 
+    grunt_ltt = {
+        "toggleGlob": "0085712D",
+        "toggleValue": ltt_grunt_toggle,
+        "active": ltt_grunt_active,
+        "chanceNoneGlob": "008553A2",
+        "chanceNoneValue": ltt_grunt_cn,
+        "dropPct": ltt_grunt_drop_pct,
+    }
+    grunt_pages, walker = build_grunt_pages(globs, grunt_xp, caps, grunt_ltt)
+    head_ltt = output["byPage"]["head-hunt-rewards"]["lttStatus"]
+    head_pages = build_head_pages(walker, head_xp, caps, head_ltt, head_seasonal_groups)
+    output["byPage"] = {**grunt_pages, **output["byPage"], **head_pages}
     return output
 
 
 # ── Entry point ─────────────────────────────────────────────────────────────
 
 def main():
+    global TSV_DIR, DIST_DIR
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--tsv-dir", default=None, help="exports folder (default tsv/)")
+    ap.add_argument("--dist", default=None, help="dist folder to write into (default dist/)")
+    ap.add_argument("--pts", action="store_true", help="local PTS run: tsv/pts -> dist/pts")
+    a = ap.parse_args()
+    if a.pts:
+        TSV_DIR = _REPO_ROOT / "tsv" / "pts"
+        DIST_DIR = _REPO_ROOT / "dist" / "pts" / "bounty-hunting"
+        os.environ.setdefault("DFBNB_CHANNEL", "pts")
+    if a.tsv_dir:
+        TSV_DIR = Path(a.tsv_dir).resolve()
+    if a.dist:
+        DIST_DIR = Path(a.dist).resolve() / "bounty-hunting"
     os.makedirs(DIST_DIR, exist_ok=True)
     data = build_bounty_hunting_rewards()
     out_path = DIST_DIR / "bounty_hunting_rewards.json"
@@ -848,9 +863,10 @@ def main():
         print(
             f"[Bounty] {slug}: XP={page['xp']}, Caps={page['caps']}, "
             f"Event pools={len(page['eventRewards'])}, "
-            f"Boss pools={len(page['bossLoot'])}, "
-            f"Mob pools={len(page['mobLoot'])}, "
-            f"Support pools={len(page['supportLoot'])}"
+            + (f"Outlaw loot pools={len(page.get('outlawLoot') or [])}"
+               if page.get("hunt") == "grunt" else
+               f"Boss pools={len(page['bossLoot'])}, Mob pools={len(page['mobLoot'])}, "
+               f"Support pools={len(page['supportLoot'])}")
         )
 
 

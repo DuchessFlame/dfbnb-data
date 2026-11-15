@@ -170,6 +170,127 @@ def quest_unlocks(channel):
 
 
 CAPS_IMAGE = "/wp-content/uploads/season_images/utility/score_currency_caps.avif"
+# Recipe rows use the blue plan icon (Duchess, 15 Nov 2026), not the weapon picture.
+PLAN_ICON = "/wp-content/uploads/guide-images/plan-checklist/plan-item-image.avif"
+_REF_RX = re.compile(r'^(\S+)\s+"+(.*?)"+\s*\[')
+
+
+def _ref_parts(v):
+    """'dtFire ""Fire Damage"" [DMGT:00060A82]' -> ('dtFire', 'Fire Damage')."""
+    m = _REF_RX.match(v or "")
+    return (m.group(1), m.group(2)) if m else ((v or "").strip(), "")
+
+
+_AV_LABELS = {"weaponSpeedMult": "Attack speed"}
+
+
+def _prop_line(r):
+    """One OMOD property as a plain [label, value] row; None for plumbing (keywords, perks)."""
+    name, fn = r.get("PropertyName", ""), r.get("FunctionType", "")
+    if name in ("Keywords", "116", "MaterialSwaps", "Enchantments"):
+        return None
+    edid, full = _ref_parts(r.get("Value1", ""))
+    try:
+        val = float(r.get("Value2", "") or 0)
+    except ValueError:
+        val = None
+    if name == "ActorValues" and val is not None:
+        lab = _AV_LABELS.get(edid, full or edid)
+        return [lab, f"{val * 100:+.0f}%" if fn in ("ADD", "MUL+ADD") else f"{val:g}"]
+    if name == "DamageTypeValues" and val is not None:
+        lab = full or edid
+        if fn == "SET" and val == 0:
+            return [lab, "Removed"]
+        if fn == "MUL+ADD":
+            return [lab, f"{val * 100:.0f}% of the weapon's damage"]
+        return [lab, f"{val:g}"]
+    if name == "CritEffect":
+        return ["Critical hit effect", re.sub(r"^Crit", "", edid) or edid]
+    return [name, f"{fn} {full or edid} {r.get('Value2', '')}".strip()]
+
+
+_MOD_FX = {}
+
+
+def _mod_effects(channel):
+    if channel not in _MOD_FX:
+        from weapon_mod_effects import ModEffects
+        _MOD_FX[channel] = ModEffects(lambda pat: _rows(pat, channel))
+    return _MOD_FX[channel]
+
+
+def mod_details(mod_name, weapon, channel):
+    """What a weapon mod does, from the game files: the OMOD named mod_name that targets
+    this weapon's mod-association keyword (ma_*, added by its unique mod), its _PARENT_
+    include's description and property changes."""
+    omods = {r.get("OMOD_FormID"): r for r in _rows("OMOD_Export_*.tsv", channel)}
+    props = {}
+    for r in _rows("OMOD_Export_*_Properties.tsv", channel):
+        props.setdefault(r.get("OMOD_FormID"), []).append(r)
+    uniq = next((u for u in weapon.get("uniqueMods", []) if u.get("kind") == "unique"), None) or {}
+    ma = [_ref_parts(r.get("Value1"))[0] for r in props.get(uniq.get("formId"), [])
+          if r.get("PropertyName") == "Keywords" and r.get("FunctionType") == "ADD"
+          and _ref_parts(r.get("Value1"))[0].startswith("ma_")]
+    hits = [o for o in omods.values() if _clean(o.get("FULL")) == mod_name
+            and any(k in (o.get("MNAM_TargetKWDs") or "") for k in ma) and "_PARENT_" in (o.get("Includes_Flat") or "")]
+    if not hits:
+        return None
+    pm = re.search(r"\[OMOD:([0-9A-F]{8})\]", hits[0].get("Includes_Flat") or "")
+    parent = omods.get(pm.group(1)) if pm else None
+    desc = _clean((parent or {}).get("DESC")) or _clean(hits[0].get("DESC"))
+    pprops = props.get(pm.group(1) if pm else "", [])
+    stats = [x for x in (_prop_line(r) for r in pprops) if x]
+    # What the mod's perk does, in numbers (src/weapon_mod_effects.py): its own effects, and
+    # the extras it only gets with another of this weapon's mods fitted or active.
+    def _perks_of(parent_fid):
+        return [re.search(r"\[PERK:([0-9A-F]{8})\]", r.get("Value1", "")).group(1)
+                for r in props.get(parent_fid, []) if r.get("PropertyName") == "116" and "[PERK:" in r.get("Value1", "")]
+    perk_edid = {}
+    perk_mod = {}
+    for o in omods.values():
+        if any(k in (o.get("MNAM_TargetKWDs") or "") for k in ma) and "_PARENT_" in (o.get("Includes_Flat") or ""):
+            m2 = re.search(r"\[OMOD:([0-9A-F]{8})\]", o.get("Includes_Flat") or "")
+            for pr in props.get(m2.group(1) if m2 else "", []):
+                pm2 = re.search(r"^(\S+).*\[PERK:([0-9A-F]{8})\]", pr.get("Value1", "")) if pr.get("PropertyName") == "116" else None
+                if pm2:
+                    perk_edid[pm2.group(2)] = pm2.group(1)
+                    perk_mod.setdefault(pm2.group(2), _clean(o.get("FULL")))
+    with_lines = []
+    own_perks = _perks_of(pm.group(1)) if pm else []
+    if own_perks:
+        fx = _mod_effects(channel).describe(set(own_perks), perk_edid, perk_mod)
+        stats += fx["own"]
+        with_lines = fx["with"]
+    return {"name": mod_name, "weapon": weapon.get("name", ""), "desc": desc, "stats": stats, "with": with_lines,
+            "omods": sorted(o.get("OMOD_FormID") for o in hits), "parent": pm.group(1) if pm else ""}
+
+
+def quest_weapon(quest, channel):
+    """The weapon the quest itself hands you (Unique Weapons & Armour build: questName),
+    with its sources one per line and the weapon's own legendary block."""
+    base = os.path.join(REPO, "dist", "pts") if channel == "pts" else os.path.join(REPO, "dist")
+    uwa = _json(os.path.join(base, "unique_weapons_armour", "unique_weapons_armour.json")) or {}
+    by_name = {it.get("name"): it for it in uwa.get("items", [])}
+    w = next((it for it in uwa.get("items", []) if it.get("questName") == quest and it.get("kind") == "Weapon"), None)
+    if not w:
+        return None
+    routes = []
+    for rt in w.get("obtainRoutes", []):
+        if not rt.get("populated"):
+            continue
+        for ln in rt.get("lines", []):
+            if ln.startswith("Source: "):
+                src = re.sub(r"\s+\u2014\s+[\d.]+%$", "", ln[len("Source: "):])
+                routes.append(f"{rt['route']}: {src}")
+    img = w.get("image") or (by_name.get(w.get("base")) or {}).get("image") or ""
+    uniq = next((u for u in w.get("uniqueMods", []) if u.get("kind") == "unique"), None) or {}
+    return {"name": w["name"], "form_id": w.get("formId", ""), "edid": w.get("edid", ""),
+            "image": img if img and on_server(img) else "",
+            "image_note": (f"Picture: {w.get('base')} (the {w['name']} has no picture of its own yet)"
+                           if img and not w.get("image") else ""),
+            "unique_mod": uniq.get("formId", ""),
+            "obtain": f"Dr. Regina Marcs gives you this at the start of {quest}, when you hand her your first Brain in a Jar.",
+            "routes": routes}
 LEGENDARY_MOD_IMAGE = "/wp-content/uploads/guide-images/category-images/legendary-mods-category-image.avif"
 
 
@@ -205,15 +326,13 @@ def reward_pictures(tiers, channel):
                 t["image"] = CAPS_IMAGE
         elif m and m.group(1) in by_name:
             w = by_name[m.group(1)]
-            img = w.get("image") or (by_name.get(w.get("base")) or {}).get("image") or ""
-            if img and on_server(img):
-                t["image"] = img
-                if not w.get("image"):
-                    t["image_note"] = f"Picture: {w.get('base')} (the {w['name']} has no picture of its own yet)"
+            if on_server(PLAN_ICON):
+                t["image"] = PLAN_ICON
             t["crafts"] = f"{m.group(2)} (weapon mod for the {w['name']})"
-            mod = next((u for u in w.get("uniqueMods", []) if u.get("kind") == "unique"), None)
-            if mod:
-                t["weapon_mod"] = mod.get("formId", "")
+            # Mod Details = what this mod does (not the weapon's legendary stars).
+            md = mod_details(m.group(2), w, channel)
+            if md:
+                t["mod"] = md
         elif p and p.group(1) in legmods:
             lm = legmods[p.group(1)]
             img = lm.get("image") or LEGENDARY_MOD_IMAGE
@@ -448,7 +567,7 @@ def main():
                         for reg in sorted({l['region'] for l in locs if l['region']})},
         "total_slots": total, "total_real": total,
         "pages": pages, "locations": locs,
-        "rewards": {"milestones": tiers, "hand_in": hand_in},
+        "rewards": {"milestones": tiers, "hand_in": hand_in, "quest_weapon": quest_weapon(quest, channel)},
         "holotapes": build_holotapes(channel),
         "holotape_image": HOLOTAPE_IMAGE,
     }

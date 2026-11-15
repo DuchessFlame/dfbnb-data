@@ -82,7 +82,9 @@ LEGACY_TSV = TSV_DIR / "legacy_seasons.tsv"
 OVERRIDES_TSV = TSV_DIR / "score_buff_output_overrides.tsv"
 TAG = "[build_upcoming_rewards]"
 
-EDID_RE = re.compile(r"^(?:zzz_?|ZZZ_?)?SCORE_S(\d+)_ENTM_(.+)$", re.IGNORECASE)
+# SCORE_S27_LegacyS10_ENTM_... = a reward added to the Season 10 legacy re-run
+# that ships with Season 27. It belongs to the LEGACY season (group 2).
+EDID_RE = re.compile(r"^(?:zzz_?|ZZZ_?)?SCORE_S(\d+)(?:_LegacyS(\d+))?_ENTM_(.+)$", re.IGNORECASE)
 DISABLED_RE = re.compile(r"^(?:zzz|ZZZ)_")
 
 # ------- Category display names (from ATX_Entitlement_Category_Store_*) -------
@@ -676,7 +678,7 @@ class GeneratorOutputResolver:
     def _find_reso(self, entm_edid):
         """Best RESO match for an ENTM EDID: prefer same season, then longest
         shared name-key containment (a specific producer wins over a generic)."""
-        suffix = re.sub(r"^(?:zzz_?|ZZZ_?)?SCORE_S\d+_ENTM_", "", entm_edid or "",
+        suffix = re.sub(r"^(?:zzz_?|ZZZ_?)?SCORE_S\d+(?:_LegacyS\d+)?_ENTM_", "", entm_edid or "",
                         flags=re.IGNORECASE)
         ik = _reso_name_key(suffix)
         if len(ik) < 4:
@@ -852,8 +854,8 @@ def extract_seasons(entm_tsv, overrides, target_season=None, gen_resolver=None):
         if not m or DISABLED_RE.match(edid):
             continue
 
-        snum = int(m.group(1))
-        suffix = m.group(2)
+        snum = int(m.group(2) or m.group(1))
+        suffix = m.group(3)
         if target_season is not None and snum != target_season:
             continue
 

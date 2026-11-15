@@ -7,7 +7,15 @@ on:
     paths:
       - 'tsv/GLOB_Export_*.tsv'
       - 'tsv/LVLI_Export_*.tsv'
+      - 'tsv/NPC_Export_*.tsv'
+      - 'tsv/FLST_Export_*.tsv'
+      - 'tsv/LCTN_Export_*.tsv'
+      - 'tsv/QUST2_Export_*.tsv'
+      - 'tsv/CHAL_Export_*.tsv'
       - 'src/build_bounty_hunting_rewards_json.py'
+      - 'src/build_bounty_grunt_guides_json.py'
+      - 'src/bounty_trees.py'
+      - 'src/rng76.py'
 
 permissions:
   contents: write
@@ -40,6 +48,11 @@ jobs:
           python -V
           python src/build_bounty_hunting_rewards_json.py
 
+      # Grunt Hunt guide facts (locations, support enemies, star tiers). On live
+      # it writes no Skyline Valley page until the update ships.
+      - name: Build Grunt Hunt Guides JSON
+        run: python src/build_bounty_grunt_guides_json.py
+
       - name: Sanity check output
         run: |
           test -f dist/bounty-hunting/bounty_hunting_rewards.json \
@@ -48,17 +61,17 @@ jobs:
           python3 -c "
           import json
           d = json.load(open('dist/bounty-hunting/bounty_hunting_rewards.json'))
-          for slug in ('grunt-hunt-rewards', 'head-hunt-rewards'):
-              page = d['byPage'][slug]
+          for slug, page in d['byPage'].items():
               assert page['eventRewards'], f'Missing eventRewards on {slug}'
-              assert page['bossLoot'],     f'Missing bossLoot on {slug}'
-              assert page['mobLoot'],      f'Missing mobLoot on {slug}'
-              assert page['supportLoot'],  f'Missing supportLoot on {slug}'
-              print(f'  {slug}:')
-              print(f'    Event pools:   {len(page[\"eventRewards\"])}')
-              print(f'    Boss pools:    {len(page[\"bossLoot\"])}')
-              print(f'    Mob pools:     {len(page[\"mobLoot\"])}')
-              print(f'    Support pools: {len(page[\"supportLoot\"])}')
+              if page.get('hunt') == 'grunt':
+                  assert page['outlawLoot'], f'Missing outlawLoot on {slug}'
+                  print(f'  {slug}: event pools {len(page[\"eventRewards\"])}, outlaw loot pools {len(page[\"outlawLoot\"])}')
+              else:
+                  assert page['bossLoot'],     f'Missing bossLoot on {slug}'
+                  assert page['mobLoot'],      f'Missing mobLoot on {slug}'
+                  assert page['supportLoot'] or page.get('generative'), f'Missing supportLoot on {slug}'
+                  print(f'  {slug}: event {len(page[\"eventRewards\"])}, boss {len(page[\"bossLoot\"])}, mob {len(page[\"mobLoot\"])}, support {len(page[\"supportLoot\"])}')
+          assert 'grunt-hunt-rewards' in d['byPage'] and 'head-hunt-rewards' in d['byPage']
           "
 
       - name: Commit dist outputs
@@ -67,7 +80,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          git add dist/bounty-hunting/bounty_hunting_rewards.json
+          git add dist/bounty-hunting/bounty_hunting_rewards.json dist/bounty-hunting/grunt_hunt_guides.json
 
           if git diff --cached --quiet; then
             echo "No changes to commit."

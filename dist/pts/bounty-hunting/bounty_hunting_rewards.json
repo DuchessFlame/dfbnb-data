@@ -1,587 +1,2873 @@
 {
   "byPage": {
     "grunt-hunt-rewards": {
-      "name": "Bounty Hunting: Grunt Hunt",
+      "name": "Burning Springs: Grunt Hunt",
+      "region": "burning-springs",
+      "regionName": "Burning Springs",
       "questFormID": "007D6A80",
       "gmrwFormID": "007D6A81",
+      "rewardListFormID": "007D6A6D",
       "type": "bountyhunt",
-      "description": "Daily solo bounty — choose a 1★, 2★, or 3★ bounty from the Bounty Board. Track and eliminate the target. Star level determines the legendary rank of your reward. Only one grunt hunt can be active at a time.",
+      "hunt": "grunt",
+      "generative": true,
+      "description": "Solo Burning Springs bounty - pick up a Grunt Hunt, track down the Outlaw and kill it. The star level of the hunt decides the legendary rank of the reward. Only one Grunt Hunt can be active at a time.",
       "xp": 1000,
       "caps": 5000,
       "eventRewards": [
         {
           "label": "BOUNTY Legendary Item",
-          "formid": "007D6A6D",
-          "blurb": "Guaranteed drop of 1 item · star level matches your chosen bounty difficulty",
-          "dropRate": 100,
+          "formid": "00833A15-00833A14-0085DCDA",
+          "dropRate": 100.0,
           "children": [
             {
-              "label": "1★ Bounty",
+              "label": "1★ Grunt Hunt",
               "formid": "00833A15",
-              "blurb": "1★ BOUNTY legendary weapon or armour",
-              "dropRate": 100,
-              "conditions": [
-                "Star level chosen = 1"
-              ],
+              "edid": "LL_BountyHunt_Burn_LegendaryTemplate_1Star",
+              "dropRate": 100.0,
               "items": [
                 {
                   "name": "1★ Legendary BOUNTY Item",
                   "formid": "00853B61",
+                  "edid": "BOUNTY_LegendaryItems_Rank1",
                   "sig": "LGDI",
                   "qty": 1,
-                  "dropRate": 100
+                  "dropRate": 100.0,
+                  "conditions": []
                 }
-              ]
+              ],
+              "star": 1,
+              "conditions": [
+                "Only on a 1★ Grunt Hunt"
+              ],
+              "blurb": "Guaranteed · 1 item"
             },
             {
-              "label": "2★ Bounty",
+              "label": "2★ Grunt Hunt",
               "formid": "00833A14",
-              "blurb": "2★ BOUNTY legendary weapon or armour",
-              "dropRate": 100,
-              "conditions": [
-                "Star level chosen = 2"
-              ],
+              "edid": "LL_BountyHunt_Burn_LegendaryTemplate_2Star",
+              "dropRate": 100.0,
               "items": [
                 {
                   "name": "2★ Legendary BOUNTY Item",
                   "formid": "00853B63",
+                  "edid": "BOUNTY_LegendaryItems_Rank2",
                   "sig": "LGDI",
                   "qty": 1,
-                  "dropRate": 100
+                  "dropRate": 100.0,
+                  "conditions": []
                 }
-              ]
+              ],
+              "star": 2,
+              "conditions": [
+                "Only on a 2★ Grunt Hunt"
+              ],
+              "blurb": "Guaranteed · 1 item"
             },
             {
-              "label": "3★ Bounty",
+              "label": "3★ Grunt Hunt",
               "formid": "0085DCDA",
-              "blurb": "3★ BOUNTY legendary weapon or armour",
-              "dropRate": 100,
-              "conditions": [
-                "Star level chosen = 3"
-              ],
+              "edid": "LL_BountyHunt_Burn_LegendaryTemplate_3Star_GruntHunt",
+              "dropRate": 100.0,
               "items": [
                 {
                   "name": "3★ Legendary BOUNTY Item",
                   "formid": "00853B62",
+                  "edid": "BOUNTY_LegendaryItems_Rank3",
                   "sig": "LGDI",
                   "qty": 1,
-                  "dropRate": 100
+                  "dropRate": 100.0,
+                  "conditions": []
                 }
-              ]
+              ],
+              "star": 3,
+              "conditions": [
+                "Only on a 3★ Grunt Hunt"
+              ],
+              "blurb": "Guaranteed · 1 item"
             }
           ],
-          "mode": "starlevel"
+          "mode": "starlevel",
+          "blurb": "Guaranteed drop of 1 item · the star level of the Grunt Hunt decides which list rolls"
         },
         {
           "label": "LTT Bonus Legendary",
-          "formid": "007D6A6D-ltt",
-          "blurb": "Bonus legendary from the Live Tuning Table · Currently disabled by Bethesda",
-          "dropRate": 0,
-          "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
+          "formid": "0085646B-0085646C-0085646A-ltt",
+          "dropRate": 0.0,
           "children": [
             {
-              "label": "LTT Bonus 1★ Legendary",
+              "label": "1★ Grunt Hunt",
               "formid": "0085646B",
-              "blurb": "Pick-one of 5 legendary templates · 20% each",
-              "dropRate": 0,
-              "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
-              "conditions": [
-                "Star level chosen = 1",
-                "LTT toggle active"
-              ],
+              "edid": "LTT_Burn_LL_BountyHunt_LegendaryTemplate_1Star",
+              "dropRate": 0.0,
               "items": [
                 {
                   "name": "1★ Legendary Melee Weapon",
                   "formid": "00417C46",
+                  "edid": "LegendaryItems_Weapons_Melee_Rank1",
                   "sig": "LGDI",
                   "qty": 1,
-                  "dropRate": 20
+                  "dropRate": 0.0,
+                  "conditions": []
                 },
                 {
                   "name": "1★ Legendary Ranged Weapon",
                   "formid": "00417C42",
+                  "edid": "LegendaryItems_Weapons_Ranged_Rank1",
                   "sig": "LGDI",
                   "qty": 1,
-                  "dropRate": 20
+                  "dropRate": 0.0,
+                  "conditions": []
                 },
                 {
                   "name": "1★ Legendary Armour",
                   "formid": "00417C4B",
+                  "edid": "LegendaryItems_Armor_Rank1",
                   "sig": "LGDI",
                   "qty": 1,
-                  "dropRate": 20
+                  "dropRate": 0.0,
+                  "conditions": []
                 },
                 {
                   "name": "1★ Legendary BOUNTY Weapon",
                   "formid": "00853D1B",
+                  "edid": "BOUNTY_LegendaryItems_Weapons_Rank1",
                   "sig": "LGDI",
                   "qty": 1,
-                  "dropRate": 20
+                  "dropRate": 0.0,
+                  "conditions": []
                 },
                 {
                   "name": "1★ Legendary BOUNTY Armour",
                   "formid": "00853D1E",
+                  "edid": "BOUNTY_LegendaryItems_Armor_Rank1",
                   "sig": "LGDI",
                   "qty": 1,
-                  "dropRate": 20
+                  "dropRate": 0.0,
+                  "conditions": []
                 }
               ],
-              "mode": "pickone"
+              "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
+              "toggleGlob": "0085712D",
+              "star": 1,
+              "conditions": [
+                "Only on a 1★ Grunt Hunt"
+              ],
+              "blurb": "Currently disabled by Bethesda"
             },
             {
-              "label": "LTT Bonus 2★ Legendary",
+              "label": "2★ Grunt Hunt",
               "formid": "0085646C",
-              "blurb": "Pick-one of 5 legendary templates · 20% each",
-              "dropRate": 0,
-              "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
-              "conditions": [
-                "Star level chosen = 2",
-                "LTT toggle active"
-              ],
+              "edid": "LTT_Burn_LL_BountyHunt_LegendaryTemplate_2Star",
+              "dropRate": 0.0,
               "items": [
                 {
                   "name": "2★ Legendary Melee Weapon",
                   "formid": "00417C47",
+                  "edid": "LegendaryItems_Weapons_Melee_Rank2",
                   "sig": "LGDI",
                   "qty": 1,
-                  "dropRate": 20
+                  "dropRate": 0.0,
+                  "conditions": []
                 },
                 {
                   "name": "2★ Legendary Ranged Weapon",
                   "formid": "00417C43",
+                  "edid": "LegendaryItems_Weapons_Ranged_Rank2",
                   "sig": "LGDI",
                   "qty": 1,
-                  "dropRate": 20
+                  "dropRate": 0.0,
+                  "conditions": []
                 },
                 {
                   "name": "2★ Legendary Armour",
                   "formid": "00417C40",
+                  "edid": "LegendaryItems_Armor_Rank2",
                   "sig": "LGDI",
                   "qty": 1,
-                  "dropRate": 20
+                  "dropRate": 0.0,
+                  "conditions": []
                 },
                 {
                   "name": "2★ Legendary BOUNTY Weapon",
                   "formid": "00853D1C",
+                  "edid": "BOUNTY_LegendaryItems_Weapons_Rank2",
                   "sig": "LGDI",
                   "qty": 1,
-                  "dropRate": 20
+                  "dropRate": 0.0,
+                  "conditions": []
                 },
                 {
                   "name": "2★ Legendary BOUNTY Armour",
                   "formid": "00853D1F",
+                  "edid": "BOUNTY_LegendaryItems_Armor_Rank2",
                   "sig": "LGDI",
                   "qty": 1,
-                  "dropRate": 20
+                  "dropRate": 0.0,
+                  "conditions": []
                 }
               ],
-              "mode": "pickone"
+              "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
+              "toggleGlob": "0085712D",
+              "star": 2,
+              "conditions": [
+                "Only on a 2★ Grunt Hunt"
+              ],
+              "blurb": "Currently disabled by Bethesda"
             },
             {
-              "label": "LTT Bonus 3★ Legendary",
+              "label": "3★ Grunt Hunt",
               "formid": "0085646A",
-              "blurb": "Pick-one of 5 legendary templates · 20% each",
-              "dropRate": 0,
-              "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
-              "conditions": [
-                "Star level chosen = 3",
-                "LTT toggle active"
-              ],
+              "edid": "LTT_Burn_LL_BountyHunt_LegendaryTemplate_3Star_GruntHunt",
+              "dropRate": 0.0,
               "items": [
                 {
                   "name": "3★ Legendary Melee Weapon",
                   "formid": "00417C48",
+                  "edid": "LegendaryItems_Weapons_Melee_Rank3",
                   "sig": "LGDI",
                   "qty": 1,
-                  "dropRate": 20
+                  "dropRate": 0.0,
+                  "conditions": []
                 },
                 {
                   "name": "3★ Legendary Ranged Weapon",
                   "formid": "00417C44",
+                  "edid": "LegendaryItems_Weapons_Ranged_Rank3",
                   "sig": "LGDI",
                   "qty": 1,
-                  "dropRate": 20
+                  "dropRate": 0.0,
+                  "conditions": []
                 },
                 {
                   "name": "3★ Legendary Armour",
                   "formid": "00417C41",
+                  "edid": "LegendaryItems_Armor_Rank3",
                   "sig": "LGDI",
                   "qty": 1,
-                  "dropRate": 20
+                  "dropRate": 0.0,
+                  "conditions": []
                 },
                 {
                   "name": "3★ Legendary BOUNTY Weapon",
                   "formid": "00853D1D",
+                  "edid": "BOUNTY_LegendaryItems_Weapons_Rank3",
                   "sig": "LGDI",
                   "qty": 1,
-                  "dropRate": 20
+                  "dropRate": 0.0,
+                  "conditions": []
                 },
                 {
                   "name": "3★ Legendary BOUNTY Armour",
                   "formid": "00853D20",
+                  "edid": "BOUNTY_LegendaryItems_Armor_Rank3",
                   "sig": "LGDI",
                   "qty": 1,
-                  "dropRate": 20
+                  "dropRate": 0.0,
+                  "conditions": []
                 }
               ],
-              "mode": "pickone"
+              "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
+              "toggleGlob": "0085712D",
+              "star": 3,
+              "conditions": [
+                "Only on a 3★ Grunt Hunt"
+              ],
+              "blurb": "Currently disabled by Bethesda"
             }
           ],
           "mode": "starlevel",
-          "toggleGlob": "0085712D",
-          "chanceNoneGlob": "008553A2"
+          "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
+          "blurb": "Bonus legendary from the Live Tuning Table · currently disabled by Bethesda"
         },
         {
-          "label": "Wanted Poster",
-          "formid": "008206C6",
-          "blurb": "Conditional drop · only if you don't already have one in inventory",
-          "dropRate": 100,
-          "conditions": [
-            "Player does not have a Wanted Poster in inventory",
-            "Bounty target has RewardWantedPoster flag"
-          ],
+          "label": "Legendary Modules",
+          "formid": "0085DCD8",
+          "edid": "BountyHunting_LL_LegendaryModule_1-3",
+          "dropRate": 100.0,
           "items": [
             {
-              "name": "Wanted Poster",
-              "formid": "008206C6",
+              "name": "Legendary Module",
+              "formid": "005652F9",
+              "edid": "LegendaryModule",
               "sig": "MISC",
               "qty": 1,
-              "dropRate": 100
+              "dropRate": 100.0,
+              "conditions": []
+            },
+            {
+              "name": "Legendary Module",
+              "formid": "005652F9",
+              "edid": "LegendaryModule",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 60.0,
+              "conditions": []
+            },
+            {
+              "name": "Legendary Module",
+              "formid": "005652F9",
+              "edid": "LegendaryModule",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 40.0,
+              "conditions": []
             }
-          ]
+          ],
+          "blurb": "Guaranteed 1 · up to 3 with luck"
+        },
+        {
+          "label": "Burning Springs Wanted Poster",
+          "formid": "008206C6",
+          "edid": "BountyHunting_Burn_WantedPoster",
+          "dropRate": 100.0,
+          "items": [
+            {
+              "name": "Burning Springs Wanted Poster",
+              "formid": "008206C6",
+              "edid": "BountyHunting_Burn_WantedPoster",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 100.0,
+              "conditions": []
+            }
+          ],
+          "conditions": [
+            "Only while you do not already have a Burning Springs Wanted Poster",
+            "Only on the Grunt Hunt the game picks to hand out a poster (one every 3 to 6 Grunt Hunts)"
+          ],
+          "blurb": "Guaranteed · 1 item"
+        },
+        {
+          "label": "Bounty Sniffer Bonus Legendary",
+          "formid": "0094B0D4",
+          "edid": "Burn_BountyHunt_GruntHunt_LL_BountySnifferRewards",
+          "dropRate": 100.0,
+          "items": [
+            {
+              "name": "3★ Legendary BOUNTY Item",
+              "formid": "00853B62",
+              "edid": "BOUNTY_LegendaryItems_Rank3",
+              "sig": "LGDI",
+              "qty": 1,
+              "dropRate": 100.0,
+              "conditions": [
+                "Only while your World Pet's Bounty Sniffer buff (rank 3) is active"
+              ]
+            },
+            {
+              "name": "2★ Legendary BOUNTY Item",
+              "formid": "00853B63",
+              "edid": "BOUNTY_LegendaryItems_Rank2",
+              "sig": "LGDI",
+              "qty": 1,
+              "dropRate": 100.0,
+              "conditions": [
+                "Only while your World Pet's Bounty Sniffer buff (rank 2) is active"
+              ]
+            },
+            {
+              "name": "1★ Legendary BOUNTY Item",
+              "formid": "00853B61",
+              "edid": "BOUNTY_LegendaryItems_Rank1",
+              "sig": "LGDI",
+              "qty": 1,
+              "dropRate": 100.0,
+              "conditions": [
+                "Only while your World Pet's Bounty Sniffer buff (rank 1) is active"
+              ]
+            }
+          ],
+          "blurb": "Guaranteed · 3 possible items"
+        },
+        {
+          "label": "Hideout Lead",
+          "formid": "0095F7D5",
+          "edid": "HIDE_LL_Rewards_GruntHunts_Leads",
+          "dropRate": 75.0,
+          "items": [
+            {
+              "name": "Hideout Lead: Basic",
+              "formid": "008EFC65",
+              "edid": "HIDELeadEasy",
+              "sig": "BOOK",
+              "qty": 1,
+              "dropRate": 75.0,
+              "conditions": []
+            }
+          ],
+          "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
+          "toggleGlob": "00948FAA",
+          "blurb": "75% chance · 1 item"
         }
       ],
-      "bossLoot": [
+      "outlawLoot": [
         {
           "label": "Caps",
           "formid": "003AE2A1",
-          "blurb": "3 rolls on the caps table · average ~14 caps total",
-          "dropRate": 100,
-          "items": [
-            {
-              "name": "Caps (roll 1)",
-              "formid": "003AE2A1",
-              "sig": "LVLI",
-              "qty": 2,
-              "dropRate": 100,
-              "note": "Pick-one of 3–7 caps"
-            },
-            {
-              "name": "Caps (roll 2)",
-              "formid": "003AE2A1",
-              "sig": "LVLI",
-              "qty": 2,
-              "dropRate": 100,
-              "note": "Pick-one of 3–7 caps"
-            },
-            {
-              "name": "Caps (roll 3)",
-              "formid": "003AE2A1",
-              "sig": "LVLI",
-              "qty": 2,
-              "dropRate": 100,
-              "note": "Pick-one of 3–7 caps"
-            }
-          ],
-          "mode": "useall"
-        },
-        {
-          "label": "Rad-X",
-          "formid": "002AD63F",
-          "blurb": "Waterfall · Rad-X or Diluted Rad-X",
-          "dropRate": 100,
-          "items": [
-            {
-              "name": "Rad-X",
-              "formid": "00024057",
-              "sig": "ALCH",
-              "qty": 1,
-              "dropRate": 100,
-              "note": "ChanceNone varies by tier GLOB"
-            },
-            {
-              "name": "Diluted Rad-X",
-              "formid": "0012D3F1",
-              "sig": "ALCH",
-              "qty": 1,
-              "dropRate": 100,
-              "note": "Fallback if Rad-X fails"
-            }
-          ],
-          "mode": "waterfall"
-        },
-        {
-          "label": "Contextual Ammo",
-          "formid": "00621922",
-          "blurb": "Guaranteed drop · 1 round matching your equipped weapon",
-          "dropRate": 100,
-          "items": [
-            {
-              "name": "Contextual Ammo",
-              "formid": "00621922",
-              "sig": "LVLI",
-              "qty": 1,
-              "dropRate": 100
-            }
-          ]
-        },
-        {
-          "label": "Stimpaks",
-          "formid": "00307C9E",
-          "blurb": "Waterfall · Stimpak or Diluted Stimpak",
-          "dropRate": 100,
-          "items": [
-            {
-              "name": "Stimpak",
-              "formid": "00307C9E",
-              "sig": "LVLI",
-              "qty": 1,
-              "dropRate": 100
-            }
-          ]
-        },
-        {
-          "label": "Bounty Junk",
-          "formid": "00843A10",
-          "blurb": "3 junk items · 2 common rolls + 1 rare roll (80% chance)",
-          "dropRate": 100,
-          "children": [
-            {
-              "label": "Common Junk (roll 1)",
-              "formid": "00843A11",
-              "blurb": "Pick-one of 58 common junk items",
-              "dropRate": 100,
-              "mode": "pickone"
-            },
-            {
-              "label": "Common Junk (roll 2)",
-              "formid": "00843A11",
-              "blurb": "Pick-one of 58 common junk items",
-              "dropRate": 100,
-              "mode": "pickone"
-            },
-            {
-              "label": "Rare Junk",
-              "formid": "00843A12",
-              "blurb": "Pick-one of 40 rare junk items · 80% chance to drop",
-              "dropRate": 80,
-              "mode": "pickone",
-              "listChanceNone": 20
-            }
-          ],
-          "mode": "useall"
-        }
-      ],
-      "mobLoot": [
-        {
-          "label": "Caps",
-          "formid": "003AE2A1",
-          "blurb": "2 rolls on the caps table · average ~9 caps total",
-          "dropRate": 100,
-          "items": [
-            {
-              "name": "Caps (roll 1)",
-              "formid": "003AE2A1",
-              "sig": "LVLI",
-              "qty": 2,
-              "dropRate": 100
-            },
-            {
-              "name": "Caps (roll 2)",
-              "formid": "003AE2A1",
-              "sig": "LVLI",
-              "qty": 2,
-              "dropRate": 100
-            }
-          ],
-          "mode": "useall"
-        },
-        {
-          "label": "Rad-X",
-          "formid": "002AD63F",
-          "blurb": "Waterfall · Rad-X or Diluted Rad-X",
-          "dropRate": 100,
-          "items": [
-            {
-              "name": "Rad-X",
-              "formid": "00024057",
-              "sig": "ALCH",
-              "qty": 1,
-              "dropRate": 100
-            },
-            {
-              "name": "Diluted Rad-X",
-              "formid": "0012D3F1",
-              "sig": "ALCH",
-              "qty": 1,
-              "dropRate": 100
-            }
-          ],
-          "mode": "waterfall"
-        },
-        {
-          "label": "Contextual Ammo",
-          "formid": "00621922",
-          "blurb": "Guaranteed drop · 1 round matching your equipped weapon",
-          "dropRate": 100,
-          "items": [
-            {
-              "name": "Contextual Ammo",
-              "formid": "00621922",
-              "sig": "LVLI",
-              "qty": 1,
-              "dropRate": 100
-            }
-          ]
-        },
-        {
-          "label": "Stimpaks",
-          "formid": "00307C9E",
-          "blurb": "Waterfall · Stimpak or Diluted Stimpak",
-          "dropRate": 100,
-          "items": [
-            {
-              "name": "Stimpak",
-              "formid": "00307C9E",
-              "sig": "LVLI",
-              "qty": 1,
-              "dropRate": 100
-            }
-          ]
-        },
-        {
-          "label": "Bounty Junk",
-          "formid": "00843A10",
-          "blurb": "3 junk items · 2 common rolls + 1 rare roll (80% chance)",
-          "dropRate": 100,
-          "children": [
-            {
-              "label": "Common Junk (roll 1)",
-              "formid": "00843A11",
-              "blurb": "Pick-one of 58 common junk items",
-              "dropRate": 100,
-              "mode": "pickone"
-            },
-            {
-              "label": "Common Junk (roll 2)",
-              "formid": "00843A11",
-              "blurb": "Pick-one of 58 common junk items",
-              "dropRate": 100,
-              "mode": "pickone"
-            },
-            {
-              "label": "Rare Junk",
-              "formid": "00843A12",
-              "blurb": "Pick-one of 40 rare junk items · 80% chance to drop",
-              "dropRate": 80,
-              "mode": "pickone",
-              "listChanceNone": 20
-            }
-          ],
-          "mode": "useall"
-        }
-      ],
-      "supportLoot": [
-        {
-          "label": "Caps",
-          "formid": "003AE2A1",
-          "blurb": "1 roll on the caps table · average ~5 caps",
-          "dropRate": 100,
+          "edid": "LLS_Caps_High",
+          "dropRate": 100.0,
           "items": [
             {
               "name": "Caps",
-              "formid": "003AE2A1",
-              "sig": "LVLI",
-              "qty": 2,
-              "dropRate": 100
+              "formid": "0000000F",
+              "edid": "Caps001",
+              "sig": "CNCY",
+              "qty": 3,
+              "dropRate": 20.0,
+              "conditions": []
+            },
+            {
+              "name": "Caps",
+              "formid": "0000000F",
+              "edid": "Caps001",
+              "sig": "CNCY",
+              "qty": 4,
+              "dropRate": 30.0,
+              "conditions": []
+            },
+            {
+              "name": "Caps",
+              "formid": "0000000F",
+              "edid": "Caps001",
+              "sig": "CNCY",
+              "qty": 5,
+              "dropRate": 30.0,
+              "conditions": []
+            },
+            {
+              "name": "Caps",
+              "formid": "0000000F",
+              "edid": "Caps001",
+              "sig": "CNCY",
+              "qty": 6,
+              "dropRate": 10.0,
+              "conditions": []
+            },
+            {
+              "name": "Caps",
+              "formid": "0000000F",
+              "edid": "Caps001",
+              "sig": "CNCY",
+              "qty": 7,
+              "dropRate": 10.0,
+              "conditions": []
             }
           ],
-          "mode": "useall"
+          "rolls": 2,
+          "blurb": "2 rolls · 5 possible items"
         },
         {
           "label": "Rad-X",
           "formid": "002AD63F",
-          "blurb": "Waterfall · Rad-X or Diluted Rad-X",
-          "dropRate": 100,
+          "edid": "LLS_Loot_RadX_All",
+          "dropRate": 100.0,
           "items": [
             {
               "name": "Rad-X",
               "formid": "00024057",
+              "edid": "RadX",
               "sig": "ALCH",
               "qty": 1,
-              "dropRate": 100
+              "dropRate": 30.0,
+              "conditions": []
             },
             {
-              "name": "Diluted Rad-X",
+              "name": "Rad-X: Diluted",
               "formid": "0012D3F1",
+              "edid": "RadXDiluted",
               "sig": "ALCH",
               "qty": 1,
-              "dropRate": 100
+              "dropRate": 70.0,
+              "conditions": []
             }
           ],
-          "mode": "waterfall"
+          "blurb": "2 possible items"
         },
         {
           "label": "Contextual Ammo",
           "formid": "00621922",
-          "blurb": "Guaranteed drop · 1 round matching your equipped weapon",
-          "dropRate": 100,
+          "edid": "LLS_Ammo_Loot_Contextual",
+          "dropRate": 100.0,
           "items": [
             {
-              "name": "Contextual Ammo",
+              "name": "Ammo for your equipped weapon",
               "formid": "00621922",
+              "edid": "LLS_Ammo_Loot_Contextual",
               "sig": "LVLI",
               "qty": 1,
-              "dropRate": 100
+              "dropRate": 100.0,
+              "conditions": []
             }
-          ]
+          ],
+          "blurb": "1 item"
         },
         {
           "label": "Stimpaks",
           "formid": "00307C9E",
-          "blurb": "Waterfall · Stimpak or Diluted Stimpak",
-          "dropRate": 100,
+          "edid": "LLS_Loot_Stimpak_All",
+          "dropRate": 100.0,
           "items": [
             {
-              "name": "Stimpak",
-              "formid": "00307C9E",
-              "sig": "LVLI",
+              "name": "Stimpak: Super",
+              "formid": "00117DF9",
+              "edid": "SuperStimpak",
+              "sig": "ALCH",
               "qty": 1,
-              "dropRate": 100
+              "dropRate": 10.0,
+              "conditions": []
+            },
+            {
+              "name": "Stimpak",
+              "formid": "00023736",
+              "edid": "Stimpak",
+              "sig": "ALCH",
+              "qty": 1,
+              "dropRate": 90.0,
+              "conditions": []
             }
-          ]
+          ],
+          "blurb": "2 possible items"
         },
         {
           "label": "Bounty Junk",
           "formid": "00843A10",
-          "blurb": "3 junk items · 2 common rolls + 1 rare roll (80% chance)",
-          "dropRate": 100,
-          "children": [
+          "edid": "BountyHunt_LL_Junk_All",
+          "dropRate": 100.0,
+          "items": [
             {
-              "label": "Common Junk (roll 1)",
-              "formid": "00843A11",
-              "blurb": "Pick-one of 58 common junk items",
-              "dropRate": 100,
-              "mode": "pickone"
+              "name": "Basketball",
+              "formid": "000DF264",
+              "edid": "BasketBall01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
             },
             {
-              "label": "Common Junk (roll 2)",
-              "formid": "00843A11",
-              "blurb": "Pick-one of 58 common junk items",
-              "dropRate": 100,
-              "mode": "pickone"
+              "name": "Stew Pot",
+              "formid": "00059A7A",
+              "edid": "BigPot",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
             },
             {
-              "label": "Rare Junk",
-              "formid": "00843A12",
-              "blurb": "Pick-one of 40 rare junk items · 80% chance to drop",
-              "dropRate": 80,
-              "mode": "pickone",
-              "listChanceNone": 20
+              "name": "Bread Box",
+              "formid": "00046A86",
+              "edid": "BreadBox_Ruin",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Brahmin Skull",
+              "formid": "00059B0C",
+              "edid": "BrahminSkull",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Feather Duster",
+              "formid": "00196AB9",
+              "edid": "FeatherDuster",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Jangles the Moon Monkey",
+              "formid": "00147B03",
+              "edid": "Jangles01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Kickball",
+              "formid": "000822D3",
+              "edid": "Kickball01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Kitchen Scale",
+              "formid": "000AF8EF",
+              "edid": "KitchenScale",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Metal Bucket",
+              "formid": "00059A80",
+              "edid": "MetalBucket",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Empty Paint Can",
+              "formid": "00059B3A",
+              "edid": "PaintCanEmpty",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Straw Pillow",
+              "formid": "00060EC7",
+              "edid": "Pillow_01_Straw",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Comfy Pillow",
+              "formid": "00060EC8",
+              "edid": "Pillow_02_Comfy",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Plunger",
+              "formid": "00059AFB",
+              "edid": "Plunger",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Shopping Basket",
+              "formid": "00090E5E",
+              "edid": "ShoppingBasket",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Paper Cutter",
+              "formid": "0010A3AA",
+              "edid": "PaperCutter02",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Baseball Glove",
+              "formid": "00059A77",
+              "edid": "BaseballGlove",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Flask",
+              "formid": "000EC8AD",
+              "edid": "Beaker02",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Beer Bottle",
+              "formid": "000211DD",
+              "edid": "BeerBottleEmpty01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Empty Blood Pack",
+              "formid": "0014242A",
+              "edid": "BloodPack_Empty",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Blast Radius Board Game",
+              "formid": "0006B165",
+              "edid": "BoardGame01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Skull",
+              "formid": "000347E1",
+              "edid": "BonesSkull",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Spine",
+              "formid": "000347ED",
+              "edid": "BonesSpine",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Ceramic Bowl",
+              "formid": "00023C32",
+              "edid": "Bowl_02_Ceramic",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Glass Bowl",
+              "formid": "00023C36",
+              "edid": "Bowl_03_Glass",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Bowl",
+              "formid": "00140B1A",
+              "edid": "Bowl_Generic",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Cake Pan",
+              "formid": "0001A333",
+              "edid": "CakePan01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Cat Bowl",
+              "formid": "00101CB9",
+              "edid": "CatBowl",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Chessboard",
+              "formid": "00059AB4",
+              "edid": "Chessboard",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Cigarette Carton",
+              "formid": "0005821C",
+              "edid": "CigaretteCarton",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Deflated Kickball",
+              "formid": "0002D9AC",
+              "edid": "Kickball01_deflatedPW02",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Tall Flask",
+              "formid": "000EC8AB",
+              "edid": "Beaker",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Nuka-Cola Bottle",
+              "formid": "0004835A",
+              "edid": "NukaColaEmpty",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Yellow Plate",
+              "formid": "00165328",
+              "edid": "PlateCeramic01_Yellow_Dirty",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Rack",
+              "formid": "00059AFF",
+              "edid": "PoolTriangle",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Spatula",
+              "formid": "00059B0F",
+              "edid": "Spatula",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Teacup",
+              "formid": "00192699",
+              "edid": "Teacup01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Saucer",
+              "formid": "0019269B",
+              "edid": "TeacupSaucer01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Toy Alien",
+              "formid": "00059B2B",
+              "edid": "ToyAlien",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Toy Car",
+              "formid": "00059B1C",
+              "edid": "ToyCar",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Toy Rocketship",
+              "formid": "00059B2A",
+              "edid": "ToyRocketship",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Toy Truck",
+              "formid": "0015E8F6",
+              "edid": "ToyTruck01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Vase",
+              "formid": "000B1647",
+              "edid": "Vase01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Yardstick",
+              "formid": "00059B3E",
+              "edid": "Yardstick",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Dirty Pillow",
+              "formid": "00389EB4",
+              "edid": "Dirty_Pillow01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Dirty Pillow",
+              "formid": "00389EBB",
+              "edid": "Dirty_Pillow02",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Doll Left Arm",
+              "formid": "0000B1DB",
+              "edid": "Doll_Arm",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Broken Doll",
+              "formid": "0018EF02",
+              "edid": "doll_Missing_Arm",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Broken Doll",
+              "formid": "00169688",
+              "edid": "Doll_Missing_Leg",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Chalk",
+              "formid": "00140D98",
+              "edid": "Chalk01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Hairbrush",
+              "formid": "00060ECC",
+              "edid": "Hairbrush_01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Table Knife",
+              "formid": "00059AE1",
+              "edid": "Knife_02_StainlessSteel",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Dog Tags",
+              "formid": "00060EBF",
+              "edid": "MilitaryDogTags",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Paintbrush",
+              "formid": "00060ECF",
+              "edid": "Paintbrush_01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Pen",
+              "formid": "00140D99",
+              "edid": "Pen01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Pencil",
+              "formid": "00059AF8",
+              "edid": "Pencil",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Table Spoon",
+              "formid": "00060E96",
+              "edid": "Spoon_02_StainlessSteel",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Wooden Spoon",
+              "formid": "000FFE09",
+              "edid": "Spoon_Wooden",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Toothbrush",
+              "formid": "00060ECE",
+              "edid": "Toothbrush",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Gold Plated Flip Lighter",
+              "formid": "00060E88",
+              "edid": "LighterGoldPlated",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Silver Locket",
+              "formid": "00059B34",
+              "edid": "SilverLocket",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Silver Table Spoon",
+              "formid": "00060E95",
+              "edid": "Spoon_03_Silver",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Toothpaste",
+              "formid": "00199A88",
+              "edid": "Toothpaste",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Gold Pocket Watch",
+              "formid": "00060E7C",
+              "edid": "WatchGold",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Silver Pocket Watch",
+              "formid": "00060E7D",
+              "edid": "WatchSilver",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Gold Fork",
+              "formid": "003AFFA7",
+              "edid": "Fork_04_Gold",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Alarm Clock",
+              "formid": "00059B27",
+              "edid": "AlarmClock",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Baseball",
+              "formid": "00059A76",
+              "edid": "Baseball",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Empty Blood Sac",
+              "formid": "00028A64",
+              "edid": "BloodbugSacEmpty",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Ichor Sac",
+              "formid": "00028A62",
+              "edid": "BloodbugSacFilledGreen",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Blood Sac",
+              "formid": "00028A63",
+              "edid": "BloodbugSacFilledRed",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Silver Bowl",
+              "formid": "00060EDB",
+              "edid": "Bowl_05_Silver",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Bunsen Burner",
+              "formid": "000EC8B8",
+              "edid": "BunsenBurner",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Broken Camera",
+              "formid": "00059A83",
+              "edid": "CAMERA",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Graduated Cylinder",
+              "formid": "00176050",
+              "edid": "ChemistrySetBeaker01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Thin Beaker",
+              "formid": "00176051",
+              "edid": "ChemistrySetBeaker02",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Chemistry Jar",
+              "formid": "00176052",
+              "edid": "ChemistrySetBeaker03",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Large Beaker",
+              "formid": "00176053",
+              "edid": "ChemistrySetBeaker04",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Lab Bottle",
+              "formid": "0017604F",
+              "edid": "ChemistrySetBottle01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Aluminum Canister",
+              "formid": "00176054",
+              "edid": "ChemistrySetCan01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Magnifying Glass",
+              "formid": "0011DA13",
+              "edid": "MagnifyingGlass",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Used Oil Can",
+              "formid": "0004B273",
+              "edid": "OilCan01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Lantern",
+              "formid": "00096A21",
+              "edid": "OilLamp_Off",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Rat Poison",
+              "formid": "00060ED8",
+              "edid": "RatPoison",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Broken Fishing Rod",
+              "formid": "00059B36",
+              "edid": "FishingRod",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Antique Globe",
+              "formid": "0001D975",
+              "edid": "Globe01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Globe",
+              "formid": "001A7DA6",
+              "edid": "Globe_02_ruined",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Microscope",
+              "formid": "00059AEB",
+              "edid": "Microscope",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Blue Paint",
+              "formid": "0001D95A",
+              "edid": "PaintCanBlue",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Paint Can",
+              "formid": "00059B3B",
+              "edid": "PaintCanFull",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Yellow Paint",
+              "formid": "0001D95B",
+              "edid": "PaintCanYellow",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Typewriter",
+              "formid": "00059B20",
+              "edid": "Typewriter",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "High-Powered Magnet",
+              "formid": "001AB88D",
+              "edid": "HighPoweredMagnet",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Giddyup Buttercup",
+              "formid": "00163A12",
+              "edid": "GiddyupButtercup",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Giddyup Buttercup Back Leg",
+              "formid": "00163A15",
+              "edid": "GiddyupButtercupBLeg",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Giddyup Buttercup Body",
+              "formid": "00163A16",
+              "edid": "GiddyupButtercupBody",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Giddyup Buttercup Front Leg",
+              "formid": "00163A14",
+              "edid": "GiddyupButtercupFLeg",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Giddyup Buttercup Head",
+              "formid": "00163A13",
+              "edid": "GiddyupButtercupHead",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Bag of Fertilizer",
+              "formid": "0005A0D9",
+              "edid": "Fertilizer",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
             }
           ],
-          "mode": "useall"
+          "blurb": "98 possible items"
         }
+      ],
+      "outlawDeathList": "007CFA78",
+      "outlaws": [
+        "Frosty Outlaw",
+        "Healing Outlaw",
+        "Resilient Outlaw",
+        "Stealthy Outlaw",
+        "Swift-Footed Outlaw",
+        "Toxic Outlaw",
+        "Volatile Outlaw"
+      ],
+      "lttStatus": {
+        "toggleGlob": "0085712D",
+        "toggleValue": 0.0,
+        "active": false,
+        "chanceNoneGlob": "008553A2",
+        "chanceNoneValue": 100.0,
+        "dropPct": 0
+      }
+    },
+    "skyline-valley-grunt-hunt-rewards": {
+      "name": "Skyline Valley: Grunt Hunt",
+      "region": "skyline-valley",
+      "regionName": "Skyline Valley",
+      "questFormID": "008A8998",
+      "gmrwFormID": "007D6A81",
+      "rewardListFormID": "007D6A6D",
+      "type": "bountyhunt",
+      "hunt": "grunt",
+      "generative": true,
+      "description": "Solo Skyline Valley bounty - pick up a Grunt Hunt, track down the Outlaw and kill it. The star level of the hunt decides the legendary rank of the reward. Only one Grunt Hunt can be active at a time.",
+      "xp": 1000,
+      "caps": 5000,
+      "eventRewards": [
+        {
+          "label": "BOUNTY Legendary Item",
+          "formid": "00833A15-00833A14-0085DCDA",
+          "dropRate": 100.0,
+          "children": [
+            {
+              "label": "1★ Grunt Hunt",
+              "formid": "00833A15",
+              "edid": "LL_BountyHunt_Burn_LegendaryTemplate_1Star",
+              "dropRate": 100.0,
+              "items": [
+                {
+                  "name": "1★ Legendary BOUNTY Item",
+                  "formid": "00853B61",
+                  "edid": "BOUNTY_LegendaryItems_Rank1",
+                  "sig": "LGDI",
+                  "qty": 1,
+                  "dropRate": 100.0,
+                  "conditions": []
+                }
+              ],
+              "star": 1,
+              "conditions": [
+                "Only on a 1★ Grunt Hunt"
+              ],
+              "blurb": "Guaranteed · 1 item"
+            },
+            {
+              "label": "2★ Grunt Hunt",
+              "formid": "00833A14",
+              "edid": "LL_BountyHunt_Burn_LegendaryTemplate_2Star",
+              "dropRate": 100.0,
+              "items": [
+                {
+                  "name": "2★ Legendary BOUNTY Item",
+                  "formid": "00853B63",
+                  "edid": "BOUNTY_LegendaryItems_Rank2",
+                  "sig": "LGDI",
+                  "qty": 1,
+                  "dropRate": 100.0,
+                  "conditions": []
+                }
+              ],
+              "star": 2,
+              "conditions": [
+                "Only on a 2★ Grunt Hunt"
+              ],
+              "blurb": "Guaranteed · 1 item"
+            },
+            {
+              "label": "3★ Grunt Hunt",
+              "formid": "0085DCDA",
+              "edid": "LL_BountyHunt_Burn_LegendaryTemplate_3Star_GruntHunt",
+              "dropRate": 100.0,
+              "items": [
+                {
+                  "name": "3★ Legendary BOUNTY Item",
+                  "formid": "00853B62",
+                  "edid": "BOUNTY_LegendaryItems_Rank3",
+                  "sig": "LGDI",
+                  "qty": 1,
+                  "dropRate": 100.0,
+                  "conditions": []
+                }
+              ],
+              "star": 3,
+              "conditions": [
+                "Only on a 3★ Grunt Hunt"
+              ],
+              "blurb": "Guaranteed · 1 item"
+            }
+          ],
+          "mode": "starlevel",
+          "blurb": "Guaranteed drop of 1 item · the star level of the Grunt Hunt decides which list rolls"
+        },
+        {
+          "label": "LTT Bonus Legendary",
+          "formid": "0085646B-0085646C-0085646A-ltt",
+          "dropRate": 0.0,
+          "children": [
+            {
+              "label": "1★ Grunt Hunt",
+              "formid": "0085646B",
+              "edid": "LTT_Burn_LL_BountyHunt_LegendaryTemplate_1Star",
+              "dropRate": 0.0,
+              "items": [
+                {
+                  "name": "1★ Legendary Melee Weapon",
+                  "formid": "00417C46",
+                  "edid": "LegendaryItems_Weapons_Melee_Rank1",
+                  "sig": "LGDI",
+                  "qty": 1,
+                  "dropRate": 0.0,
+                  "conditions": []
+                },
+                {
+                  "name": "1★ Legendary Ranged Weapon",
+                  "formid": "00417C42",
+                  "edid": "LegendaryItems_Weapons_Ranged_Rank1",
+                  "sig": "LGDI",
+                  "qty": 1,
+                  "dropRate": 0.0,
+                  "conditions": []
+                },
+                {
+                  "name": "1★ Legendary Armour",
+                  "formid": "00417C4B",
+                  "edid": "LegendaryItems_Armor_Rank1",
+                  "sig": "LGDI",
+                  "qty": 1,
+                  "dropRate": 0.0,
+                  "conditions": []
+                },
+                {
+                  "name": "1★ Legendary BOUNTY Weapon",
+                  "formid": "00853D1B",
+                  "edid": "BOUNTY_LegendaryItems_Weapons_Rank1",
+                  "sig": "LGDI",
+                  "qty": 1,
+                  "dropRate": 0.0,
+                  "conditions": []
+                },
+                {
+                  "name": "1★ Legendary BOUNTY Armour",
+                  "formid": "00853D1E",
+                  "edid": "BOUNTY_LegendaryItems_Armor_Rank1",
+                  "sig": "LGDI",
+                  "qty": 1,
+                  "dropRate": 0.0,
+                  "conditions": []
+                }
+              ],
+              "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
+              "toggleGlob": "0085712D",
+              "star": 1,
+              "conditions": [
+                "Only on a 1★ Grunt Hunt"
+              ],
+              "blurb": "Currently disabled by Bethesda"
+            },
+            {
+              "label": "2★ Grunt Hunt",
+              "formid": "0085646C",
+              "edid": "LTT_Burn_LL_BountyHunt_LegendaryTemplate_2Star",
+              "dropRate": 0.0,
+              "items": [
+                {
+                  "name": "2★ Legendary Melee Weapon",
+                  "formid": "00417C47",
+                  "edid": "LegendaryItems_Weapons_Melee_Rank2",
+                  "sig": "LGDI",
+                  "qty": 1,
+                  "dropRate": 0.0,
+                  "conditions": []
+                },
+                {
+                  "name": "2★ Legendary Ranged Weapon",
+                  "formid": "00417C43",
+                  "edid": "LegendaryItems_Weapons_Ranged_Rank2",
+                  "sig": "LGDI",
+                  "qty": 1,
+                  "dropRate": 0.0,
+                  "conditions": []
+                },
+                {
+                  "name": "2★ Legendary Armour",
+                  "formid": "00417C40",
+                  "edid": "LegendaryItems_Armor_Rank2",
+                  "sig": "LGDI",
+                  "qty": 1,
+                  "dropRate": 0.0,
+                  "conditions": []
+                },
+                {
+                  "name": "2★ Legendary BOUNTY Weapon",
+                  "formid": "00853D1C",
+                  "edid": "BOUNTY_LegendaryItems_Weapons_Rank2",
+                  "sig": "LGDI",
+                  "qty": 1,
+                  "dropRate": 0.0,
+                  "conditions": []
+                },
+                {
+                  "name": "2★ Legendary BOUNTY Armour",
+                  "formid": "00853D1F",
+                  "edid": "BOUNTY_LegendaryItems_Armor_Rank2",
+                  "sig": "LGDI",
+                  "qty": 1,
+                  "dropRate": 0.0,
+                  "conditions": []
+                }
+              ],
+              "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
+              "toggleGlob": "0085712D",
+              "star": 2,
+              "conditions": [
+                "Only on a 2★ Grunt Hunt"
+              ],
+              "blurb": "Currently disabled by Bethesda"
+            },
+            {
+              "label": "3★ Grunt Hunt",
+              "formid": "0085646A",
+              "edid": "LTT_Burn_LL_BountyHunt_LegendaryTemplate_3Star_GruntHunt",
+              "dropRate": 0.0,
+              "items": [
+                {
+                  "name": "3★ Legendary Melee Weapon",
+                  "formid": "00417C48",
+                  "edid": "LegendaryItems_Weapons_Melee_Rank3",
+                  "sig": "LGDI",
+                  "qty": 1,
+                  "dropRate": 0.0,
+                  "conditions": []
+                },
+                {
+                  "name": "3★ Legendary Ranged Weapon",
+                  "formid": "00417C44",
+                  "edid": "LegendaryItems_Weapons_Ranged_Rank3",
+                  "sig": "LGDI",
+                  "qty": 1,
+                  "dropRate": 0.0,
+                  "conditions": []
+                },
+                {
+                  "name": "3★ Legendary Armour",
+                  "formid": "00417C41",
+                  "edid": "LegendaryItems_Armor_Rank3",
+                  "sig": "LGDI",
+                  "qty": 1,
+                  "dropRate": 0.0,
+                  "conditions": []
+                },
+                {
+                  "name": "3★ Legendary BOUNTY Weapon",
+                  "formid": "00853D1D",
+                  "edid": "BOUNTY_LegendaryItems_Weapons_Rank3",
+                  "sig": "LGDI",
+                  "qty": 1,
+                  "dropRate": 0.0,
+                  "conditions": []
+                },
+                {
+                  "name": "3★ Legendary BOUNTY Armour",
+                  "formid": "00853D20",
+                  "edid": "BOUNTY_LegendaryItems_Armor_Rank3",
+                  "sig": "LGDI",
+                  "qty": 1,
+                  "dropRate": 0.0,
+                  "conditions": []
+                }
+              ],
+              "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
+              "toggleGlob": "0085712D",
+              "star": 3,
+              "conditions": [
+                "Only on a 3★ Grunt Hunt"
+              ],
+              "blurb": "Currently disabled by Bethesda"
+            }
+          ],
+          "mode": "starlevel",
+          "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
+          "blurb": "Bonus legendary from the Live Tuning Table · currently disabled by Bethesda"
+        },
+        {
+          "label": "Legendary Modules",
+          "formid": "0085DCD8",
+          "edid": "BountyHunting_LL_LegendaryModule_1-3",
+          "dropRate": 100.0,
+          "items": [
+            {
+              "name": "Legendary Module",
+              "formid": "005652F9",
+              "edid": "LegendaryModule",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 100.0,
+              "conditions": []
+            },
+            {
+              "name": "Legendary Module",
+              "formid": "005652F9",
+              "edid": "LegendaryModule",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 60.0,
+              "conditions": []
+            },
+            {
+              "name": "Legendary Module",
+              "formid": "005652F9",
+              "edid": "LegendaryModule",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 40.0,
+              "conditions": []
+            }
+          ],
+          "blurb": "Guaranteed 1 · up to 3 with luck"
+        },
+        {
+          "label": "Skyline Valley Wanted Poster",
+          "formid": "008A8997",
+          "edid": "BountyHunting_Skyline_WantedPoster",
+          "dropRate": 100.0,
+          "items": [
+            {
+              "name": "Skyline Valley Wanted Poster",
+              "formid": "008A8997",
+              "edid": "BountyHunting_Skyline_WantedPoster",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 100.0,
+              "conditions": []
+            }
+          ],
+          "conditions": [
+            "Only while you do not already have a Skyline Valley Wanted Poster",
+            "Only on the Grunt Hunt the game picks to hand out a poster (one every 3 to 6 Grunt Hunts)"
+          ],
+          "blurb": "Guaranteed · 1 item"
+        },
+        {
+          "label": "Bounty Sniffer Bonus Legendary",
+          "formid": "0094B0D4",
+          "edid": "Burn_BountyHunt_GruntHunt_LL_BountySnifferRewards",
+          "dropRate": 100.0,
+          "items": [
+            {
+              "name": "3★ Legendary BOUNTY Item",
+              "formid": "00853B62",
+              "edid": "BOUNTY_LegendaryItems_Rank3",
+              "sig": "LGDI",
+              "qty": 1,
+              "dropRate": 100.0,
+              "conditions": [
+                "Only while your World Pet's Bounty Sniffer buff (rank 3) is active"
+              ]
+            },
+            {
+              "name": "2★ Legendary BOUNTY Item",
+              "formid": "00853B63",
+              "edid": "BOUNTY_LegendaryItems_Rank2",
+              "sig": "LGDI",
+              "qty": 1,
+              "dropRate": 100.0,
+              "conditions": [
+                "Only while your World Pet's Bounty Sniffer buff (rank 2) is active"
+              ]
+            },
+            {
+              "name": "1★ Legendary BOUNTY Item",
+              "formid": "00853B61",
+              "edid": "BOUNTY_LegendaryItems_Rank1",
+              "sig": "LGDI",
+              "qty": 1,
+              "dropRate": 100.0,
+              "conditions": [
+                "Only while your World Pet's Bounty Sniffer buff (rank 1) is active"
+              ]
+            }
+          ],
+          "blurb": "Guaranteed · 3 possible items"
+        },
+        {
+          "label": "Hideout Lead",
+          "formid": "0095F7D5",
+          "edid": "HIDE_LL_Rewards_GruntHunts_Leads",
+          "dropRate": 75.0,
+          "items": [
+            {
+              "name": "Hideout Lead: Basic",
+              "formid": "008EFC65",
+              "edid": "HIDELeadEasy",
+              "sig": "BOOK",
+              "qty": 1,
+              "dropRate": 75.0,
+              "conditions": []
+            }
+          ],
+          "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
+          "toggleGlob": "00948FAA",
+          "blurb": "75% chance · 1 item"
+        }
+      ],
+      "outlawLoot": [
+        {
+          "label": "Caps",
+          "formid": "003AE2A1",
+          "edid": "LLS_Caps_High",
+          "dropRate": 100.0,
+          "items": [
+            {
+              "name": "Caps",
+              "formid": "0000000F",
+              "edid": "Caps001",
+              "sig": "CNCY",
+              "qty": 3,
+              "dropRate": 20.0,
+              "conditions": []
+            },
+            {
+              "name": "Caps",
+              "formid": "0000000F",
+              "edid": "Caps001",
+              "sig": "CNCY",
+              "qty": 4,
+              "dropRate": 30.0,
+              "conditions": []
+            },
+            {
+              "name": "Caps",
+              "formid": "0000000F",
+              "edid": "Caps001",
+              "sig": "CNCY",
+              "qty": 5,
+              "dropRate": 30.0,
+              "conditions": []
+            },
+            {
+              "name": "Caps",
+              "formid": "0000000F",
+              "edid": "Caps001",
+              "sig": "CNCY",
+              "qty": 6,
+              "dropRate": 10.0,
+              "conditions": []
+            },
+            {
+              "name": "Caps",
+              "formid": "0000000F",
+              "edid": "Caps001",
+              "sig": "CNCY",
+              "qty": 7,
+              "dropRate": 10.0,
+              "conditions": []
+            }
+          ],
+          "rolls": 2,
+          "blurb": "2 rolls · 5 possible items"
+        },
+        {
+          "label": "Rad-X",
+          "formid": "002AD63F",
+          "edid": "LLS_Loot_RadX_All",
+          "dropRate": 100.0,
+          "items": [
+            {
+              "name": "Rad-X",
+              "formid": "00024057",
+              "edid": "RadX",
+              "sig": "ALCH",
+              "qty": 1,
+              "dropRate": 30.0,
+              "conditions": []
+            },
+            {
+              "name": "Rad-X: Diluted",
+              "formid": "0012D3F1",
+              "edid": "RadXDiluted",
+              "sig": "ALCH",
+              "qty": 1,
+              "dropRate": 70.0,
+              "conditions": []
+            }
+          ],
+          "blurb": "2 possible items"
+        },
+        {
+          "label": "Contextual Ammo",
+          "formid": "00621922",
+          "edid": "LLS_Ammo_Loot_Contextual",
+          "dropRate": 100.0,
+          "items": [
+            {
+              "name": "Ammo for your equipped weapon",
+              "formid": "00621922",
+              "edid": "LLS_Ammo_Loot_Contextual",
+              "sig": "LVLI",
+              "qty": 1,
+              "dropRate": 100.0,
+              "conditions": []
+            }
+          ],
+          "blurb": "1 item"
+        },
+        {
+          "label": "Stimpaks",
+          "formid": "00307C9E",
+          "edid": "LLS_Loot_Stimpak_All",
+          "dropRate": 100.0,
+          "items": [
+            {
+              "name": "Stimpak: Super",
+              "formid": "00117DF9",
+              "edid": "SuperStimpak",
+              "sig": "ALCH",
+              "qty": 1,
+              "dropRate": 10.0,
+              "conditions": []
+            },
+            {
+              "name": "Stimpak",
+              "formid": "00023736",
+              "edid": "Stimpak",
+              "sig": "ALCH",
+              "qty": 1,
+              "dropRate": 90.0,
+              "conditions": []
+            }
+          ],
+          "blurb": "2 possible items"
+        },
+        {
+          "label": "Bounty Junk",
+          "formid": "00843A10",
+          "edid": "BountyHunt_LL_Junk_All",
+          "dropRate": 100.0,
+          "items": [
+            {
+              "name": "Basketball",
+              "formid": "000DF264",
+              "edid": "BasketBall01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Stew Pot",
+              "formid": "00059A7A",
+              "edid": "BigPot",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Bread Box",
+              "formid": "00046A86",
+              "edid": "BreadBox_Ruin",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Brahmin Skull",
+              "formid": "00059B0C",
+              "edid": "BrahminSkull",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Feather Duster",
+              "formid": "00196AB9",
+              "edid": "FeatherDuster",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Jangles the Moon Monkey",
+              "formid": "00147B03",
+              "edid": "Jangles01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Kickball",
+              "formid": "000822D3",
+              "edid": "Kickball01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Kitchen Scale",
+              "formid": "000AF8EF",
+              "edid": "KitchenScale",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Metal Bucket",
+              "formid": "00059A80",
+              "edid": "MetalBucket",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Empty Paint Can",
+              "formid": "00059B3A",
+              "edid": "PaintCanEmpty",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Straw Pillow",
+              "formid": "00060EC7",
+              "edid": "Pillow_01_Straw",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Comfy Pillow",
+              "formid": "00060EC8",
+              "edid": "Pillow_02_Comfy",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Plunger",
+              "formid": "00059AFB",
+              "edid": "Plunger",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Shopping Basket",
+              "formid": "00090E5E",
+              "edid": "ShoppingBasket",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Paper Cutter",
+              "formid": "0010A3AA",
+              "edid": "PaperCutter02",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Baseball Glove",
+              "formid": "00059A77",
+              "edid": "BaseballGlove",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Flask",
+              "formid": "000EC8AD",
+              "edid": "Beaker02",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Beer Bottle",
+              "formid": "000211DD",
+              "edid": "BeerBottleEmpty01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Empty Blood Pack",
+              "formid": "0014242A",
+              "edid": "BloodPack_Empty",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Blast Radius Board Game",
+              "formid": "0006B165",
+              "edid": "BoardGame01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Skull",
+              "formid": "000347E1",
+              "edid": "BonesSkull",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Spine",
+              "formid": "000347ED",
+              "edid": "BonesSpine",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Ceramic Bowl",
+              "formid": "00023C32",
+              "edid": "Bowl_02_Ceramic",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Glass Bowl",
+              "formid": "00023C36",
+              "edid": "Bowl_03_Glass",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Bowl",
+              "formid": "00140B1A",
+              "edid": "Bowl_Generic",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Cake Pan",
+              "formid": "0001A333",
+              "edid": "CakePan01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Cat Bowl",
+              "formid": "00101CB9",
+              "edid": "CatBowl",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Chessboard",
+              "formid": "00059AB4",
+              "edid": "Chessboard",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Cigarette Carton",
+              "formid": "0005821C",
+              "edid": "CigaretteCarton",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Deflated Kickball",
+              "formid": "0002D9AC",
+              "edid": "Kickball01_deflatedPW02",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Tall Flask",
+              "formid": "000EC8AB",
+              "edid": "Beaker",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Nuka-Cola Bottle",
+              "formid": "0004835A",
+              "edid": "NukaColaEmpty",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Yellow Plate",
+              "formid": "00165328",
+              "edid": "PlateCeramic01_Yellow_Dirty",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Rack",
+              "formid": "00059AFF",
+              "edid": "PoolTriangle",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Spatula",
+              "formid": "00059B0F",
+              "edid": "Spatula",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Teacup",
+              "formid": "00192699",
+              "edid": "Teacup01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Saucer",
+              "formid": "0019269B",
+              "edid": "TeacupSaucer01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Toy Alien",
+              "formid": "00059B2B",
+              "edid": "ToyAlien",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Toy Car",
+              "formid": "00059B1C",
+              "edid": "ToyCar",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Toy Rocketship",
+              "formid": "00059B2A",
+              "edid": "ToyRocketship",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Toy Truck",
+              "formid": "0015E8F6",
+              "edid": "ToyTruck01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Vase",
+              "formid": "000B1647",
+              "edid": "Vase01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Yardstick",
+              "formid": "00059B3E",
+              "edid": "Yardstick",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Dirty Pillow",
+              "formid": "00389EB4",
+              "edid": "Dirty_Pillow01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Dirty Pillow",
+              "formid": "00389EBB",
+              "edid": "Dirty_Pillow02",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Doll Left Arm",
+              "formid": "0000B1DB",
+              "edid": "Doll_Arm",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Broken Doll",
+              "formid": "0018EF02",
+              "edid": "doll_Missing_Arm",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Broken Doll",
+              "formid": "00169688",
+              "edid": "Doll_Missing_Leg",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Chalk",
+              "formid": "00140D98",
+              "edid": "Chalk01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Hairbrush",
+              "formid": "00060ECC",
+              "edid": "Hairbrush_01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Table Knife",
+              "formid": "00059AE1",
+              "edid": "Knife_02_StainlessSteel",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Dog Tags",
+              "formid": "00060EBF",
+              "edid": "MilitaryDogTags",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Paintbrush",
+              "formid": "00060ECF",
+              "edid": "Paintbrush_01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Pen",
+              "formid": "00140D99",
+              "edid": "Pen01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Pencil",
+              "formid": "00059AF8",
+              "edid": "Pencil",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Table Spoon",
+              "formid": "00060E96",
+              "edid": "Spoon_02_StainlessSteel",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Wooden Spoon",
+              "formid": "000FFE09",
+              "edid": "Spoon_Wooden",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Toothbrush",
+              "formid": "00060ECE",
+              "edid": "Toothbrush",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Gold Plated Flip Lighter",
+              "formid": "00060E88",
+              "edid": "LighterGoldPlated",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Silver Locket",
+              "formid": "00059B34",
+              "edid": "SilverLocket",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Silver Table Spoon",
+              "formid": "00060E95",
+              "edid": "Spoon_03_Silver",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Toothpaste",
+              "formid": "00199A88",
+              "edid": "Toothpaste",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Gold Pocket Watch",
+              "formid": "00060E7C",
+              "edid": "WatchGold",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Silver Pocket Watch",
+              "formid": "00060E7D",
+              "edid": "WatchSilver",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Gold Fork",
+              "formid": "003AFFA7",
+              "edid": "Fork_04_Gold",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Alarm Clock",
+              "formid": "00059B27",
+              "edid": "AlarmClock",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Baseball",
+              "formid": "00059A76",
+              "edid": "Baseball",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Empty Blood Sac",
+              "formid": "00028A64",
+              "edid": "BloodbugSacEmpty",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Ichor Sac",
+              "formid": "00028A62",
+              "edid": "BloodbugSacFilledGreen",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Blood Sac",
+              "formid": "00028A63",
+              "edid": "BloodbugSacFilledRed",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Silver Bowl",
+              "formid": "00060EDB",
+              "edid": "Bowl_05_Silver",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Bunsen Burner",
+              "formid": "000EC8B8",
+              "edid": "BunsenBurner",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Broken Camera",
+              "formid": "00059A83",
+              "edid": "CAMERA",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Graduated Cylinder",
+              "formid": "00176050",
+              "edid": "ChemistrySetBeaker01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Thin Beaker",
+              "formid": "00176051",
+              "edid": "ChemistrySetBeaker02",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Chemistry Jar",
+              "formid": "00176052",
+              "edid": "ChemistrySetBeaker03",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Large Beaker",
+              "formid": "00176053",
+              "edid": "ChemistrySetBeaker04",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Lab Bottle",
+              "formid": "0017604F",
+              "edid": "ChemistrySetBottle01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Aluminum Canister",
+              "formid": "00176054",
+              "edid": "ChemistrySetCan01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Magnifying Glass",
+              "formid": "0011DA13",
+              "edid": "MagnifyingGlass",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Used Oil Can",
+              "formid": "0004B273",
+              "edid": "OilCan01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Lantern",
+              "formid": "00096A21",
+              "edid": "OilLamp_Off",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Rat Poison",
+              "formid": "00060ED8",
+              "edid": "RatPoison",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Broken Fishing Rod",
+              "formid": "00059B36",
+              "edid": "FishingRod",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Antique Globe",
+              "formid": "0001D975",
+              "edid": "Globe01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Globe",
+              "formid": "001A7DA6",
+              "edid": "Globe_02_ruined",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Microscope",
+              "formid": "00059AEB",
+              "edid": "Microscope",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Blue Paint",
+              "formid": "0001D95A",
+              "edid": "PaintCanBlue",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Paint Can",
+              "formid": "00059B3B",
+              "edid": "PaintCanFull",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Yellow Paint",
+              "formid": "0001D95B",
+              "edid": "PaintCanYellow",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Typewriter",
+              "formid": "00059B20",
+              "edid": "Typewriter",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "High-Powered Magnet",
+              "formid": "001AB88D",
+              "edid": "HighPoweredMagnet",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Giddyup Buttercup",
+              "formid": "00163A12",
+              "edid": "GiddyupButtercup",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Giddyup Buttercup Back Leg",
+              "formid": "00163A15",
+              "edid": "GiddyupButtercupBLeg",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Giddyup Buttercup Body",
+              "formid": "00163A16",
+              "edid": "GiddyupButtercupBody",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Giddyup Buttercup Front Leg",
+              "formid": "00163A14",
+              "edid": "GiddyupButtercupFLeg",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Giddyup Buttercup Head",
+              "formid": "00163A13",
+              "edid": "GiddyupButtercupHead",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Bag of Fertilizer",
+              "formid": "0005A0D9",
+              "edid": "Fertilizer",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            }
+          ],
+          "blurb": "98 possible items"
+        }
+      ],
+      "outlawDeathList": "007CFA78",
+      "outlaws": [
+        "Frosty Outlaw",
+        "Healing Outlaw",
+        "Resilient Outlaw",
+        "Stealthy Outlaw",
+        "Swift-Footed Outlaw",
+        "Toxic Outlaw",
+        "Volatile Outlaw"
       ],
       "lttStatus": {
         "toggleGlob": "0085712D",
@@ -1101,6 +3387,2944 @@
           "mode": "useall"
         }
       ],
+      "seasonalGroups": [
+        {
+          "id": "slasher",
+          "label": "Seasonal — Slasher Party Crasher",
+          "blurb": "Seasonal Shadows of the Dead of Winter encounter · when active, The Reborn Pint-Sized Slasher can replace the normal bounty target with a Level 100 boss carrying its own loot pool · spawn rate currently set to 0%",
+          "open": false,
+          "lists": [
+            {
+              "tier": "event",
+              "title": "Event Rewards",
+              "rosterBlurb": "Same quest-completion rewards as a standard Head Hunt.",
+              "pools": [
+                {
+                  "label": "Legendary Modules",
+                  "formid": "00843A0F",
+                  "blurb": "Guaranteed 3 modules · 60% chance of a 4th · 40% chance of a 5th",
+                  "dropRate": 100,
+                  "items": [
+                    {
+                      "name": "Legendary Module",
+                      "formid": "005652F9",
+                      "sig": "MISC",
+                      "qty": 3,
+                      "dropRate": 100
+                    },
+                    {
+                      "name": "Legendary Module",
+                      "formid": "005652F9",
+                      "sig": "MISC",
+                      "qty": 1,
+                      "dropRate": 60
+                    },
+                    {
+                      "name": "Legendary Module",
+                      "formid": "005652F9",
+                      "sig": "MISC",
+                      "qty": 1,
+                      "dropRate": 40
+                    }
+                  ],
+                  "mode": "useall"
+                },
+                {
+                  "label": "3★ BOUNTY Legendary Items",
+                  "formid": "00833A16",
+                  "blurb": "Guaranteed drop of all 3 items · 3★ Legendary",
+                  "dropRate": 100,
+                  "items": [
+                    {
+                      "name": "3★ Legendary BOUNTY Armour",
+                      "formid": "00853D20",
+                      "sig": "LGDI",
+                      "qty": 1,
+                      "dropRate": 100
+                    },
+                    {
+                      "name": "3★ Legendary BOUNTY Melee Weapon",
+                      "formid": "0085DCD4",
+                      "sig": "LGDI",
+                      "qty": 1,
+                      "dropRate": 100
+                    },
+                    {
+                      "name": "3★ Legendary BOUNTY Ranged Weapon",
+                      "formid": "0085DCD7",
+                      "sig": "LGDI",
+                      "qty": 1,
+                      "dropRate": 100
+                    }
+                  ],
+                  "mode": "useall"
+                },
+                {
+                  "label": "LTT 4★ Legendary",
+                  "formid": "0085646D",
+                  "blurb": "Bonus 4★ legendary from the Live Tuning Table · Currently disabled by Bethesda",
+                  "dropRate": 0,
+                  "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
+                  "items": [
+                    {
+                      "name": "4★ Legendary Armour",
+                      "formid": "00884073",
+                      "sig": "LGDI",
+                      "qty": 1,
+                      "dropRate": 25
+                    },
+                    {
+                      "name": "4★ Legendary Power Armour",
+                      "formid": "00884074",
+                      "sig": "LGDI",
+                      "qty": 1,
+                      "dropRate": 25
+                    },
+                    {
+                      "name": "4★ Legendary Melee Weapon",
+                      "formid": "00884075",
+                      "sig": "LGDI",
+                      "qty": 1,
+                      "dropRate": 25
+                    },
+                    {
+                      "name": "4★ Legendary Ranged Weapon",
+                      "formid": "00884076",
+                      "sig": "LGDI",
+                      "qty": 1,
+                      "dropRate": 25
+                    }
+                  ],
+                  "mode": "pickone",
+                  "toggleGlob": "008553A3",
+                  "chanceNoneGlob": "0085712E"
+                },
+                {
+                  "label": "Improved Bait",
+                  "formid": "0081137A",
+                  "blurb": "Guaranteed drop · 33% chance each of 1, 2, or 3 bait",
+                  "dropRate": 100,
+                  "conditions": [
+                    "Player has completed quest: Casting Off (Fishing MQ01)"
+                  ],
+                  "items": [
+                    {
+                      "name": "Improved Bait",
+                      "formid": "007FDC33",
+                      "sig": "MISC",
+                      "qty": 1,
+                      "dropRate": 33.33
+                    },
+                    {
+                      "name": "Improved Bait",
+                      "formid": "007FDC33",
+                      "sig": "MISC",
+                      "qty": 2,
+                      "dropRate": 33.33
+                    },
+                    {
+                      "name": "Improved Bait",
+                      "formid": "007FDC33",
+                      "sig": "MISC",
+                      "qty": 3,
+                      "dropRate": 33.33
+                    }
+                  ],
+                  "mode": "pickone"
+                },
+                {
+                  "label": "Treasury Notes",
+                  "formid": "005A5442",
+                  "blurb": "Guaranteed drop · 2 notes",
+                  "dropRate": 100,
+                  "items": [
+                    {
+                      "name": "Treasury Note",
+                      "formid": "005A5443",
+                      "sig": "MISC",
+                      "qty": 2,
+                      "dropRate": 100
+                    }
+                  ]
+                },
+                {
+                  "label": "Camp Title Recipe: Hideout",
+                  "formid": "0089EA74",
+                  "blurb": "25.0% chance · only drops if you haven't learned it yet",
+                  "dropRate": 25.0,
+                  "conditions": [
+                    "Player has NOT learned recipe: CAMPTitle Suffix Hideout"
+                  ],
+                  "items": [
+                    {
+                      "name": "Camp Title: Hideout",
+                      "formid": "0089EA74",
+                      "sig": "BOOK",
+                      "qty": 1,
+                      "dropRate": 25.0
+                    }
+                  ],
+                  "chanceNoneGlob": "0089EA90"
+                }
+              ]
+            },
+            {
+              "tier": "boss",
+              "title": "Boss Loot",
+              "pools": [
+                {
+                  "label": "Caps",
+                  "formid": "003AE2A1",
+                  "blurb": "3 rolls on the caps table · average ~14 caps total",
+                  "dropRate": 100,
+                  "items": [
+                    {
+                      "name": "Caps (roll 1)",
+                      "formid": "003AE2A1",
+                      "sig": "LVLI",
+                      "qty": 2,
+                      "dropRate": 100,
+                      "note": "Pick-one of 3–7 caps"
+                    },
+                    {
+                      "name": "Caps (roll 2)",
+                      "formid": "003AE2A1",
+                      "sig": "LVLI",
+                      "qty": 2,
+                      "dropRate": 100,
+                      "note": "Pick-one of 3–7 caps"
+                    },
+                    {
+                      "name": "Caps (roll 3)",
+                      "formid": "003AE2A1",
+                      "sig": "LVLI",
+                      "qty": 2,
+                      "dropRate": 100,
+                      "note": "Pick-one of 3–7 caps"
+                    }
+                  ],
+                  "mode": "useall"
+                },
+                {
+                  "label": "Rad-X",
+                  "formid": "002AD63F",
+                  "blurb": "Waterfall · Rad-X or Diluted Rad-X",
+                  "dropRate": 100,
+                  "items": [
+                    {
+                      "name": "Rad-X",
+                      "formid": "00024057",
+                      "sig": "ALCH",
+                      "qty": 1,
+                      "dropRate": 100,
+                      "note": "ChanceNone varies by tier GLOB"
+                    },
+                    {
+                      "name": "Diluted Rad-X",
+                      "formid": "0012D3F1",
+                      "sig": "ALCH",
+                      "qty": 1,
+                      "dropRate": 100,
+                      "note": "Fallback if Rad-X fails"
+                    }
+                  ],
+                  "mode": "waterfall"
+                },
+                {
+                  "label": "Contextual Ammo",
+                  "formid": "00621922",
+                  "blurb": "Guaranteed drop · 1 round matching your equipped weapon",
+                  "dropRate": 100,
+                  "items": [
+                    {
+                      "name": "Contextual Ammo",
+                      "formid": "00621922",
+                      "sig": "LVLI",
+                      "qty": 1,
+                      "dropRate": 100
+                    }
+                  ]
+                },
+                {
+                  "label": "Stimpaks",
+                  "formid": "00307C9E",
+                  "blurb": "Waterfall · Stimpak or Diluted Stimpak",
+                  "dropRate": 100,
+                  "items": [
+                    {
+                      "name": "Stimpak",
+                      "formid": "00307C9E",
+                      "sig": "LVLI",
+                      "qty": 1,
+                      "dropRate": 100
+                    }
+                  ]
+                },
+                {
+                  "label": "Bounty Junk",
+                  "formid": "00843A10",
+                  "blurb": "3 junk items · 2 common rolls + 1 rare roll (80% chance)",
+                  "dropRate": 100,
+                  "children": [
+                    {
+                      "label": "Common Junk (roll 1)",
+                      "formid": "00843A11",
+                      "blurb": "Pick-one of 58 common junk items",
+                      "dropRate": 100,
+                      "mode": "pickone"
+                    },
+                    {
+                      "label": "Common Junk (roll 2)",
+                      "formid": "00843A11",
+                      "blurb": "Pick-one of 58 common junk items",
+                      "dropRate": 100,
+                      "mode": "pickone"
+                    },
+                    {
+                      "label": "Rare Junk",
+                      "formid": "00843A12",
+                      "blurb": "Pick-one of 40 rare junk items · 80% chance to drop",
+                      "dropRate": 80,
+                      "mode": "pickone",
+                      "listChanceNone": 20
+                    }
+                  ],
+                  "mode": "useall"
+                },
+                {
+                  "label": "Slasher Rare Recipes",
+                  "formid": "008E06F6",
+                  "blurb": "20% chance to roll · pick-one of 5 Slasher plans",
+                  "dropRate": 20,
+                  "conditions": [
+                    "Only from The Reborn Pint-Sized Slasher"
+                  ],
+                  "items": [
+                    {
+                      "name": "Plan: Slasher Power Armor Torso Paint",
+                      "formid": "008DE08B",
+                      "sig": "BOOK",
+                      "qty": 1,
+                      "dropRate": 20
+                    },
+                    {
+                      "name": "Plan: Slasher Power Armor Arms Paint",
+                      "formid": "008DE089",
+                      "sig": "BOOK",
+                      "qty": 1,
+                      "dropRate": 20
+                    },
+                    {
+                      "name": "Plan: Slasher Power Armor Legs Paint",
+                      "formid": "008DE087",
+                      "sig": "BOOK",
+                      "qty": 1,
+                      "dropRate": 20
+                    },
+                    {
+                      "name": "Plan: Slasher Power Armor Jetpack Paint",
+                      "formid": "008DE088",
+                      "sig": "BOOK",
+                      "qty": 1,
+                      "dropRate": 20
+                    },
+                    {
+                      "name": "Plan: Slasher Auto Axe Paint",
+                      "formid": "008E069A",
+                      "sig": "BOOK",
+                      "qty": 1,
+                      "dropRate": 20
+                    }
+                  ],
+                  "mode": "pickone"
+                },
+                {
+                  "label": "Slasher Legendary Rewards",
+                  "formid": "0090FC46",
+                  "blurb": "Guaranteed 4★ legendary · Super Slasher Auto Axe currently disabled by Bethesda",
+                  "dropRate": 100,
+                  "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
+                  "items": [
+                    {
+                      "name": "4★ Legendary Item",
+                      "formid": "00863A9D",
+                      "sig": "LGDI",
+                      "qty": 1,
+                      "dropRate": 100,
+                      "note": "Standard 4-star legendary template"
+                    },
+                    {
+                      "name": "Super Slasher Auto Axe",
+                      "formid": "006361A2",
+                      "sig": "WEAP",
+                      "qty": 1,
+                      "dropRate": 0,
+                      "note": "Auto Axe carrying the new Severing 4★ legendary effect",
+                      "conditions": [
+                        "Requires completing quest: Blood Will Have Blood (SDOW_MQ05)",
+                        "5% roll · only when the SlasherAxeLootOverride toggle is ON"
+                      ]
+                    }
+                  ],
+                  "mode": "useall"
+                }
+              ]
+            },
+            {
+              "tier": "mob",
+              "title": "Mob Loot",
+              "rosterBlurb": "Same as the standard Head Hunt — the adds are unchanged.",
+              "pools": [
+                {
+                  "label": "Caps",
+                  "formid": "003AE2A1",
+                  "blurb": "2 rolls on the caps table · average ~9 caps total",
+                  "dropRate": 100,
+                  "items": [
+                    {
+                      "name": "Caps (roll 1)",
+                      "formid": "003AE2A1",
+                      "sig": "LVLI",
+                      "qty": 2,
+                      "dropRate": 100
+                    },
+                    {
+                      "name": "Caps (roll 2)",
+                      "formid": "003AE2A1",
+                      "sig": "LVLI",
+                      "qty": 2,
+                      "dropRate": 100
+                    }
+                  ],
+                  "mode": "useall"
+                },
+                {
+                  "label": "Rad-X",
+                  "formid": "002AD63F",
+                  "blurb": "Waterfall · Rad-X or Diluted Rad-X",
+                  "dropRate": 100,
+                  "items": [
+                    {
+                      "name": "Rad-X",
+                      "formid": "00024057",
+                      "sig": "ALCH",
+                      "qty": 1,
+                      "dropRate": 100
+                    },
+                    {
+                      "name": "Diluted Rad-X",
+                      "formid": "0012D3F1",
+                      "sig": "ALCH",
+                      "qty": 1,
+                      "dropRate": 100
+                    }
+                  ],
+                  "mode": "waterfall"
+                },
+                {
+                  "label": "Contextual Ammo",
+                  "formid": "00621922",
+                  "blurb": "Guaranteed drop · 1 round matching your equipped weapon",
+                  "dropRate": 100,
+                  "items": [
+                    {
+                      "name": "Contextual Ammo",
+                      "formid": "00621922",
+                      "sig": "LVLI",
+                      "qty": 1,
+                      "dropRate": 100
+                    }
+                  ]
+                },
+                {
+                  "label": "Stimpaks",
+                  "formid": "00307C9E",
+                  "blurb": "Waterfall · Stimpak or Diluted Stimpak",
+                  "dropRate": 100,
+                  "items": [
+                    {
+                      "name": "Stimpak",
+                      "formid": "00307C9E",
+                      "sig": "LVLI",
+                      "qty": 1,
+                      "dropRate": 100
+                    }
+                  ]
+                },
+                {
+                  "label": "Bounty Junk",
+                  "formid": "00843A10",
+                  "blurb": "3 junk items · 2 common rolls + 1 rare roll (80% chance)",
+                  "dropRate": 100,
+                  "children": [
+                    {
+                      "label": "Common Junk (roll 1)",
+                      "formid": "00843A11",
+                      "blurb": "Pick-one of 58 common junk items",
+                      "dropRate": 100,
+                      "mode": "pickone"
+                    },
+                    {
+                      "label": "Common Junk (roll 2)",
+                      "formid": "00843A11",
+                      "blurb": "Pick-one of 58 common junk items",
+                      "dropRate": 100,
+                      "mode": "pickone"
+                    },
+                    {
+                      "label": "Rare Junk",
+                      "formid": "00843A12",
+                      "blurb": "Pick-one of 40 rare junk items · 80% chance to drop",
+                      "dropRate": 80,
+                      "mode": "pickone",
+                      "listChanceNone": 20
+                    }
+                  ],
+                  "mode": "useall"
+                }
+              ]
+            },
+            {
+              "tier": "support",
+              "title": "Support Loot",
+              "rosterBlurb": "Same as the standard Head Hunt — the support enemies are unchanged.",
+              "pools": [
+                {
+                  "label": "Caps",
+                  "formid": "003AE2A1",
+                  "blurb": "1 roll on the caps table · average ~5 caps",
+                  "dropRate": 100,
+                  "items": [
+                    {
+                      "name": "Caps",
+                      "formid": "003AE2A1",
+                      "sig": "LVLI",
+                      "qty": 2,
+                      "dropRate": 100
+                    }
+                  ],
+                  "mode": "useall"
+                },
+                {
+                  "label": "Rad-X",
+                  "formid": "002AD63F",
+                  "blurb": "Waterfall · Rad-X or Diluted Rad-X",
+                  "dropRate": 100,
+                  "items": [
+                    {
+                      "name": "Rad-X",
+                      "formid": "00024057",
+                      "sig": "ALCH",
+                      "qty": 1,
+                      "dropRate": 100
+                    },
+                    {
+                      "name": "Diluted Rad-X",
+                      "formid": "0012D3F1",
+                      "sig": "ALCH",
+                      "qty": 1,
+                      "dropRate": 100
+                    }
+                  ],
+                  "mode": "waterfall"
+                },
+                {
+                  "label": "Contextual Ammo",
+                  "formid": "00621922",
+                  "blurb": "Guaranteed drop · 1 round matching your equipped weapon",
+                  "dropRate": 100,
+                  "items": [
+                    {
+                      "name": "Contextual Ammo",
+                      "formid": "00621922",
+                      "sig": "LVLI",
+                      "qty": 1,
+                      "dropRate": 100
+                    }
+                  ]
+                },
+                {
+                  "label": "Stimpaks",
+                  "formid": "00307C9E",
+                  "blurb": "Waterfall · Stimpak or Diluted Stimpak",
+                  "dropRate": 100,
+                  "items": [
+                    {
+                      "name": "Stimpak",
+                      "formid": "00307C9E",
+                      "sig": "LVLI",
+                      "qty": 1,
+                      "dropRate": 100
+                    }
+                  ]
+                },
+                {
+                  "label": "Bounty Junk",
+                  "formid": "00843A10",
+                  "blurb": "3 junk items · 2 common rolls + 1 rare roll (80% chance)",
+                  "dropRate": 100,
+                  "children": [
+                    {
+                      "label": "Common Junk (roll 1)",
+                      "formid": "00843A11",
+                      "blurb": "Pick-one of 58 common junk items",
+                      "dropRate": 100,
+                      "mode": "pickone"
+                    },
+                    {
+                      "label": "Common Junk (roll 2)",
+                      "formid": "00843A11",
+                      "blurb": "Pick-one of 58 common junk items",
+                      "dropRate": 100,
+                      "mode": "pickone"
+                    },
+                    {
+                      "label": "Rare Junk",
+                      "formid": "00843A12",
+                      "blurb": "Pick-one of 40 rare junk items · 80% chance to drop",
+                      "dropRate": 80,
+                      "mode": "pickone",
+                      "listChanceNone": 20
+                    }
+                  ],
+                  "mode": "useall"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "lttStatus": {
+        "toggleGlob": "008553A3",
+        "toggleValue": 0.0,
+        "active": false,
+        "chanceNoneGlob": "0085712E",
+        "chanceNoneValue": 100.0,
+        "dropPct": 0
+      }
+    },
+    "skyline-valley-head-hunt-rewards": {
+      "name": "Skyline Valley: Head Hunt",
+      "region": "skyline-valley",
+      "regionName": "Skyline Valley",
+      "questFormID": "008A8999",
+      "gmrwFormID": "007EBDEE",
+      "rewardListFormID": "007EBDF3",
+      "type": "bountyhunt",
+      "hunt": "head",
+      "generative": true,
+      "xp": 1500,
+      "caps": 5000,
+      "eventRewards": [
+        {
+          "label": "Hideout Lead",
+          "formid": "00948FB3",
+          "edid": "HIDE_LL_Rewards_HeadHunts_Leads",
+          "dropRate": 75.0,
+          "items": [
+            {
+              "name": "Hideout Lead: Challenging",
+              "formid": "008EFC79",
+              "edid": "HIDELeadMedium",
+              "sig": "BOOK",
+              "qty": 1,
+              "dropRate": 75.0,
+              "conditions": []
+            }
+          ],
+          "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
+          "toggleGlob": "00948FAA",
+          "blurb": "75% chance · 1 item"
+        },
+        {
+          "label": "Legendary Modules",
+          "formid": "00843A0F",
+          "edid": "BountyHunting_LL_LegendaryModule_3-5",
+          "dropRate": 100.0,
+          "items": [
+            {
+              "name": "Legendary Module",
+              "formid": "005652F9",
+              "edid": "LegendaryModule",
+              "sig": "MISC",
+              "qty": 3,
+              "dropRate": 100.0,
+              "conditions": []
+            },
+            {
+              "name": "Legendary Module",
+              "formid": "005652F9",
+              "edid": "LegendaryModule",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 60.0,
+              "conditions": []
+            },
+            {
+              "name": "Legendary Module",
+              "formid": "005652F9",
+              "edid": "LegendaryModule",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 40.0,
+              "conditions": []
+            }
+          ],
+          "blurb": "Guaranteed 3 · up to 5 with luck"
+        },
+        {
+          "label": "3★ BOUNTY Legendary Items",
+          "formid": "00833A16",
+          "edid": "LL_BountyHunt_Burn_LegendaryTemplate_3Star_HeadHunt",
+          "dropRate": 100.0,
+          "items": [
+            {
+              "name": "3★ Legendary BOUNTY Armour",
+              "formid": "00853D20",
+              "edid": "BOUNTY_LegendaryItems_Armor_Rank3",
+              "sig": "LGDI",
+              "qty": 1,
+              "dropRate": 100.0,
+              "conditions": []
+            },
+            {
+              "name": "3★ Legendary BOUNTY Melee Weapon",
+              "formid": "0085DCD4",
+              "edid": "BOUNTY_LegendaryItems_Weapons_Melee_Rank3",
+              "sig": "LGDI",
+              "qty": 1,
+              "dropRate": 100.0,
+              "conditions": []
+            },
+            {
+              "name": "3★ Legendary BOUNTY Ranged Weapon",
+              "formid": "0085DCD7",
+              "edid": "BOUNTY_LegendaryItems_Weapons_Ranged_Rank3",
+              "sig": "LGDI",
+              "qty": 1,
+              "dropRate": 100.0,
+              "conditions": []
+            }
+          ],
+          "blurb": "Guaranteed · 3 possible items"
+        },
+        {
+          "label": "LTT 4★ Legendary",
+          "formid": "0085646D",
+          "edid": "LTT_Burn_LL_BountyHunt_LegendaryTemplate_4Star",
+          "dropRate": 0.0,
+          "items": [
+            {
+              "name": "4★ Legendary Armour",
+              "formid": "00884073",
+              "edid": "LTT_LegendaryItems_Armor_Rank4",
+              "sig": "LGDI",
+              "qty": 1,
+              "dropRate": 0.0,
+              "conditions": []
+            },
+            {
+              "name": "4★ Legendary Power Armour",
+              "formid": "00884074",
+              "edid": "LTT_LegendaryItems_PowerArmor_Rank4",
+              "sig": "LGDI",
+              "qty": 1,
+              "dropRate": 0.0,
+              "conditions": []
+            },
+            {
+              "name": "4★ Legendary Melee Weapon",
+              "formid": "00884075",
+              "edid": "LTT_LegendaryItems_Weapons_Melee_Rank4",
+              "sig": "LGDI",
+              "qty": 1,
+              "dropRate": 0.0,
+              "conditions": []
+            },
+            {
+              "name": "4★ Legendary Ranged Weapon",
+              "formid": "00884076",
+              "edid": "LTT_LegendaryItems_Weapons_Ranged_Rank4",
+              "sig": "LGDI",
+              "qty": 1,
+              "dropRate": 0.0,
+              "conditions": []
+            }
+          ],
+          "warningNote": "This reward is enabled or disabled at Bethesda's discretion and may not always be active.",
+          "toggleGlob": "008553A3",
+          "blurb": "Currently disabled by Bethesda"
+        },
+        {
+          "label": "Improved Bait",
+          "formid": "0081137A",
+          "edid": "Fishing_LL_Rewards_ImprovedBait",
+          "dropRate": 100.0,
+          "items": [
+            {
+              "name": "Improved Bait",
+              "formid": "007FDC33",
+              "edid": "Fishing_Bait_Improved",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 33.333333,
+              "conditions": []
+            },
+            {
+              "name": "Improved Bait",
+              "formid": "007FDC33",
+              "edid": "Fishing_Bait_Improved",
+              "sig": "MISC",
+              "qty": 2,
+              "dropRate": 33.333333,
+              "conditions": []
+            },
+            {
+              "name": "Improved Bait",
+              "formid": "007FDC33",
+              "edid": "Fishing_Bait_Improved",
+              "sig": "MISC",
+              "qty": 3,
+              "dropRate": 33.333333,
+              "conditions": []
+            }
+          ],
+          "blurb": "Guaranteed · 1 to 3 Improved Bait"
+        },
+        {
+          "label": "Treasury Notes",
+          "formid": "005A5442",
+          "edid": "LL_Gold_Treasury_Note_02",
+          "dropRate": 100.0,
+          "items": [
+            {
+              "name": "Treasury Note",
+              "formid": "005A5443",
+              "edid": "Treasury_Note",
+              "sig": "MISC",
+              "qty": 2,
+              "dropRate": 100.0,
+              "conditions": []
+            }
+          ],
+          "blurb": "Guaranteed · 2 items"
+        },
+        {
+          "label": "Camp Title: Hideout",
+          "formid": "0089EA74",
+          "edid": "CampTitle_Recipe_Suffix_Hideout",
+          "dropRate": 25.0,
+          "items": [
+            {
+              "name": "Camp Title: Hideout",
+              "formid": "0089EA74",
+              "edid": "CampTitle_Recipe_Suffix_Hideout",
+              "sig": "BOOK",
+              "qty": 1,
+              "dropRate": 25.0,
+              "conditions": []
+            }
+          ],
+          "conditions": [
+            "Stops dropping once you have learned it"
+          ],
+          "blurb": "25% chance · 1 item"
+        }
+      ],
+      "bossLoot": [
+        {
+          "label": "Caps",
+          "formid": "003AE2A1",
+          "edid": "LLS_Caps_High",
+          "dropRate": 100.0,
+          "items": [
+            {
+              "name": "Caps",
+              "formid": "0000000F",
+              "edid": "Caps001",
+              "sig": "CNCY",
+              "qty": 3,
+              "dropRate": 20.0,
+              "conditions": []
+            },
+            {
+              "name": "Caps",
+              "formid": "0000000F",
+              "edid": "Caps001",
+              "sig": "CNCY",
+              "qty": 4,
+              "dropRate": 30.0,
+              "conditions": []
+            },
+            {
+              "name": "Caps",
+              "formid": "0000000F",
+              "edid": "Caps001",
+              "sig": "CNCY",
+              "qty": 5,
+              "dropRate": 30.0,
+              "conditions": []
+            },
+            {
+              "name": "Caps",
+              "formid": "0000000F",
+              "edid": "Caps001",
+              "sig": "CNCY",
+              "qty": 6,
+              "dropRate": 10.0,
+              "conditions": []
+            },
+            {
+              "name": "Caps",
+              "formid": "0000000F",
+              "edid": "Caps001",
+              "sig": "CNCY",
+              "qty": 7,
+              "dropRate": 10.0,
+              "conditions": []
+            }
+          ],
+          "rolls": 2,
+          "blurb": "6 rolls · 5 possible items",
+          "repeats": 3
+        },
+        {
+          "label": "Rad-X",
+          "formid": "002AD63F",
+          "edid": "LLS_Loot_RadX_All",
+          "dropRate": 100.0,
+          "items": [
+            {
+              "name": "Rad-X",
+              "formid": "00024057",
+              "edid": "RadX",
+              "sig": "ALCH",
+              "qty": 1,
+              "dropRate": 30.0,
+              "conditions": []
+            },
+            {
+              "name": "Rad-X: Diluted",
+              "formid": "0012D3F1",
+              "edid": "RadXDiluted",
+              "sig": "ALCH",
+              "qty": 1,
+              "dropRate": 70.0,
+              "conditions": []
+            }
+          ],
+          "blurb": "2 possible items"
+        },
+        {
+          "label": "Contextual Ammo",
+          "formid": "00621922",
+          "edid": "LLS_Ammo_Loot_Contextual",
+          "dropRate": 100.0,
+          "items": [
+            {
+              "name": "Ammo for your equipped weapon",
+              "formid": "00621922",
+              "edid": "LLS_Ammo_Loot_Contextual",
+              "sig": "LVLI",
+              "qty": 1,
+              "dropRate": 100.0,
+              "conditions": []
+            }
+          ],
+          "blurb": "1 item"
+        },
+        {
+          "label": "Stimpaks",
+          "formid": "00307C9E",
+          "edid": "LLS_Loot_Stimpak_All",
+          "dropRate": 100.0,
+          "items": [
+            {
+              "name": "Stimpak: Super",
+              "formid": "00117DF9",
+              "edid": "SuperStimpak",
+              "sig": "ALCH",
+              "qty": 1,
+              "dropRate": 10.0,
+              "conditions": []
+            },
+            {
+              "name": "Stimpak",
+              "formid": "00023736",
+              "edid": "Stimpak",
+              "sig": "ALCH",
+              "qty": 1,
+              "dropRate": 90.0,
+              "conditions": []
+            }
+          ],
+          "blurb": "2 possible items"
+        },
+        {
+          "label": "Bounty Junk",
+          "formid": "00843A10",
+          "edid": "BountyHunt_LL_Junk_All",
+          "dropRate": 100.0,
+          "items": [
+            {
+              "name": "Basketball",
+              "formid": "000DF264",
+              "edid": "BasketBall01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Stew Pot",
+              "formid": "00059A7A",
+              "edid": "BigPot",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Bread Box",
+              "formid": "00046A86",
+              "edid": "BreadBox_Ruin",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Brahmin Skull",
+              "formid": "00059B0C",
+              "edid": "BrahminSkull",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Feather Duster",
+              "formid": "00196AB9",
+              "edid": "FeatherDuster",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Jangles the Moon Monkey",
+              "formid": "00147B03",
+              "edid": "Jangles01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Kickball",
+              "formid": "000822D3",
+              "edid": "Kickball01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Kitchen Scale",
+              "formid": "000AF8EF",
+              "edid": "KitchenScale",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Metal Bucket",
+              "formid": "00059A80",
+              "edid": "MetalBucket",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Empty Paint Can",
+              "formid": "00059B3A",
+              "edid": "PaintCanEmpty",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Straw Pillow",
+              "formid": "00060EC7",
+              "edid": "Pillow_01_Straw",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Comfy Pillow",
+              "formid": "00060EC8",
+              "edid": "Pillow_02_Comfy",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Plunger",
+              "formid": "00059AFB",
+              "edid": "Plunger",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Shopping Basket",
+              "formid": "00090E5E",
+              "edid": "ShoppingBasket",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Paper Cutter",
+              "formid": "0010A3AA",
+              "edid": "PaperCutter02",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Baseball Glove",
+              "formid": "00059A77",
+              "edid": "BaseballGlove",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Flask",
+              "formid": "000EC8AD",
+              "edid": "Beaker02",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Beer Bottle",
+              "formid": "000211DD",
+              "edid": "BeerBottleEmpty01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Empty Blood Pack",
+              "formid": "0014242A",
+              "edid": "BloodPack_Empty",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Blast Radius Board Game",
+              "formid": "0006B165",
+              "edid": "BoardGame01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Skull",
+              "formid": "000347E1",
+              "edid": "BonesSkull",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Spine",
+              "formid": "000347ED",
+              "edid": "BonesSpine",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Ceramic Bowl",
+              "formid": "00023C32",
+              "edid": "Bowl_02_Ceramic",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Glass Bowl",
+              "formid": "00023C36",
+              "edid": "Bowl_03_Glass",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Bowl",
+              "formid": "00140B1A",
+              "edid": "Bowl_Generic",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Cake Pan",
+              "formid": "0001A333",
+              "edid": "CakePan01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Cat Bowl",
+              "formid": "00101CB9",
+              "edid": "CatBowl",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Chessboard",
+              "formid": "00059AB4",
+              "edid": "Chessboard",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Cigarette Carton",
+              "formid": "0005821C",
+              "edid": "CigaretteCarton",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Deflated Kickball",
+              "formid": "0002D9AC",
+              "edid": "Kickball01_deflatedPW02",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Tall Flask",
+              "formid": "000EC8AB",
+              "edid": "Beaker",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Nuka-Cola Bottle",
+              "formid": "0004835A",
+              "edid": "NukaColaEmpty",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Yellow Plate",
+              "formid": "00165328",
+              "edid": "PlateCeramic01_Yellow_Dirty",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Rack",
+              "formid": "00059AFF",
+              "edid": "PoolTriangle",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Spatula",
+              "formid": "00059B0F",
+              "edid": "Spatula",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Teacup",
+              "formid": "00192699",
+              "edid": "Teacup01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Saucer",
+              "formid": "0019269B",
+              "edid": "TeacupSaucer01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Toy Alien",
+              "formid": "00059B2B",
+              "edid": "ToyAlien",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Toy Car",
+              "formid": "00059B1C",
+              "edid": "ToyCar",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Toy Rocketship",
+              "formid": "00059B2A",
+              "edid": "ToyRocketship",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Toy Truck",
+              "formid": "0015E8F6",
+              "edid": "ToyTruck01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Vase",
+              "formid": "000B1647",
+              "edid": "Vase01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Yardstick",
+              "formid": "00059B3E",
+              "edid": "Yardstick",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Dirty Pillow",
+              "formid": "00389EB4",
+              "edid": "Dirty_Pillow01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Dirty Pillow",
+              "formid": "00389EBB",
+              "edid": "Dirty_Pillow02",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Doll Left Arm",
+              "formid": "0000B1DB",
+              "edid": "Doll_Arm",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Broken Doll",
+              "formid": "0018EF02",
+              "edid": "doll_Missing_Arm",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Broken Doll",
+              "formid": "00169688",
+              "edid": "Doll_Missing_Leg",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Chalk",
+              "formid": "00140D98",
+              "edid": "Chalk01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Hairbrush",
+              "formid": "00060ECC",
+              "edid": "Hairbrush_01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Table Knife",
+              "formid": "00059AE1",
+              "edid": "Knife_02_StainlessSteel",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Dog Tags",
+              "formid": "00060EBF",
+              "edid": "MilitaryDogTags",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Paintbrush",
+              "formid": "00060ECF",
+              "edid": "Paintbrush_01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Pen",
+              "formid": "00140D99",
+              "edid": "Pen01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Pencil",
+              "formid": "00059AF8",
+              "edid": "Pencil",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Table Spoon",
+              "formid": "00060E96",
+              "edid": "Spoon_02_StainlessSteel",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Wooden Spoon",
+              "formid": "000FFE09",
+              "edid": "Spoon_Wooden",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Toothbrush",
+              "formid": "00060ECE",
+              "edid": "Toothbrush",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Gold Plated Flip Lighter",
+              "formid": "00060E88",
+              "edid": "LighterGoldPlated",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Silver Locket",
+              "formid": "00059B34",
+              "edid": "SilverLocket",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Silver Table Spoon",
+              "formid": "00060E95",
+              "edid": "Spoon_03_Silver",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Toothpaste",
+              "formid": "00199A88",
+              "edid": "Toothpaste",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Gold Pocket Watch",
+              "formid": "00060E7C",
+              "edid": "WatchGold",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Silver Pocket Watch",
+              "formid": "00060E7D",
+              "edid": "WatchSilver",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Gold Fork",
+              "formid": "003AFFA7",
+              "edid": "Fork_04_Gold",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Alarm Clock",
+              "formid": "00059B27",
+              "edid": "AlarmClock",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Baseball",
+              "formid": "00059A76",
+              "edid": "Baseball",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Empty Blood Sac",
+              "formid": "00028A64",
+              "edid": "BloodbugSacEmpty",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Ichor Sac",
+              "formid": "00028A62",
+              "edid": "BloodbugSacFilledGreen",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Blood Sac",
+              "formid": "00028A63",
+              "edid": "BloodbugSacFilledRed",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Silver Bowl",
+              "formid": "00060EDB",
+              "edid": "Bowl_05_Silver",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Bunsen Burner",
+              "formid": "000EC8B8",
+              "edid": "BunsenBurner",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Broken Camera",
+              "formid": "00059A83",
+              "edid": "CAMERA",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Graduated Cylinder",
+              "formid": "00176050",
+              "edid": "ChemistrySetBeaker01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Thin Beaker",
+              "formid": "00176051",
+              "edid": "ChemistrySetBeaker02",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Chemistry Jar",
+              "formid": "00176052",
+              "edid": "ChemistrySetBeaker03",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Large Beaker",
+              "formid": "00176053",
+              "edid": "ChemistrySetBeaker04",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Lab Bottle",
+              "formid": "0017604F",
+              "edid": "ChemistrySetBottle01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Aluminum Canister",
+              "formid": "00176054",
+              "edid": "ChemistrySetCan01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Magnifying Glass",
+              "formid": "0011DA13",
+              "edid": "MagnifyingGlass",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Used Oil Can",
+              "formid": "0004B273",
+              "edid": "OilCan01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Lantern",
+              "formid": "00096A21",
+              "edid": "OilLamp_Off",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Rat Poison",
+              "formid": "00060ED8",
+              "edid": "RatPoison",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Broken Fishing Rod",
+              "formid": "00059B36",
+              "edid": "FishingRod",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Antique Globe",
+              "formid": "0001D975",
+              "edid": "Globe01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Globe",
+              "formid": "001A7DA6",
+              "edid": "Globe_02_ruined",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Microscope",
+              "formid": "00059AEB",
+              "edid": "Microscope",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Blue Paint",
+              "formid": "0001D95A",
+              "edid": "PaintCanBlue",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Paint Can",
+              "formid": "00059B3B",
+              "edid": "PaintCanFull",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Yellow Paint",
+              "formid": "0001D95B",
+              "edid": "PaintCanYellow",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Typewriter",
+              "formid": "00059B20",
+              "edid": "Typewriter",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "High-Powered Magnet",
+              "formid": "001AB88D",
+              "edid": "HighPoweredMagnet",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Giddyup Buttercup",
+              "formid": "00163A12",
+              "edid": "GiddyupButtercup",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Giddyup Buttercup Back Leg",
+              "formid": "00163A15",
+              "edid": "GiddyupButtercupBLeg",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Giddyup Buttercup Body",
+              "formid": "00163A16",
+              "edid": "GiddyupButtercupBody",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Giddyup Buttercup Front Leg",
+              "formid": "00163A14",
+              "edid": "GiddyupButtercupFLeg",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Giddyup Buttercup Head",
+              "formid": "00163A13",
+              "edid": "GiddyupButtercupHead",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Bag of Fertilizer",
+              "formid": "0005A0D9",
+              "edid": "Fertilizer",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            }
+          ],
+          "blurb": "98 possible items"
+        }
+      ],
+      "mobLoot": [
+        {
+          "label": "Caps",
+          "formid": "003AE2A1",
+          "edid": "LLS_Caps_High",
+          "dropRate": 100.0,
+          "items": [
+            {
+              "name": "Caps",
+              "formid": "0000000F",
+              "edid": "Caps001",
+              "sig": "CNCY",
+              "qty": 3,
+              "dropRate": 20.0,
+              "conditions": []
+            },
+            {
+              "name": "Caps",
+              "formid": "0000000F",
+              "edid": "Caps001",
+              "sig": "CNCY",
+              "qty": 4,
+              "dropRate": 30.0,
+              "conditions": []
+            },
+            {
+              "name": "Caps",
+              "formid": "0000000F",
+              "edid": "Caps001",
+              "sig": "CNCY",
+              "qty": 5,
+              "dropRate": 30.0,
+              "conditions": []
+            },
+            {
+              "name": "Caps",
+              "formid": "0000000F",
+              "edid": "Caps001",
+              "sig": "CNCY",
+              "qty": 6,
+              "dropRate": 10.0,
+              "conditions": []
+            },
+            {
+              "name": "Caps",
+              "formid": "0000000F",
+              "edid": "Caps001",
+              "sig": "CNCY",
+              "qty": 7,
+              "dropRate": 10.0,
+              "conditions": []
+            }
+          ],
+          "rolls": 2,
+          "blurb": "4 rolls · 5 possible items",
+          "repeats": 2
+        },
+        {
+          "label": "Rad-X",
+          "formid": "002AD63F",
+          "edid": "LLS_Loot_RadX_All",
+          "dropRate": 100.0,
+          "items": [
+            {
+              "name": "Rad-X",
+              "formid": "00024057",
+              "edid": "RadX",
+              "sig": "ALCH",
+              "qty": 1,
+              "dropRate": 30.0,
+              "conditions": []
+            },
+            {
+              "name": "Rad-X: Diluted",
+              "formid": "0012D3F1",
+              "edid": "RadXDiluted",
+              "sig": "ALCH",
+              "qty": 1,
+              "dropRate": 70.0,
+              "conditions": []
+            }
+          ],
+          "blurb": "2 possible items"
+        },
+        {
+          "label": "Contextual Ammo",
+          "formid": "00621922",
+          "edid": "LLS_Ammo_Loot_Contextual",
+          "dropRate": 100.0,
+          "items": [
+            {
+              "name": "Ammo for your equipped weapon",
+              "formid": "00621922",
+              "edid": "LLS_Ammo_Loot_Contextual",
+              "sig": "LVLI",
+              "qty": 1,
+              "dropRate": 100.0,
+              "conditions": []
+            }
+          ],
+          "blurb": "1 item"
+        },
+        {
+          "label": "Stimpaks",
+          "formid": "00307C9E",
+          "edid": "LLS_Loot_Stimpak_All",
+          "dropRate": 100.0,
+          "items": [
+            {
+              "name": "Stimpak: Super",
+              "formid": "00117DF9",
+              "edid": "SuperStimpak",
+              "sig": "ALCH",
+              "qty": 1,
+              "dropRate": 10.0,
+              "conditions": []
+            },
+            {
+              "name": "Stimpak",
+              "formid": "00023736",
+              "edid": "Stimpak",
+              "sig": "ALCH",
+              "qty": 1,
+              "dropRate": 90.0,
+              "conditions": []
+            }
+          ],
+          "blurb": "2 possible items"
+        },
+        {
+          "label": "Bounty Junk",
+          "formid": "00843A10",
+          "edid": "BountyHunt_LL_Junk_All",
+          "dropRate": 100.0,
+          "items": [
+            {
+              "name": "Basketball",
+              "formid": "000DF264",
+              "edid": "BasketBall01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Stew Pot",
+              "formid": "00059A7A",
+              "edid": "BigPot",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Bread Box",
+              "formid": "00046A86",
+              "edid": "BreadBox_Ruin",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Brahmin Skull",
+              "formid": "00059B0C",
+              "edid": "BrahminSkull",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Feather Duster",
+              "formid": "00196AB9",
+              "edid": "FeatherDuster",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Jangles the Moon Monkey",
+              "formid": "00147B03",
+              "edid": "Jangles01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Kickball",
+              "formid": "000822D3",
+              "edid": "Kickball01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Kitchen Scale",
+              "formid": "000AF8EF",
+              "edid": "KitchenScale",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Metal Bucket",
+              "formid": "00059A80",
+              "edid": "MetalBucket",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Empty Paint Can",
+              "formid": "00059B3A",
+              "edid": "PaintCanEmpty",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Straw Pillow",
+              "formid": "00060EC7",
+              "edid": "Pillow_01_Straw",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Comfy Pillow",
+              "formid": "00060EC8",
+              "edid": "Pillow_02_Comfy",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Plunger",
+              "formid": "00059AFB",
+              "edid": "Plunger",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Shopping Basket",
+              "formid": "00090E5E",
+              "edid": "ShoppingBasket",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Paper Cutter",
+              "formid": "0010A3AA",
+              "edid": "PaperCutter02",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Baseball Glove",
+              "formid": "00059A77",
+              "edid": "BaseballGlove",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Flask",
+              "formid": "000EC8AD",
+              "edid": "Beaker02",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Beer Bottle",
+              "formid": "000211DD",
+              "edid": "BeerBottleEmpty01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Empty Blood Pack",
+              "formid": "0014242A",
+              "edid": "BloodPack_Empty",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Blast Radius Board Game",
+              "formid": "0006B165",
+              "edid": "BoardGame01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Skull",
+              "formid": "000347E1",
+              "edid": "BonesSkull",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Spine",
+              "formid": "000347ED",
+              "edid": "BonesSpine",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Ceramic Bowl",
+              "formid": "00023C32",
+              "edid": "Bowl_02_Ceramic",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Glass Bowl",
+              "formid": "00023C36",
+              "edid": "Bowl_03_Glass",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Bowl",
+              "formid": "00140B1A",
+              "edid": "Bowl_Generic",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Cake Pan",
+              "formid": "0001A333",
+              "edid": "CakePan01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Cat Bowl",
+              "formid": "00101CB9",
+              "edid": "CatBowl",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Chessboard",
+              "formid": "00059AB4",
+              "edid": "Chessboard",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Cigarette Carton",
+              "formid": "0005821C",
+              "edid": "CigaretteCarton",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Deflated Kickball",
+              "formid": "0002D9AC",
+              "edid": "Kickball01_deflatedPW02",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Tall Flask",
+              "formid": "000EC8AB",
+              "edid": "Beaker",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Nuka-Cola Bottle",
+              "formid": "0004835A",
+              "edid": "NukaColaEmpty",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Yellow Plate",
+              "formid": "00165328",
+              "edid": "PlateCeramic01_Yellow_Dirty",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Rack",
+              "formid": "00059AFF",
+              "edid": "PoolTriangle",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Spatula",
+              "formid": "00059B0F",
+              "edid": "Spatula",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Teacup",
+              "formid": "00192699",
+              "edid": "Teacup01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Saucer",
+              "formid": "0019269B",
+              "edid": "TeacupSaucer01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Toy Alien",
+              "formid": "00059B2B",
+              "edid": "ToyAlien",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Toy Car",
+              "formid": "00059B1C",
+              "edid": "ToyCar",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Toy Rocketship",
+              "formid": "00059B2A",
+              "edid": "ToyRocketship",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Toy Truck",
+              "formid": "0015E8F6",
+              "edid": "ToyTruck01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Vase",
+              "formid": "000B1647",
+              "edid": "Vase01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Yardstick",
+              "formid": "00059B3E",
+              "edid": "Yardstick",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Dirty Pillow",
+              "formid": "00389EB4",
+              "edid": "Dirty_Pillow01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Dirty Pillow",
+              "formid": "00389EBB",
+              "edid": "Dirty_Pillow02",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Doll Left Arm",
+              "formid": "0000B1DB",
+              "edid": "Doll_Arm",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Broken Doll",
+              "formid": "0018EF02",
+              "edid": "doll_Missing_Arm",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Broken Doll",
+              "formid": "00169688",
+              "edid": "Doll_Missing_Leg",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Chalk",
+              "formid": "00140D98",
+              "edid": "Chalk01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Hairbrush",
+              "formid": "00060ECC",
+              "edid": "Hairbrush_01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Table Knife",
+              "formid": "00059AE1",
+              "edid": "Knife_02_StainlessSteel",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Dog Tags",
+              "formid": "00060EBF",
+              "edid": "MilitaryDogTags",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Paintbrush",
+              "formid": "00060ECF",
+              "edid": "Paintbrush_01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Pen",
+              "formid": "00140D99",
+              "edid": "Pen01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Pencil",
+              "formid": "00059AF8",
+              "edid": "Pencil",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Table Spoon",
+              "formid": "00060E96",
+              "edid": "Spoon_02_StainlessSteel",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Wooden Spoon",
+              "formid": "000FFE09",
+              "edid": "Spoon_Wooden",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Toothbrush",
+              "formid": "00060ECE",
+              "edid": "Toothbrush",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 1.149425,
+              "conditions": []
+            },
+            {
+              "name": "Gold Plated Flip Lighter",
+              "formid": "00060E88",
+              "edid": "LighterGoldPlated",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Silver Locket",
+              "formid": "00059B34",
+              "edid": "SilverLocket",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Silver Table Spoon",
+              "formid": "00060E95",
+              "edid": "Spoon_03_Silver",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Toothpaste",
+              "formid": "00199A88",
+              "edid": "Toothpaste",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Gold Pocket Watch",
+              "formid": "00060E7C",
+              "edid": "WatchGold",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Silver Pocket Watch",
+              "formid": "00060E7D",
+              "edid": "WatchSilver",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Gold Fork",
+              "formid": "003AFFA7",
+              "edid": "Fork_04_Gold",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Alarm Clock",
+              "formid": "00059B27",
+              "edid": "AlarmClock",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Baseball",
+              "formid": "00059A76",
+              "edid": "Baseball",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Empty Blood Sac",
+              "formid": "00028A64",
+              "edid": "BloodbugSacEmpty",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Ichor Sac",
+              "formid": "00028A62",
+              "edid": "BloodbugSacFilledGreen",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Blood Sac",
+              "formid": "00028A63",
+              "edid": "BloodbugSacFilledRed",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Silver Bowl",
+              "formid": "00060EDB",
+              "edid": "Bowl_05_Silver",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Bunsen Burner",
+              "formid": "000EC8B8",
+              "edid": "BunsenBurner",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Broken Camera",
+              "formid": "00059A83",
+              "edid": "CAMERA",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Graduated Cylinder",
+              "formid": "00176050",
+              "edid": "ChemistrySetBeaker01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Thin Beaker",
+              "formid": "00176051",
+              "edid": "ChemistrySetBeaker02",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Chemistry Jar",
+              "formid": "00176052",
+              "edid": "ChemistrySetBeaker03",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Large Beaker",
+              "formid": "00176053",
+              "edid": "ChemistrySetBeaker04",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Lab Bottle",
+              "formid": "0017604F",
+              "edid": "ChemistrySetBottle01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Aluminum Canister",
+              "formid": "00176054",
+              "edid": "ChemistrySetCan01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Magnifying Glass",
+              "formid": "0011DA13",
+              "edid": "MagnifyingGlass",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Used Oil Can",
+              "formid": "0004B273",
+              "edid": "OilCan01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Lantern",
+              "formid": "00096A21",
+              "edid": "OilLamp_Off",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Rat Poison",
+              "formid": "00060ED8",
+              "edid": "RatPoison",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Broken Fishing Rod",
+              "formid": "00059B36",
+              "edid": "FishingRod",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Antique Globe",
+              "formid": "0001D975",
+              "edid": "Globe01",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Globe",
+              "formid": "001A7DA6",
+              "edid": "Globe_02_ruined",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Microscope",
+              "formid": "00059AEB",
+              "edid": "Microscope",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Blue Paint",
+              "formid": "0001D95A",
+              "edid": "PaintCanBlue",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Paint Can",
+              "formid": "00059B3B",
+              "edid": "PaintCanFull",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Yellow Paint",
+              "formid": "0001D95B",
+              "edid": "PaintCanYellow",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Typewriter",
+              "formid": "00059B20",
+              "edid": "Typewriter",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "High-Powered Magnet",
+              "formid": "001AB88D",
+              "edid": "HighPoweredMagnet",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Giddyup Buttercup",
+              "formid": "00163A12",
+              "edid": "GiddyupButtercup",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Giddyup Buttercup Back Leg",
+              "formid": "00163A15",
+              "edid": "GiddyupButtercupBLeg",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Giddyup Buttercup Body",
+              "formid": "00163A16",
+              "edid": "GiddyupButtercupBody",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Giddyup Buttercup Front Leg",
+              "formid": "00163A14",
+              "edid": "GiddyupButtercupFLeg",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Giddyup Buttercup Head",
+              "formid": "00163A13",
+              "edid": "GiddyupButtercupHead",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            },
+            {
+              "name": "Bag of Fertilizer",
+              "formid": "0005A0D9",
+              "edid": "Fertilizer",
+              "sig": "MISC",
+              "qty": 1,
+              "dropRate": 0.666667,
+              "conditions": []
+            }
+          ],
+          "blurb": "98 possible items"
+        }
+      ],
+      "supportLoot": [],
+      "bosses": [
+        "Ayam Legion",
+        "Bird of Prey",
+        "Buzzkill",
+        "Chief Meteorologist Sally McSun",
+        "Dada",
+        "Detonation Dave",
+        "Greasehands Greta",
+        "Il Maestro",
+        "Jaques the Jammer",
+        "Lilly Oleander",
+        "Mercy's End",
+        "Micro Mike",
+        "Storm Warning",
+        "The Inquisitionor",
+        "The Oversearer",
+        "The Pied Pipebomber",
+        "The Pirate King",
+        "The Pseudo Subjugator",
+        "The Secret Weapon",
+        "The Sharpshooter",
+        "The Temporal Technician"
+      ],
+      "sidekicks": [
+        "Aspiring Red Viper",
+        "Belligerent Beekeeper",
+        "Bewildered Bomber",
+        "Crewmate",
+        "Dada's Hound",
+        "Frenzied Florist",
+        "Greasy Motorhead",
+        "Inquisitionor's Disciple",
+        "Legion's Lieutenant",
+        "Mutinous Cannoneer",
+        "Pack Hunter",
+        "Radioactive Raider",
+        "Runaway Responder",
+        "Sadistic Shocker",
+        "Stealth Killer",
+        "Ticked Off Technician",
+        "Time Tourist",
+        "Tunneling Terror",
+        "Underpaid Crew Member",
+        "Vault Wannabe",
+        "Vicious Honey Beast"
+      ],
+      "sidekicksOwnLoot": [
+        "Provocative Performer"
+      ],
+      "bossDeathList": "00823671",
+      "sidekickDeathList": "007CFA7A",
       "seasonalGroups": [
         {
           "id": "slasher",

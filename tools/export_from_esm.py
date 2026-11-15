@@ -68,7 +68,8 @@ straight from the game files, so these no longer need xEdit:
     KEYM    KEYM_Export_<Month>_<Year>.tsv / _Locations  (!!!Wordpress - ExportKEYMToTSV.pas: keys)
     LGDI    LGDI_Export_<Month>_<Year>.tsv / _Mods  (!!!Wordpress - ExportLGDIToTSV.pas: legendary item lists)
     LCTN    LCTN_Export_<Month>_<Year>_LCTN / _LCSR / _Refs.tsv  (!!!Wordpress - ExportLCTNToTSV.pas: locations)
-    MGEF    MGEF_Export_<Month>_<Year>.tsv          (!!!Wordpress - ExportMGEFToTSV.pas: magic effects)
+    MGEF    MGEF_Export_<Month>_<Year>.tsv + _Explosions  (!!!Wordpress - ExportMGEFToTSV.pas: magic effects;
+            _Explosions = each effect's explosion: force, damage, radii, damage types + curve tables)
     NOTE    NOTE_Export_<Month>_<Year>.tsv          (!!!Wordpress - ExportNOTEToTSV.pas: holotapes)
     OMOD    OMOD_Export_<Month>_<Year>.tsv + _Properties  (!!!Wordpress - ExportOMODToTSV.pas: object mods)
     WEAP    WEAP_Export_<Month>_<Year>_Base / _ObjectTemplate / _DNAM.tsv + INNR_Export_<Month>_<Year>.tsv
@@ -2382,6 +2383,38 @@ def exp_mgef(esm):
     out = ["\t".join(head + ["Ref_%d" % i for i in range(1, mr + 1)])]
     for b, x in body:
         out.append("\t".join(b + x + [""] * (mr - len(x))))
+    return {"": out, "_Explosions": _mgef_explosions(esm, rows)}
+
+
+def _mgef_explosions(esm, rows):
+    """MGEF_Export_*_Explosions (added 15 Nov 2026): one row per magic effect that sets off
+    an explosion. EXPL DATA (FO76: seven links, then Force, Damage, Inner / Outer Radius)
+    and DAMA (damage type, amount, curve table - the curve is the level-scaled damage),
+    plus EITM (the enchantment the blast puts on what it hits, e.g. a burn).
+    Same columns as the .pas."""
+    out = ["MGEF_FormID\tMGEF_EDID\tEXPL_FormID\tEXPL_EDID\tForce\tDamage\tInnerRadius\tOuterRadius\t"
+           "DamageTypeCount\tDamageTypes_Flat\tEITM_FormID"]
+    for row in rows:
+        r = row[0]
+        d = r.first("DATA") or b""
+        if len(d) < 84:
+            continue
+        xf = struct.unpack_from("<I", d, 80)[0]
+        if not xf or not esm.exists(xf) or esm.sig_of(xf) != "EXPL":
+            continue
+        x = esm.get(xf)
+        xd = (x.first("DATA") if x else None) or b""
+        fl = lambda o: C.fmt_float(struct.unpack_from("<f", xd, o)[0]) if len(xd) >= o + 4 else ""
+        dama = (x.first("DAMA") if x else None) or b""
+        types = []
+        for o in range(0, len(dama) - len(dama) % 12, 12):
+            dt, amt, cv = struct.unpack_from("<III", dama, o)
+            types.append("%s:%d:%s" % (_ccell(esm.edid_of(dt)) if dt else "", amt,
+                                       _ccell(esm.edid_of(cv)) if cv and esm.exists(cv) else ""))
+        ei = (x.first("EITM") if x else None) or b""
+        eitm = "%08X" % struct.unpack_from("<I", ei)[0] if len(ei) >= 4 and struct.unpack_from("<I", ei)[0] else ""
+        out.append("\t".join(["%08X" % r.fid, _ccell(r.edid), "%08X" % xf, _ccell(esm.edid_of(xf)),
+                              fl(28), fl(32), fl(36), fl(40), str(len(types)), " | ".join(types), eitm]))
     return out
 
 
@@ -5578,7 +5611,7 @@ EXPORTS = {
     "OMOD": (["OMOD"], "OMOD_Export", exp_omod),
     "WEAP": (["WEAP", "INNR"], "WEAP_Export", exp_weap),
     "LCTN": (["LCTN"], "LCTN_Export", exp_lctn),
-    "MGEF": (["MGEF"], "MGEF_Export", exp_mgef),
+    "MGEF": (["MGEF", "EXPL"], "MGEF_Export", exp_mgef),
     "NOTE": (["NOTE"], "NOTE_Export", exp_note),
     "PCRD": (["PCRD"], "PCRD_Export", exp_pcrd),
     "PERK": (["PERK"], "PERK_Export", exp_perk),

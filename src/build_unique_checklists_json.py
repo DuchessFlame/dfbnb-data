@@ -17,6 +17,8 @@ the A Real Blast design:
                   holiday-scorched, invaders-from-beyond, mischief-night,
                   mothman-equinox, primal-cuts, the-big-bloom, the-slasher,
                   treasure-hunter  (all "-all-rewards")
+  Bounty Hunting  grunt-hunt-rewards, skyline-valley-grunt-hunt-rewards,
+                  head-hunt-rewards, skyline-valley-head-hunt-rewards (Nov 2026)
 
 Output, one small file per page (+ an index):
     <dist>/unique_checklists/<slug>.json
@@ -31,6 +33,8 @@ generated JSON (which its own builder made from the xEdit TSVs):
   mutated    <dist>/mutated_events/mutated_events_all_rewards.json (checklist)
   daily ops  <dist>/daily_ops/daily_ops_all_rewards.json (checklist.groups)
   expos      <dist>/expos/expos_rewards.json (pools) + <dist>/plan_master.json
+  bounty     <dist>/bounty-hunting/bounty_hunting_rewards.json (every pool of
+             the page, incl. the seasonal Slasher party-crasher group)
 
 WHAT GOES ON THE CHECKLIST - the same rule the activities checklist uses:
 plans, recipes, titles, weapons, armour and apparel, weapon mod boxes and
@@ -116,7 +120,14 @@ PAGES = {
     "the-big-bloom-all-rewards": ("seasonal", "/df/seasonal-events/the-big-bloom/the-big-bloom-all-rewards/"),
     "the-slasher-all-rewards": ("slasher", "/df/seasonal-events/the-slasher/the-slasher-all-rewards/"),
     "treasure-hunter-all-rewards": ("seasonal", "/df/seasonal-events/hunt-for-the-treasure-hunter/treasure-hunter-all-rewards/"),
+    # Bounty Hunting (Nov 2026). Each page reads its own byPage entry; the
+    # Skyline Valley ones only exist on the PTS until the update ships.
+    "grunt-hunt-rewards": ("bounty", "/df/bounty-hunting/grunt-hunts/grunt-hunt-rewards/"),
+    "skyline-valley-grunt-hunt-rewards": ("bounty", "/df/bounty-hunting/grunt-hunts/skyline-valley-grunt-hunt-rewards/"),
+    "head-hunt-rewards": ("bounty", "/df/bounty-hunting/head-hunts/head-hunt-rewards/"),
+    "skyline-valley-head-hunt-rewards": ("bounty", "/df/bounty-hunting/head-hunts/skyline-valley-head-hunt-rewards/"),
 }
+BOUNTY_SOURCE = {}   # url slug -> byPage key, when they ever differ
 
 # Where the reward comes from, for the How to Obtain lead line and the note
 # under the rate table. Pages not listed are normal "complete the event" ones.
@@ -133,6 +144,14 @@ WHERE = {
                               "Chance per clear. Ranks stack - an Elder clear also rolls the Paladin and Knight lists."),
     "the-slasher-all-rewards": ("during the Slasher season, from the sources below",
                                 "Best chance from each source."),
+    "grunt-hunt-rewards": ("when you complete a Burning Springs Grunt Hunt",
+                           "Chance per Grunt Hunt completion."),
+    "skyline-valley-grunt-hunt-rewards": ("when you complete a Skyline Valley Grunt Hunt",
+                                          "Chance per Grunt Hunt completion."),
+    "head-hunt-rewards": ("when you complete a Burning Springs Head Hunt",
+                          "Chance per Head Hunt completion; Slasher rewards are per Slasher looted."),
+    "skyline-valley-head-hunt-rewards": ("when you complete a Skyline Valley Head Hunt",
+                                         "Chance per Head Hunt completion; Slasher rewards are per Slasher looted."),
 }
 WHERE_SLASHER_SECTION = "from a Slasher-masked Spooky Scorched while the Slasher season is running"
 
@@ -469,6 +488,93 @@ def _daily_ops_rows(slug, data, pm):
     return _finish(rows, where, sections), sections
 
 
+# ── bounty hunting ─────────────────────────────────────────────────────────
+
+# Bounty pools also hold hunt tokens and crafting currency that are not
+# collectables: Wanted Posters (the Head Hunt key), Legendary Modules,
+# Improved Bait, Hideout Leads (a consumable lead note), bounty junk.
+BOUNTY_NOT_UNIQUE_RE = re.compile(r"WantedPoster|LegendaryModule|Fishing_Bait|HIDELead", re.I)
+BOUNTY_TIER_SOURCE = {"event": "Hunt completion", "boss": "Boss", "mob": "Side-kicks",
+                      "support": "Support enemies", "outlaw": "Outlaw"}
+
+
+def _bounty_item_rate(pool, it):
+    """Chance per roll of the list. Generative pages already carry it
+    per completion; the hand-checked Head Hunt tree gives a pick-one item's
+    share of its pool, so it is multiplied by the pool's own chance there."""
+    r = _num(it.get("dropRate"), 0.0) or 0.0
+    if pool.get("mode") == "pickone" and not pool.get("_generative"):
+        r = r * (_num(pool.get("dropRate"), 100.0) or 0.0) / 100.0
+    return r
+
+
+def _bounty_walk(pools, generative, out, tier, section=None, depth=0):
+    for p in pools or []:
+        if depth > 6:
+            return
+        p = dict(p)
+        p["_generative"] = generative
+        for it in p.get("items") or []:
+            out.append((tier, section, p, it))
+        if p.get("children"):
+            _bounty_walk(p["children"], generative, out, tier, section, depth + 1)
+
+
+def _bounty_rows(slug, page, pm):
+    where = WHERE[slug][0]
+    gen = bool(page.get("generative"))
+    hits = []
+    _bounty_walk(page.get("eventRewards"), gen, hits, "event")
+    _bounty_walk(page.get("outlawLoot"), gen, hits, "outlaw")
+    for t in ("boss", "mob", "support"):
+        _bounty_walk(page.get(t + "Loot"), gen, hits, t)
+    sections = []
+    for g in page.get("seasonalGroups") or []:
+        sec = SLASHER_SECTION if re.search(r"slasher", g.get("id") or g.get("label") or "", re.I) \
+            else (g.get("label") or "Seasonal")
+        for lst in g.get("lists") or []:
+            if lst.get("tier") in ("event", "mob", "support"):
+                continue                  # same as the everyday lists above
+            # the seasonal lists are the hand-checked Slasher tree on every page
+            _bounty_walk(lst.get("pools"), False, hits, lst.get("tier") or "boss", sec)
+    rows, by_key = [], {}
+    for tier, section, pool, it in hits:
+        sig = _sig_for(it)
+        edid = it.get("edid") or ""
+        if not _keep(it, sig) or BOUNTY_NOT_UNIQUE_RE.search(edid):
+            continue
+        iname = (it.get("name") or "").strip()
+        if sig == "MISC" and not edid.lower().startswith("miscmod_"):
+            continue                      # junk, posters, modules - not collectables
+        cat = category_for(iname, sig, edid)
+        if not cat or not iname:
+            continue
+        conds = _clean_conds(list(pool.get("conditions") or []) + list(it.get("conditions") or []))
+        if section == SLASHER_SECTION:
+            conds = ["Only from The Reborn Pint-Sized Slasher"] + [c for c in conds if "Slasher" not in c]
+        src = {"name": ("The Reborn Pint-Sized Slasher" if section == SLASHER_SECTION
+                        else BOUNTY_TIER_SOURCE.get(tier, tier.title())),
+               "rate": round(_bounty_item_rate(pool, it), 6)}
+        if src["rate"] <= 0:
+            src["notDropped"] = True
+        key = (_fid(it.get("formid")), section or "")
+        if key in by_key:
+            by_key[key]["sources"].append(src)
+            continue
+        row = _new_row(it, iname, sig, cat, conds)
+        row["sources"] = [src]
+        row["images"] = []
+        if section:
+            row["section"] = section
+            if section not in sections:
+                sections.append(section)
+        if re.search(r"haven.t learned|not learned|Only until you learn|Stops dropping", " ".join(conds), re.I):
+            row["_stops"] = True
+        by_key[key] = row
+        rows.append(row)
+    return _finish(rows, where, sections), sections
+
+
 # ── expos ──────────────────────────────────────────────────────────────────
 
 def _expo_source_name(pool):
@@ -569,6 +675,8 @@ def _event_dirs(slug, kind, page):
         return [MUTATED_IMG_BASE]
     if kind == "daily_ops":
         return [DAILY_OPS_IMG_BASE]
+    if kind == "bounty":
+        return [UPLOADS + "guide-images/bounty-hunting/"]
     ev = (page or {}).get("eventSlug") or slug.replace("-all-rewards", "")
     dirs = [SEASONAL_IMG_BASE + ev + "/"]
     # the page's own folders (meat-week/meat-cook/rewards/, treasure-hunters/ ...)
@@ -616,6 +724,7 @@ def build(dist, channel):
     mutated = ((_load(dist / "mutated_events" / "mutated_events_all_rewards.json") or {}).get("byPage") or {})
     daily = _load(dist / "daily_ops" / "daily_ops_all_rewards.json") or {}
     expos = ((_load(dist / "expos" / "expos_rewards.json") or {}).get("byPage") or {})
+    bounty = ((_load(dist / "bounty-hunting" / "bounty_hunting_rewards.json") or {}).get("byPage") or {})
 
     out_dir = dist / "unique_checklists"
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -641,6 +750,15 @@ def build(dist, channel):
             elif kind == "daily_ops":
                 rows, sections = _daily_ops_rows(slug, daily, pm) if daily else (None, [])
                 ev = daily.get("name") or "Daily Ops"
+            elif kind == "bounty":
+                page = bounty.get(BOUNTY_SOURCE.get(slug, slug))
+                rows, sections = _bounty_rows(slug, page, pm) if page else (None, [])
+                ev = re.sub(r"^Bounty Hunting:\s*", "",
+                            (page or {}).get("name") or "") or slug
+                if slug.startswith("skyline-valley-head"):
+                    ev = "Skyline Valley: Head Hunt"
+                elif slug == "head-hunt-rewards":
+                    ev = "Burning Springs: Head Hunt"
             else:
                 page = expos.get(slug)
                 rows, sections = _expos_rows(slug, page, pm, idx) if page else (None, [])
@@ -654,8 +772,15 @@ def build(dist, channel):
             failed.append(slug)
             continue
         src_page = daily if kind == "daily_ops" else (expos.get(slug) if kind == "expos" else
-                                                      (mutated.get(slug) if kind == "mutated" else seasonal.get(slug)))
+                                                      (mutated.get(slug) if kind == "mutated" else
+                                                       (bounty.get(BOUNTY_SOURCE.get(slug, slug)) if kind == "bounty"
+                                                        else seasonal.get(slug))))
         _images_and_trade(rows, slug, kind, src_page, pm, idx, img_stats)
+        if kind == "bounty" and not all(isinstance(r.get("tradeable"), bool) for r in rows):
+            # Tradeable pill on every row or none (Duchess's rule): titles and
+            # the Slasher plans have no tradeable flag in the data yet.
+            for r in rows:
+                r.pop("tradeable", None)
         ev = ev or slug
         payload = {
             "version": 1,
