@@ -17,6 +17,9 @@ on:
       - "src/build_quest_lore_json.py"
       - "src/build_lore_holotapes_json.py"
       - "tsv/NOTE2_Export*.tsv"
+      - "src/build_quest_lore_pages_json.py"
+      - "tsv/TERMLORE_Export*.tsv"
+      - "tsv/TERM2_Export*.tsv"
       - "src/slasher_guide.py"
       - "data/slasher_lore_locations.json"
       - "tsv/NOTE_Export*.tsv"
@@ -59,6 +62,10 @@ jobs:
       # Lore Holotape Checklist (14 Nov 2026)
       - name: Build Lore Holotapes JSON
         run: python src/build_lore_holotapes_json.py
+
+      # Quest Lore pages: main / side / daily & unmarked + World Lore per region (15 Nov 2026)
+      - name: Build Quest Lore Pages JSON
+        run: python src/build_quest_lore_pages_json.py
 
       - name: Sanity check outputs
         run: |

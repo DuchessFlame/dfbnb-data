@@ -166,6 +166,38 @@ def marker_region(name):
     return MARKER_REGION.get(best, "")
 
 
+def places_regions(rows2, rt):
+    """Placement rows (NOTE2 / BOOK2 / TERM2 columns) -> (place names, regions).
+    Interior = the cell's name; outdoors = "near <nearest map marker>". Region:
+    outdoors by coordinates (only when worldspace is set - interior coords are
+    cell-local), interiors by the cell / marker name. Shared by the Quest Lore pages."""
+    places, regs = [], []
+    for p in rows2:
+        ws = (p.get("worldspace") or "").strip()
+        ln = (p.get("loc_name") or "").strip()
+        src = (p.get("loc_source") or "").strip()
+        reg = nm = ""
+        if rt:
+            xref, rings, markers, manual, cache, by_name, by_core = rt
+            if ws:            # outdoors (or an instanced worldspace): coordinates / manual map
+                try:
+                    reg, nm, _h = xref.resolve(p, rings, markers, manual, cache)
+                except Exception:
+                    reg, nm = "", ""
+                nm = ("near " + nm) if nm and src == "WRLDName" else (nm or "")
+            if not ws or not reg:   # interior: coords are cell-local, so go by the cell's name
+                for cand in (ln, nm.replace("near ", "", 1)):
+                    if not reg and cand:
+                        reg = xref.lctn_region_for(by_name, by_core, display_name=cand) or marker_region(cand)
+        if src != "WRLDName" and ln:
+            nm = ln
+        if nm and nm not in places:
+            places.append(nm)
+        if reg in REGIONS_AZ:
+            regs.append(reg)
+    return places, regs
+
+
 def build(root):
     note_p = newest(root, "NOTE_Export_*.tsv")
     if not note_p:
@@ -197,7 +229,13 @@ def build(root):
         typ = (r.get("DNAM_Type") or "").strip()
         if typ == "Program":
             skipped["holotape game"] += 1; continue
-        if not name or plan_sources.is_cut_content(edid) or JUNK_REF.match(edid):
+        if not name or JUNK_REF.match(edid):
+            skipped["cut / test"] += 1; continue
+        # Marked cut, but still placed in the world (outside the test rooms): it may
+        # still be there, so it stays with its location (Duchess, 15 Nov 2026: "if we
+        # can't find them we can always move them to cut content")
+        cut_marked = plan_sources.is_cut_content(edid)
+        if cut_marked and not placed.get(fid):
             skipped["cut / test"] += 1; continue
         # only ever placed in the developers' test rooms: not in the game (Duchess, 14 Nov 2026)
         if fid in test_only:
@@ -244,30 +282,7 @@ def build(root):
             elif sig == "GMRW":
                 add("Events & Activities", ed)
         # place names: interior = the cell's name; outdoors = the nearest map marker
-        places, regs = [], []
-        for p in rows2:
-            ws = (p.get("worldspace") or "").strip()
-            ln = (p.get("loc_name") or "").strip()
-            src = (p.get("loc_source") or "").strip()
-            reg = nm = ""
-            if rt:
-                xref, rings, markers, manual, cache, by_name, by_core = rt
-                if ws:            # outdoors (or an instanced worldspace): coordinates / manual map
-                    try:
-                        reg, nm, _h = xref.resolve(p, rings, markers, manual, cache)
-                    except Exception:
-                        reg, nm = "", ""
-                    nm = ("near " + nm) if nm and src == "WRLDName" else (nm or "")
-                if not ws or not reg:   # interior: coords are cell-local, so go by the cell's name
-                    for cand in (ln, nm.replace("near ", "", 1)):
-                        if not reg and cand:
-                            reg = xref.lctn_region_for(by_name, by_core, display_name=cand) or marker_region(cand)
-            if src != "WRLDName" and ln:
-                nm = ln
-            if nm and nm not in places:
-                places.append(nm)
-            if reg in REGIONS_AZ:
-                regs.append(reg)
+        places, regs = places_regions(rows2, rt)
         if is_world and (rows2 and not any(p.get("holder") for p in rows2) or (not rows2 and any(t[2] == "REFR" for t in world))):
             add("World Spawns", ", ".join(places[:3]) + (" …" if len(places) > 3 else "") or "Lying in the world")
 
@@ -312,6 +327,7 @@ def build(root):
                                        if typ == "Terminal" else "Transcript not found in the game files."),
             "image": shared_images.HOLOTAPE_IMAGE,
             "imageSlug": slug,
+            **({"cutMarked": True} if cut_marked else {}),
         })
 
     groups = []

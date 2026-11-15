@@ -27,7 +27,7 @@ still writes the same file as the manual backup.
 TSV SCHEMA (shared with the .pas — keep both in step)
 -----------------------------------------------------
 Main:   TERM_FormID  TERM_EDID  Row  Idx  Text  ItemType  Target_FormID  Display  Conditions
-        Row = HEADER | BODY | ITEM.  ItemType = ANAM number (4 submenu, 8 display text).
+        Row = HEADER | BODY | ITEM (--lore also writes NAME = the terminal's FULL, first).  ItemType = ANAM number (4 submenu, 8 display text).
         Conditions = " && "-joined  Function|Op|Value|ParamFormID|ParamEDID|ParamSig
 Quests: QUST_FormID  QUST_EDID  FULL  Objectives  FirstLog  Referenced
         Objectives = " || "-joined.  Referenced = 1 when a TERM condition names it.
@@ -148,6 +148,9 @@ def main(argv=None):
     ap.add_argument("--prefix", default="X01X_PlayerTerminal")
     ap.add_argument("--pts", action="store_true", help="write a PTS-channel export into tsv/pts/")
     ap.add_argument("--outdir", help="override output folder")
+    ap.add_argument("--lore", action="store_true",
+                    help="EVERY terminal (Quest Lore pages, 15 Nov 2026): writes ..._Lore.tsv "
+                         "(TERMLORE_Export_*.tsv, same columns) instead of the Personal Terminal / token files")
     a = ap.parse_args(argv)
     if not a.data:
         a.data = PTS_DATA if a.pts else LIVE_DATA
@@ -181,7 +184,7 @@ def main(argv=None):
     def is_exchange(ed):
         return "Redeem" in ed or ("Exchange" in ed and "Terminal" in ed)
     terms = {fid for fid, (s, subs) in R.items() if s == "TERM" and
-             (edids[fid].startswith(a.prefix) or is_exchange(edids[fid]))}
+             (a.lore or edids[fid].startswith(a.prefix) or is_exchange(edids[fid]))}
     rows, referenced = [], set()
     queue = sorted(terms)
     seen = set()
@@ -195,6 +198,9 @@ def main(argv=None):
         cur = None          # current row dict that CTDA / ANAM / TNAM / UNAM attach to
         n_body = n_item = 0
         out = []
+        if a.lore:   # the terminal's own name (FULL), first row - lore pages only
+            full = next((lstr(v) for k, v in subs if k == "FULL"), "")
+            out.append({"Row": "NAME", "Idx": 0, "Text": full, "conds": []})
         for k, v in subs:
             if k == "NAM0":
                 out.append({"Row": "HEADER", "Idx": 0, "Text": lstr(v), "conds": []})
@@ -256,6 +262,8 @@ def main(argv=None):
         outdir = a.outdir or os.path.join(REPO, "tsv")
         base = f"TERM_Export_{now:%B_%Y}"
     os.makedirs(outdir, exist_ok=True)
+    if a.lore:   # own prefix so the TERM_Export_*.tsv readers never pick it up
+        base = base.replace("TERM_Export", "TERMLORE_Export", 1)
     main_path = os.path.join(outdir, base + ".tsv")
     q_path = os.path.join(outdir, base + "_Quests.tsv")
     with open(main_path, "w", encoding="utf-8", newline="\r\n") as f:
@@ -278,7 +286,7 @@ def main(argv=None):
         with open(ledger, "a", encoding="utf-8", newline="\r\n") as f:
             if new:
                 f.write("channel\trecord_type\texported_at\tfile\n")
-            f.write(f"{'PTS' if a.pts else 'LIVE'}\tTERM\t{now:%Y-%m-%d %H:%M}\t{os.path.basename(main_path)}\n")
+            f.write(f"{'PTS' if a.pts else 'LIVE'}\t{'TERMLORE' if a.lore else 'TERM'}\t{now:%Y-%m-%d %H:%M}\t{os.path.basename(main_path)}\n")
     except OSError:
         pass
 

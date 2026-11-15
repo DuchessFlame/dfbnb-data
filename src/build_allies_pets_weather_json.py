@@ -431,12 +431,51 @@ def is_cut(edid):
 LEGACY_STOREFRONT = "/wp-content/uploads/storefront"
 CAMP_ITEMS_BASE   = "/wp-content/uploads/guide-images/camp-items"
 IMAGE_BASES = {
-    "pets":              CAMP_ITEMS_BASE + "/camp-pets",
+    # CAMP Pets page split into three server folders (Kat made them 13 Nov 2026).
+    "pets":              CAMP_ITEMS_BASE + "/camp-pets/pets",
+    "pet-furniture":     CAMP_ITEMS_BASE + "/camp-pets/camp-pet-furniture",
+    "pet-apparel":       CAMP_ITEMS_BASE + "/camp-pets/camp-pet-apparel",
     "allies":            CAMP_ITEMS_BASE + "/camp-allies",
     "fridges-and-cryos": CAMP_ITEMS_BASE + "/fridges-and-cryos",
     "dispensers":        CAMP_ITEMS_BASE + "/dispensers",
     "repair-bots":       CAMP_ITEMS_BASE + "/repair-bots",
 }
+
+# Art already on the server under another name or folder (Kat's rule: never
+# upload a second copy). data/server_listing.tsv is refreshed by
+# tools/list_server_images.py; names are compared lower case with the
+# atx_ / score_sNN_ prefix dropped, season_images first.
+def _load_server_listing():
+    out = {}
+    path = Path(__file__).resolve().parent.parent / "data" / "server_listing.tsv"
+    if not path.exists():
+        return out
+    for line in path.read_text(encoding="utf-8", errors="replace").splitlines():
+        if not line or line.startswith("#") or line.startswith("path\t"):
+            continue
+        rel = line.split("\t", 1)[0]
+        if not rel.lower().endswith(".avif"):
+            continue
+        key = _server_key(os.path.splitext(os.path.basename(rel))[0])
+        url = "/wp-content/uploads/" + rel
+        cur = out.get(key)
+        if cur is None or ("/season_images/" in url and "/season_images/" not in cur):
+            out[key] = url
+    return out
+
+
+def _server_key(stem):
+    s = stem.lower()
+    s = re.sub(r"^(atx_|score_s\d+_)", "", s)
+    # Bundle tiles sometimes carry "Outfit_" and a bare version number
+    # (ATX_Apparel_CAMPPets_Deathclaw_Outfit_DCPlating2 = …_dcplatingv2).
+    s = s.replace("_outfit_", "_")
+    s = re.sub(r"v(\d+)$", r"\1", s)
+    return s
+
+
+SERVER_FILES = _load_server_listing()
+
 
 def storefront_img_url(ecil_val, folder=""):
     """
@@ -449,6 +488,15 @@ def storefront_img_url(ecil_val, folder=""):
     if not name:
         return None
     base = IMAGE_BASES.get(folder)
+    # Scoreboard pet art (score_sNN_…, gallery views included) lives once in
+    # season_images/season-NN/ and the CAMP Pets pages reuse it.
+    if folder in ("pets", "pet-furniture", "pet-apparel"):
+        _hit = SERVER_FILES.get(_server_key(name))
+        if _hit:
+            return _hit
+        _sm = re.match(r"score_s0*(\d+)_", name)
+        if _sm:
+            return f"/wp-content/uploads/season_images/season-{_sm.group(1)}/{name}.avif"
     if base:
         # Ally art routes through the one asset rule: Scoreboard allies' frames
         # live in their season folder, Atom Shop allies' in camp-allies.
@@ -2930,6 +2978,9 @@ def animal_from_edid(edid):
 #        SpawnFurniture_Dog_MongrelDogHouse) which breaks suffix extraction.
 # ---------------------------------------------------------------------------
 SPAWN_FURN_TO_ENTM = _CFG_PETS["spawn_furn_to_entm"]
+# ATX_-named pets that are really Scoreboard rewards (Cyberdog = Season 26).
+_PET_SEASON_OVERRIDE = {k: int(v) for k, v in (_CFG_PETS.get("season_override") or {}).items()
+                        if not k.startswith("_")}
 
 # Drift check: warn when a NEW pet ENTM exists that isn't mapped above.
 # Pets need a manual FURN→ENTM pair (regex suffix matching is unreliable for
@@ -2964,6 +3015,288 @@ PET_FURNITURE_ENTM_IDS = sorted({
 PET_FURNITURE_ANIMAL = _CFG_PETS["pet_furniture_animal"]
 
 
+# ---------------------------------------------------------------------------
+# PET DETAILS (CAMP Pets page "Pet Details" sub-expand)
+# ---------------------------------------------------------------------------
+# Every CAMP pet has an NPC_ actor (CAMPPets_Actor_*) that the bed / dog house
+# spawns. The actor's perks are its stats: each perk lists the actors that
+# carry it in its ReferencedBy list, so we read which perks point at which
+# actor rather than typing the stats in. Numbers (poison multiplier, heal text)
+# come from the PERK / PERKEP exports so a patch that changes them flows
+# through on the next build.
+#
+# Pet Prowess is left out on purpose: on these actors it is the World Pets
+# levelling upgrade (ranks unlock with Pet Level), not a fixed stat.
+
+def _optional_tsv(env, pattern, fallback):
+    try:
+        return _resolve_tsv(env, pattern, fallback)
+    except FileNotFoundError:
+        return None
+
+_PD_NPC_PATH    = _optional_tsv("NPC_TSV",    "NPC_Export_*.tsv",    "NPC_Export.tsv")
+_PD_PERKEP_PATH = _optional_tsv("PERKEP_TSV", "PERKEP_Export_*.tsv", "PERKEP_Export.tsv")
+
+
+def _pd_load_npcs():
+    """CAMP pet actors (no debug / placeholder copies)."""
+    if not _PD_NPC_PATH or not str(_PD_NPC_PATH).endswith(".tsv") \
+            or re.search(r"_(PRPS|Refs)\.tsv$", str(_PD_NPC_PATH)):
+        # _resolve_tsv's glob also matches the _PRPS / _Refs files; pick the
+        # newest plain NPC export by hand.
+        cands = [p for p in glob.glob(os.path.join(os.path.dirname(str(_PD_NPC_PATH or COBJ_PATH)),
+                                                   "NPC_Export_*.tsv"))
+                 if not re.search(r"_(PRPS|Refs)\.tsv$", p)]
+        if not cands:
+            return []
+        path = max(cands, key=_tsv_date_key)
+    else:
+        path = _PD_NPC_PATH
+    out = []
+    for r in load_tsv(path):
+        e = r.get("EDID", "")
+        if "CAMPPets_Actor" not in e or "Debug" in e or e.lower().startswith("zzz"):
+            continue
+        if (r.get("FULL") or "").strip() in ("", "TBD"):
+            continue
+        out.append(r)
+    return out
+
+
+def _pd_perk_refs(actor_edids):
+    """{actor EDID: [perk EDID, ...]} from the PERK export's ReferencedBy list,
+    plus {perk EDID: (FULL, DESC)}."""
+    by_actor, names = {e: [] for e in actor_edids}, {}
+    if not PERK_PATH:
+        return by_actor, names
+    csv.field_size_limit(10 ** 9)
+    with open(PERK_PATH, encoding="utf-8", errors="replace", newline="") as f:
+        rd = csv.reader(f, delimiter="\t")
+        hdr = next(rd)
+        ix = {h: i for i, h in enumerate(hdr)}
+        ie, ifl, idc, irf = ix["PERK_EDID"], ix.get("FULL"), ix.get("DESC"), ix.get("Refs_Flat")
+        for row in rd:
+            if irf is None or irf >= len(row):
+                continue
+            refs = row[irf]
+            if "CAMPPets_Actor" not in refs:
+                continue
+            pe = row[ie].strip()
+            names[pe] = (row[ifl].strip() if ifl is not None else "",
+                         row[idc].strip() if idc is not None else "")
+            for a in actor_edids:
+                if f":{a}:NPC_" in refs and pe not in by_actor[a]:
+                    by_actor[a].append(pe)
+    return by_actor, names
+
+
+def _pd_perk_values():
+    """{perk EDID: [(entry point, function, value), ...]} from PERKEP."""
+    out = {}
+    if not _PD_PERKEP_PATH:
+        return out
+    for r in load_tsv(_PD_PERKEP_PATH):
+        try:
+            v = float(r.get("Value") or "")
+        except ValueError:
+            v = None
+        out.setdefault(r.get("PERK_EDID", ""), []).append(
+            (r.get("EntryPoint", ""), r.get("Function", ""), v))
+    return out
+
+
+def _pd_fmt(n):
+    return (f"{n:.2f}".rstrip("0").rstrip(".")) if n is not None else ""
+
+
+def _pd_stat_line(perk, names, values):
+    """One plain-English line for a perk, or "" to skip it."""
+    full, desc = names.get(perk, ("", ""))
+    eps = values.get(perk, [])
+    if perk == "ImmuneToRadiation":
+        return "Immune to Radiation"
+    if perk == "crNoFallDamage":
+        return "Takes no fall damage"
+    if perk.endswith("_ResistantToPoison"):
+        v = next((x[2] for x in eps if "Incoming Weapon Damage" in x[0] and x[2] is not None), None)
+        if v is not None and v < 1:
+            return f"Takes {_pd_fmt((1 - v) * 100)}% less poison damage"
+        return "Resistant to Poison"
+    if perk.endswith("_PetProwess"):
+        return ""
+    if desc:
+        # e.g. Pet Healing Perk: "World Pets Heal 5x faster" -> heals from Stimpaks
+        d = re.sub(r"^World Pets\s+", "", desc).strip()
+        d = d[:1].upper() + d[1:]
+        if "Healing" in perk:
+            d = d.replace("Heal ", "Heals ") + " (Stimpaks)"
+        return d
+    return full
+
+
+_PD_ACTORS = _pd_load_npcs()
+_PD_PERKS_BY_ACTOR, _PD_PERK_NAMES = _pd_perk_refs([a["EDID"] for a in _PD_ACTORS])
+_PD_PERK_VALUES = _pd_perk_values()
+
+# ---------------------------------------------------------------------------
+# PET LEGENDARY GIFTS (Pets > Pet Legendary Gifts page + the CAMP Pets stat)
+# ---------------------------------------------------------------------------
+# Every pet actor (CAMP and World Pets use the same CAMPPets_Actor_* records
+# and CAMPPets:PetActorScript) has ItemToGiftPlayer = its species' list
+# CAMPPets_LL_PetTreasurePlayerGift_<Species>01. That list is First Match
+# (LVLF bit 6): Rank3 if GetRandomPercent <= 10, else Rank2 if <= 20, else
+# Rank1 — a fresh roll per entry (drop-rate-engine 3f). Each Rank list is a
+# pick-one of ranged weapon / melee weapon / armour. The countdown is the
+# GLOB CAMPPets_PetGiftInveral (sic) in seconds.
+
+_PG_GIFT_LISTS = [("Cat", "CAMPPets_LL_PetTreasurePlayerGift_Cat01"),
+                  ("Dog", "CAMPPets_LL_PetTreasurePlayerGift_Dog01"),
+                  ("Radhog", "CAMPPets_LL_PetTreasurePlayerGift_RadHog01"),
+                  ("Deathclaw", "CAMPPets_LL_PetTreasurePlayerGift_Deathclaw01")]
+_PG_LGDI_LABEL = [("Weapons_Ranged", "Ranged Weapon"), ("Weapons_Melee", "Melee Weapon"),
+                  ("Armor", "Armour")]
+
+
+def _pg_flag(flags, bit):
+    f = str(flags or "")
+    return len(f) > bit and f[bit] == "1"
+
+
+def build_pet_gifts():
+    list_path = _optional_tsv("LVLI_LIST_TSV", "LVLI_Export_*_LVLI_List.tsv", "LVLI_Export_LVLI_List.tsv")
+    ent_path  = _optional_tsv("LVLI_ENTRIES_TSV", "LVLI_Export_*_LVLI_Entries.tsv", "LVLI_Export_LVLI_Entries.tsv")
+    if not list_path or not ent_path:
+        return {}
+    lists = {r.get("LVLI_EDID", ""): r for r in load_tsv(list_path)}
+    ents = {}
+    for r in load_tsv(ent_path):
+        ents.setdefault(r.get("LVLI_EDID", ""), []).append(r)
+
+    glob_secs = None
+    for g in glob_rows:
+        if (g.get("EDID") or "") == "CAMPPets_PetGiftInveral":
+            try:
+                glob_secs = float(g.get("FLTV") or g.get("Value") or "")
+            except ValueError:
+                pass
+
+    def grp(cond):
+        m = re.search(r"GetRandomPercent\(.*?\)\s+\S+\s+([\d.]+)", cond or "")
+        return float(m.group(1)) / 100.0 if m else None
+
+    species, tiers, first = [], None, None
+    for sp, edid in _PG_GIFT_LISTS:
+        lst = lists.get(edid)
+        rows = sorted(ents.get(edid, []), key=lambda r: int(r.get("EntryIndex") or 0))
+        if not lst or not rows:
+            continue
+        species.append({"species": sp, "edid": edid, "formId": lst.get("LVLI_FormID", "")})
+        if tiers is not None:
+            continue
+        first = _pg_flag(lst.get("LVLF_Flags"), 6)
+        tiers, left = [], 1.0
+        for r in rows:
+            sub = (r.get("LVLO_Reference") or "").split(":")
+            sub_edid = sub[1] if len(sub) > 1 else ""
+            c = grp(r.get("Cond1", "")) if first else None
+            check = c if c is not None else 1.0
+            chance = check * left
+            left *= (1 - check)
+            m = re.search(r"Rank(\d)", sub_edid)
+            rank = int(m.group(1)) if m else None
+            sub_rows = ents.get(sub_edid, [])
+            kinds = []
+            for sr in sub_rows:
+                ref = sr.get("LVLO_Reference", "")
+                lab = next((l for k, l in _PG_LGDI_LABEL if k in ref), ref.split(":")[1] if ":" in ref else ref)
+                kinds.append({"label": lab, "ref": ref})
+            n = len(kinds) or 1
+            for k in kinds:
+                k["chance"] = round(chance / n, 6)
+            tiers.append({"rank": rank, "check": c, "chance": round(chance, 6),
+                          "list": sub_edid, "items": kinds})
+    if not species:
+        return {}
+    return {
+        "intervalSeconds": glob_secs,
+        "intervalGlobal":  "CAMPPets_PetGiftInveral",
+        "firstMatch":      bool(first),
+        "tiers":           tiers or [],
+        "species":         species,
+    }
+
+
+PET_GIFTS = build_pet_gifts()
+
+
+_PD_FURN_TYPES = [            # (FURN keyword fragment / name ending, label)
+    ("Doghouse", "Dog House"), ("_House", "Dog House"),
+    ("Deathclaw", "Cage"),      ("Cage", "Cage"),
+    ("_Bed", "Bed"),
+]
+
+_PD_GENERATES_RE = re.compile(r"\s*(Generates [^.]*?Legendary Items?)\.?\s*$", re.I)
+
+
+def _pd_actor_for(display_name):
+    """Match the pet's store name to its actor: exact name first, else the
+    longest actor name inside the store name (Gruyere Radhog / Gruyere)."""
+    dn = display_name.strip().lower()
+    def rank(a):
+        e = a["EDID"]
+        return (0 if "template" in e.lower() else 1, len(a.get("FULL", "")))
+    exact = [a for a in _PD_ACTORS if a.get("FULL", "").strip().lower() == dn]
+    if exact:
+        return max(exact, key=rank)
+    inside = [a for a in _PD_ACTORS
+              if a.get("FULL", "").strip().lower() in dn or dn in a.get("FULL", "").strip().lower()]
+    def rank2(a):
+        return (dn.startswith(a.get("FULL", "").strip().lower()),) + rank(a)
+    return max(inside, key=rank2) if inside else None
+
+
+def pet_details(display_name, animal, desc, furn_row, home_name, home_img):
+    """Returns (description without the legendary line, details dict)."""
+    stats = []
+    # The store text on some pets ends "Generates 1, 2, or 3 Star Legendary
+    # Items"; that is a stat, so it comes out of the description. The stat
+    # line itself comes from the gift list, which every pet has.
+    m = _PD_GENERATES_RE.search(desc or "")
+    if m:
+        desc = desc[:m.start()].rstrip()
+    if PET_GIFTS.get("tiers"):
+        ranks = sorted(t["rank"] for t in PET_GIFTS["tiers"] if t.get("rank"))
+        stars = ", ".join(f"{r}★" for r in ranks[:-1]) + f" or {ranks[-1]}★" if len(ranks) > 1 else f"{ranks[0]}★"
+        secs = PET_GIFTS.get("intervalSeconds")
+        every = f" every {_pd_fmt(secs / 3600)} hours" if secs else ""
+        stats.append(f"Gives you a {stars} Legendary Item{every}")
+    actor = _pd_actor_for(display_name)
+    if actor:
+        for p in _PD_PERKS_BY_ACTOR.get(actor["EDID"], []):
+            line = _pd_stat_line(p, _PD_PERK_NAMES, _PD_PERK_VALUES)
+            if line and line not in stats:
+                stats.append(line)
+
+    kws = " ".join(v for k, v in (furn_row or {}).items() if k.startswith("KW_"))
+    ftype = ""
+    for frag, label in _PD_FURN_TYPES:
+        if frag.lower() in kws.lower() or home_name.lower().endswith(frag.strip("_").lower()):
+            ftype = label
+            break
+
+    details = {
+        "type":           (actor.get("SHRT") if actor else "") or animal.title(),
+        "stats":          stats,
+        "furniture":      home_name,
+        "furnitureType":  ftype,
+        "furnitureImage": home_img,
+        "actorEdid":      actor["EDID"] if actor else "",
+        "actorFormId":    actor["FormID"] if actor else "",
+        "perks":          _PD_PERKS_BY_ACTOR.get(actor["EDID"], []) if actor else [],
+    }
+    return desc, details
+
+
 def build_pets():
     items = []
     for furn_id, entm_id in SPAWN_FURN_TO_ENTM.items():
@@ -2989,6 +3322,8 @@ def build_pets():
         # Season number: check FURN EDID first, then ENTM EDID
         season_m   = re.match(r"SCORE_S(\d+)_", furn_edid or entm.get("EDID", ""), re.IGNORECASE)
         season_num = int(season_m.group(1)) if season_m else None
+        if season_num is None and entm_id in _PET_SEASON_OVERRIDE:
+            season_num = _PET_SEASON_OVERRIDE[entm_id]
 
         if season_num:
             source = "Scoreboard"
@@ -3001,6 +3336,11 @@ def build_pets():
         # workshop); power and CAMP budget cost from the bed/house FURN.
         _pet_build_info = camp_build_block(furn_id, "CAMPPets_WorkshopCount")
         _pet_craft      = craft_array_for(furn_id, entm_id, edid_hint=furn_edid)
+
+        # Pet Details sub-expand: the store's "Generates 1, 2, or 3 Star
+        # Legendary Items" line moves out of the description into the stats.
+        desc, _pet_details = pet_details(entm_full or furn_full or furn_edid,
+                                         animal, desc, furn, furn_full, home_img)
 
         items.append({
             "formId":        furn_id,
@@ -3027,10 +3367,11 @@ def build_pets():
             "buildInfo":     _pet_build_info,
             "craftingRequirements": _pet_craft,
             "cutContent":    is_cut(furn_edid),
+            "petDetails":    _pet_details,
         })
 
     items.sort(key=lambda x: x["displayName"])
-    return {"items": items}
+    return {"items": items, "petGifts": PET_GIFTS}
 
 
 # ---------------------------------------------------------------------------
@@ -3053,11 +3394,11 @@ def build_pet_furniture():
         xalg      = entm.get("XALG", "")
         source    = xalg_to_source(xalg) or "Atom Shop"
         animal    = PET_FURNITURE_ANIMAL.get(entm_id, animal_from_edid(edid))
-        carousel  = ecil_images(entm, "camp-pets")
+        carousel  = ecil_images(entm, "pet-furniture")
 
         # Use ETDI for primary image (icon), ECIL for carousel
         _etdi = entm.get("ETDI", "").strip()
-        img   = main_image(_etdi, "camp-pets", carousel, entm.get("EDID") if entm else "")
+        img   = main_image(_etdi, "pet-furniture", carousel, entm.get("EDID") if entm else "")
 
         season_m   = re.match(r"SCORE_S(\d+)_", edid, re.IGNORECASE)
         season_num = int(season_m.group(1)) if season_m else None
@@ -3131,12 +3472,12 @@ def build_pet_apparel():
         xalg     = entm.get("XALG", "")
         source   = xalg_to_source(xalg) or "Atom Shop"
         animal   = PET_APPAREL_ANIMAL.get(entm_id, animal_from_edid(entm.get("EDID", "")))
-        carousel = ecil_images(entm, "camp-pets")
+        carousel = ecil_images(entm, "pet-apparel")
         # Pet apparel imageUrl: ETDI is the reliable base icon filename.
         # ECIL_1 has a _C1 suffix which does NOT match the uploaded texture icon.
         # ETDI must take priority; fall back to ECIL carousel only if ETDI is missing.
         _etdi    = entm.get("ETDI", "").strip()
-        img      = main_image(_etdi, "camp-pets", carousel, entm.get("EDID") if entm else "")
+        img      = main_image(_etdi, "pet-apparel", carousel, entm.get("EDID") if entm else "")
         edid     = entm.get("EDID", "")
 
         season_m   = re.match(r"SCORE_S(\d+)_", edid, re.IGNORECASE)

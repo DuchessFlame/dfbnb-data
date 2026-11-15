@@ -218,6 +218,13 @@ CONFIRMED_CUT_SOURCE_PATTERNS = (
     # has to stand on its own between underscores.
     (re.compile(r"(?:^|_)v94(?:_|\d|$)", re.I),
      "Vault 94 missions", "Vault 94 missions are cut content"),
+    # Vault 96 missions (Duchess, 15 Nov 2026: cut): the mission quests V96_1
+    # "Creature Feature" / V96_2 "Gone Viral" and their records (V96_1_*, V96_2_*,
+    # V96_3...), plus VaultSystemRewards_V96_*. NOT the vault itself: the seven
+    # V96_Holotape* tapes still lie in Vault 96 ("there might be some holotapes in
+    # the vault still"), and Steel Reign's BS02_..._V96_... content is live.
+    (re.compile(r"^v96_\d|(?:^|_)vaultsystemrewards_v96", re.I),
+     "Vault 96 missions", "Vault 96 missions are cut content"),
     # Milepost Zero (MILE_* - caravans, HQ vendors, Supplies, mystery crates).
     (re.compile(r"(?:^|_)mile\d*_", re.I),
      "Milepost Zero", "Milepost Zero is cut content"),
