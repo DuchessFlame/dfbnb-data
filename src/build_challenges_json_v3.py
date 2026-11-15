@@ -681,10 +681,23 @@ STOP_WORDS = frozenset({
     "this", "have", "been", "the", "and", "for", "any", "all",
 })
 
+_guide_by_url = {g["url"].rstrip("/").lower(): g for g in guide_links}
+
+
 def find_related_guides(item):
     matches = []
     seen_urls = set()
     full = str(item.get("full") or "").lower()
+    # 15 Nov 2026 (Kat, Mia #125): each Pioneer Scouts badge ("Possum: Archaeologist", "Tadpole: Cook") has its own
+    # checklist page at /df/scouts/<badge>/checklist-<name>/ — the word search below never matched those slugs, so
+    # every badge on the Possum / Tadpole checklists said "Guide coming soon". Link the badge's own page first.
+    m = re.match(r"^(possum|tadpole):\s*(.+?)\s*$", full)
+    if m:
+        slug = re.sub(r"[^a-z0-9]+", "-", m.group(2)).strip("-")
+        g = _guide_by_url.get(f"/df/scouts/{m.group(1)}/checklist-{slug}")
+        if g:
+            seen_urls.add(g["url"])
+            matches.append({"title": g["title"], "url": g["url"], "relevance": 100})
     edid = str(item.get("edid") or "").lower()
     conditions = item.get("conditions") or []
     search_terms = set()
