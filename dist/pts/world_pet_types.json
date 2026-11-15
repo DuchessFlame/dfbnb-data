@@ -1430,13 +1430,14 @@
     "xpRate": {
       "perSec": 1,
       "bankSec": 60,
-      "killBonus": null,
-      "perMinute": 60,
+      "killBonus": 0.1,
+      "perMinute": 66,
       "settings": {
-        "perSec": "uWorldPetExperienceAmount (ESM)",
-        "bankSec": "fWorldPetExperienceTimer (ESM)"
+        "perSec": "fWorldPetExperienceAmount (exe)",
+        "bankSec": "fWorldPetExperienceTimer (ESM)",
+        "killBonus": "fWorldPetKillXpModifier (exe)"
       },
-      "exeFile": null
+      "exeFile": "dist/exe_settings.json"
     },
     "rested": {
       "name": "Pet Rested",
