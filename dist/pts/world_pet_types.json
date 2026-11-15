@@ -1,6 +1,6 @@
 {
   "meta": {
-    "export": "October 2026",
+    "export": "November 2026",
     "featureAdded": "Jun 2026",
     "channel": "live",
     "hasWorldPetsData": true
@@ -1427,6 +1427,17 @@
       ]
     ],
     "tickSeconds": 60,
+    "xpRate": {
+      "perSec": 1,
+      "bankSec": 60,
+      "killBonus": null,
+      "perMinute": 60,
+      "settings": {
+        "perSec": "uWorldPetExperienceAmount (ESM)",
+        "bankSec": "fWorldPetExperienceTimer (ESM)"
+      },
+      "exeFile": null
+    },
     "rested": {
       "name": "Pet Rested",
       "desc": "10x Pet XP Bonus",
@@ -1439,11 +1450,9 @@
       "overview": [
         "Pets can follow you in the Appalachian. More than that, they can be issued commands, do combat, earn experience points and rewards!",
         "You may acquire Pets in the Atomic Shop. Luckily, there is one available for free!",
-        "Pip-Boy",
-        "You can manage your Pet in the PETS section of the Pip-Boy, where is displayed the list of Pets you own, their name, their XP Level, their current health and damage stats.",
+        "Pip-Boy  You can manage your Pet in the PETS section of the Pip-Boy, where is displayed the list of Pets you own, their name, their XP Level, their current health and damage stats.",
         "Use the Pip-Boy to activate any of your Pets. They will appear right next to you. Only 1 Pet can be active at a time. Pets can follow you pretty much everywhere, except for Shelters and Raids. If your Pet cannot path to you, no worries. They will automatically find a way to regroup when allowed.",
-        "Command Wheel",
-        "You can interact with your Pet directly (or through the player emote wheel) to bring up the Pet Command Wheel and give your Pet Commands. This is also where you find the option to rename or customize your Pet."
+        "Command Wheel  You can interact with your Pet directly (or through the player emote wheel) to bring up the Pet Command Wheel and give your Pet Commands. This is also where you find the option to rename or customize your Pet."
       ],
       "leveling": [
         "XP and Leveling  Pets gain experience points, level-up and earn rewards. Your active Pet banks XP every second (max 1 minute) and collects the banked XP every time you earn XP. Collecting Pet XP from a kill earns your Pet an extra 10 percent Pet XP.",
@@ -1553,7 +1562,7 @@
     ],
     "damageMult": [],
     "incomingDamageMult": [],
-    "curveSource": "CURV_Export_October_2026_POINTS.tsv",
+    "curveSource": "CURV_Export_November_2026_POINTS.tsv",
     "resistances": 0,
     "levelling": {
       "totalXp": 607540
@@ -2719,7 +2728,7 @@
       ],
       "activity": "Kill Infestation enemies with an active Pet Deathclaw",
       "treasure": {
-        "item": "Black Titanium Ore",
+        "item": "Black Titanium Scrap",
         "isList": false,
         "qtyByRank": [
           1,
@@ -2736,8 +2745,8 @@
           "ranks": [
             {
               "rank": 1,
-              "item": "Black Titanium Ore",
-              "itemEdid": "Chem_Smelting_Ore_BlackTitanium",
+              "item": "Black Titanium Scrap",
+              "itemEdid": "c_BlackTitanium_scrap",
               "qty": 1,
               "qtyStatic": 2,
               "entitlement": "",
@@ -2745,8 +2754,8 @@
             },
             {
               "rank": 2,
-              "item": "Black Titanium Ore",
-              "itemEdid": "Chem_Smelting_Ore_BlackTitanium",
+              "item": "Black Titanium Scrap",
+              "itemEdid": "c_BlackTitanium_scrap",
               "qty": 2,
               "qtyStatic": 3,
               "entitlement": "",
@@ -2754,8 +2763,8 @@
             },
             {
               "rank": 3,
-              "item": "Black Titanium Ore",
-              "itemEdid": "Chem_Smelting_Ore_BlackTitanium",
+              "item": "Black Titanium Scrap",
+              "itemEdid": "c_BlackTitanium_scrap",
               "qty": 3,
               "qtyStatic": 4,
               "entitlement": "",

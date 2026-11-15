@@ -1,19 +1,19 @@
 {
- "generated": "2026-11-06T19:57:58+00:00",
+ "generated": "2026-11-15T09:37:03+00:00",
  "channel": "pts",
  "isPts": true,
  "sources": {
-  "BPTD": "tsv/BPTD_Export_October_2026.tsv",
-  "CURV_POINTS": "tsv/CURV_Export_October_2026_POINTS.tsv",
-  "FLST_Entries": "tsv/FLST_Export_October_2026_Entries.tsv",
-  "GLOB": "tsv/GLOB_Export_October_2026.tsv",
-  "KYWD": "tsv/KYWD_Export_October_2026.tsv",
-  "LVLI_Entries": "tsv/LVLI_Export_October_2026_LVLI_Entries.tsv",
-  "NPC": "tsv/NPC_Export_October_2026.tsv",
-  "NPC_PRPS": "tsv/NPC_Export_October_2026_PRPS.tsv",
-  "NPC_Refs": "tsv/NPC_Export_October_2026_Refs.tsv",
-  "SPEL_HEADER": "tsv/SPEL_Export_October_2026_HEADER.tsv",
-  "WEAP_DNAM": "tsv/WEAP_Export_October_2026_DNAM.tsv",
+  "BPTD": "tsv/BPTD_Export_November_2026.tsv",
+  "CURV_POINTS": "tsv/CURV_Export_November_2026_POINTS.tsv",
+  "FLST_Entries": "tsv/FLST_Export_November_2026_Entries.tsv",
+  "GLOB": "tsv/GLOB_Export_November_2026.tsv",
+  "KYWD": "tsv/KYWD_Export_November_2026.tsv",
+  "LVLI_Entries": "tsv/LVLI_Export_November_2026_LVLI_Entries.tsv",
+  "NPC": "tsv/NPC_Export_November_2026.tsv",
+  "NPC_PRPS": "tsv/NPC_Export_November_2026_PRPS.tsv",
+  "NPC_Refs": "tsv/NPC_Export_November_2026_Refs.tsv",
+  "SPEL_HEADER": "tsv/SPEL_Export_November_2026_HEADER.tsv",
+  "WEAP_DNAM": "tsv/WEAP_Export_November_2026_DNAM.tsv",
   "head_hunt_bosses": "dist/bounty-hunting/head_hunt_bosses.json"
  },
  "page": "daily_ops",
@@ -264,8 +264,8 @@
      "ammo": ".308 Round",
      "range": 256,
      "type": "Gun",
-     "damageMin": 80,
-     "damageMax": 80,
+     "damageMin": 134,
+     "damageMax": 171,
      "damageCurve": "CT_Weapon_HuntingRifle_BaseDMG"
     }
    ],
@@ -345,8 +345,8 @@
      "ammo": "5mm Round",
      "range": 256,
      "type": "Gun",
-     "damageMin": 8,
-     "damageMax": 8,
+     "damageMin": 20,
+     "damageMax": 24,
      "damageCurve": "CT_Weapon_MiniGunDMG_BaseDMG"
     }
    ],
@@ -509,8 +509,8 @@
      "ammo": "",
      "range": 10,
      "type": "OneHandSword",
-     "damageMin": 11,
-     "damageMax": 11,
+     "damageMin": 45,
+     "damageMax": 52,
      "damageCurve": "CT_Weapon_CultistBladeDMG"
     }
    ],
@@ -592,8 +592,8 @@
      "ammo": "Shotgun Shell",
      "range": 256,
      "type": "Gun",
-     "damageMin": 50,
-     "damageMax": 50,
+     "damageMin": 118,
+     "damageMax": 150,
      "damageCurve": "CT_Weapon_CombatShotgun_BaseDMG"
     }
    ],
@@ -675,8 +675,8 @@
      "ammo": ".44 Round",
      "range": 256,
      "type": "Gun",
-     "damageMin": 60,
-     "damageMax": 60,
+     "damageMin": 123,
+     "damageMax": 157,
      "damageCurve": "CT_Weapon_DLC04_RevolverDMG"
     }
    ],
@@ -2028,6 +2028,30 @@
     "damageMax": 224
    },
    {
+    "boss": "Super Mutant Sharpshooter",
+    "weapon": "Hunting Rifle",
+    "levelMin": 40,
+    "levelMax": 100,
+    "damageMin": 134,
+    "damageMax": 171
+   },
+   {
+    "boss": "Blood Eagle Specialist",
+    "weapon": "Western Revolver",
+    "levelMin": 40,
+    "levelMax": 100,
+    "damageMin": 123,
+    "damageMax": 157
+   },
+   {
+    "boss": "Blood Eagle Renegade",
+    "weapon": "Combat Shotgun",
+    "levelMin": 40,
+    "levelMax": 100,
+    "damageMin": 118,
+    "damageMax": 150
+   },
+   {
     "boss": "Blood Eagle Destroyer",
     "weapon": "Auto Grenade Launcher",
     "levelMin": 40,
@@ -2052,14 +2076,6 @@
     "damageMax": 104
    },
    {
-    "boss": "Super Mutant Sharpshooter",
-    "weapon": "Hunting Rifle",
-    "levelMin": 40,
-    "levelMax": 100,
-    "damageMin": 80,
-    "damageMax": 80
-   },
-   {
     "boss": "Fanatic Conqueror",
     "weapon": "50 Cal Machine Gun",
     "levelMin": 1,
@@ -2076,20 +2092,12 @@
     "damageMax": 64
    },
    {
-    "boss": "Blood Eagle Specialist",
-    "weapon": "Western Revolver",
+    "boss": "Blood Eagle Eviscerator",
+    "weapon": "Cultist Blade",
     "levelMin": 40,
     "levelMax": 100,
-    "damageMin": 60,
-    "damageMax": 60
-   },
-   {
-    "boss": "Blood Eagle Renegade",
-    "weapon": "Combat Shotgun",
-    "levelMin": 40,
-    "levelMax": 100,
-    "damageMin": 50,
-    "damageMax": 50
+    "damageMin": 45,
+    "damageMax": 52
    },
    {
     "boss": "Scorched Exterminator",
@@ -2108,20 +2116,12 @@
     "damageMax": 30
    },
    {
-    "boss": "Blood Eagle Eviscerator",
-    "weapon": "Cultist Blade",
-    "levelMin": 40,
-    "levelMax": 100,
-    "damageMin": 11,
-    "damageMax": 11
-   },
-   {
     "boss": "Super Mutant Shredder",
     "weapon": "Minigun",
     "levelMin": 40,
     "levelMax": 100,
-    "damageMin": 8,
-    "damageMax": 8
+    "damageMin": 20,
+    "damageMax": 24
    },
    {
     "boss": "Super Mutant Demolisher",

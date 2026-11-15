@@ -35,6 +35,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 15 Nov 2026 (Kat, Mia To-Finish #800): every PTS build since 7 Nov failed. From #745 the runner died part-way
+      # ("The hosted runner lost communication with the server"), on #747/#749 inside Build Titles JSON just after
+      # "[CURV] Loaded …" — the point where it reads every LVLI export in tsv/ into memory (29 live + the PTS ones).
+      # That's the runner running out of memory. Free the big unused tool folders and add swap so the build has room.
+      # Nothing about what the build makes changes.
+      - name: Free disk space and add swap
+        shell: bash
+        run: |
+          echo "Before:"; df -h / /mnt 2>/dev/null || df -h /; free -h
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /usr/local/.ghcup /opt/hostedtoolcache/CodeQL || true
+          SWAP=/mnt/swapfile-extra
+          [ -d /mnt ] && [ -w /mnt ] || SWAP=/swapfile-extra
+          sudo fallocate -l 16G "$SWAP" && sudo chmod 600 "$SWAP" && sudo mkswap "$SWAP" >/dev/null && sudo swapon "$SWAP" || echo "::warning::Could not add extra swap"
+          echo "After:"; df -h / /mnt 2>/dev/null || df -h /; free -h; swapon --show
+
       - name: Checkout (full history)
         uses: actions/checkout@v5
         with:
@@ -118,6 +133,10 @@ jobs:
             --tsv-root tsv \
             --seasons tsv/fallout76_seasons.tsv \
             --outdir dist
+
+      - name: Memory and disk after titles
+        if: always()
+        run: free -h; df -h / /mnt 2>/dev/null || true
 
       - name: Build Titles Generator JSON
         run: python src/build_titles_generator_json.py
@@ -1213,6 +1232,14 @@ jobs:
       # Outputs dist/world_pet_types.json for df-bnb-world-pets.js.
       # Reads NPC, ENTM, ALCH, ALCH_Effects, COBJ, GLOB TSVs (resolved
       # internally via glob patterns — no explicit env vars needed).
+      # 15 Nov 2026 (Mia #802): 'Clear dist' removes dist/pts/exe_settings.json, so the World Pets Pet XP rate lost its
+      # exe-only kill bonus (fWorldPetKillXpModifier). Put the committed PTS copy back where this (non --pts) build reads it;
+      # the relocate step moves it back into dist/pts unchanged.
+      - name: Restore PTS exe settings for World Pet Types
+        run: |
+          mkdir -p dist
+          git show HEAD:dist/pts/exe_settings.json > dist/exe_settings.json || echo "::warning::no dist/pts/exe_settings.json in HEAD"
+
       - name: Build World Pet Types JSON
         run: |
           python src/build_world_pet_types_json.py \
@@ -1772,8 +1799,17 @@ jobs:
         run: |
           shopt -s extglob dotglob
           mkdir -p dist/pts
+          # 15 Nov 2026: a builder run with --pts writes straight into dist/pts/<folder> (e.g. dist/pts/calculators from the
+          # VATS crit / ammo converter / melee builds), and then `mv dist/calculators dist/pts/` failed with
+          # "cannot overwrite 'dist/pts/calculators': Directory not empty" (runs #715, #744). Merge folders instead of mv.
           for item in dist/!(pts); do
-            mv "$item" dist/pts/
+            name=$(basename "$item")
+            if [ -d "$item" ] && [ -d "dist/pts/$name" ]; then
+              cp -a "$item/." "dist/pts/$name/" && rm -rf "$item"
+            else
+              rm -rf "dist/pts/$name"
+              mv "$item" dist/pts/
+            fi
           done
           # Print a preview without `| head`: Actions bash runs with -o pipefail,
           # so head closing the pipe early makes ls die with "Broken pipe"

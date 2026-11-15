@@ -1,27 +1,27 @@
 {
  "_generated_by": "src/build_bugged_plans_json.py",
- "generated": "2026-11-06",
+ "generated": "2026-11-15",
  "channel": "pts",
  "exports": {
-  "WEAP": "WEAP_Export_October_2026_Base.tsv",
-  "ARMO": "ARMO_Export_October_2026_ARMOUR.tsv",
-  "OMOD": "OMOD_Export_October_2026.tsv",
-  "BOOK": "BOOK_Export_October_2026.tsv",
-  "GMRW": "GMRW_Export_October_2026.tsv",
-  "COBJ": "COBJ_Export_October_2026.tsv",
-  "CNDF": "CNDF_Export_October_2026.tsv",
-  "LVLI_List": "LVLI_Export_October_2026_LVLI_List.tsv",
-  "LVLI_Entries": "LVLI_Export_October_2026_LVLI_Entries.tsv",
-  "LVLI_Refs": "LVLI_Export_October_2026_LVLI_Refs.tsv",
-  "PLYT": "PLYT_Export_October_2026.tsv",
-  "CMPT": "CMPT_Export_October_2026.tsv"
+  "WEAP": "WEAP_Export_November_2026_Base.tsv",
+  "ARMO": "ARMO_Export_November_2026_ARMOUR.tsv",
+  "OMOD": "OMOD_Export_November_2026.tsv",
+  "BOOK": "BOOK_Export_November_2026.tsv",
+  "GMRW": "GMRW_Export_November_2026.tsv",
+  "COBJ": "COBJ_Export_November_2026.tsv",
+  "CNDF": "CNDF_Export_November_2026.tsv",
+  "LVLI_List": "LVLI_Export_November_2026_LVLI_List.tsv",
+  "LVLI_Entries": "LVLI_Export_November_2026_LVLI_Entries.tsv",
+  "LVLI_Refs": "LVLI_Export_November_2026_LVLI_Refs.tsv",
+  "PLYT": "PLYT_Export_November_2026.tsv",
+  "CMPT": "CMPT_Export_November_2026.tsv"
  },
  "stats": {
   "lists_total": 11322,
   "dead_entries_shadowed_switch": 6,
   "dead_entries_never_rolls": 30,
   "dead_entries_shadowed": 6,
-  "lists_live": 8931,
+  "lists_live": 8919,
   "plans_scanned": 3139,
   "plans_cut": 327,
   "plans_via_unreferenced_gmrw": 27,
@@ -995,6 +995,112 @@
    "is_new": false
   },
   {
+   "id": "0094CE3B",
+   "name": "Plan: Crusader Pistol Refined Receiver",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "0094F16C",
+       "edid": "LLS_Mods_Weapons_Ranged_BoSPistol",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0094CE3B",
+     "edid": "recipe_mod_BoSPistol_Receiver_Damage-HipAccuracy",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0094CE4F",
+      "edid": "co_mod_BoSPistol_Receiver_Damage-HipAccuracy",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0094CE87",
+      "edid": "mod_BoSPistol_Receiver_Damage-HipAccuracy",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "0094CE39",
+   "name": "Plan: Crusader Pistol Severe Receiver",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "0094F16C",
+       "edid": "LLS_Mods_Weapons_Ranged_BoSPistol",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0094CE39",
+     "edid": "recipe_mod_BoSPistol_Receiver_Damage-CritDMG",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0094CE55",
+      "edid": "co_mod_BoSPistol_Receiver_Damage-CritDMG",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0094CE80",
+      "edid": "mod_BoSPistol_Receiver_Damage-CritDMG",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
    "id": "0094CE3F",
    "name": "Plan: Crusader Pistol Stinging Magazine",
    "kind": "plan",
@@ -1101,59 +1207,6 @@
    "is_new": false
   },
   {
-   "id": "0094CE39",
-   "name": "Plan: Crusader Pistol Vicious Receiver",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": false,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "008A830F",
-       "edid": "LLC_PTS_Locker_Default",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "0094F16C",
-       "edid": "LLS_Mods_Weapons_Ranged_BoSPistol",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "0094CE39",
-     "edid": "recipe_mod_BoSPistol_Receiver_Damage-CritDMG",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0094CE55",
-      "edid": "co_mod_BoSPistol_Receiver_Damage-CritDMG",
-      "type": "COBJ"
-     }
-    ],
-    "creates": [
-     {
-      "form_id": "0094CE80",
-      "edid": "mod_BoSPistol_Receiver_Damage-CritDMG",
-      "type": "OMOD"
-     }
-    ]
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
    "id": "0094CE40",
    "name": "Plan: Crusader Pistol Vicious Receiver",
    "kind": "plan",
@@ -1197,59 +1250,6 @@
      {
       "form_id": "0094CE82",
       "edid": "mod_BoSPistol_Receiver_CritDMG-HipAccuracy",
-      "type": "OMOD"
-     }
-    ]
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "0094CE3B",
-   "name": "Plan: Crusader Pistol Vicious Receiver",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": false,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "008A830F",
-       "edid": "LLC_PTS_Locker_Default",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "0094F16C",
-       "edid": "LLS_Mods_Weapons_Ranged_BoSPistol",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "0094CE3B",
-     "edid": "recipe_mod_BoSPistol_Receiver_Damage-HipAccuracy",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0094CE4F",
-      "edid": "co_mod_BoSPistol_Receiver_Damage-HipAccuracy",
-      "type": "COBJ"
-     }
-    ],
-    "creates": [
-     {
-      "form_id": "0094CE87",
-      "edid": "mod_BoSPistol_Receiver_Damage-HipAccuracy",
       "type": "OMOD"
      }
     ]

@@ -1,38 +1,38 @@
 {
  "version": 1,
- "generated": "2026-11-13T22:15:27+00:00",
+ "generated": "2026-11-15T09:48:21+00:00",
  "channel": "pts",
  "sources": {
-  "specials_stats": "dist/pts/specials_stats.json",
-  "mgef": "MGEF_Export_PTS_2026-10-28_0522.tsv",
-  "spel": "SPEL_Export_PTS_2026-10-28_0508_EFFECTS.tsv",
+  "specials_stats": "dist/specials_stats.json",
+  "mgef": "MGEF_Export_PTS_2026-11-14_0957.tsv",
+  "spel": "SPEL_Export_PTS_2026-11-14_0948_EFFECTS.tsv",
   "alchfx": "ALCHFX_Export_October_2026.tsv",
-  "curv": "CURV_Export_PTS_2026-11-07_1336_POINTS.tsv",
-  "omod": "OMOD_Export_PTS_2026-10-28_0509_Properties.tsv",
-  "apx": "APX_Export_PTS_2026-11-07_0302.tsv",
-  "glob": "GLOB_Export_PTS_2026-10-28_0508.tsv",
-  "foodBuff": "dist/pts/calculators/food_buff_calculator.json"
+  "curv": "CURV_Export_PTS_2026-11-14_0949_POINTS.tsv",
+  "omod": "OMOD_Export_PTS_2026-11-14_0949_Properties.tsv",
+  "apx": "APX_Export_PTS_2026-11-14_0959.tsv",
+  "glob": "GLOB_Export_PTS_2026-11-14_0948.tsv",
+  "foodBuff": "dist/calculators/food_buff_calculator.json"
  },
  "refresh": {
   "base": {
-   "value": null,
+   "value": 6,
    "src": {
     "type": "RACE PRPS",
     "edid": "HumanRace",
-    "av": "ActionPointsRate",
-    "missing": true
+    "formId": "00013746",
+    "av": "ActionPointsRate"
    }
   },
   "multBase": {
-   "value": null,
+   "value": 100,
    "src": {
     "type": "AVIF NAM0",
     "edid": "ActionPointsRateMult",
-    "missing": true
+    "formId": "00000359"
    }
   },
   "notes": [
-   "Your AP bar refills at a base rate of {base}% of the bar every second (from your race record). Food, drinks, magazines and Powered armour add straight to that base rate. Perk cards, Well Tuned and a full thirst bar raise the multiplier, which starts at {multBase}%. AP regen = base rate × multiplier.",
+   "Your AP bar refills at a base rate of 6% of the bar every second (from your race record). Food, drinks, magazines and Powered armour add straight to that base rate. Perk cards, Well Tuned and a full thirst bar raise the multiplier, which starts at 100%. AP regen = base rate × multiplier.",
    "There is no cap on AP regen.",
    "A crippled torso slows AP regen."
   ],
