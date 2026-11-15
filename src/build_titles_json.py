@@ -725,7 +725,52 @@ def _autofill_paths(tsv_root: Optional[str], provided: Optional[List[str]], patt
     # running a LIVE build, PTS files must never be picked up or their
     # unreleased content leaks into the live JSON output.
     hits = [h for h in hits if not _is_pts_path(h)]
-    return sorted(set(hits))
+    # 15 Nov 2026 (Kat, Mia To-Finish #800): this used to return EVERY dated export of the type (29 LVLI files, 1 GB+
+    # once the PTS build adds its own), which ran the GitHub runner out of memory and merged months-old rows into the
+    # result. Now only the newest export of each file family is read (companions such as _LVLI_Entries / _Refs /
+    # _Locations are kept, each at its newest date). TITLES_ALL_EXPORTS=1 brings the old read-everything back.
+    if os.environ.get("TITLES_ALL_EXPORTS") == "1":
+        return sorted(set(hits))
+    return _newest_per_family(sorted(set(hits)))
+
+
+_EXPORT_DATE_RE = re.compile(
+    r"_(?:Full_)?(?:PTS_\d{4}-\d{2}-\d{2}(?:[_-]\d{3,6})?|"
+    r"(?:september|february|november|december|january|october|august|sept|april|march|july|june|may|jan|feb|mar|apr|"
+    r"jun|jul|aug|sep|oct|nov|dec)_\d{4})", re.I)
+
+
+def _newest_per_family(paths: List[str]) -> List[str]:
+    """Keep the newest export of each family.
+
+    A family is the filename with its date taken out: LVLI_Export_October_2026_LVLI_Entries.tsv and
+    LVLI_Export_July_2026_LVLI_Entries.tsv are one family (prefix LVLI_Export, suffix _LVLI_Entries.tsv).
+    For each prefix the newest date wins; a companion family (anything with a suffix) missing from that
+    date keeps its own newest file so nothing silently disappears. An old base file (suffix .tsv only)
+    that the newest date no longer has is dropped (e.g. the Dec 2025 combined LVLI export). Undated files
+    (e.g. CURV_POINTS.tsv) are kept as they are.
+    """
+    import tsv_source as _ts
+    groups: Dict[str, Dict[str, List[str]]] = {}
+    keep: List[str] = []
+    for p in paths:
+        b = os.path.basename(p)
+        m = _EXPORT_DATE_RE.search(b)
+        if not m:
+            keep.append(p)
+            continue
+        groups.setdefault(b[:m.start()], {}).setdefault(b[m.end():].lower(), []).append(p)
+    for pre, fams in groups.items():
+        newest = {suf: max(fs, key=_ts.export_key) for suf, fs in fams.items()}
+        top = max(_ts.export_key(f) for f in newest.values())
+        for suf, f in newest.items():
+            if _ts.export_key(f) == top or suf != ".tsv":
+                keep.append(f)
+    chosen = sorted(set(keep))
+    if len(chosen) < len(paths):
+        print(f"[titles] reading {len(chosen)} of {len(paths)} exports (newest per family): "
+              + ", ".join(os.path.basename(c) for c in chosen), file=sys.stderr)
+    return chosen
 
 
 def starts_cut(edid: str) -> bool:
@@ -1986,19 +2031,52 @@ def extract_cndf_conditions_and_refs(cndf_row: Dict[str, str]) -> Tuple[List[str
     conds: List[str] = []
     refs: List[str] = []
 
-    n_cond = safe_int((cndf_row.get("ConditionCount") or "").strip(), 0)
-    for i in range(1, min(n_cond, 25) + 1):
-        v = (cndf_row.get(f"Cond{i:02d}") or "").strip()
-        if v:
-            conds.append(v)
+    # 15 Nov 2026: the newer CNDF exports (Apr 2026 on) use CondCount / Cond1..CondN with pipe-separated fields
+    # ("10000000|1.000000|HasCompletedChallenge|..|..|<param1>|<param2>|..|..|Subject|") instead of
+    # ConditionCount / Cond01..Cond25 with ready-made text. Read both; the new ones are turned into the old text.
+    if (cndf_row.get("ConditionCount") or "").strip():
+        n_cond = safe_int((cndf_row.get("ConditionCount") or "").strip(), 0)
+        for i in range(1, min(n_cond, 25) + 1):
+            v = (cndf_row.get(f"Cond{i:02d}") or "").strip()
+            if v:
+                conds.append(v)
+    else:
+        n_cond = safe_int((cndf_row.get("CondCount") or "").strip(), 0)
+        for i in range(1, n_cond + 1):
+            v = (cndf_row.get(f"Cond{i}") or "").strip()
+            if v:
+                conds.append(_cndf_pipe_to_text(v))
 
-    n_ref = safe_int((cndf_row.get("ReferencedByCount") or "").strip(), 0)
-    for i in range(1, min(n_ref, 25) + 1):
-        v = (cndf_row.get(f"Ref{i:02d}") or "").strip()
-        if v:
-            refs.append(v)
+    if any(k.startswith("Ref0") for k in cndf_row.keys() if k):
+        n_ref = safe_int((cndf_row.get("ReferencedByCount") or "").strip(), 0)
+        for i in range(1, min(n_ref, 25) + 1):
+            v = (cndf_row.get(f"Ref{i:02d}") or "").strip()
+            if v:
+                refs.append(v)
+    else:
+        n_ref = safe_int((cndf_row.get("ReferencedByCount") or "").strip(), 0)
+        for i in range(1, n_ref + 1):
+            v = (cndf_row.get(f"Ref{i}") or "").strip()
+            if v:
+                refs.append(v)
 
     return conds, refs
+
+
+def _cndf_pipe_to_text(v: str) -> str:
+    """'10000000|1.000000|HasCompletedChallenge|..|..|P1|P2|..|N|Subject|' -> 'Subject.HasCompletedChallenge(P1, P2) = 1.000000'
+    — the same text the old CNDF export wrote (it always wrote '=', and a third parameter only when N isn't -1).
+    Anything that doesn't look like that is returned unchanged."""
+    if "|" not in v:
+        return v
+    f = v.split("|")
+    if len(f) < 10 or not f[2].strip():
+        return v
+    run_on = f[9].strip() or "Subject"
+    params = [f[5].strip(), f[6].strip()]
+    if f[8].strip() not in ("", "-1"):
+        params.append(f[8].strip())
+    return f"{run_on}.{f[2].strip()}({', '.join(params)}) = {f[1].strip()}"
 
 # ------------------------------------------------------------
 # Missing helper functions (restored)
