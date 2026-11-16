@@ -14,12 +14,16 @@ game's own Pet Progression text (PGTR NAM1 / NAM3), levels are PGTR NAM0.
 
 PICTURES (Duchess's rule: transparent store icon for items)
   - Pet / player apparel: the transparent store icon from the ENTM (ETIP + ETDI),
-    saved as  guide-images/pets/world-pets/leveling-rewards/<texture name>.avif
+    named <texture name>.avif, in the shared folder for that kind of item
+    (Duchess, 16 Nov 2026 - one home per item type, see apparel_dir()):
+      worldpets_reward_apparel_pet_*     -> camp-items/camp-pets/camp-pet-apparel/
+      worldpets_reward_apparel_outfit_*  -> plan-checklist/apparel/   (Handler outfits)
+      worldpets_reward_skin_backpack*    -> plan-checklist/backpack/  (backpacks + flair)
   - Player icons: the Atom Shop player-icon art already on the server
     (guide-images/atom-shop/player-icons/<texture>.avif) - no second copy.
   - Titles, buffs, Pet Carrier, Pet Prowess, currency: the game's own Pet
     Progression picture (textures/interface/petprogression/wpimg*.dds), named
-    after the entry's WorldPets_Img_* keyword.
+    after the entry's WorldPets_Img_* keyword, in pets/world-pets/pet-leveling-images/.
   Every item also carries imageFallback = its wpimg picture.
 
 LIVE vs PTS: when a channel has no PGTR export (World Pets not live yet) the JSON is
@@ -40,7 +44,10 @@ sys.path.insert(0, os.path.join(ROOT, "src"))
 import tsv_source  # noqa: E402
 
 SERVER = "https://theduchessflame.com/wp-content/uploads/guide-images/"
-IMG_DIR = SERVER + "pets/world-pets/leveling-rewards/"
+IMG_DIR = SERVER + "pets/world-pets/pet-leveling-images/"   # wpimg* Pet Progression pictures
+PET_APPAREL_DIR = SERVER + "camp-items/camp-pets/camp-pet-apparel/"
+OUTFIT_DIR = SERVER + "plan-checklist/apparel/"
+BACKPACK_DIR = SERVER + "plan-checklist/backpack/"
 ICON_DIR = SERVER + "atom-shop/player-icons/"
 SPECIES = [("cat", "Cat"), ("dog", "Dog"), ("radhog", "Radhog"), ("deathclaw", "Deathclaw")]
 SP_SHORT = {"deathclaw": "dc"}
@@ -59,6 +66,17 @@ TYPE_OF = {
     "Currency": ("currency", "Currency"),
     "Items": ("currency", "Items"),
 }
+
+
+def apparel_dir(tex_name):
+    """Server folder for a reward's store icon, by its texture name."""
+    if tex_name.startswith("worldpets_reward_apparel_pet_"):
+        return PET_APPAREL_DIR
+    if tex_name.startswith("worldpets_reward_apparel_outfit_"):
+        return OUTFIT_DIR
+    if tex_name.startswith("worldpets_reward_skin_backpack"):
+        return BACKPACK_DIR
+    return IMG_DIR
 
 
 def read_tsv(path):
@@ -140,7 +158,8 @@ def main(argv=None):
                 records.append({"label": "Entitlement (ENTM)", "formid": e["FormID"], "edid": e["EDID"]})
                 tex = (e.get("ETDI") or "").strip()
                 if tkey == "apparel" and tex:
-                    image = IMG_DIR + os.path.splitext(tex)[0].lower() + ".avif"
+                    tname = os.path.basename(os.path.splitext(tex)[0]).lower()
+                    image = apparel_dir(tname) + tname + ".avif"
                 elif tkey == "icon" and tex:
                     image = ICON_DIR + os.path.splitext(tex)[0].lower() + ".avif"
             g = gmrw.get(r["Reward_EDID"]) or {}
