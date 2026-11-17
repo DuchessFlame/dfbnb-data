@@ -287,8 +287,14 @@ def load_vendors():
     if not fp or not pp:
         return
     SOURCES["vendors"] = os.path.basename(pp)
-    cur = {(r.get("Faction_FormID") or "").strip().upper(): (r.get("Currency_EDID") or "").strip()
-           for r in read_tsv(fp)}
+    # Caps vendor = currency Caps001, or no currency set but the shared caps
+    # wallet (Grahm, Beckham: Vendor_CapsBalance_Shared_Faction).
+    cur = {}
+    for r in read_tsv(fp):
+        c = (r.get("Currency_EDID") or "").strip()
+        if not c and "CapsBalance" in (r.get("Wallet_EDID") or ""):
+            c = "Caps001"
+        cur[(r.get("Faction_FormID") or "").strip().upper()] = c
     for r in read_tsv(pp):
         if (r.get("Holder_Sig") or "").strip() != "NPC_":
             continue
@@ -548,6 +554,7 @@ GEAR_SIGS = {"WEAP", "ARMO"}
 # group keys, in page order, and their plain labels
 GROUPS = OrderedDict([
     ("target", "What counts"),
+    ("sub", "Any of these challenges count"),
     ("pet", "Pets that count"),
     ("ingredient", "Ingredients"),
     ("scrap", "Junk that scraps into it"),
@@ -691,6 +698,42 @@ def keyword_names(kw_edid, sigs):
     return names
 
 
+NPC_SPAWNED = set()               # NPC fids something spawns: placed (ACHR), LVLN, WAVE, QUST, FLST
+RACE_NPCS = defaultdict(set)      # race fid -> {npc fid}
+
+
+def load_npc_spawns():
+    import glob
+    p = tsv_source.newest("NPC_Export*Refs*.tsv", channel=CHANNEL, required=False)
+    if not p:
+        return
+    SOURCES["npcRefs"] = os.path.basename(p)
+    for r in read_tsv(p):
+        # Enemies spawn from encounter leveled lists (LVLN) and event waves (WAVE).
+        # Placed / quest NPCs can be friendly, so they don't count as proof.
+        if (r.get("RefBy_Signature") or "").strip() in ("LVLN", "WAVE") \
+                and not re.match(r"(ATX_|CAMP|Workshop)", (r.get("RefBy_EDID") or ""), re.I):
+            NPC_SPAWNED.add((r.get("NPC_FormID") or "").strip().upper())
+    for f, rf in NPC_RACE.items():
+        RACE_NPCS[rf].add(f)
+
+
+def spawned_race_npcs(race_fids):
+    """Named NPCs of these races that the game actually spawns, minus cut / test / corpses."""
+    out = set()
+    for rf in race_fids:
+        for f in RACE_NPCS.get(rf, ()):
+            if f not in NPC_SPAWNED:
+                continue
+            e, n = NPC_NAME.get(f, ("", ""))
+            if not n or re.search(r"Corpse|^Loot_|_Loot_|AudioTemplate|^ATX_|CAMP|Workshop|Collectron|Vendor|"
+                                  r"Companion|Ally|Tamed|_Pet_|PetCat|Friendly", e + " " + n, re.I):
+                continue
+            if live_actor(e, f) and not _EDID_LIKE.match(n):
+                out.add(n)
+    return out
+
+
 def actor_names(kw_edid, races=None, allow_template=False):
     """Actors carrying an actor keyword: the races that carry it (by race name)
     plus NPCs that carry it directly. Races whose only NPCs are pets / copies
@@ -703,6 +746,7 @@ def actor_names(kw_edid, races=None, allow_template=False):
             n = clean_name(name, edid, fid, sig)
             if n:
                 names.add(n)
+                names |= spawned_race_npcs({fid})   # named NPCs of that race count too
         elif sig == "NPC_" and fid != "00000007":
             if races is not None and NPC_RACE.get(fid) not in races:
                 continue
@@ -799,7 +843,8 @@ def resolve(c, label, used_keywords):
             return ("actor_kw", {edid}) if actor_names(edid) else (miss() or None)
         # Harvest-type keywords sit on the plant (FLOR) and on everything cooked
         # from it; the plant is what counts, so FLOR names win when there are any.
-        names = keyword_names(edid, {"FLOR"}) or keyword_names(edid, ITEM_SIGS)
+        names = (keyword_names(edid, {"FLOR"}) or keyword_names(edid, ITEM_SIGS)
+                 or keyword_names(edid, {"MSTT", "ACTI"}))   # world objects: car wrecks (ExplodableCar)
         return ("target", names) if names else (miss() or None)
 
     if func in ("WornHasKeyword", "WornInOrOutOfPowerArmorHasKeyword", "CHAL_DoesTargetWeaponHaveKeyword"):
@@ -1000,6 +1045,11 @@ def challenge_rows(items, ctype, stats):
                 groups[r[0]] |= r[1]
         for k, v in EXTRA.items():
             groups[k] |= v
+        if it.get("is_meta"):    # a META challenge counts its sub-challenges
+            for ch in it.get("children") or []:
+                cn = (ch.get("full") or "").strip()
+                if cn and not ch.get("is_cut") and not cut_reason(ch.get("edid"), ch.get("form_id"), "CHAL"):
+                    groups["sub"].add(cn)
         if len(ING) == 1:
             groups["ingredient"] |= next(iter(ING.values()))
         elif ING:   # more than one dish counts: one line per dish
@@ -1033,9 +1083,11 @@ def challenge_rows(items, ctype, stats):
         if sn in ("Vendor Items Sold", "Vendor Items Purchased") and is_npc_vendor_challenge(full):
             groups["vendor"] |= CAPS_VENDORS
         if races and not kws and not narrow:
-            for rf, _ in races:
-                if HUMAN_GROUPS.get(rf):
-                    groups["group"] |= HUMAN_GROUPS[rf]
+            for rf, rn in races:
+                if rn in ("Human", "Ghoul"):          # people: name the groups (Blood Eagle, Cultist ...)
+                    groups["group"] |= HUMAN_GROUPS.get(rf, set())
+                else:                                 # creatures / robots: the spawned NPCs of that race
+                    groups["target"] |= spawned_race_npcs({rf})
         if not groups.get("target"):
             for kw in COUNTER.get(str(it.get("snam") or "").strip().lower(), []):
                 used_kw.add(kw)
@@ -1101,6 +1153,7 @@ def main():
     load_counter_lines()
     load_vendors()
     load_race_groups()
+    load_npc_spawns()
 
     stats = {"hidden": 0, "noGuides": [], "noNames": [], "cutChallenges": [], "hiddenChallenges": []}
     out = OrderedDict()

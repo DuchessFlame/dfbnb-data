@@ -11,10 +11,8 @@ GetIsID	LvlPRCGhoul_Missile [NPC_:00553D51]	Weekly: Epic - Kill a Communist (3)
 GetIsID	LvlPRCGhoul_PA [NPC_:00553AAA]	Weekly: Epic - Kill a Communist (3)
 HasKeyword	ArmorTypeHelmet "Helmet" [KYWD:0012EEE9]	Daily: Craft or Scrap Armor (5) | Weekly: Craft or Scrap Clothing, Armor or a Weapon (25)
 HasKeyword	Burn_ActorTypeDeathclawArmored [KYWD:00841226]	Daily: Epic - Kill a Rusted Deathclaw (3) | Daily: Kill a Rusted Deathclaw (1) | Weekly: Epic - Kill a Rusted Deathclaw (6) | Weekly: Kill a Rusted Deathclaw (4)
-HasKeyword	ExplodableCar [KYWD:0021C00D]	Weekly: Destroy a Car (30)
 HasKeyword	FestiveScorchedKeyword [KYWD:00630019]	Daily: Kill a Festive Scorched (10) | Daily: Kill a Festive Scorched while on a Team (10) | Daily: Kill a Festive Scorched while on a Team and Wearing a Costume (10) | Daily: Kill a Festive Scorched with any Pet (6) | Weekly: Kill a Festive Scorched (10)
 HasKeyword	ObjectTypeFlux [KYWD:00452EA3]	Daily: Epic - Harvest a Wild Plant or Fungi (15) | Daily: Harvest a Wild Plant or Fungi (12) | Weekly: Harvest a Wild Plant or Fungi (30)
-HasKeyword	ObjectTypeTrap [KYWD:00186401]	Daily: Epic - Mod a Weapon (5) | Daily: Mod a Weapon (3) | Weekly: Epic - Mod a Weapon (25)
 HasKeyword	PlantTypeFlux [KYWD:00496168]	Daily: Epic - Harvest a Wild Plant or Fungi (15) | Daily: Harvest a Wild Plant or Fungi (12) | Weekly: Harvest a Wild Plant or Fungi (30)
 HasKeyword	ScrapTypeWood [KYWD:004713D7]	Daily: Collect Wood (5) | Weekly: Collect Wood (100)
 WornHasKeyword	AmmoTypeExplosive [KYWD:003896DF]	Daily: Epic - Kill a Mole Rat with Explosives (1) | Weekly: Epic - Cripple Legs of Enemies Using Explosives, Missiles, or Mini Nukes (20)
@@ -183,6 +181,7 @@ CUT_NAME	plan_sources.is_cut_content	Calibrated .308 Receiver
 CUT_NAME	plan_sources.is_cut_content	Calibrated .45 Receiver
 CUT_NAME	plan_sources.is_cut_content	Caltrops
 CUT_NAME	plan_sources.is_cut_content	Camouflage Pants Suit
+CUT_NAME	plan_sources.is_cut_content	Can Chimes
 CUT_NAME	plan_sources.is_cut_content	Candy Cane
 CUT_NAME	plan_sources.is_cut_content	Canned Cranberry Relish
 CUT_NAME	plan_sources.is_cut_content	Canned Glowing Fish Chowder
@@ -264,6 +263,7 @@ CUT_NAME	plan_sources.is_cut_content	Expedition Snack Pack
 CUT_NAME	plan_sources.is_cut_content	Expensive Perfume
 CUT_NAME	plan_sources.is_cut_content	Expired Stimpak
 CUT_NAME	plan_sources.is_cut_content	Explosive Bait
+CUT_NAME	plan_sources.is_cut_content	Explosive Fireworks
 CUT_NAME	plan_sources.is_cut_content	Extra Crispy Scorchbeast
 CUT_NAME	plan_sources.is_cut_content	Fake Sheepsquatch Head
 CUT_NAME	plan_sources.is_cut_content	Fall Common 01
@@ -339,6 +339,7 @@ CUT_NAME	plan_sources.is_cut_content	Homemade Nuka Cola Grenade
 CUT_NAME	plan_sources.is_cut_content	Hot Rod Hot Pink Paint
 CUT_NAME	plan_sources.is_cut_content	Hot Rod Shark Paint
 CUT_NAME	plan_sources.is_cut_content	HotRodBow
+CUT_NAME	plan_sources.is_cut_content	Human Skull Dinner Bell
 CUT_NAME	plan_sources.is_cut_content	Hunter's Hood
 CUT_NAME	plan_sources.is_cut_content	Hunter's Pelt Outfit
 CUT_NAME	plan_sources.is_cut_content	Hunting Rifle
@@ -351,8 +352,8 @@ CUT_NAME	plan_sources.is_cut_content	Jersey Devil Charge Attack
 CUT_NAME	plan_sources.is_cut_content	Jersey Devil Tail Swipe
 CUT_NAME	plan_sources.is_cut_content	Jersey Devil Throw
 CUT_NAME	plan_sources.is_cut_content	Jumbo Candy Fan Mr. Fuzzy
-CUT_NAME	plan_sources.is_cut_content	JUNK
 CUT_NAME	plan_sources.is_cut_content	Junk
+CUT_NAME	plan_sources.is_cut_content	JUNK
 CUT_NAME	plan_sources.is_cut_content	Junk Jet
 CUT_NAME	plan_sources.is_cut_content	Junk Jet JunkJet Receiver
 CUT_NAME	plan_sources.is_cut_content	Knuckles
@@ -465,6 +466,7 @@ CUT_NAME	plan_sources.is_cut_content	Overgrown Drone Bite
 CUT_NAME	plan_sources.is_cut_content	Overgrown Drone Poison Spit
 CUT_NAME	plan_sources.is_cut_content	Overgrown Pollinator Poison
 CUT_NAME	plan_sources.is_cut_content	Overgrown Spore Gun
+CUT_NAME	plan_sources.is_cut_content	Overgrown Vehicle
 CUT_NAME	plan_sources.is_cut_content	Overheating 10mm Submachine Gun
 CUT_NAME	plan_sources.is_cut_content	Paintball - Blue
 CUT_NAME	plan_sources.is_cut_content	Paintball - Glow
@@ -1531,7 +1533,6 @@ NO_NAMES		Weekly: Epic - Pick Hard Locks (6)
 NO_NAMES		Weekly: Epic - Purchase Items (40)
 NO_NAMES		Weekly: Epic - Rank up a Perk Card (6)
 NO_NAMES		Weekly: Epic - Simultaneously Hold Two Workshops (2)
-NO_NAMES		Weekly: Build up a Workshop or C.A.M.P. (5)
 NO_NAMES		Weekly: Buy an item from or Sell an item to another Player (15)
 NO_NAMES		Weekly: Claim a Workshop (3)
 NO_NAMES		Weekly: Collect Caps (2500)
@@ -1541,15 +1542,7 @@ NO_NAMES		Weekly: Collect Vertibird Fuel (300)
 NO_NAMES		Weekly: Complete an "Event in Region" Daily Challenge (5)
 NO_NAMES		Weekly: Deal a Critical Hit to an Enemy (25)
 NO_NAMES		Weekly: Deal a Critical Hit to an Enemy in VATS (25)
-NO_NAMES		Weekly: Destroy a Car (30)
-NO_NAMES		Weekly: Destroy Assorted Robots (5)
-NO_NAMES		Weekly: Destroy a Mr. Handy or Mr. Gutsy Robot (5)
-NO_NAMES		Weekly: Destroy a Sentry Bot (1)
-NO_NAMES		Weekly: Destroy a Turret (5)
-NO_NAMES		Weekly: Destroy an Assaultron (1)
-NO_NAMES		Weekly: Destroy an Eyebot (5)
 NO_NAMES		Weekly: Expeditions: Collect Stamps (5)
-NO_NAMES		Weekly: Gather Building Supplies (5)
 NO_NAMES		Weekly: Gleaming Depths - Complete All Encounters (5)
 NO_NAMES		Weekly: Kill a Huge Creature (3)
 NO_NAMES		Weekly: Launch a Nuke (1)
