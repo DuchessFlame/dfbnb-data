@@ -1207,9 +1207,9 @@ def apply_plan_status(s, items, status, master_path):
         name = row.get("name") or book.get("full") or fid
         edid = book.get("edid") or ""
         if st == "bugged":
-            summ = "The Duchess has checked this one: it's bugged and isn't dropping right now."
+            summ = "Checked in game: it's bugged and isn't dropping right now."
         else:
-            summ = "No source found yet. The Duchess is looking into it."
+            summ = "No source found in the current game files yet."
         note = (status.get(fid) or {}).get("note")
         return {
             "id": fid, "name": name, "kind": "plan", "severity": "unobtainable",
@@ -1217,7 +1217,7 @@ def apply_plan_status(s, items, status, master_path):
             "bugs": [dict(NO_SOURCE_BUG, records=[], summary=summ,
                           text=("Nothing in the current game files gives this plan out: no leveled "
                                 "list, vendor, quest, container or challenge that the exports can see."
-                                + (f" the Duchess's note: {note}" if note else "")))],
+                                + (f" Note: {note}" if note else "")))],
             "still_from": [],
             "technical": {"plan": {"form_id": fid, "edid": edid, "type": "BOOK"}},
             "confidence": "strong" if st == "bugged" else "check",
@@ -1384,7 +1384,7 @@ def main(argv=None):
         # readers (Brewmaster, the old renderer) keep working unchanged.
         "sections": [
             {"key": "bugged", "title": "Bugged", "source": "items",
-             "blurb": "Plans the game files say are broken, plans the Duchess has confirmed are "
+             "blurb": "Plans the game files say are broken, plans checked in game and confirmed "
                       "bugged, and plans with no known source that haven't been checked yet."},
             {"key": "unreleased", "title": "Unreleased / leftover content", "source": "unreleased",
              "blurb": "Plans that were never released. They're still in the game files, but nothing "

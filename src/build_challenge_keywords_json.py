@@ -201,11 +201,30 @@ def load_build_menu():
                 ref = (r.get("LVLO_Reference") or "").split(":")
                 if len(ref) >= 3:
                     LL_KIDS[lf].append((ref[0].upper(), ref[1], ref[2]))
-    p = tsv_source.newest("ACTI_Export_*_ACTI.tsv", channel=CHANNEL, required=False)
-    if p:
+    # Names of the objects a recipe's leveled list places.
+    for pat, fc, ec, nc in (("ACTI_Export_*_ACTI.tsv", "ACTI_FormID", "ACTI_EDID", "ACTI_FULL"),
+                            ("FURN_Export_*_FURN.tsv", "FURN_FormID", "FURN_EDID", "FURN_FULL"),
+                            ("CONT_Export_*.tsv", "FormID", "EDID", "FULL"),
+                            ("STATNAMES_Export_*.tsv", "FormID", "EDID", "FULL")):   # tools/export_from_esm.py STATNAMES
+        p = tsv_source.newest(pat, channel=CHANNEL, required=False, exclude=["_Refs"]) \
+            or tsv_source.newest(pat, channel="live", required=False, exclude=["_Refs"])
+        if not p:
+            continue
+        SOURCES.setdefault("buildMenuNames", []).append(os.path.basename(p))
         for r in read_tsv(p):
-            OBJ_NAME[(r.get("ACTI_FormID") or "").strip().upper()] = (
-                (r.get("ACTI_EDID") or "").strip(), (r.get("ACTI_FULL") or "").strip())
+            f = (r.get(fc) or "").strip().upper()
+            if f and f not in OBJ_NAME:
+                OBJ_NAME[f] = ((r.get(ec) or "").strip(), (r.get(nc) or "").strip())
+    # Atom Shop pieces: the recipe's unlock condition names the store entry (ENTM).
+    ep = tsv_source.newest("ENTM_Export_*.tsv", channel=CHANNEL, required=False, exclude=["_Refs"])
+    cp = tsv_source.newest("COBJ2_Export_*.tsv", channel=CHANNEL, required=False)
+    if ep and cp:
+        entm = {(r.get("FormID") or "").strip().upper(): ((r.get("EDID") or "").strip(), (r.get("FULL") or "").strip())
+                for r in read_tsv(ep)}
+        for r in read_tsv(cp):
+            for e in re.findall(r"\[ENTM:([0-9A-Fa-f]{8})\]", r.get("Conditions") or ""):
+                if entm.get(e.upper(), ("", ""))[1]:
+                    RECIPE_ENTM[(r.get("COBJ_FormID") or "").strip().upper()].add(entm[e.upper()])
     for fid, (e, n) in NPC_NAME.items():
         if n:
             NPC_BY_EDID.setdefault(e.lower(), n)
@@ -215,7 +234,8 @@ LL_KIDS = defaultdict(list)       # LVLI fid -> [(fid, edid, sig)]
 MGEF_ITEMS = defaultdict(list)    # MGEF fid -> [(ALCH fid, edid, name)] that apply it
 SCRAPS_INTO = defaultdict(set)    # component EDID -> {(MISC edid, name)} whose scrap data (MCQP) gives it
 KW_FULL = {}                      # Workshop2 keyword EDID -> in-game tab name
-OBJ_NAME = {}                     # ACTI fid -> (edid, name)
+OBJ_NAME = {}                     # placed object fid -> (edid, name): ACTI / FURN / CONT / STATNAMES
+RECIPE_ENTM = defaultdict(set)    # recipe fid -> {(ENTM edid, store name)}
 NPC_BY_EDID = {}                  # npc edid (lower) -> name
 
 
@@ -227,10 +247,15 @@ def recipe_names(recipe_fid):
         return {n} if n else set()
     out = set()
     for kf, ke, ks in LL_KIDS.get(cf, []):          # workshop_LL_* -> each object
-        e, n = OBJ_NAME.get(kf, (ke, ""))
+        e, n = OBJ_NAME.get(kf) or NPC_NAME.get(kf) or (ke, "")
         n = clean_name(n, e, kf, ks)
         if n:
             out.add(n)
+    if not out:                                      # Atom Shop piece -> its store name
+        for e, n in RECIPE_ENTM.get(recipe_fid, ()):
+            n = clean_name(n, e, "", "ENTM")
+            if n:
+                out.add(n)
     m = re.search(r"LChar_(Turret)(.*)$", ce or "")  # leveled turret -> the Workshop turret NPC
     if m:
         tail = m.group(2).replace("_", "")
@@ -248,7 +273,16 @@ def menu_names(kw_edid):
     for f in MENU.get(kw_edid, []):
         n = recipe_names(f)
         if not n:
-            return None
+            if f not in COBJ_CNAM or not COBJ_CNAM[f][0]:   # recipe gone, or builds nothing
+                UNRESOLVED[("BuildMenuRecipeGone", f)].add(kw_edid)
+                continue
+            cf, ce, _ = COBJ_CNAM[f]
+            if ce and cut_reason(ce, cf, "LVLI"):    # cut piece still in the menu file: skip it
+                continue
+            # Unnamed piece (a static the exports don't name yet): left off the
+            # list and logged; run tools/export_from_esm.py STATNAMES to name it.
+            UNRESOLVED[("BuildMenuRecipe", f"{ce} [{f}]")].add(kw_edid)
+            continue
         names |= n
     return names
 
@@ -865,18 +899,15 @@ def resolve(c, label, used_keywords):
     if func in ("CHAL_IsTargetWorkshopRecipeInCategory", "IsTargetWorkshopRecipeInCategory"):
         n = clean_name(name)                # the build-menu category ("Wall Decor")
         if edid in MENU:                    # Workshop2 tab -> everything built from it
-            names = menu_names(edid)
-            if names and len(names) <= MENU_MAX:
-                return ("target", names)
-            main, sub = MENU_PATH.get(edid, ("", ""))
-            tab = " > ".join(clean_name(KW_FULL.get(x, "")) or x.split("_")[-1] for x in (main, sub) if x)
-            return ("target", {f"Anything from the {tab} tab of the build menu"})
+            names = menu_names(edid)          # Duchess 18 Nov 2026: always list, never "anything from the tab"
+            return ("target", names) if names else (miss() or None)
         return ("target", {n}) if n else (miss() or None)
 
     if func == "CHAL_IsTargetWorkshopRecipe":
         cedid, cname = COBJ.get(fid, ("", ""))
         n = clean_name(cname, cedid, fid, "COBJ")
-        return ("target", {n}) if n else (miss() or None)
+        names = {n} if n else recipe_names(fid)     # leveled turret / list -> what it places
+        return ("target", names) if names else (miss() or None)
 
     if func == "IsInList":
         names = flst_names(fid)
@@ -1076,6 +1107,10 @@ def challenge_rows(items, ctype, stats):
             groups["target"] |= narrow
         elif races and not kws and not groups.get("target"):
             groups["target"] |= {n for _, n in races}
+        if str(it.get("snam") or "").strip() == "Workshop Objects Crafted" and not groups.get("target") \
+                and not it.get("is_meta"):
+            # Counted by the build stat with no condition on WHAT is built.
+            groups["target"].add("Anything you build from the build menu counts")
         if not any(groups.values()):
             for g, t in COUNTER_LINES.get(str(it.get("snam") or "").strip().lower(), []):
                 groups[g].add(t)

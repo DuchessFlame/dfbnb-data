@@ -113,7 +113,7 @@ def decide_row(it, call, bug, parked_names):
             pass   # re-released: it drops again, so it's live
         else:
             why = {
-                "bugged": "the Duchess has checked it: bugged, not dropping",
+                "bugged": "checked in game: bugged, not dropping",
                 "unreleased": "never released — in the game files, but nothing gives it out",
                 "legacy": "no longer drops — old copies can still be traded",
                 "learnt": "learnt in game, so there is no plan to find",
@@ -149,7 +149,7 @@ def decide_row(it, call, bug, parked_names):
         return "not_checked", "no source found yet — not checked", "plan_learn_routes", ""
     # 7. only on a parked / unused list
     if not has_source(it) and name in parked_names:
-        return "decide", "only on a list nothing uses — waiting on the Duchess's call", "build_bugged_plans_json: parked list", parked_names[name]
+        return "decide", "only on a list nothing in the game uses", "build_bugged_plans_json: parked list", parked_names[name]
     return "live", "", "", ""
 
 
@@ -195,7 +195,7 @@ def main(argv=None):
                 st, why, by = "legacy", "no longer drops — old copies can still be traded", "rule: now unlocked another way, plan now cut"
             else:
                 st, why, by = ("unconfirmed", "it's now unlocked another way and the old plan is now marked cut in the "
-                               "files, but it never dropped — waiting on the Duchess's call", "rule: now unlocked another way, plan now cut")
+                               "files, and it never dropped", "rule: now unlocked another way, plan now cut")
         rq = queue.get(fid)
         if rq and st not in ("bugged", "not_checked") and \
                 (not call or (call.get("decided") or "") < (rq.get("added") or "")):
@@ -277,7 +277,9 @@ def main(argv=None):
         elif r["state"] == "bugged":
             sev = (r.get("bug") or {}).get("severity") or "unobtainable"
             page["bugged"][SEV_GROUP.get(sev, "unobtainable")].append(fid)
-        elif r["state"] in ("unreleased", "decide") or (r["state"] == "learnt" and r["kind"] == "plan"):
+        elif r["state"] == "learnt" and r["kind"] == "plan":
+            page["now_entm"].append(fid)    # 18 Nov 2026: learnt another way = Now Unlocked Another Way, not Unreleased
+        elif r["state"] in ("unreleased", "decide"):
             page["unreleased"].append(fid)
         elif r["state"] in ("unconfirmed", "no_source", "now_entm"):
             page[r["state"]].append(fid)

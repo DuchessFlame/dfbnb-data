@@ -19,6 +19,8 @@ straight from the game files, so these no longer need xEdit:
     KYWD    KYWD_Export_<Month>_<Year>.tsv + _Refs  (ExportKYWDToCSV.pas)
     CURV    CURV_Export_<Month>_<Year>_CURV.tsv      (ExportCURVToTSV.pas; points: extract_curvetables.py + CI)
     CMPO    CMPO_Export_<Month>_<Year>.tsv          (ExportCMPOToTSV.pas)
+    STATNAMES STATNAMES_Export_<Month>_<Year>.tsv   (FormID / Sig / EDID / FULL of STAT, MSTT,
+            DOOR, SCOL, LIGH, MOVS - names for CAMP build-menu pieces; no .pas)
     RESO    RESO_Export_<Month>_<Year>.tsv          (ExportRESOToTSV.pas)
     BPTD    BPTD_Export_<Month>_<Year>.tsv          (ExportBPTDToTSV.pas)
     ECAT    ECAT_Export_<Month>_<Year>.tsv          (ExportECATToTSV.pas)
@@ -5556,6 +5558,20 @@ NEEDS_REFS = {"OMOD", "PERK", "ARMO2", "AVTR", "BOOK", "BOOK2", "COBJ", "CONT", 
 # exports that need Referenced By for more than their own records
 REF_TARGETS = {"ARMO2": armo2_ref_targets, "BOOK2": book2_ref_targets, "NPC2": npc2_ref_targets, "MISC2": misc2_ref_targets, "ACTI2": acti2_ref_targets, "NOTE2": note2_ref_targets, "TERM2": term2_ref_targets}
 
+STATNAMES_SIGS = ["STAT", "MSTT", "DOOR", "SCOL", "LIGH", "MOVS"]
+
+
+def exp_statnames(esm):
+    """Names of the world objects build-menu recipes place (walls, clutter, signs,
+    doors, lights...). The CAMP build menu's workshop_LL_* lists point at these;
+    the Challenge Keyword Finder names each build-menu piece from this file."""
+    out = ["FormID\tSig\tEDID\tFULL"]
+    for sig in STATNAMES_SIGS:
+        for r in R.xedit_order(esm, sig):
+            out.append("\t".join(["%08X" % r.fid, sig, cc(r.edid), cc(esm.lstring(r.full))]))
+    return out
+
+
 EXPORTS = {
     # key: (record types to load, file prefix, function)
     "GMST": (["GMST"], "GMST_Export", exp_gmst),
@@ -5572,6 +5588,7 @@ EXPORTS = {
     "KYWD": (["KYWD"], "KYWD_Export", exp_kywd),
     "CURV": (["CURV"], "CURV_Export", exp_curv),
     "CMPO": (["CMPO"], "CMPO_Export", exp_cmpo),
+    "STATNAMES": (STATNAMES_SIGS, "STATNAMES_Export", exp_statnames),
     "RESO": (["RESO"], "RESO_Export", exp_reso),
     "BPTD": (["BPTD"], "BPTD_Export", exp_bptd),
     "ECAT": (["ECAT"], "ECAT_Export", exp_ecat),
