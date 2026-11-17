@@ -6,7 +6,9 @@ top card + Fixed Spawn Locations look, drawn by df-bnb-farming-non-perishable-gu
 (data.layout = "locations": no Used For / source expands, the regions ARE the page).
 
   out: dist/farming_spawns/level-<N>-terminals_spawns.json   (+ the dist/pts/ copy)
-  geo: data/terminal_locations/geo/level-<N>-terminals.json            (committed; CI needs no DB)
+  geo: data/terminal_locations/geo/level-<N>-terminals.json
+  maps: <Guides and Stuff>\.Score Challenges\Terminal Spawn Locations\Level <N> Terminal Locations\
+        -> /wp-content/uploads/guide-images/score-challenges/terminal-spawn-locations/Level-<N>/            (committed; CI needs no DB)
   url: /df/score-challenges/level-<N>-terminal-locations/
 
 WHICH TERMINALS. Every placed TERM reference whose lock (REFR XLOC) is a hacking
@@ -47,7 +49,9 @@ DIST = os.path.join(REPO, "dist")
 OUT_DIR = os.path.join(DIST, "farming_spawns")
 PTS_OUT_DIR = os.path.join(DIST, "pts", "farming_spawns")
 GEO_DIR = os.path.join(REPO, "data", "terminal_locations", "geo")
-MAP_ROOT = "/wp-content/uploads/guide-images/score-challenges/"
+# Server: guide-images/score-challenges/terminal-spawn-locations/Level-<N>/ (Duchess's
+# FileZilla folders, 17 Nov 2026 - capital L, the server is case-sensitive).
+MAP_ROOT = "/wp-content/uploads/guide-images/score-challenges/terminal-spawn-locations/"
 MAPPALACHIA_DB = os.environ.get("MAPPALACHIA_DB", C.MAPPALACHIA_DB)
 ALL_REGIONS = C.ALL_REGIONS
 APPALACHIA_SPACE = C.APPALACHIA_SPACE
@@ -222,7 +226,7 @@ def build_one(n, geo, cur):
     doc["breakdown_lead"] = "Terminals here:"
     doc["in_place_caption"] = "Terminal in place"
     doc["empty_region_note"] = f"There are no Level {n} terminals in this region."
-    doc["map_base"] = MAP_ROOT + key + "/"
+    doc["map_base"] = MAP_ROOT + f"Level-{n}/"
     doc["map_ext"] = ".jpg"
     doc["maps_expand"] = True
     doc["map_labels"] = {"full": "Full 4K terminal map", "full_desc": f"Every Level {n} terminal",
