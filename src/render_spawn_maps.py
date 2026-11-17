@@ -114,6 +114,8 @@ TYPE_LABELS = {
     "ambush": "Ambush",
     "queen": "Queen spawn",
     "corpse": "Corpse",
+    # DF Score Challenges - Level N Terminal Locations (build_terminal_locations.py)
+    "terminal": "Terminal",
 }
 TYPE_COLOURS = {
     "direct": (255, 193, 7),            # amber
@@ -141,6 +143,7 @@ TYPE_COLOURS = {
     # Placed creature corpses you loot (Scorchbeast, 31 Oct 2026). Cyan diamond:
     # no other type on a creature map uses cyan, and the shape carries it anyway.
     "corpse": (0, 209, 255),            # cyan, diamond shape
+    "terminal": (255, 193, 7),          # amber, the fixed-spawn colour
 }
 
 # Shape per source type, so the key never leans on colour alone (colour-blind
@@ -408,6 +411,11 @@ SOURCES = {
     "npc":      lambda slug: (
         os.path.join(REPO, "dist", "farming_spawns", f"npc-{slug}_spawns.json"),
         os.path.join(REPO, "data", "npc_spawns", "geo", f"{slug}.json")),
+    # DF Score Challenges - Level N Terminal Locations (src/build_terminal_locations.py).
+    # Farming-shaped doc keyed level-<N>-terminals; geo cache keyed `<page>:<inst>`.
+    "terminal": lambda slug: (
+        os.path.join(REPO, "dist", "farming_spawns", f"{slug}_spawns.json"),
+        os.path.join(REPO, "data", "terminal_locations", "geo", f"{slug}.json")),
     # DF Collectables - Robot Models (spawns_configs/robot_models.py). Farming-shaped
     # doc (shape A); one geo cache keyed by the bare decimal ref.
     "robot-models": lambda slug: (
