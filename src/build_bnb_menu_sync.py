@@ -124,7 +124,9 @@ SKIP_EDID_PATTERNS = [
     re.compile(r"^zz", re.IGNORECASE),
     re.compile(r"^AC_SQ04_Reopening_", re.IGNORECASE),  # cut content (Nukashine 2 etc.)
     re.compile(r"^SFS01_Brew_", re.IGNORECASE),          # cut content (Tater/Muttberry/Sunday Shine)
-    re.compile(r"Firecracker", re.IGNORECASE),            # cut content (Firecracker Whiskey line)
+    # Firecracker Whiskey line: handled by cut_content.is_cut() (^Brew_FirecrackerWhiskey).
+    # The bare "Firecracker" pattern that was here also skipped the live Firecracker
+    # Berry Juice (Duchess, 17 Nov 2026), so it was removed - one list, in cut_content.py.
     re.compile(r"^_Disease", re.IGNORECASE),              # game system (disease chance)
     re.compile(r"SteelSkin", re.IGNORECASE),              # game system (Steel Skin Infusion)
     re.compile(r"HealingCloud", re.IGNORECASE),           # game system (Healing Cloud Infusion)
@@ -134,7 +136,9 @@ SKIP_EDID_PATTERNS = [
     re.compile(r"^DEPRECATED_", re.IGNORECASE),           # deprecated variants of event items
     re.compile(r"^BS00_Contribution", re.IGNORECASE),     # ATLAS Donor's Provisions
     re.compile(r"TreasureHunt_Chest", re.IGNORECASE),     # Mole Miner Pails (event loot)
-    re.compile(r"^E07A_Mothman", re.IGNORECASE),          # Cultist High Priest Pack
+    # Cultist High Priest Pack: handled by cut_content.is_cut()
+    # (^E07A_Mothman_CultistHighPriestReward$). The bare "^E07A_Mothman" that was here
+    # also skipped the live Perfect Mothman Egg (Duchess, 17 Nov 2026).
     re.compile(r"MutatedEvents_Package", re.IGNORECASE),  # Mutated event packages
     re.compile(r"Challenge_Raids_", re.IGNORECASE),       # Gleaming Depths reward crate
     re.compile(r"^Festive_", re.IGNORECASE),              # Holiday/Waterlogged gifts

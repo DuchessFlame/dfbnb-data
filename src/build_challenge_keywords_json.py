@@ -189,20 +189,18 @@ def load_name_overrides():
 #  Cut content — every site-wide cut source, so nothing cut reaches the page
 #    1. plan_sources.is_cut_content()  THE site-wide test (confirmed cut families
 #                                      such as Milepost Zero / The Drifter /
-#                                      Vault 94, plus zzz / CUT / DEL / test)
+#                                      Vault 94, plus zzz / CUT / DEL / test),
+#                                      called with live_records=True so the live
+#                                      Strangler Heart / Thorn / Solar armour
+#                                      (_Set_V94_ records) stays in
+#                                      (plan_sources.CONFIRMED_LIVE_RECORDS).
 #    2. cut_content.is_cut()           the item-level list the menu / recipe /
 #                                      camp builders share (Nukashine 2, SFS01
-#                                      brews, spoiled food, PTS_ potions...).
-#                                      ITEMS ONLY (ITEM_SIGS): it is written for
-#                                      consumables, and two of its broad patterns
-#                                      hit live records here — "Firecracker"
-#                                      (meant for Firecracker Whiskey) also hits
-#                                      the Firecracker Berry plant and its four
-#                                      live Harvest challenges, and "^E07A_Mothman"
-#                                      (meant for the Cultist High Priest Pack)
-#                                      also hits the Mothman Equinox event and the
-#                                      Perfect Mothman Egg. CUT_CONTENT_LIVE keeps
-#                                      those two families.
+#                                      brews, Firecracker Whiskey, spoiled food,
+#                                      PTS_ potions...). Items only (ITEM_SIGS).
+#                                      Its Firecracker / Mothman patterns were
+#                                      tightened at the source on 17 Nov 2026, so
+#                                      no page-side exceptions are needed.
 #    3. spin.is_cut()                  the prefix rule the keyword indexes use
 #    4. dist/cut_content.json          the Cut Content page, matched by FormID —
 #                                      ONLY the Challenges / Quests / Collectables
@@ -217,8 +215,6 @@ CUT_FIDS = {}                     # FormID -> why (from the Cut Content page)
 CUT_REMOVED = defaultdict(set)    # source -> {names left off because cut}
 CUT_SOURCES = {}
 CUT_PAGE_GROUPS = {"challenges", "quests", "collectables"}
-CUT_CONTENT_LIVE = [re.compile(r"^FirecrackerBerry", re.I),
-                    re.compile(r"^E07A_Mothman(?!.*Pack)", re.I)]
 
 
 def load_cut_page():
@@ -244,9 +240,9 @@ def cut_reason(edid, fid="", sig=""):
     """Which cut source rejects this record, or '' if it is live."""
     e = (edid or "").strip()
     f = (fid or "").strip().upper()
-    if e and plan_sources.is_cut_content(e):
+    if e and plan_sources.is_cut_content(e, live_records=True):
         return "plan_sources.is_cut_content"
-    if e and sig in ITEM_SIGS and cut_content.is_cut(e) and not any(p.search(e) for p in CUT_CONTENT_LIVE):
+    if e and sig in ITEM_SIGS and cut_content.is_cut(e):
         return "cut_content.is_cut"
     if e and spin.is_cut(e):
         return "prefix rule"

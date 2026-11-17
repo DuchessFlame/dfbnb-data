@@ -105,6 +105,8 @@ def decide_row(it, call, bug, parked_names):
             pass   # a patch gave it a source: the call is out of date, fall through
         elif st == "bugged" and has_source(it) and not bug:
             pass   # same — it drops now; let the checks decide
+        elif st == "legacy" and has_source(it):
+            pass   # re-released: it drops again, so it's live
         else:
             why = {
                 "bugged": "the Duchess has checked it: bugged, not dropping",
@@ -127,7 +129,7 @@ def decide_row(it, call, bug, parked_names):
         if it.get("learnt") == "default":
             return "learnt", "known from the start", "plan_learn_routes", ""
         return "learnt", (f"learnt from the quest {q}" if q else "learnt from a quest"), "plan_learn_routes: quest learned", q
-    if it.get("legacy") or it.get("legacy_nw"):
+    if (it.get("legacy") or it.get("legacy_nw")) and not has_source(it):
         return "legacy", "no longer drops — old copies can still be traded", "game files", ""
     # 5. a bug check found it
     if bug:
@@ -151,6 +153,8 @@ def main(argv=None):
     ap.add_argument("--status", default=os.path.join(REPO, "data", "plan_status.json"))
     ap.add_argument("--bugged", default=os.path.join(REPO, "dist", "bugged_plans.json"))
     ap.add_argument("--out", default=os.path.join(REPO, "dist", "plan_states.json"))
+    ap.add_argument("--dates", default=os.path.join(REPO, "data", "legacy_dates.json"),
+                    help="hand dates for when legacy plans left the game")
     a = ap.parse_args(argv)
 
     master = load(a.master, {}) or {}
@@ -214,12 +218,13 @@ def main(argv=None):
 
     # the Duchess's calls on plans plan_master doesn't hold (BOOKs dropped upstream)
     for fid, call in status.items():
-        if fid in plans or call.get("status") not in ("unreleased", "learnt"):
+        if fid in plans or call.get("status") not in ("unreleased", "learnt", "legacy"):
             continue
         plans[fid] = {"name": call.get("name") or fid, "kind": "plan", "edid": call.get("edid") or "",
                       "state": call["status"], "by": call.get("by") or "Duchess",
-                      "why": "never released — in the game files, but nothing gives it out"
-                             if call["status"] == "unreleased" else "learnt in game, so there is no plan to find",
+                      "why": {"unreleased": "never released — in the game files, but nothing gives it out",
+                              "legacy": "no longer drops — old copies can still be traded"}.get(
+                                 call["status"], "learnt in game, so there is no plan to find"),
                       "note": call.get("note") or "",
                       "call": {k: call[k] for k in ("status", "decided", "by") if call.get(k)}}
 
@@ -233,6 +238,7 @@ def main(argv=None):
         "bugged": {g: [] for g in ("unobtainable", "route_broken", "broken_item", "not_checked")},
         "fixed": [f["id"].upper() for f in sorted(fixed, key=lambda f: sort_key(f["name"]))],
         "unreleased": [],
+        "legacy": [],
     }
     for fid, r in sorted(plans.items(), key=lambda kv: sort_key(kv[1]["name"])):
         if r["state"] == "not_checked":
@@ -242,6 +248,26 @@ def main(argv=None):
             page["bugged"][SEV_GROUP.get(sev, "unobtainable")].append(fid)
         elif r["state"] in ("unreleased", "decide") or (r["state"] == "learnt" and r["kind"] == "plan"):
             page["unreleased"].append(fid)
+        elif r["state"] == "legacy" and re.fullmatch(r"[0-9A-F]{8}", fid):
+            page["legacy"].append(fid)   # NW reward rows (icons, frames) stay off the page
+
+    # when each legacy plan left the game (page note + pill). First match wins:
+    # 1. data/legacy_dates.json  2. the date the last plan_states.json carried
+    # 3. live in the last build, legacy now -> this update's BOOK export month
+    hand = load(a.dates, {}) or {}
+    hand_plans = {k.upper(): v for k, v in (hand.get("plans") or {}).items()}
+    prev = (load(a.out, {}) or {}).get("plans") or {}
+    month = ((bugged.get("exports") or {}).get("BOOK") or "")
+    m = re.search(r"BOOK_Export_([A-Za-z]+)_(\d{4})", month)
+    for fid in page["legacy"]:
+        r = plans[fid]
+        if fid in hand_plans:
+            r["removed"] = dict(hand_plans[fid])
+        elif (prev.get(fid) or {}).get("removed"):
+            r["removed"] = prev[fid]["removed"]
+        elif (prev.get(fid) or {}).get("state") == "live" and m:
+            r["removed"] = {"date": f"in the {m.group(1)} {m.group(2)} update", "short": f"{m.group(1)[:3]} {m.group(2)}",
+                            "source": "the game files: it stopped dropping in this update", "auto": True}
 
     # ---- phase 1 check: where this file and bugged_plans.json disagree ----
     disagree = []
@@ -274,7 +300,8 @@ def main(argv=None):
         "exports": bugged.get("exports") or {},
         "counts": {s: counts.get(s, 0) for s in STATES},
         "page_counts": {"bugged": sum(len(v) for v in page["bugged"].values()),
-                        "fixed": len(page["fixed"]), "unreleased": len(page["unreleased"])},
+                        "fixed": len(page["fixed"]), "unreleased": len(page["unreleased"]),
+                        "legacy": len(page["legacy"])},
         "page": page,
         "fixed": {f["id"].upper(): {"name": f["name"], "fixed_on": f.get("fixed_on") or ""} for f in fixed},
         "plans": plans,

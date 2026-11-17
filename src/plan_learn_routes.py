@@ -405,6 +405,12 @@ def apply_status(items, status, stats, changed):
         elif st == "legacy":
             it["legacy"] = True
             it["obtain"] = LEGACY_OBTAIN
+            # old copies still exist and still trade: a zzz_/DEPRECATED_ name rule that cut
+            # it must not keep it off the site, plan check and mule lists (7 Nov 2026)
+            if it.get("cut"):
+                it["cut"] = False
+                it.pop("cut_reason", None)
+                it["legacy_was_cut"] = True
             stats["legacy (Duchess)"] += 1
             changed.append((it, "legacy"))
         else:

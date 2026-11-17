@@ -20,13 +20,18 @@ Pick **Daily** or **Weekly**, then a challenge (A–Z, Epic versions included, r
 | `tsv/challenge_guide_map.tsv` | **New, hand-made.** Adds or removes guide links per challenge. |
 | `tsv/challenge_situations.tsv` | **New, hand-made.** Situational condition → plain "Also needs" line + optional guide (see below). |
 | `audits/challenge_keywords_unresolved.tsv` (+ `_pts`) | **New, rewritten every build.** Conditions left off the page, plus challenges with no guide and challenges with no names. |
-| `tsv/guide_index.tsv` | **Edited.** New row `df-score-challenge-keyword-finder` under `df-tc-score-challenges`, menu/browse order 80, straight after the terminal rows (70–73). |
+| `tsv/guide_index.tsv` (dfbnb-data) | **Edited.** New row `df-score-challenge-keyword-finder` under `df-tc-score-challenges`, menu/browse order 80, straight after the terminal rows (70–73). |
+| `1 site-data/raw/guide_index.tsv` | **Edited (rounds 3–4).** Keyword Finder row added. In round 4 the four Level 0–3 Terminal Locations rows (copied exactly from dfbnb-data, orders 70–73) were inserted just above it. The Score Challenges rows now run … Pre-War Food (60) → Level 0–3 Terminals (70–73) → Challenge Keyword Finder (80), the same as dfbnb-data. All 1,747 lines have 20 columns. |
+| `1 site-data/nav.json` | **Edited (rounds 3–4).** Keyword Finder node, plus (round 4) the four Level 0–3 Terminal Locations nodes built from the dfbnb-data rows (`page`, `challenge-hub`, showInMenu / showInBrowse true). Score Challenges children now run: NPC Spawns, Location Spawn Guide, Weapon / Costume / Pre-War Food Keyword Index, Level 0–3 Terminal Locations, Challenge Keyword Finder. No generator exists, so it was hand-edited, then parsed as JSON and the order checked. |
+| `src/build_bnb_menu_sync.py` | **Edited (round 4).** Two duplicate broad skip patterns removed (see Root fixes). |
+| `src/plan_sources.py` | **Edited (round 3).** `CONFIRMED_LIVE_RECORDS` + opt-in `live_records` (see Root fixes). |
+| `src/cut_content.py` | **Edited (round 3).** Firecracker / Mothman patterns tightened (see Root fixes). |
 | `dfbnb-child/assets/df-bnb-challenge-keywords.js` | **New.** Renderer. |
 | `dfbnb-child/assets/df-bnb-challenge-keywords.css` | **New.** Page extras (`.ckf-`). The top half reuses `.cki-` from `df-bnb-costume-keywords.css`. |
 | `dfbnb-child/functions.php` | **Edited.** Enqueues `df-bnb-costume-keywords.css`, `df-bnb-challenge-keywords.css` and `.js`, only when the path matches `/score-challenges/challenge-keyword-finder/`. |
 | `dfbnb-child/df-bnb-guide.js` | **Edited.** Same wiring as the Costume / Pre-War Food indexes: `isChallengeKeywordsPath()`, CSS loader, `maybeMountChallengeKeywords()` at the 3 mount points, and the HTML-injection guard. Without this, SPA navigation into the page (clicking it from the hub) would show the empty WP body. |
 
-Backups (before edits): `_claude_backups/2026-11-17/`, including `dfbnb-patch-build.yml` and `dfbnb-pts-build.yml`. `guide_index.tsv` is backed up under its own name. Earlier sessions today had already backed up `functions.php` and `df-bnb-guide.js`, so mine are saved as `functions.before-challenge-keyword-finder.php` and `df-bnb-guide.before-challenge-keyword-finder.js`, and the earlier backups were left untouched. Later rounds saved `build_challenge_keywords_json.py` (before the cut cross-check) plus `*.before-situations.*` copies of the build script, counter TSV, renderer JS/CSS and this doc.
+Backups (before edits): `_claude_backups/2026-11-17/`, including `dfbnb-patch-build.yml` and `dfbnb-pts-build.yml`. `guide_index.tsv` is backed up under its own name. Earlier sessions today had already backed up `functions.php` and `df-bnb-guide.js`, so mine are saved as `functions.before-challenge-keyword-finder.php` and `df-bnb-guide.before-challenge-keyword-finder.js`, and the earlier backups were left untouched. Round 4 saved `site-data-nav.before-terminals.json`, `site-data-raw-guide_index.before-terminals.tsv` and `build_bnb_menu_sync.py`. Round 3 also saved `cut_content.py`, `plan_sources.py`, `site-data-nav.json`, `site-data-raw-guide_index.tsv`, `build_challenge_keywords_json.before-root-fixes.py` and `challenge-keyword-finder.before-root-fixes.md`. Later rounds saved `build_challenge_keywords_json.py` (before the cut cross-check) plus `*.before-situations.*` copies of the build script, counter TSV, renderer JS/CSS and this doc.
 
 ## How the names are found
 
@@ -36,25 +41,69 @@ Source list: `dist/challenges/challenges.json` (pages `daily` / `weekly`). This 
 
 The first build only used `challenges.json`'s `is_cut` flag (which comes from `plan_sources.is_cut_content`) for the challenge list, and the spin-wheel prefix rule (`spin.is_cut()`, zzz / CUT / DEL / test) for the counted names. It did **not** run the site-wide cut test on the names, so cut things were showing. It now runs every record (challenges, items, weapons, apparel, races, NPCs, quests, form-list members) through `cut_reason()`:
 
-1. `plan_sources.is_cut_content()`: **the** site-wide test (Milepost Zero, The Drifter, Vault 94 / 96, Nuclear Winter / Babylon, The Messenger… plus zzz / CUT / DEL / test).
-2. `cut_content.is_cut()`: the item-level list (Nukashine 2, SFS01 brews, Firecracker Whiskey, spoiled food…). This applies to **items only**. Two of its broad patterns hit live records here, so they're kept back with `CUT_CONTENT_LIVE` in the build:
-   - `Firecracker` (meant for Firecracker Whiskey) also hit the Firecracker Berry plant and the four live "Harvest a Firecracker Berry" challenges.
-   - `^E07A_Mothman` (meant for the Cultist High Priest Pack) also hit the Mothman Equinox event and the Perfect Mothman Egg.
+1. `plan_sources.is_cut_content(edid, live_records=True)`: **the** site-wide test (Milepost Zero, The Drifter, Vault 94 / 96, Nuclear Winter / Babylon, The Messenger… plus zzz / CUT / DEL / test). `live_records=True` keeps the confirmed-live item records in `plan_sources.CONFIRMED_LIVE_RECORDS` (see Root fixes below).
+2. `cut_content.is_cut()`: the item-level list (Nukashine 2, SFS01 brews, Firecracker Whiskey, spoiled food…). Items only. Its Firecracker and Mothman patterns were fixed at the source on 17 Nov 2026, so the page-side workaround (`CUT_CONTENT_LIVE`) has been removed.
 3. `spin.is_cut()` (the prefix rule).
 4. `dist/cut_content.json` (the Cut Content page), matched by FormID. This only uses the Challenges, Quests and Collectables groups, because their `id` is the record itself. The Unique Weapons / Armour rows carry the *base* weapon's FormID (Crimson Sky = `0010F0EC` = the Tesla Rifle), so matching those would wrongly cut the Tesla Rifle, Assaultron Blade and so on.
 
 **Results against the previous build:**
 - **Cut challenges dropped from the dropdowns: 0.** The Daily / Weekly pages in `challenges.json` already exclude every cut challenge. The 2,778 cut challenges live on the Cut Content page, and none of the Daily / Weekly FormIDs appear in it.
-- **Cut names removed from the lists: 89 live, 85 PTS**, across 609 live challenge rows. No challenge was left empty. Examples:
+- **Cut names removed from the lists: 76 live, 72 PTS** (after the root fixes; it was 89 / 85 before the armour came back), across 537 live challenge rows. No challenge was left empty. Examples:
   - **The Drifter:** Splinter, Tempest, Chaos Engine, Crackler Grenade.
-  - **Vault 94:** the Vault 94 holotapes, Antonio's Holotape, the Glowing One - Billy / Cole / Lucas / Red NPCs, and the V94 Solar / Thorn / Strangler Heart armour records.
+  - **Vault 94:** the Vault 94 holotapes, Antonio's Holotape, the Glowing One - Billy / Cole / Lucas / Red NPCs (the Strangler Heart / Thorn / Solar armour records are no longer removed; see Root fixes).
   - **Vault 96:** Vault 96 Suppression grenades, mines and syringe; the Corrupted Sentry Bot.
   - **Milepost Zero:** Caravan: Skyline Drive, the Deathclaw / Gulper Skin outfits, Lederhosen and Redcoat outfits, the Gulper Plushie.
   - **Nuclear Winter:** Ghillie Suit, Vault 51 Jumpsuit, Centurion Helmet, Survivor's Denim, Extra Crispy Scorchbeast.
   - **Event: The Messenger.**
   - **cut_content list:** Firecracker Whiskey (×5 variants), Nukashine 2 Electric Boogaloo, Muttberry / Sunday / Tater Shine, Calmex Silk, Formula B, Spoiled Fruit / Meat / Vegetables, Glowing Fish Bits and its dishes, Raw Yellowcake Flux.
 - Every removed name, with the source that removed it, is listed under `CUT_NAME` in the audit TSV.
-- **Worth a look:** Strangler Heart, Thorn and Solar armour pieces were removed because these particular records are the `_V94` Vault 94 copies, which is the site rule. If a live copy of the same name carried the keyword, it would still show.
+### Root fixes (17 Nov 2026, second round)
+
+**Strangler Heart, Thorn and Solar armour are back.**
+- **Cause:** these live sets were built for Vault 94 and kept their `_Set_V94_` EditorIDs, e.g. `Armor_PowerArmor_Ultracite_Set_V94_Helmet` (Strangler Heart), `Armor_EnclaveScoutUniform_*_Set_V94_Bleed` (Thorn) and `*_Set_V94_Solar` (Solar). The `_V94_` record **is** the live piece; there's no other copy. So the Vault 94 family rule in `plan_sources` was cutting the armour itself.
+- **Fix:** `plan_sources.py` now has `CONFIRMED_LIVE_RECORDS`, `confirmed_live_record()`, and an opt-in `is_cut_content(..., live_records=True)`. An editor-only prefix still wins, so `CUT_Armor_..._Torso_Set_V94_Solar` stays cut while `Armor_..._Torso_Set_V94_Solar` is the live chest piece.
+- **Scope:** only this page opts in. No other page's output changes.
+- **Restored here:** all 16 pieces (6 Strangler Heart, 5 Thorn, 5 Solar), live and PTS, on "Craft or Scrap Armor" and the other armour / repair / mod challenges. Nothing else changed.
+
+**Other pages checked: none are wrongly cutting these sets today.**
+- These armour records and their plans only reach Daily Ops rewards, drop chances, the plan pages, Minerva, the crafting / outfit calculators, cobj-recipes and the item finder. None of those test the item with `is_cut_content`:
+  - The plan pipeline tests *sources*, and correctly retires only the "Vault 94 - System Expert" route.
+  - Plans show `cut: false`.
+- The 13 builders that call `is_cut_content` never receive these records:
+  - activities, events, legendary crafting planner, legendary mods / star pages, locations, lore, quest lore, quest unique rewards, raids, unique weapons & armour, challenges and the Cut Content page.
+  - Checked by grepping their dist outputs and reading what each call tests. The legendary planner only tests shard-crafting COBJs.
+- The 12 Vault 94 *challenges* on the Cut Content page ("Craft a Vault 94 Thorn or Solar Armor…", "Craft Vault 94 Strangler Heart…") are real Vault 94 mission challenges and are correctly cut.
+- If you want the live-record rule site-wide (so a future page that tests item EDIDs can't hit this), flip the default of `live_records` to True in `plan_sources.is_cut_content`. Today that changes no page output.
+
+**`cut_content.py` tightened at the source.** Backed up as `_claude_backups/2026-11-17/cut_content.py`.
+- `Firecracker` is now `^Brew_FirecrackerWhiskey` + `^Recipe_Brewing_FirecrackerWhiskey` (the whiskey line only).
+- `^E07A_Mothman` is now `^E07A_Mothman_CultistHighPriestReward$` (the pack only).
+- **Records un-cut, across every October export: 140.** Nothing is newly cut.
+  - Firecracker Berry, Firecracker Berry Juice, Bomb Berry and the berry flora / lists.
+  - The 5 Harvest Firecracker Berry challenges.
+  - The Mothman Equinox quest (`E07A_Mothman`) and its NPCs, lists, globals and messages.
+  - The Perfect Mothman Egg and Enlightened Mothman Eggs.
+  - The six Mothman lore books.
+  - The Wise Mothman Throne and Mothman Bug Zapper plans.
+  - Firecracker Whiskey COBJs / effects. The whiskey *items* are still cut via `Brew_`.
+- **Every importer rebuilt before and after** (scratch copy of the repo, real `dist/` untouched):
+  - `cobj-recipes.json`: **Firecracker Berry Juice recipe back**.
+  - `farming_guides.json`: **Firecracker Berry + Firecracker Berry Juice back**.
+  - `recipe_guide.json`: **Firecracker Berry Juice back**.
+  - `bnb-item-categories.json`: `excluded_cut` 44 → 41. No visible item change, because other filters still drop those three.
+  - `crafting_materials_calculator.json`, `displays.json`, `scrap-breakdown.json`, `buff-stations.json`, `bugged_plans.json`, `camp.json`: timestamp only.
+  - `build_titles_json.py` only imports `cut_obtain`, so it's unaffected.
+- **`build_bnb_menu_sync.py` (round 4).**
+  - **Still in use:**
+    - Both `dfbnb-patch-build.yml` (step "Sync ALCH into BnB Menu TSV", line ~1214) and `dfbnb-pts-build.yml` (~1463) run it on every patch, and the patch build commits `tsv/BnB_Menu_Items.tsv`.
+    - The TSV was last committed 24 Oct 2026 by the patch build bot (and by Duchess the same day). The file on disk is dated 25 Oct.
+    - The script was last edited 25 Aug 2026.
+    - It reads `cut_content`, and its output feeds `build_bnb_menu_json.py`, `build_menu_items_json.py`, `build_buffs_json.py` and `build_food_buff_calculator_json.py`.
+  - **Fix:** it already calls `cut_content.is_cut()` first. Its own `SKIP_EDID_PATTERNS` list carried copies of the broad `Firecracker` and `^E07A_Mothman` patterns, and those two lines are removed (a comment points to `cut_content.py`). The rest of its local list (pets, debug, darts, crates…) is menu-specific and unchanged. Backed up as `_claude_backups/2026-11-17/build_bnb_menu_sync.py`.
+  - **Scratch run** on a copy of the October ALCH exports and the current menu TSV:
+    - The old script reproduces today's committed TSV exactly.
+    - The new script **adds 3 rows**: Firecracker Berry Juice (Dishes & Teas), Firecracker Berry (Ingredients) and Perfect Mothman Egg (Ingredients). Nothing is removed.
+    - All 3 are **unpriced**, so the sync flags them in `dist/diagnostics.json` for the staff portal (warnings 0 → 3). Give them prices in `BnB_Menu_Items.tsv` before or after the next patch build adds them.
 
 Each condition is expanded through condition forms (CNDF) down to its leaves, then turned into names:
 
@@ -129,7 +178,7 @@ These are listed in full, with the challenges they affect, in `audits/challenge_
 ## Testing (17 Nov 2026)
 
 - `python src/build_challenge_keywords_json.py` and `--pts`: both build clean (live 505 Daily / 428 Weekly). All three workflow YAMLs parse. A scan of the live JSON found no names with `_`, `[`, FormIDs or lower-case EDIDs.
-- jsdom harness (scratch, not saved in the repo), against the live JSON: **28/28 pass** (re-run after the cut / Also needs / Canines changes).
+- jsdom harness (scratch, not saved in the repo), against the live JSON: **30/30 pass** (re-run after the root fixes). Includes: live Strangler Heart / Thorn / Solar listed; Harvest a Firecracker Berry back and lists the berry.
   - Both dropdowns fill (505 Daily / 428 Weekly, A–Z, Epic included).
   - Switching to Weekly resets dropdown 2 and clears the result.
   - Kill a Canine (5) → Attack Dog, Blue Devil, Fox, Mutant Hound, Wild Mongrel, Wolf (ActorTypeFeralDog).
@@ -161,7 +210,7 @@ These are listed in full, with the challenges they affect, in `audits/challenge_
 
 1. **WordPress**: create the page with slug `challenge-keyword-finder` under the Score Challenges parent, so the URL is `/df/score-challenges/challenge-keyword-finder/`. Use the guide shell template and leave the body empty.
 2. **Commit** in GitHub Desktop (dfbnb-data):
-   - `src/build_challenge_keywords_json.py`
+   - `src/build_challenge_keywords_json.py`, `src/plan_sources.py`, `src/cut_content.py`, `src/build_bnb_menu_sync.py`
    - `dist/challenges/challenge_keywords.json`
    - `dist/pts/challenges/challenge_keywords.json`
    - `tsv/challenge_counter_targets.tsv`, `tsv/challenge_name_overrides.tsv`, `tsv/challenge_guide_map.tsv`, `tsv/challenge_situations.tsv`
@@ -174,7 +223,7 @@ These are listed in full, with the challenges they affect, in `audits/challenge_
    - `assets/df-bnb-challenge-keywords.css`
    - `df-bnb-guide.js`
    - `functions.php`
-   - also upload `guide_index.tsv` to `/wp-content/uploads/` and regenerate `nav.json` as usual, so the page shows in the Score Challenges menu.
+   - upload `1 site-data/raw/guide_index.tsv` and `1 site-data/nav.json` (both now carry the new page) to `/wp-content/uploads/`, so the page shows in the Score Challenges menu.
 4. **Purge Cloudflare** (the page URL plus the three theme files, or purge everything).
 5. **Rebuilds** happen automatically: the patch and PTS builds run it after Challenges, and the standalone workflow runs on `tsv/**` or script pushes. By hand, run `build_challenges_json_v3.py` first, then `build_challenge_keywords_json.py` and `--pts`.
 

@@ -280,6 +280,36 @@ CONFIRMED_LIVE_SOURCES = (
 )
 
 
+# Item RECORDS a cut family rule above would catch but that ARE live in game
+# (Duchess, 17 Nov 2026: "Strangler Heart, Thorn and Solar armour must stay in").
+# The live sets were built for Vault 94 and kept their _Set_V94_ EditorIDs when
+# they moved to other sources, so the V94 family rule cut the armour itself.
+# There is no other copy: the _Set_V94_ record IS the live piece. An editor-only
+# prefix still wins (CUT_Armor_..._Torso_Set_V94_Solar stays cut, while
+# Armor_..._Torso_Set_V94_Solar is the live chest piece).
+#
+# OPT-IN (is_cut_content(..., live_records=True)) so pages that already use
+# is_cut_content() don't change until Duchess OKs it. Currently opted in by:
+# build_challenge_keywords_json.py.
+# (regex, what it is)
+CONFIRMED_LIVE_RECORDS = (
+    (re.compile(r"^Armor_PowerArmor_Ultracite_Set_V94_", re.I), "Strangler Heart power armour"),
+    (re.compile(r"^Armor_EnclaveScoutUniform_\w+_Set_V94_Bleed$", re.I), "Thorn armour"),
+    (re.compile(r"^Armor_EnclaveScoutUniform_\w+_Set_V94_Solar$", re.I), "Solar armour"),
+)
+
+
+def confirmed_live_record(edid):
+    """What it is when the EditorID is a confirmed-live item record, else None."""
+    e = (edid or "").strip()
+    if not e:
+        return None
+    for rx, what in CONFIRMED_LIVE_RECORDS:
+        if rx.search(e):
+            return what
+    return None
+
+
 def confirmed_live(edid):
     """Who this is when the EditorID is a confirmed-live exception, else None."""
     e = (edid or "").strip()
@@ -308,7 +338,7 @@ def cut_source(edid):
     return None
 
 
-def is_cut_content(*edids):
+def is_cut_content(*edids, live_records=False):
     """THE site-wide cut test (Duchess, 21 Oct 2026: confirm once, applied on
     every page). True when any EditorID given is a confirmed-cut source family
     (CONFIRMED_CUT_SOURCE_PATTERNS) or an editor-only record (zzz / CUT / DEL /
@@ -321,7 +351,15 @@ def is_cut_content(*edids):
     own list, so a new cut family is added in ONE place."""
     for e in edids:
         e = (e or "").strip()
-        if e and (is_dev_record(e) or cut_source(e)):
+        if not e:
+            continue
+        if is_dev_record(e):
+            return True
+        # live_records=True: a confirmed-live item record (CONFIRMED_LIVE_RECORDS)
+        # is never cut by the FAMILY rules (the editor-only check above still wins).
+        if live_records and confirmed_live_record(e):
+            continue
+        if cut_source(e):
             return True
     return False
 

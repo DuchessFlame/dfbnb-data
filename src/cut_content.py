@@ -49,7 +49,13 @@ CUT_PATTERNS = [
     # ── Quest cut-content (historical) ─────────────────────────────────
     re.compile(r"^AC_SQ04_Reopening_", re.IGNORECASE),   # Nukashine 2 Electric Boogaloo etc.
     re.compile(r"^SFS01_Brew_", re.IGNORECASE),          # Tater/Muttberry/Sunday Shine
-    re.compile(r"Firecracker", re.IGNORECASE),            # Firecracker Whiskey line
+    # Firecracker Whiskey line ONLY (the Brew_ drinks + their Recipe_Brewing_ plans).
+    # Was a bare "Firecracker" substring, which also cut the live Firecracker Berry
+    # (FirecrackerBerryFruit / UseLPI_FloraFirecracker*), Firecracker Berry Juice,
+    # Bomb Berry (FloraRadFirecracker*) and the four live "Harvest a Firecracker
+    # Berry" challenges (Duchess, 17 Nov 2026: tighten to exact names).
+    re.compile(r"^Brew_FirecrackerWhiskey", re.IGNORECASE),
+    re.compile(r"^Recipe_Brewing_FirecrackerWhiskey", re.IGNORECASE),
     re.compile(r"^W05_MQS_205P_Jen", re.IGNORECASE),     # Jen's stealth potion
     re.compile(r"^CUT_RefreshingBeverage", re.IGNORECASE),
     re.compile(r"^CUT_SFS09_FormulaQ", re.IGNORECASE),
@@ -64,7 +70,11 @@ CUT_PATTERNS = [
     re.compile(r"^Recalibrated", re.IGNORECASE),
     re.compile(r"^BS00_Contribution", re.IGNORECASE),    # ATLAS donor provisions
     re.compile(r"TreasureHunt_Chest", re.IGNORECASE),    # Mole Miner Pails
-    re.compile(r"^E07A_Mothman", re.IGNORECASE),         # Cultist High Priest Pack
+    # Cultist High Priest Pack ONLY (ALCH 00635070). Was "^E07A_Mothman", which also
+    # cut the live Mothman Equinox event (E07A_Mothman QUST), the Perfect Mothman Egg,
+    # Enlightened Mothman Eggs, the event's lore books and its plans (Wise Mothman
+    # Throne, Mothman Bug Zapper) (Duchess, 17 Nov 2026).
+    re.compile(r"^E07A_Mothman_CultistHighPriestReward$", re.IGNORECASE),
     re.compile(r"MutatedEvents_Package", re.IGNORECASE),
     re.compile(r"Challenge_Raids_", re.IGNORECASE),      # Gleaming Depths crate
     re.compile(r"^Festive_", re.IGNORECASE),             # Holiday/Waterlogged gifts
