@@ -30,6 +30,9 @@ on:
     paths:
       - 'data/bugged_plans_review.json'
       - 'data/plan_status.json'
+      - 'data/plan_review.json'       # the Unconfirmed queue (daily review, 17 Nov 2026)
+      - 'data/legacy_dates.json'
+      - 'src/build_plan_states.py'
       # A laptop push can carry an older dist/plan_master.json (1 Nov 2026: a
       # GitHub Desktop merge put the pre-call copy back). Re-apply the calls.
       - 'dist/plan_master.json'        # the Duchess's Bugged / Unreleased / Legacy calls (1 Nov 2026)
@@ -82,11 +85,16 @@ jobs:
       - name: Build Cut Content JSON
         run: python src/build_cut_content_json.py
 
+      # one state per plan for the Current Bugged Plans page (Unreleased / Legacy /
+      # Unconfirmed / No Source / Now an Atom Shop item roots). 17 Nov 2026.
+      - name: Build plan states
+        run: python src/build_plan_states.py
+
       - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions@users.noreply.github.com"
-          git add dist/bugged_plans.json dist/cut_content.json dist/plan_master.json dist/make_plan_checklist.json
+          git add dist/bugged_plans.json dist/cut_content.json dist/plan_master.json dist/make_plan_checklist.json dist/plan_states.json
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else

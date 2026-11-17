@@ -9,13 +9,10 @@ GetIsID	LvlPRCGhoul_Commander_Inside [NPC_:00553D50]	Weekly: Epic - Kill a Commu
 GetIsID	LvlPRCGhoul_Commander_Outside [NPC_:00553D4F]	Weekly: Epic - Kill a Communist (3)
 GetIsID	LvlPRCGhoul_Missile [NPC_:00553D51]	Weekly: Epic - Kill a Communist (3)
 GetIsID	LvlPRCGhoul_PA [NPC_:00553AAA]	Weekly: Epic - Kill a Communist (3)
-HasActiveMagicEffect	PerkBubblegumSlowHungerThirstEffect "Bubblegum Slow Hunger & Thirst" [MGEF:004392C9]	Daily: Epic - Kill an Enemy while under the effects of Bubblegum (18) | Daily: Kill an Enemy while under the effects of Bubblegum (7)
-HasKeyword	00 00 00 00	Daily: Complete an Event or Activity with any Pet (1) | Daily: Complete the Event: "Fasnacht Day" with any Pet (1) | Daily: Complete the Event: "The Mothman Equinox" with any Pet (1) | Daily: Epic - Gain XP with your Pet (5000) | Daily: Epic - Have your Pet deal damage to an Enemy (1000) | Daily: Epic - Have your Pet kill an Enemy (10) | Daily: Epic - Travel on foot with any Pet (KM) (16) | Daily: Gain XP with your Pet (2500) | Daily: Give a Command to your World Pet (3) | Daily: Have your Pet deal damage to an Enemy (250) | Daily: Have your Pet kill an Enemy (5) | Daily: Heal your Pet (2) | Daily: Travel on foot with any Pet (KM) (10) | Daily: Use an Emote while your Pet is deployed (1) | Weekly: Complete the Event: "Fasnacht Day" with any Pet (5) | Weekly: Complete the Event: "The Mothman Equinox" with any Pet (5) | Weekly: Epic - Gain XP with your Pet (12000) | Weekly: Epic - Have your Pet deal damage to an Enemy (1000) | Weekly: Epic - Have your Pet kill an Enemy (25) | Weekly: Epic - Travel on foot with any Pet (KM) (40) | Weekly: Gain XP with your Pet (7000) | Weekly: Have your Pet deal damage to an Enemy (600) | Weekly: Have your Pet kill an Enemy (15) | Weekly: Travel on foot with any Pet (KM) (25)
 HasKeyword	ArmorTypeHelmet "Helmet" [KYWD:0012EEE9]	Daily: Craft or Scrap Armor (5) | Weekly: Craft or Scrap Clothing, Armor or a Weapon (25)
 HasKeyword	Burn_ActorTypeDeathclawArmored [KYWD:00841226]	Daily: Epic - Kill a Rusted Deathclaw (3) | Daily: Kill a Rusted Deathclaw (1) | Weekly: Epic - Kill a Rusted Deathclaw (6) | Weekly: Kill a Rusted Deathclaw (4)
 HasKeyword	ExplodableCar [KYWD:0021C00D]	Weekly: Destroy a Car (30)
 HasKeyword	FestiveScorchedKeyword [KYWD:00630019]	Daily: Kill a Festive Scorched (10) | Daily: Kill a Festive Scorched while on a Team (10) | Daily: Kill a Festive Scorched while on a Team and Wearing a Costume (10) | Daily: Kill a Festive Scorched with any Pet (6) | Weekly: Kill a Festive Scorched (10)
-HasKeyword	InfusionKeyword [KYWD:006982E4]	Daily: Craft an Infusion (1) | Weekly: Craft Infusions (4)
 HasKeyword	ObjectTypeFlux [KYWD:00452EA3]	Daily: Epic - Harvest a Wild Plant or Fungi (15) | Daily: Harvest a Wild Plant or Fungi (12) | Weekly: Harvest a Wild Plant or Fungi (30)
 HasKeyword	ObjectTypeTrap [KYWD:00186401]	Daily: Epic - Mod a Weapon (5) | Daily: Mod a Weapon (3) | Weekly: Epic - Mod a Weapon (25)
 HasKeyword	PlantTypeFlux [KYWD:00496168]	Daily: Epic - Harvest a Wild Plant or Fungi (15) | Daily: Harvest a Wild Plant or Fungi (12) | Weekly: Harvest a Wild Plant or Fungi (30)
@@ -24,14 +21,27 @@ WornHasKeyword	AmmoTypeExplosive [KYWD:003896DF]	Daily: Epic - Kill a Mole Rat w
 WornHasKeyword	WeaponTypePumpkinGrenade [KYWD:00340875]	Daily: Epic - Kill a Human with Radiation Damage (3) | Weekly: Epic - Kill a Human with Radiation Damage (12)
 
 # Cut challenges left out of the dropdowns (source	name [EDID])
+CUT_CHALLENGE	cut_content.is_cut	Craft Infusions [SCORE_Challenge_Weekly_Craft_Infusions]
+CUT_CHALLENGE	cut_content.is_cut	Craft an Infusion [SCORE_Challenge_Daily_Craft_Infusions]
+
+# Challenges hidden by tsv/challenge_finder_hide.tsv
+HIDDEN		Daily: Above Rank 100: Gain XP [SCORE_Challenge_Daily_RankGated_XP_Post100]
+HIDDEN		Weekly: Above Rank 100: Gain XP [SCORE_Challenge_Weekly_RankGated_XP_Post100]
 
 # Cut records left out of the lists (source	name)
 CUT_NAME	cut_content.is_cut	10mm
+CUT_NAME	cut_content.is_cut	Assault Rifle Scope
 CUT_NAME	cut_content.is_cut	Burger Bits
 CUT_NAME	cut_content.is_cut	Calmex Silk
+CUT_NAME	cut_content.is_cut	Charlotte's Typewriter
 CUT_NAME	cut_content.is_cut	Crispy Flying Ant Bits
 CUT_NAME	cut_content.is_cut	Darius Angler's Manifesto, part 5
 CUT_NAME	cut_content.is_cut	Dirty Old Teddy Bear
+CUT_NAME	cut_content.is_cut	Drum Magazine
+CUT_NAME	cut_content.is_cut	Elixir of SCIENCE
+CUT_NAME	cut_content.is_cut	Empty Can
+CUT_NAME	cut_content.is_cut	Event: Barnyard Brawl
+CUT_NAME	cut_content.is_cut	Event: The Battle that Never Was
 CUT_NAME	cut_content.is_cut	Fermentable Firecracker Whiskey
 CUT_NAME	cut_content.is_cut	Fermentable Nukashine 2 Electric Boogaloo
 CUT_NAME	cut_content.is_cut	Firecracker Whiskey
@@ -44,17 +54,44 @@ CUT_NAME	cut_content.is_cut	Glowing Fish and Tatos
 CUT_NAME	cut_content.is_cut	Glowing Fish Bits
 CUT_NAME	cut_content.is_cut	Glowing Fish Chowder
 CUT_NAME	cut_content.is_cut	Glowing Grilled Fish
+CUT_NAME	cut_content.is_cut	Heart
+CUT_NAME	cut_content.is_cut	Heavy Barrel
+CUT_NAME	cut_content.is_cut	Hivemind Disruptor
 CUT_NAME	cut_content.is_cut	Meat Treats
 CUT_NAME	cut_content.is_cut	Missile
 CUT_NAME	cut_content.is_cut	Muttberry Shine
+CUT_NAME	cut_content.is_cut	Prickett's Fort Confederate Assault
+CUT_NAME	cut_content.is_cut	Prickett's Fort Union Defense
 CUT_NAME	cut_content.is_cut	Raw Yellowcake Flux
+CUT_NAME	cut_content.is_cut	Screwdriver
 CUT_NAME	cut_content.is_cut	Seed Feed
+CUT_NAME	cut_content.is_cut	Signal Annihilator
+CUT_NAME	cut_content.is_cut	Silencer
+CUT_NAME	cut_content.is_cut	Soap
+CUT_NAME	cut_content.is_cut	Spatula
 CUT_NAME	cut_content.is_cut	Spoiled Fruit
 CUT_NAME	cut_content.is_cut	Spoiled Meat
 CUT_NAME	cut_content.is_cut	Spoiled Vegetables
 CUT_NAME	cut_content.is_cut	Steak Sticks
+CUT_NAME	cut_content.is_cut	Straight Magazine
 CUT_NAME	cut_content.is_cut	Sunday Shine
+CUT_NAME	cut_content.is_cut	Supply Package - Ammo Scrap
+CUT_NAME	cut_content.is_cut	Supply Package - Common
+CUT_NAME	cut_content.is_cut	Supply Package - Rare
+CUT_NAME	cut_content.is_cut	Supply Package - Uncommon
 CUT_NAME	cut_content.is_cut	Tater Shine
+CUT_NAME	cut_content.is_cut	TestSmoke Acid
+CUT_NAME	cut_content.is_cut	TestSmoke Ashtray
+CUT_NAME	cut_content.is_cut	TestSmoke Baseball
+CUT_NAME	cut_content.is_cut	TestSmoke Bonesaw
+CUT_NAME	cut_content.is_cut	TestSmoke Cooking Oil
+CUT_NAME	cut_content.is_cut	TestSmoke Coolant
+CUT_NAME	cut_content.is_cut	TestSmoke Fuse
+CUT_NAME	cut_content.is_cut	TestSmoke Lamp
+CUT_NAME	cut_content.is_cut	TestSmoke Tall Flask
+CUT_NAME	cut_content.is_cut	TestSmoke Tube Flange
+CUT_NAME	cut_content.is_cut	TestSmokeAdhesive
+CUT_NAME	cut_content.is_cut	TestSmokeCircuitBoard
 CUT_NAME	cut_content.is_cut	Veggie Vittles
 CUT_NAME	cut_content.is_cut	Vintage Firecracker Whiskey
 CUT_NAME	plan_sources.is_cut_content	.44
@@ -71,8 +108,17 @@ CUT_NAME	plan_sources.is_cut_content	400 DMG
 CUT_NAME	plan_sources.is_cut_content	60 DMG
 CUT_NAME	plan_sources.is_cut_content	Acid Concentrate
 CUT_NAME	plan_sources.is_cut_content	Acid Soaker
+CUT_NAME	plan_sources.is_cut_content	Alien Blaster Long Barrel
+CUT_NAME	plan_sources.is_cut_content	Alien Blaster Sharpshooter's Grip
+CUT_NAME	plan_sources.is_cut_content	Alien Blaster Short Barrel
+CUT_NAME	plan_sources.is_cut_content	Alien Blaster Short Night Vision Scope
+CUT_NAME	plan_sources.is_cut_content	Alien Blaster Standard Ammo Receiver
+CUT_NAME	plan_sources.is_cut_content	Alien Blaster Standard Grip
+CUT_NAME	plan_sources.is_cut_content	Alien Blaster Standard Sights
+CUT_NAME	plan_sources.is_cut_content	Aligned Stock
 CUT_NAME	plan_sources.is_cut_content	Alotolotl
 CUT_NAME	plan_sources.is_cut_content	American Daredevil Suit
+CUT_NAME	plan_sources.is_cut_content	Animal Quill
 CUT_NAME	plan_sources.is_cut_content	Anti-Scorched 10mm Submachine Gun
 CUT_NAME	plan_sources.is_cut_content	Antler Head Dress
 CUT_NAME	plan_sources.is_cut_content	Antonio's Holotape
@@ -85,6 +131,7 @@ CUT_NAME	plan_sources.is_cut_content	Assault Rifle
 CUT_NAME	plan_sources.is_cut_content	Audio Grenade
 CUT_NAME	plan_sources.is_cut_content	Auto Axe
 CUT_NAME	plan_sources.is_cut_content	Auto Grenade Launcher
+CUT_NAME	plan_sources.is_cut_content	Auto Grenade Launcher Standard Magazine
 CUT_NAME	plan_sources.is_cut_content	AutoGrenadeLauncher_Moleminer
 CUT_NAME	plan_sources.is_cut_content	Backpack
 CUT_NAME	plan_sources.is_cut_content	Balance 10mm
@@ -111,7 +158,9 @@ CUT_NAME	plan_sources.is_cut_content	Balance Sturdy Combat Armor Left Leg
 CUT_NAME	plan_sources.is_cut_content	Balance Sturdy Combat Armor Right Arm
 CUT_NAME	plan_sources.is_cut_content	Balance Sturdy Combat Armor Right Leg
 CUT_NAME	plan_sources.is_cut_content	Baseball Bat
+CUT_NAME	plan_sources.is_cut_content	Baseball Bat Shocking Puncturing Rocket Mod
 CUT_NAME	plan_sources.is_cut_content	Baton
+CUT_NAME	plan_sources.is_cut_content	Baton Stun Pack Mod
 CUT_NAME	plan_sources.is_cut_content	Bear Trap
 CUT_NAME	plan_sources.is_cut_content	Birthday Hat
 CUT_NAME	plan_sources.is_cut_content	Black-Rim Sun Glasses
@@ -130,6 +179,8 @@ CUT_NAME	plan_sources.is_cut_content	Buffed-Out Buffout
 CUT_NAME	plan_sources.is_cut_content	Bufftats
 CUT_NAME	plan_sources.is_cut_content	Burning Radscorpion Suicider
 CUT_NAME	plan_sources.is_cut_content	Cage Armor
+CUT_NAME	plan_sources.is_cut_content	Calibrated .308 Receiver
+CUT_NAME	plan_sources.is_cut_content	Calibrated .45 Receiver
 CUT_NAME	plan_sources.is_cut_content	Caltrops
 CUT_NAME	plan_sources.is_cut_content	Camouflage Pants Suit
 CUT_NAME	plan_sources.is_cut_content	Candy Cane
@@ -141,6 +192,7 @@ CUT_NAME	plan_sources.is_cut_content	Casual Outfit
 CUT_NAME	plan_sources.is_cut_content	Centurion Helmet
 CUT_NAME	plan_sources.is_cut_content	Cherry Thirst Zapper
 CUT_NAME	plan_sources.is_cut_content	Chicken
+CUT_NAME	plan_sources.is_cut_content	Chinese Assault Rifle Grip
 CUT_NAME	plan_sources.is_cut_content	Chinese Officer Sword
 CUT_NAME	plan_sources.is_cut_content	Clean Monocle
 CUT_NAME	plan_sources.is_cut_content	Cloche Hat
@@ -175,6 +227,9 @@ CUT_NAME	plan_sources.is_cut_content	Cultist High Priest Robe
 CUT_NAME	plan_sources.is_cut_content	Cultist Pickaxe
 CUT_NAME	plan_sources.is_cut_content	Cupids Bow
 CUT_NAME	plan_sources.is_cut_content	CUT 10mm
+CUT_NAME	plan_sources.is_cut_content	Cutting Board
+CUT_NAME	plan_sources.is_cut_content	Cutting Fluid
+CUT_NAME	plan_sources.is_cut_content	Cyro Coolant Battery
 CUT_NAME	plan_sources.is_cut_content	Damage curve
 CUT_NAME	plan_sources.is_cut_content	Damaged Vault Boy Head
 CUT_NAME	plan_sources.is_cut_content	Damaged Vault Girl Head
@@ -196,6 +251,7 @@ CUT_NAME	plan_sources.is_cut_content	Double-Barrel Shotgun
 CUT_NAME	plan_sources.is_cut_content	Drill
 CUT_NAME	plan_sources.is_cut_content	Drive-In Dolly Headband
 CUT_NAME	plan_sources.is_cut_content	ElectricTestingGun
+CUT_NAME	plan_sources.is_cut_content	Electrified
 CUT_NAME	plan_sources.is_cut_content	Emmett Mountain Hazmat Suit
 CUT_NAME	plan_sources.is_cut_content	Emperor
 CUT_NAME	plan_sources.is_cut_content	Enclave Colonel Hat
@@ -209,6 +265,7 @@ CUT_NAME	plan_sources.is_cut_content	Expensive Perfume
 CUT_NAME	plan_sources.is_cut_content	Expired Stimpak
 CUT_NAME	plan_sources.is_cut_content	Explosive Bait
 CUT_NAME	plan_sources.is_cut_content	Extra Crispy Scorchbeast
+CUT_NAME	plan_sources.is_cut_content	Fake Sheepsquatch Head
 CUT_NAME	plan_sources.is_cut_content	Fall Common 01
 CUT_NAME	plan_sources.is_cut_content	Fanatic Mask
 CUT_NAME	plan_sources.is_cut_content	Fancy Pump Action Shotgun
@@ -228,6 +285,7 @@ CUT_NAME	plan_sources.is_cut_content	Fishing Outfit
 CUT_NAME	plan_sources.is_cut_content	Fishing Outfit Hat
 CUT_NAME	plan_sources.is_cut_content	Flamer
 CUT_NAME	plan_sources.is_cut_content	Flamer_Moleminer
+CUT_NAME	plan_sources.is_cut_content	Flaming
 CUT_NAME	plan_sources.is_cut_content	Flapper Dress
 CUT_NAME	plan_sources.is_cut_content	Flapper Headband
 CUT_NAME	plan_sources.is_cut_content	Flapper Tiara
@@ -238,6 +296,8 @@ CUT_NAME	plan_sources.is_cut_content	Floppy Sun Hat
 CUT_NAME	plan_sources.is_cut_content	Formula Q
 CUT_NAME	plan_sources.is_cut_content	Fragmentation Grenade
 CUT_NAME	plan_sources.is_cut_content	Frame Backpack
+CUT_NAME	plan_sources.is_cut_content	Frenzy Syringe Barrel
+CUT_NAME	plan_sources.is_cut_content	Full Stock
 CUT_NAME	plan_sources.is_cut_content	Fur-Lined Jacket and Jeans
 CUT_NAME	plan_sources.is_cut_content	Fury
 CUT_NAME	plan_sources.is_cut_content	Fusion Cannon
@@ -271,15 +331,19 @@ CUT_NAME	plan_sources.is_cut_content	Head Mirror
 CUT_NAME	plan_sources.is_cut_content	Healing Cloud Infusion Tier I
 CUT_NAME	plan_sources.is_cut_content	Healing Cloud Infusion Tier II
 CUT_NAME	plan_sources.is_cut_content	Healing Cloud Infusion Tier III
+CUT_NAME	plan_sources.is_cut_content	Heating Coil
 CUT_NAME	plan_sources.is_cut_content	Helmeted Cage Armor
 CUT_NAME	plan_sources.is_cut_content	Helmeted Spike Armor
 CUT_NAME	plan_sources.is_cut_content	Herdsman's Bell
 CUT_NAME	plan_sources.is_cut_content	Homemade Nuka Cola Grenade
+CUT_NAME	plan_sources.is_cut_content	Hot Rod Hot Pink Paint
+CUT_NAME	plan_sources.is_cut_content	Hot Rod Shark Paint
 CUT_NAME	plan_sources.is_cut_content	HotRodBow
 CUT_NAME	plan_sources.is_cut_content	Hunter's Hood
 CUT_NAME	plan_sources.is_cut_content	Hunter's Pelt Outfit
 CUT_NAME	plan_sources.is_cut_content	Hunting Rifle
 CUT_NAME	plan_sources.is_cut_content	Iggy
+CUT_NAME	plan_sources.is_cut_content	Intestine
 CUT_NAME	plan_sources.is_cut_content	Invalid Item
 CUT_NAME	plan_sources.is_cut_content	Jawbone Blade
 CUT_NAME	plan_sources.is_cut_content	Jersey Devil
@@ -290,9 +354,37 @@ CUT_NAME	plan_sources.is_cut_content	Jumbo Candy Fan Mr. Fuzzy
 CUT_NAME	plan_sources.is_cut_content	JUNK
 CUT_NAME	plan_sources.is_cut_content	Junk
 CUT_NAME	plan_sources.is_cut_content	Junk Jet
+CUT_NAME	plan_sources.is_cut_content	Junk Jet JunkJet Receiver
 CUT_NAME	plan_sources.is_cut_content	Knuckles
 CUT_NAME	plan_sources.is_cut_content	Laser
 CUT_NAME	plan_sources.is_cut_content	Laser Musket
+CUT_NAME	plan_sources.is_cut_content	Laser Musket Beam Focuser
+CUT_NAME	plan_sources.is_cut_content	Laser Musket Beam Splitter
+CUT_NAME	plan_sources.is_cut_content	Laser Musket Bracketed Long Barrel
+CUT_NAME	plan_sources.is_cut_content	Laser Musket Bracketed Short Barrel
+CUT_NAME	plan_sources.is_cut_content	Laser Musket Extended Long Barrel
+CUT_NAME	plan_sources.is_cut_content	Laser Musket Extended Short Barrel
+CUT_NAME	plan_sources.is_cut_content	Laser Musket Five Crank Capacitor
+CUT_NAME	plan_sources.is_cut_content	Laser Musket Four Crank Capacitor
+CUT_NAME	plan_sources.is_cut_content	Laser Musket Full Stock
+CUT_NAME	plan_sources.is_cut_content	Laser Musket Glow Sights
+CUT_NAME	plan_sources.is_cut_content	Laser Musket Gyro Compensating Lens
+CUT_NAME	plan_sources.is_cut_content	Laser Musket Long Barrel
+CUT_NAME	plan_sources.is_cut_content	Laser Musket Long Night Vision Scope
+CUT_NAME	plan_sources.is_cut_content	Laser Musket Long Recon Scope
+CUT_NAME	plan_sources.is_cut_content	Laser Musket Long Scope
+CUT_NAME	plan_sources.is_cut_content	Laser Musket Medium Night Vision Scope
+CUT_NAME	plan_sources.is_cut_content	Laser Musket Medium Scope
+CUT_NAME	plan_sources.is_cut_content	Laser Musket Reflex Sight
+CUT_NAME	plan_sources.is_cut_content	Laser Musket Short Barrel
+CUT_NAME	plan_sources.is_cut_content	Laser Musket Short Night Vision Scope
+CUT_NAME	plan_sources.is_cut_content	Laser Musket Short Recon Scope
+CUT_NAME	plan_sources.is_cut_content	Laser Musket Short Scope
+CUT_NAME	plan_sources.is_cut_content	Laser Musket Short Stock
+CUT_NAME	plan_sources.is_cut_content	Laser Musket Six Crank Capacitor
+CUT_NAME	plan_sources.is_cut_content	Laser Musket Standard Capacitor
+CUT_NAME	plan_sources.is_cut_content	Laser Musket Standard Sights
+CUT_NAME	plan_sources.is_cut_content	Laser Musket Three Crank Capacitor
 CUT_NAME	plan_sources.is_cut_content	Lawbringer
 CUT_NAME	plan_sources.is_cut_content	Leather Cap
 CUT_NAME	plan_sources.is_cut_content	Leather Greaser Jacket
@@ -314,10 +406,23 @@ CUT_NAME	plan_sources.is_cut_content	Lion Mascot Mask
 CUT_NAME	plan_sources.is_cut_content	Lit Cigar
 CUT_NAME	plan_sources.is_cut_content	Lit Cigarette
 CUT_NAME	plan_sources.is_cut_content	Lit Stogie
+CUT_NAME	plan_sources.is_cut_content	LMG Calibrated .308 Receiver
+CUT_NAME	plan_sources.is_cut_content	LMG Calibrated .45 Receiver
+CUT_NAME	plan_sources.is_cut_content	LMG Hardened .308 Receiver
+CUT_NAME	plan_sources.is_cut_content	LMG Hardened .45 Receiver
+CUT_NAME	plan_sources.is_cut_content	LMG Refined .308 Receiver
+CUT_NAME	plan_sources.is_cut_content	LMG Refined .45 Receiver
+CUT_NAME	plan_sources.is_cut_content	LMG Severe .308 Receiver
+CUT_NAME	plan_sources.is_cut_content	LMG Severe .45 Receiver
+CUT_NAME	plan_sources.is_cut_content	LMG True .308 Receiver
+CUT_NAME	plan_sources.is_cut_content	LMG True .45 Receiver
+CUT_NAME	plan_sources.is_cut_content	LMG Vicious .308 Receiver
+CUT_NAME	plan_sources.is_cut_content	LMG Vicious .45 Receiver
 CUT_NAME	plan_sources.is_cut_content	Lucky Rabbit's Foot
 CUT_NAME	plan_sources.is_cut_content	M79 Grenade Launcher
 CUT_NAME	plan_sources.is_cut_content	Machete
 CUT_NAME	plan_sources.is_cut_content	Makeshift Ronin Helmet
+CUT_NAME	plan_sources.is_cut_content	Marine Arms Standard
 CUT_NAME	plan_sources.is_cut_content	Matzoh Ball Soup
 CUT_NAME	plan_sources.is_cut_content	Meat Hook
 CUT_NAME	plan_sources.is_cut_content	Meat Week Apron
@@ -401,15 +506,21 @@ CUT_NAME	plan_sources.is_cut_content	Pole Hook
 CUT_NAME	plan_sources.is_cut_content	Polly's Assaultron Head
 CUT_NAME	plan_sources.is_cut_content	Poodle Skirt
 CUT_NAME	plan_sources.is_cut_content	Poodle Skirt Glasses
+CUT_NAME	plan_sources.is_cut_content	Power Coupling
 CUT_NAME	plan_sources.is_cut_content	Power Fist
+CUT_NAME	plan_sources.is_cut_content	Precise Stock
 CUT_NAME	plan_sources.is_cut_content	Presidential "Power" Suit
 CUT_NAME	plan_sources.is_cut_content	Presidential Gauss Rifle
 CUT_NAME	plan_sources.is_cut_content	Pretty Floral Bouquet
+CUT_NAME	plan_sources.is_cut_content	Prime .308 Receiver
+CUT_NAME	plan_sources.is_cut_content	Prime .45 Receiver
 CUT_NAME	plan_sources.is_cut_content	Prime Gulper
 CUT_NAME	plan_sources.is_cut_content	Prime Mirelurk
 CUT_NAME	plan_sources.is_cut_content	Prime Mirelurk Hunter
 CUT_NAME	plan_sources.is_cut_content	Prime Mongrel
+CUT_NAME	plan_sources.is_cut_content	Prime Receiver
 CUT_NAME	plan_sources.is_cut_content	Pristine Pint-Sized Phantom Outfit
+CUT_NAME	plan_sources.is_cut_content	Propaganda Flyer
 CUT_NAME	plan_sources.is_cut_content	Psycho
 CUT_NAME	plan_sources.is_cut_content	Psychobuff
 CUT_NAME	plan_sources.is_cut_content	Psychotats
@@ -422,6 +533,7 @@ CUT_NAME	plan_sources.is_cut_content	Rad-Xtreme
 CUT_NAME	plan_sources.is_cut_content	RadAway
 CUT_NAME	plan_sources.is_cut_content	Radhog Stuffed Prickeye
 CUT_NAME	plan_sources.is_cut_content	Raider Branding Iron
+CUT_NAME	plan_sources.is_cut_content	Raider Guitar
 CUT_NAME	plan_sources.is_cut_content	Ranger Armor
 CUT_NAME	plan_sources.is_cut_content	Ranger Armor Advanced
 CUT_NAME	plan_sources.is_cut_content	Ranger Armor Advanced Desert
@@ -439,6 +551,8 @@ CUT_NAME	plan_sources.is_cut_content	Ranger's Helmet
 CUT_NAME	plan_sources.is_cut_content	Ranger's Uniform Helmet
 CUT_NAME	plan_sources.is_cut_content	Redcoat Hat
 CUT_NAME	plan_sources.is_cut_content	Redcoat Outfit
+CUT_NAME	plan_sources.is_cut_content	Refined .308 Receiver
+CUT_NAME	plan_sources.is_cut_content	Refined .45 Receiver
 CUT_NAME	plan_sources.is_cut_content	Refreshing Beverage
 CUT_NAME	plan_sources.is_cut_content	Responder Fire Chief Hat
 CUT_NAME	plan_sources.is_cut_content	Responder Fire Chief Outfit
@@ -464,12 +578,16 @@ CUT_NAME	plan_sources.is_cut_content	Rust Kingdom Raider Medium Armor 2
 CUT_NAME	plan_sources.is_cut_content	Rust Kingdom Raider Medium Armor 3
 CUT_NAME	plan_sources.is_cut_content	Rust Kingdom Raider Medium Armor 4
 CUT_NAME	plan_sources.is_cut_content	Scorched Grafton Monster
+CUT_NAME	plan_sources.is_cut_content	Secret Formula
 CUT_NAME	plan_sources.is_cut_content	Sentry
 CUT_NAME	plan_sources.is_cut_content	SentryBotLeftRocketLauncher
 CUT_NAME	plan_sources.is_cut_content	SentryBotRightRocketLauncher
 CUT_NAME	plan_sources.is_cut_content	Settler Mechanic Outfit
+CUT_NAME	plan_sources.is_cut_content	Shocking Heavy Sharp Rocket Sledgehammer Mod
+CUT_NAME	plan_sources.is_cut_content	Short Stock
 CUT_NAME	plan_sources.is_cut_content	Sickle
 CUT_NAME	plan_sources.is_cut_content	Sledgehammer
+CUT_NAME	plan_sources.is_cut_content	Sledgehammer Pack Colors
 CUT_NAME	plan_sources.is_cut_content	Smart Fragmentation Grenade
 CUT_NAME	plan_sources.is_cut_content	Smoke Grenade
 CUT_NAME	plan_sources.is_cut_content	Snakebite
@@ -480,12 +598,18 @@ CUT_NAME	plan_sources.is_cut_content	Soundmaker
 CUT_NAME	plan_sources.is_cut_content	Spear
 CUT_NAME	plan_sources.is_cut_content	Spike Armor
 CUT_NAME	plan_sources.is_cut_content	Spring Common 01
-CUT_NAME	plan_sources.is_cut_content	Steel Skin Infusion Tier I
-CUT_NAME	plan_sources.is_cut_content	Steel Skin Infusion Tier II
-CUT_NAME	plan_sources.is_cut_content	Steel Skin Infusion Tier III
+CUT_NAME	plan_sources.is_cut_content	Standard .308 Receiver
+CUT_NAME	plan_sources.is_cut_content	Standard .45 Receiver
+CUT_NAME	plan_sources.is_cut_content	Standard Camouflage Stock
+CUT_NAME	plan_sources.is_cut_content	Standard Grip
+CUT_NAME	plan_sources.is_cut_content	Standard Stock
+CUT_NAME	plan_sources.is_cut_content	Standard Torso Lining
+CUT_NAME	plan_sources.is_cut_content	Standard Vault-Tec Stock
 CUT_NAME	plan_sources.is_cut_content	Stimpak
 CUT_NAME	plan_sources.is_cut_content	Stimpak Extra
 CUT_NAME	plan_sources.is_cut_content	Stone Axolotl
+CUT_NAME	plan_sources.is_cut_content	Stun Pack Revolutionary Sword Mod
+CUT_NAME	plan_sources.is_cut_content	Stun Pack Super Sledge Mod
 CUT_NAME	plan_sources.is_cut_content	Submachine Gun
 CUT_NAME	plan_sources.is_cut_content	Summer01
 CUT_NAME	plan_sources.is_cut_content	Super Mutant
@@ -499,6 +623,8 @@ CUT_NAME	plan_sources.is_cut_content	T-45 Left Arm
 CUT_NAME	plan_sources.is_cut_content	T-45 Left Leg
 CUT_NAME	plan_sources.is_cut_content	T-45 Right Arm
 CUT_NAME	plan_sources.is_cut_content	T-45 Right Leg
+CUT_NAME	plan_sources.is_cut_content	T-45 Vault-Tec Paint
+CUT_NAME	plan_sources.is_cut_content	T-60 Vault-Tec Paint
 CUT_NAME	plan_sources.is_cut_content	TA 10mm
 CUT_NAME	plan_sources.is_cut_content	TA 10mm Fast
 CUT_NAME	plan_sources.is_cut_content	TA 10mm Slow
@@ -577,6 +703,8 @@ CUT_NAME	plan_sources.is_cut_content	Toxic Gin
 CUT_NAME	plan_sources.is_cut_content	Toxic Gin and Tonic
 CUT_NAME	plan_sources.is_cut_content	Toxic Gin Martini
 CUT_NAME	plan_sources.is_cut_content	Tropical Summer Pants Suit
+CUT_NAME	plan_sources.is_cut_content	True .308 Receiver
+CUT_NAME	plan_sources.is_cut_content	True .45 Receiver
 CUT_NAME	plan_sources.is_cut_content	Tulip Sky Blue Pants Suit
 CUT_NAME	plan_sources.is_cut_content	Turkey Ripper
 CUT_NAME	plan_sources.is_cut_content	Turret Machine Gun
@@ -623,6 +751,7 @@ CUT_NAME	plan_sources.is_cut_content	Vault Mission: Meltdown<Alias=DifficultyMod
 CUT_NAME	plan_sources.is_cut_content	Vault Mission: Washout<Alias=DifficultyModeLoc><Alias=RespiteZoneStateLoc>
 CUT_NAME	plan_sources.is_cut_content	Vault-Tec Fat Man
 CUT_NAME	plan_sources.is_cut_content	Vault-Tec Flamer
+CUT_NAME	plan_sources.is_cut_content	Vault-Tec Paint
 CUT_NAME	plan_sources.is_cut_content	Vault-Tec Pajamas
 CUT_NAME	plan_sources.is_cut_content	Vault-Tec Pants Suit
 CUT_NAME	plan_sources.is_cut_content	Vault-Tec Security Armor Chest Piece
@@ -662,7 +791,10 @@ CUT_NAME	plan_sources.is_cut_content	Worn RobCo Trucker Hat
 CUT_NAME	plan_sources.is_cut_content	Worn Tricentennial Trucker Hat
 CUT_NAME	plan_sources.is_cut_content	Worn VTU Trucker Hat
 CUT_NAME	plan_sources.is_cut_content	Worn WVa Trucker Hat
-CUT_NAME	prefix rule	Event: Barnyard Brawl
+CUT_NAME	plan_sources.is_cut_content	X-01 Vault-Tec Paint
+CUT_NAME	prefix rule	Automatic Receiver
+CUT_NAME	prefix rule	Rapid Automatic Receiver
+CUT_NAME	prefix rule	Standard Receiver
 CUT_NAME	prefix rule	Stunted Yao Guai
 
 # Challenges with no guide link
@@ -725,7 +857,6 @@ NO_GUIDE		Daily: Epic - Take a Camera Picture of a Hermit Crab (1)
 NO_GUIDE		Daily: Epic - Take a Camera Picture of a Honey Beast (1)
 NO_GUIDE		Daily: Epic - Take a Camera Picture of a Mirelurk King (1)
 NO_GUIDE		Daily: Epic - Travel on foot with any Pet (KM) (16)
-NO_GUIDE		Daily: Above Rank 100: Gain XP (1000)
 NO_GUIDE		Daily: Build a Bed, Table, or Stairs in a Workshop or C.A.M.P. (3)
 NO_GUIDE		Daily: Build a Decoration in a Shelter (5)
 NO_GUIDE		Daily: Build a Decoration in a Shelter in Free Cam (5)
@@ -844,7 +975,6 @@ NO_GUIDE		Daily: Cook Yao Guai Ribs (1)
 NO_GUIDE		Daily: Craft a Flower Crown (1)
 NO_GUIDE		Daily: Craft Ammo at a Workbench (50)
 NO_GUIDE		Daily: Craft an Alcoholic Beverage (1)
-NO_GUIDE		Daily: Craft an Infusion (1)
 NO_GUIDE		Daily: Craft any Flair at a Tinkerer's Bench (1)
 NO_GUIDE		Daily: Craft any Plushie at a Tinkerer's Bench (1)
 NO_GUIDE		Daily: Craft Ballistic Ammo (25)
@@ -1104,7 +1234,6 @@ NO_GUIDE		Weekly: Epic - Travel on foot with any Pet (KM) (40)
 NO_GUIDE		Weekly: Epic - Epic: Take a Camera Picture of a Glowing Cryptid (1)
 NO_GUIDE		Weekly: Epic - Epic: Take a Camera Picture of an Albino or Glowing Radstag (1)
 NO_GUIDE		Weekly: Epic - Epic: Take a Picture of the Grafton Monster While Mutated (1)
-NO_GUIDE		Weekly: Above Rank 100: Gain XP (1000)
 NO_GUIDE		Weekly: Build a Decoration in a Shelter (25)
 NO_GUIDE		Weekly: Build a Decoration in a Workshop or C.A.M.P. (25)
 NO_GUIDE		Weekly: Build a Decoration in a Workshop or C.A.M.P. in Free Cam (25)
@@ -1205,7 +1334,6 @@ NO_GUIDE		Weekly: Craft Bulk Aluminum (3)
 NO_GUIDE		Weekly: Craft Bulk Steel (3)
 NO_GUIDE		Weekly: Craft Bulk Wood (3)
 NO_GUIDE		Weekly: Craft Energy Ammo (45)
-NO_GUIDE		Weekly: Craft Infusions (4)
 NO_GUIDE		Weekly: Cripple a Deathclaw's Head (3)
 NO_GUIDE		Weekly: Cripple a Ghoul's Leg (15)
 NO_GUIDE		Weekly: Cripple a Human's Head (15)
@@ -1370,60 +1498,39 @@ NO_GUIDE		Weekly: Visit your Shelter (5)
 NO_NAMES		Daily: Epic - Catch a Disease (1)
 NO_NAMES		Daily: Epic - Claim a Workshop (3)
 NO_NAMES		Daily: Epic - Collect Caps (400)
-NO_NAMES		Daily: Epic - Gain XP with your Pet (5000)
 NO_NAMES		Daily: Epic - Hack a Terminal (3)
-NO_NAMES		Daily: Epic - Have your Pet deal damage to an Enemy (1000)
-NO_NAMES		Daily: Epic - Have your Pet kill an Enemy (10)
-NO_NAMES		Daily: Epic - Kill an Enemy while under the effects of Bubblegum (18)
 NO_NAMES		Daily: Epic - Pick a Lock (3)
 NO_NAMES		Daily: Epic - Rank up a Perk Card (3)
-NO_NAMES		Daily: Epic - Travel on foot with any Pet (KM) (16)
-NO_NAMES		Daily: Above Rank 100: Gain XP (1000)
 NO_NAMES		Daily: Buy an item from or Sell an item to another Player (1)
 NO_NAMES		Daily: Claim a Workshop (1)
 NO_NAMES		Daily: Collect Caps (100)
 NO_NAMES		Daily: Collect Gold Bullion (20)
 NO_NAMES		Daily: Collect Legendary Scrip (50)
 NO_NAMES		Daily: Collect Vertibird Fuel (100)
-NO_NAMES		Daily: Craft an Infusion (1)
-NO_NAMES		Daily: Cripple enemy limbs (6)
 NO_NAMES		Daily: Deal a Critical Hit to an Enemy in VATS (10)
 NO_NAMES		Daily: Gain XP (2500)
-NO_NAMES		Daily: Gain XP with your Pet (2500)
-NO_NAMES		Daily: Give a Command to your World Pet (3)
 NO_NAMES		Daily: Hack a Terminal (1)
-NO_NAMES		Daily: Have your Pet deal damage to an Enemy (250)
-NO_NAMES		Daily: Have your Pet kill an Enemy (5)
-NO_NAMES		Daily: Heal your Pet (2)
 NO_NAMES		Daily: Join a Team with another Player (1)
 NO_NAMES		Daily: Kill a Mutated Enemy (10)
-NO_NAMES		Daily: Kill an Enemy while under the effects of Bubblegum (7)
 NO_NAMES		Daily: Level up! (1)
 NO_NAMES		Daily: Like a Best Build C.A.M.P. (1)
 NO_NAMES		Daily: Loot Chests (10)
 NO_NAMES		Daily: Pick a Lock (1)
 NO_NAMES		Daily: Rank up a Perk Card (1)
 NO_NAMES		Daily: Travel on foot (KM) (10)
-NO_NAMES		Daily: Travel on foot with any Pet (KM) (10)
 NO_NAMES		Daily: Under Rank 25: Gain XP (1000)
 NO_NAMES		Daily: Under Rank 50: Gain XP (1000)
 NO_NAMES		Daily: Under Rank 75: Gain XP (1000)
-NO_NAMES		Daily: Use an Emote while your Pet is deployed (1)
 NO_NAMES		Daily: Use Photomode to Take a Photo (3)
 NO_NAMES		Daily: Visit a Best Build C.A.M.P. (1)
 NO_NAMES		Weekly: Epic - Claim a Workshop (6)
-NO_NAMES		Weekly: Epic - Gain XP with your Pet (12000)
 NO_NAMES		Weekly: Epic - Hack a Skill Level 3 Terminal (6)
 NO_NAMES		Weekly: Epic - Hack a Terminal (15)
-NO_NAMES		Weekly: Epic - Have your Pet deal damage to an Enemy (1000)
-NO_NAMES		Weekly: Epic - Have your Pet kill an Enemy (25)
 NO_NAMES		Weekly: Epic - Pick a Lock (15)
 NO_NAMES		Weekly: Epic - Pick Hard Locks (6)
 NO_NAMES		Weekly: Epic - Purchase Items (40)
 NO_NAMES		Weekly: Epic - Rank up a Perk Card (6)
 NO_NAMES		Weekly: Epic - Simultaneously Hold Two Workshops (2)
-NO_NAMES		Weekly: Epic - Travel on foot with any Pet (KM) (40)
-NO_NAMES		Weekly: Above Rank 100: Gain XP (1000)
 NO_NAMES		Weekly: Build up a Workshop or C.A.M.P. (5)
 NO_NAMES		Weekly: Buy an item from or Sell an item to another Player (15)
 NO_NAMES		Weekly: Claim a Workshop (3)
@@ -1432,8 +1539,6 @@ NO_NAMES		Weekly: Collect Gold Bullion (150)
 NO_NAMES		Weekly: Collect Legendary Scrip (500)
 NO_NAMES		Weekly: Collect Vertibird Fuel (300)
 NO_NAMES		Weekly: Complete an "Event in Region" Daily Challenge (5)
-NO_NAMES		Weekly: Craft Infusions (4)
-NO_NAMES		Weekly: Cripple enemy limbs (30)
 NO_NAMES		Weekly: Deal a Critical Hit to an Enemy (25)
 NO_NAMES		Weekly: Deal a Critical Hit to an Enemy in VATS (25)
 NO_NAMES		Weekly: Destroy a Car (30)
@@ -1444,18 +1549,14 @@ NO_NAMES		Weekly: Destroy a Turret (5)
 NO_NAMES		Weekly: Destroy an Assaultron (1)
 NO_NAMES		Weekly: Destroy an Eyebot (5)
 NO_NAMES		Weekly: Expeditions: Collect Stamps (5)
-NO_NAMES		Weekly: Gain XP with your Pet (7000)
 NO_NAMES		Weekly: Gather Building Supplies (5)
 NO_NAMES		Weekly: Gleaming Depths - Complete All Encounters (5)
-NO_NAMES		Weekly: Have your Pet deal damage to an Enemy (600)
-NO_NAMES		Weekly: Have your Pet kill an Enemy (15)
 NO_NAMES		Weekly: Kill a Huge Creature (3)
 NO_NAMES		Weekly: Launch a Nuke (1)
 NO_NAMES		Weekly: Level up! (3)
 NO_NAMES		Weekly: Like a Best Build C.A.M.P. (4)
 NO_NAMES		Weekly: Repeatable Under Rank 100: Gain XP (10000)
 NO_NAMES		Weekly: Travel on foot (KM) (50)
-NO_NAMES		Weekly: Travel on foot with any Pet (KM) (25)
 NO_NAMES		Weekly: Under Rank 25: Gain XP (1000)
 NO_NAMES		Weekly: Under Rank 50: Gain XP (1000)
 NO_NAMES		Weekly: Under Rank 75: Gain XP (1000)

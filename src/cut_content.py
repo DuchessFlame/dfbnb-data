@@ -99,6 +99,16 @@ CUT_PATTERNS = [
     re.compile(r"^Fish_Fishbits_Glowing$", re.IGNORECASE),  # "Glowing Fish Bits" — cut content
     re.compile(r"^Fishing_.*_Glowing$", re.IGNORECASE),
     re.compile(r"^ZZZ_Fishing_.*_Glowing", re.IGNORECASE),
+
+    # ── Infusions: unreleased content (Duchess, 17 Nov 2026) ───────────
+    # Every infusion (Fiery / Steel Skin / Healing Cloud, all tiers) and the
+    # "Craft an Infusion" / "Craft Infusions" Daily + Weekly challenges.
+    re.compile(r"MutatedEvents_.*Infusion", re.IGNORECASE),
+    re.compile(r"^SCORE_Challenge_(Daily|Weekly)_Craft_Infusions?$", re.IGNORECASE),
+
+    # ── "The Battle that Never Was" (TW009): never released. The game marks its
+    # own event challenge cut (CHAL 0043B54D). Duchess, 17 Nov 2026.
+    re.compile(r"^TW009", re.IGNORECASE),
 ]
 
 

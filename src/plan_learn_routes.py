@@ -120,7 +120,7 @@ QUEST_UNLOCK_BY_HAND = {
 #                 cut reason is kept; otherwise "cut (Duchess, <date>) — <note>".
 #   no entry   -> a tradeable plan with no source gets status_checked: false
 STATUS_PATH = os.path.join(os.path.dirname(HERE), "data", "plan_status.json")
-STATUSES = ("bugged", "unreleased", "legacy", "leave", "learnt", "cut")
+STATUSES = ("bugged", "unreleased", "legacy", "leave", "learnt", "cut", "no_source", "now_entm")
 LEGACY_OBTAIN = "No longer drops — old copies can still be traded."
 _MONTHS = ("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
 

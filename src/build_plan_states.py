@@ -50,10 +50,14 @@ import sys
 
 REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
-STATES = ("live", "bugged", "not_checked", "unreleased", "decide", "learnt", "legacy", "cut")
-CALLS = ("bugged", "unreleased", "legacy", "learnt", "cut")   # `leave` = no override
+STATES = ("live", "bugged", "not_checked", "unreleased", "decide", "learnt", "legacy", "cut",
+          "unconfirmed", "no_source", "now_entm")
+CALLS = ("bugged", "unreleased", "legacy", "learnt", "cut", "no_source", "now_entm")   # `leave` = no override
 SEV_GROUP = {"unobtainable": "unobtainable", "route_broken": "route_broken",
              "broken_item": "broken_item"}
+
+
+DEV_NAME = re.compile(r"(?i)^(zzz|zz_|cut_|del_|post_)|deprecated")
 
 
 def load(path, default=None):
@@ -114,6 +118,8 @@ def decide_row(it, call, bug, parked_names):
                 "legacy": "no longer drops — old copies can still be traded",
                 "learnt": "learnt in game, so there is no plan to find",
                 "cut": "cut content",
+                "no_source": "not cut, but nothing in the game files gives it out",
+                "now_entm": "it used to be a plan; now it's unlocked another way (Atom Shop / entitlement)",
             }[st]
             return st, why, by, note
     # 2. cut in the files (and 4. spare / duplicate / unused copies, also cut)
@@ -153,6 +159,8 @@ def main(argv=None):
     ap.add_argument("--status", default=os.path.join(REPO, "data", "plan_status.json"))
     ap.add_argument("--bugged", default=os.path.join(REPO, "dist", "bugged_plans.json"))
     ap.add_argument("--out", default=os.path.join(REPO, "dist", "plan_states.json"))
+    ap.add_argument("--review", default=os.path.join(REPO, "data", "plan_review.json"),
+                    help="the Unconfirmed queue: plans being checked one by one (daily review)")
     ap.add_argument("--dates", default=os.path.join(REPO, "data", "legacy_dates.json"),
                     help="hand dates for when legacy plans left the game")
     a = ap.parse_args(argv)
@@ -164,6 +172,7 @@ def main(argv=None):
     if bugged.get("channel") not in (None, "live"):
         sys.exit("[plan_states] bugged_plans.json is not the live list")
     bug_by_id = {x["id"].upper(): x for x in bugged.get("items", [])}
+    queue = {k.upper(): v for k, v in ((load(a.review, {}) or {}).get("plans") or {}).items()}
     parked_names = {}
     for p in bugged.get("parked_lists", []):
         for n in p.get("plans", []):
@@ -177,6 +186,23 @@ def main(argv=None):
         call = status.get(fid)
         bug = bug_by_id.get(fid)
         st, why, by, note = decide_row(it, call, bug, parked_names)
+        # Duchess, 17 Nov 2026: "Now Unlocked Another Way" only while the old plan's name is
+        # still clean. Once the files mark it zzz / CUT / DEL / POST / DEPRECATED it becomes
+        # legacy if the plan ever dropped (call "dropped": true), otherwise it goes back to
+        # Unconfirmed for her call.
+        if st == "now_entm" and DEV_NAME.search(book_edid(it) or (call or {}).get("edid") or ""):
+            if (call or {}).get("dropped"):
+                st, why, by = "legacy", "no longer drops — old copies can still be traded", "rule: now unlocked another way, plan now cut"
+            else:
+                st, why, by = ("unconfirmed", "it's now unlocked another way and the old plan is now marked cut in the "
+                               "files, but it never dropped — waiting on the Duchess's call", "rule: now unlocked another way, plan now cut")
+        rq = queue.get(fid)
+        if rq and st not in ("bugged", "not_checked") and \
+                (not call or (call.get("decided") or "") < (rq.get("added") or "")):
+            st, why, by = "unconfirmed", rq.get("why") or "being checked", "plan_review.json"
+            rv = rq.get("review") or {}
+            note = (f"Checked {nice_date(rv['checked'])}: looks like {rv['suggest'].replace('_', ' ')}. "
+                    + (rv.get("evidence") or "")) if rv.get("suggest") and rv.get("checked") else ""
         row = {
             "name": it.get("name") or fid,
             "kind": "recipe" if it.get("recipe_only") else "plan",
@@ -218,12 +244,14 @@ def main(argv=None):
 
     # the Duchess's calls on plans plan_master doesn't hold (BOOKs dropped upstream)
     for fid, call in status.items():
-        if fid in plans or call.get("status") not in ("unreleased", "learnt", "legacy"):
+        if fid in plans or call.get("status") not in ("unreleased", "learnt", "legacy", "no_source", "now_entm"):
             continue
         plans[fid] = {"name": call.get("name") or fid, "kind": "plan", "edid": call.get("edid") or "",
                       "state": call["status"], "by": call.get("by") or "Duchess",
                       "why": {"unreleased": "never released — in the game files, but nothing gives it out",
-                              "legacy": "no longer drops — old copies can still be traded"}.get(
+                              "legacy": "no longer drops — old copies can still be traded",
+                              "no_source": "not cut, but nothing in the game files gives it out",
+                              "now_entm": "it used to be a plan; now it's unlocked another way (Atom Shop / entitlement)"}.get(
                                  call["status"], "learnt in game, so there is no plan to find"),
                       "note": call.get("note") or "",
                       "call": {k: call[k] for k in ("status", "decided", "by") if call.get(k)}}
@@ -239,6 +267,9 @@ def main(argv=None):
         "fixed": [f["id"].upper() for f in sorted(fixed, key=lambda f: sort_key(f["name"]))],
         "unreleased": [],
         "legacy": [],
+        "unconfirmed": [],
+        "no_source": [],
+        "now_entm": [],
     }
     for fid, r in sorted(plans.items(), key=lambda kv: sort_key(kv[1]["name"])):
         if r["state"] == "not_checked":
@@ -248,6 +279,8 @@ def main(argv=None):
             page["bugged"][SEV_GROUP.get(sev, "unobtainable")].append(fid)
         elif r["state"] in ("unreleased", "decide") or (r["state"] == "learnt" and r["kind"] == "plan"):
             page["unreleased"].append(fid)
+        elif r["state"] in ("unconfirmed", "no_source", "now_entm"):
+            page[r["state"]].append(fid)
         elif r["state"] == "legacy" and re.fullmatch(r"[0-9A-F]{8}", fid):
             page["legacy"].append(fid)   # NW reward rows (icons, frames) stay off the page
 
@@ -301,7 +334,8 @@ def main(argv=None):
         "counts": {s: counts.get(s, 0) for s in STATES},
         "page_counts": {"bugged": sum(len(v) for v in page["bugged"].values()),
                         "fixed": len(page["fixed"]), "unreleased": len(page["unreleased"]),
-                        "legacy": len(page["legacy"])},
+                        "legacy": len(page["legacy"]), "unconfirmed": len(page["unconfirmed"]),
+                        "no_source": len(page["no_source"]), "now_entm": len(page["now_entm"])},
         "page": page,
         "fixed": {f["id"].upper(): {"name": f["name"], "fixed_on": f.get("fixed_on") or ""} for f in fixed},
         "plans": plans,

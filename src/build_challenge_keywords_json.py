@@ -73,6 +73,9 @@ COUNTER_TSV = os.path.join(ROOT, "tsv", "challenge_counter_targets.tsv")
 NAMES_TSV = os.path.join(ROOT, "tsv", "challenge_name_overrides.tsv")
 GUIDE_MAP_TSV = os.path.join(ROOT, "tsv", "challenge_guide_map.tsv")
 SITUATIONS_TSV = os.path.join(ROOT, "tsv", "challenge_situations.tsv")
+HIDE_TSV = os.path.join(ROOT, "tsv", "challenge_finder_hide.tsv")
+COUNTER_LINES_TSV = os.path.join(ROOT, "tsv", "challenge_counter_lines.tsv")
+PET_TYPES_JSON = os.path.join(ROOT, "dist", *(["pts"] if PTS else []), "world_pet_types.json")
 
 TYPES = ["Daily", "Weekly"]
 
@@ -115,7 +118,240 @@ CNDF = {}                         # fid -> [cond strings]
 COBJ = {}                         # COBJ fid -> (created edid, created name)
 NPC_RACE = {}                     # npc fid -> race fid
 NPC_NAME = {}                     # npc fid -> (edid, name or template name)
+RECIPES = defaultdict(list)       # created ALCH fid -> [[(ingredient edid, qty)], ...] (cooking bench)
+ITEM_NAME = {}                    # item / component EDID -> in-game name
+WORLD_PETS = []                   # World Pet species names (Cat, Dog ...)
+HIDE = set()                      # challenge EDIDs left off the finder
+COUNTER_LINES = defaultdict(list) # stat counter (lower) -> [(group, text)]
+MENU = {}                         # Workshop2 category keyword EDID -> [recipe fids] (game's build menu)
+MENU_PATH = {}                    # Workshop2 keyword EDID -> "Defense > Turrets"
+COBJ_CNAM = {}                    # recipe fid -> (CNAM fid, CNAM edid, CNAM name)
+MENU_MAX = 300                    # bigger than this -> "anything from the X tab" line instead of a list
 SOURCES = {}
+
+
+def load_item_names():
+    """EDID -> in-game name for recipe ingredients (food, junk, components)."""
+    out = {}
+    for pat, ecol, ncol in (("ALCH_Export_*.tsv", "ALCH_EDID", "FULL"),
+                            ("MISC_Export_*.tsv", "EDID", "FULL"),
+                            ("CMPO_Export_*.tsv", "CMPO_EDID", "FULL")):
+        p = tsv_source.newest(pat, channel=CHANNEL, required=False,
+                              exclude=("_Effects", "_Refs", "_Entries", "_Locations"))
+        if not p:
+            continue
+        SOURCES.setdefault("ingredientNames", []).append(os.path.basename(p))
+        for r in read_tsv(p):
+            e, n = (r.get(ecol) or "").strip(), (r.get(ncol) or "").strip()
+            for part in (r.get("MCQP") or "").split("|"):   # junk -> components it scraps into
+                comp = part.split(":")[0].strip()
+                if comp and e and n and not e.lower().startswith(("miscmod", "zzzmiscmod", "debug")):
+                    SCRAPS_INTO[comp].add((e, n))
+            if e and n and e not in out:
+                out[e] = n
+    return out
+
+
+def load_world_pets():
+    """World Pet species, from the World Pets page data (built from the game's skin actors)."""
+    path = PET_TYPES_JSON if os.path.exists(PET_TYPES_JSON) else os.path.join(ROOT, "dist", "world_pet_types.json")
+    try:
+        d = json.load(open(path, encoding="utf-8"))
+    except (OSError, ValueError):
+        print("  [WARN] world_pet_types.json not found -- pet lists skipped", file=sys.stderr)
+        return
+    SOURCES["worldPets"] = os.path.relpath(path, ROOT).replace("\\", "/")
+    WORLD_PETS[:] = sorted({(s.get("name") or "").strip() for s in d.get("species") or [] if s.get("name")})
+
+
+def load_build_menu():
+    """The game's own CAMP build menu (misc/workshop/workshop.json, pulled by
+    extract_workshop_menu.py) -> which recipes sit under each Workshop2 tab."""
+    p = (tsv_source.newest("WORKSHOP_Export_*.json", channel=CHANNEL, required=False)
+         or tsv_source.newest("WORKSHOP_Export_*.json", channel="live", required=False))
+    if not p:
+        print("  [WARN] no WORKSHOP_Export -- build-menu tabs stay as names", file=sys.stderr)
+        return
+    SOURCES["buildMenu"] = os.path.basename(p)
+    kp = tsv_source.newest("KYWD_Export_*.tsv", channel=CHANNEL, exclude=["_Refs"], required=False)
+    if kp:
+        for r in read_tsv(kp):
+            e = (r.get("EDID") or "").strip()
+            if e.startswith("Workshop2_"):
+                KW_FULL[e] = (r.get("FULL_Name") or "").strip()
+    for cat in json.load(open(p, encoding="utf-8")):
+        m = cat["CategoryKeyword"]["FormEditorID"]
+        for sub in cat.get("SubCategories") or []:
+            se = sub["CategoryKeyword"]["FormEditorID"]
+            fids = ["%08X" % int(r["FormID"]) for r in sub.get("Recipes") or []]
+            MENU.setdefault(se, []).extend(fids)
+            MENU.setdefault(m, []).extend(fids)
+            MENU_PATH[se] = (m, se)
+            MENU_PATH.setdefault(m, (m, ""))
+
+    # Names for recipes that place a leveled list (traps) or a leveled turret.
+    need = {COBJ_CNAM[f][0] for fl in MENU.values() for f in fl
+            if f in COBJ_CNAM and not COBJ_CNAM[f][2]}
+    LL_KIDS.clear()
+    p = tsv_source.newest("LVLI_Export_*_LVLI_Entries.tsv", channel=CHANNEL, required=False)
+    if p:
+        for r in read_tsv(p):
+            lf = (r.get("LVLI_FormID") or "").strip().upper()
+            if lf in need:
+                ref = (r.get("LVLO_Reference") or "").split(":")
+                if len(ref) >= 3:
+                    LL_KIDS[lf].append((ref[0].upper(), ref[1], ref[2]))
+    p = tsv_source.newest("ACTI_Export_*_ACTI.tsv", channel=CHANNEL, required=False)
+    if p:
+        for r in read_tsv(p):
+            OBJ_NAME[(r.get("ACTI_FormID") or "").strip().upper()] = (
+                (r.get("ACTI_EDID") or "").strip(), (r.get("ACTI_FULL") or "").strip())
+    for fid, (e, n) in NPC_NAME.items():
+        if n:
+            NPC_BY_EDID.setdefault(e.lower(), n)
+
+
+LL_KIDS = defaultdict(list)       # LVLI fid -> [(fid, edid, sig)]
+MGEF_ITEMS = defaultdict(list)    # MGEF fid -> [(ALCH fid, edid, name)] that apply it
+SCRAPS_INTO = defaultdict(set)    # component EDID -> {(MISC edid, name)} whose scrap data (MCQP) gives it
+KW_FULL = {}                      # Workshop2 keyword EDID -> in-game tab name
+OBJ_NAME = {}                     # ACTI fid -> (edid, name)
+NPC_BY_EDID = {}                  # npc edid (lower) -> name
+
+
+def recipe_names(recipe_fid):
+    """In-game name(s) of what one build-menu recipe places."""
+    cf, ce, cn = COBJ_CNAM.get(recipe_fid, ("", "", ""))
+    if cn:
+        n = clean_name(cn, ce, cf, "COBJ")
+        return {n} if n else set()
+    out = set()
+    for kf, ke, ks in LL_KIDS.get(cf, []):          # workshop_LL_* -> each object
+        e, n = OBJ_NAME.get(kf, (ke, ""))
+        n = clean_name(n, e, kf, ks)
+        if n:
+            out.add(n)
+    m = re.search(r"LChar_(Turret)(.*)$", ce or "")  # leveled turret -> the Workshop turret NPC
+    if m:
+        tail = m.group(2).replace("_", "")
+        for cand in ("WorkshopTurret" + tail, "WorkshopTurretTripod" + tail):
+            if NPC_BY_EDID.get(cand.lower()):
+                out.add(NPC_BY_EDID[cand.lower()])
+                break
+    return out
+
+
+def menu_names(kw_edid):
+    """Every name in a build-menu tab, or None when any recipe in it can't be
+    named from the exports (then the page names the tab instead of a part-list)."""
+    names = set()
+    for f in MENU.get(kw_edid, []):
+        n = recipe_names(f)
+        if not n:
+            return None
+        names |= n
+    return names
+
+
+def load_counter_lines():
+    for r in read_edit_tsv(COUNTER_LINES_TSV):
+        k, g, t = ((r.get(x) or "").strip() for x in ("counter", "group", "text"))
+        if k and t and g in ("target", "also"):
+            COUNTER_LINES[k.lower()].append((g, t))
+
+
+COUNTER_LINES_TSV = os.path.join(ROOT, "tsv", "challenge_counter_lines.tsv")
+COUNTER_LINES = defaultdict(list) # stat counter (lower) -> [(group, text)]
+
+
+def load_counter_lines():
+    for r in read_edit_tsv(COUNTER_LINES_TSV):
+        k, g, t = ((r.get(x) or "").strip() for x in ("counter", "group", "text"))
+        if k and t and g in ("target", "also"):
+            COUNTER_LINES[k.lower()].append((g, t))
+
+
+def live_actor(edid, fid):
+    """Lighter than clean_name: unique NPCs (_NPC_) and templates are real here;
+    only cut, QA and test records are dropped."""
+    return not cut_reason(edid, fid, "NPC_") and not re.search(r"(^QA_|_Test(?:_|$)|^Test|AnimTest)", edid or "", re.I)
+
+
+CAPS_VENDORS = set()              # NPC vendors whose vendor faction trades in Caps
+
+
+def load_vendors():
+    """NPC2_Vendors export: vendor factions (with currency) and who holds them."""
+    fp = tsv_source.newest("NPC2_Vendors_*_Factions.tsv", channel=CHANNEL, required=False)
+    pp = tsv_source.newest("NPC2_Vendors_*_FactionsPlacements.tsv", channel=CHANNEL, required=False)
+    if not fp or not pp:
+        return
+    SOURCES["vendors"] = os.path.basename(pp)
+    cur = {(r.get("Faction_FormID") or "").strip().upper(): (r.get("Currency_EDID") or "").strip()
+           for r in read_tsv(fp)}
+    for r in read_tsv(pp):
+        if (r.get("Holder_Sig") or "").strip() != "NPC_":
+            continue
+        if cur.get((r.get("Faction_FormID") or "").strip().upper()) != "Caps001":
+            continue
+        e = (r.get("Holder_EDID") or "").strip()
+        n = (r.get("Holder_FULL") or "").strip()
+        if n and live_actor(e, (r.get("Holder_FormID") or "").strip()):
+            CAPS_VENDORS.add(n)
+
+
+HUMAN_GROUPS = {}                 # race fid -> {group name}: actor-type keywords its NPCs carry
+_GROUP_SKIP = re.compile(r"^ActorType(Human|NPC|BossType|DiseaseCarrier)$")
+
+
+def load_race_groups():
+    """Group names for a race-only condition (GetIsRace HumanRace): the
+    ActorType* keywords carried by that race's named NPCs, e.g. Blood Eagle."""
+    by = defaultdict(lambda: defaultdict(set))
+    for kw, refs in KW_REFS.items():
+        if not kw.startswith("ActorType") or _GROUP_SKIP.match(kw):
+            continue
+        for sig, fid, edid, name in refs:
+            if sig == "NPC_" and name and live_actor(edid, fid):
+                by[NPC_RACE.get(fid, "")][kw].add(name)
+    for race, kws in by.items():
+        out = set()
+        for kw, names in kws.items():
+            if len(names) < 1:
+                continue
+            g = re.sub(r"(Generic|Unique|Friendly|Combatant|_Friendly)$", "", kw[len("ActorType"):])
+            g = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", g).replace(" of ", " of ").replace("_", " ").strip()
+            g = re.sub(r"\bof\b", "of", re.sub(r"(?<=[a-z])of(?=[A-Z ])", " of", g))
+            if g:
+                out.add(g)
+        HUMAN_GROUPS[race] = out
+
+
+def is_npc_vendor_challenge(full):
+    """'... to a Non Player Vendor' / '... NPC vendor' -- not a player's vending machine."""
+    f = full.lower().replace("non player", "npc").replace("non-player", "npc")
+    return "vendor" in f and "player" not in f and "vending" not in f
+
+
+def load_hidden():
+    for r in read_edit_tsv(HIDE_TSV):
+        e = (r.get("edid") or "").strip()
+        if e:
+            HIDE.add(e)
+
+
+def ingredient_names(alch_fid):
+    """'Mirelurk Meat (2)' style lines for every cooking recipe that makes this dish."""
+    out = set()
+    for parts in RECIPES.get(alch_fid, []):
+        for edid, qty in parts:
+            n = ITEM_NAME.get(edid) or ITEM_NAME.get(re.sub(r"^c_", "", edid)) or ""
+            if not n and edid.lower().startswith("c_"):
+                n = edid[2:].replace("_", " ").title()
+            n = clean_name(n, edid)
+            if n:
+                out.add(f"{n} ({qty})" if qty and qty != "1" else n)
+    return out
 
 
 def load_exports():
@@ -153,6 +389,33 @@ def load_exports():
         for r in read_tsv(p):
             COBJ[(r.get("COBJ_FormID") or "").strip().upper()] = (
                 (r.get("CNAM_EDID") or "").strip(), (r.get("CNAM_FULL") or "").strip())
+            COBJ_CNAM[(r.get("COBJ_FormID") or "").strip().upper()] = (
+                (r.get("CNAM_FormID") or "").strip().upper(),
+                (r.get("CNAM_EDID") or "").strip(), (r.get("CNAM_FULL") or "").strip())
+            # Cooking-bench recipes -> the ingredients a "Cook <dish>" challenge uses.
+            if "Cooking" in (r.get("BNAM_EDID") or "") and not cut_content.is_cut(r.get("COBJ_EDID") or ""):
+                parts = []
+                for bit in (r.get("FVPA") or "").split("|"):
+                    b = bit.split(":")
+                    if len(b) >= 2 and b[0].strip():
+                        parts.append((b[0].strip(), b[1].strip()))
+                if parts:
+                    RECIPES[(r.get("CNAM_FormID") or "").strip().upper()].append(parts)
+        ITEM_NAME.update(load_item_names())
+    p = tsv_source.newest("ALCH_Export_*_Effects.tsv", channel=CHANNEL, required=False)
+    if p:
+        SOURCES["itemEffects"] = os.path.basename(p)
+        alch_full = {}
+        ap = tsv_source.newest("ALCH_Export_*.tsv", channel=CHANNEL, required=False,
+                               exclude=("_Effects", "_Refs", "_Entries"))
+        if ap:
+            for r in read_tsv(ap):
+                alch_full[(r.get("ALCH_FormID") or "").strip().upper()] = (r.get("FULL") or "").strip()
+        for r in read_tsv(p):
+            mf = (r.get("MGEF_FormID") or "").strip().upper()
+            af = (r.get("ALCH_FormID") or "").strip().upper()
+            if mf and af and alch_full.get(af):
+                MGEF_ITEMS[mf].append((af, (r.get("ALCH_EDID") or "").strip(), alch_full[af]))
 
     p = tsv_source.newest("NPC_Export_*.tsv", channel=CHANNEL, required=False)
     if p:
@@ -242,7 +505,7 @@ def cut_reason(edid, fid="", sig=""):
     f = (fid or "").strip().upper()
     if e and plan_sources.is_cut_content(e, live_records=True):
         return "plan_sources.is_cut_content"
-    if e and sig in ITEM_SIGS and cut_content.is_cut(e):
+    if e and (sig in ITEM_SIGS or sig in ("CHAL", "QUST")) and cut_content.is_cut(e):
         return "cut_content.is_cut"
     if e and spin.is_cut(e):
         return "prefix rule"
@@ -285,7 +548,14 @@ GEAR_SIGS = {"WEAP", "ARMO"}
 # group keys, in page order, and their plain labels
 GROUPS = OrderedDict([
     ("target", "What counts"),
+    ("pet", "Pets that count"),
+    ("ingredient", "Ingredients"),
+    ("scrap", "Junk that scraps into it"),
+    ("effect_items", "Items that give the effect"),
+    ("group", "Groups of that race"),
+    ("vendor", "NPC vendors (caps)"),
     ("weapon", "Weapons that count"),
+    ("mod", "Weapon mods that count"),
     ("worn", "What to wear"),
     ("during", "When it counts"),
     ("where", "Where it counts"),
@@ -380,6 +650,11 @@ def leaf_conditions(conds, seen=None):
         c = parse(raw)
         if not c:
             continue
+        if (c["func"] == "IsTrueForConditionForm" and c["ref"] and is_plain_true(c)
+                and re.search(r"^WorldPets_.*CheckPetActive.*IsPet", c["ref"][0], re.I)):
+            # "any World Pet is out" -- the form holds no pet list, so name the species.
+            out.append(dict(c, func="_WorldPetActive"))
+            continue
         if c["func"] == "IsTrueForConditionForm" and c["ref"] and c["ref"][3] in CNDF and is_plain_true(c):
             fid = c["ref"][3]
             if fid in seen:
@@ -398,6 +673,10 @@ _COOKED = re.compile(r"Cooked|Tasty|Gourmet|Soup|Stew|Juice|Tea$|Cobbler|Jam|Rel
 _COOKED_NAME = re.compile(r"\b(Tea|Soup|Stew|Salad|Pickled|Preserved|Ham|Beans|Noodle|Oil|Feed|Juice|Pie|"
                           r"InstaMash|Cup)\b", re.I)
 HARVEST = {"on": False}
+EXTRA = defaultdict(set)          # extra groups gathered while resolving (mods ...)
+SCRAPPING = {"on": False}         # "Components Added": list the junk that scraps into the component
+COOKING = {"on": False}           # a "Cook <dish>" challenge: list the dish's ingredients
+ING = {}                          # dish name -> {ingredient lines}
 
 
 def keyword_names(kw_edid, sigs):
@@ -469,7 +748,13 @@ def resolve(c, label, used_keywords):
 
     if func in ("IsFalloutWorlds",):
         return None
+    if func == "_WorldPetActive":
+        return ("pet", set(WORLD_PETS)) if WORLD_PETS else (miss() or None)
     sit = situation_text(c)
+    if func == "HasActiveMagicEffect" and ref and ref[2] == "MGEF" and is_plain_true(c):
+        items = {clean_name(n, e, f, "ALCH") for f, e, n in MGEF_ITEMS.get(ref[3], [])} - {""}
+        if items:   # the items in the game that give this effect
+            EXTRA["effect_items"] |= items
     if sit:
         return ("also", {sit})
     if not is_plain_true(c):
@@ -490,6 +775,11 @@ def resolve(c, label, used_keywords):
             miss(); return None
         if rec == "WEAP" and not target:
             return ("weapon", {n})
+        if rec == "CMPO" and SCRAPPING["on"] and SCRAPS_INTO.get(edid):
+            EXTRA["scrap"] |= {clean_name(jn, je, "", "MISC") for je, jn in SCRAPS_INTO[edid]
+                               if not jn.lower().startswith("scrap this")} - {""}
+        if rec == "ALCH" and COOKING["on"] and RECIPES.get(fid):
+            ING[n] = ingredient_names(fid)
         return ("target", {n})
 
     if func == "GetIsRace":
@@ -499,6 +789,9 @@ def resolve(c, label, used_keywords):
     if func in ("GetIsClass", "GetInFaction"):
         n = re.sub(r"\s+Faction$", "", ref_name(ref))
         return ("narrow", {n}) if n else (miss() or None)
+
+    if func == "HasActiveMagicEffect" and EXTRA.get("effect_items"):
+        return ("also", {"While under the effect of " + (name or edid)})
 
     if func == "HasKeyword" and target:
         used_keywords.add(edid)
@@ -512,6 +805,11 @@ def resolve(c, label, used_keywords):
     if func in ("WornHasKeyword", "WornInOrOutOfPowerArmorHasKeyword", "CHAL_DoesTargetWeaponHaveKeyword"):
         used_keywords.add(edid)
         weap = keyword_names(edid, {"WEAP"})
+        mods = {n for n in keyword_names(edid, {"OMOD"}) if not re.search(r"TEMPLATE|PARENT|Custom Name", n, re.I)}
+        if not re.search(r"Damage$", edid):   # ma_* / WeaponType* refs on mods = mods that FIT, not mods that ADD
+            mods = set()
+        if mods:   # a weapon mod that adds the damage keyword makes any weapon it fits count
+            EXTRA["mod"] |= mods
         if weap:
             return ("weapon", weap)
         armo = keyword_names(edid, {"ARMO"})
@@ -519,8 +817,15 @@ def resolve(c, label, used_keywords):
             return ("worn", armo)
         miss(); return None
 
-    if func == "CHAL_IsTargetWorkshopRecipeInCategory":
+    if func in ("CHAL_IsTargetWorkshopRecipeInCategory", "IsTargetWorkshopRecipeInCategory"):
         n = clean_name(name)                # the build-menu category ("Wall Decor")
+        if edid in MENU:                    # Workshop2 tab -> everything built from it
+            names = menu_names(edid)
+            if names and len(names) <= MENU_MAX:
+                return ("target", names)
+            main, sub = MENU_PATH.get(edid, ("", ""))
+            tab = " > ".join(clean_name(KW_FULL.get(x, "")) or x.split("_")[-1] for x in (main, sub) if x)
+            return ("target", {f"Anything from the {tab} tab of the build menu"})
         return ("target", {n}) if n else (miss() or None)
 
     if func == "CHAL_IsTargetWorkshopRecipe":
@@ -668,6 +973,9 @@ def challenge_rows(items, ctype, stats):
         full = (it.get("full") or it.get("name") or "").strip()
         if not full or full.upper() == "NONE":
             continue
+        if edid in HIDE:
+            stats["hiddenChallenges"].append(f"{ctype}: {full} [{edid}]")
+            continue
         why = "challenges.json is_cut" if it.get("is_cut") else cut_reason(edid, it.get("form_id"), "CHAL")
         if why:
             stats["cutChallenges"].append((why, full, edid))
@@ -682,10 +990,21 @@ def challenge_rows(items, ctype, stats):
         used_kw = set()
         groups = defaultdict(set)
         HARVEST["on"] = "harvest" in str(it.get("snam") or "").lower()
+        SCRAPPING["on"] = str(it.get("snam") or "").strip().lower() == "components added"
+        COOKING["on"] = bool(re.match(r"(Epic - )?Cook\b", full, re.I))
+        ING.clear()
+        EXTRA.clear()
         for c in leaf_conditions(it.get("conditions") or []):
             r = resolve(c, f"{ctype}: {label}", used_kw)
             if r:
                 groups[r[0]] |= r[1]
+        for k, v in EXTRA.items():
+            groups[k] |= v
+        if len(ING) == 1:
+            groups["ingredient"] |= next(iter(ING.values()))
+        elif ING:   # more than one dish counts: one line per dish
+            for dish, parts in ING.items():
+                groups["ingredient"].add(f"{dish}: " + ", ".join(sorted(parts, key=str.lower)))
         # Actor conditions are AND-ed: "Blood Eagle keyword AND (Human or Ghoul
         # race)" means Blood Eagles, not every human. Keyword + race -> the
         # keyword's actors of those races; a faction / class names the target on
@@ -707,6 +1026,16 @@ def challenge_rows(items, ctype, stats):
             groups["target"] |= narrow
         elif races and not kws and not groups.get("target"):
             groups["target"] |= {n for _, n in races}
+        if not any(groups.values()):
+            for g, t in COUNTER_LINES.get(str(it.get("snam") or "").strip().lower(), []):
+                groups[g].add(t)
+        sn = str(it.get("snam") or "").strip()
+        if sn in ("Vendor Items Sold", "Vendor Items Purchased") and is_npc_vendor_challenge(full):
+            groups["vendor"] |= CAPS_VENDORS
+        if races and not kws and not narrow:
+            for rf, _ in races:
+                if HUMAN_GROUPS.get(rf):
+                    groups["group"] |= HUMAN_GROUPS[rf]
         if not groups.get("target"):
             for kw in COUNTER.get(str(it.get("snam") or "").strip().lower(), []):
                 used_kw.add(kw)
@@ -715,6 +1044,7 @@ def challenge_rows(items, ctype, stats):
         row = rows.get(label)
         if not row:
             row = rows[label] = {"label": label, "name": name, "required": req, "epic": epic,
+                                 "stat": str(it.get("snam") or "").strip(),
                                  "_groups": defaultdict(set), "_guides": [], "_kw": set()}
         for k, v in groups.items():
             row["_groups"][k] |= v
@@ -743,8 +1073,11 @@ def challenge_rows(items, ctype, stats):
             stats["noGuides"].append(f"{ctype}: {label}")
         if not groups:
             stats["noNames"].append(f"{ctype}: {label}")
-        out.append({"label": label, "name": row["name"], "required": row["required"],
-                    "epic": row["epic"], "groups": groups, "guides": guides})
+        rec = {"label": label, "name": row["name"], "required": row["required"],
+               "epic": row["epic"], "groups": groups, "guides": guides}
+        if not groups and row.get("stat") and row["stat"].upper() != "NONE":
+            rec["stat"] = row["stat"]      # page: "counted by the game's X stat, no other condition"
+        out.append(rec)
     out.sort(key=lambda r: (r["label"].lower()))
     return out
 
@@ -762,8 +1095,14 @@ def main():
     load_guides()
     load_guide_map()
     load_situations()
+    load_world_pets()
+    load_hidden()
+    load_build_menu()
+    load_counter_lines()
+    load_vendors()
+    load_race_groups()
 
-    stats = {"hidden": 0, "noGuides": [], "noNames": [], "cutChallenges": []}
+    stats = {"hidden": 0, "noGuides": [], "noNames": [], "cutChallenges": [], "hiddenChallenges": []}
     out = OrderedDict()
     for t in TYPES:
         pl = pages.get(t.lower()) or {}
@@ -785,6 +1124,7 @@ def main():
             **SOURCES,
             **CUT_SOURCES,
             "cutChallengesDropped": len(stats["cutChallenges"]),
+            "hiddenChallenges": len(stats["hiddenChallenges"]),
             "cutNamesDropped": len(set().union(*CUT_REMOVED.values())) if CUT_REMOVED else 0,
             "counts": {t: len(out[t]) for t in TYPES},
             "withoutGuides": len(stats["noGuides"]),
@@ -806,6 +1146,9 @@ def main():
         f.write("\n# Cut challenges left out of the dropdowns (source\tname [EDID])\n")
         for why, full, edid in sorted(stats["cutChallenges"]):
             f.write(f"CUT_CHALLENGE\t{why}\t{full} [{edid}]\n")
+        f.write("\n# Challenges hidden by tsv/challenge_finder_hide.tsv\n")
+        for l in stats["hiddenChallenges"]:
+            f.write(f"HIDDEN\t\t{l}\n")
         f.write("\n# Cut records left out of the lists (source\tname)\n")
         for why, names in sorted(CUT_REMOVED.items()):
             for n in sorted(names, key=str.lower):
