@@ -1,0 +1,27 @@
+# Challenge Keyword Finder - stat counters -> actor keywords (hand-kept, edit freely).
+# Some challenges have no conditions at all: the game counts them with a stat counter
+# (the CHAL SNAM, e.g. "Deathclaws Killed"). Fallout76.exe holds the stat list
+# (sStat<X>Killed) next to a matching keyword list (ActorType<X>_DO), checked
+# 17 Nov 2026 against live (Oct 23) and PTS (Nov 14) exes - the "note" says which
+# pair proves each row. Only used when the challenge has no target condition of
+# its own. Keywords comma-separated, exact KYWD EDIDs.
+counter	keywords	note
+Canines Killed	ActorTypeFeralDog	PROVEN two ways (17 Nov 2026): (1) the game's own live lifetime challenge 'Kill a Canine' (Challenge_Lifetime_Kill_Animals_SUB_Canine, CHAL 0043AD21) tests HasKeyword ActorTypeFeralDog [KYWD:0002CB97]; (2) the engine's dog default object KeywordActorTypeDog_DO (DFOB 0007CB51; exe text 'This identifies an actor that is a dog.') points at ActorTypeFeralDog, not ActorTypeDog. Was ActorTypeDog until then.
+Deathclaws Killed	ActorTypeDeathclaw	exe pair sStatDeathclawsKilled / ActorTypeDeathclaw_DO
+Molerats Killed	ActorTypeMolerat	exe pair sStatMoleratsKilled / ActorTypeMolerat_DO
+Mirelurks Killed	ActorTypeMirelurk	exe pair sStatMirelurksKilled / ActorTypeMirelurk_DO
+Mole Miners Killed	ActorTypeMoleMiner	exe pair sStatMoleMinersKilled / ActorTypeMoleMiner_DO
+Scorched Killed	ActorTypeScorched	exe pair sStatScorchedKilled / ActorTypeScorched_DO
+Super Mutants Killed	ActorTypeSuperMutant	exe pair sStatSuperMutantsKilled / ActorTypeSuperMutant_DO
+Feral Ghouls Killed	ActorTypeFeralGhoul	exe pair sStatFeralGhoulsKilled / ActorTypeFeralGhoul_DO
+Snallygasters Killed	ActorTypeSnallygaster	exe pair sStatSnallygastersKilled / ActorTypeSnallygaster_DO
+Yao Guais Killed	ActorTypeYaoGuai	exe pair sStatYaoGuaisKilled / ActorTypeYaoGuai_DO
+Angler Killed	ActorTypeAngler	exe pair sStatAnglerKilled / ActorTypeAngler_DO
+Brahmin Slaughtered	ActorTypeBrahmin	exe pair sStatBrahminKilled / ActorTypeBrahmin_DO
+Rad Stags Slaughtered	ActorTypeRadStag	exe pair sStatRadStagsKilled / ActorTypeRadStag_DO
+Mothmen Killed	ActorTypeMothman	exe pair sStatMothmenKilled / ActorTypeMothman_DO
+Total Insects Killed	ActorTypeBug	exe pair sStatInsectsKilled / ActorTypeBug_DO (no Insect keyword exists)
+Total Cryptids Killed	ActorTypeCryptid	exe pair sStatCryptidsKilled / ActorTypeCryptid_DO
+Total Robots Killed	ActorTypeRobot	exe pair sStatRobotsKilled / ActorTypeRobot_DO
+Total Animals Killed	ActorTypeAnimal	exe pair sStatAnimalsKilled / ActorTypeAnimal_DO
+Total Creatures Killed	ActorTypeCreature	exe pair sStatCreaturesKilled / ActorTypeCreature_DO

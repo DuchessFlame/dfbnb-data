@@ -1,0 +1,29 @@
+# Challenge Keyword Finder - situational conditions -> plain 'Also needs' lines (hand-made, edit freely).
+# These conditions don't name a thing (a creature, an item); they say WHEN or WHERE it counts.
+# function = the condition function. match = regex on the condition's parameter (blank = any).
+# op = == != > >= < <= or any. value = the compared number (blank = any).
+# text = what the page shows. guide = guide_index.tsv id or /url/ to link the line (optional) -
+#   only linked if that guide row is visibility=public and status=published.
+# The first matching row wins. A condition with no row stays off the page (listed in the audit).
+function	match	op	value	text	guide	note
+IsPlayerInShelter		==	1	Inside a Shelter		
+IsPlayerInShelter		!=	1	Not inside a Shelter (your C.A.M.P. or a Workshop)		
+IsPlayerInShelterOwned		==	1	Inside your own Shelter		
+IsPlayerInShelterOwned		!=	1	Inside another player's Shelter		
+IsInWorkshopFreeCameraMode		==	1	Built using the Free Cam build mode		
+IsMemberOfAPlayerTeam		==	1	While on a team		
+GetTeamType		any		While on a public team		!= 11 and > 0 together mean a public team
+IsPlayerInCampTeam		==	1	At a teammate's C.A.M.P.		
+IsPlayerInCampOwned		==	1	At your own C.A.M.P.		
+IsPlayerInBestBuildCamp		==	1	At a Best Build C.A.M.P.	df-camp-best-builds	
+GetValue	SURV_Hunger	any		While Well Fed	bnb-hunger-thirst-bar-explained	
+GetValue	EpicRank	==	3	The enemy must be a 3-star Legendary		
+GetValue	EpicRank	any		The enemy must be Legendary		
+HasActiveMagicEffect	LemonadeHard	==	1	While intoxicated by Hard Lemonade	bnb-buffs-alcohol	
+HasActiveMagicEffect	LeadChampagne	==	1	While intoxicated by Lead Champagne	bnb-buffs-alcohol	
+HasActiveMagicEffect	Gulpershine	==	1	While intoxicated by Mire Magic Moonshine	bnb-buffs-alcohol	
+HasActiveMagicEffect	NukaCola_Dark	==	1	While intoxicated by Nuka-Cola Dark	bnb-buffs-nuka-cola-products	
+HasMagicEffectKeyword	StackPsycho	==	1	While under the effects of Psycho	bnb-buffs-chems	
+GetNumActiveSpellsWithKeyword	AbilityTypeMutation	any		While you have at least one Mutation	bnb-buffs-mutations	
+GetPublicEventHasMutation		==	1	The public event must be a Mutated Public Event	df-mutated-event-guide	
+IsChallengeTypeDaily		==	1	Any Daily challenge counts	df-lifetime-daily	

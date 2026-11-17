@@ -394,6 +394,12 @@ jobs:
         # ask for Pre-war Food. Sibling of the costume index.
         run: python src/build_prewar_food_keywords_json.py
 
+      - name: Build Challenge Keyword Finder JSON
+        # /df/score-challenges/challenge-keyword-finder/ — Daily / Weekly
+        # challenge -> what counts toward it, in plain names, plus guide links.
+        # Reads dist/challenges/challenges.json (Build Challenges JSON, above).
+        run: python src/build_challenge_keywords_json.py
+
       # --- ARMOUR DATA ---
       - name: Build Armour Data JSON
         run: python src/build_armour_json.py --data-dir tsv --out dist/armour.json
