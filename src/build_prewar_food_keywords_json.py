@@ -58,6 +58,7 @@ if HERE not in sys.path:
 
 import build_spin_wheel_json as spin  # noqa: E402  (shared is_cut() -- one cut rule site-wide)
 import tsv_source                     # noqa: E402  (one resolver for every export selection)
+import challenge_required
 
 ROOT = os.path.dirname(HERE)
 PTS = "--pts" in sys.argv
@@ -198,6 +199,7 @@ def collect_challenges():
     print(f"  Reading challenges from: {os.path.basename(path)}")
 
     out, seen = [], set()
+    req = challenge_required.load(pts=(CHANNEL == "pts"))
     for row in read_tsv(path):
         edid = (row.get("EDID") or "").strip()
         text = (row.get("FULL") or "").strip()
@@ -213,13 +215,23 @@ def collect_challenges():
         epic = bool(_EPIC_RE.match(text))
         clean = _EPIC_RE.sub("", text).strip()
         sig = (ctype, clean.lower(), epic)
+        # The required count, from challenges.json. A line that ships with two
+        # different counts (tiers, re-runs) gets one row per count (Duchess,
+        # 17 Nov 2026); records with the same count still collapse to one row.
+        # A mini-season line also names its season and year, so the 2025 and
+        # 2026 runs of the same challenge are two labelled lines.
+        n = req.get(edid)
+        season = challenge_required.season_label(edid)
+        sig = sig + (str(n) if n is not None else "", season)
         if sig in seen:
             continue
         seen.add(sig)
-        out.append({"type": ctype, "text": clean, "epic": epic})
+        out.append({"type": ctype, "text": clean, "epic": epic,
+                    "required": str(n) if n is not None else "", "season": season})
 
     order = {t: i for i, t in enumerate(CHAL_TYPE_ORDER)}
-    out.sort(key=lambda c: (order.get(c["type"], len(order)), c["text"].lower(), c["epic"]))
+    out.sort(key=lambda c: (order.get(c["type"], len(order)), c["text"].lower(), c["epic"],
+                            c["season"], int(c["required"]) if c["required"].isdigit() else 0))
     print(f"  Challenges using {KEYWORD}: {len(out)}")
     return out, os.path.basename(path)
 
