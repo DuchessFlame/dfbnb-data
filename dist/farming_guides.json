@@ -1,6 +1,6 @@
 {
-  "version": "2026-11-15",
-  "generated": "2026-11-15T19:09:31+00:00",
+  "version": "2026-11-18",
+  "generated": "2026-11-18T08:43:37+00:00",
   "sources": {
     "alch": "ALCH_Export_October_2026.tsv",
     "cobj": "COBJ_Export_October_2026.tsv",
@@ -8,7 +8,7 @@
   },
   "pages": {
     "ingredient-search": {
-      "count_ingredients": 221,
+      "count_ingredients": 222,
       "ingredients": [
         {
           "edid": "E08A_GulperVenom",
@@ -18756,6 +18756,183 @@
               "qty": 2
             },
             {
+              "recipe_edid": "co_meal_FirecrackerBerryFruitCookedJuice",
+              "recipe_name": "Firecracker Berry Juice",
+              "region": null,
+              "workbench": "Cooking Station",
+              "category": "cooking",
+              "output": {
+                "edid": "FirecrackerBerryFruitCookedJuice",
+                "formId": "00294524",
+                "name": "Firecracker Berry Juice",
+                "type": "Cooked",
+                "weight": 0.5,
+                "value": 8,
+                "spoils_to": "Spoiled Fruit",
+                "spoil_time": {
+                  "base_minutes": 312,
+                  "curve_type": "Cooked Fruit",
+                  "curve_edid": "CT_FoodHealth_CookedFruit",
+                  "curve_formId": "0052B5BA",
+                  "source": "curv_points",
+                  "scope": "food",
+                  "tiers": [
+                    {
+                      "kind": "storage",
+                      "label": "Fridge",
+                      "rate_mult": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 624.0,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Refrigerator_SpoilRate"
+                    },
+                    {
+                      "kind": "storage",
+                      "label": "Freezer",
+                      "rate_mult": 0.0,
+                      "reduction_pct": 100,
+                      "minutes": null,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Freezer_SpoilRate"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 1",
+                      "magnitude": 0.45,
+                      "reduction_pct": 45,
+                      "minutes": 567.27,
+                      "source": "SPEL:AbPerkGoodWithSalt[0]"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 2",
+                      "magnitude": 0.9,
+                      "reduction_pct": 90,
+                      "minutes": 3120.0,
+                      "source": "SPEL:AbPerkGoodWithSalt[1]"
+                    },
+                    {
+                      "kind": "mod",
+                      "label": "Refrigerated Backpack mod",
+                      "magnitude": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 624.0,
+                      "source": "ENCH:EnchBackpack_Effect_Refrigerated"
+                    }
+                  ]
+                },
+                "is_canned": false,
+                "canned_base": null,
+                "mutation": "Herbivore",
+                "effects": [
+                  {
+                    "name": "Rads",
+                    "edid": "DamageRadiationEating",
+                    "magnitude": 2.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Food_RadiationDamage_Mag_1_Low",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Quench Thirst",
+                    "edid": "SURV_Drink_Effect",
+                    "magnitude": 540.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Drink_RestoreThirst_Mag_1_Normal",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Restore Health",
+                    "edid": "RestoreHealthFood",
+                    "magnitude": 1.0,
+                    "duration": 10.0,
+                    "dur_display": "10s",
+                    "mag_glob": "SURV_Food_Heal_Mag_Water",
+                    "dur_glob": "SURV_Food_Heal_Dur_Water"
+                  },
+                  {
+                    "name": "Fortify Crit Dmg",
+                    "edid": "FortifyCritDamageFood",
+                    "magnitude": 25.0,
+                    "duration": 1800.0,
+                    "dur_display": "30 min",
+                    "mag_glob": "SURV_Food_Effect_FortifyCriticalDamage_Mag_1_Low",
+                    "dur_glob": "SURV_Food_Effect_Any_Dur_1_Short"
+                  }
+                ],
+                "addiction_name": null,
+                "addiction_chance": 0.0,
+                "is_alcohol": false,
+                "is_nuka_cola": false,
+                "is_chem": false,
+                "spoiled_to_output": {
+                  "edid": "SpoiledFood_Fruit",
+                  "formId": "0037E135",
+                  "name": "Spoiled Fruit",
+                  "type": "Raw",
+                  "weight": 0.1,
+                  "value": 0,
+                  "spoils_to": null,
+                  "spoil_time": null,
+                  "is_canned": false,
+                  "canned_base": null,
+                  "mutation": null,
+                  "effects": [
+                    {
+                      "name": "Rads",
+                      "edid": "DamageRadiationEating",
+                      "magnitude": 5.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RadiationDamage_Mag_2_Medium",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Disease Chance",
+                      "edid": "SURV_DiseaseVector_Food_Effect",
+                      "magnitude": 6.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_DiseaseChance_Mag_4_VeryHigh",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Satisfy Hunger",
+                      "edid": "SURV_Food_Effect",
+                      "magnitude": 720.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RestoreHunger_Mag_3_Medium",
+                      "dur_glob": null
+                    }
+                  ],
+                  "addiction_name": null,
+                  "addiction_chance": 0.0,
+                  "is_alcohol": false,
+                  "is_nuka_cola": false,
+                  "is_chem": false
+                }
+              },
+              "all_ingredients": [
+                {
+                  "edid": "c_Wood",
+                  "name": "Wood",
+                  "qty": 1
+                },
+                {
+                  "edid": "WaterBoiled",
+                  "name": "Boiled Water",
+                  "qty": 1
+                },
+                {
+                  "edid": "FirecrackerBerryFruit",
+                  "name": "Firecracker Berry",
+                  "qty": 1
+                }
+              ],
+              "qty": 1
+            },
+            {
               "recipe_edid": "co_meal_Fishing_FishChowder",
               "recipe_name": "Fish Chowder",
               "region": null,
@@ -31250,7 +31427,7 @@
               "qty": 2
             }
           ],
-          "used_in_count": 121
+          "used_in_count": 122
         },
         {
           "edid": "Brew_Bourbon",
@@ -51296,6 +51473,751 @@
                 }
               ],
               "qty": 1
+            }
+          ],
+          "used_in_count": 5
+        },
+        {
+          "edid": "FirecrackerBerryFruit",
+          "formId": "0012C48E",
+          "name": "Firecracker Berry",
+          "type": "Raw",
+          "weight": 0.25,
+          "value": 8,
+          "spoils_to": "Spoiled Fruit",
+          "spoil_time": {
+            "base_minutes": 90,
+            "curve_type": "Raw Fruit",
+            "curve_edid": "CT_FoodHealth_RawFruit",
+            "curve_formId": "0052B5BC",
+            "source": "curv_points",
+            "scope": "food",
+            "tiers": [
+              {
+                "kind": "storage",
+                "label": "Fridge",
+                "rate_mult": 0.5,
+                "reduction_pct": 50,
+                "minutes": 180.0,
+                "source": "GLOB:WorkshopStashActivatorGroup_Refrigerator_SpoilRate"
+              },
+              {
+                "kind": "storage",
+                "label": "Freezer",
+                "rate_mult": 0.0,
+                "reduction_pct": 100,
+                "minutes": null,
+                "source": "GLOB:WorkshopStashActivatorGroup_Freezer_SpoilRate"
+              },
+              {
+                "kind": "perk",
+                "label": "Good with Salt Rank 1",
+                "magnitude": 0.45,
+                "reduction_pct": 45,
+                "minutes": 163.64,
+                "source": "SPEL:AbPerkGoodWithSalt[0]"
+              },
+              {
+                "kind": "perk",
+                "label": "Good with Salt Rank 2",
+                "magnitude": 0.9,
+                "reduction_pct": 90,
+                "minutes": 900.0,
+                "source": "SPEL:AbPerkGoodWithSalt[1]"
+              },
+              {
+                "kind": "mod",
+                "label": "Refrigerated Backpack mod",
+                "magnitude": 0.5,
+                "reduction_pct": 50,
+                "minutes": 180.0,
+                "source": "ENCH:EnchBackpack_Effect_Refrigerated"
+              }
+            ]
+          },
+          "is_canned": false,
+          "canned_base": null,
+          "mutation": "Herbivore",
+          "effects": [
+            {
+              "name": "Rads",
+              "edid": "DamageRadiationEating",
+              "magnitude": 5.0,
+              "duration": 0.0,
+              "dur_display": null,
+              "mag_glob": "SURV_Food_RadiationDamage_Mag_2_Medium",
+              "dur_glob": null
+            },
+            {
+              "name": "Disease Chance",
+              "edid": "SURV_DiseaseVector_Food_Effect",
+              "magnitude": 2.0,
+              "duration": 0.0,
+              "dur_display": null,
+              "mag_glob": "SURV_Food_DiseaseChance_Mag_2_Medium",
+              "dur_glob": null
+            },
+            {
+              "name": "Satisfy Hunger",
+              "edid": "SURV_Food_Effect",
+              "magnitude": 360.0,
+              "duration": 0.0,
+              "dur_display": null,
+              "mag_glob": "SURV_Food_RestoreHunger_Mag_2_Small",
+              "dur_glob": null
+            }
+          ],
+          "addiction_name": null,
+          "addiction_chance": 0.0,
+          "is_alcohol": false,
+          "is_nuka_cola": false,
+          "is_chem": false,
+          "spoiled_to_output": {
+            "edid": "SpoiledFood_Fruit",
+            "formId": "0037E135",
+            "name": "Spoiled Fruit",
+            "type": "Raw",
+            "weight": 0.1,
+            "value": 0,
+            "spoils_to": null,
+            "spoil_time": null,
+            "is_canned": false,
+            "canned_base": null,
+            "mutation": null,
+            "effects": [
+              {
+                "name": "Rads",
+                "edid": "DamageRadiationEating",
+                "magnitude": 5.0,
+                "duration": 0.0,
+                "dur_display": null,
+                "mag_glob": "SURV_Food_RadiationDamage_Mag_2_Medium",
+                "dur_glob": null
+              },
+              {
+                "name": "Disease Chance",
+                "edid": "SURV_DiseaseVector_Food_Effect",
+                "magnitude": 6.0,
+                "duration": 0.0,
+                "dur_display": null,
+                "mag_glob": "SURV_Food_DiseaseChance_Mag_4_VeryHigh",
+                "dur_glob": null
+              },
+              {
+                "name": "Satisfy Hunger",
+                "edid": "SURV_Food_Effect",
+                "magnitude": 720.0,
+                "duration": 0.0,
+                "dur_display": null,
+                "mag_glob": "SURV_Food_RestoreHunger_Mag_3_Medium",
+                "dur_glob": null
+              }
+            ],
+            "addiction_name": null,
+            "addiction_chance": 0.0,
+            "is_alcohol": false,
+            "is_nuka_cola": false,
+            "is_chem": false
+          },
+          "used_in": [
+            {
+              "recipe_edid": "co_chem_BerryMentats",
+              "recipe_name": "Berry Mentats",
+              "region": null,
+              "workbench": "Chemistry Station",
+              "category": "chem",
+              "output": {
+                "edid": "BerryMentats",
+                "formId": "000518BB",
+                "name": "Berry Mentats",
+                "type": "Food",
+                "weight": 0.25,
+                "value": 35,
+                "spoils_to": null,
+                "spoil_time": null,
+                "is_canned": false,
+                "canned_base": null,
+                "mutation": null,
+                "effects": [
+                  {
+                    "name": "Chems: Thirst",
+                    "edid": "SURV_AddThirst_Potion_Effect_Chem",
+                    "magnitude": 108.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Chem_AddThirstSize_2_Normal",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Chance Addiction Mentats",
+                    "edid": "AddictionOddsMentats",
+                    "magnitude": 25.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": null,
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Detect Life: Apply Client Effect",
+                    "edid": "DetectLifeApplyClientEffect",
+                    "magnitude": 1.0,
+                    "duration": 300.0,
+                    "dur_display": "5 min",
+                    "mag_glob": null,
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Fortify Intelligence",
+                    "edid": "FortifyIntelligenceChemEffect",
+                    "magnitude": 5.0,
+                    "duration": 300.0,
+                    "dur_display": "5 min",
+                    "mag_glob": null,
+                    "dur_glob": "SURV_Chem_Dur_Standard"
+                  },
+                  {
+                    "name": "GHL_SURV_Chem_Effect",
+                    "edid": "GHL_SURV_Chem_Effect",
+                    "magnitude": 240.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "GHL_SURV_Chem_RestoreFeral_Mag_1_Tiny",
+                    "dur_glob": null
+                  }
+                ],
+                "addiction_name": "Mentats Addiction",
+                "addiction_chance": 0.1,
+                "is_alcohol": false,
+                "is_nuka_cola": false,
+                "is_chem": true
+              },
+              "all_ingredients": [
+                {
+                  "edid": "Mentats",
+                  "name": "Mentats",
+                  "qty": 1
+                },
+                {
+                  "edid": "FirecrackerBerryFruit",
+                  "name": "Firecracker Berry",
+                  "qty": 1
+                },
+                {
+                  "edid": "BrainFungusVegetable",
+                  "name": "Brain Fungus",
+                  "qty": 1
+                },
+                {
+                  "edid": "StarlightBerries",
+                  "name": "Starlight Berries",
+                  "qty": 1
+                }
+              ],
+              "qty": 1
+            },
+            {
+              "recipe_edid": "co_chem_SURV_DiseaseCure_HerbalMedicine_SavageDivide_WorkbenchChemLab",
+              "recipe_name": "Disease Cure - Savage Divide",
+              "region": "Savage Divide",
+              "workbench": "Chemistry Station",
+              "category": "chem",
+              "output": {
+                "edid": "SURV_DiseaseCure_HerbalMedicine",
+                "formId": "003E08A8",
+                "name": "Disease Cure",
+                "type": "Food",
+                "weight": 0.25,
+                "value": 20,
+                "spoils_to": null,
+                "spoil_time": null,
+                "is_canned": false,
+                "canned_base": null,
+                "mutation": null,
+                "effects": [
+                  {
+                    "name": "Cure Disease",
+                    "edid": "SURV_DiseaseCure_Potion_Effect",
+                    "magnitude": 100.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": null,
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Chems: Thirst",
+                    "edid": "SURV_AddThirst_Potion_Effect_Chem",
+                    "magnitude": 108.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Chem_AddThirstSize_2_Normal",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Increase Hunger",
+                    "edid": "SURV_AddHunger_Potion_Effect",
+                    "magnitude": 108.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Chem_AddHungerSize_1_Normal",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "GHL_SURV_Chem_Effect",
+                    "edid": "GHL_SURV_Chem_Effect",
+                    "magnitude": 90.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "GHL_SURV_Chem_RestoreFeral_Mag_0_Herb",
+                    "dur_glob": null
+                  }
+                ],
+                "addiction_name": null,
+                "addiction_chance": 0.0,
+                "is_alcohol": false,
+                "is_nuka_cola": false,
+                "is_chem": true
+              },
+              "all_ingredients": [
+                {
+                  "edid": "BlackberryFruit",
+                  "name": "Wild Blackberry",
+                  "qty": 2
+                },
+                {
+                  "edid": "WaterPurified",
+                  "name": "Purified Water",
+                  "qty": 1
+                },
+                {
+                  "edid": "SapVegetable",
+                  "name": "Glowing Resin",
+                  "qty": 2
+                },
+                {
+                  "edid": "FirecrackerBerryFruit",
+                  "name": "Firecracker Berry",
+                  "qty": 2
+                }
+              ],
+              "qty": 2
+            },
+            {
+              "recipe_edid": "co_meal_FirecrackerBerryFruitCookedJuice",
+              "recipe_name": "Firecracker Berry Juice",
+              "region": null,
+              "workbench": "Cooking Station",
+              "category": "cooking",
+              "output": {
+                "edid": "FirecrackerBerryFruitCookedJuice",
+                "formId": "00294524",
+                "name": "Firecracker Berry Juice",
+                "type": "Cooked",
+                "weight": 0.5,
+                "value": 8,
+                "spoils_to": "Spoiled Fruit",
+                "spoil_time": {
+                  "base_minutes": 312,
+                  "curve_type": "Cooked Fruit",
+                  "curve_edid": "CT_FoodHealth_CookedFruit",
+                  "curve_formId": "0052B5BA",
+                  "source": "curv_points",
+                  "scope": "food",
+                  "tiers": [
+                    {
+                      "kind": "storage",
+                      "label": "Fridge",
+                      "rate_mult": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 624.0,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Refrigerator_SpoilRate"
+                    },
+                    {
+                      "kind": "storage",
+                      "label": "Freezer",
+                      "rate_mult": 0.0,
+                      "reduction_pct": 100,
+                      "minutes": null,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Freezer_SpoilRate"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 1",
+                      "magnitude": 0.45,
+                      "reduction_pct": 45,
+                      "minutes": 567.27,
+                      "source": "SPEL:AbPerkGoodWithSalt[0]"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 2",
+                      "magnitude": 0.9,
+                      "reduction_pct": 90,
+                      "minutes": 3120.0,
+                      "source": "SPEL:AbPerkGoodWithSalt[1]"
+                    },
+                    {
+                      "kind": "mod",
+                      "label": "Refrigerated Backpack mod",
+                      "magnitude": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 624.0,
+                      "source": "ENCH:EnchBackpack_Effect_Refrigerated"
+                    }
+                  ]
+                },
+                "is_canned": false,
+                "canned_base": null,
+                "mutation": "Herbivore",
+                "effects": [
+                  {
+                    "name": "Rads",
+                    "edid": "DamageRadiationEating",
+                    "magnitude": 2.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Food_RadiationDamage_Mag_1_Low",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Quench Thirst",
+                    "edid": "SURV_Drink_Effect",
+                    "magnitude": 540.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Drink_RestoreThirst_Mag_1_Normal",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Restore Health",
+                    "edid": "RestoreHealthFood",
+                    "magnitude": 1.0,
+                    "duration": 10.0,
+                    "dur_display": "10s",
+                    "mag_glob": "SURV_Food_Heal_Mag_Water",
+                    "dur_glob": "SURV_Food_Heal_Dur_Water"
+                  },
+                  {
+                    "name": "Fortify Crit Dmg",
+                    "edid": "FortifyCritDamageFood",
+                    "magnitude": 25.0,
+                    "duration": 1800.0,
+                    "dur_display": "30 min",
+                    "mag_glob": "SURV_Food_Effect_FortifyCriticalDamage_Mag_1_Low",
+                    "dur_glob": "SURV_Food_Effect_Any_Dur_1_Short"
+                  }
+                ],
+                "addiction_name": null,
+                "addiction_chance": 0.0,
+                "is_alcohol": false,
+                "is_nuka_cola": false,
+                "is_chem": false,
+                "spoiled_to_output": {
+                  "edid": "SpoiledFood_Fruit",
+                  "formId": "0037E135",
+                  "name": "Spoiled Fruit",
+                  "type": "Raw",
+                  "weight": 0.1,
+                  "value": 0,
+                  "spoils_to": null,
+                  "spoil_time": null,
+                  "is_canned": false,
+                  "canned_base": null,
+                  "mutation": null,
+                  "effects": [
+                    {
+                      "name": "Rads",
+                      "edid": "DamageRadiationEating",
+                      "magnitude": 5.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RadiationDamage_Mag_2_Medium",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Disease Chance",
+                      "edid": "SURV_DiseaseVector_Food_Effect",
+                      "magnitude": 6.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_DiseaseChance_Mag_4_VeryHigh",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Satisfy Hunger",
+                      "edid": "SURV_Food_Effect",
+                      "magnitude": 720.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RestoreHunger_Mag_3_Medium",
+                      "dur_glob": null
+                    }
+                  ],
+                  "addiction_name": null,
+                  "addiction_chance": 0.0,
+                  "is_alcohol": false,
+                  "is_nuka_cola": false,
+                  "is_chem": false
+                }
+              },
+              "all_ingredients": [
+                {
+                  "edid": "c_Wood",
+                  "name": "Wood",
+                  "qty": 1
+                },
+                {
+                  "edid": "WaterBoiled",
+                  "name": "Boiled Water",
+                  "qty": 1
+                },
+                {
+                  "edid": "FirecrackerBerryFruit",
+                  "name": "Firecracker Berry",
+                  "qty": 1
+                }
+              ],
+              "qty": 1
+            },
+            {
+              "recipe_edid": "co_meal_HealingSalveSavageDivide_WorkbenchChemLab",
+              "recipe_name": "Healing Salve - Savage Divide",
+              "region": "Savage Divide",
+              "workbench": "Chemistry Station",
+              "category": "chem",
+              "output": {
+                "edid": "HealingSalve",
+                "formId": "000522F7",
+                "name": "Healing Salve",
+                "type": "Food",
+                "weight": 0.5,
+                "value": 20,
+                "spoils_to": null,
+                "spoil_time": null,
+                "is_canned": false,
+                "canned_base": null,
+                "mutation": null,
+                "effects": [
+                  {
+                    "name": "Restore Health",
+                    "edid": "StimpakRestoreHealth",
+                    "magnitude": 4.0,
+                    "duration": 5.0,
+                    "dur_display": "5s",
+                    "mag_glob": null,
+                    "dur_glob": null
+                  }
+                ],
+                "addiction_name": null,
+                "addiction_chance": 0.0,
+                "is_alcohol": false,
+                "is_nuka_cola": false,
+                "is_chem": true
+              },
+              "all_ingredients": [
+                {
+                  "edid": "WaterBoiled",
+                  "name": "Boiled Water",
+                  "qty": 1
+                },
+                {
+                  "edid": "SapVegetable",
+                  "name": "Glowing Resin",
+                  "qty": 1
+                },
+                {
+                  "edid": "FirecrackerBerryFruit",
+                  "name": "Firecracker Berry",
+                  "qty": 1
+                }
+              ],
+              "qty": 1
+            },
+            {
+              "recipe_edid": "co_meal_AsterHerbCookedTea",
+              "recipe_name": "Simple Aster Tea",
+              "region": null,
+              "workbench": "Cooking Station",
+              "category": "cooking",
+              "output": {
+                "edid": "AsterHerbCookedTea",
+                "formId": "003D7881",
+                "name": "Simple Aster Tea",
+                "type": "Cooked",
+                "weight": 0.5,
+                "value": 5,
+                "spoils_to": "Spoiled Vegetables",
+                "spoil_time": {
+                  "base_minutes": 360,
+                  "curve_type": "Tasty Vegetable Large",
+                  "curve_edid": "CT_FoodHealth_TastyVegetableLarge",
+                  "curve_formId": "003D8EB9",
+                  "source": "curv_points",
+                  "scope": "food",
+                  "tiers": [
+                    {
+                      "kind": "storage",
+                      "label": "Fridge",
+                      "rate_mult": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 720.0,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Refrigerator_SpoilRate"
+                    },
+                    {
+                      "kind": "storage",
+                      "label": "Freezer",
+                      "rate_mult": 0.0,
+                      "reduction_pct": 100,
+                      "minutes": null,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Freezer_SpoilRate"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 1",
+                      "magnitude": 0.45,
+                      "reduction_pct": 45,
+                      "minutes": 654.55,
+                      "source": "SPEL:AbPerkGoodWithSalt[0]"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 2",
+                      "magnitude": 0.9,
+                      "reduction_pct": 90,
+                      "minutes": 3600.0,
+                      "source": "SPEL:AbPerkGoodWithSalt[1]"
+                    },
+                    {
+                      "kind": "mod",
+                      "label": "Refrigerated Backpack mod",
+                      "magnitude": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 720.0,
+                      "source": "ENCH:EnchBackpack_Effect_Refrigerated"
+                    }
+                  ]
+                },
+                "is_canned": false,
+                "canned_base": null,
+                "mutation": "Herbivore",
+                "effects": [
+                  {
+                    "name": "Rads",
+                    "edid": "DamageRadiationEating",
+                    "magnitude": 2.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Food_RadiationDamage_Mag_1_Low",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Quench Thirst",
+                    "edid": "SURV_Drink_Effect",
+                    "magnitude": 540.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Drink_RestoreThirst_Mag_1_Normal",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Restore Health",
+                    "edid": "RestoreHealthFood",
+                    "magnitude": 1.0,
+                    "duration": 10.0,
+                    "dur_display": "10s",
+                    "mag_glob": "SURV_Food_Heal_Mag_Water",
+                    "dur_glob": "SURV_Food_Heal_Dur_Water"
+                  },
+                  {
+                    "name": "Fortify Intelligence",
+                    "edid": "FortifyIntelligenceFood",
+                    "magnitude": 1.0,
+                    "duration": 1800.0,
+                    "dur_display": "30 min",
+                    "mag_glob": "SURV_Food_Effect_SPECIAL_Mag_1_Low",
+                    "dur_glob": "SURV_Food_Effect_Any_Dur_1_Short"
+                  }
+                ],
+                "addiction_name": null,
+                "addiction_chance": 0.0,
+                "is_alcohol": false,
+                "is_nuka_cola": false,
+                "is_chem": false,
+                "spoiled_to_output": {
+                  "edid": "SpoiledFood_Vegetable",
+                  "formId": "0037E134",
+                  "name": "Spoiled Vegetables",
+                  "type": "Raw",
+                  "weight": 0.1,
+                  "value": 0,
+                  "spoils_to": null,
+                  "spoil_time": null,
+                  "is_canned": false,
+                  "canned_base": null,
+                  "mutation": null,
+                  "effects": [
+                    {
+                      "name": "Rads",
+                      "edid": "DamageRadiationEating",
+                      "magnitude": 5.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RadiationDamage_Mag_2_Medium",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Disease Chance",
+                      "edid": "SURV_DiseaseVector_Food_Effect",
+                      "magnitude": 6.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_DiseaseChance_Mag_4_VeryHigh",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Satisfy Hunger",
+                      "edid": "SURV_Food_Effect",
+                      "magnitude": 720.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RestoreHunger_Mag_3_Medium",
+                      "dur_glob": null
+                    }
+                  ],
+                  "addiction_name": null,
+                  "addiction_chance": 0.0,
+                  "is_alcohol": false,
+                  "is_nuka_cola": false,
+                  "is_chem": false
+                }
+              },
+              "all_ingredients": [
+                {
+                  "edid": "c_Wood",
+                  "name": "Wood",
+                  "qty": 1
+                },
+                {
+                  "edid": "WaterBoiled",
+                  "name": "Boiled Water",
+                  "qty": 2
+                },
+                {
+                  "edid": "AsterHerb",
+                  "name": "Aster",
+                  "qty": 2
+                },
+                {
+                  "edid": "CookingFlavor_Sugar",
+                  "name": "Sugar",
+                  "qty": 1
+                },
+                {
+                  "edid": "FirecrackerBerryFruit",
+                  "name": "Firecracker Berry",
+                  "qty": 2
+                }
+              ],
+              "qty": 2
             }
           ],
           "used_in_count": 5

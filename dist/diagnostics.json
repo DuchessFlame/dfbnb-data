@@ -1,8 +1,8 @@
 {
-  "generated": "2026-11-15T19:35:29+00:00",
+  "generated": "2026-11-18T09:09:25+00:00",
   "sections": {
     "bnb_item_categories": {
-      "generated": "2026-11-15T19:35:29+00:00",
+      "generated": "2026-11-18T09:09:25+00:00",
       "counts": {
         "error": 0,
         "warning": 0,
@@ -21,10 +21,10 @@
             "stats": {
               "food": {
                 "candidates": 604,
-                "excluded_cut": 44,
+                "excluded_cut": 41,
                 "excluded_no_name": 6,
                 "excluded_by_kywd": 81,
-                "excluded_raw": 406,
+                "excluded_raw": 409,
                 "excluded_missing_alch": 0,
                 "excluded_by_edid_substring": 0,
                 "included": 67,
@@ -43,10 +43,10 @@
               },
               "nuka_cola": {
                 "candidates": 160,
-                "excluded_cut": 25,
+                "excluded_cut": 24,
                 "excluded_no_name": 6,
                 "excluded_by_kywd": 0,
-                "excluded_raw": 42,
+                "excluded_raw": 43,
                 "excluded_missing_alch": 0,
                 "excluded_by_edid_substring": 69,
                 "included": 18,
@@ -102,7 +102,7 @@
       ]
     },
     "cobj_recipes": {
-      "generated": "2026-11-15T19:35:28+00:00",
+      "generated": "2026-11-18T09:09:24+00:00",
       "counts": {
         "error": 0,
         "warning": 0,
@@ -112,20 +112,20 @@
         {
           "severity": "info",
           "code": "cobj.build.summary",
-          "message": "Extracted 5867 unique recipes from 114541 COBJ rows.",
+          "message": "Extracted 5868 unique recipes from 114541 COBJ rows.",
           "context": {
-            "unique_recipes": 5867,
+            "unique_recipes": 5868,
             "region_variant_items": 2,
             "ingredient_alternates": 12,
             "total_rows": 114541,
-            "skipped_cut": 17048,
+            "skipped_cut": 17016,
             "no_fvpa": 2714
           }
         }
       ]
     },
     "menu_items": {
-      "generated": "2026-11-15T19:35:28+00:00",
+      "generated": "2026-11-18T09:09:24+00:00",
       "counts": {
         "error": 27,
         "warning": 69,
@@ -1574,13 +1574,53 @@
       ]
     },
     "bnb_menu_sync": {
-      "generated": "2026-11-15T19:35:28+00:00",
+      "generated": "2026-11-18T09:09:24+00:00",
       "counts": {
-        "error": 33,
-        "warning": 0,
+        "error": 35,
+        "warning": 3,
         "info": 1
       },
       "entries": [
+        {
+          "severity": "warning",
+          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
+          "message": "New item 'Firecracker Berry' -> Ingredients. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
+          "detail": "edid=FirecrackerBerryFruit, form_id=0012C48E",
+          "context": {
+            "name": "Firecracker Berry",
+            "category": "Ingredients",
+            "edid": "FirecrackerBerryFruit",
+            "form_id": "0012C48E"
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "bnb_menu_sync.new_item.needs_limits",
+          "message": "New item 'Firecracker Berry Juice' -> Dishes & Teas. Auto-priced from 3-ingredient COBJ recipe: XBOX=15, PS/PC=25. Order limits (new/existing) still need to be set.",
+          "detail": "edid=FirecrackerBerryFruitCookedJuice, form_id=00294524",
+          "context": {
+            "name": "Firecracker Berry Juice",
+            "category": "Dishes & Teas",
+            "edid": "FirecrackerBerryFruitCookedJuice",
+            "form_id": "00294524",
+            "ingredient_count": 3,
+            "price_xbox": "15",
+            "price_ps": "25",
+            "price_pc": "25"
+          }
+        },
+        {
+          "severity": "warning",
+          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
+          "message": "New item 'Perfect Mothman Egg' -> Ingredients. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
+          "detail": "edid=E07A_Mothman_EnlightenedMothmanEgg, form_id=006238EE",
+          "context": {
+            "name": "Perfect Mothman Egg",
+            "category": "Ingredients",
+            "edid": "E07A_Mothman_EnlightenedMothmanEgg",
+            "form_id": "006238EE"
+          }
+        },
         {
           "severity": "error",
           "code": "bnb_menu_sync.unpriced",
@@ -1618,6 +1658,26 @@
           "detail": "Chicken Thigh",
           "context": {
             "name": "Chicken Thigh",
+            "category": "Ingredients"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Firecracker Berry' (Ingredients)",
+          "detail": "Firecracker Berry",
+          "context": {
+            "name": "Firecracker Berry",
+            "category": "Ingredients"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Perfect Mothman Egg' (Ingredients)",
+          "detail": "Perfect Mothman Egg",
+          "context": {
+            "name": "Perfect Mothman Egg",
             "category": "Ingredients"
           }
         },
@@ -1914,21 +1974,21 @@
         {
           "severity": "info",
           "code": "bnb_menu_sync.summary",
-          "message": "Sync: 759 total, 0 new, 0 updated, 33 unpriced.",
+          "message": "Sync: 762 total, 3 new, 0 updated, 35 unpriced.",
           "context": {
-            "total": 759,
-            "new": 0,
+            "total": 762,
+            "new": 3,
             "updated": 0,
-            "unpriced": 33,
-            "skipped": 224
+            "unpriced": 35,
+            "skipped": 221
           }
         }
       ]
     },
     "bnb_menu": {
-      "generated": "2026-11-15T19:35:28+00:00",
+      "generated": "2026-11-18T09:09:24+00:00",
       "counts": {
-        "error": 27,
+        "error": 29,
         "warning": 0,
         "info": 8
       },
@@ -1951,7 +2011,7 @@
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 207: duplicate 'Fried Radroach On A Stick' in 'Dishes & Teas' — keeping first.",
+          "message": "Row 208: duplicate 'Fried Radroach On A Stick' in 'Dishes & Teas' — keeping first.",
           "detail": "Fried Radroach On A Stick"
         },
         {
@@ -1987,8 +2047,38 @@
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 435: duplicate 'Chicken Thigh' in 'Ingredients' — keeping first.",
+          "message": "Row 436: duplicate 'Chicken Thigh' in 'Ingredients' — keeping first.",
           "detail": "Chicken Thigh"
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Firecracker Berry' (Ingredients) is missing price for: xbox, ps, pc",
+          "detail": "Firecracker Berry",
+          "context": {
+            "name": "Firecracker Berry",
+            "category": "Ingredients",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Perfect Mothman Egg' (Ingredients) is missing price for: xbox, ps, pc",
+          "detail": "Perfect Mothman Egg",
+          "context": {
+            "name": "Perfect Mothman Egg",
+            "category": "Ingredients",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
         },
         {
           "severity": "error",
@@ -2293,19 +2383,19 @@
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 618: duplicate 'Mystery Bobblehead Box' in 'Magazines & Bobbleheads' — keeping first.",
+          "message": "Row 621: duplicate 'Mystery Bobblehead Box' in 'Magazines & Bobbleheads' — keeping first.",
           "detail": "Mystery Bobblehead Box"
         },
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 620: duplicate 'Mystery Magazine Package' in 'Magazines & Bobbleheads' — keeping first.",
+          "message": "Row 623: duplicate 'Mystery Magazine Package' in 'Magazines & Bobbleheads' — keeping first.",
           "detail": "Mystery Magazine Package"
         },
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 621: duplicate 'Mystery Magazine Package' in 'Magazines & Bobbleheads' — keeping first.",
+          "message": "Row 624: duplicate 'Mystery Magazine Package' in 'Magazines & Bobbleheads' — keeping first.",
           "detail": "Mystery Magazine Package"
         },
         {
@@ -2356,13 +2446,13 @@
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 692: duplicate 'Cotton Candy Bites' in 'Pre War Food' — keeping first.",
+          "message": "Row 695: duplicate 'Cotton Candy Bites' in 'Pre War Food' — keeping first.",
           "detail": "Cotton Candy Bites"
         },
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 700: duplicate 'Gum Drops' in 'Pre War Food' — keeping first.",
+          "message": "Row 703: duplicate 'Gum Drops' in 'Pre War Food' — keeping first.",
           "detail": "Gum Drops"
         },
         {
@@ -2383,9 +2473,9 @@
         {
           "severity": "info",
           "code": "bnb_menu.build.summary",
-          "message": "Wrote 752 menu items across 12 categories.",
+          "message": "Wrote 755 menu items across 12 categories.",
           "context": {
-            "total": 752,
+            "total": 755,
             "categories": [
               "Alcohol",
               "Canned",
@@ -2405,7 +2495,7 @@
       ]
     },
     "recipe_guide": {
-      "generated": "2026-11-15T19:35:29+00:00",
+      "generated": "2026-11-18T09:09:25+00:00",
       "counts": {
         "error": 0,
         "warning": 0,
@@ -2415,11 +2505,11 @@
         {
           "severity": "info",
           "code": "recipe_guide.build.summary",
-          "message": "Built recipe guide with 320 consumable recipes across 5 categories.",
+          "message": "Built recipe guide with 321 consumable recipes across 5 categories.",
           "context": {
-            "total": 320,
+            "total": 321,
             "by_category": {
-              "food": 223,
+              "food": 224,
               "chems": 45,
               "alcohol": 30,
               "serums": 19,
