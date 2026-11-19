@@ -1,7 +1,7 @@
 {
-  "version": "2026-11-15",
-  "generated": "2026-11-15T19:35:29+00:00",
-  "count": 320,
+  "version": "2026-11-19",
+  "generated": "2026-11-19T21:23:32+00:00",
+  "count": 321,
   "category_labels": {
     "food": "Food",
     "chems": "Chems",
@@ -19,7 +19,7 @@
   "categories": {
     "food": {
       "label": "Food",
-      "count": 223,
+      "count": 224,
       "items": [
         {
           "name": "Aged Mirelurk Queen Steak",
@@ -8939,6 +8939,141 @@
             "bench_keywords": [
               "Meal_Recipe_Plants",
               "Meal_Recipe_Food",
+              "Meal_Recipe_Prepared"
+            ]
+          }
+        },
+        {
+          "name": "Firecracker Berry Juice",
+          "recipe_edid": "co_meal_FirecrackerBerryFruitCookedJuice",
+          "category": "food",
+          "workbench": "Cooking Station",
+          "ingredients": [
+            {
+              "edid": "c_Wood",
+              "name": "Wood",
+              "qty": 1
+            },
+            {
+              "edid": "WaterBoiled",
+              "name": "Boiled Water",
+              "qty": 1
+            },
+            {
+              "edid": "FirecrackerBerryFruit",
+              "name": "Firecracker Berry",
+              "qty": 1
+            }
+          ],
+          "howToObtain": [],
+          "output": {
+            "name": "Firecracker Berry Juice",
+            "edid": "FirecrackerBerryFruitCookedJuice",
+            "formId": "00294524",
+            "weight": 0.5,
+            "value": 8,
+            "mutation": "Herbivore",
+            "effects": [
+              {
+                "name": "Rads",
+                "edid": "DamageRadiationEating",
+                "magnitude": 2.0,
+                "duration": 0.0,
+                "dur_display": null,
+                "mag_glob": "SURV_Food_RadiationDamage_Mag_1_Low",
+                "dur_glob": null
+              },
+              {
+                "name": "Quench Thirst",
+                "edid": "SURV_Drink_Effect",
+                "magnitude": 540.0,
+                "duration": 0.0,
+                "dur_display": null,
+                "mag_glob": "SURV_Drink_RestoreThirst_Mag_1_Normal",
+                "dur_glob": null
+              },
+              {
+                "name": "Restore Health",
+                "edid": "RestoreHealthFood",
+                "magnitude": 1.0,
+                "duration": 10.0,
+                "dur_display": "10s",
+                "mag_glob": "SURV_Food_Heal_Mag_Water",
+                "dur_glob": "SURV_Food_Heal_Dur_Water"
+              },
+              {
+                "name": "Fortify Crit Dmg",
+                "edid": "FortifyCritDamageFood",
+                "magnitude": 25.0,
+                "duration": 1800.0,
+                "dur_display": "30 min",
+                "mag_glob": "SURV_Food_Effect_FortifyCriticalDamage_Mag_1_Low",
+                "dur_glob": "SURV_Food_Effect_Any_Dur_1_Short"
+              }
+            ],
+            "spoils_to": "Spoiled Fruit",
+            "spoil_time": {
+              "base_minutes": 312,
+              "curve_type": "Cooked Fruit",
+              "curve_edid": "CT_FoodHealth_CookedFruit",
+              "curve_formId": "0052B5BA",
+              "source": "curv_points",
+              "scope": "food",
+              "tiers": [
+                {
+                  "kind": "storage",
+                  "label": "Fridge",
+                  "rate_mult": 0.5,
+                  "reduction_pct": 50,
+                  "minutes": 624.0,
+                  "source": "GLOB:WorkshopStashActivatorGroup_Refrigerator_SpoilRate"
+                },
+                {
+                  "kind": "storage",
+                  "label": "Freezer",
+                  "rate_mult": 0.0,
+                  "reduction_pct": 100,
+                  "minutes": null,
+                  "source": "GLOB:WorkshopStashActivatorGroup_Freezer_SpoilRate"
+                },
+                {
+                  "kind": "perk",
+                  "label": "Good with Salt Rank 1",
+                  "magnitude": 0.45,
+                  "reduction_pct": 45,
+                  "minutes": 567.27,
+                  "source": "SPEL:AbPerkGoodWithSalt[0]"
+                },
+                {
+                  "kind": "perk",
+                  "label": "Good with Salt Rank 2",
+                  "magnitude": 0.9,
+                  "reduction_pct": 90,
+                  "minutes": 3120.0,
+                  "source": "SPEL:AbPerkGoodWithSalt[1]"
+                },
+                {
+                  "kind": "mod",
+                  "label": "Refrigerated Backpack mod",
+                  "magnitude": 0.5,
+                  "reduction_pct": 50,
+                  "minutes": 624.0,
+                  "source": "ENCH:EnchBackpack_Effect_Refrigerated"
+                }
+              ]
+            },
+            "addiction_name": null,
+            "addiction_chance": 0.0
+          },
+          "technical": {
+            "recipe_edid": "co_meal_FirecrackerBerryFruitCookedJuice",
+            "output_edid": "FirecrackerBerryFruitCookedJuice",
+            "output_formId": "00294524",
+            "bnam_edid": "Workbench_Crafting_Cooking",
+            "cnam_edid": "FirecrackerBerryFruitCookedJuice",
+            "bench_keywords": [
+              "Meal_Recipe_Plants",
+              "Meal_Recipe_Drink",
               "Meal_Recipe_Prepared"
             ]
           }
@@ -30042,7 +30177,7 @@
           "ingredients": [
             {
               "edid": "FirecrackerBerryFruit",
-              "name": "Firecracker Berry Fruit",
+              "name": "Firecracker Berry",
               "qty": 2
             },
             {
