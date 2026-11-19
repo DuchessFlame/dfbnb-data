@@ -697,9 +697,10 @@ INTRO = {
         "mutations": "Each Hideout Lieutenant carries one mutation from this pool.",
         "double": "Hideout runs also roll a pair of mutations for the run, from the combinations below.",
         "mechanics": "Hideout enemies share the following traits.",
-        "health": "Health is read from the curve table assigned to each boss, at the levels bosses spawn between. Bosses on the same curve share a row.",
+        "health": "The lead's difficulty sets every enemy's level range, so health is shown for each difficulty, read from each boss's health curve across that range. Bosses on the same curve and scaling share a row.",
         "damage": "Boss weapons come from each leader's outfit, which is not in the current exports yet, so weapon damage is not listed.",
         "support": "Every gang brings a Lieutenant alongside its leader.",
+        "scaling": "The Hideout Lead's difficulty sets the level range every enemy spawns in. Each enemy type has its own range, and some also get a level multiplier on top.",
         "npcs": "Each gang fills its Hideout with fighters in set roles (close, medium and long range, support, interference and fodder), plus rare wildcard spawns and the Hideout's own wildlife.",
     },
     "drifter": {
@@ -965,8 +966,149 @@ def _hide_locations(game: Game):
     return out
 
 
+def _hide_hideouts(game: Game):
+    """token -> {"name", "inRotation"} for every Hideout in HIDEHideoutDataFormList.
+    Each HIDE##<Token>HideoutDataFormList holds the Hideout's LCTN (FULL = in-game
+    name). inRotation = that LCTN is in HIDELocationFormlist, the list a run picks
+    its Hideout from. Test cells (HIDE02Tunnel) are not in the data list."""
+    rot = {e.get("Entry_EDID", "") for e in game.flst.get("HIDELocationFormlist", [])}
+    out = {}
+    for e in game.flst.get("HIDEHideoutDataFormList", []):
+        m = re.match(r"^HIDE\d+([A-Za-z]+?)HideoutDataFormList$", e.get("Entry_EDID", ""))
+        if not m:
+            continue
+        loc = next((x for x in game.flst.get(e["Entry_EDID"], []) if x.get("Entry_Sig") == "LCTN"), None)
+        full = ((loc or {}).get("Entry_FULL") or "").strip()
+        if not loc or not full or full.isupper():
+            continue
+        out[m.group(1)] = {"name": full, "inRotation": loc.get("Entry_EDID", "") in rot}
+    return out
+
+
+# Display label + page order for each HIDE_crNormalizePerk_<Suffix> scaling group.
+HIDE_SCALING_LABEL = {"Boss": "Gang leaders", "Lieutenant": "Lieutenants", "Wildcard": "Wildcards",
+                      "Miniboss": "Minibosses", "General": "Gang fighters", "Popcorn": "Fodder",
+                      "Wildlife": "Wildlife"}
+
+
+def _hide_scaling(game: Game):
+    """Per-difficulty level scaling for Hideout actors, all from the game files:
+      * data/hideouts/normalize_perks_<channel>.tsv - which HIDE_crNormalizePerk_*
+        each actor carries (tools/esm_hide_normalize_perks.py, read from the ESM)
+      * PERKEP export - each perk's Min / Max level curve (HIDE_Renorm*, read at
+        HIDE_SelectedDifficulty) and its level multiplier
+      * HIDEDifficultyKeywordFormlist - difficulty order (list index = the
+        HIDE_SelectedDifficulty value 0-3); names from each lead (BOOK
+        HIDELead<Token> FULL "Hideout Lead: <Name>")
+    None when any part is missing (live today)."""
+    path = os.path.join(ROOT, "data", "hideouts", f"normalize_perks_{'pts' if (PTS or PTS_LABEL) else 'live'}.tsv")
+    if not os.path.isfile(path):
+        return None
+    perk_of = {r["NPC_EDID"]: r["PERK_EDID"] for r in read_rows(path)}
+    perks = {}
+    for r in read_rows(pick("PERKEP", "PERKEP_Export_*.tsv", required=False)):
+        pe = r.get("PERK_EDID", "")
+        if not pe.startswith("HIDE_crNormalizePerk_"):
+            continue
+        d = perks.setdefault(pe, {"min": "", "max": "", "mult": None})
+        ep = (r.get("EntryPoint") or "").lower()
+        cm = re.search(r"Curve Table=(\w+) \[CURV", r.get("Raw") or "")
+        if ep == "mod npc normalized min level" and cm:
+            d["min"] = cm.group(1)
+        elif ep == "mod npc normalized max level" and cm:
+            d["max"] = cm.group(1)
+        elif ep == "mod npc normalized level" and r.get("Function") == "Multiply Value":
+            d["mult"] = fnum(r.get("Value"), None)
+    books = {r.get("EDID", ""): r.get("FULL", "") for r in
+             read_rows(pick("BOOK", "BOOK_Export_*.tsv", required=False), keep={"EDID", "FULL"})}
+    diffs = []
+    for e in game.flst.get("HIDEDifficultyKeywordFormlist", []):
+        m = re.match(r"^HIDEDifficulty(\w+?)Keyword$", e.get("Entry_EDID", ""))
+        if not m:
+            continue
+        tok = m.group(1)
+        full = books.get(f"HIDELead{tok}", "")
+        name = full.split(":", 1)[1].strip() if ":" in full else (e.get("Entry_FULL") or tok).strip()
+        diffs.append({"key": tok, "name": name, "x": int(fnum(e.get("EntryIndex"), 0))})
+    if not perks or not diffs or not perk_of:
+        return None
+    return {"perkOf": perk_of, "perks": perks, "diffs": diffs}
+
+
+def _hide_apply_scaling(game: Game, n: dict, sc):
+    """Swap the record's own level range for the per-difficulty ranges its
+    scaling perk sets. levelMin/Max + hpMin/Max become the full span (lowest
+    Basic to highest Marked) so limb health and resistances follow it."""
+    if not sc:
+        return
+    pe = sc["perkOf"].get(n["edid"], "")
+    p = sc["perks"].get(pe)
+    if not p or not p["min"] or not p["max"]:
+        return
+    src = n.get("statsFrom") or n["edid"]
+    rows = []
+    for d in sc["diffs"]:
+        lo, hi = game.curve_at(p["min"], d["x"]), game.curve_at(p["max"], d["x"])
+        if lo is None or hi is None:
+            return
+        lo, hi = int(round(lo)), int(round(hi))
+        rows.append({"key": d["key"], "name": d["name"], "levelMin": lo, "levelMax": hi,
+                     "hpMin": game.av(src, "Health", lo)[0], "hpMax": game.av(src, "Health", hi)[0]})
+    n["recordLevelMin"], n["recordLevelMax"] = n.get("levelMin"), n.get("levelMax")
+    n["byDifficulty"] = rows
+    n["scaling"] = pe.replace("HIDE_crNormalizePerk_", "")
+    n["scalingLabel"] = HIDE_SCALING_LABEL.get(n["scaling"], humanise(n["scaling"]))
+    if p["mult"] and abs(p["mult"] - 1) > 1e-6:
+        n["levelMult"] = round(p["mult"], 3)
+    n["levelMin"], n["levelMax"] = rows[0]["levelMin"], rows[-1]["levelMax"]
+    n["hpMin"], n["hpMax"] = rows[0]["hpMin"], rows[-1]["hpMax"]
+    res = {}
+    for key, label in (("DamageResist", "DR"), ("EnergyResist", "ER"), ("FireResist", "Fire"),
+                       ("FrostResist", "Cryo"), ("PoisonResist", "Poison"), ("RadResistExposure", "Rad")):
+        v, _c = game.av(src, key, n["levelMax"])
+        if v is not None:
+            res[label] = v
+    if res:
+        n["resist"] = res
+
+
+def _hide_scaling_section(game: Game, sc, actors):
+    """One row per scaling group in use: its level range at each difficulty."""
+    if not sc:
+        return None
+    used = {}
+    for n in actors:
+        if n.get("scaling"):
+            used.setdefault(n["scaling"], 0)
+            used[n["scaling"]] += 1
+    rows = []
+    for suf in sorted(used, key=lambda k: list(HIDE_SCALING_LABEL).index(k) if k in HIDE_SCALING_LABEL else 99):
+        p = sc["perks"][f"HIDE_crNormalizePerk_{suf}"]
+        lv = [[int(round(game.curve_at(p["min"], d["x"]))), int(round(game.curve_at(p["max"], d["x"])))]
+              for d in sc["diffs"]]
+        rows.append({"group": HIDE_SCALING_LABEL.get(suf, humanise(suf)), "perk": f"HIDE_crNormalizePerk_{suf}",
+                     "levels": lv, "mult": round(p["mult"], 3) if p["mult"] and abs(p["mult"] - 1) > 1e-6 else None})
+    return {"intro": INTRO["hideouts"]["scaling"], "difficulties": [d["name"] for d in sc["diffs"]], "rows": rows}
+
+
+def _hide_health_section(bosses, sc, intro):
+    """Health per difficulty; bosses on the same health curve + scaling share a row."""
+    groups = {}
+    for b in bosses:
+        if not b.get("byDifficulty"):
+            continue
+        key = (b.get("healthCurve") or f"flat:{b.get('hpMax')}", b.get("scaling"))
+        g = groups.setdefault(key, {"bosses": [], "src": b})
+        g["bosses"].append(b["name"])
+    rows = [{"label": ", ".join(g["bosses"]), "bosses": g["bosses"], "curve": g["src"].get("healthCurve", ""),
+             "values": [[d["hpMin"], d["hpMax"]] for d in g["src"]["byDifficulty"]]} for g in groups.values()]
+    return {"intro": intro, "levels": [d["name"] for d in sc["diffs"]], "ranges": True, "rows": rows}
+
+
 def build_hideouts(game: Game):
-    locs = _hide_locations(game)
+    hideouts = _hide_hideouts(game)
+    locs = {k: v["name"] for k, v in hideouts.items()} or _hide_locations(game)
+    sc = _hide_scaling(game)
     gangs = []
     for e in game.flst.get("HIDEGangKeywordFormList", []):
         m = re.match(r"^HIDEGang(\w+?)Keyword$", e.get("Entry_EDID", ""))
@@ -1020,6 +1162,9 @@ def build_hideouts(game: Game):
             b["faction"] = f"{locs[m.group(1)]} miniboss"
             b["role"] = "Miniboss"
             b["weapons"] = []
+            if m.group(1) in hideouts and not hideouts[m.group(1)]["inRotation"]:
+                b["note"] = (f"{locs[m.group(1)]} is in the game files but not yet in the list of Hideouts "
+                             "a run can pick, so this miniboss can't come up yet.")
             if (edid, b["faction"]) in mini_seen:
                 continue
             mini_seen.add((edid, b["faction"]))
@@ -1042,13 +1187,22 @@ def build_hideouts(game: Game):
         double.append({"edid": e.get("Entry_EDID", ""), "name": (e.get("Entry_FULL") or "").strip()
                        or " + ".join(x["name"] for x in parts),
                        "summary": " ".join(x["detail"] or x["summary"] for x in parts).strip()})
-    lv = sorted({(b["levelMin"], b["levelMax"]) for b in bosses if b.get("levelMin") is not None})
-    mech_rows = [["Boss level range", " / ".join(f"{a} – {c}" for a, c in lv)]] if lv else []
+    for n in bosses + support + npcs:
+        _hide_apply_scaling(game, n, sc)
+    scaling = _hide_scaling_section(game, sc, bosses + support + npcs)
+    mech_rows = []
+    if scaling:
+        mech_rows.append(["Level scaling", "Set by the lead's difficulty: " + ", ".join(scaling["difficulties"])
+                          + ". See Levels by Difficulty below"])
+    else:
+        lv = sorted({(b["levelMin"], b["levelMax"]) for b in bosses if b.get("levelMin") is not None})
+        if lv:
+            mech_rows.append(["Boss level range", " / ".join(f"{a} – {c}" for a, c in lv)])
+    rot = [v["name"] for v in hideouts.values() if v["inRotation"]] or sorted(locs.values())
+    off = [v["name"] for v in hideouts.values() if not v["inRotation"]]
     mech_rows += [["Gangs", ", ".join(g for _, g in gangs)],
-                  ["Hideouts", ", ".join(sorted(locs.values()))],
+                  ["Hideouts", ", ".join(sorted(rot)) + (f" ({', '.join(sorted(off))} is in the files but not in the rotation yet)" if off else "")],
                   ["Lieutenant mutation", "Each Lieutenant spawns with one mutation from the pool below"]]
-    if game.spel.get("HIDE_crNormalizeAddPerkSpell_Boss"):
-        mech_rows.append(["Scripted scaling", "Hideout actors carry a scripted normalising perk per role (boss, lieutenant, miniboss, fodder, wildlife), so in-game numbers can differ from the curve values shown here"])
     out = {
         "page": "hideouts",
         "intro": INTRO["hideouts"],
@@ -1056,11 +1210,14 @@ def build_hideouts(game: Game):
         "mutations": {"intro": INTRO["hideouts"]["mutations"], "list": mutations},
         "mechanics": {"intro": INTRO["hideouts"]["mechanics"], "rows": mech_rows,
                       "resist": [{"name": b["name"], **(b.get("resist") or {})} for b in bosses]},
-        "health": build_health_section(game, bosses, 25, INTRO["hideouts"]["health"]),
+        "health": (_hide_health_section(bosses, sc, INTRO["hideouts"]["health"]) if scaling
+                   else build_health_section(game, bosses, 25, INTRO["hideouts"]["health"])),
         "damage": {"intro": INTRO["hideouts"]["damage"], "rows": []},
         "support": {"intro": INTRO["hideouts"]["support"], "rows": support},
         "npcs": {"intro": INTRO["hideouts"]["npcs"], "rows": npcs},
     }
+    if scaling:
+        out["scaling"] = scaling
     if double:
         out["mutations"]["double"] = double
         out["mutations"]["doubleIntro"] = INTRO["hideouts"]["double"]

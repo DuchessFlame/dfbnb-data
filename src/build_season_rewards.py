@@ -20,6 +20,7 @@ from pathlib import Path
 
 # The one routing rule, shared with the renderers. See src/asset_paths.py.
 from asset_paths import fill_emote_images, fill_tent_images
+import season_guide_titles
 
 # ---------------------------------------------------------------------------
 # Paths
@@ -438,7 +439,13 @@ def load_legacy_runs(path: Path, meta: dict) -> list[dict]:
             spans = [m for m in meta.values()
                      if m.get("startDate") and m.get("endDate")
                      and m["startDate"] <= start <= m["endDate"]]
-            pick = exact or spans
+            # The incoming season is known but its end is not announced yet
+            # (S10's re-run opens with S27 on 1 Dec 2026, S27 has no end date).
+            # Leave the end blank - the page says "ongoing" - instead of falling
+            # through to the OUTGOING season and printing "1 Dec - 1 Dec".
+            incoming_open = any(m.get("startDate") == start and not m.get("endDate")
+                                for m in meta.values())
+            pick = exact or ([] if incoming_open else spans)
             if pick:
                 end = max(m["endDate"] for m in pick)
                 estimated = True
@@ -568,6 +575,9 @@ def main() -> None:
 
     print(f"{TAG} Written: {all_path.name}  ({len(all_seasons['seasons'])} seasons, "
           f"{all_path.stat().st_size:,} bytes)")
+
+    # Announced season names -> Guide dropdown and page titles (guide_index.tsv).
+    season_guide_titles.sync()
 
     print(f"{TAG} Done.")
 

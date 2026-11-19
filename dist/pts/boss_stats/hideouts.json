@@ -1,20 +1,22 @@
 {
- "generated": "2026-11-15T13:23:00+00:00",
+ "generated": "2026-11-18T23:13:03+00:00",
  "channel": "pts",
  "isPts": true,
  "sources": {
-  "BPTD": "tsv/BPTD_Export_November_2026.tsv",
-  "CURV_POINTS": "tsv/CURV_Export_November_2026_POINTS.tsv",
-  "FLST_Entries": "tsv/FLST_Export_November_2026_Entries.tsv",
-  "GLOB": "tsv/GLOB_Export_November_2026.tsv",
-  "KYWD": "tsv/KYWD_Export_November_2026.tsv",
-  "LVLI_Entries": "tsv/LVLI_Export_November_2026_LVLI_Entries.tsv",
-  "NPC": "tsv/NPC_Export_November_2026.tsv",
-  "NPC_PRPS": "tsv/NPC_Export_November_2026_PRPS.tsv",
-  "NPC_Refs": "tsv/NPC_Export_November_2026_Refs.tsv",
-  "SPEL_HEADER": "tsv/SPEL_Export_November_2026_HEADER.tsv",
-  "WEAP_DNAM": "tsv/WEAP_Export_November_2026_DNAM.tsv",
-  "head_hunt_bosses": "dist/bounty-hunting/head_hunt_bosses.json"
+  "BOOK": "tsv/pts/BOOK_Export_PTS_2026-11-14_0949.tsv",
+  "BPTD": "tsv/pts/BPTD_Export_PTS_2026-11-14_0949.tsv",
+  "CURV_POINTS": "tsv/pts/CURV_Export_PTS_2026-11-14_0949_POINTS.tsv",
+  "FLST_Entries": "tsv/pts/FLST_Export_PTS_2026-11-14_0956_Entries.tsv",
+  "GLOB": "tsv/pts/GLOB_Export_PTS_2026-11-14_0948.tsv",
+  "KYWD": "tsv/pts/KYWD_Export_PTS_2026-11-14_0949.tsv",
+  "LVLI_Entries": "tsv/pts/LVLI_Export_PTS_2026-11-14_0952_LVLI_Entries.tsv",
+  "NPC": "tsv/pts/NPC_Export_PTS_2026-11-14_0950.tsv",
+  "NPC_PRPS": "tsv/pts/NPC_Export_PTS_2026-11-14_0950_PRPS.tsv",
+  "NPC_Refs": "tsv/pts/NPC_Export_PTS_2026-11-14_0950_Refs.tsv",
+  "PERKEP": "tsv/pts/PERKEP_Export_PTS_2026-11-14_0957.tsv",
+  "SPEL_HEADER": "tsv/pts/SPEL_Export_PTS_2026-11-14_0948_HEADER.tsv",
+  "WEAP_DNAM": "tsv/pts/WEAP_Export_PTS_2026-11-14_0958_DNAM.tsv",
+  "head_hunt_bosses": "dist/pts/bounty-hunting/head_hunt_bosses.json"
  },
  "page": "hideouts",
  "intro": {
@@ -24,9 +26,10 @@
   "mutations": "Each Hideout Lieutenant carries one mutation from this pool.",
   "double": "Hideout runs also roll a pair of mutations for the run, from the combinations below.",
   "mechanics": "Hideout enemies share the following traits.",
-  "health": "Health is read from the curve table assigned to each boss, at the levels bosses spawn between. Bosses on the same curve share a row.",
+  "health": "The lead's difficulty sets every enemy's level range, so health is shown for each difficulty, read from each boss's health curve across that range. Bosses on the same curve and scaling share a row.",
   "damage": "Boss weapons come from each leader's outfit, which is not in the current exports yet, so weapon damage is not listed.",
   "support": "Every gang brings a Lieutenant alongside its leader.",
+  "scaling": "The Hideout Lead's difficulty sets the level range every enemy spawns in. Each enemy type has its own range, and some also get a level multiplier on top.",
   "npcs": "Each gang fills its Hideout with fighters in set roles (close, medium and long range, support, interference and fodder), plus rare wildcard spawns and the Hideout's own wildlife."
  },
  "bosses": [
@@ -35,32 +38,71 @@
    "formId": "008F4EC2",
    "name": "Super Mutant Conquerer",
    "race": "SuperMutant",
-   "levelMin": 75,
-   "levelMax": 225,
-   "hpMin": 19528,
-   "hpMax": 126300,
+   "levelMin": 36,
+   "levelMax": 320,
+   "hpMin": 9364,
+   "hpMax": 555014,
    "healthCurve": "CT_Creatures_Health_Universal_Tier39",
    "statsFrom": "",
    "resist": {
-    "DR": 326,
-    "ER": 203,
-    "Fire": 255,
-    "Cryo": 192,
-    "Poison": 657,
-    "Rad": 1824
+    "DR": 546,
+    "ER": 410,
+    "Fire": 464,
+    "Cryo": 400,
+    "Poison": 971,
+    "Rad": 2530
    },
    "speedMult": 100.0,
    "faction": "FEV Creatures",
    "role": "Gang leader",
    "weapons": [],
+   "recordLevelMin": 75,
+   "recordLevelMax": 225,
+   "byDifficulty": [
+    {
+     "key": "Easy",
+     "name": "Basic",
+     "levelMin": 36,
+     "levelMax": 82,
+     "hpMin": 9364,
+     "hpMax": 21587
+    },
+    {
+     "key": "Medium",
+     "name": "Challenging",
+     "levelMin": 97,
+     "levelMax": 162,
+     "hpMin": 26327,
+     "hpMax": 56747
+    },
+    {
+     "key": "Hard",
+     "name": "Lethal",
+     "levelMin": 203,
+     "levelMax": 280,
+     "hpMin": 94032,
+     "hpMax": 287256
+    },
+    {
+     "key": "Marked",
+     "name": "Marked",
+     "levelMin": 243,
+     "levelMax": 320,
+     "hpMin": 162540,
+     "hpMax": 555014
+    }
+   ],
+   "scaling": "Boss",
+   "scalingLabel": "Gang leaders",
+   "levelMult": 1.25,
    "weakSpot": "Head — takes 1.25× damage",
    "limbs": [
     {
      "name": "Head",
      "pct": 20.0,
      "mult": 1.25,
-     "hpMin": 3906,
-     "hpMax": 25260,
+     "hpMin": 1873,
+     "hpMax": 111003,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": true
@@ -69,8 +111,8 @@
      "name": "Torso",
      "pct": 75.0,
      "mult": 0.9,
-     "hpMin": 14646,
-     "hpMax": 94725,
+     "hpMin": 7023,
+     "hpMax": 416260,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -79,8 +121,8 @@
      "name": "Arms (each)",
      "pct": 30.0,
      "mult": 1.0,
-     "hpMin": 5858,
-     "hpMax": 37890,
+     "hpMin": 2809,
+     "hpMax": 166504,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": false
@@ -89,8 +131,8 @@
      "name": "Legs (each)",
      "pct": 35.0,
      "mult": 1.0,
-     "hpMin": 6835,
-     "hpMax": 44205,
+     "hpMin": 3277,
+     "hpMax": 194255,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": false
@@ -103,32 +145,71 @@
    "formId": "008F4EB3",
    "name": "Master Tactical Unit",
    "race": "Assaultron",
-   "levelMin": 75,
-   "levelMax": 225,
-   "hpMin": 19528,
-   "hpMax": 126300,
+   "levelMin": 36,
+   "levelMax": 320,
+   "hpMin": 9364,
+   "hpMax": 555014,
    "healthCurve": "CT_Creatures_Health_Universal_Tier39",
    "statsFrom": "",
    "resist": {
-    "DR": 488,
-    "ER": 192,
-    "Fire": 182,
-    "Cryo": 227,
-    "Poison": 1824,
-    "Rad": 1824
+    "DR": 750,
+    "ER": 400,
+    "Fire": 391,
+    "Cryo": 434,
+    "Poison": 2530,
+    "Rad": 2530
    },
    "speedMult": 100.0,
    "faction": "Robots",
    "role": "Gang leader",
    "weapons": [],
+   "recordLevelMin": 75,
+   "recordLevelMax": 225,
+   "byDifficulty": [
+    {
+     "key": "Easy",
+     "name": "Basic",
+     "levelMin": 36,
+     "levelMax": 82,
+     "hpMin": 9364,
+     "hpMax": 21587
+    },
+    {
+     "key": "Medium",
+     "name": "Challenging",
+     "levelMin": 97,
+     "levelMax": 162,
+     "hpMin": 26327,
+     "hpMax": 56747
+    },
+    {
+     "key": "Hard",
+     "name": "Lethal",
+     "levelMin": 203,
+     "levelMax": 280,
+     "hpMin": 94032,
+     "hpMax": 287256
+    },
+    {
+     "key": "Marked",
+     "name": "Marked",
+     "levelMin": 243,
+     "levelMax": 320,
+     "hpMin": 162540,
+     "hpMax": 555014
+    }
+   ],
+   "scaling": "Boss",
+   "scalingLabel": "Gang leaders",
+   "levelMult": 1.25,
    "weakSpot": "None — no body part takes bonus damage",
    "limbs": [
     {
      "name": "Head",
      "pct": 20.0,
      "mult": 0.5,
-     "hpMin": 3906,
-     "hpMax": 25260,
+     "hpMin": 1873,
+     "hpMax": 111003,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -137,8 +218,8 @@
      "name": "Torso",
      "pct": 80.0,
      "mult": 0.85,
-     "hpMin": 15622,
-     "hpMax": 101040,
+     "hpMin": 7491,
+     "hpMax": 444011,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -147,8 +228,8 @@
      "name": "Arms (each)",
      "pct": 35.0,
      "mult": 1.0,
-     "hpMin": 6835,
-     "hpMax": 44205,
+     "hpMin": 3277,
+     "hpMax": 194255,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -157,8 +238,8 @@
      "name": "Legs (each)",
      "pct": 40.0,
      "mult": 1.0,
-     "hpMin": 7811,
-     "hpMax": 50520,
+     "hpMin": 3746,
+     "hpMax": 222006,
      "severable": false,
      "alsoHitVia": [
       "Feet"
@@ -169,8 +250,8 @@
      "name": "Combat Inhibitor",
      "pct": 10.0,
      "mult": 0.25,
-     "hpMin": 1953,
-     "hpMax": 12630,
+     "hpMin": 936,
+     "hpMax": 55501,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -183,32 +264,71 @@
    "formId": "008F4EBC",
    "name": "Lost Voltaic Commander",
    "race": "Lost",
-   "levelMin": 75,
-   "levelMax": 225,
-   "hpMin": 19528,
-   "hpMax": 126300,
+   "levelMin": 36,
+   "levelMax": 320,
+   "hpMin": 9364,
+   "hpMax": 555014,
    "healthCurve": "CT_Creatures_Health_Universal_Tier39",
    "statsFrom": "",
    "resist": {
-    "DR": 227,
-    "ER": 425,
-    "Fire": 154,
-    "Cryo": 108,
-    "Poison": 129,
-    "Rad": 1824
+    "DR": 434,
+    "ER": 669,
+    "Fire": 368,
+    "Cryo": 333,
+    "Poison": 350,
+    "Rad": 2530
    },
    "speedMult": 100.0,
    "faction": "The Lost",
    "role": "Gang leader",
    "weapons": [],
+   "recordLevelMin": 75,
+   "recordLevelMax": 225,
+   "byDifficulty": [
+    {
+     "key": "Easy",
+     "name": "Basic",
+     "levelMin": 36,
+     "levelMax": 82,
+     "hpMin": 9364,
+     "hpMax": 21587
+    },
+    {
+     "key": "Medium",
+     "name": "Challenging",
+     "levelMin": 97,
+     "levelMax": 162,
+     "hpMin": 26327,
+     "hpMax": 56747
+    },
+    {
+     "key": "Hard",
+     "name": "Lethal",
+     "levelMin": 203,
+     "levelMax": 280,
+     "hpMin": 94032,
+     "hpMax": 287256
+    },
+    {
+     "key": "Marked",
+     "name": "Marked",
+     "levelMin": 243,
+     "levelMax": 320,
+     "hpMin": 162540,
+     "hpMax": 555014
+    }
+   ],
+   "scaling": "Boss",
+   "scalingLabel": "Gang leaders",
+   "levelMult": 1.25,
    "weakSpot": "Head — takes 1.5× damage",
    "limbs": [
     {
      "name": "Head",
      "pct": 20.0,
      "mult": 1.5,
-     "hpMin": 3906,
-     "hpMax": 25260,
+     "hpMin": 1873,
+     "hpMax": 111003,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": true
@@ -217,8 +337,8 @@
      "name": "Torso",
      "pct": 75.0,
      "mult": 1.0,
-     "hpMin": 14646,
-     "hpMax": 94725,
+     "hpMin": 7023,
+     "hpMax": 416260,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -227,8 +347,8 @@
      "name": "Arms (each)",
      "pct": 25.0,
      "mult": 1.0,
-     "hpMin": 4882,
-     "hpMax": 31575,
+     "hpMin": 2341,
+     "hpMax": 138754,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": false
@@ -237,8 +357,8 @@
      "name": "Legs (each)",
      "pct": 35.0,
      "mult": 1.0,
-     "hpMin": 6835,
-     "hpMax": 44205,
+     "hpMin": 3277,
+     "hpMax": 194255,
      "severable": true,
      "alsoHitVia": [
       "Feet"
@@ -253,32 +373,71 @@
    "formId": "008F4ED6",
    "name": "Cultist Grand Revelator",
    "race": "Human",
-   "levelMin": 75,
-   "levelMax": 225,
-   "hpMin": 19528,
-   "hpMax": 126300,
+   "levelMin": 36,
+   "levelMax": 320,
+   "hpMin": 9364,
+   "hpMax": 555014,
    "healthCurve": "CT_Creatures_Health_Universal_Tier39",
    "statsFrom": "",
    "resist": {
-    "DR": 182,
-    "ER": 255,
-    "Fire": 182,
-    "Cryo": 145,
-    "Poison": 271,
-    "Rad": 203
+    "DR": 391,
+    "ER": 464,
+    "Fire": 391,
+    "Cryo": 362,
+    "Poison": 482,
+    "Rad": 410
    },
    "speedMult": 100.0,
    "faction": "Mothman Cultists",
    "role": "Gang leader",
    "weapons": [],
+   "recordLevelMin": 75,
+   "recordLevelMax": 225,
+   "byDifficulty": [
+    {
+     "key": "Easy",
+     "name": "Basic",
+     "levelMin": 36,
+     "levelMax": 82,
+     "hpMin": 9364,
+     "hpMax": 21587
+    },
+    {
+     "key": "Medium",
+     "name": "Challenging",
+     "levelMin": 97,
+     "levelMax": 162,
+     "hpMin": 26327,
+     "hpMax": 56747
+    },
+    {
+     "key": "Hard",
+     "name": "Lethal",
+     "levelMin": 203,
+     "levelMax": 280,
+     "hpMin": 94032,
+     "hpMax": 287256
+    },
+    {
+     "key": "Marked",
+     "name": "Marked",
+     "levelMin": 243,
+     "levelMax": 320,
+     "hpMin": 162540,
+     "hpMax": 555014
+    }
+   ],
+   "scaling": "Boss",
+   "scalingLabel": "Gang leaders",
+   "levelMult": 1.25,
    "weakSpot": "Head — takes 1.5× damage",
    "limbs": [
     {
      "name": "Head",
      "pct": 20.0,
      "mult": 1.5,
-     "hpMin": 3906,
-     "hpMax": 25260,
+     "hpMin": 1873,
+     "hpMax": 111003,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": true
@@ -287,8 +446,8 @@
      "name": "Torso",
      "pct": 75.0,
      "mult": 1.0,
-     "hpMin": 14646,
-     "hpMax": 94725,
+     "hpMin": 7023,
+     "hpMax": 416260,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -297,8 +456,8 @@
      "name": "Arms (each)",
      "pct": 25.0,
      "mult": 1.0,
-     "hpMin": 4882,
-     "hpMax": 31575,
+     "hpMin": 2341,
+     "hpMax": 138754,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": false
@@ -307,8 +466,8 @@
      "name": "Legs (each)",
      "pct": 35.0,
      "mult": 1.0,
-     "hpMin": 6835,
-     "hpMax": 44205,
+     "hpMin": 3277,
+     "hpMax": 194255,
      "severable": true,
      "alsoHitVia": [
       "Feet"
@@ -323,32 +482,71 @@
    "formId": "008F4EBE",
    "name": "Rust Guard Warmaster",
    "race": "Human",
-   "levelMin": 75,
-   "levelMax": 225,
-   "hpMin": 19528,
-   "hpMax": 126300,
+   "levelMin": 36,
+   "levelMax": 320,
+   "hpMin": 9364,
+   "hpMax": 555014,
    "healthCurve": "CT_Creatures_Health_Universal_Tier39",
    "statsFrom": "",
    "resist": {
-    "DR": 371,
-    "ER": 288,
-    "Fire": 288,
-    "Cryo": 182,
-    "Poison": 182,
-    "Rad": 288
+    "DR": 601,
+    "ER": 501,
+    "Fire": 501,
+    "Cryo": 391,
+    "Poison": 391,
+    "Rad": 501
    },
    "speedMult": 100.0,
    "faction": "Rust Raiders",
    "role": "Gang leader",
    "weapons": [],
+   "recordLevelMin": 75,
+   "recordLevelMax": 225,
+   "byDifficulty": [
+    {
+     "key": "Easy",
+     "name": "Basic",
+     "levelMin": 36,
+     "levelMax": 82,
+     "hpMin": 9364,
+     "hpMax": 21587
+    },
+    {
+     "key": "Medium",
+     "name": "Challenging",
+     "levelMin": 97,
+     "levelMax": 162,
+     "hpMin": 26327,
+     "hpMax": 56747
+    },
+    {
+     "key": "Hard",
+     "name": "Lethal",
+     "levelMin": 203,
+     "levelMax": 280,
+     "hpMin": 94032,
+     "hpMax": 287256
+    },
+    {
+     "key": "Marked",
+     "name": "Marked",
+     "levelMin": 243,
+     "levelMax": 320,
+     "hpMin": 162540,
+     "hpMax": 555014
+    }
+   ],
+   "scaling": "Boss",
+   "scalingLabel": "Gang leaders",
+   "levelMult": 1.25,
    "weakSpot": "Head — takes 1.5× damage",
    "limbs": [
     {
      "name": "Head",
      "pct": 20.0,
      "mult": 1.5,
-     "hpMin": 3906,
-     "hpMax": 25260,
+     "hpMin": 1873,
+     "hpMax": 111003,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": true
@@ -357,8 +555,8 @@
      "name": "Torso",
      "pct": 75.0,
      "mult": 1.0,
-     "hpMin": 14646,
-     "hpMax": 94725,
+     "hpMin": 7023,
+     "hpMax": 416260,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -367,8 +565,8 @@
      "name": "Arms (each)",
      "pct": 25.0,
      "mult": 1.0,
-     "hpMin": 4882,
-     "hpMax": 31575,
+     "hpMin": 2341,
+     "hpMax": 138754,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": false
@@ -377,8 +575,8 @@
      "name": "Legs (each)",
      "pct": 35.0,
      "mult": 1.0,
-     "hpMin": 6835,
-     "hpMax": 44205,
+     "hpMin": 3277,
+     "hpMax": 194255,
      "severable": true,
      "alsoHitVia": [
       "Feet"
@@ -393,24 +591,63 @@
    "formId": "008F66ED",
    "name": "Bloated Monstrosity",
    "race": "FeralGhoulGlowing",
-   "levelMin": 50,
-   "levelMax": 225,
-   "hpMin": 7674,
-   "hpMax": 81208,
+   "levelMin": 32,
+   "levelMax": 280,
+   "hpMin": 5028,
+   "hpMax": 192525,
    "healthCurve": "CT_Creatures_Health_Universal_Tier36",
    "statsFrom": "",
    "speedMult": 100.0,
    "faction": "Forever Farm miniboss",
    "role": "Miniboss",
    "weapons": [],
+   "recordLevelMin": 50,
+   "recordLevelMax": 225,
+   "byDifficulty": [
+    {
+     "key": "Easy",
+     "name": "Basic",
+     "levelMin": 32,
+     "levelMax": 71,
+     "hpMin": 5028,
+     "hpMax": 11050
+    },
+    {
+     "key": "Medium",
+     "name": "Challenging",
+     "levelMin": 86,
+     "levelMax": 143,
+     "hpMin": 13732,
+     "hpMax": 27833
+    },
+    {
+     "key": "Hard",
+     "name": "Lethal",
+     "levelMin": 179,
+     "levelMax": 245,
+     "hpMin": 43346,
+     "hpMax": 109466
+    },
+    {
+     "key": "Marked",
+     "name": "Marked",
+     "levelMin": 214,
+     "levelMax": 280,
+     "hpMin": 69358,
+     "hpMax": 192525
+    }
+   ],
+   "scaling": "Miniboss",
+   "scalingLabel": "Minibosses",
+   "levelMult": 1.1,
    "weakSpot": "Head — takes 1.5× damage",
    "limbs": [
     {
      "name": "Head",
      "pct": 40.0,
      "mult": 1.5,
-     "hpMin": 3070,
-     "hpMax": 32483,
+     "hpMin": 2011,
+     "hpMax": 77010,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": true
@@ -419,8 +656,8 @@
      "name": "Torso",
      "pct": 80.0,
      "mult": 1.0,
-     "hpMin": 6139,
-     "hpMax": 64966,
+     "hpMin": 4022,
+     "hpMax": 154020,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -429,8 +666,8 @@
      "name": "Arms (each)",
      "pct": 10.0,
      "mult": 1.0,
-     "hpMin": 767,
-     "hpMax": 8121,
+     "hpMin": 503,
+     "hpMax": 19252,
      "severable": true,
      "alsoHitVia": [],
      "weakSpot": false
@@ -439,8 +676,8 @@
      "name": "Legs (each)",
      "pct": 35.0,
      "mult": 1.0,
-     "hpMin": 2686,
-     "hpMax": 28423,
+     "hpMin": 1760,
+     "hpMax": 67384,
      "severable": true,
      "alsoHitVia": [
       "Feet"
@@ -455,32 +692,71 @@
    "formId": "008F66EB",
    "name": "Facility Administrator",
    "race": "Assaultron",
-   "levelMin": 50,
-   "levelMax": 150,
-   "hpMin": 5455,
-   "hpMax": 21951,
+   "levelMin": 32,
+   "levelMax": 280,
+   "hpMin": 3569,
+   "hpMax": 147973,
    "healthCurve": "CT_Creatures_Health_Universal_Tier34",
    "statsFrom": "",
    "resist": {
-    "DR": 143,
-    "ER": 91,
-    "Fire": 98,
-    "Cryo": 133,
-    "Poison": 1305,
-    "Rad": 1305
+    "DR": 345,
+    "ER": 272,
+    "Fire": 282,
+    "Cryo": 330,
+    "Poison": 2225,
+    "Rad": 2225
    },
    "speedMult": 100.0,
    "faction": "Forever Farm miniboss",
    "role": "Miniboss",
    "weapons": [],
+   "recordLevelMin": 50,
+   "recordLevelMax": 150,
+   "byDifficulty": [
+    {
+     "key": "Easy",
+     "name": "Basic",
+     "levelMin": 32,
+     "levelMax": 71,
+     "hpMin": 3569,
+     "hpMax": 7870
+    },
+    {
+     "key": "Medium",
+     "name": "Challenging",
+     "levelMin": 86,
+     "levelMax": 143,
+     "hpMin": 9799,
+     "hpMax": 20104
+    },
+    {
+     "key": "Hard",
+     "name": "Lethal",
+     "levelMin": 179,
+     "levelMax": 245,
+     "hpMin": 31709,
+     "hpMax": 82621
+    },
+    {
+     "key": "Marked",
+     "name": "Marked",
+     "levelMin": 214,
+     "levelMax": 280,
+     "hpMin": 51542,
+     "hpMax": 147973
+    }
+   ],
+   "scaling": "Miniboss",
+   "scalingLabel": "Minibosses",
+   "levelMult": 1.1,
    "weakSpot": "None — no body part takes bonus damage",
    "limbs": [
     {
      "name": "Head",
      "pct": 20.0,
      "mult": 0.5,
-     "hpMin": 1091,
-     "hpMax": 4390,
+     "hpMin": 714,
+     "hpMax": 29595,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -489,8 +765,8 @@
      "name": "Torso",
      "pct": 80.0,
      "mult": 0.85,
-     "hpMin": 4364,
-     "hpMax": 17561,
+     "hpMin": 2855,
+     "hpMax": 118378,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -499,8 +775,8 @@
      "name": "Arms (each)",
      "pct": 35.0,
      "mult": 1.0,
-     "hpMin": 1909,
-     "hpMax": 7683,
+     "hpMin": 1249,
+     "hpMax": 51791,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -509,8 +785,8 @@
      "name": "Legs (each)",
      "pct": 40.0,
      "mult": 1.0,
-     "hpMin": 2182,
-     "hpMax": 8780,
+     "hpMin": 1428,
+     "hpMax": 59189,
      "severable": false,
      "alsoHitVia": [
       "Feet"
@@ -521,8 +797,8 @@
      "name": "Combat Inhibitor",
      "pct": 10.0,
      "mult": 0.25,
-     "hpMin": 546,
-     "hpMax": 2195,
+     "hpMin": 357,
+     "hpMax": 14797,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -535,24 +811,63 @@
    "formId": "008F66EC",
    "name": "Filtration Efficiency Unit",
    "race": "Protectron",
-   "levelMin": 50,
-   "levelMax": 150,
-   "hpMin": 4599,
-   "hpMax": 18686,
+   "levelMin": 32,
+   "levelMax": 280,
+   "hpMin": 3007,
+   "hpMax": 129867,
    "healthCurve": "CT_Creatures_Health_Universal_Tier33",
    "statsFrom": "",
    "speedMult": 150.0,
    "faction": "Forever Farm miniboss",
    "role": "Miniboss",
    "weapons": [],
+   "recordLevelMin": 50,
+   "recordLevelMax": 150,
+   "byDifficulty": [
+    {
+     "key": "Easy",
+     "name": "Basic",
+     "levelMin": 32,
+     "levelMax": 71,
+     "hpMin": 3007,
+     "hpMax": 6644
+    },
+    {
+     "key": "Medium",
+     "name": "Challenging",
+     "levelMin": 86,
+     "levelMax": 143,
+     "hpMin": 8280,
+     "hpMax": 17094
+    },
+    {
+     "key": "Hard",
+     "name": "Lethal",
+     "levelMin": 179,
+     "levelMax": 245,
+     "hpMin": 27139,
+     "hpMax": 71849
+    },
+    {
+     "key": "Marked",
+     "name": "Marked",
+     "levelMin": 214,
+     "levelMax": 280,
+     "hpMin": 44470,
+     "hpMax": 129867
+    }
+   ],
+   "scaling": "Miniboss",
+   "scalingLabel": "Minibosses",
+   "levelMult": 1.1,
    "weakSpot": "Head — takes 1.1× damage",
    "limbs": [
     {
      "name": "Head",
      "pct": 50.0,
      "mult": 1.1,
-     "hpMin": 2300,
-     "hpMax": 9343,
+     "hpMin": 1504,
+     "hpMax": 64934,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": true
@@ -561,8 +876,8 @@
      "name": "Torso",
      "pct": 100.0,
      "mult": 0.9,
-     "hpMin": 4599,
-     "hpMax": 18686,
+     "hpMin": 3007,
+     "hpMax": 129867,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -571,8 +886,8 @@
      "name": "Arms (each)",
      "pct": 25.0,
      "mult": 1.0,
-     "hpMin": 1150,
-     "hpMax": 4672,
+     "hpMin": 752,
+     "hpMax": 32467,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -581,8 +896,8 @@
      "name": "Legs (each)",
      "pct": 25.0,
      "mult": 1.0,
-     "hpMin": 1150,
-     "hpMax": 4672,
+     "hpMin": 752,
+     "hpMax": 32467,
      "severable": false,
      "alsoHitVia": [
       "Feet"
@@ -593,8 +908,8 @@
      "name": "Combat Inhibitor",
      "pct": 15.0,
      "mult": 0.25,
-     "hpMin": 690,
-     "hpMax": 2803,
+     "hpMin": 451,
+     "hpMax": 19480,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -607,32 +922,71 @@
    "formId": "0094D06E",
    "name": "Cranial Expert",
    "race": "Handy",
-   "levelMin": 50,
-   "levelMax": 225,
-   "hpMin": 6470,
-   "hpMax": 70174,
+   "levelMin": 32,
+   "levelMax": 280,
+   "hpMin": 4236,
+   "hpMax": 168725,
    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
    "statsFrom": "",
    "resist": {
-    "DR": 203,
-    "ER": 271,
-    "Fire": 154,
-    "Cryo": 710,
-    "Poison": 154,
-    "Rad": 255
+    "DR": 304,
+    "ER": 378,
+    "Fire": 253,
+    "Cryo": 893,
+    "Poison": 253,
+    "Rad": 361
    },
    "speedMult": 100.0,
    "faction": "Vault 63 Immortality Sector miniboss",
    "role": "Miniboss",
    "weapons": [],
+   "recordLevelMin": 50,
+   "recordLevelMax": 225,
+   "byDifficulty": [
+    {
+     "key": "Easy",
+     "name": "Basic",
+     "levelMin": 32,
+     "levelMax": 71,
+     "hpMin": 4236,
+     "hpMax": 9325
+    },
+    {
+     "key": "Medium",
+     "name": "Challenging",
+     "levelMin": 86,
+     "levelMax": 143,
+     "hpMin": 11599,
+     "hpMax": 23651
+    },
+    {
+     "key": "Hard",
+     "name": "Lethal",
+     "levelMin": 179,
+     "levelMax": 245,
+     "hpMin": 37066,
+     "hpMax": 95069
+    },
+    {
+     "key": "Marked",
+     "name": "Marked",
+     "levelMin": 214,
+     "levelMax": 280,
+     "hpMin": 59773,
+     "hpMax": 168725
+    }
+   ],
+   "scaling": "Miniboss",
+   "scalingLabel": "Minibosses",
+   "levelMult": 1.1,
    "weakSpot": "Left Leg — takes 1.5× damage",
    "limbs": [
     {
      "name": "Head",
      "pct": 15.0,
      "mult": 1.25,
-     "hpMin": 970,
-     "hpMax": 10526,
+     "hpMin": 635,
+     "hpMax": 25309,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -641,8 +995,8 @@
      "name": "Torso",
      "pct": 80.0,
      "mult": 0.9,
-     "hpMin": 5176,
-     "hpMax": 56139,
+     "hpMin": 3389,
+     "hpMax": 134980,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -651,8 +1005,8 @@
      "name": "Arms (each)",
      "pct": 20.0,
      "mult": 1.0,
-     "hpMin": 1294,
-     "hpMax": 14035,
+     "hpMin": 847,
+     "hpMax": 33745,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -661,8 +1015,8 @@
      "name": "Left Leg",
      "pct": 50.0,
      "mult": 1.5,
-     "hpMin": 3235,
-     "hpMax": 35087,
+     "hpMin": 2118,
+     "hpMax": 84362,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": true
@@ -671,8 +1025,8 @@
      "name": "Combat Inhibitor",
      "pct": 10.0,
      "mult": 0.5,
-     "hpMin": 647,
-     "hpMax": 7017,
+     "hpMin": 424,
+     "hpMax": 16872,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -681,8 +1035,8 @@
      "name": "Eyes (each)",
      "pct": 15.0,
      "mult": 1.25,
-     "hpMin": 970,
-     "hpMax": 10526,
+     "hpMin": 635,
+     "hpMax": 25309,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -691,8 +1045,8 @@
      "name": "Mid Arm",
      "pct": 20.0,
      "mult": 1.0,
-     "hpMin": 1294,
-     "hpMax": 14035,
+     "hpMin": 847,
+     "hpMax": 33745,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -705,24 +1059,63 @@
    "formId": "0090B9F7",
    "name": "Robobrain Bruiser",
    "race": "DLC01RoboBrain",
-   "levelMin": 50,
-   "levelMax": 225,
-   "hpMin": 4599,
-   "hpMax": 52496,
+   "levelMin": 32,
+   "levelMax": 280,
+   "hpMin": 3007,
+   "hpMax": 129867,
    "healthCurve": "CT_Creatures_Health_Universal_Tier33",
    "statsFrom": "",
    "speedMult": 100.0,
    "faction": "Vault 63 Immortality Sector miniboss",
    "role": "Miniboss",
    "weapons": [],
+   "recordLevelMin": 50,
+   "recordLevelMax": 225,
+   "byDifficulty": [
+    {
+     "key": "Easy",
+     "name": "Basic",
+     "levelMin": 32,
+     "levelMax": 71,
+     "hpMin": 3007,
+     "hpMax": 6644
+    },
+    {
+     "key": "Medium",
+     "name": "Challenging",
+     "levelMin": 86,
+     "levelMax": 143,
+     "hpMin": 8280,
+     "hpMax": 17094
+    },
+    {
+     "key": "Hard",
+     "name": "Lethal",
+     "levelMin": 179,
+     "levelMax": 245,
+     "hpMin": 27139,
+     "hpMax": 71849
+    },
+    {
+     "key": "Marked",
+     "name": "Marked",
+     "levelMin": 214,
+     "levelMax": 280,
+     "hpMin": 44470,
+     "hpMax": 129867
+    }
+   ],
+   "scaling": "Miniboss",
+   "scalingLabel": "Minibosses",
+   "levelMult": 1.1,
    "weakSpot": "Head — takes 1.15× damage",
    "limbs": [
     {
      "name": "Head",
      "pct": 50.0,
      "mult": 1.15,
-     "hpMin": 2300,
-     "hpMax": 26248,
+     "hpMin": 1504,
+     "hpMax": 64934,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": true
@@ -731,8 +1124,8 @@
      "name": "Torso",
      "pct": 80.0,
      "mult": 1.0,
-     "hpMin": 3679,
-     "hpMax": 41997,
+     "hpMin": 2406,
+     "hpMax": 103894,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -741,8 +1134,8 @@
      "name": "Arms (each)",
      "pct": 25.0,
      "mult": 1.0,
-     "hpMin": 1150,
-     "hpMax": 13124,
+     "hpMin": 752,
+     "hpMax": 32467,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
@@ -751,8 +1144,8 @@
      "name": "Legs (each)",
      "pct": 35.0,
      "mult": 0.9,
-     "hpMin": 1610,
-     "hpMax": 18374,
+     "hpMin": 1052,
+     "hpMax": 45453,
      "severable": false,
      "alsoHitVia": [
       "Feet"
@@ -763,14 +1156,239 @@
      "name": "Combat Inhibitor",
      "pct": 10.0,
      "mult": 0.65,
-     "hpMin": 460,
-     "hpMax": 5250,
+     "hpMin": 301,
+     "hpMax": 12987,
      "severable": false,
      "alsoHitVia": [],
      "weakSpot": false
     }
    ],
    "bodyPartData": "RoboBrainBodyPartData"
+  },
+  {
+   "edid": "HIDE_WL_Miniboss_MirelurkHunter",
+   "formId": "009367C2",
+   "name": "Brood Lurker",
+   "race": "MirelurkHunter",
+   "levelMin": 32,
+   "levelMax": 280,
+   "hpMin": 5028,
+   "hpMax": 192525,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier36",
+   "statsFrom": "",
+   "speedMult": 100.0,
+   "faction": "Black Pool Caverns miniboss",
+   "role": "Miniboss",
+   "weapons": [],
+   "note": "Black Pool Caverns is in the game files but not yet in the list of Hideouts a run can pick, so this miniboss can't come up yet.",
+   "recordLevelMin": 50,
+   "recordLevelMax": 225,
+   "byDifficulty": [
+    {
+     "key": "Easy",
+     "name": "Basic",
+     "levelMin": 32,
+     "levelMax": 71,
+     "hpMin": 5028,
+     "hpMax": 11050
+    },
+    {
+     "key": "Medium",
+     "name": "Challenging",
+     "levelMin": 86,
+     "levelMax": 143,
+     "hpMin": 13732,
+     "hpMax": 27833
+    },
+    {
+     "key": "Hard",
+     "name": "Lethal",
+     "levelMin": 179,
+     "levelMax": 245,
+     "hpMin": 43346,
+     "hpMax": 109466
+    },
+    {
+     "key": "Marked",
+     "name": "Marked",
+     "levelMin": 214,
+     "levelMax": 280,
+     "hpMin": 69358,
+     "hpMax": 192525
+    }
+   ],
+   "scaling": "Miniboss",
+   "scalingLabel": "Minibosses",
+   "levelMult": 1.1,
+   "weakSpot": "Head — takes 1.25× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 25.0,
+     "mult": 1.25,
+     "hpMin": 1257,
+     "hpMax": 48131,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 80.0,
+     "mult": 0.9,
+     "hpMin": 4022,
+     "hpMax": 154020,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 35.0,
+     "mult": 0.33,
+     "hpMin": 1760,
+     "hpMax": 67384,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 20.0,
+     "mult": 1.0,
+     "hpMin": 1006,
+     "hpMax": 38505,
+     "severable": true,
+     "alsoHitVia": [
+      "Left Legs",
+      "Right Legs"
+     ],
+     "weakSpot": false
+    },
+    {
+     "name": "Shell",
+     "pct": 50.0,
+     "mult": 0.5,
+     "hpMin": 2514,
+     "hpMax": 96262,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "mirelurkHunterBodyPartData"
+  },
+  {
+   "edid": "HIDE_WL_Miniboss_ImposterSheepsquatch",
+   "formId": "009367C1",
+   "name": "Imposter Sheepsquatch",
+   "race": "Assaultron",
+   "levelMin": 28,
+   "levelMax": 231,
+   "hpMin": 4467,
+   "hpMax": 88476,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier36",
+   "statsFrom": "",
+   "speedMult": 100.0,
+   "faction": "Black Pool Caverns miniboss",
+   "role": "Miniboss",
+   "weapons": [],
+   "note": "Black Pool Caverns is in the game files but not yet in the list of Hideouts a run can pick, so this miniboss can't come up yet.",
+   "recordLevelMin": 50,
+   "recordLevelMax": 225,
+   "byDifficulty": [
+    {
+     "key": "Easy",
+     "name": "Basic",
+     "levelMin": 28,
+     "levelMax": 61,
+     "hpMin": 4467,
+     "hpMax": 9396
+    },
+    {
+     "key": "Medium",
+     "name": "Challenging",
+     "levelMin": 74,
+     "levelMax": 124,
+     "hpMin": 11566,
+     "hpMax": 22192
+    },
+    {
+     "key": "Hard",
+     "name": "Lethal",
+     "levelMin": 154,
+     "levelMax": 205,
+     "hpMin": 31770,
+     "hpMax": 61201
+    },
+    {
+     "key": "Marked",
+     "name": "Marked",
+     "levelMin": 185,
+     "levelMax": 231,
+     "hpMin": 46841,
+     "hpMax": 88476
+    }
+   ],
+   "scaling": "Wildlife",
+   "scalingLabel": "Wildlife",
+   "levelMult": 0.95,
+   "weakSpot": "None — no body part takes bonus damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 0.5,
+     "hpMin": 893,
+     "hpMax": 17695,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Torso",
+     "pct": 80.0,
+     "mult": 0.85,
+     "hpMin": 3574,
+     "hpMax": 70781,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 1563,
+     "hpMax": 30967,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 40.0,
+     "mult": 1.0,
+     "hpMin": 1787,
+     "hpMax": 35390,
+     "severable": false,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    },
+    {
+     "name": "Combat Inhibitor",
+     "pct": 10.0,
+     "mult": 0.25,
+     "hpMin": 447,
+     "hpMax": 8848,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "AssaultronBodyPartData"
   }
  ],
  "mutations": {
@@ -851,8 +1469,8 @@
   "intro": "Hideout enemies share the following traits.",
   "rows": [
    [
-    "Boss level range",
-    "50 – 150 / 50 – 225 / 75 – 225"
+    "Level scaling",
+    "Set by the lead's difficulty: Basic, Challenging, Lethal, Marked. See Levels by Difficulty below"
    ],
    [
     "Gangs",
@@ -860,103 +1478,103 @@
    ],
    [
     "Hideouts",
-    "Forever Farm, Vault 63 Immortality Sector"
+    "Forever Farm, Vault 63 Immortality Sector (Black Pool Caverns is in the files but not in the rotation yet)"
    ],
    [
     "Lieutenant mutation",
     "Each Lieutenant spawns with one mutation from the pool below"
-   ],
-   [
-    "Scripted scaling",
-    "Hideout actors carry a scripted normalising perk per role (boss, lieutenant, miniboss, fodder, wildlife), so in-game numbers can differ from the curve values shown here"
    ]
   ],
   "resist": [
    {
     "name": "Super Mutant Conquerer",
-    "DR": 326,
-    "ER": 203,
-    "Fire": 255,
-    "Cryo": 192,
-    "Poison": 657,
-    "Rad": 1824
+    "DR": 546,
+    "ER": 410,
+    "Fire": 464,
+    "Cryo": 400,
+    "Poison": 971,
+    "Rad": 2530
    },
    {
     "name": "Master Tactical Unit",
-    "DR": 488,
-    "ER": 192,
-    "Fire": 182,
-    "Cryo": 227,
-    "Poison": 1824,
-    "Rad": 1824
+    "DR": 750,
+    "ER": 400,
+    "Fire": 391,
+    "Cryo": 434,
+    "Poison": 2530,
+    "Rad": 2530
    },
    {
     "name": "Lost Voltaic Commander",
-    "DR": 227,
-    "ER": 425,
-    "Fire": 154,
-    "Cryo": 108,
-    "Poison": 129,
-    "Rad": 1824
+    "DR": 434,
+    "ER": 669,
+    "Fire": 368,
+    "Cryo": 333,
+    "Poison": 350,
+    "Rad": 2530
    },
    {
     "name": "Cultist Grand Revelator",
-    "DR": 182,
-    "ER": 255,
-    "Fire": 182,
-    "Cryo": 145,
-    "Poison": 271,
-    "Rad": 203
+    "DR": 391,
+    "ER": 464,
+    "Fire": 391,
+    "Cryo": 362,
+    "Poison": 482,
+    "Rad": 410
    },
    {
     "name": "Rust Guard Warmaster",
-    "DR": 371,
-    "ER": 288,
-    "Fire": 288,
-    "Cryo": 182,
-    "Poison": 182,
-    "Rad": 288
+    "DR": 601,
+    "ER": 501,
+    "Fire": 501,
+    "Cryo": 391,
+    "Poison": 391,
+    "Rad": 501
    },
    {
     "name": "Bloated Monstrosity"
    },
    {
     "name": "Facility Administrator",
-    "DR": 143,
-    "ER": 91,
-    "Fire": 98,
-    "Cryo": 133,
-    "Poison": 1305,
-    "Rad": 1305
+    "DR": 345,
+    "ER": 272,
+    "Fire": 282,
+    "Cryo": 330,
+    "Poison": 2225,
+    "Rad": 2225
    },
    {
     "name": "Filtration Efficiency Unit"
    },
    {
     "name": "Cranial Expert",
-    "DR": 203,
-    "ER": 271,
-    "Fire": 154,
-    "Cryo": 710,
-    "Poison": 154,
-    "Rad": 255
+    "DR": 304,
+    "ER": 378,
+    "Fire": 253,
+    "Cryo": 893,
+    "Poison": 253,
+    "Rad": 361
    },
    {
     "name": "Robobrain Bruiser"
+   },
+   {
+    "name": "Brood Lurker"
+   },
+   {
+    "name": "Imposter Sheepsquatch"
    }
   ]
  },
  "health": {
-  "intro": "Health is read from the curve table assigned to each boss, at the levels bosses spawn between. Bosses on the same curve share a row.",
+  "intro": "The lead's difficulty sets every enemy's level range, so health is shown for each difficulty, read from each boss's health curve across that range. Bosses on the same curve and scaling share a row.",
   "levels": [
-   75,
-   100,
-   125,
-   150,
-   175,
-   200,
-   225
+   "Basic",
+   "Challenging",
+   "Lethal",
+   "Marked"
   ],
+  "ranges": true,
   "rows": [
    {
     "label": "Super Mutant Conquerer, Master Tactical Unit, Lost Voltaic Commander, Cultist Grand Revelator, Rust Guard Warmaster",
@@ -969,29 +1587,48 @@
     ],
     "curve": "CT_Creatures_Health_Universal_Tier39",
     "values": [
-     19528,
-     27310,
-     36919,
-     49333,
-     66195,
-     90291,
-     126300
+     [
+      9364,
+      21587
+     ],
+     [
+      26327,
+      56747
+     ],
+     [
+      94032,
+      287256
+     ],
+     [
+      162540,
+      555014
+     ]
     ]
    },
    {
-    "label": "Bloated Monstrosity",
+    "label": "Bloated Monstrosity, Brood Lurker",
     "bosses": [
-     "Bloated Monstrosity"
+     "Bloated Monstrosity",
+     "Brood Lurker"
     ],
     "curve": "CT_Creatures_Health_Universal_Tier36",
     "values": [
-     11738,
-     16498,
-     22468,
-     30321,
-     41195,
-     57048,
-     81208
+     [
+      5028,
+      11050
+     ],
+     [
+      13732,
+      27833
+     ],
+     [
+      43346,
+      109466
+     ],
+     [
+      69358,
+      192525
+     ]
     ]
    },
    {
@@ -1001,13 +1638,22 @@
     ],
     "curve": "CT_Creatures_Health_Universal_Tier34",
     "values": [
-     8364,
-     11799,
-     16153,
-     21951,
-     null,
-     null,
-     null
+     [
+      3569,
+      7870
+     ],
+     [
+      9799,
+      20104
+     ],
+     [
+      31709,
+      82621
+     ],
+     [
+      51542,
+      147973
+     ]
     ]
    },
    {
@@ -1018,13 +1664,22 @@
     ],
     "curve": "CT_Creatures_Health_Universal_Tier33",
     "values": [
-     7062,
-     9980,
-     13701,
-     18686,
-     null,
-     null,
-     null
+     [
+      3007,
+      6644
+     ],
+     [
+      8280,
+      17094
+     ],
+     [
+      27139,
+      71849
+     ],
+     [
+      44470,
+      129867
+     ]
     ]
    },
    {
@@ -1034,13 +1689,47 @@
     ],
     "curve": "CT_Creatures_Health_Universal_Tier35",
     "values": [
-     9907,
-     13951,
-     19049,
-     25795,
-     35198,
-     49000,
-     70174
+     [
+      4236,
+      9325
+     ],
+     [
+      11599,
+      23651
+     ],
+     [
+      37066,
+      95069
+     ],
+     [
+      59773,
+      168725
+     ]
+    ]
+   },
+   {
+    "label": "Imposter Sheepsquatch",
+    "bosses": [
+     "Imposter Sheepsquatch"
+    ],
+    "curve": "CT_Creatures_Health_Universal_Tier36",
+    "values": [
+     [
+      4467,
+      9396
+     ],
+     [
+      11566,
+      22192
+     ],
+     [
+      31770,
+      61201
+     ],
+     [
+      46841,
+      88476
+     ]
     ]
    }
   ]
@@ -1057,112 +1746,305 @@
     "formId": "008F4EE5",
     "name": "Super Mutant Subjugator",
     "race": "SuperMutant",
-    "levelMin": 75,
-    "levelMax": 200,
-    "hpMin": 9907,
-    "hpMax": 49000,
+    "levelMin": 32,
+    "levelMax": 280,
+    "hpMin": 4236,
+    "hpMax": 168725,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "resist": {
-     "DR": 203,
-     "ER": 158,
-     "Fire": 216,
-     "Cryo": 158,
-     "Poison": 585,
-     "Rad": 1648
+     "DR": 345,
+     "ER": 293,
+     "Fire": 361,
+     "Cryo": 293,
+     "Poison": 830,
+     "Rad": 2225
     },
     "speedMult": 100.0,
     "faction": "FEV Creatures",
     "role": "support",
-    "loadout": "Lieutenant"
+    "loadout": "Lieutenant",
+    "recordLevelMin": 75,
+    "recordLevelMax": 200,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 32,
+      "levelMax": 71,
+      "hpMin": 4236,
+      "hpMax": 9325
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 86,
+      "levelMax": 143,
+      "hpMin": 11599,
+      "hpMax": 23651
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 179,
+      "levelMax": 245,
+      "hpMin": 37066,
+      "hpMax": 95069
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 214,
+      "levelMax": 280,
+      "hpMin": 59773,
+      "hpMax": 168725
+     }
+    ],
+    "scaling": "Lieutenant",
+    "scalingLabel": "Lieutenants",
+    "levelMult": 1.1
    },
    {
     "edid": "HIDE_RobotLieutenant",
     "formId": "008F4ECD",
     "name": "Auxiliary Tactical Unit",
     "race": "DLC01RoboBrain",
-    "levelMin": 75,
-    "levelMax": 200,
-    "hpMin": 9907,
-    "hpMax": 49000,
+    "levelMin": 29,
+    "levelMax": 243,
+    "hpMin": 3881,
+    "hpMax": 91898,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "speedMult": 100.0,
     "faction": "Robots",
     "role": "support",
-    "loadout": "Lieutenant"
+    "loadout": "Lieutenant",
+    "recordLevelMin": 75,
+    "recordLevelMax": 200,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 29,
+      "levelMax": 65,
+      "hpMin": 3881,
+      "hpMax": 8470
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 78,
+      "levelMax": 130,
+      "hpMin": 10344,
+      "hpMax": 20234
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 162,
+      "levelMax": 220,
+      "hpMin": 29899,
+      "hpMax": 65038
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 194,
+      "levelMax": 243,
+      "hpMin": 45251,
+      "hpMax": 91898
+     }
+    ],
+    "scaling": "General",
+    "scalingLabel": "Gang fighters"
    },
    {
     "edid": "HIDE_LostLieutenant",
     "formId": "008F4EB4",
     "name": "Lost Voltaic Adjutant",
     "race": "Lost",
-    "levelMin": 75,
-    "levelMax": 200,
-    "hpMin": 9907,
-    "hpMax": 49000,
+    "levelMin": 32,
+    "levelMax": 280,
+    "hpMin": 4236,
+    "hpMax": 168725,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "resist": {
-     "DR": 168,
-     "ER": 282,
-     "Fire": 108,
-     "Cryo": 75,
-     "Poison": 94,
-     "Rad": 1648
+     "DR": 304,
+     "ER": 441,
+     "Fire": 237,
+     "Cryo": 198,
+     "Poison": 221,
+     "Rad": 2225
     },
     "speedMult": 100.0,
     "faction": "The Lost",
     "role": "support",
-    "loadout": "Lieutenant"
+    "loadout": "Lieutenant",
+    "recordLevelMin": 75,
+    "recordLevelMax": 200,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 32,
+      "levelMax": 71,
+      "hpMin": 4236,
+      "hpMax": 9325
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 86,
+      "levelMax": 143,
+      "hpMin": 11599,
+      "hpMax": 23651
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 179,
+      "levelMax": 245,
+      "hpMin": 37066,
+      "hpMax": 95069
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 214,
+      "levelMax": 280,
+      "hpMin": 59773,
+      "hpMax": 168725
+     }
+    ],
+    "scaling": "Lieutenant",
+    "scalingLabel": "Lieutenants",
+    "levelMult": 1.1
    },
    {
     "edid": "HIDE_CultistLieutenant",
     "formId": "008F4ECF",
     "name": "Cultist Acolyte",
     "race": "Human",
-    "levelMin": 75,
-    "levelMax": 200,
-    "hpMin": 9907,
-    "hpMax": 49000,
+    "levelMin": 29,
+    "levelMax": 243,
+    "hpMin": 3881,
+    "hpMax": 91898,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "resist": {
-     "DR": 131,
-     "ER": 148,
-     "Fire": 131,
-     "Cryo": 108,
-     "Poison": 158,
-     "Rad": 148
+     "DR": 190,
+     "ER": 209,
+     "Fire": 190,
+     "Cryo": 164,
+     "Poison": 220,
+     "Rad": 209
     },
     "speedMult": 100.0,
     "faction": "Mothman Cultists",
     "role": "support",
-    "loadout": "Lieutenant"
+    "loadout": "Lieutenant",
+    "recordLevelMin": 75,
+    "recordLevelMax": 200,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 29,
+      "levelMax": 65,
+      "hpMin": 3881,
+      "hpMax": 8470
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 78,
+      "levelMax": 130,
+      "hpMin": 10344,
+      "hpMax": 20234
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 162,
+      "levelMax": 220,
+      "hpMin": 29899,
+      "hpMax": 65038
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 194,
+      "levelMax": 243,
+      "hpMin": 45251,
+      "hpMax": 91898
+     }
+    ],
+    "scaling": "General",
+    "scalingLabel": "Gang fighters"
    },
    {
     "edid": "HIDE_RustRaiderLieutenant",
     "formId": "008F4EBA",
     "name": "Rust Guard Champion",
     "race": "Human",
-    "levelMin": 75,
-    "levelMax": 200,
-    "hpMin": 9907,
-    "hpMax": 49000,
+    "levelMin": 32,
+    "levelMax": 280,
+    "hpMin": 4236,
+    "hpMax": 168725,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "resist": {
-     "DR": 323,
-     "ER": 247,
-     "Fire": 247,
-     "Cryo": 148,
-     "Poison": 148,
-     "Rad": 247
+     "DR": 493,
+     "ER": 397,
+     "Fire": 397,
+     "Cryo": 282,
+     "Poison": 282,
+     "Rad": 397
     },
     "speedMult": 100.0,
     "faction": "Rust Raiders",
     "role": "support",
-    "loadout": "Lieutenant"
+    "loadout": "Lieutenant",
+    "recordLevelMin": 75,
+    "recordLevelMax": 200,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 32,
+      "levelMax": 71,
+      "hpMin": 4236,
+      "hpMax": 9325
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 86,
+      "levelMax": 143,
+      "hpMin": 11599,
+      "hpMax": 23651
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 179,
+      "levelMax": 245,
+      "hpMin": 37066,
+      "hpMax": 95069
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 214,
+      "levelMax": 280,
+      "hpMin": 59773,
+      "hpMax": 168725
+     }
+    ],
+    "scaling": "Lieutenant",
+    "scalingLabel": "Lieutenants",
+    "levelMult": 1.1
    }
   ]
  },
@@ -1174,1387 +2056,4089 @@
     "formId": "008F4EE9",
     "name": "Super Mutant Berserker",
     "race": "SuperMutant",
-    "levelMin": 75,
-    "levelMax": 175,
-    "hpMin": 1554,
-    "hpMax": 6431,
+    "levelMin": 29,
+    "levelMax": 243,
+    "hpMin": 593,
+    "hpMax": 20240,
     "healthCurve": "CT_Creatures_Health_Universal_Tier24",
     "statsFrom": "",
     "resist": {
-     "DR": 160,
-     "ER": 130,
-     "Fire": 183,
-     "Cryo": 130,
-     "Poison": 516,
-     "Rad": 1475
+     "DR": 257,
+     "ER": 220,
+     "Fire": 286,
+     "Cryo": 220,
+     "Poison": 711,
+     "Rad": 1953
     },
     "speedMult": 100.0,
     "faction": "FEV Creatures",
     "role": "mob",
-    "loadout": "Close range"
+    "loadout": "Close range",
+    "recordLevelMin": 75,
+    "recordLevelMax": 175,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 29,
+      "levelMax": 65,
+      "hpMin": 593,
+      "hpMax": 1319
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 78,
+      "levelMax": 130,
+      "hpMin": 1625,
+      "hpMax": 3379
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 162,
+      "levelMax": 220,
+      "hpMin": 5305,
+      "hpMax": 13399
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 194,
+      "levelMax": 243,
+      "hpMin": 8680,
+      "hpMax": 20240
+     }
+    ],
+    "scaling": "General",
+    "scalingLabel": "Gang fighters"
    },
    {
     "edid": "HIDE_FEVInterference",
     "formId": "008F4EDB",
     "name": "Floater Freezer",
     "race": "Floater",
-    "levelMin": 75,
-    "levelMax": 175,
-    "hpMin": 1554,
-    "hpMax": 6431,
+    "levelMin": 29,
+    "levelMax": 243,
+    "hpMin": 593,
+    "hpMax": 20240,
     "healthCurve": "CT_Creatures_Health_Universal_Tier24",
     "statsFrom": "",
     "resist": {
-     "DR": 57,
-     "ER": 1107,
-     "Fire": 40,
-     "Cryo": 516,
-     "Poison": 57,
-     "Rad": 349
+     "DR": 125,
+     "ER": 4307,
+     "Fire": 99,
+     "Cryo": 711,
+     "Poison": 125,
+     "Rad": 497
     },
     "speedMult": 100.0,
     "faction": "FEV Creatures",
     "role": "mob",
-    "loadout": "Interference"
+    "loadout": "Interference",
+    "recordLevelMin": 75,
+    "recordLevelMax": 175,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 29,
+      "levelMax": 65,
+      "hpMin": 593,
+      "hpMax": 1319
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 78,
+      "levelMax": 130,
+      "hpMin": 1625,
+      "hpMax": 3379
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 162,
+      "levelMax": 220,
+      "hpMin": 5305,
+      "hpMax": 13399
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 194,
+      "levelMax": 243,
+      "hpMin": 8680,
+      "hpMax": 20240
+     }
+    ],
+    "scaling": "General",
+    "scalingLabel": "Gang fighters"
    },
    {
     "edid": "HIDE_FEVLongRange",
     "formId": "008F4EDE",
     "name": "Super Mutant Devastator",
     "race": "SuperMutant",
-    "levelMin": 75,
-    "levelMax": 175,
-    "hpMin": 944,
-    "hpMax": 4093,
+    "levelMin": 29,
+    "levelMax": 243,
+    "hpMin": 358,
+    "hpMax": 13599,
     "healthCurve": "CT_Creatures_Health_Universal_Tier21",
     "statsFrom": "",
     "resist": {
-     "DR": 160,
-     "ER": 130,
-     "Fire": 183,
-     "Cryo": 130,
-     "Poison": 516,
-     "Rad": 1475
+     "DR": 257,
+     "ER": 220,
+     "Fire": 286,
+     "Cryo": 220,
+     "Poison": 711,
+     "Rad": 1953
     },
     "speedMult": 100.0,
     "faction": "FEV Creatures",
     "role": "mob",
-    "loadout": "Long range"
+    "loadout": "Long range",
+    "recordLevelMin": 75,
+    "recordLevelMax": 175,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 29,
+      "levelMax": 65,
+      "hpMin": 358,
+      "hpMax": 799
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 78,
+      "levelMax": 130,
+      "hpMin": 988,
+      "hpMax": 2093
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 162,
+      "levelMax": 220,
+      "hpMin": 3346,
+      "hpMax": 8834
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 194,
+      "levelMax": 243,
+      "hpMin": 5605,
+      "hpMax": 13599
+     }
+    ],
+    "scaling": "General",
+    "scalingLabel": "Gang fighters"
    },
    {
     "edid": "HIDE_FEVMediumRange",
     "formId": "008F4EC0",
     "name": "Super Mutant Enforcer",
     "race": "SuperMutant",
-    "levelMin": 75,
-    "levelMax": 175,
-    "hpMin": 944,
-    "hpMax": 4093,
+    "levelMin": 29,
+    "levelMax": 243,
+    "hpMin": 358,
+    "hpMax": 13599,
     "healthCurve": "CT_Creatures_Health_Universal_Tier21",
     "statsFrom": "",
     "resist": {
-     "DR": 160,
-     "ER": 130,
-     "Fire": 183,
-     "Cryo": 130,
-     "Poison": 516,
-     "Rad": 1475
+     "DR": 257,
+     "ER": 220,
+     "Fire": 286,
+     "Cryo": 220,
+     "Poison": 711,
+     "Rad": 1953
     },
     "speedMult": 100.0,
     "faction": "FEV Creatures",
     "role": "mob",
-    "loadout": "Medium range"
+    "loadout": "Medium range",
+    "recordLevelMin": 75,
+    "recordLevelMax": 175,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 29,
+      "levelMax": 65,
+      "hpMin": 358,
+      "hpMax": 799
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 78,
+      "levelMax": 130,
+      "hpMin": 988,
+      "hpMax": 2093
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 162,
+      "levelMax": 220,
+      "hpMin": 3346,
+      "hpMax": 8834
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 194,
+      "levelMax": 243,
+      "hpMin": 5605,
+      "hpMax": 13599
+     }
+    ],
+    "scaling": "General",
+    "scalingLabel": "Gang fighters"
    },
    {
     "edid": "HIDE_FEVPopcorn",
     "formId": "008F4ED9",
     "name": "Mutant Hound Whelp",
     "race": "FEVHound",
-    "levelMin": 50,
-    "levelMax": 150,
-    "hpMin": 604,
-    "hpMax": 2795,
+    "levelMin": 26,
+    "levelMax": 219,
+    "hpMin": 324,
+    "hpMax": 8687,
     "healthCurve": "CT_Creatures_Health_Universal_Tier21",
     "statsFrom": "",
     "speedMult": 100.0,
     "faction": "FEV Creatures",
     "role": "mob",
-    "loadout": "Fodder"
+    "loadout": "Fodder",
+    "recordLevelMin": 50,
+    "recordLevelMax": 150,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 26,
+      "levelMax": 59,
+      "hpMin": 324,
+      "hpMax": 719
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 70,
+      "levelMax": 116,
+      "hpMin": 870,
+      "hpMax": 1719
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 146,
+      "levelMax": 190,
+      "hpMin": 2632,
+      "hpMax": 5230
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 175,
+      "levelMax": 219,
+      "hpMin": 4093,
+      "hpMax": 8687
+     }
+    ],
+    "scaling": "Popcorn",
+    "scalingLabel": "Fodder",
+    "levelMult": 0.9
    },
    {
     "edid": "HIDE_FEVSupport",
     "formId": "008F4ECC",
     "name": "Floater Flamer",
     "race": "Floater",
-    "levelMin": 75,
-    "levelMax": 175,
-    "hpMin": 1554,
-    "hpMax": 6431,
+    "levelMin": 29,
+    "levelMax": 243,
+    "hpMin": 593,
+    "hpMax": 20240,
     "healthCurve": "CT_Creatures_Health_Universal_Tier24",
     "statsFrom": "",
     "resist": {
-     "DR": 57,
-     "ER": 78,
-     "Fire": 516,
-     "Cryo": 40,
-     "Poison": 57,
-     "Rad": 349
+     "DR": 125,
+     "ER": 156,
+     "Fire": 711,
+     "Cryo": 99,
+     "Poison": 125,
+     "Rad": 497
     },
     "speedMult": 100.0,
     "faction": "FEV Creatures",
     "role": "mob",
-    "loadout": "Support"
+    "loadout": "Support",
+    "recordLevelMin": 75,
+    "recordLevelMax": 175,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 29,
+      "levelMax": 65,
+      "hpMin": 593,
+      "hpMax": 1319
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 78,
+      "levelMax": 130,
+      "hpMin": 1625,
+      "hpMax": 3379
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 162,
+      "levelMax": 220,
+      "hpMin": 5305,
+      "hpMax": 13399
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 194,
+      "levelMax": 243,
+      "hpMin": 8680,
+      "hpMax": 20240
+     }
+    ],
+    "scaling": "General",
+    "scalingLabel": "Gang fighters"
    },
    {
     "edid": "HIDE_FEVWildcard_Common",
     "formId": "00958673",
     "name": "Super Mutant Firestarter",
     "race": "SuperMutant",
-    "levelMin": 75,
-    "levelMax": 225,
-    "hpMin": 9907,
-    "hpMax": 70174,
+    "levelMin": 32,
+    "levelMax": 280,
+    "hpMin": 4236,
+    "hpMax": 168725,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "resist": {
-     "DR": 241,
-     "ER": 192,
-     "Fire": 255,
-     "Cryo": 192,
-     "Poison": 657,
-     "Rad": 1824
+     "DR": 345,
+     "ER": 293,
+     "Fire": 361,
+     "Cryo": 293,
+     "Poison": 830,
+     "Rad": 2225
     },
     "speedMult": 100.0,
     "faction": "FEV Creatures",
     "role": "mob",
-    "loadout": "Wildcard (common)"
+    "loadout": "Wildcard (common)",
+    "recordLevelMin": 75,
+    "recordLevelMax": 225,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 32,
+      "levelMax": 71,
+      "hpMin": 4236,
+      "hpMax": 9325
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 86,
+      "levelMax": 143,
+      "hpMin": 11599,
+      "hpMax": 23651
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 179,
+      "levelMax": 245,
+      "hpMin": 37066,
+      "hpMax": 95069
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 214,
+      "levelMax": 280,
+      "hpMin": 59773,
+      "hpMax": 168725
+     }
+    ],
+    "scaling": "Wildcard",
+    "scalingLabel": "Wildcards"
    },
    {
     "edid": "HIDE_FEVWildcard_Rare",
     "formId": "00958672",
     "name": "Aberrant Mutant Hound",
     "race": "FEVHound",
-    "levelMin": 75,
-    "levelMax": 225,
-    "hpMin": 19528,
-    "hpMax": 126300,
+    "levelMin": 32,
+    "levelMax": 280,
+    "hpMin": 8411,
+    "hpMax": 287256,
     "healthCurve": "CT_Creatures_Health_Universal_Tier39",
     "statsFrom": "",
     "resist": {
-     "DR": 203,
-     "ER": 2952,
-     "Fire": 77,
-     "Cryo": 657,
-     "Poison": 101,
-     "Rad": 1824
+     "DR": 304,
+     "ER": 9935,
+     "Fire": 168,
+     "Cryo": 830,
+     "Poison": 198,
+     "Rad": 2225
     },
     "speedMult": 175.0,
     "faction": "FEV Creatures",
     "role": "mob",
-    "loadout": "Wildcard (rare)"
+    "loadout": "Wildcard (rare)",
+    "recordLevelMin": 75,
+    "recordLevelMax": 225,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 32,
+      "levelMax": 71,
+      "hpMin": 8411,
+      "hpMax": 18396
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 86,
+      "levelMax": 143,
+      "hpMin": 22799,
+      "hpMax": 45429
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 179,
+      "levelMax": 245,
+      "hpMin": 69493,
+      "hpMax": 167759
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 214,
+      "levelMax": 280,
+      "hpMin": 108719,
+      "hpMax": 287256
+     }
+    ],
+    "scaling": "Wildcard",
+    "scalingLabel": "Wildcards"
    },
    {
     "edid": "HIDE_LvlFEVWildcard",
     "formId": "008F4EC8",
     "name": "Aberrant Mutant Hound / Super Mutant Firestarter",
     "race": "SuperMutant",
-    "levelMin": 75,
-    "levelMax": 175,
-    "hpMin": 4254,
-    "hpMax": 16133,
+    "levelMin": 32,
+    "levelMax": 280,
+    "hpMin": 1800,
+    "hpMax": 88171,
     "healthCurve": "CT_Creatures_Health_Universal_Tier30",
     "statsFrom": "",
     "resist": {
-     "DR": 171,
-     "ER": 130,
-     "Fire": 183,
-     "Cryo": 130,
-     "Poison": 516,
-     "Rad": 1475
+     "DR": 345,
+     "ER": 293,
+     "Fire": 361,
+     "Cryo": 293,
+     "Poison": 830,
+     "Rad": 2225
     },
     "speedMult": 100.0,
     "faction": "FEV Creatures",
     "role": "mob",
-    "loadout": "Wildcard"
+    "loadout": "Wildcard",
+    "recordLevelMin": 75,
+    "recordLevelMax": 175,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 32,
+      "levelMax": 71,
+      "hpMin": 1800,
+      "hpMax": 4000
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 86,
+      "levelMax": 143,
+      "hpMin": 5000,
+      "hpMax": 10529
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 179,
+      "levelMax": 245,
+      "hpMin": 17061,
+      "hpMax": 47445
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 214,
+      "levelMax": 280,
+      "hpMin": 28665,
+      "hpMax": 88171
+     }
+    ],
+    "scaling": "Wildcard",
+    "scalingLabel": "Wildcards"
    },
    {
     "edid": "HIDE_LvlRobotWildcard",
     "formId": "008F4ECE",
     "name": "COB-E Prototype / Organics Disposal Unit",
     "race": "Assaultron",
-    "levelMin": 75,
-    "levelMax": 225,
-    "hpMin": 9907,
-    "hpMax": 70174,
+    "levelMin": 32,
+    "levelMax": 280,
+    "hpMin": 4236,
+    "hpMax": 168725,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "resist": {
-     "DR": 241,
-     "ER": 172,
-     "Fire": 182,
-     "Cryo": 227,
-     "Poison": 1824,
-     "Rad": 1824
+     "DR": 345,
+     "ER": 272,
+     "Fire": 282,
+     "Cryo": 330,
+     "Poison": 2225,
+     "Rad": 2225
     },
     "speedMult": 100.0,
     "faction": "Robots",
     "role": "mob",
-    "loadout": "Wildcard"
+    "loadout": "Wildcard",
+    "recordLevelMin": 75,
+    "recordLevelMax": 225,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 32,
+      "levelMax": 71,
+      "hpMin": 4236,
+      "hpMax": 9325
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 86,
+      "levelMax": 143,
+      "hpMin": 11599,
+      "hpMax": 23651
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 179,
+      "levelMax": 245,
+      "hpMin": 37066,
+      "hpMax": 95069
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 214,
+      "levelMax": 280,
+      "hpMin": 59773,
+      "hpMax": 168725
+     }
+    ],
+    "scaling": "Wildcard",
+    "scalingLabel": "Wildcards"
    },
    {
     "edid": "HIDE_RobotCloseRange",
     "formId": "008F4EC1",
     "name": "Construction Protectron",
     "race": "ProtectronFast",
-    "levelMin": 75,
-    "levelMax": 175,
-    "hpMin": 1554,
-    "hpMax": 6431,
+    "levelMin": 29,
+    "levelMax": 243,
+    "hpMin": 593,
+    "hpMax": 20240,
     "healthCurve": "CT_Creatures_Health_Universal_Tier24",
     "statsFrom": "",
     "speedMult": 100.0,
     "faction": "Robots",
     "role": "mob",
-    "loadout": "Close range"
+    "loadout": "Close range",
+    "recordLevelMin": 75,
+    "recordLevelMax": 175,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 29,
+      "levelMax": 65,
+      "hpMin": 593,
+      "hpMax": 1319
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 78,
+      "levelMax": 130,
+      "hpMin": 1625,
+      "hpMax": 3379
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 162,
+      "levelMax": 220,
+      "hpMin": 5305,
+      "hpMax": 13399
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 194,
+      "levelMax": 243,
+      "hpMin": 8680,
+      "hpMax": 20240
+     }
+    ],
+    "scaling": "General",
+    "scalingLabel": "Gang fighters"
    },
    {
     "edid": "HIDE_RobotCloseRange_Walker",
     "formId": "00900663",
     "name": "Construction Protectron",
     "race": "Protectron",
-    "levelMin": 75,
-    "levelMax": 175,
-    "hpMin": 1554,
-    "hpMax": 6431,
+    "levelMin": 29,
+    "levelMax": 243,
+    "hpMin": 593,
+    "hpMax": 20240,
     "healthCurve": "CT_Creatures_Health_Universal_Tier24",
     "statsFrom": "",
     "speedMult": 100.0,
     "faction": "Robots",
     "role": "mob",
-    "loadout": "Close range (walker)"
+    "loadout": "Close range (walker)",
+    "recordLevelMin": 75,
+    "recordLevelMax": 175,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 29,
+      "levelMax": 65,
+      "hpMin": 593,
+      "hpMax": 1319
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 78,
+      "levelMax": 130,
+      "hpMin": 1625,
+      "hpMax": 3379
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 162,
+      "levelMax": 220,
+      "hpMin": 5305,
+      "hpMax": 13399
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 194,
+      "levelMax": 243,
+      "hpMin": 8680,
+      "hpMax": 20240
+     }
+    ],
+    "scaling": "General",
+    "scalingLabel": "Gang fighters"
    },
    {
     "edid": "HIDE_RobotInterference",
     "formId": "008F4ED3",
     "name": "Eye Bomb",
     "race": "EyeBot",
-    "levelMin": 75,
-    "levelMax": 175,
-    "hpMin": 418,
-    "hpMax": 1959,
+    "levelMin": 29,
+    "levelMax": 243,
+    "hpMin": 156,
+    "hpMax": 7119,
     "healthCurve": "CT_Creatures_Health_Universal_Tier16",
     "statsFrom": "",
     "speedMult": 100.0,
     "faction": "Robots",
     "role": "mob",
-    "loadout": "Interference"
+    "loadout": "Interference",
+    "recordLevelMin": 75,
+    "recordLevelMax": 175,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 29,
+      "levelMax": 65,
+      "hpMin": 156,
+      "hpMax": 353
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 78,
+      "levelMax": 130,
+      "hpMin": 438,
+      "hpMax": 957
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 162,
+      "levelMax": 220,
+      "hpMin": 1578,
+      "hpMax": 4482
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 194,
+      "levelMax": 243,
+      "hpMin": 2748,
+      "hpMax": 7119
+     }
+    ],
+    "scaling": "General",
+    "scalingLabel": "Gang fighters"
    },
    {
     "edid": "HIDE_RobotLongRange",
     "formId": "008F4EBF",
     "name": "Protectron Oppressor",
     "race": "Protectron",
-    "levelMin": 75,
-    "levelMax": 175,
-    "hpMin": 944,
-    "hpMax": 4093,
+    "levelMin": 29,
+    "levelMax": 243,
+    "hpMin": 358,
+    "hpMax": 13599,
     "healthCurve": "CT_Creatures_Health_Universal_Tier21",
     "statsFrom": "",
     "speedMult": 100.0,
     "faction": "Robots",
     "role": "mob",
-    "loadout": "Long range"
+    "loadout": "Long range",
+    "recordLevelMin": 75,
+    "recordLevelMax": 175,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 29,
+      "levelMax": 65,
+      "hpMin": 358,
+      "hpMax": 799
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 78,
+      "levelMax": 130,
+      "hpMin": 988,
+      "hpMax": 2093
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 162,
+      "levelMax": 220,
+      "hpMin": 3346,
+      "hpMax": 8834
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 194,
+      "levelMax": 243,
+      "hpMin": 5605,
+      "hpMax": 13599
+     }
+    ],
+    "scaling": "General",
+    "scalingLabel": "Gang fighters"
    },
    {
     "edid": "HIDE_RobotMediumRange",
     "formId": "008F4EC6",
     "name": "Mr. Murder",
     "race": "Handy",
-    "levelMin": 75,
-    "levelMax": 175,
-    "hpMin": 679,
-    "hpMax": 3040,
+    "levelMin": 29,
+    "levelMax": 243,
+    "hpMin": 256,
+    "hpMax": 10472,
     "healthCurve": "CT_Creatures_Health_Universal_Tier19",
     "statsFrom": "",
     "speedMult": 100.0,
     "faction": "Robots",
     "role": "mob",
-    "loadout": "Medium range"
+    "loadout": "Medium range",
+    "recordLevelMin": 75,
+    "recordLevelMax": 175,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 29,
+      "levelMax": 65,
+      "hpMin": 256,
+      "hpMax": 575
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 78,
+      "levelMax": 130,
+      "hpMin": 711,
+      "hpMax": 1525
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 162,
+      "levelMax": 220,
+      "hpMin": 2471,
+      "hpMax": 6718
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 194,
+      "levelMax": 243,
+      "hpMin": 4204,
+      "hpMax": 10472
+     }
+    ],
+    "scaling": "General",
+    "scalingLabel": "Gang fighters"
    },
    {
     "edid": "HIDE_RobotPopcorn",
     "formId": "008F4EB5",
     "name": "Maintenance Drone",
     "race": "Liberator",
-    "levelMin": 50,
-    "levelMax": 150,
-    "hpMin": 312,
-    "hpMax": 1514,
+    "levelMin": 26,
+    "levelMax": 219,
+    "hpMin": 166,
+    "hpMax": 5035,
     "healthCurve": "CT_Creatures_Health_Universal_Tier17",
     "statsFrom": "",
     "speedMult": 100.0,
     "faction": "Robots",
     "role": "mob",
-    "loadout": "Fodder"
+    "loadout": "Fodder",
+    "recordLevelMin": 50,
+    "recordLevelMax": 150,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 26,
+      "levelMax": 59,
+      "hpMin": 166,
+      "hpMax": 372
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 70,
+      "levelMax": 116,
+      "hpMin": 452,
+      "hpMax": 910
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 146,
+      "levelMax": 190,
+      "hpMin": 1421,
+      "hpMax": 2939
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 175,
+      "levelMax": 219,
+      "hpMin": 2266,
+      "hpMax": 5035
+     }
+    ],
+    "scaling": "Popcorn",
+    "scalingLabel": "Fodder",
+    "levelMult": 0.9
    },
    {
     "edid": "HIDE_RobotSupport",
     "formId": "008F4EE3",
     "name": "Protectron Incinerator",
     "race": "ProtectronFast",
-    "levelMin": 75,
-    "levelMax": 175,
-    "hpMin": 800,
-    "hpMax": 3526,
+    "levelMin": 29,
+    "levelMax": 243,
+    "hpMin": 302,
+    "hpMax": 11929,
     "healthCurve": "CT_Creatures_Health_Universal_Tier20",
     "statsFrom": "",
     "speedMult": 100.0,
     "faction": "Robots",
     "role": "mob",
-    "loadout": "Support"
+    "loadout": "Support",
+    "recordLevelMin": 75,
+    "recordLevelMax": 175,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 29,
+      "levelMax": 65,
+      "hpMin": 302,
+      "hpMax": 677
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 78,
+      "levelMax": 130,
+      "hpMin": 838,
+      "hpMax": 1786
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 162,
+      "levelMax": 220,
+      "hpMin": 2874,
+      "hpMax": 7701
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 194,
+      "levelMax": 243,
+      "hpMin": 4852,
+      "hpMax": 11929
+     }
+    ],
+    "scaling": "General",
+    "scalingLabel": "Gang fighters"
    },
    {
     "edid": "HIDE_RobotSupport_Walker",
     "formId": "00900664",
     "name": "Incineratron",
     "race": "Protectron",
-    "levelMin": 75,
-    "levelMax": 175,
-    "hpMin": 800,
-    "hpMax": 3526,
+    "levelMin": 29,
+    "levelMax": 243,
+    "hpMin": 302,
+    "hpMax": 11929,
     "healthCurve": "CT_Creatures_Health_Universal_Tier20",
     "statsFrom": "",
     "speedMult": 100.0,
     "faction": "Robots",
     "role": "mob",
-    "loadout": "Support (walker)"
+    "loadout": "Support (walker)",
+    "recordLevelMin": 75,
+    "recordLevelMax": 175,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 29,
+      "levelMax": 65,
+      "hpMin": 302,
+      "hpMax": 677
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 78,
+      "levelMax": 130,
+      "hpMin": 838,
+      "hpMax": 1786
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 162,
+      "levelMax": 220,
+      "hpMin": 2874,
+      "hpMax": 7701
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 194,
+      "levelMax": 243,
+      "hpMin": 4852,
+      "hpMax": 11929
+     }
+    ],
+    "scaling": "General",
+    "scalingLabel": "Gang fighters"
    },
    {
     "edid": "HIDE_RobotWildcard_Common",
     "formId": "0094F8E5",
     "name": "Organics Disposal Unit",
     "race": "Assaultron",
-    "levelMin": 75,
-    "levelMax": 225,
-    "hpMin": 9907,
-    "hpMax": 70174,
+    "levelMin": 32,
+    "levelMax": 280,
+    "hpMin": 4236,
+    "hpMax": 168725,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "resist": {
-     "DR": 241,
-     "ER": 172,
-     "Fire": 182,
-     "Cryo": 227,
-     "Poison": 1824,
-     "Rad": 1824
+     "DR": 345,
+     "ER": 272,
+     "Fire": 282,
+     "Cryo": 330,
+     "Poison": 2225,
+     "Rad": 2225
     },
     "speedMult": 100.0,
     "faction": "Robots",
     "role": "mob",
-    "loadout": "Wildcard (common)"
+    "loadout": "Wildcard (common)",
+    "recordLevelMin": 75,
+    "recordLevelMax": 225,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 32,
+      "levelMax": 71,
+      "hpMin": 4236,
+      "hpMax": 9325
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 86,
+      "levelMax": 143,
+      "hpMin": 11599,
+      "hpMax": 23651
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 179,
+      "levelMax": 245,
+      "hpMin": 37066,
+      "hpMax": 95069
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 214,
+      "levelMax": 280,
+      "hpMin": 59773,
+      "hpMax": 168725
+     }
+    ],
+    "scaling": "Wildcard",
+    "scalingLabel": "Wildcards"
    },
    {
     "edid": "HIDE_RobotWildcard_Rare",
     "formId": "0094F8E6",
     "name": "COB-E Prototype",
     "race": "Protectron",
-    "levelMin": 75,
-    "levelMax": 225,
-    "hpMin": 19528,
-    "hpMax": 126300,
+    "levelMin": 32,
+    "levelMax": 280,
+    "hpMin": 8411,
+    "hpMax": 287256,
     "healthCurve": "CT_Creatures_Health_Universal_Tier39",
     "statsFrom": "",
     "resist": {
-     "DR": 241,
-     "ER": 172,
-     "Fire": 182,
-     "Cryo": 227,
-     "Poison": 1824,
-     "Rad": 1824
+     "DR": 345,
+     "ER": 272,
+     "Fire": 282,
+     "Cryo": 330,
+     "Poison": 2225,
+     "Rad": 2225
     },
     "speedMult": 200.0,
     "faction": "Robots",
     "role": "mob",
-    "loadout": "Wildcard (rare)"
+    "loadout": "Wildcard (rare)",
+    "recordLevelMin": 75,
+    "recordLevelMax": 225,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 32,
+      "levelMax": 71,
+      "hpMin": 8411,
+      "hpMax": 18396
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 86,
+      "levelMax": 143,
+      "hpMin": 22799,
+      "hpMax": 45429
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 179,
+      "levelMax": 245,
+      "hpMin": 69493,
+      "hpMax": 167759
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 214,
+      "levelMax": 280,
+      "hpMin": 108719,
+      "hpMax": 287256
+     }
+    ],
+    "scaling": "Wildcard",
+    "scalingLabel": "Wildcards"
    },
    {
     "edid": "HIDE_LostCloseRange",
     "formId": "008F4ED4",
     "name": "Lost Dweller",
     "race": "Lost",
-    "levelMin": 75,
-    "levelMax": 175,
-    "hpMin": 2171,
-    "hpMax": 8719,
+    "levelMin": 29,
+    "levelMax": 243,
+    "hpMin": 833,
+    "hpMax": 26482,
     "healthCurve": "CT_Creatures_Health_Universal_Tier26",
     "statsFrom": "",
     "resist": {
-     "DR": 67,
-     "ER": 121,
-     "Fire": 73,
-     "Cryo": 48,
-     "Poison": 62,
-     "Rad": 1475
+     "DR": 140,
+     "ER": 209,
+     "Fire": 148,
+     "Cryo": 111,
+     "Poison": 133,
+     "Rad": 1953
     },
     "speedMult": 100.0,
     "faction": "The Lost",
     "role": "mob",
-    "loadout": "Close range"
+    "loadout": "Close range",
+    "recordLevelMin": 75,
+    "recordLevelMax": 175,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 29,
+      "levelMax": 65,
+      "hpMin": 833,
+      "hpMax": 1845
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 78,
+      "levelMax": 130,
+      "hpMin": 2270,
+      "hpMax": 4663
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 162,
+      "levelMax": 220,
+      "hpMin": 7233,
+      "hpMax": 17752
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 194,
+      "levelMax": 243,
+      "hpMin": 11657,
+      "hpMax": 26482
+     }
+    ],
+    "scaling": "General",
+    "scalingLabel": "Gang fighters"
    },
    {
     "edid": "HIDE_LostInterference",
     "formId": "008F4EE7",
     "name": "Lost Galvanic Technician",
     "race": "Lost",
-    "levelMin": 75,
-    "levelMax": 175,
-    "hpMin": 1554,
-    "hpMax": 6431,
+    "levelMin": 29,
+    "levelMax": 243,
+    "hpMin": 593,
+    "hpMax": 20240,
     "healthCurve": "CT_Creatures_Health_Universal_Tier24",
     "statsFrom": "",
     "resist": {
-     "DR": 73,
-     "ER": 121,
-     "Fire": 84,
-     "Cryo": 57,
-     "Poison": 62,
-     "Rad": 1475
+     "DR": 148,
+     "ER": 209,
+     "Fire": 164,
+     "Cryo": 125,
+     "Poison": 133,
+     "Rad": 1953
     },
     "speedMult": 100.0,
     "faction": "The Lost",
     "role": "mob",
-    "loadout": "Interference"
+    "loadout": "Interference",
+    "recordLevelMin": 75,
+    "recordLevelMax": 175,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 29,
+      "levelMax": 65,
+      "hpMin": 593,
+      "hpMax": 1319
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 78,
+      "levelMax": 130,
+      "hpMin": 1625,
+      "hpMax": 3379
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 162,
+      "levelMax": 220,
+      "hpMin": 5305,
+      "hpMax": 13399
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 194,
+      "levelMax": 243,
+      "hpMin": 8680,
+      "hpMax": 20240
+     }
+    ],
+    "scaling": "General",
+    "scalingLabel": "Gang fighters"
    },
    {
     "edid": "HIDE_LostLongRange",
     "formId": "008F4EE0",
     "name": "Lost Observer",
     "race": "Lost",
-    "levelMin": 75,
-    "levelMax": 175,
-    "hpMin": 1114,
-    "hpMax": 4755,
+    "levelMin": 29,
+    "levelMax": 243,
+    "hpMin": 423,
+    "hpMax": 15515,
     "healthCurve": "CT_Creatures_Health_Universal_Tier22",
     "statsFrom": "",
     "resist": {
-     "DR": 73,
-     "ER": 121,
-     "Fire": 84,
-     "Cryo": 57,
-     "Poison": 62,
-     "Rad": 1475
+     "DR": 148,
+     "ER": 209,
+     "Fire": 164,
+     "Cryo": 125,
+     "Poison": 133,
+     "Rad": 1953
     },
     "speedMult": 100.0,
     "faction": "The Lost",
     "role": "mob",
-    "loadout": "Long range"
+    "loadout": "Long range",
+    "recordLevelMin": 75,
+    "recordLevelMax": 175,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 29,
+      "levelMax": 65,
+      "hpMin": 423,
+      "hpMax": 944
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 78,
+      "levelMax": 130,
+      "hpMin": 1166,
+      "hpMax": 2453
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 162,
+      "levelMax": 220,
+      "hpMin": 3899,
+      "hpMax": 10142
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 194,
+      "levelMax": 243,
+      "hpMin": 6480,
+      "hpMax": 15515
+     }
+    ],
+    "scaling": "General",
+    "scalingLabel": "Gang fighters"
    },
    {
     "edid": "HIDE_LostMediumRange",
     "formId": "008F4EC5",
     "name": "Lost Scavenger",
     "race": "Lost",
-    "levelMin": 75,
-    "levelMax": 175,
-    "hpMin": 1315,
-    "hpMax": 5528,
+    "levelMin": 29,
+    "levelMax": 243,
+    "hpMin": 501,
+    "hpMax": 17714,
     "healthCurve": "CT_Creatures_Health_Universal_Tier23",
     "statsFrom": "",
     "resist": {
-     "DR": 73,
-     "ER": 121,
-     "Fire": 84,
-     "Cryo": 57,
-     "Poison": 62,
-     "Rad": 1475
+     "DR": 148,
+     "ER": 209,
+     "Fire": 164,
+     "Cryo": 125,
+     "Poison": 133,
+     "Rad": 1953
     },
     "speedMult": 100.0,
     "faction": "The Lost",
     "role": "mob",
-    "loadout": "Medium range"
+    "loadout": "Medium range",
+    "recordLevelMin": 75,
+    "recordLevelMax": 175,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 29,
+      "levelMax": 65,
+      "hpMin": 501,
+      "hpMax": 1116
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 78,
+      "levelMax": 130,
+      "hpMin": 1376,
+      "hpMax": 2878
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 162,
+      "levelMax": 220,
+      "hpMin": 4547,
+      "hpMax": 11653
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 194,
+      "levelMax": 243,
+      "hpMin": 7497,
+      "hpMax": 17714
+     }
+    ],
+    "scaling": "General",
+    "scalingLabel": "Gang fighters"
    },
    {
     "edid": "HIDE_LostPopcorn",
     "formId": "008F4EC9",
     "name": "Feral Lost",
     "race": "LostFeralSuicider",
-    "levelMin": 50,
-    "levelMax": 150,
-    "hpMin": 226,
-    "hpMax": 1121,
+    "levelMin": 26,
+    "levelMax": 219,
+    "hpMin": 121,
+    "hpMax": 3854,
     "healthCurve": "CT_Creatures_Health_Universal_Tier15",
     "statsFrom": "",
     "speedMult": 100.0,
     "faction": "The Lost",
     "role": "mob",
-    "loadout": "Fodder"
+    "loadout": "Fodder",
+    "recordLevelMin": 50,
+    "recordLevelMax": 150,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 26,
+      "levelMax": 59,
+      "hpMin": 121,
+      "hpMax": 270
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 70,
+      "levelMax": 116,
+      "hpMin": 328,
+      "hpMax": 666
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 146,
+      "levelMax": 190,
+      "hpMin": 1050,
+      "hpMax": 2215
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 175,
+      "levelMax": 219,
+      "hpMin": 1695,
+      "hpMax": 3854
+     }
+    ],
+    "scaling": "Popcorn",
+    "scalingLabel": "Fodder",
+    "levelMult": 0.9
    },
    {
     "edid": "HIDE_LostSupport",
     "formId": "008F4EB6",
     "name": "Lost Vanguard",
     "race": "Lost",
-    "levelMin": 75,
-    "levelMax": 175,
-    "hpMin": 1554,
-    "hpMax": 6431,
+    "levelMin": 29,
+    "levelMax": 243,
+    "hpMin": 593,
+    "hpMax": 20240,
     "healthCurve": "CT_Creatures_Health_Universal_Tier24",
     "statsFrom": "",
     "resist": {
-     "DR": 67,
-     "ER": 113,
-     "Fire": 73,
-     "Cryo": 48,
-     "Poison": 62,
-     "Rad": 1475
+     "DR": 140,
+     "ER": 199,
+     "Fire": 148,
+     "Cryo": 111,
+     "Poison": 133,
+     "Rad": 1953
     },
     "speedMult": 100.0,
     "faction": "The Lost",
     "role": "mob",
-    "loadout": "Support"
+    "loadout": "Support",
+    "recordLevelMin": 75,
+    "recordLevelMax": 175,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 29,
+      "levelMax": 65,
+      "hpMin": 593,
+      "hpMax": 1319
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 78,
+      "levelMax": 130,
+      "hpMin": 1625,
+      "hpMax": 3379
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 162,
+      "levelMax": 220,
+      "hpMin": 5305,
+      "hpMax": 13399
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 194,
+      "levelMax": 243,
+      "hpMin": 8680,
+      "hpMax": 20240
+     }
+    ],
+    "scaling": "General",
+    "scalingLabel": "Gang fighters"
    },
    {
     "edid": "HIDE_LostWildcard_Common",
     "formId": "00951684",
     "name": "Lost Tempest",
     "race": "Lost",
-    "levelMin": 75,
-    "levelMax": 225,
-    "hpMin": 9907,
-    "hpMax": 70174,
+    "levelMin": 32,
+    "levelMax": 280,
+    "hpMin": 4236,
+    "hpMax": 168725,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "resist": {
-     "DR": 122,
-     "ER": 326,
-     "Fire": 137,
-     "Cryo": 101,
-     "Poison": 108,
-     "Rad": 1824
+     "DR": 221,
+     "ER": 441,
+     "Fire": 237,
+     "Cryo": 198,
+     "Poison": 205,
+     "Rad": 2225
     },
     "speedMult": 120.0,
     "faction": "The Lost",
     "role": "mob",
-    "loadout": "Wildcard (common)"
+    "loadout": "Wildcard (common)",
+    "recordLevelMin": 75,
+    "recordLevelMax": 225,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 32,
+      "levelMax": 71,
+      "hpMin": 4236,
+      "hpMax": 9325
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 86,
+      "levelMax": 143,
+      "hpMin": 11599,
+      "hpMax": 23651
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 179,
+      "levelMax": 245,
+      "hpMin": 37066,
+      "hpMax": 95069
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 214,
+      "levelMax": 280,
+      "hpMin": 59773,
+      "hpMax": 168725
+     }
+    ],
+    "scaling": "Wildcard",
+    "scalingLabel": "Wildcards"
    },
    {
     "edid": "HIDE_LostWildcard_Rare",
     "formId": "00951685",
     "name": "Lost Stormwalker",
     "race": "Lost",
-    "levelMin": 75,
-    "levelMax": 225,
-    "hpMin": 19528,
-    "hpMax": 126300,
+    "levelMin": 32,
+    "levelMax": 280,
+    "hpMin": 8411,
+    "hpMax": 287256,
     "healthCurve": "CT_Creatures_Health_Universal_Tier39",
     "statsFrom": "",
     "resist": {
-     "DR": 203,
-     "ER": 525,
-     "Fire": 137,
-     "Cryo": 101,
-     "Poison": 108,
-     "Rad": 1824
+     "DR": 304,
+     "ER": 674,
+     "Fire": 237,
+     "Cryo": 198,
+     "Poison": 205,
+     "Rad": 2225
     },
     "speedMult": 120.0,
     "faction": "The Lost",
     "role": "mob",
-    "loadout": "Wildcard (rare)"
+    "loadout": "Wildcard (rare)",
+    "recordLevelMin": 75,
+    "recordLevelMax": 225,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 32,
+      "levelMax": 71,
+      "hpMin": 8411,
+      "hpMax": 18396
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 86,
+      "levelMax": 143,
+      "hpMin": 22799,
+      "hpMax": 45429
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 179,
+      "levelMax": 245,
+      "hpMin": 69493,
+      "hpMax": 167759
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 214,
+      "levelMax": 280,
+      "hpMin": 108719,
+      "hpMax": 287256
+     }
+    ],
+    "scaling": "Wildcard",
+    "scalingLabel": "Wildcards"
    },
    {
     "edid": "HIDE_LvlLostWildcard",
     "formId": "008F4ED0",
     "name": "Lost Stormwalker / Lost Tempest",
     "race": "Lost",
-    "levelMin": 75,
-    "levelMax": 175,
-    "hpMin": 1554,
-    "hpMax": 6431,
+    "levelMin": 32,
+    "levelMax": 280,
+    "hpMin": 648,
+    "hpMax": 41450,
     "healthCurve": "CT_Creatures_Health_Universal_Tier24",
     "statsFrom": "",
     "resist": {
-     "DR": 73,
-     "ER": 121,
-     "Fire": 84,
-     "Cryo": 57,
-     "Poison": 62,
-     "Rad": 1475
+     "DR": 221,
+     "ER": 282,
+     "Fire": 237,
+     "Cryo": 198,
+     "Poison": 205,
+     "Rad": 2225
     },
     "speedMult": 120.0,
     "faction": "The Lost",
     "role": "mob",
-    "loadout": "Wildcard"
+    "loadout": "Wildcard",
+    "recordLevelMin": 75,
+    "recordLevelMax": 175,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 32,
+      "levelMax": 71,
+      "hpMin": 648,
+      "hpMax": 1458
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 86,
+      "levelMax": 143,
+      "hpMin": 1835,
+      "hpMax": 4037
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 179,
+      "levelMax": 245,
+      "hpMin": 6839,
+      "hpMax": 21083
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 214,
+      "levelMax": 280,
+      "hpMin": 12116,
+      "hpMax": 41450
+     }
+    ],
+    "scaling": "Wildcard",
+    "scalingLabel": "Wildcards"
    },
    {
     "edid": "HIDE_CultistCloseRange",
     "formId": "008F4EE2",
     "name": "Cultist Zealot",
     "race": "Human",
-    "levelMin": 75,
-    "levelMax": 175,
-    "hpMin": 2171,
-    "hpMax": 8719,
+    "levelMin": 29,
+    "levelMax": 243,
+    "hpMin": 833,
+    "hpMax": 26482,
     "healthCurve": "CT_Creatures_Health_Universal_Tier26",
     "statsFrom": "",
     "resist": {
-     "DR": 73,
-     "ER": 91,
-     "Fire": 98,
-     "Cryo": 84,
-     "Poison": 98,
-     "Rad": 67
+     "DR": 148,
+     "ER": 172,
+     "Fire": 181,
+     "Cryo": 164,
+     "Poison": 181,
+     "Rad": 140
     },
     "speedMult": 100.0,
     "faction": "Mothman Cultists",
     "role": "mob",
-    "loadout": "Close range"
+    "loadout": "Close range",
+    "recordLevelMin": 75,
+    "recordLevelMax": 175,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 29,
+      "levelMax": 65,
+      "hpMin": 833,
+      "hpMax": 1845
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 78,
+      "levelMax": 130,
+      "hpMin": 2270,
+      "hpMax": 4663
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 162,
+      "levelMax": 220,
+      "hpMin": 7233,
+      "hpMax": 17752
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 194,
+      "levelMax": 243,
+      "hpMin": 11657,
+      "hpMax": 26482
+     }
+    ],
+    "scaling": "General",
+    "scalingLabel": "Gang fighters"
    },
    {
     "edid": "HIDE_CultistInterference",
     "formId": "008F4EDF",
     "name": "Cultist Firewalker",
     "race": "Human",
-    "levelMin": 75,
-    "levelMax": 175,
-    "hpMin": 1554,
-    "hpMax": 6431,
+    "levelMin": 29,
+    "levelMax": 243,
+    "hpMin": 593,
+    "hpMax": 20240,
     "healthCurve": "CT_Creatures_Health_Universal_Tier24",
     "statsFrom": "",
     "resist": {
-     "DR": 73,
-     "ER": 91,
-     "Fire": 121,
-     "Cryo": 84,
-     "Poison": 98,
-     "Rad": 67
+     "DR": 148,
+     "ER": 172,
+     "Fire": 209,
+     "Cryo": 164,
+     "Poison": 181,
+     "Rad": 140
     },
     "speedMult": 100.0,
     "faction": "Mothman Cultists",
     "role": "mob",
-    "loadout": "Interference"
+    "loadout": "Interference",
+    "recordLevelMin": 75,
+    "recordLevelMax": 175,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 29,
+      "levelMax": 65,
+      "hpMin": 593,
+      "hpMax": 1319
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 78,
+      "levelMax": 130,
+      "hpMin": 1625,
+      "hpMax": 3379
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 162,
+      "levelMax": 220,
+      "hpMin": 5305,
+      "hpMax": 13399
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 194,
+      "levelMax": 243,
+      "hpMin": 8680,
+      "hpMax": 20240
+     }
+    ],
+    "scaling": "General",
+    "scalingLabel": "Gang fighters"
    },
    {
     "edid": "HIDE_CultistLongRange",
     "formId": "008F4ED7",
     "name": "Cultist Skulk",
     "race": "Human",
-    "levelMin": 75,
-    "levelMax": 175,
-    "hpMin": 944,
-    "hpMax": 4093,
+    "levelMin": 29,
+    "levelMax": 243,
+    "hpMin": 358,
+    "hpMax": 13599,
     "healthCurve": "CT_Creatures_Health_Universal_Tier21",
     "statsFrom": "",
     "resist": {
-     "DR": 73,
-     "ER": 91,
-     "Fire": 98,
-     "Cryo": 84,
-     "Poison": 160,
-     "Rad": 67
+     "DR": 148,
+     "ER": 172,
+     "Fire": 181,
+     "Cryo": 164,
+     "Poison": 257,
+     "Rad": 140
     },
     "speedMult": 100.0,
     "faction": "Mothman Cultists",
     "role": "mob",
-    "loadout": "Long range"
+    "loadout": "Long range",
+    "recordLevelMin": 75,
+    "recordLevelMax": 175,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 29,
+      "levelMax": 65,
+      "hpMin": 358,
+      "hpMax": 799
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 78,
+      "levelMax": 130,
+      "hpMin": 988,
+      "hpMax": 2093
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 162,
+      "levelMax": 220,
+      "hpMin": 3346,
+      "hpMax": 8834
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 194,
+      "levelMax": 243,
+      "hpMin": 5605,
+      "hpMax": 13599
+     }
+    ],
+    "scaling": "General",
+    "scalingLabel": "Gang fighters"
    },
    {
     "edid": "HIDE_CultistMediumRange",
     "formId": "008F4EC3",
     "name": "Cultist Adherent",
     "race": "Human",
-    "levelMin": 75,
-    "levelMax": 175,
-    "hpMin": 1315,
-    "hpMax": 5528,
+    "levelMin": 29,
+    "levelMax": 243,
+    "hpMin": 501,
+    "hpMax": 17714,
     "healthCurve": "CT_Creatures_Health_Universal_Tier23",
     "statsFrom": "",
     "resist": {
-     "DR": 73,
-     "ER": 91,
-     "Fire": 98,
-     "Cryo": 84,
-     "Poison": 98,
-     "Rad": 67
+     "DR": 148,
+     "ER": 172,
+     "Fire": 181,
+     "Cryo": 164,
+     "Poison": 181,
+     "Rad": 140
     },
     "speedMult": 100.0,
     "faction": "Mothman Cultists",
     "role": "mob",
-    "loadout": "Medium range"
+    "loadout": "Medium range",
+    "recordLevelMin": 75,
+    "recordLevelMax": 175,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 29,
+      "levelMax": 65,
+      "hpMin": 501,
+      "hpMax": 1116
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 78,
+      "levelMax": 130,
+      "hpMin": 1376,
+      "hpMax": 2878
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 162,
+      "levelMax": 220,
+      "hpMin": 4547,
+      "hpMax": 11653
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 194,
+      "levelMax": 243,
+      "hpMin": 7497,
+      "hpMax": 17714
+     }
+    ],
+    "scaling": "General",
+    "scalingLabel": "Gang fighters"
    },
    {
     "edid": "HIDE_CultistPopcorn",
     "formId": "008F4EDA",
     "name": "Cultist Novitiate",
     "race": "Human",
-    "levelMin": 50,
-    "levelMax": 150,
-    "hpMin": 714,
-    "hpMax": 3265,
+    "levelMin": 26,
+    "levelMax": 219,
+    "hpMin": 384,
+    "hpMax": 9976,
     "healthCurve": "CT_Creatures_Health_Universal_Tier22",
     "statsFrom": "",
     "resist": {
-     "DR": 56,
-     "ER": 72,
-     "Fire": 78,
-     "Cryo": 66,
-     "Poison": 78,
-     "Rad": 51
+     "DR": 115,
+     "ER": 137,
+     "Fire": 145,
+     "Cryo": 130,
+     "Poison": 145,
+     "Rad": 108
     },
     "speedMult": 100.0,
     "faction": "Mothman Cultists",
     "role": "mob",
-    "loadout": "Fodder"
+    "loadout": "Fodder",
+    "recordLevelMin": 50,
+    "recordLevelMax": 150,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 26,
+      "levelMax": 59,
+      "hpMin": 384,
+      "hpMax": 849
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 70,
+      "levelMax": 116,
+      "hpMin": 1028,
+      "hpMax": 2020
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 146,
+      "levelMax": 190,
+      "hpMin": 3077,
+      "hpMax": 6053
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 175,
+      "levelMax": 219,
+      "hpMin": 4755,
+      "hpMax": 9976
+     }
+    ],
+    "scaling": "Popcorn",
+    "scalingLabel": "Fodder",
+    "levelMult": 0.9
    },
    {
     "edid": "HIDE_CultistSupport",
     "formId": "008F4EB8",
     "name": "Cultist Harvestman",
     "race": "Human",
-    "levelMin": 75,
-    "levelMax": 175,
-    "hpMin": 1315,
-    "hpMax": 5528,
+    "levelMin": 29,
+    "levelMax": 243,
+    "hpMin": 501,
+    "hpMax": 17714,
     "healthCurve": "CT_Creatures_Health_Universal_Tier23",
     "statsFrom": "",
     "resist": {
-     "DR": 73,
-     "ER": 91,
-     "Fire": 98,
-     "Cryo": 84,
-     "Poison": 98,
-     "Rad": 67
+     "DR": 148,
+     "ER": 172,
+     "Fire": 181,
+     "Cryo": 164,
+     "Poison": 181,
+     "Rad": 140
     },
     "speedMult": 100.0,
     "faction": "Mothman Cultists",
     "role": "mob",
-    "loadout": "Support"
+    "loadout": "Support",
+    "recordLevelMin": 75,
+    "recordLevelMax": 175,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 29,
+      "levelMax": 65,
+      "hpMin": 501,
+      "hpMax": 1116
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 78,
+      "levelMax": 130,
+      "hpMin": 1376,
+      "hpMax": 2878
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 162,
+      "levelMax": 220,
+      "hpMin": 4547,
+      "hpMax": 11653
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 194,
+      "levelMax": 243,
+      "hpMin": 7497,
+      "hpMax": 17714
+     }
+    ],
+    "scaling": "General",
+    "scalingLabel": "Gang fighters"
    },
    {
     "edid": "HIDE_CultistWildcard_Common",
     "formId": "009576D9",
     "name": "Cultist Ritualist",
     "race": "Human",
-    "levelMin": 75,
-    "levelMax": 225,
-    "hpMin": 9907,
-    "hpMax": 70174,
+    "levelMin": 32,
+    "levelMax": 280,
+    "hpMin": 4236,
+    "hpMax": 168725,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "resist": {
-     "DR": 182,
-     "ER": 255,
-     "Fire": 182,
-     "Cryo": 145,
-     "Poison": 271,
-     "Rad": 203
+     "DR": 282,
+     "ER": 361,
+     "Fire": 282,
+     "Cryo": 245,
+     "Poison": 378,
+     "Rad": 304
     },
     "speedMult": 100.0,
     "faction": "Mothman Cultists",
     "role": "mob",
-    "loadout": "Wildcard (common)"
+    "loadout": "Wildcard (common)",
+    "recordLevelMin": 75,
+    "recordLevelMax": 225,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 32,
+      "levelMax": 71,
+      "hpMin": 4236,
+      "hpMax": 9325
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 86,
+      "levelMax": 143,
+      "hpMin": 11599,
+      "hpMax": 23651
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 179,
+      "levelMax": 245,
+      "hpMin": 37066,
+      "hpMax": 95069
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 214,
+      "levelMax": 280,
+      "hpMin": 59773,
+      "hpMax": 168725
+     }
+    ],
+    "scaling": "Wildcard",
+    "scalingLabel": "Wildcards"
    },
    {
     "edid": "HIDE_CultistWildcard_Rare",
     "formId": "009576DA",
     "name": "Sinister Mothman",
     "race": "Mothman",
-    "levelMin": 75,
-    "levelMax": 225,
-    "hpMin": 19528,
-    "hpMax": 126300,
+    "levelMin": 32,
+    "levelMax": 280,
+    "hpMin": 8411,
+    "hpMax": 287256,
     "healthCurve": "CT_Creatures_Health_Universal_Tier39",
     "statsFrom": "",
     "resist": {
-     "DR": 203,
-     "ER": 182,
-     "Fire": 137,
-     "Cryo": 101,
-     "Poison": 108,
-     "Rad": 1824
+     "DR": 304,
+     "ER": 282,
+     "Fire": 237,
+     "Cryo": 198,
+     "Poison": 205,
+     "Rad": 2225
     },
     "speedMult": 100.0,
     "faction": "Mothman Cultists",
     "role": "mob",
-    "loadout": "Wildcard (rare)"
+    "loadout": "Wildcard (rare)",
+    "recordLevelMin": 75,
+    "recordLevelMax": 225,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 32,
+      "levelMax": 71,
+      "hpMin": 8411,
+      "hpMax": 18396
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 86,
+      "levelMax": 143,
+      "hpMin": 22799,
+      "hpMax": 45429
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 179,
+      "levelMax": 245,
+      "hpMin": 69493,
+      "hpMax": 167759
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 214,
+      "levelMax": 280,
+      "hpMin": 108719,
+      "hpMax": 287256
+     }
+    ],
+    "scaling": "Wildcard",
+    "scalingLabel": "Wildcards"
    },
    {
     "edid": "HIDE_LvlCultistWildcard",
     "formId": "008F4EC7",
     "name": "Cultist Ritualist / Sinister Mothman",
     "race": "Human",
-    "levelMin": 75,
-    "levelMax": 225,
-    "hpMin": 19528,
-    "hpMax": 126300,
+    "levelMin": 32,
+    "levelMax": 280,
+    "hpMin": 8411,
+    "hpMax": 287256,
     "healthCurve": "CT_Creatures_Health_Universal_Tier39",
     "statsFrom": "",
     "resist": {
-     "DR": 182,
-     "ER": 255,
-     "Fire": 182,
-     "Cryo": 145,
-     "Poison": 271,
-     "Rad": 203
+     "DR": 282,
+     "ER": 361,
+     "Fire": 282,
+     "Cryo": 245,
+     "Poison": 378,
+     "Rad": 304
     },
     "speedMult": 100.0,
     "faction": "Mothman Cultists",
     "role": "mob",
-    "loadout": "Wildcard"
+    "loadout": "Wildcard",
+    "recordLevelMin": 75,
+    "recordLevelMax": 225,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 32,
+      "levelMax": 71,
+      "hpMin": 8411,
+      "hpMax": 18396
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 86,
+      "levelMax": 143,
+      "hpMin": 22799,
+      "hpMax": 45429
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 179,
+      "levelMax": 245,
+      "hpMin": 69493,
+      "hpMax": 167759
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 214,
+      "levelMax": 280,
+      "hpMin": 108719,
+      "hpMax": 287256
+     }
+    ],
+    "scaling": "Wildcard",
+    "scalingLabel": "Wildcards"
    },
    {
     "edid": "HIDE_LvlRustRaiderWildcard",
     "formId": "008F4EC4",
     "name": "Rust Raider",
     "race": "Human",
-    "levelMin": 75,
-    "levelMax": 175,
-    "hpMin": 4254,
-    "hpMax": 16133,
+    "levelMin": 32,
+    "levelMax": 280,
+    "hpMin": 1800,
+    "hpMax": 88171,
     "healthCurve": "CT_Creatures_Health_Universal_Tier30",
     "statsFrom": "",
     "resist": {
-     "DR": 139,
-     "ER": 105,
-     "Fire": 105,
-     "Cryo": 57,
-     "Poison": 91,
-     "Rad": 57
+     "DR": 304,
+     "ER": 262,
+     "Fire": 262,
+     "Cryo": 198,
+     "Poison": 245,
+     "Rad": 198
     },
     "speedMult": 100.0,
     "faction": "Rust Raiders",
     "role": "mob",
-    "loadout": "Wildcard"
+    "loadout": "Wildcard",
+    "recordLevelMin": 75,
+    "recordLevelMax": 175,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 32,
+      "levelMax": 71,
+      "hpMin": 1800,
+      "hpMax": 4000
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 86,
+      "levelMax": 143,
+      "hpMin": 5000,
+      "hpMax": 10529
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 179,
+      "levelMax": 245,
+      "hpMin": 17061,
+      "hpMax": 47445
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 214,
+      "levelMax": 280,
+      "hpMin": 28665,
+      "hpMax": 88171
+     }
+    ],
+    "scaling": "Wildcard",
+    "scalingLabel": "Wildcards"
    },
    {
     "edid": "HIDE_RustRaiderCloseRange",
     "formId": "008F4EE4",
     "name": "Rust Raider Crusher",
     "race": "Human",
-    "levelMin": 75,
-    "levelMax": 175,
-    "hpMin": 1554,
-    "hpMax": 6431,
+    "levelMin": 29,
+    "levelMax": 243,
+    "hpMin": 593,
+    "hpMax": 20240,
     "healthCurve": "CT_Creatures_Health_Universal_Tier24",
     "statsFrom": "",
     "resist": {
-     "DR": 139,
-     "ER": 105,
-     "Fire": 105,
-     "Cryo": 57,
-     "Poison": 91,
-     "Rad": 57
+     "DR": 231,
+     "ER": 190,
+     "Fire": 190,
+     "Cryo": 125,
+     "Poison": 172,
+     "Rad": 125
     },
     "speedMult": 100.0,
     "faction": "Rust Raiders",
     "role": "mob",
-    "loadout": "Close range"
+    "loadout": "Close range",
+    "recordLevelMin": 75,
+    "recordLevelMax": 175,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 29,
+      "levelMax": 65,
+      "hpMin": 593,
+      "hpMax": 1319
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 78,
+      "levelMax": 130,
+      "hpMin": 1625,
+      "hpMax": 3379
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 162,
+      "levelMax": 220,
+      "hpMin": 5305,
+      "hpMax": 13399
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 194,
+      "levelMax": 243,
+      "hpMin": 8680,
+      "hpMax": 20240
+     }
+    ],
+    "scaling": "General",
+    "scalingLabel": "Gang fighters"
    },
    {
     "edid": "HIDE_RustRaiderInterference",
     "formId": "008F4ED1",
     "name": "Radhog",
     "race": "RadHog",
-    "levelMin": 75,
-    "levelMax": 175,
-    "hpMin": 1114,
-    "hpMax": 4755,
+    "levelMin": 29,
+    "levelMax": 243,
+    "hpMin": 423,
+    "hpMax": 15515,
     "healthCurve": "CT_Creatures_Health_Universal_Tier22",
     "statsFrom": "",
     "resist": {
-     "DR": 160,
-     "ER": 67,
-     "Fire": 160,
-     "Cryo": 52,
-     "Poison": 84,
-     "Rad": 98
+     "DR": 257,
+     "ER": 140,
+     "Fire": 257,
+     "Cryo": 118,
+     "Poison": 164,
+     "Rad": 181
     },
     "speedMult": 100.0,
     "faction": "Rust Raiders",
     "role": "mob",
-    "loadout": "Interference"
+    "loadout": "Interference",
+    "recordLevelMin": 75,
+    "recordLevelMax": 175,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 29,
+      "levelMax": 65,
+      "hpMin": 423,
+      "hpMax": 944
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 78,
+      "levelMax": 130,
+      "hpMin": 1166,
+      "hpMax": 2453
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 162,
+      "levelMax": 220,
+      "hpMin": 3899,
+      "hpMax": 10142
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 194,
+      "levelMax": 243,
+      "hpMin": 6480,
+      "hpMax": 15515
+     }
+    ],
+    "scaling": "General",
+    "scalingLabel": "Gang fighters"
    },
    {
     "edid": "HIDE_RustRaiderLongRange",
     "formId": "008F4EE6",
     "name": "Rust Raider Marksman",
     "race": "Human",
-    "levelMin": 75,
-    "levelMax": 175,
-    "hpMin": 800,
-    "hpMax": 3526,
+    "levelMin": 29,
+    "levelMax": 243,
+    "hpMin": 302,
+    "hpMax": 11929,
     "healthCurve": "CT_Creatures_Health_Universal_Tier20",
     "statsFrom": "",
     "resist": {
-     "DR": 121,
-     "ER": 91,
-     "Fire": 105,
-     "Cryo": 57,
-     "Poison": 91,
-     "Rad": 57
+     "DR": 209,
+     "ER": 172,
+     "Fire": 190,
+     "Cryo": 125,
+     "Poison": 172,
+     "Rad": 125
     },
     "speedMult": 100.0,
     "faction": "Rust Raiders",
     "role": "mob",
-    "loadout": "Long range"
+    "loadout": "Long range",
+    "recordLevelMin": 75,
+    "recordLevelMax": 175,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 29,
+      "levelMax": 65,
+      "hpMin": 302,
+      "hpMax": 677
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 78,
+      "levelMax": 130,
+      "hpMin": 838,
+      "hpMax": 1786
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 162,
+      "levelMax": 220,
+      "hpMin": 2874,
+      "hpMax": 7701
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 194,
+      "levelMax": 243,
+      "hpMin": 4852,
+      "hpMax": 11929
+     }
+    ],
+    "scaling": "General",
+    "scalingLabel": "Gang fighters"
    },
    {
     "edid": "HIDE_RustRaiderMediumRange",
     "formId": "008F4EE8",
     "name": "Rust Raider Soldier",
     "race": "Human",
-    "levelMin": 75,
-    "levelMax": 175,
-    "hpMin": 1114,
-    "hpMax": 4755,
+    "levelMin": 29,
+    "levelMax": 243,
+    "hpMin": 423,
+    "hpMax": 15515,
     "healthCurve": "CT_Creatures_Health_Universal_Tier22",
     "statsFrom": "",
     "resist": {
-     "DR": 121,
-     "ER": 91,
-     "Fire": 105,
-     "Cryo": 57,
-     "Poison": 91,
-     "Rad": 57
+     "DR": 209,
+     "ER": 172,
+     "Fire": 190,
+     "Cryo": 125,
+     "Poison": 172,
+     "Rad": 125
     },
     "speedMult": 100.0,
     "faction": "Rust Raiders",
     "role": "mob",
-    "loadout": "Medium range"
+    "loadout": "Medium range",
+    "recordLevelMin": 75,
+    "recordLevelMax": 175,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 29,
+      "levelMax": 65,
+      "hpMin": 423,
+      "hpMax": 944
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 78,
+      "levelMax": 130,
+      "hpMin": 1166,
+      "hpMax": 2453
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 162,
+      "levelMax": 220,
+      "hpMin": 3899,
+      "hpMax": 10142
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 194,
+      "levelMax": 243,
+      "hpMin": 6480,
+      "hpMax": 15515
+     }
+    ],
+    "scaling": "General",
+    "scalingLabel": "Gang fighters"
    },
    {
     "edid": "HIDE_RustRaiderPopcorn",
     "formId": "008F4EB7",
     "name": "Rust Raider Patrol",
     "race": "Human",
-    "levelMin": 50,
-    "levelMax": 150,
-    "hpMin": 433,
-    "hpMax": 2053,
+    "levelMin": 26,
+    "levelMax": 219,
+    "hpMin": 232,
+    "hpMax": 6603,
     "healthCurve": "CT_Creatures_Health_Universal_Tier19",
     "statsFrom": "",
     "resist": {
-     "DR": 98,
-     "ER": 72,
-     "Fire": 84,
-     "Cryo": 43,
-     "Poison": 72,
-     "Rad": 43
+     "DR": 173,
+     "ER": 137,
+     "Fire": 154,
+     "Cryo": 94,
+     "Poison": 137,
+     "Rad": 94
     },
     "speedMult": 100.0,
     "faction": "Rust Raiders",
     "role": "mob",
-    "loadout": "Fodder"
+    "loadout": "Fodder",
+    "recordLevelMin": 50,
+    "recordLevelMax": 150,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 26,
+      "levelMax": 59,
+      "hpMin": 232,
+      "hpMax": 516
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 70,
+      "levelMax": 116,
+      "hpMin": 626,
+      "hpMax": 1249
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 146,
+      "levelMax": 190,
+      "hpMin": 1930,
+      "hpMax": 3915
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 175,
+      "levelMax": 219,
+      "hpMin": 3040,
+      "hpMax": 6603
+     }
+    ],
+    "scaling": "Popcorn",
+    "scalingLabel": "Fodder",
+    "levelMult": 0.9
    },
    {
     "edid": "HIDE_RustRaiderSupport",
     "formId": "008F4EDC",
     "name": "Rust Raider Enforcer",
     "race": "Human",
-    "levelMin": 75,
-    "levelMax": 175,
-    "hpMin": 944,
-    "hpMax": 4093,
+    "levelMin": 29,
+    "levelMax": 243,
+    "hpMin": 358,
+    "hpMax": 13599,
     "healthCurve": "CT_Creatures_Health_Universal_Tier21",
     "statsFrom": "",
     "resist": {
-     "DR": 121,
-     "ER": 91,
-     "Fire": 105,
-     "Cryo": 57,
-     "Poison": 91,
-     "Rad": 57
+     "DR": 209,
+     "ER": 172,
+     "Fire": 190,
+     "Cryo": 125,
+     "Poison": 172,
+     "Rad": 125
     },
     "speedMult": 100.0,
     "faction": "Rust Raiders",
     "role": "mob",
-    "loadout": "Support"
+    "loadout": "Support",
+    "recordLevelMin": 75,
+    "recordLevelMax": 175,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 29,
+      "levelMax": 65,
+      "hpMin": 358,
+      "hpMax": 799
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 78,
+      "levelMax": 130,
+      "hpMin": 988,
+      "hpMax": 2093
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 162,
+      "levelMax": 220,
+      "hpMin": 3346,
+      "hpMax": 8834
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 194,
+      "levelMax": 243,
+      "hpMin": 5605,
+      "hpMax": 13599
+     }
+    ],
+    "scaling": "General",
+    "scalingLabel": "Gang fighters"
    },
    {
     "edid": "HIDE_RustRaiderWildcard_Common",
     "formId": "0095A707",
     "name": "Rust Raider Reaver",
     "race": "Human",
-    "levelMin": 75,
-    "levelMax": 225,
-    "hpMin": 9907,
-    "hpMax": 70174,
+    "levelMin": 32,
+    "levelMax": 280,
+    "hpMin": 4236,
+    "hpMax": 168725,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "resist": {
-     "DR": 203,
-     "ER": 162,
-     "Fire": 162,
-     "Cryo": 101,
-     "Poison": 145,
-     "Rad": 101
+     "DR": 304,
+     "ER": 262,
+     "Fire": 262,
+     "Cryo": 198,
+     "Poison": 245,
+     "Rad": 198
     },
     "speedMult": 100.0,
     "faction": "Rust Raiders",
     "role": "mob",
-    "loadout": "Wildcard (common)"
+    "loadout": "Wildcard (common)",
+    "recordLevelMin": 75,
+    "recordLevelMax": 225,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 32,
+      "levelMax": 71,
+      "hpMin": 4236,
+      "hpMax": 9325
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 86,
+      "levelMax": 143,
+      "hpMin": 11599,
+      "hpMax": 23651
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 179,
+      "levelMax": 245,
+      "hpMin": 37066,
+      "hpMax": 95069
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 214,
+      "levelMax": 280,
+      "hpMin": 59773,
+      "hpMax": 168725
+     }
+    ],
+    "scaling": "Wildcard",
+    "scalingLabel": "Wildcards"
    },
    {
     "edid": "HIDE_RustRaiderWildcard_Large_Common",
     "formId": "00954353",
     "name": "Rusted Deathclaw",
     "race": "Deathclaw",
-    "levelMin": 75,
-    "levelMax": 175,
-    "hpMin": 4254,
-    "hpMax": 16133,
+    "levelMin": 32,
+    "levelMax": 280,
+    "hpMin": 1800,
+    "hpMax": 88171,
     "healthCurve": "CT_Creatures_Health_Universal_Tier30",
     "statsFrom": "",
     "speedMult": 100.0,
     "faction": "Rust Raiders",
     "role": "mob",
-    "loadout": "Wildcard (large common)"
+    "loadout": "Wildcard (large common)",
+    "recordLevelMin": 75,
+    "recordLevelMax": 175,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 32,
+      "levelMax": 71,
+      "hpMin": 1800,
+      "hpMax": 4000
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 86,
+      "levelMax": 143,
+      "hpMin": 5000,
+      "hpMax": 10529
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 179,
+      "levelMax": 245,
+      "hpMin": 17061,
+      "hpMax": 47445
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 214,
+      "levelMax": 280,
+      "hpMin": 28665,
+      "hpMax": 88171
+     }
+    ],
+    "scaling": "Wildcard",
+    "scalingLabel": "Wildcards"
    },
    {
     "edid": "HIDE_RustRaiderWildcard_Large_Rare",
     "formId": "00954354",
     "name": "Armored Deathclaw",
     "race": "Deathclaw",
-    "levelMin": 75,
-    "levelMax": 175,
-    "hpMin": 7062,
-    "hpMax": 25729,
+    "levelMin": 32,
+    "levelMax": 280,
+    "hpMin": 3007,
+    "hpMax": 129867,
     "healthCurve": "CT_Creatures_Health_Universal_Tier33",
     "statsFrom": "",
     "resist": {
-     "DR": 139
+     "DR": 304
     },
     "speedMult": 100.0,
     "faction": "Rust Raiders",
     "role": "mob",
-    "loadout": "Wildcard (large rare)"
+    "loadout": "Wildcard (large rare)",
+    "recordLevelMin": 75,
+    "recordLevelMax": 175,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 32,
+      "levelMax": 71,
+      "hpMin": 3007,
+      "hpMax": 6644
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 86,
+      "levelMax": 143,
+      "hpMin": 8280,
+      "hpMax": 17094
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 179,
+      "levelMax": 245,
+      "hpMin": 27139,
+      "hpMax": 71849
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 214,
+      "levelMax": 280,
+      "hpMin": 44470,
+      "hpMax": 129867
+     }
+    ],
+    "scaling": "Wildcard",
+    "scalingLabel": "Wildcards"
    },
    {
     "edid": "HIDE_RustRaiderWildcard_Rare",
     "formId": "0095A708",
     "name": "Rust Raider Marauder",
     "race": "Human",
-    "levelMin": 75,
-    "levelMax": 225,
-    "hpMin": 19528,
-    "hpMax": 126300,
+    "levelMin": 32,
+    "levelMax": 280,
+    "hpMin": 8411,
+    "hpMax": 287256,
     "healthCurve": "CT_Creatures_Health_Universal_Tier39",
     "statsFrom": "",
     "resist": {
-     "DR": 203,
-     "ER": 162,
-     "Fire": 162,
-     "Cryo": 101,
-     "Poison": 145,
-     "Rad": 101
+     "DR": 304,
+     "ER": 262,
+     "Fire": 262,
+     "Cryo": 198,
+     "Poison": 245,
+     "Rad": 198
     },
     "speedMult": 150.0,
     "faction": "Rust Raiders",
     "role": "mob",
-    "loadout": "Wildcard (rare)"
+    "loadout": "Wildcard (rare)",
+    "recordLevelMin": 75,
+    "recordLevelMax": 225,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 32,
+      "levelMax": 71,
+      "hpMin": 8411,
+      "hpMax": 18396
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 86,
+      "levelMax": 143,
+      "hpMin": 22799,
+      "hpMax": 45429
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 179,
+      "levelMax": 245,
+      "hpMin": 69493,
+      "hpMax": 167759
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 214,
+      "levelMax": 280,
+      "hpMin": 108719,
+      "hpMax": 287256
+     }
+    ],
+    "scaling": "Wildcard",
+    "scalingLabel": "Wildcards"
    },
    {
     "edid": "HIDE_WL_BubbleTurret",
     "formId": "00934693",
     "name": "Laser Turret",
     "race": "TurretBubble",
-    "levelMin": 25,
-    "levelMax": 25,
-    "hpMin": 161,
-    "hpMax": 161,
+    "levelMin": 28,
+    "levelMax": 231,
+    "hpMin": 178,
+    "hpMax": 6363,
     "healthCurve": "CT_Creatures_Health_Universal_Tier17",
     "statsFrom": "",
     "speedMult": 100.0,
     "faction": "Hideout wildlife",
     "role": "mob",
-    "loadout": "Wildlife"
+    "loadout": "Wildlife",
+    "recordLevelMin": 25,
+    "recordLevelMax": 25,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 28,
+      "levelMax": 61,
+      "hpMin": 178,
+      "hpMax": 386
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 74,
+      "levelMax": 124,
+      "hpMin": 483,
+      "hpMax": 1022
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 154,
+      "levelMax": 205,
+      "hpMin": 1607,
+      "hpMax": 3869
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 185,
+      "levelMax": 231,
+      "hpMin": 2693,
+      "hpMax": 6363
+     }
+    ],
+    "scaling": "Wildlife",
+    "scalingLabel": "Wildlife",
+    "levelMult": 0.95
    },
    {
     "edid": "HIDE_WL_CaveCricket",
     "formId": "0090ABCF",
     "name": "Deep Cave Cricket",
     "race": "DLC04_CaveCricket",
-    "levelMin": 25,
-    "levelMax": 100,
-    "hpMin": 370,
-    "hpMax": 1611,
+    "levelMin": 28,
+    "levelMax": 231,
+    "hpMin": 410,
+    "hpMax": 12403,
     "healthCurve": "CT_Creatures_Health_Universal_Tier22",
     "statsFrom": "",
     "resist": {
-     "DR": 40,
-     "ER": 29,
-     "Fire": 36,
-     "Cryo": 40,
-     "Poison": 104,
-     "Rad": 57
+     "DR": 146,
+     "ER": 123,
+     "Fire": 138,
+     "Cryo": 146,
+     "Poison": 265,
+     "Rad": 181
     },
     "speedMult": 100.0,
     "faction": "Hideout wildlife",
     "role": "mob",
-    "loadout": "Wildlife"
+    "loadout": "Wildlife",
+    "recordLevelMin": 25,
+    "recordLevelMax": 100,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 28,
+      "levelMax": 61,
+      "hpMin": 410,
+      "hpMax": 881
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 74,
+      "levelMax": 124,
+      "hpMin": 1097,
+      "hpMax": 2255
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 154,
+      "levelMax": 205,
+      "hpMin": 3453,
+      "hpMax": 7812
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 185,
+      "levelMax": 231,
+      "hpMin": 5582,
+      "hpMax": 12403
+     }
+    ],
+    "scaling": "Wildlife",
+    "scalingLabel": "Wildlife",
+    "levelMult": 0.95
    },
    {
     "edid": "HIDE_WL_CaveRadscorpion",
     "formId": "0090ABD0",
     "name": "Cave Scorpion",
     "race": "RadScorpion",
-    "levelMin": 25,
-    "levelMax": 100,
-    "hpMin": 730,
-    "hpMax": 3112,
+    "levelMin": 28,
+    "levelMax": 231,
+    "hpMin": 807,
+    "hpMax": 21447,
     "healthCurve": "CT_Creatures_Health_Universal_Tier26",
     "statsFrom": "",
     "resist": {
-     "DR": 63,
-     "ER": 48,
-     "Fire": 44,
-     "Cryo": 57,
-     "Poison": 132,
-     "Rad": 215
+     "DR": 191,
+     "ER": 163,
+     "Fire": 154,
+     "Cryo": 181,
+     "Poison": 317,
+     "Rad": 469
     },
     "speedMult": 100.0,
     "faction": "Hideout wildlife",
     "role": "mob",
-    "loadout": "Wildlife"
+    "loadout": "Wildlife",
+    "recordLevelMin": 25,
+    "recordLevelMax": 100,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 28,
+      "levelMax": 61,
+      "hpMin": 807,
+      "hpMax": 1723
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 74,
+      "levelMax": 124,
+      "hpMin": 2138,
+      "hpMax": 4302
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 154,
+      "levelMax": 205,
+      "hpMin": 6451,
+      "hpMax": 13891
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 185,
+      "levelMax": 231,
+      "hpMin": 10135,
+      "hpMax": 21447
+     }
+    ],
+    "scaling": "Wildlife",
+    "scalingLabel": "Wildlife",
+    "levelMult": 0.95
    },
    {
     "edid": "HIDE_WL_ExcavatorRadscorpion",
     "formId": "0090B9F3",
     "name": "Excavator Radscorpion",
     "race": "RadScorpion",
-    "levelMin": 25,
-    "levelMax": 100,
-    "hpMin": 730,
-    "hpMax": 3112,
+    "levelMin": 28,
+    "levelMax": 231,
+    "hpMin": 807,
+    "hpMax": 21447,
     "healthCurve": "CT_Creatures_Health_Universal_Tier26",
     "statsFrom": "",
     "resist": {
-     "DR": 104,
-     "ER": 74,
-     "Fire": 63,
-     "Cryo": 40,
-     "Poison": 48,
-     "Rad": 168
+     "DR": 265,
+     "ER": 212,
+     "Fire": 191,
+     "Cryo": 146,
+     "Poison": 163,
+     "Rad": 383
     },
     "speedMult": 110.0,
     "faction": "Hideout wildlife",
     "role": "mob",
-    "loadout": "Wildlife"
+    "loadout": "Wildlife",
+    "recordLevelMin": 25,
+    "recordLevelMax": 100,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 28,
+      "levelMax": 61,
+      "hpMin": 807,
+      "hpMax": 1723
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 74,
+      "levelMax": 124,
+      "hpMin": 2138,
+      "hpMax": 4302
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 154,
+      "levelMax": 205,
+      "hpMin": 6451,
+      "hpMax": 13891
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 185,
+      "levelMax": 231,
+      "hpMin": 10135,
+      "hpMax": 21447
+     }
+    ],
+    "scaling": "Wildlife",
+    "scalingLabel": "Wildlife",
+    "levelMult": 0.95
    },
    {
     "edid": "HIDE_WL_FacilityMonitorBot",
     "formId": "008F66E9",
     "name": "Facility Monitor Bot",
     "race": "EyeBot",
-    "levelMin": 25,
-    "levelMax": 100,
-    "hpMin": 99,
-    "hpMax": 448,
+    "levelMin": 28,
+    "levelMax": 231,
+    "hpMin": 110,
+    "hpMax": 4306,
     "healthCurve": "CT_Creatures_Health_Universal_Tier14",
     "statsFrom": "",
     "speedMult": 100.0,
     "faction": "Hideout wildlife",
     "role": "mob",
-    "loadout": "Wildlife"
+    "loadout": "Wildlife",
+    "recordLevelMin": 25,
+    "recordLevelMax": 100,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 28,
+      "levelMax": 61,
+      "hpMin": 110,
+      "hpMax": 239
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 74,
+      "levelMax": 124,
+      "hpMin": 300,
+      "hpMax": 644
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 154,
+      "levelMax": 205,
+      "hpMin": 1028,
+      "hpMax": 2566
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 185,
+      "levelMax": 231,
+      "hpMin": 1759,
+      "hpMax": 4306
+     }
+    ],
+    "scaling": "Wildlife",
+    "scalingLabel": "Wildlife",
+    "levelMult": 0.95
    },
    {
     "edid": "HIDE_WL_FeralGhoul",
     "formId": "008F66EA",
     "name": "Feral Ghoul",
     "race": "FeralGhoul",
-    "levelMin": 25,
-    "levelMax": 100,
-    "hpMin": 224,
-    "hpMax": 989,
+    "levelMin": 28,
+    "levelMax": 231,
+    "hpMin": 248,
+    "hpMax": 8290,
     "healthCurve": "CT_Creatures_Health_Universal_Tier19",
     "statsFrom": "",
     "speedMult": 100.0,
     "faction": "Hideout wildlife",
     "role": "mob",
-    "loadout": "Wildlife"
+    "loadout": "Wildlife",
+    "recordLevelMin": 25,
+    "recordLevelMax": 100,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 28,
+      "levelMax": 61,
+      "hpMin": 248,
+      "hpMax": 536
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 74,
+      "levelMax": 124,
+      "hpMin": 668,
+      "hpMax": 1398
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 154,
+      "levelMax": 205,
+      "hpMin": 2176,
+      "hpMax": 5113
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 185,
+      "levelMax": 231,
+      "hpMin": 3596,
+      "hpMax": 8290
+     }
+    ],
+    "scaling": "Wildlife",
+    "scalingLabel": "Wildlife",
+    "levelMult": 0.95
    },
    {
     "edid": "HIDE_WL_GlowingOne",
     "formId": "00900665",
     "name": "Enriched Glowing One",
     "race": "FeralGhoulGlowing",
-    "levelMin": 25,
-    "levelMax": 100,
-    "hpMin": 370,
-    "hpMax": 1611,
+    "levelMin": 28,
+    "levelMax": 231,
+    "hpMin": 410,
+    "hpMax": 12403,
     "healthCurve": "CT_Creatures_Health_Universal_Tier22",
     "statsFrom": "",
     "speedMult": 100.0,
     "faction": "Hideout wildlife",
     "role": "mob",
-    "loadout": "Wildlife"
+    "loadout": "Wildlife",
+    "recordLevelMin": 25,
+    "recordLevelMax": 100,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 28,
+      "levelMax": 61,
+      "hpMin": 410,
+      "hpMax": 881
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 74,
+      "levelMax": 124,
+      "hpMin": 1097,
+      "hpMax": 2255
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 154,
+      "levelMax": 205,
+      "hpMin": 3453,
+      "hpMax": 7812
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 185,
+      "levelMax": 231,
+      "hpMin": 5582,
+      "hpMax": 12403
+     }
+    ],
+    "scaling": "Wildlife",
+    "scalingLabel": "Wildlife",
+    "levelMult": 0.95
    },
    {
     "edid": "HIDE_WL_ImmortalityCenterResident",
     "formId": "0090B9F4",
     "name": "Languishing Robobrain",
     "race": "DLC01RoboBrain",
-    "levelMin": 25,
-    "levelMax": 100,
-    "hpMin": 730,
-    "hpMax": 3112,
+    "levelMin": 28,
+    "levelMax": 231,
+    "hpMin": 807,
+    "hpMax": 21447,
     "healthCurve": "CT_Creatures_Health_Universal_Tier26",
     "statsFrom": "",
     "speedMult": 100.0,
     "faction": "Hideout wildlife",
     "role": "mob",
-    "loadout": "Wildlife"
+    "loadout": "Wildlife",
+    "recordLevelMin": 25,
+    "recordLevelMax": 100,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 28,
+      "levelMax": 61,
+      "hpMin": 807,
+      "hpMax": 1723
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 74,
+      "levelMax": 124,
+      "hpMin": 2138,
+      "hpMax": 4302
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 154,
+      "levelMax": 205,
+      "hpMin": 6451,
+      "hpMax": 13891
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 185,
+      "levelMax": 231,
+      "hpMin": 10135,
+      "hpMax": 21447
+     }
+    ],
+    "scaling": "Wildlife",
+    "scalingLabel": "Wildlife",
+    "levelMult": 0.95
    },
    {
     "edid": "HIDE_WL_MirelurkCrab",
     "formId": "008F66EE",
     "name": "Mirelurk",
     "race": "Mirelurk",
-    "levelMin": 25,
-    "levelMax": 100,
-    "hpMin": 224,
-    "hpMax": 989,
+    "levelMin": 28,
+    "levelMax": 231,
+    "hpMin": 248,
+    "hpMax": 8290,
     "healthCurve": "CT_Creatures_Health_Universal_Tier19",
     "statsFrom": "",
     "speedMult": 100.0,
     "faction": "Hideout wildlife",
     "role": "mob",
-    "loadout": "Wildlife"
+    "loadout": "Wildlife",
+    "recordLevelMin": 25,
+    "recordLevelMax": 100,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 28,
+      "levelMax": 61,
+      "hpMin": 248,
+      "hpMax": 536
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 74,
+      "levelMax": 124,
+      "hpMin": 668,
+      "hpMax": 1398
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 154,
+      "levelMax": 205,
+      "hpMin": 2176,
+      "hpMax": 5113
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 185,
+      "levelMax": 231,
+      "hpMin": 3596,
+      "hpMax": 8290
+     }
+    ],
+    "scaling": "Wildlife",
+    "scalingLabel": "Wildlife",
+    "levelMult": 0.95
    },
    {
     "edid": "HIDE_WL_MirelurkHunter",
     "formId": "008F66EF",
     "name": "Mirelurk Hunter",
     "race": "MirelurkHunter",
-    "levelMin": 25,
-    "levelMax": 100,
-    "hpMin": 370,
-    "hpMax": 1611,
+    "levelMin": 28,
+    "levelMax": 231,
+    "hpMin": 410,
+    "hpMax": 12403,
     "healthCurve": "CT_Creatures_Health_Universal_Tier22",
     "statsFrom": "",
     "speedMult": 100.0,
     "faction": "Hideout wildlife",
     "role": "mob",
-    "loadout": "Wildlife"
+    "loadout": "Wildlife",
+    "recordLevelMin": 25,
+    "recordLevelMax": 100,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 28,
+      "levelMax": 61,
+      "hpMin": 410,
+      "hpMax": 881
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 74,
+      "levelMax": 124,
+      "hpMin": 1097,
+      "hpMax": 2255
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 154,
+      "levelMax": 205,
+      "hpMin": 3453,
+      "hpMax": 7812
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 185,
+      "levelMax": 231,
+      "hpMin": 5582,
+      "hpMax": 12403
+     }
+    ],
+    "scaling": "Wildlife",
+    "scalingLabel": "Wildlife",
+    "levelMult": 0.95
    },
    {
     "edid": "HIDE_WL_MirelurkKing",
     "formId": "008F66F0",
     "name": "Mirelurk King",
     "race": "MirelurkKing",
-    "levelMin": 25,
-    "levelMax": 100,
-    "hpMin": 616,
-    "hpMax": 2638,
+    "levelMin": 28,
+    "levelMax": 231,
+    "hpMin": 681,
+    "hpMax": 18683,
     "healthCurve": "CT_Creatures_Health_Universal_Tier25",
     "statsFrom": "",
     "speedMult": 100.0,
     "faction": "Hideout wildlife",
     "role": "mob",
-    "loadout": "Wildlife"
+    "loadout": "Wildlife",
+    "recordLevelMin": 25,
+    "recordLevelMax": 100,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 28,
+      "levelMax": 61,
+      "hpMin": 681,
+      "hpMax": 1457
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 74,
+      "levelMax": 124,
+      "hpMin": 1808,
+      "hpMax": 3658
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 154,
+      "levelMax": 205,
+      "hpMin": 5513,
+      "hpMax": 12016
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 185,
+      "levelMax": 231,
+      "hpMin": 8723,
+      "hpMax": 18683
+     }
+    ],
+    "scaling": "Wildlife",
+    "scalingLabel": "Wildlife",
+    "levelMult": 0.95
    },
    {
     "edid": "HIDE_WL_Molerat",
     "formId": "008F66F1",
     "name": "Mole Rat",
     "race": "Molerat",
-    "levelMin": 25,
-    "levelMax": 100,
-    "hpMin": 161,
-    "hpMax": 718,
+    "levelMin": 28,
+    "levelMax": 231,
+    "hpMin": 178,
+    "hpMax": 6363,
     "healthCurve": "CT_Creatures_Health_Universal_Tier17",
     "statsFrom": "",
     "speedMult": 100.0,
     "faction": "Hideout wildlife",
     "role": "mob",
-    "loadout": "Wildlife"
+    "loadout": "Wildlife",
+    "recordLevelMin": 25,
+    "recordLevelMax": 100,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 28,
+      "levelMax": 61,
+      "hpMin": 178,
+      "hpMax": 386
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 74,
+      "levelMax": 124,
+      "hpMin": 483,
+      "hpMax": 1022
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 154,
+      "levelMax": 205,
+      "hpMin": 1607,
+      "hpMax": 3869
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 185,
+      "levelMax": 231,
+      "hpMin": 2693,
+      "hpMax": 6363
+     }
+    ],
+    "scaling": "Wildlife",
+    "scalingLabel": "Wildlife",
+    "levelMult": 0.95
    },
    {
     "edid": "HIDE_WL_MudGulper",
     "formId": "0090B9F8",
     "name": "Mud Gulper",
     "race": "DLC03_GulperSmall",
-    "levelMin": 25,
-    "levelMax": 100,
-    "hpMin": 1447,
-    "hpMax": 6047,
+    "levelMin": 28,
+    "levelMax": 231,
+    "hpMin": 1598,
+    "hpMax": 37507,
     "healthCurve": "CT_Creatures_Health_Universal_Tier30",
     "statsFrom": "",
     "resist": {
-     "DR": 112,
-     "ER": 74,
-     "Fire": 63,
-     "Cryo": 24,
-     "Poison": 143,
-     "Rad": 132
+     "DR": 281,
+     "ER": 212,
+     "Fire": 191,
+     "Cryo": 109,
+     "Poison": 337,
+     "Rad": 317
     },
     "speedMult": 85.0,
     "faction": "Hideout wildlife",
     "role": "mob",
-    "loadout": "Wildlife"
+    "loadout": "Wildlife",
+    "recordLevelMin": 25,
+    "recordLevelMax": 100,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 28,
+      "levelMax": 61,
+      "hpMin": 1598,
+      "hpMax": 3389
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 74,
+      "levelMax": 124,
+      "hpMin": 4190,
+      "hpMax": 8263
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 154,
+      "levelMax": 205,
+      "hpMin": 12148,
+      "hpMax": 24962
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 185,
+      "levelMax": 231,
+      "hpMin": 18581,
+      "hpMax": 37507
+     }
+    ],
+    "scaling": "Wildlife",
+    "scalingLabel": "Wildlife",
+    "levelMult": 0.95
    },
    {
     "edid": "HIDE_WL_PestControlBot",
     "formId": "008F66F2",
     "name": "Forever Farmworker",
     "race": "ProtectronFast",
-    "levelMin": 25,
-    "levelMax": 100,
-    "hpMin": 265,
-    "hpMax": 1163,
+    "levelMin": 28,
+    "levelMax": 231,
+    "hpMin": 293,
+    "hpMax": 9475,
     "healthCurve": "CT_Creatures_Health_Universal_Tier20",
     "statsFrom": "",
     "speedMult": 100.0,
     "faction": "Hideout wildlife",
     "role": "mob",
-    "loadout": "Wildlife"
+    "loadout": "Wildlife",
+    "recordLevelMin": 25,
+    "recordLevelMax": 100,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 28,
+      "levelMax": 61,
+      "hpMin": 293,
+      "hpMax": 632
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 74,
+      "levelMax": 124,
+      "hpMin": 788,
+      "hpMax": 1639
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 154,
+      "levelMax": 205,
+      "hpMin": 2537,
+      "hpMax": 5884
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 185,
+      "levelMax": 231,
+      "hpMin": 4160,
+      "hpMax": 9475
+     }
+    ],
+    "scaling": "Wildlife",
+    "scalingLabel": "Wildlife",
+    "levelMult": 0.95
    },
    {
     "edid": "HIDE_WL_PestControlBot_Walker",
     "formId": "00900666",
     "name": "Forever Farmworker",
     "race": "Protectron",
-    "levelMin": 25,
-    "levelMax": 100,
-    "hpMin": 265,
-    "hpMax": 1163,
+    "levelMin": 28,
+    "levelMax": 231,
+    "hpMin": 293,
+    "hpMax": 9475,
     "healthCurve": "CT_Creatures_Health_Universal_Tier20",
     "statsFrom": "",
     "speedMult": 100.0,
     "faction": "Hideout wildlife",
     "role": "mob",
-    "loadout": "Wildlife"
+    "loadout": "Wildlife",
+    "recordLevelMin": 25,
+    "recordLevelMax": 100,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 28,
+      "levelMax": 61,
+      "hpMin": 293,
+      "hpMax": 632
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 74,
+      "levelMax": 124,
+      "hpMin": 788,
+      "hpMax": 1639
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 154,
+      "levelMax": 205,
+      "hpMin": 2537,
+      "hpMax": 5884
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 185,
+      "levelMax": 231,
+      "hpMin": 4160,
+      "hpMax": 9475
+     }
+    ],
+    "scaling": "Wildlife",
+    "scalingLabel": "Wildlife",
+    "levelMult": 0.95
    },
    {
     "edid": "HIDE_WL_ToxicBloatfly",
     "formId": "008F66F3",
     "name": "Toxic Bloatfly",
     "race": "Bloatfly",
-    "levelMin": 25,
-    "levelMax": 100,
-    "hpMin": 161,
-    "hpMax": 718,
+    "levelMin": 28,
+    "levelMax": 231,
+    "hpMin": 178,
+    "hpMax": 6363,
     "healthCurve": "CT_Creatures_Health_Universal_Tier17",
     "statsFrom": "",
     "speedMult": 100.0,
     "faction": "Hideout wildlife",
     "role": "mob",
-    "loadout": "Wildlife"
+    "loadout": "Wildlife",
+    "recordLevelMin": 25,
+    "recordLevelMax": 100,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 28,
+      "levelMax": 61,
+      "hpMin": 178,
+      "hpMax": 386
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 74,
+      "levelMax": 124,
+      "hpMin": 483,
+      "hpMax": 1022
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 154,
+      "levelMax": 205,
+      "hpMin": 1607,
+      "hpMax": 3869
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 185,
+      "levelMax": 231,
+      "hpMin": 2693,
+      "hpMax": 6363
+     }
+    ],
+    "scaling": "Wildlife",
+    "scalingLabel": "Wildlife",
+    "levelMult": 0.95
    },
    {
     "edid": "HIDE_WL_YaoGuai",
     "formId": "00936DA1",
     "name": "Yao Guai",
     "race": "YaoGuai",
-    "levelMin": 25,
-    "levelMax": 100,
-    "hpMin": 730,
-    "hpMax": 3112,
+    "levelMin": 28,
+    "levelMax": 231,
+    "hpMin": 807,
+    "hpMax": 21447,
     "healthCurve": "CT_Creatures_Health_Universal_Tier26",
     "statsFrom": "",
     "speedMult": 100.0,
     "faction": "Hideout wildlife",
     "role": "mob",
-    "loadout": "Wildlife"
+    "loadout": "Wildlife",
+    "recordLevelMin": 25,
+    "recordLevelMax": 100,
+    "byDifficulty": [
+     {
+      "key": "Easy",
+      "name": "Basic",
+      "levelMin": 28,
+      "levelMax": 61,
+      "hpMin": 807,
+      "hpMax": 1723
+     },
+     {
+      "key": "Medium",
+      "name": "Challenging",
+      "levelMin": 74,
+      "levelMax": 124,
+      "hpMin": 2138,
+      "hpMax": 4302
+     },
+     {
+      "key": "Hard",
+      "name": "Lethal",
+      "levelMin": 154,
+      "levelMax": 205,
+      "hpMin": 6451,
+      "hpMax": 13891
+     },
+     {
+      "key": "Marked",
+      "name": "Marked",
+      "levelMin": 185,
+      "levelMax": 231,
+      "hpMin": 10135,
+      "hpMax": 21447
+     }
+    ],
+    "scaling": "Wildlife",
+    "scalingLabel": "Wildlife",
+    "levelMult": 0.95
+   }
+  ]
+ },
+ "scaling": {
+  "intro": "The Hideout Lead's difficulty sets the level range every enemy spawns in. Each enemy type has its own range, and some also get a level multiplier on top.",
+  "difficulties": [
+   "Basic",
+   "Challenging",
+   "Lethal",
+   "Marked"
+  ],
+  "rows": [
+   {
+    "group": "Gang leaders",
+    "perk": "HIDE_crNormalizePerk_Boss",
+    "levels": [
+     [
+      36,
+      82
+     ],
+     [
+      97,
+      162
+     ],
+     [
+      203,
+      280
+     ],
+     [
+      243,
+      320
+     ]
+    ],
+    "mult": 1.25
+   },
+   {
+    "group": "Lieutenants",
+    "perk": "HIDE_crNormalizePerk_Lieutenant",
+    "levels": [
+     [
+      32,
+      71
+     ],
+     [
+      86,
+      143
+     ],
+     [
+      179,
+      245
+     ],
+     [
+      214,
+      280
+     ]
+    ],
+    "mult": 1.1
+   },
+   {
+    "group": "Wildcards",
+    "perk": "HIDE_crNormalizePerk_Wildcard",
+    "levels": [
+     [
+      32,
+      71
+     ],
+     [
+      86,
+      143
+     ],
+     [
+      179,
+      245
+     ],
+     [
+      214,
+      280
+     ]
+    ],
+    "mult": null
+   },
+   {
+    "group": "Minibosses",
+    "perk": "HIDE_crNormalizePerk_Miniboss",
+    "levels": [
+     [
+      32,
+      71
+     ],
+     [
+      86,
+      143
+     ],
+     [
+      179,
+      245
+     ],
+     [
+      214,
+      280
+     ]
+    ],
+    "mult": 1.1
+   },
+   {
+    "group": "Gang fighters",
+    "perk": "HIDE_crNormalizePerk_General",
+    "levels": [
+     [
+      29,
+      65
+     ],
+     [
+      78,
+      130
+     ],
+     [
+      162,
+      220
+     ],
+     [
+      194,
+      243
+     ]
+    ],
+    "mult": null
+   },
+   {
+    "group": "Fodder",
+    "perk": "HIDE_crNormalizePerk_Popcorn",
+    "levels": [
+     [
+      26,
+      59
+     ],
+     [
+      70,
+      116
+     ],
+     [
+      146,
+      190
+     ],
+     [
+      175,
+      219
+     ]
+    ],
+    "mult": 0.9
+   },
+   {
+    "group": "Wildlife",
+    "perk": "HIDE_crNormalizePerk_Wildlife",
+    "levels": [
+     [
+      28,
+      61
+     ],
+     [
+      74,
+      124
+     ],
+     [
+      154,
+      205
+     ],
+     [
+      185,
+      231
+     ]
+    ],
+    "mult": 0.95
    }
   ]
  }
