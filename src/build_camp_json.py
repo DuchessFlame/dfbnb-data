@@ -303,6 +303,11 @@ def build():
         # Skip blank-named items (no FULL)
         if not full and not is_cut(edid):
             continue
+        # Skip dev placeholders named "TBD" (e.g. zzzATX_ENTM_CAMP_CAMPPets_RadHog_Rooter):
+        # nothing in the game points to them and the real item has its own record,
+        # so they aren't cut content either (Kat, 21 Nov 2026: no source = not shown).
+        if full.strip().upper() == "TBD":
+            continue
 
         cut = is_cut(edid)
         how, season_num, tradeable = resolve_obtain(edid, form_id, xalg)
