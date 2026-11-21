@@ -22,7 +22,8 @@ sys.path.insert(0, os.path.join(REPO, "src"))
 import render_spawn_maps as rsm, map_watermark, cairosvg
 from PIL import Image, ImageDraw
 
-OUT = os.path.expanduser("~/mnt/Guides and Stuff/.Data Mining/All Locations")
+# ALL_LOCATIONS_OUT: the All Locations folder when it is mounted on its own (cloud sessions).
+OUT = os.environ.get("ALL_LOCATIONS_OUT") or os.path.expanduser("~/mnt/Guides and Stuff/.Data Mining/All Locations")
 OUT_W, OUT_H = 1600, 900
 LOC_SRC_W, LOC_ICON = 900, 54          # location maps (the approved sample)
 REG_SRC_W, REG_ICON = 2050, 34         # region maps: Savage Divide fits in 3 sections
@@ -68,12 +69,19 @@ def labels(im, items, isz, font, fh, focus=None):
         g = (isz if me else isz / 2)
         w = d.textlength(lab, font=font); pad = max(5, fh // 4)
         opts = [(ox - w/2, oy + g + 6), (ox - w/2, oy - g - fh - 10), (ox + isz/2 + 8, oy - fh/2), (ox - isz/2 - 8 - w, oy - fh/2)]
-        b = None
-        for lx, ly in opts:
-            bb = (lx - pad, ly - 4, lx + w + pad, ly + fh + 2)
-            if bb[0] > 4 and bb[2] < im.width - 4 and bb[1] > 4 and bb[3] < im.height - 4 and not clash(bb):
-                b = bb; break
-        if b is None: continue          # no clear spot: leave this one unnamed rather than overlap
+        if me:   # the place the map is about gets more spots to try: the corners, then one row further out
+            opts += [(ox + isz/2 + 8, oy - g - fh - 10), (ox - isz/2 - 8 - w, oy - g - fh - 10),
+                     (ox + isz/2 + 8, oy + g + 6), (ox - isz/2 - 8 - w, oy + g + 6),
+                     (ox - w/2, oy + g + fh + 18), (ox - w/2, oy - g - 2 * fh - 22)]
+        inside = lambda bb: bb[0] > 4 and bb[2] < im.width - 4 and bb[1] > 4 and bb[3] < im.height - 4
+        boxes = [(lx - pad, ly - 4, lx + w + pad, ly + fh + 2) for lx, ly in opts]
+        b = next((bb for bb in boxes if inside(bb) and not clash(bb)), None)
+        if b is None and me:
+            # Always name the place itself (Hornwright Summer Villa, Watoga Municipal Center
+            # were left blank, Duchess 21 Nov 2026): take the spot covering the fewest icons/labels.
+            ok = [bb for bb in boxes if inside(bb)] or boxes
+            b = min(ok, key=lambda bb: sum(1 for t in taken if not (bb[2] < t[0] or bb[0] > t[2] or bb[3] < t[1] or bb[1] > t[3])))
+        if b is None: continue          # no clear spot: leave a NEIGHBOUR unnamed rather than overlap
         taken.append(b)
         d.rounded_rectangle(b, radius=8, fill=DARK, outline=EDGE, width=1)
         d.text((b[0] + pad, b[1] + 4), lab, font=font, fill=CREAM)

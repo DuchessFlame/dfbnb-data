@@ -1096,10 +1096,6 @@ jobs:
       - name: Build Perk Cards JSON
         run: python src/build_perk_cards_json.py
 
-      # --- PET TAMING ---
-      - name: Build Pet Taming JSON
-        run: python src/build_pet_taming_json.py
-
       # --- SPECIALs & STATS ---
       # builds_data.json is made by build-builds.yml, not here, and "Clear dist for a
       # clean PTS build" removed it. SPECIALs & Stats needs it (perk card rank text,

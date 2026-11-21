@@ -3226,7 +3226,79 @@ def build_pet_gifts():
         "firstMatch":      bool(first),
         "tiers":           tiers or [],
         "species":         species,
+        "mods":            _pg_gift_mods(tiers or []),
     }
+
+
+def _pg_gift_mods(tiers):
+    """Every legendary effect a pet gift can roll, by star, read from the game files.
+
+    Each gift item is an LGDI record (LegendaryItems_<Weapons_Ranged|Weapons_Melee|Armor>_RankN).
+    Its star slots point at modcol pools (LGDI_Export_*_Mods.tsv, ModPool_Refs); every OMOD in
+    a pool can roll on that star. Weapon pools are shared by ranged and melee, so _Guns_/_Ranged
+    mods only count for ranged and _Melee_ mods only for melee (same rule as
+    build_legendary_mod_drop_chances_json.weapon_compat). Names come from the OMOD export, effect
+    text from dist/legendary_mods.json when it has the mod.
+    """
+    mods_path = _optional_tsv("LGDI_MODS_TSV", "LGDI_Export_*_Mods.tsv", "LGDI_Export_Mods.tsv")
+    try:
+        omod_path = _resolve_tsv("OMOD_TSV", "OMOD_Export_*.tsv", "OMOD_Export.tsv",
+                                 exclude_suffix="_Properties.tsv")
+    except FileNotFoundError:
+        omod_path = None
+    if not mods_path:
+        return []
+    names = {}
+    if omod_path:
+        for r in load_tsv(omod_path):
+            names[(r.get("OMOD_FormID") or "").upper()] = (r.get("FULL") or "").strip()
+    effects = {}
+    lm = Path(__file__).resolve().parent.parent / "dist" / "legendary_mods.json"
+    if lm.exists():
+        try:
+            for grp in json.load(open(lm, encoding="utf-8")).get("groups", []):
+                for m in grp.get("mods", []):
+                    effects[(m.get("formid") or "").upper()] = m.get("effect") or ""
+        except (ValueError, OSError):
+            pass
+    pools = {}
+    for r in load_tsv(mods_path):
+        pools.setdefault(r.get("LGDI_EDID", ""), []).append(r)
+
+    kind_key = {"Ranged Weapon": "ranged", "Melee Weapon": "melee", "Armour": "armour"}
+    stars = {}   # star -> name -> entry
+    for t in tiers:
+        for it in t.get("items", []):
+            parts = (it.get("ref") or "").split(":")
+            lgdi = parts[1] if len(parts) > 1 else ""
+            kind = kind_key.get(it.get("label"))
+            if not kind:
+                continue
+            for row in sorted(pools.get(lgdi, []), key=lambda r: int(r.get("ModIndex") or 0)):
+                star = int(row.get("ModIndex") or 0) + 1
+                pool_id = (row.get("OMOD_FormID") or "").upper()
+                for ref in (row.get("ModPool_Refs") or "").split(" | "):
+                    m = re.match(r"(.+?) \[OMOD:([0-9A-Fa-f]{8})\]$", ref.strip())
+                    if not m:
+                        continue
+                    edid, fid = m.group(1).strip().strip('"'), m.group(2).upper()
+                    if fid == pool_id or edid.lower().startswith(("modcol_", "zzz")):
+                        continue
+                    if kind == "ranged" and "_Melee_" in edid:
+                        continue
+                    if kind == "melee" and ("_Guns_" in edid or "_Ranged" in edid):
+                        continue
+                    name = names.get(fid) or edid
+                    e = stars.setdefault(star, {}).setdefault(name, {
+                        "name": name, "effect": effects.get(fid, ""), "ids": [],
+                        "ranged": False, "melee": False, "armour": False})
+                    if fid not in [x["formId"] for x in e["ids"]]:
+                        e["ids"].append({"formId": fid, "edid": edid})
+                    if not e["effect"]:
+                        e["effect"] = effects.get(fid, "")
+                    e[kind] = True
+    return [{"star": st, "mods": sorted(stars[st].values(), key=lambda x: x["name"].lower())}
+            for st in sorted(stars)]
 
 
 PET_GIFTS = build_pet_gifts()

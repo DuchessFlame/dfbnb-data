@@ -1,12 +1,12 @@
 {
  "version": 1,
- "channel": "live",
- "generated": "2026-11-20T20:47:55Z",
- "observed": "2026-11-01",
+ "channel": "pts",
+ "generated": "2026-11-21T01:25:57Z",
+ "observed": "2026-10-01",
  "mappalachia_game_version": "1.7.27.11",
  "title": "Fallout 76 List of All Locations",
  "image_base": "/wp-content/uploads/guide-images/data-mining/all-locations/",
- "count": 478,
+ "count": 480,
  "regions": [
   {
    "name": "Ash Heap",
@@ -1382,10 +1382,10 @@
      "challenges": [],
      "fish": [
       {
-       "name": "SeasonalFish_Fish_LocalLegend_SludgeEye",
+       "name": "Sludge Eye",
        "edid": "SeasonalFish_Fish_LocalLegend_SludgeEye",
        "form_id": "008EFCB5",
-       "season": ""
+       "season": "Fall"
       }
      ],
      "vendors": []
@@ -1552,7 +1552,7 @@
   {
    "name": "Burning Springs",
    "slug": "burning-springs",
-   "count": 25,
+   "count": 26,
    "locations": [
     {
      "id": "abraxodyne-chemical-power-substation",
@@ -1657,7 +1657,7 @@
      ],
      "fish": [
       {
-       "name": "Burn_Fish_LocalLegend_Deathjaw",
+       "name": "Hocking Hill Hellion",
        "edid": "Burn_Fish_LocalLegend_Deathjaw",
        "form_id": "0085A4F8",
        "season": ""
@@ -1839,6 +1839,27 @@
        "form_id": "008411F7"
       }
      ],
+     "fish": [],
+     "vendors": []
+    },
+    {
+     "id": "forever-farm",
+     "name": "Forever Farm",
+     "cut": true,
+     "added": "2026-11-07",
+     "notes": [
+      "Added on the PTS (7 Nov 2026).",
+      "Taken off the PTS map (14 Nov 2026)."
+     ],
+     "type": "Farm",
+     "icon": "FarmMarker",
+     "x": -218957.9,
+     "y": -12151.7,
+     "image": "/wp-content/uploads/guide-images/data-mining/all-locations/forever-farm.avif",
+     "lctn": [],
+     "match": "cut",
+     "quests": [],
+     "challenges": [],
      "fish": [],
      "vendors": []
     },
@@ -3384,10 +3405,10 @@
      "challenges": [],
      "fish": [
       {
-       "name": "SeasonalFish_Fish_LocalLegend_SummerGlassGhost",
+       "name": "Glass Ghost",
        "edid": "SeasonalFish_Fish_LocalLegend_SummerGlassGhost",
        "form_id": "008A45C4",
-       "season": ""
+       "season": "Summer"
       }
      ],
      "vendors": []
@@ -5878,7 +5899,7 @@
      ],
      "fish": [
       {
-       "name": "SeasonalFish_Fish_LocalLegend_Fastenfisch",
+       "name": "Fastenfisch",
        "edid": "SeasonalFish_Fish_LocalLegend_Fastenfisch",
        "form_id": "00921E4D",
        "season": ""
@@ -6898,7 +6919,7 @@
      "challenges": [],
      "fish": [
       {
-       "name": "Fishing_Fish_LocalLegend_OrganGrinder",
+       "name": "Organ Grinder",
        "edid": "Fishing_Fish_LocalLegend_OrganGrinder",
        "form_id": "00804F7C",
        "season": ""
@@ -8883,7 +8904,7 @@
      "challenges": [],
      "fish": [
       {
-       "name": "Fishing_Fish_LocalLegend_MawBegotten",
+       "name": "Ryl-Tkannoth, Maw-Begotten",
        "edid": "Fishing_Fish_LocalLegend_MawBegotten",
        "form_id": "00804F7A",
        "season": ""
@@ -13589,6 +13610,91 @@
      "vendors": []
     },
     {
+     "id": "whitespring-bunker",
+     "name": "The Whitespring Bunker",
+     "cut": false,
+     "added": "",
+     "notes": [],
+     "type": "Bunker",
+     "icon": "BunkerMarker",
+     "x": 4696.7,
+     "y": -64373.6,
+     "image": "/wp-content/uploads/guide-images/data-mining/all-locations/whitespring-bunker.avif",
+     "lctn": [
+      {
+       "form_id": "00129906",
+       "edid": "LocWhitespringTheWhitespringBunkerLocation",
+       "name": "The Whitespring Bunker"
+      }
+     ],
+     "match": "name+cell",
+     "quests": [
+      {
+       "name": "Bunker Buster",
+       "type": "Main Quest",
+       "edid": "EN01_MQ_Bunker",
+       "form_id": "000714FE"
+      },
+      {
+       "name": "Hide and Seek and Destroy",
+       "type": "Main Quest",
+       "edid": "EN07_MQ_CodeHunt",
+       "form_id": "002D0F6A"
+      },
+      {
+       "name": "I Am Become Death",
+       "type": "Main Quest",
+       "edid": "EN07_MQ_Death",
+       "form_id": "002D0F6B"
+      },
+      {
+       "name": "Officer on Deck",
+       "type": "Main Quest",
+       "edid": "EN05_MQ_Officer",
+       "form_id": "0010DBEA"
+      },
+      {
+       "name": "One of Us",
+       "type": "Main Quest",
+       "edid": "EN02_MQ_Us",
+       "form_id": "000293A3"
+      },
+      {
+       "name": "Collect the Presidential Seal",
+       "type": "Side Quest",
+       "edid": "EN06_Seal",
+       "form_id": "002B477C"
+      },
+      {
+       "name": "The Black Box",
+       "type": "Side Quest",
+       "edid": "MTNZ03_Box",
+       "form_id": "002E89B3"
+      },
+      {
+       "name": "Enclave Activity: A Real Blast",
+       "type": "Event",
+       "edid": "ENs02_Blast",
+       "form_id": "0000D053"
+      },
+      {
+       "name": "Enclave Activity: Bots on Parade",
+       "type": "Event",
+       "edid": "ENz04_Bots",
+       "form_id": "0000D02C"
+      },
+      {
+       "name": "Enclave Activity: Dropped Connection",
+       "type": "Event",
+       "edid": "ENz01_Above",
+       "form_id": "00003AF2"
+      }
+     ],
+     "challenges": [],
+     "fish": [],
+     "vendors": []
+    },
+    {
      "id": "the-whitespring-golf-club",
      "name": "The Whitespring Golf Club",
      "cut": false,
@@ -14235,6 +14341,44 @@
      "vendors": []
     },
     {
+     "id": "whitespring-station",
+     "name": "The Whitespring Station",
+     "cut": false,
+     "added": "",
+     "notes": [],
+     "type": "Train Station",
+     "icon": "TrainStationMarker",
+     "x": 20095.1,
+     "y": -46750.2,
+     "image": "/wp-content/uploads/guide-images/data-mining/all-locations/whitespring-station.avif",
+     "lctn": [
+      {
+       "form_id": "002C76B5",
+       "edid": "LocMountainsTheWhitespringTrainStationLocation",
+       "name": "The Whitespring Station"
+      }
+     ],
+     "match": "name+cell",
+     "quests": [],
+     "challenges": [
+      {
+       "name": "Visit The Whitespring Station",
+       "type": "Lifetime",
+       "required": 1,
+       "parent": "Possum: Rail Enthusiast",
+       "edid": "Challenge_Lifetime_Quest_P01C_Tadpole_Badge_Possum_RailEnthusiast_Sub_VisitWhitespringStation",
+       "form_id": "00536BC1"
+      }
+     ],
+     "fish": [],
+     "vendors": [
+      {
+       "name": "The Whitespring Station Vendor",
+       "group": ""
+      }
+     ]
+    },
+    {
      "id": "top-of-the-world",
      "name": "Top of the World",
      "cut": false,
@@ -14616,91 +14760,6 @@
      "vendors": []
     },
     {
-     "id": "whitespring-bunker",
-     "name": "Whitespring Bunker",
-     "cut": false,
-     "added": "",
-     "notes": [],
-     "type": "Bunker",
-     "icon": "BunkerMarker",
-     "x": 4696.7,
-     "y": -64373.6,
-     "image": "/wp-content/uploads/guide-images/data-mining/all-locations/whitespring-bunker.avif",
-     "lctn": [
-      {
-       "form_id": "00129906",
-       "edid": "LocWhitespringTheWhitespringBunkerLocation",
-       "name": "The Whitespring Bunker"
-      }
-     ],
-     "match": "name+cell",
-     "quests": [
-      {
-       "name": "Bunker Buster",
-       "type": "Main Quest",
-       "edid": "EN01_MQ_Bunker",
-       "form_id": "000714FE"
-      },
-      {
-       "name": "Hide and Seek and Destroy",
-       "type": "Main Quest",
-       "edid": "EN07_MQ_CodeHunt",
-       "form_id": "002D0F6A"
-      },
-      {
-       "name": "I Am Become Death",
-       "type": "Main Quest",
-       "edid": "EN07_MQ_Death",
-       "form_id": "002D0F6B"
-      },
-      {
-       "name": "Officer on Deck",
-       "type": "Main Quest",
-       "edid": "EN05_MQ_Officer",
-       "form_id": "0010DBEA"
-      },
-      {
-       "name": "One of Us",
-       "type": "Main Quest",
-       "edid": "EN02_MQ_Us",
-       "form_id": "000293A3"
-      },
-      {
-       "name": "Collect the Presidential Seal",
-       "type": "Side Quest",
-       "edid": "EN06_Seal",
-       "form_id": "002B477C"
-      },
-      {
-       "name": "The Black Box",
-       "type": "Side Quest",
-       "edid": "MTNZ03_Box",
-       "form_id": "002E89B3"
-      },
-      {
-       "name": "Enclave Activity: A Real Blast",
-       "type": "Event",
-       "edid": "ENs02_Blast",
-       "form_id": "0000D053"
-      },
-      {
-       "name": "Enclave Activity: Bots on Parade",
-       "type": "Event",
-       "edid": "ENz04_Bots",
-       "form_id": "0000D02C"
-      },
-      {
-       "name": "Enclave Activity: Dropped Connection",
-       "type": "Event",
-       "edid": "ENz01_Above",
-       "form_id": "00003AF2"
-      }
-     ],
-     "challenges": [],
-     "fish": [],
-     "vendors": []
-    },
-    {
      "id": "whitespring-lookout",
      "name": "Whitespring Lookout",
      "cut": false,
@@ -14734,44 +14793,6 @@
      "vendors": []
     },
     {
-     "id": "whitespring-station",
-     "name": "Whitespring Station",
-     "cut": false,
-     "added": "",
-     "notes": [],
-     "type": "Train Station",
-     "icon": "TrainStationMarker",
-     "x": 20095.1,
-     "y": -46750.2,
-     "image": "/wp-content/uploads/guide-images/data-mining/all-locations/whitespring-station.avif",
-     "lctn": [
-      {
-       "form_id": "002C76B5",
-       "edid": "LocMountainsTheWhitespringTrainStationLocation",
-       "name": "The Whitespring Station"
-      }
-     ],
-     "match": "name+cell",
-     "quests": [],
-     "challenges": [
-      {
-       "name": "Visit The Whitespring Station",
-       "type": "Lifetime",
-       "required": 1,
-       "parent": "Possum: Rail Enthusiast",
-       "edid": "Challenge_Lifetime_Quest_P01C_Tadpole_Badge_Possum_RailEnthusiast_Sub_VisitWhitespringStation",
-       "form_id": "00536BC1"
-      }
-     ],
-     "fish": [],
-     "vendors": [
-      {
-       "name": "The Whitespring Station Vendor",
-       "group": ""
-      }
-     ]
-    },
-    {
      "id": "yellow-sandys-still",
      "name": "Yellow Sandy's Still",
      "cut": false,
@@ -14800,7 +14821,7 @@
   {
    "name": "Skyline Valley",
    "slug": "skyline-valley",
-   "count": 32,
+   "count": 33,
    "locations": [
     {
      "id": "abandoned-convoy",
@@ -15208,9 +15229,9 @@
      "id": "marys-rock-tunnel",
      "name": "Mary's Rock Tunnel",
      "cut": false,
-     "added": "2026-10-01",
+     "added": "2026-11-07",
      "notes": [
-      "Added to the game (The Slasher hotfix, 1 Oct 2026)."
+      "Added on the PTS (7 Nov 2026)."
      ],
      "type": "Encampment",
      "icon": "EncampmentMarker",
@@ -15281,9 +15302,9 @@
      "id": "moormans-run-outpost",
      "name": "Moorman's Run Outpost",
      "cut": false,
-     "added": "2026-10-01",
+     "added": "2026-11-07",
      "notes": [
-      "Added to the game (The Slasher hotfix, 1 Oct 2026)."
+      "Added on the PTS (7 Nov 2026)."
      ],
      "type": "Wood Shack",
      "icon": "WoodShackMarker",
@@ -15574,9 +15595,9 @@
      "id": "riprap-overlook",
      "name": "Riprap Overlook",
      "cut": false,
-     "added": "2026-10-01",
+     "added": "2026-11-07",
      "notes": [
-      "Added to the game (The Slasher hotfix, 1 Oct 2026)."
+      "Added on the PTS (7 Nov 2026)."
      ],
      "type": "Quarry",
      "icon": "QuarryMarker",
@@ -15680,9 +15701,9 @@
      "id": "skyline-blockade",
      "name": "Skyline Blockade",
      "cut": false,
-     "added": "2026-10-01",
+     "added": "2026-11-07",
      "notes": [
-      "Added to the game (The Slasher hotfix, 1 Oct 2026)."
+      "Added on the PTS (7 Nov 2026)."
      ],
      "type": "Encampment",
      "icon": "EncampmentMarker",
@@ -15948,12 +15969,33 @@
      "vendors": []
     },
     {
+     "id": "vault-63-immortality-sector",
+     "name": "Vault 63 Immortality Sector",
+     "cut": true,
+     "added": "2026-11-07",
+     "notes": [
+      "Added on the PTS (7 Nov 2026).",
+      "Taken off the PTS map (14 Nov 2026)."
+     ],
+     "type": "Vault",
+     "icon": "Vault63Marker",
+     "x": 23130.7,
+     "y": -249876.6,
+     "image": "/wp-content/uploads/guide-images/data-mining/all-locations/vault-63-immortality-sector.avif",
+     "lctn": [],
+     "match": "cut",
+     "quests": [],
+     "challenges": [],
+     "fish": [],
+     "vendors": []
+    },
+    {
      "id": "white-rock-falls",
      "name": "White Rock Falls",
      "cut": false,
-     "added": "2026-10-01",
+     "added": "2026-11-07",
      "notes": [
-      "Added to the game (The Slasher hotfix, 1 Oct 2026)."
+      "Added on the PTS (7 Nov 2026)."
      ],
      "type": "Lake",
      "icon": "PondLakeMarker",
@@ -17091,7 +17133,7 @@
      ],
      "fish": [
       {
-       "name": "Fishing_Fish_LocalLegend_WavyWillard",
+       "name": "Wavy Willard",
        "edid": "Fishing_Fish_LocalLegend_WavyWillard",
        "form_id": "00804F7B",
        "season": ""
@@ -17817,10 +17859,10 @@
   },
   {
    "region": "Skyline Valley",
-   "file": "skyline-valley-map.jpg",
+   "file": "skyline-valley-map-pts.jpg",
    "part": 1,
    "parts": 1,
-   "url": "/wp-content/uploads/guide-images/data-mining/all-locations/skyline-valley-map.jpg"
+   "url": "/wp-content/uploads/guide-images/data-mining/all-locations/skyline-valley-map-pts.jpg"
   },
   {
    "region": "Toxic Valley",
@@ -17830,7 +17872,35 @@
    "url": "/wp-content/uploads/guide-images/data-mining/all-locations/toxic-valley-map.jpg"
   }
  ],
- "season_starts": [],
+ "season_starts": [
+  "2020-06-30",
+  "2020-09-15",
+  "2020-12-15",
+  "2021-04-27",
+  "2021-07-07",
+  "2021-09-08",
+  "2021-12-08",
+  "2022-03-01",
+  "2022-06-14",
+  "2022-09-13",
+  "2022-12-06",
+  "2023-02-28",
+  "2023-06-20",
+  "2023-08-22",
+  "2023-12-05",
+  "2024-03-26",
+  "2024-06-12",
+  "2024-09-03",
+  "2024-12-03",
+  "2025-03-18",
+  "2025-06-03",
+  "2025-09-02",
+  "2025-12-02",
+  "2026-03-03",
+  "2026-06-02",
+  "2026-09-15",
+  "2026-12-01"
+ ],
  "unlinked": {
   "quests": [
    {

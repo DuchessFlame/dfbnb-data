@@ -475,6 +475,11 @@ def _norm(s):
     return re.sub(r"[^a-z0-9]", "", (s or "").lower())
 
 
+def _vkey(s):
+    """Vendor-to-marker key: _norm without a leading "The" ("The Whitespring Station")."""
+    return _norm(re.sub(r"(?i)^\s*the\s+", "", s or ""))
+
+
 def load_vendors_by_marker():
     """normalised marker name -> [{name, group}] (one row per distinct name+group)."""
     try:
@@ -493,8 +498,8 @@ def load_vendors_by_marker():
         if key and _norm(key) in _norm(v["name"]):
             group = ""                                   # "Responders Vendor" already says it
         row = {"name": v["name"], "group": group}
-        if row not in out[_norm(marker)]:
-            out[_norm(marker)].append(row)
+        if row not in out[_vkey(marker)]:
+            out[_vkey(marker)].append(row)
     for k in out:
         out[k].sort(key=lambda r: r["name"].lower())
     return out
@@ -577,6 +582,10 @@ def merge_export_markers(markers, recs):
                 break
         if hit is not None:
             seen.add(hit)
+            # The game's own spelling wins over Mappalachia's ("The Whitespring Bunker",
+            # Duchess 21 Nov 2026). Same place: norm() ignores "The", so id and ticks stay.
+            if markers[hit]["label"] != e["label"]:
+                markers[hit] = dict(markers[hit], label=e["label"])
             if e["type"] and markers[hit].get("icon"):
                 type_icons[e["type"]][markers[hit]["icon"]] += 1
             continue
@@ -1047,7 +1056,7 @@ def main():
             log_event(led, "added", (led[CHANNEL], stamp[1]) if led[CHANNEL] == stamp[0] else
                       (led[CHANNEL], "PTS" if PTS else ""))
         old = m.get("old_label") or (led.get("name") if led.get("name") and led["name"] != m["label"] else "")
-        if old and old != m["label"]:
+        if old and norm(old) != norm(m["label"]):     # "The" / case only is not a rename
             log_event(led, "renamed", stamp, **{"from": old})
         led.update(name=m["label"], icon=m["icon"], x=m["x"], y=m["y"], region=region)
         if m.get("cut"):
@@ -1076,7 +1085,7 @@ def main():
                             "parent": c["parent"], "edid": c["edid"], "form_id": c["form_id"]}
                            for c in cl],
             "fish": [] if m.get("cut") else legend_fish_for(m["_lctn"], legends, recs),
-            "vendors": [] if m.get("cut") else vendors_at.get(_norm(m["label"]), []),
+            "vendors": [] if m.get("cut") else vendors_at.get(_vkey(m["label"]), []),
         })
 
     # Places this channel listed before that are gone now (and not under another

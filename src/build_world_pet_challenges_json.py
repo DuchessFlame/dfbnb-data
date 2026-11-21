@@ -397,7 +397,7 @@ for r in wp_rows:
         # Tier II rows: their old Atoms reward records are retired (zzz_) and
         # nothing else pays out, so the files give no reward for these tiers.
         "reward_note": ("" if reward else
-                        "This tier has no reward in the game files. Its old Atoms reward was removed."),
+                        "No reward for this tier."),
         "scope":     "Lifetime",
         "classification": pick(r, "CNAM").strip() or "Lifetime",
         "conditions_display": conditions_display(extract_conditions(r)),

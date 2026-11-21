@@ -12,12 +12,14 @@ WHERE THINGS COME FROM
             map in this repo: centre (-500, 135), range 582550.
   icons     dist/pts/locations/all_locations.json (the channel's own markers, cut ones
             left out), icon art = Mappalachia img/mapmarker/<icon>.svg.
-  spots     the live RETriggerScene refs (trigger has a script) in Appalachia - the 74
-            in scene-encounter-spots.json (re-checked 19 Nov against the 13 Nov PTS ESM
-            and the live ESM: same 74).
-  routes    data/pet_taming_routes/<name>.png - the white route line only (RGBA, 4096
-            for Kat, the crop size for Garust), lifted from the 17 Nov maps. Draw order:
-            base > route > icons > dots, like the originals.
+  spots     data/pet_taming_routes/scene_spots.json - the live RETriggerScene refs
+            (trigger has a script) in Appalachia: 74 (PTS ESM 14 Nov build, re-checked
+            21 Nov; same as live).
+  routes    data/pet_taming_routes/routes.json - each route as ordered stops: a Scene
+            spot code (e.g. "CB_02" = RE_Scene_CB_02_Trigger) or an [x, y] bend in 4096
+            px. Drawn as clean white lines dot to dot (21 Nov 2026; replaced the old
+            lifted PNG line layers, which were wobbly and ran to spots no longer in the
+            game). Draw order: base > route > icons > dots.
 
 Usage (Sally device shell):
   PYTHONPATH=/tmp/pylib python3 src/render_pet_taming_maps.py [--out DIR]
@@ -42,11 +44,13 @@ S = 4096
 CX, CY, RANGE = -500, 135, 582550
 GUIDES = os.environ.get("GUIDES_ROOT", os.path.expanduser("~/mnt/Guides and Stuff"))
 PET_DIR = os.path.join(GUIDES, ".Pets", "Tamed Pets", "Find and Tame a Pet")
-SPOTS = os.path.join(PET_DIR, "02 Scene Maps (4096)", "scene-encounter-spots.json")
 ROUTES = os.path.join(REPO, "data", "pet_taming_routes")
+SPOTS = os.path.join(ROUTES, "scene_spots.json")
+ROUTE_FILL = (255, 255, 255)
 SCENE_FILL = (240, 228, 66)
 
 # name -> title, crop box in 4096 px (None = whole map), output width, icon px, dot px
+# (route line width = dot px * 0.38: Kat 14, Garust 18)
 MAPS = {
     "kat-pender-pet-hunting-route": ("Kat Pender's Pet Hunting Route", None, 4096, 46, 38),
     "garust-cranberry-bog-pet-hunting-route": ("Garust's Cranberry Bog Pet Route",
@@ -84,6 +88,38 @@ def spots():
     return [to_px(s["x"], s["y"]) for s in json.load(open(SPOTS, encoding="utf-8"))]
 
 
+def route_points(name):
+    """The route's stops in 4096 px (Scene spot codes -> the spot's position)."""
+    by = {s["edid"]: to_px(s["x"], s["y"]) for s in json.load(open(SPOTS, encoding="utf-8"))}
+    stops = json.load(open(os.path.join(ROUTES, "routes.json"), encoding="utf-8")).get(name)
+    if not stops:
+        return None
+    pts = []
+    for st in stops:
+        if isinstance(st, str):
+            key = "RE_Scene_%s_Trigger" % st
+            if key not in by:
+                raise SystemExit("%s: %s is not a live Scene spot" % (name, key))
+            pts.append(by[key])
+        else:
+            pts.append((float(st[0]), float(st[1])))
+    return pts
+
+
+def draw_route(im, pts, f, width):
+    """Clean white line through the stops, round ends and joins, drawn 4x and scaled down."""
+    ss = 4
+    big = Image.new("L", (im.width * ss, im.height * ss), 0)
+    d = ImageDraw.Draw(big)
+    q = [(f(p)[0] * ss, f(p)[1] * ss) for p in pts]
+    w = width * ss
+    d.line(q, fill=255, width=w, joint="curve")
+    for x, y in q:
+        d.ellipse([x - w / 2, y - w / 2, x + w / 2, y + w / 2], fill=255)
+    mask = big.resize(im.size, Image.LANCZOS)
+    im.paste(Image.new("RGBA", im.size, ROUTE_FILL + (255,)), (0, 0), mask)
+
+
 def plain(box, out_w, isz, dot, route=None):
     """base (+ route) + icons + dots, no legend, no watermark."""
     bg = Image.open(os.path.join(rsm.MAPPALACHIA, "img", "wrld", "Appalachia_menu.jpg")).convert("RGB")
@@ -94,9 +130,9 @@ def plain(box, out_w, isz, dot, route=None):
     k = out_w / (box[2] - box[0])
     out_h = round((box[3] - box[1]) * k)
     im = bg.resize((out_w, out_h), Image.LANCZOS, box=box).convert("RGBA")
-    if route is not None:
-        im.alpha_composite(route)
     f = lambda p: ((p[0] - box[0]) * k, (p[1] - box[1]) * k)
+    if route:
+        draw_route(im, route, f, max(6, round(dot * 0.38)))
     for p, ic in markers():
         ox, oy = f(p)
         i = icon(ic, isz)
@@ -117,9 +153,7 @@ def plain(box, out_w, isz, dot, route=None):
 
 def render(name, out_dir):
     title, box, out_w, isz, dot = MAPS[name]
-    rp = os.path.join(ROUTES, name + ".png")
-    route = Image.open(rp).convert("RGBA") if os.path.exists(rp) else None
-    im, n = plain(box, out_w, isz, dot, route)
+    im, n = plain(box, out_w, isz, dot, route_points(name))
     rsm.draw_legend(im, title, [("Scene encounter", n, SCENE_FILL, "circle")])
     out = os.path.join(out_dir, name + ".jpg")
     map_watermark.apply(im, corner="bottom-left").convert("RGB").save(out, "JPEG", quality=90, optimize=True)
