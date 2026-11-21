@@ -2078,14 +2078,16 @@ _Couldn't key this file to records; contents differ._
 ## `fishing.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `fishing_all_rewards.json`  ·  +3 / -0 / ~2
+## `fishing_all_rewards.json`  ·  +3 / -0 / ~4
 
 **Added (3)**
 - Fireside  `FISHAR_00943062`
 - Icy  `FISHAR_00943064`
 - Fish Sauce  `FISHAR_00943AA2`
 
-**Changed (2)**
+**Changed (4)**
+- Recipe: Fish and Tatos  `FISHAR_007AED81` — fields: desc
+- Recipe: Fish Chowder  `FISHAR_007B3FB7` — fields: desc
 - Of the Month  `FISHAR_00805AC2` — fields: routes
 - Babydoll Head Bobber  `FISHAR_0084FF1D` — fields: image
 
@@ -2818,7 +2820,7 @@ _Couldn't key this file to records; contents differ._
 ## `titles_data.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `titles_player.json`  ·  +24 / -1 / ~55
+## `titles_player.json`  ·  +24 / -1 / ~57
 
 **Added (24)**
 - ATX_PlayerTitles_Prefix_Sudsy  `ATX_PlayerTitles_Prefix_Sudsy`
@@ -2849,7 +2851,7 @@ _Couldn't key this file to records; contents differ._
 **Removed (1)**
 - zzz_Fishing_PlayerTitles_Prefix_Gillded  `zzz_Fishing_PlayerTitles_Prefix_Gillded`
 
-**Changed (55)**
+**Changed (57)**
 - ATX_PlayerTitles_Prefix_AdVictoriam  `ATX_PlayerTitles_Prefix_AdVictoriam` — fields: releaseDate, releaseLabel, releaseYear, source
 - ATX_PlayerTitles_Prefix_Contessa  `ATX_PlayerTitles_Prefix_Contessa` — fields: releaseDate, releaseLabel, source
 - ATX_PlayerTitles_Prefix_Gleaming  `ATX_PlayerTitles_Prefix_Gleaming` — fields: source
@@ -2857,6 +2859,7 @@ _Couldn't key this file to records; contents differ._
 - ATX_PlayerTitles_Suffix_Buoy  `ATX_PlayerTitles_Suffix_Buoy` — fields: releaseDate, releaseLabel, source
 - ATX_PlayerTitles_Suffix_Technician  `ATX_PlayerTitles_Suffix_Technician` — fields: source
 - Fishing_PlayerTitles_Suffix_OfTheMonth  `Fishing_PlayerTitles_Suffix_OfTheMonth` — fields: debug, howToObtain
+- PlayerTitles_Suffix_Researcher  `PlayerTitles_Suffix_Researcher` — fields: debug
 - SCORE_MiniSeason_2025_AppalachianOutlaws_PlayerTitles_Suffix_Outlaw  `SCORE_MiniSeason_2025_AppalachianOutlaws_PlayerTitles_Suffix_Outlaw` — fields: imageUrl, images
 - SCORE_MiniSeason_2025_MMMFE_PlayerTitles_Prefix_Salty  `SCORE_MiniSeason_2025_MMMFE_PlayerTitles_Prefix_Salty` — fields: imageUrl, images
 - SCORE_MiniSeason_2025_MMMFE_PlayerTitles_Suffix_MarshalMalow  `SCORE_MiniSeason_2025_MMMFE_PlayerTitles_Suffix_MarshalMalow` — fields: imageUrl, images
@@ -2887,10 +2890,9 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S25_PlayerTitles_Prefix_Outdoor  `SCORE_S25_PlayerTitles_Prefix_Outdoor` — fields: imageUrl, images
 - SCORE_S25_PlayerTitles_Suffix_Globetrotter  `SCORE_S25_PlayerTitles_Suffix_Globetrotter` — fields: imageUrl, images
 - SCORE_S25_PlayerTitles_Suffix_Pioneer  `SCORE_S25_PlayerTitles_Suffix_Pioneer` — fields: imageUrl, images
+- SFS09_PlayerTitles_Suffix_Manager  `SFS09_PlayerTitles_Suffix_Manager` — fields: debug
 - WorldPets_PlayerTitles_Prefix_Cat01  `WorldPets_PlayerTitles_Prefix_Cat01` — fields: conditions, debug, unlockType
-- WorldPets_PlayerTitles_Prefix_Cat02  `WorldPets_PlayerTitles_Prefix_Cat02` — fields: conditions, debug, unlockType
-- WorldPets_PlayerTitles_Prefix_Deathclaw01  `WorldPets_PlayerTitles_Prefix_Deathclaw01` — fields: conditions, debug, unlockType
-- …and 15 more
+- …and 17 more
 
 ## `titles_player_generator.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
