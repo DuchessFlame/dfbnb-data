@@ -1444,7 +1444,11 @@ jobs:
       # Generative replacement for the old inline EMOTE_DATA array; same page
       # family as Atom Shop / Tents so it runs alongside them.
       - name: Build Emotes JSON
-        run: python src/build_emotes_json.py
+        # Cut Content runs again straight after: it lists the cut emotes
+        # (emotes.json "cutEmotes"), and its earlier run came before this step.
+        run: |
+          python src/build_emotes_json.py
+          python src/build_cut_content_json.py
 
       # --- PLAYER ICONS ---
       # Reads the newest tsv/ENTM_Export_*.tsv (+ season_rewards.tsv and

@@ -208,7 +208,7 @@ def main():
         for r in _read_tsv_rows(entm_path):
             entm_by_edid[(r.get("EDID") or "").strip()] = r
 
-    emotes, pets = [], []
+    emotes, pets, cut = [], [], []
     categories = {}  # edid -> {formId, edid, name}
 
     for r in _read_tsv_rows(emot_path):
@@ -224,10 +224,17 @@ def main():
         if _is_pet(edid):
             if "Pet_Payer_Pair" in edid:      # internal, not a real pet emote
                 continue
-            pets.append({
-                "formId": formId, "edid": edid, "name": pet_name(edid),
-                "rent": rent, "snam": snam, "dnam": dnam,
-            })
+            # PETS_ emotes belong to the old pet system (PETS_Master quests, the
+            # unshipped PetScript). World Pets / CAMP pets (CAMPPets:PetActorScript)
+            # can't do them, so they're cut: left off the Emotes page and listed
+            # in "cutEmotes" for Data Mining > Cut Content (build_cut_content_json.py).
+            row = {"formId": formId, "edid": edid, "name": pet_name(edid),
+                   "rent": rent, "snam": snam, "dnam": dnam}
+            if edid.startswith("PETS_"):
+                row["why"] = "From an older pet system that isn't in the game"
+                cut.append(row)
+            else:
+                pets.append(row)
             continue
 
         cat = parse_cnam(r.get("CNAM"))
@@ -254,6 +261,7 @@ def main():
     cat_index = {c["edid"]: i for i, c in enumerate(cat_list)}
     emotes.sort(key=lambda e: (cat_index.get(e["catEdid"], 999), e["name"].lower()))
     pets.sort(key=lambda e: e["name"].lower())
+    cut.sort(key=lambda e: e["name"].lower())
 
     out = {
         "_generated": datetime.datetime.now(datetime.timezone.utc)
@@ -263,6 +271,7 @@ def main():
         "catOrder": cat_order,
         "emotes": emotes,
         "petEmotes": pets,
+        "cutEmotes": cut,
     }
 
     os.makedirs(os.path.dirname(DIST), exist_ok=True)

@@ -1651,7 +1651,11 @@ jobs:
       # Generative emotes.json from the newest EMOT export (+ ENTM for names).
       # Mirrors the same step in dfbnb-patch-build.yml.
       - name: Build Emotes JSON
-        run: python src/build_emotes_json.py
+        # Cut Content runs again straight after: it lists the cut emotes
+        # (emotes.json "cutEmotes"), and its earlier run came before this step.
+        run: |
+          python src/build_emotes_json.py
+          python src/build_cut_content_json.py
 
       # --- PLAYER ICONS ---
       # Generative player_icons.json from the newest ENTM export. Mirrors the
