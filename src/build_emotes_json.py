@@ -242,6 +242,14 @@ def main():
             continue                          # uncategorised = dev/internal
         if _is_dev(edid, rent):
             continue
+        # The Vault 96 raid was cut, so its rewards can't be earned (Kat, 21 Nov 2026):
+        # off the Emotes page, onto Data Mining > Cut Content.
+        if "VAULT96" in (edid + rent).upper():
+            cut.append({"formId": formId, "edid": edid,
+                        "name": resolve_name(full, rent, entm_by_edid),
+                        "rent": rent, "snam": snam, "dnam": dnam,
+                        "why": "A Vault 96 raid reward. The Vault 96 raid was cut from the game"})
+            continue
 
         categories.setdefault(cat["edid"], {
             "formId": cat["formId"], "edid": cat["edid"], "name": cat["name"],
