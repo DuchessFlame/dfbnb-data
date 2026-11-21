@@ -3152,12 +3152,26 @@ _PD_PERK_VALUES = _pd_perk_values()
 # pick-one of ranged weapon / melee weapon / armour. The countdown is the
 # GLOB CAMPPets_PetGiftInveral (sic) in seconds.
 
-_PG_GIFT_LISTS = [("Cat", "CAMPPets_LL_PetTreasurePlayerGift_Cat01"),
-                  ("Dog", "CAMPPets_LL_PetTreasurePlayerGift_Dog01"),
-                  ("Radhog", "CAMPPets_LL_PetTreasurePlayerGift_RadHog01"),
-                  ("Deathclaw", "CAMPPets_LL_PetTreasurePlayerGift_Deathclaw01")]
-_PG_LGDI_LABEL = [("Weapons_Ranged", "Ranged Weapon"), ("Weapons_Melee", "Melee Weapon"),
-                  ("Armor", "Armour")]
+# Every pet's gift list is found by name (CAMPPets_LL_PetTreasurePlayerGift_<Species>NN,
+# zzz_ lists skipped), so a new species' list shows up without a code change. This
+# order is only for display; any other species goes after it, A-Z.
+_PG_GIFT_RE = re.compile(r"^CAMPPets_LL_PetTreasurePlayerGift_([A-Za-z]+?)\d*$")
+_PG_SPECIES_ORDER = ["Cat", "Dog", "Radhog", "Deathclaw"]
+# Friendly names for the gift item kinds (LegendaryItems_<part>_RankN). Any other kind
+# (e.g. power armour, if it's ever added) gets a name made from its EDID.
+_PG_LGDI_LABEL = [("Weapons_Ranged", "Ranged Weapon", "ranged"), ("Weapons_Melee", "Melee Weapon", "melee"),
+                  ("Armor", "Armour", "armour")]
+
+
+def _pg_kind(ref):
+    """(label, key) for a gift item ref like '00417C44:LegendaryItems_Weapons_Ranged_Rank3:LGDI'."""
+    edid = ref.split(":")[1] if ":" in ref else ref
+    for frag, lab, key in _PG_LGDI_LABEL:
+        if frag in edid and not ("Armor" == frag and "PowerArmor" in edid):
+            return lab, key
+    core = re.sub(r"^LegendaryItems_|_Rank\d+$", "", edid).replace("Weapons_", "")
+    lab = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", core).replace("_", " ").strip() or edid
+    return lab, re.sub(r"[^a-z0-9]+", "-", lab.lower()).strip("-")
 
 
 def _pg_flag(flags, bit):
@@ -3183,12 +3197,24 @@ def build_pet_gifts():
             except ValueError:
                 pass
 
-    def grp(cond):
-        m = re.search(r"GetRandomPercent\(.*?\)\s+\S+\s+([\d.]+)", cond or "")
-        return float(m.group(1)) / 100.0 if m else None
+    def grp(row):
+        """The entry's GetRandomPercent gate (0-1), operator-aware, or None if it has none."""
+        conds = " ".join(v for k, v in row.items() if k and k.startswith("Cond") and v)
+        if "GetRandomPercent" not in conds:
+            return None
+        import rng76
+        return rng76.parse_randompercent_multiplier(conds)
+
+    found = []
+    for e in lists:
+        m = _PG_GIFT_RE.match(e or "")
+        if m:
+            sp = m.group(1)[:1].upper() + m.group(1)[1:].lower()
+            found.append((sp, e))
+    found.sort(key=lambda x: (_PG_SPECIES_ORDER.index(x[0]) if x[0] in _PG_SPECIES_ORDER else 99, x[0], x[1]))
 
     species, tiers, first = [], None, None
-    for sp, edid in _PG_GIFT_LISTS:
+    for sp, edid in found:
         lst = lists.get(edid)
         rows = sorted(ents.get(edid, []), key=lambda r: int(r.get("EntryIndex") or 0))
         if not lst or not rows:
@@ -3201,18 +3227,18 @@ def build_pet_gifts():
         for r in rows:
             sub = (r.get("LVLO_Reference") or "").split(":")
             sub_edid = sub[1] if len(sub) > 1 else ""
-            c = grp(r.get("Cond1", "")) if first else None
+            c = grp(r) if first else None
             check = c if c is not None else 1.0
             chance = check * left
             left *= (1 - check)
-            m = re.search(r"Rank(\d)", sub_edid)
+            m = re.search(r"Rank(\d+)", sub_edid)
             rank = int(m.group(1)) if m else None
             sub_rows = ents.get(sub_edid, [])
             kinds = []
             for sr in sub_rows:
                 ref = sr.get("LVLO_Reference", "")
-                lab = next((l for k, l in _PG_LGDI_LABEL if k in ref), ref.split(":")[1] if ":" in ref else ref)
-                kinds.append({"label": lab, "ref": ref})
+                lab, key = _pg_kind(ref)
+                kinds.append({"label": lab, "key": key, "ref": ref})
             n = len(kinds) or 1
             for k in kinds:
                 k["chance"] = round(chance / n, 6)
@@ -3265,15 +3291,12 @@ def _pg_gift_mods(tiers):
     for r in load_tsv(mods_path):
         pools.setdefault(r.get("LGDI_EDID", ""), []).append(r)
 
-    kind_key = {"Ranged Weapon": "ranged", "Melee Weapon": "melee", "Armour": "armour"}
     stars = {}   # star -> name -> entry
     for t in tiers:
         for it in t.get("items", []):
             parts = (it.get("ref") or "").split(":")
             lgdi = parts[1] if len(parts) > 1 else ""
-            kind = kind_key.get(it.get("label"))
-            if not kind:
-                continue
+            kind = it.get("key") or _pg_kind(it.get("ref") or "")[1]
             for row in sorted(pools.get(lgdi, []), key=lambda r: int(r.get("ModIndex") or 0)):
                 star = int(row.get("ModIndex") or 0) + 1
                 pool_id = (row.get("OMOD_FormID") or "").upper()
@@ -3290,13 +3313,15 @@ def _pg_gift_mods(tiers):
                         continue
                     name = names.get(fid) or edid
                     e = stars.setdefault(star, {}).setdefault(name, {
-                        "name": name, "effect": effects.get(fid, ""), "ids": [],
+                        "name": name, "effect": effects.get(fid, ""), "ids": [], "on": [],
                         "ranged": False, "melee": False, "armour": False})
                     if fid not in [x["formId"] for x in e["ids"]]:
                         e["ids"].append({"formId": fid, "edid": edid})
                     if not e["effect"]:
                         e["effect"] = effects.get(fid, "")
                     e[kind] = True
+                    if kind not in e["on"]:
+                        e["on"].append(kind)
     return [{"star": st, "mods": sorted(stars[st].values(), key=lambda x: x["name"].lower())}
             for st in sorted(stars)]
 

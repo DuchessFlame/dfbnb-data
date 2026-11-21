@@ -3494,16 +3494,19 @@
         "items": [
           {
             "label": "Ranged Weapon",
+            "key": "ranged",
             "ref": "00417C44:LegendaryItems_Weapons_Ranged_Rank3:LGDI",
             "chance": 0.033333
           },
           {
             "label": "Melee Weapon",
+            "key": "melee",
             "ref": "00417C48:LegendaryItems_Weapons_Melee_Rank3:LGDI",
             "chance": 0.033333
           },
           {
             "label": "Armour",
+            "key": "armour",
             "ref": "00417C41:LegendaryItems_Armor_Rank3:LGDI",
             "chance": 0.033333
           }
@@ -3517,16 +3520,19 @@
         "items": [
           {
             "label": "Ranged Weapon",
+            "key": "ranged",
             "ref": "00417C43:LegendaryItems_Weapons_Ranged_Rank2:LGDI",
             "chance": 0.06
           },
           {
             "label": "Melee Weapon",
+            "key": "melee",
             "ref": "00417C47:LegendaryItems_Weapons_Melee_Rank2:LGDI",
             "chance": 0.06
           },
           {
             "label": "Armour",
+            "key": "armour",
             "ref": "00417C40:LegendaryItems_Armor_Rank2:LGDI",
             "chance": 0.06
           }
@@ -3540,16 +3546,19 @@
         "items": [
           {
             "label": "Ranged Weapon",
+            "key": "ranged",
             "ref": "00417C42:LegendaryItems_Weapons_Ranged_Rank1:LGDI",
             "chance": 0.24
           },
           {
             "label": "Melee Weapon",
+            "key": "melee",
             "ref": "00417C46:LegendaryItems_Weapons_Melee_Rank1:LGDI",
             "chance": 0.24
           },
           {
             "label": "Armour",
+            "key": "armour",
             "ref": "00417C4B:LegendaryItems_Armor_Rank1:LGDI",
             "chance": 0.24
           }
@@ -3591,6 +3600,10 @@
                 "edid": "mod_Legendary_Weapon1_AntiArmor"
               }
             ],
+            "on": [
+              "ranged",
+              "melee"
+            ],
             "ranged": true,
             "melee": true,
             "armour": false
@@ -3607,6 +3620,11 @@
                 "formId": "0060893C",
                 "edid": "mod_Legendary_Armor1_ResistancesProportionalCaps"
               }
+            ],
+            "on": [
+              "ranged",
+              "melee",
+              "armour"
             ],
             "ranged": true,
             "melee": true,
@@ -3625,6 +3643,11 @@
                 "edid": "mod_Legendary_Armor1_LessDMGPlayers"
               }
             ],
+            "on": [
+              "ranged",
+              "melee",
+              "armour"
+            ],
             "ranged": true,
             "melee": true,
             "armour": true
@@ -3637,6 +3660,9 @@
                 "formId": "00521915",
                 "edid": "mod_Legendary_Armor1_LowHealthTriggersStimpak"
               }
+            ],
+            "on": [
+              "armour"
             ],
             "ranged": false,
             "melee": false,
@@ -3651,6 +3677,10 @@
                 "edid": "mod_Legendary_Weapon1_DamageUnarmored"
               }
             ],
+            "on": [
+              "ranged",
+              "melee"
+            ],
             "ranged": true,
             "melee": true,
             "armour": false
@@ -3663,6 +3693,10 @@
                 "formId": "004F6AA0",
                 "edid": "mod_Legendary_Weapon1_DamageInverseHealth"
               }
+            ],
+            "on": [
+              "ranged",
+              "melee"
             ],
             "ranged": true,
             "melee": true,
@@ -3677,6 +3711,9 @@
                 "edid": "mod_Legendary_Armor1_ResistancesInverseHealth"
               }
             ],
+            "on": [
+              "armour"
+            ],
             "ranged": false,
             "melee": false,
             "armour": true
@@ -3689,6 +3726,9 @@
                 "formId": "00524146",
                 "edid": "mod_Legendary_Armor1_Chameleon"
               }
+            ],
+            "on": [
+              "armour"
             ],
             "ranged": false,
             "melee": false,
@@ -3703,6 +3743,9 @@
                 "edid": "mod_Legendary_Armor1_CloakOnMelee"
               }
             ],
+            "on": [
+              "armour"
+            ],
             "ranged": false,
             "melee": false,
             "armour": true
@@ -3715,6 +3758,10 @@
                 "formId": "004F6AA1",
                 "edid": "mod_Legendary_Weapon1_Execute"
               }
+            ],
+            "on": [
+              "ranged",
+              "melee"
             ],
             "ranged": true,
             "melee": true,
@@ -3733,6 +3780,11 @@
                 "edid": "mod_Legendary_Armor1_LessDMGBugs"
               }
             ],
+            "on": [
+              "ranged",
+              "melee",
+              "armour"
+            ],
             "ranged": true,
             "melee": true,
             "armour": true
@@ -3745,6 +3797,10 @@
                 "formId": "004F577D",
                 "edid": "mod_Legendary_Weapon1_DmgConsecutiveHits"
               }
+            ],
+            "on": [
+              "ranged",
+              "melee"
             ],
             "ranged": true,
             "melee": true,
@@ -3763,6 +3819,11 @@
                 "edid": "mod_Legendary_Armor1_LessDMGGhouls"
               }
             ],
+            "on": [
+              "ranged",
+              "melee",
+              "armour"
+            ],
             "ranged": true,
             "melee": true,
             "armour": true
@@ -3776,6 +3837,10 @@
                 "edid": "mod_Legendary_Weapon1_Gourmand"
               }
             ],
+            "on": [
+              "ranged",
+              "melee"
+            ],
             "ranged": true,
             "melee": true,
             "armour": false
@@ -3788,6 +3853,9 @@
                 "formId": "00529A14",
                 "edid": "mod_Legendary_Armor1_Heavyweight"
               }
+            ],
+            "on": [
+              "armour"
             ],
             "ranged": false,
             "melee": false,
@@ -3806,6 +3874,11 @@
                 "edid": "mod_Legendary_Armor1_LessDMGAnimals"
               }
             ],
+            "on": [
+              "ranged",
+              "melee",
+              "armour"
+            ],
             "ranged": true,
             "melee": true,
             "armour": true
@@ -3818,6 +3891,10 @@
                 "formId": "004F6AA5",
                 "edid": "mod_Legendary_Weapon1_DamageFirstBlood"
               }
+            ],
+            "on": [
+              "ranged",
+              "melee"
             ],
             "ranged": true,
             "melee": true,
@@ -3832,6 +3909,10 @@
                 "edid": "mod_Legendary_Weapon1_DamageViaHealth"
               }
             ],
+            "on": [
+              "ranged",
+              "melee"
+            ],
             "ranged": true,
             "melee": true,
             "armour": false
@@ -3844,6 +3925,10 @@
                 "formId": "004F6AAB",
                 "edid": "mod_Legendary_Weapon1_DamageAddiction"
               }
+            ],
+            "on": [
+              "ranged",
+              "melee"
             ],
             "ranged": true,
             "melee": true,
@@ -3858,6 +3943,9 @@
                 "edid": "mod_Legendary_Armor1_AutoRevive"
               }
             ],
+            "on": [
+              "armour"
+            ],
             "ranged": false,
             "melee": false,
             "armour": true
@@ -3870,6 +3958,10 @@
                 "formId": "0075EAC6",
                 "edid": "mod_Legendary_Weapon1_Medic"
               }
+            ],
+            "on": [
+              "ranged",
+              "melee"
             ],
             "ranged": true,
             "melee": true,
@@ -3888,6 +3980,11 @@
                 "edid": "mod_Legendary_Armor1_LessDMGSuperMutants"
               }
             ],
+            "on": [
+              "ranged",
+              "melee",
+              "armour"
+            ],
             "ranged": true,
             "melee": true,
             "armour": true
@@ -3904,6 +4001,11 @@
                 "formId": "00529A0C",
                 "edid": "mod_Legendary_Armor1_ResistancesMutation"
               }
+            ],
+            "on": [
+              "ranged",
+              "melee",
+              "armour"
             ],
             "ranged": true,
             "melee": true,
@@ -3922,6 +4024,11 @@
                 "edid": "mod_Legendary_Armor1_ResistancesNight"
               }
             ],
+            "on": [
+              "ranged",
+              "melee",
+              "armour"
+            ],
             "ranged": true,
             "melee": true,
             "armour": true
@@ -3934,6 +4041,9 @@
                 "formId": "00606C84",
                 "edid": "mod_Legendary_Armor1_Overeater"
               }
+            ],
+            "on": [
+              "armour"
             ],
             "ranged": false,
             "melee": false,
@@ -3948,6 +4058,9 @@
                 "edid": "mod_Legendary_Weapon1_Guns_AmmoCapacity4x"
               }
             ],
+            "on": [
+              "ranged"
+            ],
             "ranged": true,
             "melee": false,
             "armour": false
@@ -3960,6 +4073,9 @@
                 "formId": "00529A09",
                 "edid": "mod_Legendary_Armor1_HealthRegen"
               }
+            ],
+            "on": [
+              "armour"
             ],
             "ranged": false,
             "melee": false,
@@ -3974,6 +4090,9 @@
                 "edid": "mod_Legendary_Weapon1_Guns_AccuracyNotInCombat"
               }
             ],
+            "on": [
+              "ranged"
+            ],
             "ranged": true,
             "melee": false,
             "armour": false
@@ -3986,6 +4105,10 @@
                 "formId": "005281B8",
                 "edid": "mod_Legendary_Weapon1_DebuffDamage"
               }
+            ],
+            "on": [
+              "ranged",
+              "melee"
             ],
             "ranged": true,
             "melee": true,
@@ -4004,6 +4127,11 @@
                 "edid": "mod_Legendary_Armor1_LessDMGRobots"
               }
             ],
+            "on": [
+              "ranged",
+              "melee",
+              "armour"
+            ],
             "ranged": true,
             "melee": true,
             "armour": true
@@ -4016,6 +4144,9 @@
                 "formId": "004F6D76",
                 "edid": "mod_Legendary_Weapon1_Guns_TwoShot"
               }
+            ],
+            "on": [
+              "ranged"
             ],
             "ranged": true,
             "melee": false,
@@ -4030,6 +4161,9 @@
                 "edid": "mod_Legendary_Armor1_LowHealthIncreasesStats"
               }
             ],
+            "on": [
+              "armour"
+            ],
             "ranged": false,
             "melee": false,
             "armour": true
@@ -4043,6 +4177,10 @@
                 "edid": "mod_Legendary_Weapon1_Vampire"
               }
             ],
+            "on": [
+              "ranged",
+              "melee"
+            ],
             "ranged": true,
             "melee": true,
             "armour": false
@@ -4055,6 +4193,9 @@
                 "formId": "00529A05",
                 "edid": "mod_Legendary_Armor1_ResistancesProportionalHealth"
               }
+            ],
+            "on": [
+              "armour"
             ],
             "ranged": false,
             "melee": false,
@@ -4072,6 +4213,11 @@
                 "formId": "004EE548",
                 "edid": "mod_Legendary_Armor1_LessDmgScorched"
               }
+            ],
+            "on": [
+              "ranged",
+              "melee",
+              "armour"
             ],
             "ranged": true,
             "melee": true,
@@ -4091,6 +4237,9 @@
                 "edid": "mod_Legendary_Armor2_StatAgility"
               }
             ],
+            "on": [
+              "armour"
+            ],
             "ranged": false,
             "melee": false,
             "armour": true
@@ -4103,6 +4252,9 @@
                 "formId": "00527F72",
                 "edid": "mod_Legendary_Armor2_DiseaseResistance"
               }
+            ],
+            "on": [
+              "armour"
             ],
             "ranged": false,
             "melee": false,
@@ -4117,6 +4269,9 @@
                 "edid": "mod_Legendary_Weapon2_Guns_Bashing"
               }
             ],
+            "on": [
+              "ranged"
+            ],
             "ranged": true,
             "melee": false,
             "armour": false
@@ -4129,6 +4284,9 @@
                 "formId": "004F6D83",
                 "edid": "mod_Legendary_Armor2_StatCharisma"
               }
+            ],
+            "on": [
+              "armour"
             ],
             "ranged": false,
             "melee": false,
@@ -4143,6 +4301,10 @@
                 "edid": "mod_Legendary_Weapon2_DmgLimbs"
               }
             ],
+            "on": [
+              "ranged",
+              "melee"
+            ],
             "ranged": true,
             "melee": true,
             "armour": false
@@ -4155,6 +4317,9 @@
                 "formId": "00606B6F",
                 "edid": "mod_Legendary_Armor2_CryoResistance"
               }
+            ],
+            "on": [
+              "armour"
             ],
             "ranged": false,
             "melee": false,
@@ -4169,6 +4334,9 @@
                 "edid": "mod_Legendary_Armor2_StatEndurance"
               }
             ],
+            "on": [
+              "armour"
+            ],
             "ranged": false,
             "melee": false,
             "armour": true
@@ -4181,6 +4349,9 @@
                 "formId": "004F5771",
                 "edid": "mod_Legendary_Weapon2_Guns_ExplosiveBullets"
               }
+            ],
+            "on": [
+              "ranged"
             ],
             "ranged": true,
             "melee": false,
@@ -4195,6 +4366,9 @@
                 "edid": "mod_Legendary_Armor2_Glutton"
               }
             ],
+            "on": [
+              "armour"
+            ],
             "ranged": false,
             "melee": false,
             "armour": true
@@ -4207,6 +4381,9 @@
                 "formId": "00609E4E",
                 "edid": "mod_Legendary_Armor2_ReduceExplosionDamage"
               }
+            ],
+            "on": [
+              "armour"
             ],
             "ranged": false,
             "melee": false,
@@ -4221,6 +4398,9 @@
                 "edid": "mod_Legendary_Armor2_RadResistance"
               }
             ],
+            "on": [
+              "armour"
+            ],
             "ranged": false,
             "melee": false,
             "armour": true
@@ -4233,6 +4413,9 @@
                 "formId": "001A7BE2",
                 "edid": "mod_Legendary_Weapon2_Melee_DamagePowerAttack"
               }
+            ],
+            "on": [
+              "melee"
             ],
             "ranged": false,
             "melee": true,
@@ -4247,6 +4430,9 @@
                 "edid": "mod_Legendary_Weapon2_Guns_DmgSights"
               }
             ],
+            "on": [
+              "ranged"
+            ],
             "ranged": true,
             "melee": false,
             "armour": false
@@ -4259,6 +4445,10 @@
                 "formId": "00606B72",
                 "edid": "mod_Legendary_Weapon2_APViaKill"
               }
+            ],
+            "on": [
+              "ranged",
+              "melee"
             ],
             "ranged": true,
             "melee": true,
@@ -4273,6 +4463,9 @@
                 "edid": "mod_Legendary_Armor2_StatIntelligence"
               }
             ],
+            "on": [
+              "armour"
+            ],
             "ranged": false,
             "melee": false,
             "armour": true
@@ -4285,6 +4478,9 @@
                 "formId": "006069EC",
                 "edid": "mod_Legendary_Weapon2_Guns_LastShot"
               }
+            ],
+            "on": [
+              "ranged"
             ],
             "ranged": true,
             "melee": false,
@@ -4299,6 +4495,9 @@
                 "edid": "mod_Legendary_Armor2_StatLuck"
               }
             ],
+            "on": [
+              "armour"
+            ],
             "ranged": false,
             "melee": false,
             "armour": true
@@ -4311,6 +4510,9 @@
                 "formId": "004F6D81",
                 "edid": "mod_Legendary_Armor2_StatPerception"
               }
+            ],
+            "on": [
+              "armour"
             ],
             "ranged": false,
             "melee": false,
@@ -4325,6 +4527,9 @@
                 "edid": "mod_Legendary_Armor2_PoisonResistance"
               }
             ],
+            "on": [
+              "armour"
+            ],
             "ranged": false,
             "melee": false,
             "armour": true
@@ -4338,6 +4543,9 @@
                 "edid": "mod_Legendary_Armor2_APRegen"
               }
             ],
+            "on": [
+              "armour"
+            ],
             "ranged": false,
             "melee": false,
             "armour": true
@@ -4350,6 +4558,9 @@
                 "formId": "00606B39",
                 "edid": "mod_Legendary_Armor2_Fireproof"
               }
+            ],
+            "on": [
+              "armour"
             ],
             "ranged": false,
             "melee": false,
@@ -4368,6 +4579,10 @@
                 "edid": "mod_Legendary_Weapon2_Melee_SwingSpeed"
               }
             ],
+            "on": [
+              "ranged",
+              "melee"
+            ],
             "ranged": true,
             "melee": true,
             "armour": false
@@ -4380,6 +4595,9 @@
                 "formId": "001A7C39",
                 "edid": "mod_Legendary_Weapon2_Melee_BlockReflects"
               }
+            ],
+            "on": [
+              "melee"
             ],
             "ranged": false,
             "melee": true,
@@ -4394,6 +4612,9 @@
                 "edid": "mod_Legendary_Weapon2_Melee_Steady"
               }
             ],
+            "on": [
+              "melee"
+            ],
             "ranged": false,
             "melee": true,
             "armour": false
@@ -4406,6 +4627,9 @@
                 "formId": "004EE54E",
                 "edid": "mod_Legendary_Armor2_StatStrength"
               }
+            ],
+            "on": [
+              "armour"
             ],
             "ranged": false,
             "melee": false,
@@ -4420,6 +4644,9 @@
                 "edid": "mod_Legendary_Weapon2_Guns_VATSAccuracy"
               }
             ],
+            "on": [
+              "ranged"
+            ],
             "ranged": true,
             "melee": false,
             "armour": false
@@ -4432,6 +4659,10 @@
                 "formId": "0052414B",
                 "edid": "mod_Legendary_Weapon2_DmgCrits"
               }
+            ],
+            "on": [
+              "ranged",
+              "melee"
             ],
             "ranged": true,
             "melee": true,
@@ -4451,6 +4682,9 @@
                 "edid": "mod_Legendary_Armor3_LessFallDamage"
               }
             ],
+            "on": [
+              "armour"
+            ],
             "ranged": false,
             "melee": false,
             "armour": true
@@ -4463,6 +4697,9 @@
                 "formId": "0052BDBC",
                 "edid": "mod_Legendary_Armor3_ReducedLimbDamage"
               }
+            ],
+            "on": [
+              "armour"
             ],
             "ranged": false,
             "melee": false,
@@ -4477,6 +4714,10 @@
                 "edid": "mod_Legendary_Weapon3_StatAgility"
               }
             ],
+            "on": [
+              "ranged",
+              "melee"
+            ],
             "ranged": true,
             "melee": true,
             "armour": false
@@ -4489,6 +4730,9 @@
                 "formId": "00527F78",
                 "edid": "mod_Legendary_Armor3_WeightWeapons"
               }
+            ],
+            "on": [
+              "armour"
             ],
             "ranged": false,
             "melee": false,
@@ -4503,6 +4747,9 @@
                 "edid": "mod_Legendary_Armor3_WeightAmmo"
               }
             ],
+            "on": [
+              "armour"
+            ],
             "ranged": false,
             "melee": false,
             "armour": true
@@ -4515,6 +4762,9 @@
                 "formId": "005253FB",
                 "edid": "mod_Legendary_Weapon3_Melee_LessDamageBlock"
               }
+            ],
+            "on": [
+              "melee"
             ],
             "ranged": false,
             "melee": true,
@@ -4529,6 +4779,9 @@
                 "edid": "mod_Legendary_Armor3_Burning"
               }
             ],
+            "on": [
+              "armour"
+            ],
             "ranged": false,
             "melee": false,
             "armour": true
@@ -4542,6 +4795,9 @@
                 "edid": "mod_Legendary_Armor3_LessDamageSprinting"
               }
             ],
+            "on": [
+              "armour"
+            ],
             "ranged": false,
             "melee": false,
             "armour": true
@@ -4554,6 +4810,10 @@
                 "formId": "0079AD67",
                 "edid": "mod_Legendary_Weapon3_StatCharisma"
               }
+            ],
+            "on": [
+              "ranged",
+              "melee"
             ],
             "ranged": true,
             "melee": true,
@@ -4572,6 +4832,10 @@
                 "edid": "mod_Legendary_Armor3_Defenders"
               }
             ],
+            "on": [
+              "melee",
+              "armour"
+            ],
             "ranged": false,
             "melee": true,
             "armour": true
@@ -4584,6 +4848,9 @@
                 "formId": "00606B6D",
                 "edid": "mod_Legendary_Armor3_RadsRegen"
               }
+            ],
+            "on": [
+              "armour"
             ],
             "ranged": false,
             "melee": false,
@@ -4598,6 +4865,9 @@
                 "edid": "mod_Legendary_Armor3_Waterbreathing"
               }
             ],
+            "on": [
+              "armour"
+            ],
             "ranged": false,
             "melee": false,
             "armour": true
@@ -4610,6 +4880,9 @@
                 "formId": "00609C46",
                 "edid": "mod_Legendary_Armor3_IncreaseHealing"
               }
+            ],
+            "on": [
+              "armour"
             ],
             "ranged": false,
             "melee": false,
@@ -4628,6 +4901,11 @@
                 "edid": "mod_Legendary_Armor3_Durability"
               }
             ],
+            "on": [
+              "ranged",
+              "melee",
+              "armour"
+            ],
             "ranged": true,
             "melee": true,
             "armour": true
@@ -4640,6 +4918,9 @@
                 "formId": "00608373",
                 "edid": "mod_Legendary_Armor3_Electrified"
               }
+            ],
+            "on": [
+              "armour"
             ],
             "ranged": false,
             "melee": false,
@@ -4654,6 +4935,10 @@
                 "edid": "mod_Legendary_Weapon3_StatEndurance"
               }
             ],
+            "on": [
+              "ranged",
+              "melee"
+            ],
             "ranged": true,
             "melee": true,
             "armour": false
@@ -4666,6 +4951,9 @@
                 "formId": "00608372",
                 "edid": "mod_Legendary_Armor3_Frozen"
               }
+            ],
+            "on": [
+              "armour"
             ],
             "ranged": false,
             "melee": false,
@@ -4680,6 +4968,9 @@
                 "edid": "mod_Legendary_Weapon3_Guns_CloakOnHit"
               }
             ],
+            "on": [
+              "ranged"
+            ],
             "ranged": true,
             "melee": false,
             "armour": false
@@ -4692,6 +4983,10 @@
                 "formId": "0079AD68",
                 "edid": "mod_Legendary_Weapon3_StatIntelligence"
               }
+            ],
+            "on": [
+              "ranged",
+              "melee"
             ],
             "ranged": true,
             "melee": true,
@@ -4706,6 +5001,10 @@
                 "edid": "mod_Legendary_Weapon3_Weight"
               }
             ],
+            "on": [
+              "ranged",
+              "melee"
+            ],
             "ranged": true,
             "melee": true,
             "armour": false
@@ -4718,6 +5017,10 @@
                 "formId": "0079AD69",
                 "edid": "mod_Legendary_Weapon3_StatLuck"
               }
+            ],
+            "on": [
+              "ranged",
+              "melee"
             ],
             "ranged": true,
             "melee": true,
@@ -4732,6 +5035,10 @@
                 "edid": "mod_Legendary_Weapon3_CritSpeed"
               }
             ],
+            "on": [
+              "ranged",
+              "melee"
+            ],
             "ranged": true,
             "melee": true,
             "armour": false
@@ -4744,6 +5051,9 @@
                 "formId": "004ED02E",
                 "edid": "mod_Legendary_Weapon3_Guns_MoveSpeedSights"
               }
+            ],
+            "on": [
+              "ranged"
             ],
             "ranged": true,
             "melee": false,
@@ -4758,6 +5068,9 @@
                 "edid": "mod_Legendary_Armor3_WeightJunk"
               }
             ],
+            "on": [
+              "armour"
+            ],
             "ranged": false,
             "melee": false,
             "armour": true
@@ -4770,6 +5083,10 @@
                 "formId": "005299FA",
                 "edid": "mod_Legendary_Weapon3_StatPerception"
               }
+            ],
+            "on": [
+              "ranged",
+              "melee"
             ],
             "ranged": true,
             "melee": true,
@@ -4784,6 +5101,9 @@
                 "edid": "mod_Legendary_Weapon3_Guns_ResistReload"
               }
             ],
+            "on": [
+              "ranged"
+            ],
             "ranged": true,
             "melee": false,
             "armour": false
@@ -4796,6 +5116,9 @@
                 "formId": "00527F7B",
                 "edid": "mod_Legendary_Armor3_LockPick"
               }
+            ],
+            "on": [
+              "armour"
             ],
             "ranged": false,
             "melee": false,
@@ -4810,6 +5133,9 @@
                 "edid": "mod_Legendary_Armor3_Sneak"
               }
             ],
+            "on": [
+              "armour"
+            ],
             "ranged": false,
             "melee": false,
             "armour": true
@@ -4822,6 +5148,9 @@
                 "formId": "004EE54C",
                 "edid": "mod_Legendary_Armor3_LessDamageStandStill"
               }
+            ],
+            "on": [
+              "armour"
             ],
             "ranged": false,
             "melee": false,
@@ -4836,6 +5165,9 @@
                 "edid": "mod_Legendary_Weapon3_Guns_ResistSights"
               }
             ],
+            "on": [
+              "ranged"
+            ],
             "ranged": true,
             "melee": false,
             "armour": false
@@ -4848,6 +5180,10 @@
                 "formId": "005299FC",
                 "edid": "mod_Legendary_Weapon3_StatStrength"
               }
+            ],
+            "on": [
+              "ranged",
+              "melee"
             ],
             "ranged": true,
             "melee": true,
@@ -4862,6 +5198,9 @@
                 "edid": "mod_Legendary_Weapon3_Guns_ReloadSpeed"
               }
             ],
+            "on": [
+              "ranged"
+            ],
             "ranged": true,
             "melee": false,
             "armour": false
@@ -4874,6 +5213,9 @@
                 "formId": "0052BDB5",
                 "edid": "mod_Legendary_Armor3_WeightFoodDrinkChems"
               }
+            ],
+            "on": [
+              "armour"
             ],
             "ranged": false,
             "melee": false,
@@ -4888,6 +5230,9 @@
                 "edid": "mod_Legendary_Armor3_Toxic"
               }
             ],
+            "on": [
+              "armour"
+            ],
             "ranged": false,
             "melee": false,
             "armour": true
@@ -4900,6 +5245,10 @@
                 "formId": "00524154",
                 "edid": "mod_Legendary_Weapon3_VATSCostAP"
               }
+            ],
+            "on": [
+              "ranged",
+              "melee"
             ],
             "ranged": true,
             "melee": true,
