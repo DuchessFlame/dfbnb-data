@@ -661,9 +661,10 @@ def build_guide(doc, channel):
     (title / subtitle / sections[{title, html, images}]). Prose from
     data/brain_in_a_jar/guide.json (written 5 Nov 2026 from the quest's own logs,
     objectives and dialogue); everything countable is generated here.
-    Order: intro, the hand-written story sections, Locations, Milestone Rewards,
-    Scan Holotapes, FAQ. A section's pictures are listed only once they are on the
-    server (data/server_listing.tsv), so the page never shows a broken picture."""
+    Sections come from the guide.json in the collectable guide template order
+    (Duchess, 22 Nov 2026); src/collectable_guide.py writes the shared JSON shape
+    that df-bnb-collectable-guide.js mounts. Pictures are listed only once they
+    are on the server (data/server_listing.tsv); the rest go in missing_images."""
     import html as _h
     with open(os.path.join(DATA, "guide.json"), encoding="utf-8") as fh:
         g = json.load(fh)
@@ -678,12 +679,9 @@ def build_guide(doc, channel):
     batches = qf["batches"]
     need = sum(batches)
     E = _h.escape
-    rows, run = [], 0
-    for i, n in enumerate(batches, 1):
-        run += n
-        rows.append(f"<tr><td>{i}</td><td>{n}</td><td>{run}</td></tr>")
-    table = ("<table class=\"abg-table\"><thead><tr><th>Hand-in</th><th>Brains</th><th>Running total</th></tr></thead>"
-             f"<tbody>{''.join(rows)}</tbody></table>") if rows else ""
+    import collectable_guide as cg
+    tapes = [h["name"] for h in doc["holotapes"]]
+    table = cg.batch_table(batches, tapes, "Hand-in", "Brains")
     fill = lambda t: (t.replace("{total}", str(doc["total_real"])).replace("{quest}", doc["quest"])
                       .replace("{caps}", caps).replace("{regions}", regions)
                       .replace("{batch_count}", str(len(batches))).replace("{quest_brains}", str(need))
@@ -693,39 +691,9 @@ def build_guide(doc, channel):
                       .replace("{camp_cost}", E(qf["camp_cost"] or "a few components"))
                       .replace("{holotape_count}", str(len(doc["holotapes"])))
                       .replace("{password_block}", pw))
-
-    def pics(names):
-        return [n for n in (names or []) if on_server(GUIDE_IMG_BASE + n + ".avif")]
-
-    def sec(s):
-        out = {"title": fill(s["title"]), "html": fill(s["html"])}
-        im = pics(s.get("images"))
-        if im:
-            out["images"] = im
-        return out
-
-    locs = "".join(f'<li><a href="{E(p["url"])}">{E(p["title"])}</a></li>' for p in doc["pages"])
-    miles = "".join(f'<li><strong>{m["milestone"]}</strong> {"brain" if m["milestone"] == 1 else "brains"}: {E(m["name"])}</li>'
-                    for m in doc["rewards"]["milestones"])
-    tapes = "".join(f"<li>{E(h['name'])}</li>" for h in doc["holotapes"])
-    secs = [sec(g["intro"])] + [sec(s) for s in g.get("sections", [])]
-    secs.append({"title": "Brain in a Jar Locations",
-                 "html": f"<p>{fill(g.get('locations_html', ''))}</p><ul>{locs}</ul>"})
-    secs.append({"title": "Lifetime Milestone Rewards",
-                 "html": f"<p>{fill(g.get('milestones_html', ''))}</p><ul>{miles}</ul>"
-                         f"<p>Tick them off on the <a href=\"{URL_BASE}checklist/\">Brain in a Jar Reward Checklist</a>.</p>"})
-    if pics(g.get("milestones_images")):
-        secs[-1]["images"] = pics(g.get("milestones_images"))
-    if tapes:
-        secs.append({"title": "The Scan Holotapes",
-                     "html": f"<p>{fill(g.get('holotapes_html', ''))}</p><ol>{tapes}</ol>"})
-    secs.append(sec(g["faq"]))
-    out = {"_meta": doc["_meta"], "title": fill(g["title"]), "subtitle": fill(g["subtitle"]), "sections": secs}
-    if g.get("image_dims"):               # [w, h] per guide image, so the page reserves the space
-        out["image_dims"] = g["image_dims"]
-    with open(os.path.join(OUT_DIR, "brain_in_a_jar_guide.json"), "w", encoding="utf-8", newline="\n") as fh:
-        json.dump(out, fh, indent=1, ensure_ascii=False)
-
+    out = cg.build(os.path.join(DATA, "guide.json"), os.path.join(OUT_DIR, "brain_in_a_jar_guide.json"),
+                   fill, GUIDE_IMG_BASE)
+    print(f"  guide: {len(out['sections'])} sections, {len(out['missing_images'])} pictures not on the server yet")
 
 if __name__ == "__main__":
     main()

@@ -15,6 +15,11 @@ on:
       - "src/build_collectables_json.py"
       - "src/build_slasher_lore_json.py"
       - "src/build_quest_lore_json.py"
+      - "src/build_abraxodyne_guide_json.py"
+      - "src/build_slasher_masks_guide_json.py"
+      - "src/collectable_guide.py"
+      - "data/pint_sized_slasher_masks/guide.json"
+      - "data/abraxodyne_intel_briefcases/guide.json"
       - "src/build_lore_holotapes_json.py"
       - "tsv/NOTE2_Export*.tsv"
       - "src/build_quest_lore_pages_json.py"
@@ -58,6 +63,14 @@ jobs:
       # Brain in a Jar Scan holotapes + Abraxodyne Tapes lore checklists (13 Nov 2026)
       - name: Build Quest Lore JSON
         run: python src/build_quest_lore_json.py --data-dir tsv
+
+      # Abraxodyne Intel Briefcase guide: hand-in table + counts from QUST2 (22 Nov 2026)
+      - name: Build Abraxodyne Guide JSON
+        run: python src/build_abraxodyne_guide_json.py --data-dir tsv
+
+      # Pint-Sized Slasher Masks guide: batches, notes, rewards from the game files (22 Nov 2026)
+      - name: Build Slasher Masks Guide JSON
+        run: python src/build_slasher_masks_guide_json.py --data-dir tsv
 
       # Lore Holotape Checklist (14 Nov 2026)
       - name: Build Lore Holotapes JSON
