@@ -683,6 +683,321 @@
       "Fall damage"
     ]
   },
+  "healing": {
+    "source": {
+      "perkep": "PERKEP_Export_October_2026.tsv",
+      "alch": "ALCH_Export_October_2026_Effects.tsv",
+      "curve": "CURV_Export_November_2026_POINTS.tsv"
+    },
+    "petPerk": {
+      "edid": "WorldPets_Healing_SpeedHealing",
+      "formId": "008DC2CB",
+      "name": "Pet Healing Perk",
+      "found": true,
+      "magnitudeMult": 16.67,
+      "durationMult": 0.2,
+      "healingMult": 3.334
+    },
+    "poisonTakenMult": 0.1,
+    "stimpaks": [
+      {
+        "name": "Stimpak: Diluted",
+        "edid": "StimpakDiluted",
+        "formId": "003078C2",
+        "weight": 0.38,
+        "effects": [
+          {
+            "perSec": 1,
+            "seconds": 20
+          },
+          {
+            "perSec": 5,
+            "seconds": 2
+          }
+        ],
+        "baseTotal": 30,
+        "baseSeconds": 20,
+        "petTotal": 100.02,
+        "petSeconds": 4,
+        "petBurstSeconds": 0.4
+      },
+      {
+        "name": "Stimpak",
+        "edid": "Stimpak",
+        "formId": "00023736",
+        "weight": 0.75,
+        "effects": [
+          {
+            "perSec": 2,
+            "seconds": 20
+          },
+          {
+            "perSec": 10,
+            "seconds": 2
+          }
+        ],
+        "baseTotal": 60,
+        "baseSeconds": 20,
+        "petTotal": 200.04,
+        "petSeconds": 4,
+        "petBurstSeconds": 0.4
+      },
+      {
+        "name": "Stimpak: Super",
+        "edid": "SuperStimpak",
+        "formId": "00117DF9",
+        "weight": 1.5,
+        "effects": [
+          {
+            "perSec": 4,
+            "seconds": 20
+          },
+          {
+            "perSec": 20,
+            "seconds": 2
+          }
+        ],
+        "baseTotal": 120,
+        "baseSeconds": 20,
+        "petTotal": 400.08,
+        "petSeconds": 4,
+        "petBurstSeconds": 0.4
+      }
+    ],
+    "playerPerks": [
+      {
+        "edid": "LegendaryIncreaseHealingPerk",
+        "formId": "00609C49",
+        "name": "",
+        "desc": "+5% Effectiveness of Stimpaks, RadAway, and Rad-X",
+        "magnitude": [
+          1.05,
+          1.1,
+          1.15,
+          1.2,
+          1.25
+        ],
+        "duration": [],
+        "descMismatch": null
+      },
+      {
+        "edid": "FieldSurgeon01",
+        "formId": "000814FE",
+        "name": "Field Surgeon",
+        "desc": "Stimpaks and RadAway heal 60% faster.",
+        "magnitude": [
+          1.67
+        ],
+        "duration": [
+          0.6
+        ],
+        "descMismatch": null
+      },
+      {
+        "edid": "XPD_Fuel_CodeBlue_StimpakBuffPerk",
+        "formId": "006446B8",
+        "name": "First Aid",
+        "desc": "Stimpaks restore 15% more lost Health.",
+        "magnitude": [
+          1.25
+        ],
+        "duration": [],
+        "descMismatch": {
+          "desc": 15,
+          "files": 25
+        }
+      },
+      {
+        "edid": "Mutation_ReduceChemEffect_Perk",
+        "formId": "004DF1DF",
+        "name": "Healing Factor Penalty",
+        "desc": "Reduce the beneficial effects of chems.",
+        "magnitude": [
+          0.45,
+          0.58,
+          0.72,
+          0.86
+        ],
+        "duration": [],
+        "descMismatch": null
+      }
+    ],
+    "help": [
+      "Pet can sustain damage and ultimately fall wounded but they will never die. Use a Stimpak on your injured or wounded Pet to instantly bring them back to full health."
+    ],
+    "healthCurve": [
+      [
+        1,
+        1981
+      ],
+      [
+        5,
+        3285
+      ],
+      [
+        10,
+        4942
+      ],
+      [
+        15,
+        6634
+      ],
+      [
+        20,
+        8365
+      ],
+      [
+        25,
+        10140
+      ],
+      [
+        30,
+        11966
+      ],
+      [
+        35,
+        13849
+      ],
+      [
+        40,
+        15796
+      ],
+      [
+        45,
+        17817
+      ],
+      [
+        50,
+        19922
+      ],
+      [
+        55,
+        22121
+      ],
+      [
+        60,
+        24428
+      ],
+      [
+        65,
+        26857
+      ],
+      [
+        70,
+        29425
+      ],
+      [
+        75,
+        32150
+      ],
+      [
+        80,
+        35054
+      ],
+      [
+        85,
+        38161
+      ],
+      [
+        90,
+        41498
+      ],
+      [
+        95,
+        45097
+      ],
+      [
+        100,
+        48992
+      ],
+      [
+        105,
+        53224
+      ],
+      [
+        110,
+        57839
+      ],
+      [
+        115,
+        62888
+      ],
+      [
+        120,
+        68429
+      ],
+      [
+        125,
+        74530
+      ],
+      [
+        130,
+        81266
+      ],
+      [
+        135,
+        88722
+      ],
+      [
+        140,
+        96997
+      ],
+      [
+        145,
+        106201
+      ],
+      [
+        150,
+        116459
+      ]
+    ],
+    "prowessTaken": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "prowessDamage": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "resistMax": 0,
+    "settings": {
+      "fEssentialHealthPercentReGain": {
+        "value": 0.3,
+        "from": "exe",
+        "serverSide": true
+      },
+      "fCreatureOutOfCombatHealthRegenRate": {
+        "value": 0.05,
+        "from": "exe",
+        "serverSide": true
+      },
+      "fCreatureOutOfCombatHealthRegenDelay": {
+        "value": 15,
+        "from": "ESM",
+        "serverSide": true
+      },
+      "fCreatureOutOfCombatHealthRegenPlayerMinDist": {
+        "value": 5000,
+        "from": "ESM",
+        "serverSide": true
+      },
+      "fCombatHealthRegenRateMult": {
+        "value": 0,
+        "from": "ESM",
+        "serverSide": true
+      },
+      "fWorldPetInvulerabilityTimer": {
+        "value": 3,
+        "from": "exe",
+        "serverSide": true
+      }
+    },
+    "settingsFile": "dist/exe_settings.json"
+  },
   "playerGift": {
     "interval": 1800,
     "intervalMin": 30,
