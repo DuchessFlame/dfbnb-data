@@ -1,0 +1,2098 @@
+{
+ "slug": "the-ghoul-lore-and-dialogue",
+ "title": "Bounty Hunting - The Ghoul Lore & Dialogue",
+ "blurb": "Who The Ghoul is in Fallout 76, where he turns up in every region, what he lets slip about himself, his Billie codename, and every line he says, laid out as the conversation menus you see in game.",
+ "channel": "live",
+ "ptsOnly": false,
+ "generated": "2026-11-22T02:23:35Z",
+ "sources": [
+  "NPCDLG_Export_November_2026_Lines.tsv",
+  "NPCDLG_Export_November_2026_Scenes.tsv",
+  "NPC_Export_October_2026.tsv",
+  "GLOB_Export_October_2026.tsv"
+ ],
+ "imageDir": "guide-images/bounty-hunting/npc-lore",
+ "sections": [
+  {
+   "title": "Who Is The Ghoul?",
+   "html": "<p>The Ghoul runs bounty hunting in Burning Springs. He works out of The Last Resort, the saloon in Highway Town, and hands out Grunt Hunts and Head Hunts from a stack of contracts.</p><p>He is Cooper Howard from the Fallout TV series, voiced by Walton Goggins, and arrived with the Burning Springs update (per Bethesda). In the game files he is only ever \"The Ghoul\", and his voice type is labelled \"Bounty Hunter\".</p><h3>What he lets slip</h3><ul><li>He isn't from Ohio, and he isn't saying where he's from: \"Where I'm from is one of those things that's not your concern.\"</li><li>He's here for a reason: \"Let's just say I followed somebody out here. Somebody I'd very much like to meet.\"</li><li>He's been looking into the Vaults. He tells a fresh Vault 76 dweller he \"already interrogated the last one of you to come out of that hole. Sounds like there's nothing down there for me.\"</li><li>He doesn't care what a target did, \"so long as the caps from the bounty end up in my pocket to pay for the chems in my lungs.\" He stays at The Last Resort because \"the barkeep here's got the vials I like\".</li><li>On the Rust King: \"Not the first would-be king I've seen in the Wasteland. Doubt he'll be the last... All I know is kings fall, and all crowns rust.\"</li><li>His one rule for bounty hunters: \"We don't do 'dead or alive'. Just dead.\"</li></ul><p class=\"nl-note\">In the TV show he's searching for his family, which fits \"followed somebody out here\". Nothing in the Fallout 76 files names who he's following, though.</p>"
+  },
+  {
+   "title": "Where to Find Him",
+   "html": "<p>His home is The Last Resort, the saloon in Highway Town, Burning Springs. He stands against the back wall.</p><p>Before you've been to Burning Springs, he can also turn up in every region of Appalachia, standing over a target he's just killed. He tells you about Burning Springs (\"burnt clean away after the war\"), points you to the bridge by Point Pleasant, and says to find him at The Last Resort.</p><h3>Burning Springs</h3><p>The Last Resort, Highway Town</p>{img:the-ghoul-last-resort.avif}<h3>The Forest</h3><p>Charleston Station</p>{img:the-ghoul-charleston-station.avif}<p>Vault 76</p>{img:the-ghoul-vault-76.avif}<h3>Toxic Valley</h3><p>The Crater</p>{img:the-ghoul-the-crater.avif}<h3>Ash Heap</h3><p>Welch Station</p>{img:the-ghoul-welch-station.avif}<h3>Savage Divide</h3><p>Foundation</p>{img:the-ghoul-foundation.avif}<p>Near Sunnytop Station</p>{img:the-ghoul-sunnytop-station.avif}<h3>The Mire</h3><p>Berkeley Springs Station</p>{img:the-ghoul-berkeley-springs-station.avif}<h3>Cranberry Bog</h3><p>Watoga High School</p>{img:the-ghoul-watoga-high-school.avif}"
+  },
+  {
+   "title": "Billie Is The Ghoul",
+   "html": "<p>Billie and The Ghoul are the same person. Bethesda used the name Billie as a codename, so data miners wouldn't spot The Ghoul in the files before he was revealed.</p><p>The codename version is still in the files. It has its own set of lines (\"Give me a premium target\", the 5,000-cap fee, \"Wasteland's full of confident dead guys\") and is set up in the exact same spot in The Last Resort. The two versions share one switch, so only one is ever standing there, and in game it's The Ghoul.</p><p>The codename lines are at the bottom of this page.</p>"
+  },
+  {
+   "title": "Buying a Wanted Poster",
+   "html": "<p>Burning Springs Wanted Posters are bought from him through dialogue, not a shop menu:</p><ol><li>First time: \"Got anything better than these grunts?\" &rarr; \"Tell me about these &ldquo;juicy&rdquo; targets.\" &rarr; \"Give me a premium target.\" &rarr; \"[5,000 Caps] All right, here's your caps.\"</li><li>After that: \"Give me a premium target.\" &rarr; \"[5,000 Caps] All right, here's your caps.\"</li></ol><p class=\"nl-note\">You need 5,000 caps on you. If you already have a Burning Springs Wanted Poster: \"No can do, hoss. One per customer.\"</p>"
+  }
+ ],
+ "lore": {
+  "intro": "Notes near The Last Resort that tie into his trade.",
+  "docs": [
+   {
+    "name": "Bounty Draft - Lemon Boys",
+    "edid": "Burn_HWT_BountyOfTheWeekLemonBoys",
+    "kind": "Note",
+    "where": "Location not added yet.",
+    "quest": "",
+    "text": "\"Bounty Draft\"\n\n~ WANTED ~\nFor Mass Murder, Highway Robbery, Damage of town Property, and Racketeering Charges.\n\n~ DEAD ONLY ~\nTHE LEMON BOY GANG\n\nGang Members: Robyn the Brute, Darwin the Devil and Archie the Kid.\nReward: 2,000 caps each.\nLast Seen: Camping South Of The Old Lake, near the collapsed tunnel.\n\n- - - - - -\nThese criminals are armed and dangerous. Extreme caution is advised.\n\nWarning: I won't be putting this up to claim, the person who has requested the bounty does not have the caps to pay the reward"
+   }
+  ]
+ },
+ "dialogue": [
+  {
+   "title": "Full Dialogue",
+   "npc": "The Ghoul",
+   "groups": [
+    {
+     "quest": "BURN_Dialogue_BountyGiver",
+     "title": "Talking to The Ghoul at The Last Resort",
+     "scenes": [
+      {
+       "label": "Bar Intro",
+       "edid": "BURN_BountyGiver_BarIntro",
+       "fid": "0084BDBA",
+       "actions": [
+        {
+         "kind": "menu",
+         "items": [
+          {
+           "prompt": "I don't know what you're talking about.",
+           "who": "",
+           "lines": [],
+           "conds": [],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD4C"
+          },
+          {
+           "prompt": "I'm sorry, what?",
+           "who": "",
+           "lines": [],
+           "conds": [],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD72"
+          },
+          {
+           "prompt": "What's it to you?",
+           "who": "The Ghoul",
+           "lines": [
+            "What it is, is business. Business that just might be of interest to someone of your...disposition."
+           ],
+           "conds": [],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD52"
+          },
+          {
+           "prompt": "Is that a threat?",
+           "who": "The Ghoul",
+           "lines": [
+            "Now, let's put that hostility on ice for a spell, hotshot. Hands away from the iron.",
+            "If I meant you harm, you'd already know it. I've got a little proposition, if you'll shut up and listen."
+           ],
+           "conds": [],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD78"
+          }
+         ]
+        },
+        {
+         "kind": "line",
+         "items": [
+          {
+           "prompt": "",
+           "who": "The Ghoul",
+           "lines": [
+            "I happen to run a little service for the folks of this...charming locale.",
+            "See, they ain't got anything you might call law around here. Suits me fine, mind you, but that leaves a lot of bad blood unaddressed.",
+            "Generous soul that I am, I match demands for vengeance with bloody-handed individuals like yourself who are eager to deal it out."
+           ],
+           "conds": [],
+           "next": [
+            "Questions"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD55"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "label": "Questions",
+       "edid": "BURN_BountyGiver_Questions",
+       "fid": "0084BDBB",
+       "actions": [
+        {
+         "kind": "menu",
+         "items": [
+          {
+           "prompt": "Are you talking about assassins?",
+           "who": "The Ghoul",
+           "lines": [
+            "That's a bit high-falutin' for folks 'round these parts. Call it what it is: bounty huntin'.",
+            "Somebody needs somebody else dead and ain't got the stones to handle it themselves, I make the arrangements. For a fee, of course."
+           ],
+           "conds": [
+            "Only until: asked assassins"
+           ],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD69"
+          },
+          {
+           "prompt": "All right, then. Tell me more about bounty hunting.",
+           "who": "The Ghoul",
+           "lines": [
+            "I had you pegged from the start.",
+            "Simple enough arrangement. I collect a fee from the afflicted, and farm out the killin' to motivated individuals such as yourself.",
+            "You run down the target in whatever shithole they're hidin' out in and put 'em in the ground, whatever means necessary.",
+            "Have fun with it! I know I do."
+           ],
+           "conds": [
+            "Only after: asked assassins"
+           ],
+           "next": [
+            "Hunting"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD47"
+          },
+          {
+           "prompt": "Who the hell are you?",
+           "who": "The Ghoul",
+           "lines": [
+            "Not that kind of rodeo, partner. I don't care who you are and I sure as hell ain't here to share my life story, even if you'd believe me.",
+            "You want to talk business, we can. Otherwise, move along. You're classin' up the joint."
+           ],
+           "conds": [],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD63"
+          },
+          {
+           "prompt": "I've got some questions about this place, first.",
+           "who": "",
+           "lines": [],
+           "conds": [],
+           "next": [
+            "Area"
+           ],
+           "givesPoster": false,
+           "fid": "0084BDD8"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "label": "Hunting",
+       "edid": "BURN_BountyGiver_Hunting",
+       "fid": "0084BDBC",
+       "actions": [
+        {
+         "kind": "menu",
+         "items": [
+          {
+           "prompt": "Okay, deal me in. I'll take a bounty.",
+           "who": "The Ghoul",
+           "lines": [
+            "That's the killer instinct I was looking for! Got a big stack of open contracts right there. Help yourself; more there than I could ever bother with.",
+            "Unless you're looking for something juicier. Well, that's a whole different ballgame."
+           ],
+           "conds": [],
+           "next": [
+            "Bounties"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD5A"
+          },
+          {
+           "prompt": "What's in it for me?",
+           "who": "The Ghoul",
+           "lines": [
+            "Keep what you kill, cowboy. To the victor goes the spoils, as they say.",
+            "If someone's bad enough the poor saps here put up money to kill them, odds are they've got something worth taking.",
+            "Of course, well, you might just do it for the thrill of it. Or am I mistaken?"
+           ],
+           "conds": [],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD94"
+          },
+          {
+           "prompt": "I'd like to know more about the lay of the land, first.",
+           "who": "",
+           "lines": [],
+           "conds": [],
+           "next": [
+            "Area"
+           ],
+           "givesPoster": false,
+           "fid": "0084BDD6"
+          },
+          {
+           "prompt": "I'm not a murderer.",
+           "who": "The Ghoul",
+           "lines": [
+            "Is that right, hoss? Your path here bathed in blood, and you innocent as the day your momma spat you out?",
+            "Well, if it helps you sleep at night, every name I hand out's somebody that has it comin'. Might as well collect 'fore someone else does."
+           ],
+           "conds": [],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD7A"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "label": "Bounties",
+       "edid": "BURN_BountyGiver_Bounties",
+       "fid": "0084BDBD",
+       "actions": [
+        {
+         "kind": "menu",
+         "items": [
+          {
+           "prompt": "I guess I'm off, then.",
+           "who": "The Ghoul",
+           "lines": [
+            "Remember: we don't do \"dead or alive\". Just dead."
+           ],
+           "conds": [],
+           "next": [],
+           "givesPoster": false,
+           "fid": "0084BD77"
+          },
+          {
+           "prompt": "That easy? What's the catch?",
+           "who": "The Ghoul",
+           "lines": [
+            "That easy. Those contracts aren't worth my very valuable time, so I'm happy for you or anyone else to take 'em off my hands.",
+            "Unless you're looking for something more exciting. That's a beast of a different color."
+           ],
+           "conds": [
+            "Only until: asked catch"
+           ],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD51"
+          },
+          {
+           "prompt": "You're getting paid. Why am I doing all the work for scraps?",
+           "who": "The Ghoul",
+           "lines": [
+            "Well, I think you mean you're getting to do the best part, while I sit in this pisshole.",
+            "I keep my ear to the ground, you keep your iron in your hand. We'll get along just fine.",
+            "A reputation as a killer of killers goes a long way in these parts, if the excitement and looting ain't enough for you."
+           ],
+           "conds": [],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD6E"
+          },
+          {
+           "prompt": "Why not collect the bounties yourself, if you're already being paid?",
+           "who": "The Ghoul",
+           "lines": [
+            "Oh, I keep my hand in, from time to time, if the job's interesting enough. Most ain't.",
+            "Let's just say the barkeep here's got the vials I like, and I ain't inclined to stray unless properly compelled. Besides...",
+            "There's always more folk need killin' than I can be bothered with, anyway.",
+            "And here you are."
+           ],
+           "conds": [],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD4B"
+          },
+          {
+           "prompt": "Sounds like I should just deal with the clients themselves and keep the money.",
+           "who": "The Ghoul",
+           "lines": [
+            "Assuming you know where to begin, then you'd be competition, wouldn't you?",
+            "Lotta folks made that mistake over the years. I'm still here.",
+            "They ain't."
+           ],
+           "conds": [],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD68"
+          },
+          {
+           "prompt": "What's this about \"something more exciting?\"",
+           "who": "",
+           "lines": [],
+           "conds": [],
+           "next": [
+            "Head Hunts"
+           ],
+           "givesPoster": false,
+           "fid": "0084BDEC"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "label": "Repeatable",
+       "edid": "BURN_BountyGiver_Repeatable",
+       "fid": "0084BDBE",
+       "actions": [
+        {
+         "kind": "menu",
+         "items": [
+          {
+           "prompt": "I'm looking for another bounty.",
+           "who": "The Ghoul",
+           "lines": [
+            "Hah! Knew you'd get the taste for it. Now you're back for more, huh?",
+            "No need to get me involved; you know the drill. Peel one off the stack and get to it.",
+            "Good huntin'."
+           ],
+           "conds": [],
+           "next": [],
+           "givesPoster": false,
+           "fid": "0084BDEB"
+          },
+          {
+           "prompt": "Got anything better than these grunts?",
+           "who": "",
+           "lines": [],
+           "conds": [
+            "Only until: you've heard about head hunts"
+           ],
+           "next": [
+            "Head Hunts"
+           ],
+           "givesPoster": false,
+           "fid": "0084BDD7"
+          },
+          {
+           "prompt": "Give me a premium target.",
+           "who": "The Ghoul",
+           "lines": [
+            "Hmm..."
+           ],
+           "conds": [
+            "Only after: you've heard about head hunts"
+           ],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BDE7"
+          },
+          {
+           "prompt": "I'd like to know more about the area, if you don't mind.",
+           "who": "",
+           "lines": [],
+           "conds": [],
+           "next": [
+            "Area"
+           ],
+           "givesPoster": false,
+           "fid": "0084BDD5"
+          },
+          {
+           "prompt": "Actually, never mind.",
+           "who": "The Ghoul",
+           "lines": [
+            "Last time somebody wasted my time like you, I shot 'em. Keep it up and maybe next bounty's on you."
+           ],
+           "conds": [],
+           "next": [],
+           "givesPoster": false,
+           "fid": "0084BDE3"
+          }
+         ]
+        },
+        {
+         "kind": "line",
+         "items": [
+          {
+           "prompt": "",
+           "who": "The Ghoul",
+           "lines": [
+            "I can do that. There's just the small matter of my compensation."
+           ],
+           "conds": [
+            "Only if you don't have a Wanted Poster"
+           ],
+           "next": [
+            "Bribe"
+           ],
+           "givesPoster": false,
+           "fid": "0084BDDF"
+          },
+          {
+           "prompt": "",
+           "who": "The Ghoul",
+           "lines": [
+            "No can do, hoss. One per customer. Gotta finish what's on your plate before you come back for seconds."
+           ],
+           "conds": [
+            "Only if you already have a Wanted Poster"
+           ],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BDE0"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "label": "Bribe",
+       "edid": "BURN_BountyGiver_Bribe",
+       "fid": "0084BDBF",
+       "actions": [
+        {
+         "kind": "menu",
+         "items": [
+          {
+           "prompt": "[5,000 Caps] All right, here's your caps.",
+           "who": "The Ghoul",
+           "lines": [
+            "Pleasure doing business with you.",
+            "Here's the bounty notice. Take this and post it on the board outside. Let everyone know the hunt is on.",
+            "Good huntin'."
+           ],
+           "conds": [
+            "Needs 5,000 caps"
+           ],
+           "next": [],
+           "givesPoster": true,
+           "fid": "0084BDDE"
+          },
+          {
+           "prompt": "You want a bribe?",
+           "who": "The Ghoul",
+           "lines": [
+            "Well, not a bribe entirely. Think of it as greasing the wheels of commerce."
+           ],
+           "conds": [
+            "Only until: asked about bribe"
+           ],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BDF3"
+          },
+          {
+           "prompt": "What's it going to cost me?",
+           "who": "The Ghoul",
+           "lines": [
+            "Probably more caps than you're comfortable payin', but... I'm a man of principle, you see.",
+            "Principles cost a lot in the Wasteland. Often more than just money. Consider this a bargain."
+           ],
+           "conds": [
+            "Only until: asked about bribe"
+           ],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BDDB"
+          },
+          {
+           "prompt": "Are you kidding me? You've already made money on this.",
+           "who": "The Ghoul",
+           "lines": [
+            "Someone once said it was easier to imagine the end of the world than the end of capitalism. Well, they was right.",
+            "Now, you want to jump the line...that costs. Your call."
+           ],
+           "conds": [],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BDEE"
+          },
+          {
+           "prompt": "Forget it. I'll come back later.",
+           "who": "The Ghoul",
+           "lines": [
+            "Just as well. Ain't no half measures in this business."
+           ],
+           "conds": [],
+           "next": [],
+           "givesPoster": false,
+           "fid": "0084BDD9"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "label": "Area",
+       "edid": "BURN_BountyGiver_Area",
+       "fid": "0084BDC0",
+       "actions": [
+        {
+         "kind": "line",
+         "items": [
+          {
+           "prompt": "",
+           "who": "The Ghoul",
+           "lines": [
+            "For the likes of you, anyway. Me, well, I'm here for other libations."
+           ],
+           "conds": [
+            "If you are not a ghoul"
+           ],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BDDC"
+          },
+          {
+           "prompt": "",
+           "who": "The Ghoul",
+           "lines": [
+            "That ain't a problem for you or me, though, is it?"
+           ],
+           "conds": [
+            "If you are a ghoul"
+           ],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BDDD"
+          }
+         ]
+        },
+        {
+         "kind": "menu",
+         "items": [
+          {
+           "prompt": "What are you doing in Ohio? Besides running bounty hunters, I mean.",
+           "who": "The Ghoul",
+           "lines": [
+            "Maybe I'm just waiting for the right bounty to fall into my lap. Maybe it's none of your business.",
+            "Let's just say I followed somebody out here. Somebody I'd very much like to meet. Until we have a face-to-face, well...",
+            "A man needs a hobby."
+           ],
+           "conds": [],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BDD4"
+          },
+          {
+           "prompt": "What do you know about the Rust King?",
+           "who": "The Ghoul",
+           "lines": [
+            "Some overgrown green bastard with delusions of grandeur?",
+            "Not the first would-be king I've seen in the Wasteland. Doubt he'll be the last.",
+            "He doesn't interfere with my business, I've got no reason to get involved with his.",
+            "All I know is kings fall, and all crowns rust."
+           ],
+           "conds": [
+            "Only after you have completed Welcoming Committee"
+           ],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BDE2"
+          },
+          {
+           "prompt": "I wanted to know about something else.",
+           "who": "The Ghoul",
+           "lines": [
+            "Of course you do."
+           ],
+           "conds": [],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BDD2"
+          }
+         ]
+        },
+        {
+         "kind": "menu",
+         "items": [
+          {
+           "prompt": "What can you tell me about the area?",
+           "who": "The Ghoul",
+           "lines": [
+            "Ohio? Didn't think much of it before the bombs dropped, and it hasn't improved since.",
+            "Never expected a desert out this way, though. Somebody really fucked it up."
+           ],
+           "conds": [],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BDEF"
+          },
+          {
+           "prompt": "Tell me about Highway Town.",
+           "who": "The Ghoul",
+           "lines": [
+            "This dump is the only livable place for miles and miles. They've got drinkable water here.",
+            "Well, drinkable enough. Everything else in the region is pure poison, never mind the radiation."
+           ],
+           "conds": [],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BDDA"
+          },
+          {
+           "prompt": "You don't sound like a local.",
+           "who": "The Ghoul",
+           "lines": [
+            "Figured that out all by yourself, did you? No, I am not.",
+            "Small mercies, huh? Not that one place is much better than another in the Wasteland.",
+            "Where I'm from is one of those things that's not your concern."
+           ],
+           "conds": [],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BDED"
+          },
+          {
+           "prompt": "Let's talk about something else.",
+           "who": "The Ghoul",
+           "lines": [
+            "Yeah, I'm bored already."
+           ],
+           "conds": [],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BDE5"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "label": "Head Hunts",
+       "edid": "BURN_BountyGiver_HeadHunts",
+       "fid": "0084BDC1",
+       "actions": [
+        {
+         "kind": "menu",
+         "items": [
+          {
+           "prompt": "Tell me about these \"juicy\" targets.",
+           "who": "The Ghoul",
+           "lines": [
+            "These are the worst of the worst. Most hunters that go after these targets wind up dead. And that just makes the bounty larger.",
+            "Thing is, it's bad for business if I keep sending bounty hunters to their death. People start to think I can't get things done.",
+            "So, things work a little differently for these. First off, you post the notice for one of these fellas, it's open season.",
+            "Any hunter that wants to can get in on the action, and you'll likely be grateful for the help.",
+            "Second, I only allow one of these bounties to be open at once. Somebody else has one posted, you're just gonna have to wait until they're taken out.",
+            "Hell, join in if you want!",
+            "Most importantly, these are the ones I like to handle myself. If you want one, I need compensation."
+           ],
+           "conds": [
+            "Only until: you've heard about head hunts"
+           ],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BDE4"
+          },
+          {
+           "prompt": "Give me a premium target.",
+           "who": "The Ghoul",
+           "lines": [
+            "Well, all right! Full of confidence, eh, cowboy?",
+            "Wasteland's full of confident dead guys. Let's see if you've got the stuff to back it up. There's just this little matter of my fee, mind you."
+           ],
+           "conds": [
+            "Only after: you've heard about head hunts"
+           ],
+           "next": [
+            "Bribe"
+           ],
+           "givesPoster": false,
+           "fid": "0084BDD3"
+          },
+          {
+           "prompt": "I'll stick to regular targets for now.",
+           "who": "The Ghoul",
+           "lines": [
+            "Suit yourself. You know where to find me."
+           ],
+           "conds": [],
+           "next": [],
+           "givesPoster": false,
+           "fid": "0084BDE1"
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "quest": "BURN_BountyGiver_Appalachia_Dialogue",
+     "title": "Meeting The Ghoul out in Appalachia",
+     "scenes": [
+      {
+       "label": "First Meeting",
+       "edid": "BURN_BountyGiver_Applachia_FirstMeeting",
+       "fid": "0084BF6A",
+       "actions": [
+        {
+         "kind": "menu",
+         "items": [
+          {
+           "prompt": "What? Who are you?",
+           "who": "The Ghoul",
+           "lines": [
+            "Oh, just a workin' man passin' through.",
+            "This fella here had a price on his head, and thought he'd run far enough.",
+            "He hadn't."
+           ],
+           "conds": [],
+           "next": [
+            "Main"
+           ],
+           "givesPoster": false,
+           "fid": "0084BEE9"
+          },
+          {
+           "prompt": "Can I ask you some questions?",
+           "who": "The Ghoul",
+           "lines": [
+            "Normally, I'd tell you to go to hell, if not shoot you and take anything valuable.",
+            "Seein' as this one here just made me a pile of caps and you're still wet behind the ears, I'm feelin' generous."
+           ],
+           "conds": [],
+           "next": [
+            "Main"
+           ],
+           "givesPoster": false,
+           "fid": "0084BF29"
+          },
+          {
+           "prompt": "Wait...there's people alive out here?",
+           "who": "The Ghoul",
+           "lines": [
+            "A lot more than you might expect, Vaultie, depending on your definition of \"people\". Best get comfortable with the idea.",
+            "There's a lot of folks out there might take advantage of your wide-eyed innocence. Present company included."
+           ],
+           "conds": [],
+           "next": [
+            "Main"
+           ],
+           "givesPoster": false,
+           "fid": "0084BEF4"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "label": "Main",
+       "edid": "BURN_BountyGiver_Applachia_Main",
+       "fid": "0084BF6B",
+       "actions": [
+        {
+         "kind": "menu",
+         "items": [
+          {
+           "prompt": "Where'd you come from?",
+           "who": "The Ghoul",
+           "lines": [
+            "Slow down there, cowboy. Buy a fella dinner first. Let's just say I'm currently residing in Burning Springs, across the river in what used to be Ohio."
+           ],
+           "conds": [],
+           "next": [
+            "Burning Springs"
+           ],
+           "givesPoster": false,
+           "fid": "0084BF48"
+          },
+          {
+           "prompt": "You killed this person?",
+           "who": "The Ghoul",
+           "lines": [
+            "He was dead the moment they put a bounty on his sorry ass. This just happens to be where we concluded our business."
+           ],
+           "conds": [],
+           "next": [
+            "Bounty"
+           ],
+           "givesPoster": false,
+           "fid": "0084BEFB"
+          },
+          {
+           "prompt": "What happened to your face?",
+           "who": "The Ghoul",
+           "lines": [
+            "Hah.",
+            "Guess they don't have manners in that Vault of yours.",
+            "I'll give you a pass on that this one time, seein' as you just stepped foot into the Wasteland a minute ago.",
+            "Same thing that'll happen to your face you stay out here long enough. Ain't the only one, neither. Best get used to the sight."
+           ],
+           "conds": [],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BEE8"
+          },
+          {
+           "prompt": "Can you tell me anything about this area?",
+           "who": "The Ghoul",
+           "lines": [
+            "This brain ain't for pickin'. Plenty of locals around here who'll talk your ear off, I'm sure."
+           ],
+           "conds": [],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BF28"
+          },
+          {
+           "prompt": "I think that's enough talk.",
+           "who": "The Ghoul",
+           "lines": [
+            "Couldn't agree more.",
+            "If you get out to Burning Springs, see me at the Last Resort saloon. Might be there's work for you."
+           ],
+           "conds": [],
+           "next": [],
+           "givesPoster": false,
+           "fid": "0084BEF3"
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "loose": [
+    {
+     "label": "Greeting (when you start talking)",
+     "quest": "Meeting The Ghoul out in Appalachia",
+     "items": [
+      {
+       "who": "The Ghoul",
+       "lines": [
+        "Got no time nor inclination for chit-chat.",
+        "Find me at the Last Resort in Highway Town if you're lookin' to do business."
+       ],
+       "conds": [
+        "Once he has already pointed you to Burning Springs",
+        "Once he has already pointed you to Burning Springs"
+       ]
+      },
+      {
+       "who": "The Ghoul",
+       "lines": [
+        "Well, look at you. Fresh from the can and not a speck of dirt on you. Best watch your step around here.",
+        "Figured you Vaulties weren't done cooking yet. Guess I was wrong.",
+        "Already interrogated the last one of you to come out of that hole. Sounds like there's nothing down there for me, though.",
+        "Saves me the trouble of breakin' in."
+       ],
+       "conds": [
+        "Before he has pointed you to Burning Springs",
+        "Before he has pointed you to Burning Springs"
+       ]
+      }
+     ]
+    },
+    {
+     "label": "Greeting (when you start talking)",
+     "quest": "Talking to The Ghoul at The Last Resort",
+     "items": [
+      {
+       "who": "The Ghoul",
+       "lines": [
+        "Well, now, welcome back, killer."
+       ],
+       "conds": []
+      },
+      {
+       "who": "The Ghoul",
+       "lines": [
+        "Just here to wet your whistle, or you lookin' to play for blood?"
+       ],
+       "conds": []
+      },
+      {
+       "who": "The Ghoul",
+       "lines": [
+        "Not lookin' for friends. Talk business or get lost."
+       ],
+       "conds": []
+      },
+      {
+       "who": "The Ghoul",
+       "lines": [
+        "Still alive? Wouldn't've put money on it."
+       ],
+       "conds": []
+      },
+      {
+       "who": "The Ghoul",
+       "lines": [
+        "You waiting for something? You've got the bounty. Get on out there, killer."
+       ],
+       "conds": [
+        "HasKeyword(Burn_BountyHunt_Daily_ActiveKeyword) == 1"
+       ]
+      },
+      {
+       "who": "The Ghoul",
+       "lines": [
+        "You still interested in taking a bounty?"
+       ],
+       "conds": [
+        "Only after: you've heard the bounty pitch",
+        "Only if you have never completed Bounty Hunting: Grunt Hunt",
+        "HasKeyword(Burn_BountyHunt_Daily_ActiveKeyword) != 1"
+       ]
+      },
+      {
+       "who": "The Ghoul",
+       "lines": [
+        "You gonna quit wastin' my time?"
+       ],
+       "conds": [
+        "Only if you have never completed Bounty Hunting: Grunt Hunt",
+        "Only until: you've heard the bounty pitch",
+        "Only after: you've asked your first questions"
+       ]
+      },
+      {
+       "who": "The Ghoul",
+       "lines": [
+        "Well, well, looks like you and I share something more than just an itchy trigger finger, don't it?"
+       ],
+       "conds": [
+        "Only if you have never completed Bounty Hunting: Grunt Hunt",
+        "Only until: you've met",
+        "If you are a ghoul"
+       ]
+      },
+      {
+       "who": "The Ghoul",
+       "lines": [
+        "*laughs* I'd recognize that look anywhere. You've got that \"I'm inclined to violence\" way about you."
+       ],
+       "conds": [
+        "Only if you have never completed Bounty Hunting: Grunt Hunt",
+        "Only until: you've met",
+        "If you are not a ghoul"
+       ]
+      },
+      {
+       "who": "The Ghoul",
+       "lines": [
+        "You again. Didn't think you'd make it this far. Guess you got your hands very dirty indeed."
+       ],
+       "conds": [
+        "Only if you have never completed Bounty Hunting: Grunt Hunt",
+        "Only after: you've met"
+       ]
+      }
+     ]
+    },
+    {
+     "label": "Hello (when you walk past)",
+     "quest": "Talking to The Ghoul at The Last Resort",
+     "items": [
+      {
+       "who": "The Ghoul",
+       "lines": [
+        "Unless you've got business, keep on walkin'."
+       ],
+       "conds": []
+      },
+      {
+       "who": "The Ghoul",
+       "lines": [
+        "Hmm."
+       ],
+       "conds": []
+      },
+      {
+       "who": "The Ghoul",
+       "lines": [
+        "Those tin cans ain't all they're cracked up to be, y'know."
+       ],
+       "conds": [
+        "If you own power armour"
+       ]
+      },
+      {
+       "who": "The Ghoul",
+       "lines": [
+        "Hnh."
+       ],
+       "conds": []
+      },
+      {
+       "who": "The Ghoul",
+       "lines": [
+        "Help yourself to a bounty. There's always more."
+       ],
+       "conds": [
+        "Only after you have completed Bounty Hunting: Grunt Hunt"
+       ]
+      },
+      {
+       "who": "The Ghoul",
+       "lines": [
+        "Pile never seems to get smaller. Grab a bounty if you feel like rollin' the dice."
+       ],
+       "conds": [
+        "Only after you have completed Bounty Hunting: Grunt Hunt"
+       ]
+      },
+      {
+       "who": "The Ghoul",
+       "lines": [
+        "More where those came from. Help yourself."
+       ],
+       "conds": [
+        "Only after you have completed Bounty Hunting: Grunt Hunt"
+       ]
+      }
+     ]
+    },
+    {
+     "label": "Other lines",
+     "quest": "Meeting The Ghoul out in Appalachia",
+     "items": [
+      {
+       "who": "The Ghoul",
+       "lines": [
+        "Keep those hands where I can see 'em, stranger. This one's mine, and I'd prefer my killin' to be for-profit today."
+       ],
+       "conds": []
+      },
+      {
+       "who": "The Ghoul",
+       "lines": [
+        "Might want to get your feet under you first. Folks out that way tend to shoot first and forget about questions.",
+        "Do what you want, 'cause I ain't your daddy."
+       ],
+       "conds": []
+      },
+      {
+       "who": "The Ghoul",
+       "lines": [
+        "You might even survive the experience. Plenty of work out there, if you don't mind killing."
+       ],
+       "conds": []
+      },
+      {
+       "who": "The Ghoul",
+       "lines": [
+        "Probably best you worry about yourself for now. This kind of work isn't for lost little lambs like you.",
+        "Of course, if that changes - or if you just have a death wish - come look me up sometime."
+       ],
+       "conds": []
+      },
+      {
+       "who": "The Ghoul",
+       "lines": [
+        "If you're interested, find me there. I got a feelin' you might be cut out for this sort of thing."
+       ],
+       "conds": []
+      }
+     ]
+    },
+    {
+     "label": "Other lines",
+     "quest": "Talking to The Ghoul at The Last Resort",
+     "items": [
+      {
+       "who": "The Ghoul",
+       "lines": [
+        "No need to be shy about it. Locals sure ain't. Or maybe you're just the silent, violent type."
+       ],
+       "conds": []
+      },
+      {
+       "who": "The Ghoul",
+       "lines": [
+        "If you're looking for the tourism office, this ain't it.",
+        "Ah, what the hell, I'm in a good mood... Best not change that."
+       ],
+       "conds": []
+      },
+      {
+       "who": "The Ghoul",
+       "lines": [
+        "The sort of person I'm sending you after is a killer, to be sure, but small potatoes.",
+        "Now, if you're hungry for a full meal... I've got contracts out on real sons of bitches.",
+        "The kind that put the fear in entire towns and leave a trail of dead bounty hunters in their wake. And I'm not just referring to myself.",
+        "I'm talking twelve course dinner. Real juicy targets. I don't give those out to just anyone."
+       ],
+       "conds": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Full Dialogue - The Ghoul as Billie (codename version)",
+   "npc": "The Ghoul (as Billie)",
+   "groups": [
+    {
+     "quest": "BURN_Billie_Dialogue",
+     "title": "Billie's lines at The Last Resort",
+     "scenes": [
+      {
+       "label": "Bar Intro",
+       "edid": "BURN_Billie_BarIntro",
+       "fid": "0084BDB2",
+       "actions": [
+        {
+         "kind": "menu",
+         "items": [
+          {
+           "prompt": "I don't know what you're talking about.",
+           "who": "",
+           "lines": [],
+           "conds": [],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD6C"
+          },
+          {
+           "prompt": "I'm sorry, what?",
+           "who": "",
+           "lines": [],
+           "conds": [],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD4F"
+          },
+          {
+           "prompt": "What's it to you?",
+           "who": "The Ghoul (as Billie)",
+           "lines": [
+            "What it is, is business. Business that just might be of interest to someone of your...disposition."
+           ],
+           "conds": [],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD75"
+          },
+          {
+           "prompt": "Is that a threat?",
+           "who": "The Ghoul (as Billie)",
+           "lines": [
+            "Now, let's put that hostility on ice for a spell, hotshot. Hands away from the iron.",
+            "If I meant you harm, you'd already know it."
+           ],
+           "conds": [],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD54"
+          }
+         ]
+        },
+        {
+         "kind": "line",
+         "items": [
+          {
+           "prompt": "",
+           "who": "The Ghoul (as Billie)",
+           "lines": [
+            "I happen to run a little service for the folks of this...charming locale.",
+            "See, they ain't got anything you might call law around here. Suits me fine, mind you, but that leaves a lot of bad blood unaddressed.",
+            "Generous soul that I am, I match demands for vengeance with bloody-handed individuals like yourself who are eager to deal it out."
+           ],
+           "conds": [],
+           "next": [
+            "Questions"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD7B"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "label": "Questions",
+       "edid": "BURN_Billie_Questions",
+       "fid": "0084BDB3",
+       "actions": [
+        {
+         "kind": "menu",
+         "items": [
+          {
+           "prompt": "Are you talking about assassins?",
+           "who": "The Ghoul (as Billie)",
+           "lines": [
+            "That's a bit high-falutin' for folks 'round these parts. Call it what it is: bounty huntin'.",
+            "Somebody needs somebody else dead and ain't got the stones to handle it themselves, I make the arrangemetns. For a fee, of course."
+           ],
+           "conds": [
+            "Only until: asked assassins"
+           ],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD57"
+          },
+          {
+           "prompt": "All right, then, tell me more about bounty hunting.",
+           "who": "The Ghoul (as Billie)",
+           "lines": [
+            "Had you pegged from the start.",
+            "Simple enough arrangement. I collect a fee from the afflicted, and farm out the killin' to motivated individuals such as yourself.",
+            "You run down the target in whatever shithole they're hidin' out in and put 'em in the ground, whatever means necessary.",
+            "Have fun with it! I would."
+           ],
+           "conds": [
+            "Only after: asked assassins"
+           ],
+           "next": [
+            "Hunting"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD9D"
+          },
+          {
+           "prompt": "Who the hell are you?",
+           "who": "The Ghoul (as Billie)",
+           "lines": [
+            "Not that kind of rodeo, partner. I don't care who you are and I sure as hell ain't here to share my life story.",
+            "You want to talk busines, we can. Otherwise, move along. You're classin' up the joint."
+           ],
+           "conds": [],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD5C"
+          },
+          {
+           "prompt": "I've got some questions about this place first.",
+           "who": "",
+           "lines": [],
+           "conds": [],
+           "next": [
+            "Area"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD44"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "label": "Hunting",
+       "edid": "BURN_Billie_Hunting",
+       "fid": "0084BDB4",
+       "actions": [
+        {
+         "kind": "menu",
+         "items": [
+          {
+           "prompt": "Okay, deal me in. I'll take a bounty.",
+           "who": "The Ghoul (as Billie)",
+           "lines": [
+            "That's the killer instinct I was looking for! Got a big stack of open contracts right there. Help yourself; more there than I could ever bother with.",
+            "Unless you're looking for something juicier. That's a whole different ballgame."
+           ],
+           "conds": [],
+           "next": [
+            "Bounties"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD65"
+          },
+          {
+           "prompt": "What's in it for me?",
+           "who": "The Ghoul (as Billie)",
+           "lines": [
+            "Keep what you kill, cowboy. To the victor go the spoils, as they say.",
+            "If someone's bad enough the poor saps here put up money to kill them, odds are they've got something worth taking.",
+            "Of course, you might just do it for the thrill of it. Or am I mistaken?"
+           ],
+           "conds": [],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD49"
+          },
+          {
+           "prompt": "I'd like to know more about the lay of the land, first.",
+           "who": "",
+           "lines": [],
+           "conds": [],
+           "next": [
+            "Area"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD6B"
+          },
+          {
+           "prompt": "I'm not a murderer.",
+           "who": "The Ghoul (as Billie)",
+           "lines": [
+            "Is that right, hoss? All them bodies I know you've left behind you, they was all bad guys? You some kinda hero?",
+            "Well, if it helps you sleep at night, every name I hand out's somebody that has it comin'."
+           ],
+           "conds": [],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD4E"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "label": "Bounties",
+       "edid": "BURN_Billie_Bounties",
+       "fid": "0084BDB5",
+       "actions": [
+        {
+         "kind": "menu",
+         "items": [
+          {
+           "prompt": "I guess I'm off, then.",
+           "who": "The Ghoul (as Billie)",
+           "lines": [
+            "Remember: we don't do \"dead or alive\". Just dead."
+           ],
+           "conds": [],
+           "next": [],
+           "givesPoster": false,
+           "fid": "0084BD74"
+          },
+          {
+           "prompt": "That easy? What's the catch?",
+           "who": "The Ghoul (as Billie)",
+           "lines": [
+            "That easy. Those contracts aren't worth my very valuable time, so I'm happy for you or anyone else to take 'em off my hands.",
+            "Unless you're looking for something more exciting. That's a different conversation."
+           ],
+           "conds": [
+            "Only until: asked catch"
+           ],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD53"
+          },
+          {
+           "prompt": "You're getting paid. Why am I doing all the work for scraps?",
+           "who": "The Ghoul (as Billie)",
+           "lines": [
+            "I think you mean you're getting to do the best part, while I sit in this pisshole.",
+            "A reputation as a killer of killers goes a long way in these parts, if the excitement and looting ain't enough for you."
+           ],
+           "conds": [],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD79"
+          },
+          {
+           "prompt": "Why not collect the bounties yourself, if you're already being paid?",
+           "who": "The Ghoul (as Billie)",
+           "lines": [
+            "Oh, I keep my hand in, from time to time, if the job's interesting enough. Most ain't.",
+            "There's always more folk need killin' than I can be bothered with, anyway.",
+            "And here you are."
+           ],
+           "conds": [],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD7E"
+          },
+          {
+           "prompt": "Sounds like I should just deal with the clients myself and keep the money.",
+           "who": "The Ghoul (as Billie)",
+           "lines": [
+            "Assuming you even knew where to begin, then you'd be competition, wouldn't you?",
+            "Lotta folks made that mistake over the years. I'm still here.",
+            "They ain't."
+           ],
+           "conds": [],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD59"
+          },
+          {
+           "prompt": "What's this about \"something more exciting\"?",
+           "who": "",
+           "lines": [],
+           "conds": [
+            "Only if you have never completed Bounty Hunting: Grunt Hunt",
+            "Only after: asked catch"
+           ],
+           "next": [
+            "Head Hunts"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD9F"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "label": "Repeatable",
+       "edid": "BURN_Billie_Repeatable",
+       "fid": "0084BDB6",
+       "actions": [
+        {
+         "kind": "menu",
+         "items": [
+          {
+           "prompt": "I'm looking for another bounty.",
+           "who": "The Ghoul (as Billie)",
+           "lines": [
+            "Knew you'd get the taste for it.",
+            "No need to get me involved; you know the drill. Peel one of the stack and get to it.",
+            "Good huntin'."
+           ],
+           "conds": [],
+           "next": [],
+           "givesPoster": false,
+           "fid": "0084BD48"
+          },
+          {
+           "prompt": "Got anything better than these grunts?",
+           "who": "",
+           "lines": [],
+           "conds": [
+            "Only until: you've heard about head hunts"
+           ],
+           "next": [
+            "Head Hunts"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD6A"
+          },
+          {
+           "prompt": "Give me a premium target.",
+           "who": "The Ghoul (as Billie)",
+           "lines": [
+            "Hmm..."
+           ],
+           "conds": [
+            "Only after: you've heard about head hunts"
+           ],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD4D"
+          },
+          {
+           "prompt": "I'd like to know more about the area, if you don't mind.",
+           "who": "",
+           "lines": [],
+           "conds": [],
+           "next": [
+            "Area"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD73"
+          },
+          {
+           "prompt": "Actually, never mind.",
+           "who": "The Ghoul (as Billie)",
+           "lines": [
+            "Last time somebody wasted my time like you, I shot them. Don't make it a habit."
+           ],
+           "conds": [],
+           "next": [],
+           "givesPoster": false,
+           "fid": "0084BD56"
+          }
+         ]
+        },
+        {
+         "kind": "line",
+         "items": [
+          {
+           "prompt": "",
+           "who": "The Ghoul (as Billie)",
+           "lines": [
+            "I can do that. There's just the small matter of my compensation."
+           ],
+           "conds": [
+            "Only if you don't have a Wanted Poster"
+           ],
+           "next": [
+            "Bribe"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD92"
+          },
+          {
+           "prompt": "",
+           "who": "The Ghoul (as Billie)",
+           "lines": [
+            "No can do, hoss. One per customer. Gotta finish what's on your plate before you come back for seconds."
+           ],
+           "conds": [
+            "Only if you already have a Wanted Poster"
+           ],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD93"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "label": "Bribe",
+       "edid": "BURN_Billie_Bribe",
+       "fid": "0084BDB7",
+       "actions": [
+        {
+         "kind": "menu",
+         "items": [
+          {
+           "prompt": "[5000 Caps] All right, here's your caps.",
+           "who": "The Ghoul (as Billie)",
+           "lines": [
+            "Pleasure doing business with you.",
+            "Here's the bounty notice. Take this and post it up on the board outside. Let everyone know the hunt is on.",
+            "Good luck."
+           ],
+           "conds": [
+            "Needs 5,000 caps",
+            "Only after: asked about bribe"
+           ],
+           "next": [],
+           "givesPoster": true,
+           "fid": "0084BD45"
+          },
+          {
+           "prompt": "You want a bribe?",
+           "who": "The Ghoul (as Billie)",
+           "lines": [
+            "Think of it as greasing the wheels of commerce."
+           ],
+           "conds": [
+            "Only until: asked about bribe"
+           ],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD66"
+          },
+          {
+           "prompt": "What's it going to cost me?",
+           "who": "The Ghoul (as Billie)",
+           "lines": [
+            "Probably more caps than you're comfortable payin', but I'm a man of principle, you see.",
+            "Principles cost a lot of money in the Wasteland."
+           ],
+           "conds": [
+            "Only until: asked about bribe"
+           ],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD5B"
+          },
+          {
+           "prompt": "Are you kidding me? You've already made money on this.",
+           "who": "The Ghoul (as Billie)",
+           "lines": [
+            "You're free to come back another day.",
+            "You want to jump the line, well...that costs. Your call."
+           ],
+           "conds": [],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD43"
+          },
+          {
+           "prompt": "Forget it. I'll come back later.",
+           "who": "The Ghoul (as Billie)",
+           "lines": [
+            "Suits me fine."
+           ],
+           "conds": [],
+           "next": [],
+           "givesPoster": false,
+           "fid": "0084BD64"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "label": "Area",
+       "edid": "BURN_Billie_Area",
+       "fid": "0084BDB8",
+       "actions": [
+        {
+         "kind": "menu",
+         "items": [
+          {
+           "prompt": "What can you tell me about the area?",
+           "who": "The Ghoul (as Billie)",
+           "lines": [
+            "Ohio? Didn't think much of it before the bombs dropped, and it hasn't improved since.",
+            "Never expected a desert out this way, though. Somebody really fucked it up."
+           ],
+           "conds": [],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD4A"
+          },
+          {
+           "prompt": "Tell me about Highway Town.",
+           "who": "The Ghoul (as Billie)",
+           "lines": [
+            "This dump is the only livable place for miles and miles. They've got drinkable water here.",
+            "Well, drinkable enough. Everything else in the region is pure poison, never mind the radiation."
+           ],
+           "conds": [],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD6D"
+          },
+          {
+           "prompt": "You don't sound like a local.",
+           "who": "The Ghoul (as Billie)",
+           "lines": [
+            "Figured that out all by yourself, did you? No, I am not.",
+            "Where I'm from is one of those things that's not your concern."
+           ],
+           "conds": [],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD50"
+          },
+          {
+           "prompt": "Let's talk about something else.",
+           "who": "The Ghoul (as Billie)",
+           "lines": [
+            "Yeah, I'm bored already."
+           ],
+           "conds": [],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD76"
+          }
+         ]
+        },
+        {
+         "kind": "line",
+         "items": [
+          {
+           "prompt": "",
+           "who": "The Ghoul (as Billie)",
+           "lines": [
+            "For most people, anyway. Never touch the stuff, myself. I'm here for other libations."
+           ],
+           "conds": [
+            "If you are not a ghoul"
+           ],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD7C"
+          },
+          {
+           "prompt": "",
+           "who": "The Ghoul (as Billie)",
+           "lines": [
+            "That ain't a problem for you, though, is it?"
+           ],
+           "conds": [
+            "If you are a ghoul"
+           ],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD7D"
+          }
+         ]
+        },
+        {
+         "kind": "menu",
+         "items": [
+          {
+           "prompt": "What are you doing in Ohio? Besides running bounty hunters, I mean.",
+           "who": "The Ghoul (as Billie)",
+           "lines": [
+            "I warned you about the personal questions. Don't test my patience.",
+            "Let's just say I followed someone out here. Someone I'd very much like to meet. Until we have a face-to-face, wel...",
+            "A woman needs a hobby."
+           ],
+           "conds": [],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD58"
+          },
+          {
+           "prompt": "What do you know about the Rust King?",
+           "who": "The Ghoul (as Billie)",
+           "lines": [
+            "Some overgrown green bastard with delusions of grandeur, yeah?",
+            "Not the first would-be king I've seen in the Wasteland. Doubt he'll be the last.",
+            "He doesn't interfere with my business, I've got no reason to get involved in his."
+           ],
+           "conds": [
+            "Only after you have completed Welcoming Committee"
+           ],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD9E"
+          },
+          {
+           "prompt": "I wanted to know about something else.",
+           "who": "The Ghoul (as Billie)",
+           "lines": [
+            "Of course you do."
+           ],
+           "conds": [],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD5D"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "label": "Head Hunts",
+       "edid": "BURN_Billie_HeadHunts",
+       "fid": "0084BDB9",
+       "actions": [
+        {
+         "kind": "menu",
+         "items": [
+          {
+           "prompt": "Tell me about these \"juicy\" targets.",
+           "who": "The Ghoul (as Billie)",
+           "lines": [
+            "These are the worst of the worst. Most hunters that go after these targets wind up dead.",
+            "Thing is, it's bad for business if I keep sending bounty hunters to their death. People start to think I can't get things done.",
+            "So, things work a little differently for these. First off, you post the notice for one of these fellas, it's open season.",
+            "Any hunter that wants to can get in on the action, and you'll likely be grateful for the help.",
+            "Second, I only allow one of these bounties to be open at once. Somebody else has one posted, you're just gonna have to wait until they're taken out.",
+            "Hell, join in if you want!",
+            "Most importantly, these are the ones I like to handle myself. If you want one, I need compensation."
+           ],
+           "conds": [
+            "Only until: you've heard about head hunts"
+           ],
+           "next": [
+            "back"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD5E"
+          },
+          {
+           "prompt": "Give me a premium target.",
+           "who": "The Ghoul (as Billie)",
+           "lines": [
+            "All right! I love to see the confidence, cowboy.",
+            "Wasteland's full of confident dead guys. Let's see if you've got the stuff to back it up. There's just the little matter of my fee, mind you."
+           ],
+           "conds": [],
+           "next": [
+            "Bribe"
+           ],
+           "givesPoster": false,
+           "fid": "0084BD46"
+          },
+          {
+           "prompt": "I'll stick to regular targets for now.",
+           "who": "The Ghoul (as Billie)",
+           "lines": [
+            "Suit yourself. You know where to find me."
+           ],
+           "conds": [],
+           "next": [],
+           "givesPoster": false,
+           "fid": "0084BD67"
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "loose": [
+    {
+     "label": "Greeting (when you start talking)",
+     "quest": "Billie's lines at The Last Resort",
+     "items": [
+      {
+       "who": "The Ghoul (as Billie)",
+       "lines": [
+        "Well, now, welcome back. Killer."
+       ],
+       "conds": []
+      },
+      {
+       "who": "The Ghoul (as Billie)",
+       "lines": [
+        "Just here to wet your whistle, or you lookin' to play for blood?"
+       ],
+       "conds": []
+      },
+      {
+       "who": "The Ghoul (as Billie)",
+       "lines": [
+        "Not lookin' for friends. Talk business or get lost."
+       ],
+       "conds": []
+      },
+      {
+       "who": "The Ghoul (as Billie)",
+       "lines": [
+        "Still alive? Wouldn't've put money on it."
+       ],
+       "conds": []
+      },
+      {
+       "who": "The Ghoul (as Billie)",
+       "lines": [
+        "You waiting for something? You've got the bounty. Get out there, killer."
+       ],
+       "conds": [
+        "HasKeyword(Burn_BountyHunt_Daily_ActiveKeyword) == 1"
+       ]
+      },
+      {
+       "who": "The Ghoul (as Billie)",
+       "lines": [
+        "You still interested in taking a bounty?"
+       ],
+       "conds": [
+        "Only after: you've heard the bounty pitch",
+        "Only if you have never completed Bounty Hunting: Grunt Hunt",
+        "HasKeyword(Burn_BountyHunt_Daily_ActiveKeyword) != 1"
+       ]
+      },
+      {
+       "who": "The Ghoul (as Billie)",
+       "lines": [
+        "You gonna quit wastin' my time?"
+       ],
+       "conds": [
+        "Only if you have never completed Bounty Hunting: Grunt Hunt",
+        "Only until: you've heard the bounty pitch",
+        "Only after: you've asked your first questions"
+       ]
+      },
+      {
+       "who": "The Ghoul (as Billie)",
+       "lines": [
+        "Ain't often we get someone with your...unique looks and air of violence 'round here."
+       ],
+       "conds": [
+        "Only if you have never completed Bounty Hunting: Grunt Hunt",
+        "If you are a ghoul"
+       ]
+      },
+      {
+       "who": "The Ghoul (as Billie)",
+       "lines": [
+        "I'd recognize that look anywhere. You've got that \"I'm inclined to violence\" way about you."
+       ],
+       "conds": [
+        "Only if you have never completed Bounty Hunting: Grunt Hunt",
+        "If you are not a ghoul"
+       ]
+      }
+     ]
+    },
+    {
+     "label": "Hello (when you walk past)",
+     "quest": "Billie's lines at The Last Resort",
+     "items": [
+      {
+       "who": "The Ghoul (as Billie)",
+       "lines": [
+        "Unless you've got business, keep on walkin'."
+       ],
+       "conds": []
+      },
+      {
+       "who": "The Ghoul (as Billie)",
+       "lines": [
+        "Hmm."
+       ],
+       "conds": []
+      },
+      {
+       "who": "The Ghoul (as Billie)",
+       "lines": [
+        "Those tin cans ain't all they're cracked up to be, y'know."
+       ],
+       "conds": [
+        "If you own power armour"
+       ]
+      },
+      {
+       "who": "The Ghoul (as Billie)",
+       "lines": [
+        "*sniff*"
+       ],
+       "conds": []
+      },
+      {
+       "who": "The Ghoul (as Billie)",
+       "lines": [
+        "Help yourself to a bounty. There's always more."
+       ],
+       "conds": [
+        "Only after you have completed Bounty Hunting: Grunt Hunt"
+       ]
+      },
+      {
+       "who": "The Ghoul (as Billie)",
+       "lines": [
+        "Pile never seems to get smaller. Grab a bounty if you're feelin' frisky."
+       ],
+       "conds": [
+        "Only after you have completed Bounty Hunting: Grunt Hunt"
+       ]
+      },
+      {
+       "who": "The Ghoul (as Billie)",
+       "lines": [
+        "More where those came from. Help yourself."
+       ],
+       "conds": [
+        "Only after you have completed Bounty Hunting: Grunt Hunt"
+       ]
+      }
+     ]
+    },
+    {
+     "label": "Other lines",
+     "quest": "Billie's lines at The Last Resort",
+     "items": [
+      {
+       "who": "The Ghoul (as Billie)",
+       "lines": [
+        "No need to be shy about it, stranger. The locals sure ain't."
+       ],
+       "conds": []
+      },
+      {
+       "who": "The Ghoul (as Billie)",
+       "lines": [
+        "If you're looking for the tourism office, this ain't it.",
+        "What the hell, I'm in a good mood...for now. No guarantees."
+       ],
+       "conds": []
+      },
+      {
+       "who": "The Ghoul (as Billie)",
+       "lines": [
+        "The sort of person I'm sending you after is a killer, to be sure, but small potatoes.",
+        "I've got contracts out on real sons of bitches, the kind that put the fear in entire towns and leave a trail of dead bounty hunters in their wake.",
+        "Real juicy targets. I don't give those out to just anyone."
+       ],
+       "conds": []
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -36,7 +36,13 @@ def newest(pattern):
     # alone is stable, so same-date files keep glob order and the tie between
     # KYWD_Export_July_2026.tsv and ..._Refs.tsv was decided by the filesystem.
     # tsv_source ranks the base record file above its companions.
-    hit = tsv_source.newest(str(TSV_DIR / pattern), required=False)
+    # PTS (--pts or DFBNB_CHANNEL=pts): newest tsv/pts export first, live as the
+    # per-type fallback (22 Nov 2026, so a local --pts run reads the PTS files).
+    hit = None
+    if tsv_source.channel_of() == "pts":
+        hit = tsv_source.newest(pattern, channel="pts", required=False)
+    if not hit:
+        hit = tsv_source.newest(str(TSV_DIR / pattern), required=False)
     return Path(hit) if hit else None
 
 
@@ -421,7 +427,9 @@ def load_object_templates(otft_rows):
             continue
         ci = row.get("CombinationIndex", "")
         combos = templates.setdefault(weid, {})
-        combo = combos.setdefault(ci, {"name": row.get("Combination_FULL", ""), "mods": []})
+        combo = combos.setdefault(ci, {"name": row.get("Combination_FULL", ""), "mods": [], "keywords": set()})
+        for kw in re.findall(r"(\S+) \[KYWD:", row.get("OBTS_Keywords", "") or ""):
+            combo["keywords"].add(kw)
         if not combo["name"] and row.get("Combination_FULL"):
             combo["name"] = row.get("Combination_FULL", "")
         inc = _parse_include_mod(row.get("Include_Mod", ""))
@@ -434,14 +442,18 @@ def load_object_templates(otft_rows):
 _BOUNTY_COMBO_NAMES = ("bountyenchanted", "super slasher")
 
 
-def resolve_template_mods(weap_edid, object_templates):
+def resolve_template_mods(weap_edid, object_templates, keyword=None):
     """Pick the bounty combination for a weapon and split mods into
-    legendary (mod_Legendary_WeaponN) and custom (signature) buckets."""
+    legendary (mod_Legendary_WeaponN) and custom (signature) buckets.
+    keyword = the leveled list's LLKC keyword (from the boss's own inventory,
+    NPCSP _Inventory): the combination carrying it is the one the boss gets."""
     combos = object_templates.get(weap_edid)
     if not combos:
         return [], []
     chosen = None
-    for combo in combos.values():
+    if keyword:
+        chosen = next((c for c in combos.values() if keyword in c.get("keywords", ())), None)
+    for combo in ([] if chosen else combos.values()):
         if (combo.get("name") or "").strip().lower() in _BOUNTY_COMBO_NAMES:
             chosen = combo
             break
@@ -513,15 +525,22 @@ def load_spells(spel_rows):
 
 def derive_weapon_name(lvli_edid, base_weap_name):
     suffix = lvli_edid
-    for prefix in ("crLLI_Burn_BountyHunt_Weapon_Ranged_", "crLLI_Burn_BountyHunt_Weapon_Melee_", "crLLI_Burn_BountyHunt_Grenade_", "crLLI_Burn_BountyHunt_Throwable_"):
+    for prefix in ("crLLI_Burn_BountyHunt_Weapon_Ranged_", "crLLI_Burn_BountyHunt_Weapon_Melee_", "crLLI_Burn_BountyHunt_Grenade_", "crLLI_Burn_BountyHunt_Throwable_",
+                   "crLLI_RTSV_BountyHunt_Weapon_Ranged_", "crLLI_RTSV_BountyHunt_Weapon_Melee_"):
         if suffix.startswith(prefix):
             suffix = suffix[len(prefix):]
             break
     if suffix in _WEAPON_NAME_OVERRIDES:
         return _WEAPON_NAME_OVERRIDES[suffix]
+    human = re.sub(r"\s+", " ", re.sub(r"(?<=[a-z])(?=[A-Z])", " ", suffix.replace("_", " "))).strip()
+    base_weap_name = re.sub(r"^cr(?=[A-Z])", "", base_weap_name or "")
+    if base_weap_name and " " not in base_weap_name and human.lower().startswith(base_weap_name.lower() + " "):
+        nxt = human[len(base_weap_name):].split()[0]
+        if nxt in ("Rifle", "Gun", "Pistol", "Launcher", "Shotgun", "Cannon", "Blaster"):
+            return base_weap_name + " " + nxt        # "Tesla" + Tesla_Rifle -> "Tesla Rifle"
     if base_weap_name:
         return base_weap_name
-    return re.sub(r'([A-Z])', r' \1', suffix).strip()
+    return human
 
 
 def _fmt_num(n):
@@ -546,7 +565,9 @@ def describe_enchantment(ench_data, mgef_lookup):
             desc["description"] = mgef["description"].replace("<dur>", str(dur or ""))
         # Human-readable line for a damage-over-time style effect.
         if mag and dur:
-            desc["text"] = f"{_fmt_num(mag)} damage per second for {dur} seconds"
+            desc["text"] = f"{_fmt_num(mag)} damage per second for {dur} second{'' if dur == 1 else 's'}"
+        elif mag and re.search(r"Radiation", name, re.I):
+            desc["text"] = f"{_fmt_num(mag)} radiation"
         elif mag:
             desc["text"] = f"Magnitude {_fmt_num(mag)}"
         results.append(desc)
@@ -575,7 +596,7 @@ def custom_mod_effect(edid, omod_all, omod_props, enchantments, mgef_lookup):
                     if t:
                         texts.append(t)
                 if texts:
-                    return " · ".join(texts)
+                    return " · ".join(dict.fromkeys(texts))
     # 2) DESC
     desc = (info.get("desc") or "").strip()
     if desc:
@@ -648,13 +669,95 @@ def resolve_weapon_by_edid(weap_edid, weapon_names, weapon_stats, object_templat
     return weapon
 
 
+# Which boss carries which weapon: read from the boss's own record (NPCSP
+# _Inventory, 22 Nov 2026). GANG_WEAPON_MAP above is only a fallback for a
+# boss with no inventory rows (e.g. an export older than 22 Nov 2026).
+HH_BOSS_NPC_RE = re.compile(r"^(?:Burn_BountyTarget_BIG_|BountyHunt_HeadHunt_(?:Burn|Skyline)_Boss_)")
+
+
+def load_boss_inventories(inv_rows):
+    """boss name (lower) -> [{lvli, keyword, weaps:[edid]}] for Head Hunt boss actors."""
+    out = {}
+    for r in inv_rows:
+        if not HH_BOSS_NPC_RE.match(r.get("NPCEDID", "")):
+            continue
+        name = (r.get("NPCName") or "").strip().lower()
+        if not name:
+            continue
+        lst = out.setdefault(name, [])      # a boss with no weapon rows (robots) stays, empty
+        if r.get("ItemSig") == "WEAP":
+            weaps = [r["ItemEDID"]]
+        elif r.get("ItemSig") == "LVLI":
+            weaps = [e.split(":")[0] for e in (r.get("LVLO") or "").split(";") if e.endswith(":WEAP")]
+        else:
+            continue
+        if not weaps:
+            continue
+        kw = (r.get("LLKC") or "").split(";")[0]
+        if not any(x["lvli"] == r["ItemEDID"] for x in lst):
+            lst.append({"lvli": r["ItemEDID"], "keyword": kw, "weaps": list(dict.fromkeys(weaps))})
+    return out
+
+
+def _slot_of(lvli):
+    if re.search(r"_Grenade_|Throwable", lvli, re.I):
+        return "grenade"
+    if re.search(r"Weapon_Melee", lvli, re.I):
+        return "meleeWeapon"
+    return "weapon"
+
+
+def resolve_inventory_weapon(item, weapon_names, weapon_stats, object_templates):
+    """One weapon from a boss inventory item: name, stats and the object-template
+    combination picked by the list's keyword (legendary stars + custom effect mods)."""
+    weaps = item["weaps"]
+    base = weaps[0]
+    base_name = _WEAP_FULL_FIXES.get(base) or weapon_names.get(base, "")
+    if len(weaps) > 1:
+        friendly = " or ".join(dict.fromkeys(weapon_names.get(w, "") or _clean_mod_name(w) for w in weaps))
+    else:
+        friendly = derive_weapon_name(item["lvli"], base_name)
+    weapon = {"name": friendly, "baseName": base_name, "baseEdid": base, "lvliEdid": item["lvli"]}
+    if item.get("keyword"):
+        weapon["templateKeyword"] = item["keyword"]
+    weapon.update(_weapon_stats_block(weapon_stats.get(base, {})))
+    if object_templates:
+        legendary, custom = resolve_template_mods(base, object_templates, item.get("keyword"))
+        if legendary:
+            weapon["legendaryMods"] = legendary
+        if custom:
+            weapon["customMods"] = custom
+    return weapon
+
+
 def assemble_boss(boss_info, gang_data, weapon_lvlis, weapon_names, weapon_stats,
                   enchantments, mgef_lookup, weapon_mods, spells,
-                  object_templates=None, spell_effects=None):
+                  object_templates=None, spell_effects=None, inventories=None):
     spell_effects = spell_effects or {}
     gidx = boss_info["gangIndex"]
     wmap = GANG_WEAPON_MAP.get(gidx, {})
     boss = {"name": boss_info["bossName"], "gangIndex": gidx, "gangName": gang_data.get("name", "") if gang_data else "", "gangEdid": gang_data.get("edid", "") if gang_data else "", "imageSlug": slugify(boss_info["bossName"])}
+    inv = (inventories or {}).get(boss_info["bossName"].strip().lower())
+    if inv is None and inventories:
+        # The inventory export is there but this boss carries nothing
+        # (Chief Engineer Lewis, The Secret Weapon: robots, no weapon items).
+        print(f"  NOTE: {boss_info['bossName']} carries no weapon items - none listed")
+        inv = []
+    if inv is not None:
+        # From the boss's own record: weapons, grenade, and each weapon's
+        # effect mods (bleed, poison, +damage ...) via its keyword combination.
+        # ranged weapons first, so a melee weapon only takes the main slot when
+        # the boss carries nothing else (Micro Mike's Tenderizer).
+        for item in sorted(inv, key=lambda x: {"weapon": 0, "meleeWeapon": 1, "grenade": 2}[_slot_of(x["lvli"])]):
+            slot = _slot_of(item["lvli"])
+            if slot == "meleeWeapon" and "weapon" not in boss:
+                slot = "weapon"
+            if slot in boss:
+                continue
+            boss[slot] = resolve_inventory_weapon(item, weapon_names, weapon_stats, object_templates)
+        boss["weaponsFrom"] = "inventory"
+        return boss
+    print(f"  WARNING: no inventory rows for {boss_info['bossName']} - using the GANG_WEAPON_MAP fallback")
     if wmap.get("weapon"):
         w = resolve_weapon(wmap["weapon"], weapon_lvlis, weapon_names, weapon_stats, object_templates)
         if w:
@@ -772,6 +875,7 @@ def main():
     omod_prop_path = newest("OMOD_Export_*_Properties.tsv")
     spel_path = newest("SPEL_Export_*_HEADER.tsv") or newest("SPEL_Export_*.tsv")
     spel_eff_path = newest("SPEL_Export_*_EFFECTS.tsv")
+    inv_path = newest("NPCSP_Export_*_Inventory.tsv")
 
     missing = []
     for name, path in [("CHAL", chal_path), ("FLST_Entries", flst_path), ("KYWD", kywd_path), ("LVLI_Entries", lvli_path), ("WEAP_Base", weap_base), ("WEAP_DNAM", weap_dnam), ("ENCH", ench_path), ("MGEF", mgef_path)]:
@@ -794,6 +898,8 @@ def main():
     omod_prop_rows = read_tsv(omod_prop_path) if omod_prop_path else []
     spel_rows = read_tsv(spel_path) if spel_path else []
     spel_eff_rows = read_tsv(spel_eff_path) if spel_eff_path else []
+    inventories = load_boss_inventories(read_tsv(inv_path)) if inv_path else {}
+    print(f"  Boss inventories (NPCSP): {len(inventories)}" + ("" if inv_path else "  - none, using GANG_WEAPON_MAP"))
 
     print(f"  CHAL: {len(chal_rows)}  |  FLST: {len(flst_rows)}  |  MGEF: {len(mgef_rows)}  |  OTFT: {len(otft_rows)}")
 
@@ -821,7 +927,7 @@ def main():
         group_bosses = []
         for bi in bosses:
             gd = gang_keywords.get(bi["gangIndex"])
-            bo = assemble_boss(bi, gd, weapon_lvlis, weapon_names, weapon_stats, enchantments, mgef_lookup, weapon_mods, spell_data, object_templates, spell_effects)
+            bo = assemble_boss(bi, gd, weapon_lvlis, weapon_names, weapon_stats, enchantments, mgef_lookup, weapon_mods, spell_data, object_templates, spell_effects, inventories)
             # Custom-mod effect text (bleed DoT, +% damage, etc.) from OMOD TSVs.
             enrich_custom_mod_effects(bo.get("weapon"), omod_all, omod_props, enchantments, mgef_lookup)
             enrich_custom_mod_effects(bo.get("meleeWeapon"), omod_all, omod_props, enchantments, mgef_lookup)
@@ -842,7 +948,7 @@ def main():
     # ── SDOW / Slasher party crasher (seasonal, PTS-gated) ───────────────────
     # Gate on channel or the live Head Hunt toggle — NEVER on record presence
     # (the SDOW records ship dormant in the live TSVs).
-    is_pts_channel = os.environ.get("DFBNB_CHANNEL", "").strip().lower() == "pts"
+    is_pts_channel = tsv_source.channel_of() == "pts"
     slasher_toggle_on = globs.get("008E0671", 0.0) >= 1.0     # LCP_SDOW_LTC_HeadHuntsToggle
     show_slasher = is_pts_channel or slasher_toggle_on
     if show_slasher:
@@ -860,7 +966,8 @@ def main():
         "groups": output_groups,
     }
 
-    out_file = Path(os.environ["DFBNB_BOSSES_OUT"]) if os.environ.get("DFBNB_BOSSES_OUT") else OUT_FILE
+    out_file = Path(os.environ["DFBNB_BOSSES_OUT"]) if os.environ.get("DFBNB_BOSSES_OUT") else (
+        ROOT / "dist" / "pts" / "bounty-hunting" / "head_hunt_bosses.json" if "--pts" in sys.argv else OUT_FILE)
     out_file.parent.mkdir(parents=True, exist_ok=True)
     with open(out_file, "w", encoding="utf-8") as f:
         json.dump(result, f, indent=2, ensure_ascii=False)

@@ -61,6 +61,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 import tsv_source
+import boss_mechanics
 
 csv.field_size_limit(min(sys.maxsize, 2**31 - 1))
 
@@ -663,7 +664,7 @@ INTRO = {
         "blurb": ("Every Infestation is led by one faction boss, backed by waves of mobs and support "
                   "creatures. This page lists each boss's weapons, health, damage and resistances, the "
                   "mutation pool they draw from, and the enemies that fight alongside them. All numbers "
-                  "are read straight from the game files and update with every patch."),
+                  "update with every patch."),
         "profiles": "Each Infestation spawns one of the faction bosses below. The weapon rolled for a spawn comes from that boss's pool.",
         "mutations": "Each Infestation boss spawns with one randomly selected mutation from this pool.",
         "mechanics": "All Infestation bosses share the following traits.",
@@ -676,8 +677,8 @@ INTRO = {
         "title": "Daily Ops - Daily Ops Boss Stats",
         "blurb": ("Each Daily Op pits you against one rotating enemy family, and every family ends in a boss "
                   "fight. This page lists each family's boss and variant bosses, their weapons, health and "
-                  "damage, the Daily Ops mutation pool, and the enemies that support them. All numbers are "
-                  "read from the game files and update with every patch."),
+                  "damage, the Daily Ops mutation pool, and the enemies that support them. All numbers "
+                  "update with every patch."),
         "profiles": "One enemy family is active per Op. Its boss and any variant bosses are listed below.",
         "mutations": "Every Daily Op applies one mutation to its enemies, drawn from the pool below. On Double Mutated days a combined mutation from the second list is used instead.",
         "mechanics": "Boss stats that apply across the Daily Ops enemy families.",
@@ -691,14 +692,14 @@ INTRO = {
         "blurb": ("Every Hideout is held by one gang, led by a gang leader and a lieutenant and backed by "
                   "role-based fighters, with wildlife minibosses that belong to the Hideout itself. This page "
                   "lists each gang leader, lieutenant and miniboss with their health and resistances, the "
-                  "mutations lieutenants carry, and every enemy you can meet inside. All numbers are read "
-                  "straight from the game files and update with every patch."),
+                  "mutations lieutenants carry, and every enemy you can meet inside. All numbers "
+                  "update with every patch."),
         "profiles": "Gang leaders first, then each Hideout's wildlife minibosses. Defeat the gang leader within the time limit for a bonus objective.",
         "mutations": "Each Hideout Lieutenant carries one mutation from this pool.",
         "double": "Hideout runs also roll a pair of mutations for the run, from the combinations below.",
         "mechanics": "Hideout enemies share the following traits.",
         "health": "The lead's difficulty sets every enemy's level range, so health is shown for each difficulty, read from each boss's health curve across that range. Bosses on the same curve and scaling share a row.",
-        "damage": "Boss weapons come from each leader's outfit, which is not in the current exports yet, so weapon damage is not listed.",
+        "damage": "Boss weapon damage isn't listed yet.",
         "support": "Every gang brings a Lieutenant alongside its leader.",
         "scaling": "The Hideout Lead's difficulty sets the level range every enemy spawns in. Each enemy type has its own range, and some also get a level multiplier on top.",
         "npcs": "Each gang fills its Hideout with fighters in set roles (close, medium and long range, support, interference and fodder), plus rare wildcard spawns and the Hideout's own wildlife.",
@@ -707,23 +708,23 @@ INTRO = {
         "title": "Hideouts - Drifter Boss Stats",
         "blurb": ("The Drifter is the roaming boss of Hideouts: he can turn up on Lethal runs and always "
                   "appears on Marked runs. This page lists his health, resistances and weapons, the "
-                  "abilities he fights with, and his other spawn variants. All numbers are read straight "
-                  "from the game files and update with every patch."),
+                  "abilities he fights with, and his other spawn variants. All numbers "
+                  "update with every patch."),
         "profiles": "The Drifter's own record. He spawns at the level range shown, with the weapons below.",
-        "mutations": "The Drifter carries his own abilities instead of a mutation. Ability names come from the game files; the words describing them are ours.",
+        "mutations": "The Drifter carries his own abilities instead of a mutation. The words describing his abilities are ours.",
         "mechanics": "How and where The Drifter appears.",
         "health": "Health is read from the curve table assigned to The Drifter, across the levels he spawns between.",
         "damage": "Damage per hit from his hardest-hitting weapon, at the bottom and top of his level range.",
         "support": "The Drifter fights alone — no support creatures are attached to him.",
-        "npcs": "Other Drifter records in the game files: the levelled versions that Hideouts actually spawn.",
+        "npcs": "Other Drifter versions: the levelled ones that Hideouts actually spawn.",
     },
     "head_hunts": {
         "title": "Bounty Hunting - Burning Springs Head Hunt Boss Stats",
         "blurb": ("Each Burning Springs Head Hunt boss comes with a distinct weapon setup and a signature "
                   "mechanic, and the gang they bring follows the same theme. This page lists every boss by "
                   "group with their weapons, health, damage and resistances, plus the gang members and "
-                  "support wave that fight alongside them. All numbers are read straight from the game "
-                  "files and update with every patch."),
+                  "support wave that fight alongside them. All numbers "
+                  "update with every patch."),
         "profiles": "Bosses are grouped the same way as the Head Hunt Groups lifetime challenges. Track your kills on the Grunt Hunt and Head Hunt Challenges page.",
         "mutations": "Mutation effects used by bounty targets. One-star outlaws are named after theirs, and some Head Hunt bosses carry a forced mutation as part of their signature attack.",
         "mechanics": "Burning Springs Head Hunt bosses share the following stats.",
@@ -737,8 +738,8 @@ INTRO = {
         "blurb": ("Each Skyline Valley Head Hunt boss comes with a distinct weapon setup and a signature "
                   "mechanic, and the gang they bring follows the same theme. This page lists every boss by "
                   "group with their weapons, health, damage and resistances, plus the gang members and "
-                  "support waves that fight alongside them. All numbers are read straight from the game "
-                  "files and update with every patch."),
+                  "support waves that fight alongside them. All numbers "
+                  "update with every patch."),
         "profiles": "Bosses are grouped the same way as the Skyline Valley Head Hunt Groups lifetime challenges. Track your kills on the Grunt Hunt and Head Hunt Challenges page.",
         "mutations": "Mutation effects used by bounty targets. One-star outlaws are named after theirs, and some Head Hunt bosses carry a forced mutation as part of their signature attack.",
         "mechanics": "Skyline Valley Head Hunt bosses share the following stats.",
@@ -1163,7 +1164,7 @@ def build_hideouts(game: Game):
             b["role"] = "Miniboss"
             b["weapons"] = []
             if m.group(1) in hideouts and not hideouts[m.group(1)]["inRotation"]:
-                b["note"] = (f"{locs[m.group(1)]} is in the game files but not yet in the list of Hideouts "
+                b["note"] = (f"{locs[m.group(1)]} is not yet in the list of Hideouts "
                              "a run can pick, so this miniboss can't come up yet.")
             if (edid, b["faction"]) in mini_seen:
                 continue
@@ -1201,7 +1202,7 @@ def build_hideouts(game: Game):
     rot = [v["name"] for v in hideouts.values() if v["inRotation"]] or sorted(locs.values())
     off = [v["name"] for v in hideouts.values() if not v["inRotation"]]
     mech_rows += [["Gangs", ", ".join(g for _, g in gangs)],
-                  ["Hideouts", ", ".join(sorted(rot)) + (f" ({', '.join(sorted(off))} is in the files but not in the rotation yet)" if off else "")],
+                  ["Hideouts", ", ".join(sorted(rot)) + (f" ({', '.join(sorted(off))} is not in the rotation yet)" if off else "")],
                   ["Lieutenant mutation", "Each Lieutenant spawns with one mutation from the pool below"]]
     out = {
         "page": "hideouts",
@@ -1510,7 +1511,7 @@ def build_head_hunts(game: Game, region: str = "burn"):
                                           "blurb": g.get("blurb"), "items": []})
             bk["items"].append((hb, e))
 
-    groups, all_bosses, gang_rows = [], [], []
+    groups, all_bosses, gang_rows, review = [], [], [], []
     for key in sorted(buckets, key=lambda k: (k[0], k[1] or 0)):
         g = buckets[key]
         gb = []
@@ -1519,6 +1520,8 @@ def build_head_hunts(game: Game, region: str = "burn"):
             b["name"] = hb["name"]
             b["gang"] = hb.get("gangName", "")
             b["imageSlug"] = hb.get("imageSlug", "")
+            if HH_PHOTOS.get(b["imageSlug"]):
+                b["imageUrl"] = HH_PHOTOS[b["imageSlug"]]
             weps = []
             for wkey, label in (("weapon", "Main"), ("meleeWeapon", "Secondary"), ("grenade", "Thrown")):
                 w = hb.get(wkey)
@@ -1550,7 +1553,10 @@ def build_head_hunts(game: Game, region: str = "burn"):
                     for x in sa.get("effects", []))
                 specials.append({"name": sa.get("name"), "text": txt})
             if hb.get("note"):
-                specials.append({"name": "Note", "text": hb["note"]})
+                b["note"] = hb["note"]
+            # Weapon effects (bleed, poison, +damage...) now sit under each weapon
+            # (its custom mods, from the boss's own inventory); specials only
+            # carry the old gang-map fields when that fallback was used.
             b["specials"] = specials
 
             # Gang members: every non-boss NPC on the boss's own WAVE record(s).
@@ -1565,6 +1571,22 @@ def build_head_hunts(game: Game, region: str = "burn"):
                         n["gang"] = b["gang"]
                         gang.append(n)
             b["gangMembers"] = [x["name"] for x in gang]
+            # Special mechanics (scripts, abilities / auras, perks) + side-kick lines
+            mech, flg = boss_mechanics.mechanics_for(MECH, e)
+            b["mechanics"] = mech
+            sk, seen = [], set()
+            for n in gang:
+                if n["name"] in seen:
+                    continue
+                seen.add(n["name"])
+                mine, f2 = boss_mechanics.mechanics_for(MECH, n.get("edid"))
+                flg += f2
+                if mine:
+                    sk.append(boss_mechanics.side_kick_entry(n["name"], mine, mech))
+            if sk:
+                b["sideKickMechanics"] = sk
+            for f in dict.fromkeys(flg):
+                review.append({"boss": hb["name"], "flag": f})
             gang_rows.extend(gang)
             gb.append(b)
             all_bosses.append(b)
@@ -1631,6 +1653,8 @@ def build_head_hunts(game: Game, region: str = "burn"):
         "groups": groups,
         "bosses": all_bosses,
         "mutations": {"intro": intro["mutations"], "list": muts, "outlaws": outlaws},
+        "reviewFlags": review,
+        "specialMechanicsNote": SPECIAL_MECH_NOTE.get(cfg["page"], ""),
         "mechanics": {"intro": intro["mechanics"], "rows": mech_rows,
                       "resist": [{"name": b["name"], **(b.get("resist") or {})} for b in real]},
         "health": build_health_section(game, real, 25, intro["health"]),
@@ -1638,6 +1662,35 @@ def build_head_hunts(game: Game, region: str = "burn"):
         "support": {"intro": intro["support"], "rows": support},
         "npcs": {"intro": intro["npcs"], "rows": gang_rows},
     }
+
+
+# Words only. Shown once above the boss cards on each Head Hunt page.
+SPECIAL_MECH_NOTE = {
+    "head_hunts": ("Each boss card lists the boss's special mechanics, plus any its side-kicks have. "
+                   "Ones marked Event switch only work while the Head Hunt effects switch is on, which it currently is."),
+    "head_hunts_skyline": "Each boss card lists the boss's special mechanics, plus any its side-kicks have.",
+}
+
+MECH = None   # boss_mechanics.Mech, loaded in main()
+
+
+def _hh_server_photos():
+    """slug -> uploads path of the Head Hunt boss photo already on the server
+    (data/server_listing.tsv, guide-images/bounty-hunting/head-hunt-bosses/
+    head-hunt-group-N-<slug>.avif). A boss with no photo gets none."""
+    out = {}
+    p = ROOT / "data" / "server_listing.tsv"
+    if not p.exists():
+        return out
+    for line in p.read_text(encoding="utf-8").splitlines():
+        path = line.split("\t", 1)[0]
+        m = re.match(r"guide-images/bounty-hunting/head-hunt-bosses/head-hunt-group-\d+-(.+)\.(avif|webp|jpe?g|png)$", path, re.I)
+        if m:
+            out.setdefault(m.group(1).lower(), "/wp-content/uploads/" + path)
+    return out
+
+
+HH_PHOTOS = _hh_server_photos()
 
 
 def range_txt(b) -> str:
@@ -1664,10 +1717,15 @@ def write(name: str, data: dict):
 
 
 def main():
+    global MECH
     game = Game()
+    MECH = boss_mechanics.Mech(pick)
     hto = build_infestations(game)
     do = build_daily_ops(game)
     hh = build_head_hunts(game, "burn")
+    sv = build_head_hunts(game, "skyline")
+    for w in dict.fromkeys(MECH.warnings):
+        print(f"[Boss Stats] WARNING special mechanics: {w}")
     # Guard: never overwrite a good page with an empty one.
     for name, d in (("infestations", hto), ("daily_ops", do), ("head_hunts", hh)):
         if not d["bosses"]:
@@ -1680,7 +1738,6 @@ def main():
     write("head_hunts", hh)
     # Skyline Valley Head Hunts are PTS-only until the update ships: no Skyline
     # boss actors on live, so skip quietly there like Hideouts.
-    sv = build_head_hunts(game, "skyline")
     if sv["bosses"]:
         add_body_parts(game, sv["bosses"])
         write("head_hunts_skyline", sv)

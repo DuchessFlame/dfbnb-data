@@ -28,6 +28,9 @@ straight from the game files, so these no longer need xEdit:
     LSCR    LSCR_Export_<Month>_<Year>.tsv          (ExportLSCRToTSV.pas)
     MISC    MISC_Export_<Month>_<Year>.tsv          (ExportMISCToCSV.pas)
     NPC     NPC_Export_<Month>_<Year>.tsv + _PRPS + _Refs  (ExportNPCToTSV.pas)
+    NPCSP   NPCSP_Export_<Month>_<Year>_ScriptProps / _Abilities / _Perks / _Spells / _PerkEntries
+            / _Messages / _Objects / _ScriptDefaults / _Inventory.tsv  (NPC script properties, abilities, perks, the spells / perks they
+            reach incl. each aura's applied spell, script message text - Boss Stats mechanics; no .pas)
     NPC2    NPC2_Vendors_<Month>_<Year>.tsv + _Placements, _Currencies, _Factions,
             _FactionsPlacements                     (ExportNPC2VendorsToTSV.pas)
     MISC2   MISC2_Export_<Month>_<Year>.tsv         (ExportMISC2ToCSV.pas)
@@ -4491,6 +4494,346 @@ def exp_qust2_rq(esm):
     return {"_RewardQuests": out}
 
 
+# ------------------------------------------------------------- NPCDLG --
+def exp_npcdlg(esm):
+    """NPC Lore & Dialogue pages: full dialogue + scene menus for the quests in
+    tools/npc_dialogue_quests.txt. The work is in tools/npc_dialogue_export.py."""
+    import npc_dialogue_export
+    return npc_dialogue_export.exp_npc_dialogue(esm, sys.modules[__name__])
+
+
+# ------------------------------------------------------------- NPC_ _ScriptProps --
+def exp_npc_sp(esm):
+    """NPC script properties (VMAD): one row per property, same columns as the
+    quest _ScriptProps file. Read by src/build_boss_stats_json.py for boss
+    mechanics run by an actor script (The Pied Pipebomber's mole-rat waves:
+    RTSV_BountyScript_Underminer, HealthThresholds 80/60/30). Array values get
+    one row each with their index in the Index column (22 Nov 2026)."""
+    out = ["NPCFormID\tNPCEDID\tNPCName\tScript\tProperty\tIndex\tType\tValue\tGlobValue\tValueName"]
+    for r in R.xedit_order(esm, "NPC_"):
+        vm = r.first("VMAD")
+        if not vm:
+            continue
+        try:
+            scripts = _VmadReader(vm).scripts()
+        except Exception:                                 # noqa: BLE001
+            continue
+        head = "%08X\t%s\t%s" % (r.fid, cc(r.edid), cc(esm.lstring(r.first("FULL"))))
+        for sname, props in scripts:
+            for pn, v in props:
+                vals = v[1] if v[0] == "arr" else [v]
+                for ix, x in enumerate(vals):
+                    ixs = str(ix) if v[0] == "arr" else ""
+                    if x[0] == "obj":
+                        fid = x[1]
+                        if not fid:
+                            continue
+                        sig = esm.sig_of(fid) or ""
+                        gv = ""
+                        if sig == "GLOB":
+                            g = esm.get(fid)
+                            f = g.first("FLTV") if g else None
+                            if f and len(f) >= 4:
+                                gv = "%g" % struct.unpack_from("<f", f)[0]
+                        out.append("%s\t%s\t%s\t%s\tobj\t%08X:%s:%s\t%s\t%s" % (
+                            head, cc(sname), cc(pn), ixs, fid, cc(esm.edid_of(fid)), sig, gv,
+                            cc(esm.full_of(fid)) if esm.exists(fid) else ""))
+                    elif x[0] in ("int", "float", "bool"):
+                        out.append("%s\t%s\t%s\t%s\t%s\t%g\t\t" % (head, cc(sname), cc(pn), ixs, x[0], x[1]))
+                    elif x[0] == "str":
+                        out.append("%s\t%s\t%s\t%s\tstr\t%s\t\t" % (head, cc(sname), cc(pn), ixs, cc(x[1])))
+    res = {"_ScriptProps": out}
+    res.update(_npc_sp_links(esm, out))
+    return res
+
+
+# NPC_ ACBS template flag bit for "Use Spell List" (spells + perks) and its TPTA slot
+_NPC_TPL_SPELLS = 3
+
+
+def _npc_tpl_owner(esm, r, slot, seen=None):
+    """Like _npc_spell_owner for any template flag / TPTA slot (8 = Inventory)."""
+    seen = seen or set()
+    a = r.first("ACBS")
+    if not a or len(a) < 16 or r.fid in seen:
+        return r, "own"
+    seen.add(r.fid)
+    if not (struct.unpack_from("<H", a, 14)[0] >> slot & 1):
+        return r, "own"
+    t = r.first("TPTA")
+    tf = struct.unpack_from("<I", t, slot * 4)[0] if t and len(t) >= (slot + 1) * 4 else 0
+    tf = tf or (_u32(r.first("TPLT")) or 0)
+    if not tf or esm.sig_of(tf) != "NPC_":
+        return None, "template %s" % (("%s [%s:%08X]" % (cc(esm.edid_of(tf)), esm.sig_of(tf), tf)) if tf else "none")
+    owner, _src = _npc_tpl_owner(esm, esm.get(tf), slot, seen)
+    return owner, ("template %s [NPC_:%08X]" % (cc(owner.edid), owner.fid) if owner else _src)
+
+
+def _npc_inventory(esm):
+    """NPCSP _Inventory (22 Nov 2026): every NPC's items (CNTO; template Use
+    Inventory flag followed, TPTA slot 8) + default outfit. For a leveled list
+    item: its LLKC keywords (the object-template keyword that picks the weapon's
+    build - if_tmp_Bounty_Hunter -> Colt the Bolt's Tesla combination) and its
+    entries. Read by build_head_hunt_bosses_json.py, so which boss carries which
+    weapon comes from the boss's own record."""
+    out = ["NPCFormID\tNPCEDID\tNPCName\tSource\tItemFormID\tItemEDID\tItemSig\tCount\tLLKC\tLVLO"]
+    for r in R.xedit_order(esm, "NPC_"):
+        owner, src = _npc_tpl_owner(esm, r, 8)
+        if owner is None:
+            continue
+        head = "%08X\t%s\t%s\t%s" % (r.fid, cc(r.edid), cc(esm.lstring(r.first("FULL"))), src)
+        items = []
+        for v in owner.all("CNTO"):
+            if len(v) >= 8:
+                items.append((struct.unpack_from("<I", v)[0], struct.unpack_from("<i", v, 4)[0]))
+        d = owner.first("DOFT")
+        if d and len(d) >= 4:
+            items.append((struct.unpack_from("<I", d)[0], 0))
+        for f, n in items:
+            if not f or not esm.exists(f):
+                continue
+            sig = esm.sig_of(f)
+            kw = ents = ""
+            if sig == "LVLI":
+                li = esm.get(f)
+                kws, es = [], []
+                for k, v in (li.subs if li else []):
+                    if k == "LLKC":
+                        for o in range(0, len(v) - 3, 8):
+                            x = struct.unpack_from("<I", v, o)[0]
+                            if x and esm.exists(x):
+                                kws.append(cc(esm.edid_of(x)))
+                    elif k == "LVLO" and len(v) >= 4:
+                        x = struct.unpack_from("<I", v, 0 if len(v) < 12 else 4)[0]
+                        if x and esm.exists(x):
+                            es.append("%s:%s" % (cc(esm.edid_of(x)), esm.sig_of(x)))
+                kw, ents = ";".join(kws), ";".join(es)
+            out.append("\t".join([head, "%08X" % f, cc(esm.edid_of(f)), sig or "", str(n), kw, ents]))
+    return out
+
+
+def _npc_spell_owner(esm, r, seen=None):
+    """(record whose SPLO / PRKR the actor really uses, source text). An actor with
+    the Use Spell List template flag takes its spells and perks from its template
+    (TPTA slot 3, else TPLT); a leveled-NPC template can't be followed here."""
+    seen = seen or set()
+    a = r.first("ACBS")
+    if not a or len(a) < 16 or r.fid in seen:
+        return r, "own"
+    seen.add(r.fid)
+    if not (struct.unpack_from("<H", a, 14)[0] >> _NPC_TPL_SPELLS & 1):
+        return r, "own"
+    t = r.first("TPTA")
+    tf = struct.unpack_from("<I", t, _NPC_TPL_SPELLS * 4)[0] if t and len(t) >= 16 else 0
+    tf = tf or (_u32(r.first("TPLT")) or 0)
+    if not tf or esm.sig_of(tf) != "NPC_":
+        return None, "template %s" % (("%s [%s:%08X]" % (cc(esm.edid_of(tf)), esm.sig_of(tf), tf)) if tf else "none")
+    owner, _src = _npc_spell_owner(esm, esm.get(tf), seen)
+    return owner, ("template %s [NPC_:%08X]" % (cc(owner.edid), owner.fid) if owner else _src)
+
+
+def _npc_sp_links(esm, sp_rows):
+    """NPCSP side files (22 Nov 2026), so build_boss_stats_json.py reads boss
+    mechanics from TSVs only:
+      _Abilities    every NPC's abilities (SPLO), template Use Spell List followed
+      _Perks        every NPC's perks (PRKR) + rank, same rule
+      _Spells       one row per effect of every spell reached from those: the NPC's
+                    abilities, the spell each cloak / aura effect puts on others
+                    (MGEF Associated Item, DATA offset 12 in FO76), spells a perk
+                    applies (Apply Combat Hit Spell, Ability ...), spells named in an
+                    NPC script property. MGEF name, description, archetype, actor
+                    value, associated item + the SPEL export's magnitude / area /
+                    duration / conditions columns. ReachedFrom = the record that led here.
+      _PerkEntries  the PERKEP rows of every perk reached (NPC perks, MGEF Perk to
+                    Apply, perks named in script properties)
+      _Messages     FULL + DESC of every MESG named in an NPC script property
+                    (The Pied Pipebomber's "The Molerats are coming!")."""
+    import re as _re
+    ab_out = ["NPCFormID\tNPCEDID\tNPCName\tSource\tSpellFormID\tSpellEDID\tSpellName"]
+    pk_out = ["NPCFormID\tNPCEDID\tNPCName\tSource\tPerkFormID\tPerkEDID\tPerkName\tRank"]
+    spells, perks, msgs = {}, {}, {}           # fid -> ReachedFrom text (first one)
+
+    def ref(f):
+        return "%s [%s:%08X]" % (cc(esm.edid_of(f)), esm.sig_of(f) or "", f)
+
+    def add(d, f, frm):
+        if f and esm.exists(f) and f not in d:
+            d[f] = frm
+            return True
+        return False
+
+    for r in R.xedit_order(esm, "NPC_"):
+        owner, src = _npc_spell_owner(esm, r)
+        head = "%08X\t%s\t%s\t%s" % (r.fid, cc(r.edid), cc(esm.lstring(r.first("FULL"))), src)
+        if owner is None:
+            continue
+        for v in owner.all("SPLO"):
+            f = _u32(v)
+            if f and esm.exists(f):
+                ab_out.append("%s\t%08X\t%s\t%s" % (head, f, cc(esm.edid_of(f)), cc(esm.full_of(f))))
+                if esm.sig_of(f) == "SPEL":
+                    add(spells, f, ref(r.fid))
+        for v in owner.all("PRKR"):
+            f = _u32(v)
+            if f and esm.exists(f):
+                rk = str(v[4]) if len(v) > 4 else ""
+                pk_out.append("%s\t%08X\t%s\t%s\t%s" % (head, f, cc(esm.edid_of(f)), cc(esm.full_of(f)), rk))
+                add(perks, f, ref(r.fid))
+    # script-property objects
+    for line in sp_rows[1:]:
+        c = line.split("\t")
+        if c[6] != "obj":
+            continue
+        fid_s, _e, sig = (c[7].split(":") + ["", "", ""])[:3]
+        f = int(fid_s, 16)
+        frm = "%s [NPC_:%s] %s.%s" % (c[1], c[0], c[3], c[4])
+        {"SPEL": spells, "PERK": perks, "MESG": msgs}.get(sig, {}).setdefault(f, frm) if esm.exists(f) else None
+
+    # perk entry rows (also gives the spells a perk applies)
+    perkep = exp_perkep(esm)
+    pe_head = perkep[0]
+    pe_by = {}
+    for line in perkep[1:]:
+        pe_by.setdefault(int(line.split("\t", 1)[0], 16), []).append(line)
+    spel_tab = exp_spel(esm)["_EFFECTS"]
+    sp_by = {}
+    for line in spel_tab[1:]:
+        sp_by.setdefault(int(line.split("\t", 1)[0], 16), []).append(line)
+
+    def mgef_info(mf):
+        m = esm.get(mf) if mf and esm.exists(mf) else None
+        d = (m.first("DATA") if m else None) or b""
+        arch = av = assoc = ptap = ""
+        if len(d) >= 148:
+            arch = _mgef_enum(MGEF_ARCHETYPES, struct.unpack_from("<I", d, 68)[0], "archetype")
+            a = struct.unpack_from("<I", d, 72)[0]
+            av = cc(esm.edid_of(a)) if a and esm.exists(a) else ""
+            af = struct.unpack_from("<I", d, 12)[0]
+            assoc = ("%08X:%s:%s" % (af, cc(esm.edid_of(af)), esm.sig_of(af))) if af and esm.exists(af) else ""
+            pf = struct.unpack_from("<I", d, 140)[0]
+            ptap = ("%08X:%s" % (pf, cc(esm.edid_of(pf)))) if pf and esm.exists(pf) and esm.sig_of(pf) == "PERK" else ""
+        return m, arch, av, assoc, ptap
+
+    sp_out = ["SpellFormID\tSpellEDID\tSpellName\tSpellDesc\tReachedFrom\tEffectIndex\tMGEF_FormID\tMGEF_EDID\t"
+              "MGEF_Name\tMGEF_Desc\tArchetype\tActorValue\tAssocItem\tPerkToApply\tMagnitude\tArea\tDuration\t"
+              "DurationGlobal\tMagnitudeGlobal\tConditionCount\tConditions"]
+    pe_out = ["NPCOrSource\t" + pe_head]
+    done_s, done_p = set(), set()
+    objs = {}
+
+    def _spell_walk():
+      changed = True
+      while changed:
+        changed = False
+        for f in [x for x in perks if x not in done_p]:
+            done_p.add(f)
+            changed = True
+            for line in pe_by.get(f, []):
+                pe_out.append(perks[f] + "\t" + line)
+                for m in _re.finditer(r"\[SPEL:([0-9A-F]{8})\]", line):
+                    add(spells, int(m.group(1), 16), ref(f))
+        for f in [x for x in spells if x not in done_s]:
+            done_s.add(f)
+            changed = True
+            sr = esm.get(f)
+            s_full = cc(esm.lstring(sr.first("FULL"))) if sr else ""
+            s_desc = cc(esm.lstring(sr.first("DESC"))) if sr else ""
+            for line in sp_by.get(f, []):
+                c = line.split("\t")
+                mf = int(c[4], 16) if c[4] else 0
+                m, arch, av, assoc, ptap = mgef_info(mf)
+                sp_out.append("\t".join([c[0], c[1], s_full, s_desc, spells[f], c[3], c[4], c[5], c[6],
+                                         cc(esm.lstring(m.first("DNAM"))) if m else "", arch, av, assoc, ptap,
+                                         c[11], c[12], c[13], c[14], c[15], c[17], c[18]]))
+                if assoc and assoc.endswith(":SPEL"):
+                    add(spells, int(assoc[:8], 16), ref(mf))
+                if ptap:
+                    add(perks, int(ptap[:8], 16), ref(mf))
+
+    _spell_walk()
+    ob_out = ["ObjectFormID\tObjectEDID\tSig\tName\tReachedFrom\tDetails"]
+    for line in sp_rows[1:]:
+        c = line.split("\t")
+        if c[6] != "obj":
+            continue
+        fid_s, _e, sig = (c[7].split(":") + ["", "", ""])[:3]
+        if sig in ("HAZD", "EXPL", "ACTI", "NPC_"):
+            objs.setdefault(int(fid_s, 16), "%s [NPC_:%s] %s.%s" % (c[1], c[0], c[3], c[4]))
+    for f in sorted(objs):
+        o = esm.get(f)
+        if o is None:
+            continue
+        sig = esm.sig_of(f)
+        det = []
+        d = o.first("DNAM") if sig == "HAZD" else o.first("DATA") if sig == "EXPL" else None
+        fl = lambda o_: C.fmt_float(struct.unpack_from("<f", d, o_)[0])
+        if sig == "HAZD" and d and len(d) >= 28:
+            # FO76 HAZD DNAM: limit, radius, lifetime, IS radius, target interval, flags, spell, ...
+            det = ["Radius=" + fl(4), "Lifetime=" + fl(8), "TargetInterval=" + fl(16)]
+            hs = struct.unpack_from("<I", d, 24)[0]
+            if hs and esm.exists(hs):
+                det.append("Spell=%s" % ref(hs))
+                if esm.sig_of(hs) == "SPEL" and hs not in spells:
+                    spells[hs] = ref(f)
+        elif sig == "EXPL" and d and len(d) >= 44:
+            det = ["Force=" + fl(28), "Damage=" + fl(32), "InnerRadius=" + fl(36), "OuterRadius=" + fl(40)]
+            ei = o.first("EITM")
+            ef = struct.unpack_from("<I", ei)[0] if ei and len(ei) >= 4 else 0
+            if ef and esm.exists(ef):
+                det.append("Enchantment=%s" % ref(ef))
+        ob_out.append("\t".join(["%08X" % f, cc(o.edid), sig, cc(esm.full_of(f)), objs[f], " ;; ".join(det)]))
+    _spell_walk()
+    ms_out = ["MESGFormID\tMESGEDID\tFULL\tDESC\tReachedFrom"]
+    for f in sorted(msgs):
+        m = esm.get(f)
+        ms_out.append("\t".join(["%08X" % f, cc(m.edid), cc(esm.lstring(m.first("FULL"))),
+                                  cc(esm.lstring(m.first("DESC"))), msgs[f]]))
+    return {"_Abilities": ab_out, "_Perks": pk_out, "_Spells": sp_out, "_PerkEntries": pe_out, "_Messages": ms_out,
+            "_Objects": ob_out, "_ScriptDefaults": _npc_script_defaults(esm, sp_rows),
+            "_Inventory": _npc_inventory(esm)}
+
+
+def _npc_script_defaults(esm, sp_rows):
+    """Default values from the client .pex (SeventySix - MiscClient.ba2) of every
+    script on an NPC. A property the record doesn't set (VMAD) runs with this
+    default - The Pied Pipebomber's MoleRatsToSpawn 10 and
+    TimeFromTelegraphToUndermine 3. ClientCodeLines = instruction lines in the
+    client script; 0 means a stub: what the script does runs on Bethesda's servers."""
+    out = ["Script\tProperty\tType\tDefault\tClientCodeLines"]
+    try:
+        import pex_reader as P
+        ba = P.Ba2(os.path.join(esm.data_dir, P.ARCHIVE))
+    except Exception as e:                                # noqa: BLE001
+        print("  NPCSP _ScriptDefaults: MiscClient.ba2 not read (%s)" % e)
+        return out
+    names = sorted({l.split("\t")[3] for l in sp_rows[1:]})
+    for sn in names:
+        path = "scripts/client/" + sn.lower().replace(":", "/") + ".pex"
+        if path not in ba.files:
+            out.append("%s\t\t\t\t" % cc(sn))
+            continue
+        try:
+            text = P.disassemble(ba.read(path), with_source=False)
+        except Exception:                                 # noqa: BLE001
+            continue
+        lines = text.splitlines()
+        code = 0
+        in_fn = False
+        for ln in lines:
+            st = ln.strip()
+            if st.startswith("FUNCTION") or st.startswith("EVENT"):
+                in_fn = True
+            elif in_fn and st and not st.startswith(("STATE", "PROPERTY", "VAR", "PARAM", "LOCAL", "END")):
+                code += 1
+        rows = []
+        for ln in lines:
+            m = re.match(r"\s*VAR (\S+) ::(\w+)_var = (.+)$", ln)
+            if m and m.group(3) != "None":
+                rows.append("\t".join([cc(sn), m.group(2), m.group(1), cc(m.group(3)), str(code)]))
+        out += rows or ["%s\t\t\t\t%d" % (cc(sn), code)]
+    return out
+
+
 # ------------------------------------------------------------- QUST _ScriptProps --
 def exp_qust_sp(esm):
     """Quest script properties (VMAD): one row per property, with the record it
@@ -5597,6 +5940,8 @@ EXPORTS = {
     "MISC": (["MISC"], "MISC_Export", exp_misc),
     "NPC": (["NPC_"], "NPC_Export", exp_npc),
     "NPC2": (["NPC_", "FACT", "CNCY", "LCTN"], "NPC2_Vendors", exp_npc2),
+    "NPCSP": (["NPC_", "GLOB", "SPEL", "MGEF", "PERK", "MESG", "HAZD", "EXPL", "ACTI", "LVLI", "OTFT"], "NPCSP_Export", exp_npc_sp),
+    "NPCDLG": (["QUST"], "NPCDLG_Export", exp_npcdlg),
     "MISC2": (["MISC"], "MISC2_Export", exp_misc2),
     "ACTI": (["ACTI"], "ACTI_Export", exp_acti),
     "ACTI2": (["ACTI"], "ACTI2_Export", exp_acti2),

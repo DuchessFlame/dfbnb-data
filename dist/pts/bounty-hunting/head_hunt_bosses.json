@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-21T19:27:58.967222+00:00",
+  "generated": "2026-11-22T03:12:19.731226+00:00",
   "channel": "pts",
   "groupCount": 7,
   "totalBosses": 51,
@@ -22,41 +22,25 @@
           "gangEdid": "",
           "imageSlug": "bird-of-prey",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
-            "weaponType": "Gun",
+            "name": "Baseball Bat",
+            "baseName": "Baseball Bat",
+            "baseEdid": "crBaseballBat_Spiked_Gobbler",
+            "lvliEdid": "crLLI_RTSV_BountyHunt_Weapon_Ranged_Gobbler_BaseballBatSpiked",
+            "weaponType": "TwoHandSword",
             "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "maxRange": 10.0,
+            "ammo": "NULL - Null Reference [00000000]",
+            "capacity": 0,
+            "customMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "name": "Bleed Effect",
+                "edid": "Burn_Bounty_mod_custom_BleedEffect",
+                "formId": "008039AD",
+                "effect": "11 damage per second for 6 seconds"
               }
             ]
           },
-          "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
-            "weaponType": "Grenade",
-            "speed": 1.0,
-            "maxRange": 2000.0,
-            "ammo": "NULL - Null Reference [00000000]",
-            "capacity": 0
-          },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -74,41 +58,33 @@
           "gangEdid": "",
           "imageSlug": "buzzkill",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "Auto Grenade Launcher",
+            "baseName": "Auto Grenade Launcher",
+            "baseEdid": "crBeekeeperBoss_RTSV_AutoGL",
+            "lvliEdid": "crBeekeeperBoss_RTSV_AutoGL",
             "weaponType": "Gun",
-            "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "speed": 0.8,
+            "maxRange": 256.0,
+            "ammo": "AmmoGrenadeLauncher \"40mm Grenade Round\" [AMMO:001CF27D]",
+            "capacity": 9999,
+            "legendaryMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "star": 1,
+                "name": "Executioner's",
+                "edid": "mod_Legendary_Weapon1_Execute",
+                "formId": "004F6AA1"
+              }
+            ],
+            "customMods": [
+              {
+                "name": "Poison Effect",
+                "edid": "Burn_Bounty_mod_custom_PoisonEffect",
+                "formId": "008039AE",
+                "effect": "9 damage per second for 8 seconds"
               }
             ]
           },
-          "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
-            "weaponType": "Grenade",
-            "speed": 1.0,
-            "maxRange": 2000.0,
-            "ammo": "NULL - Null Reference [00000000]",
-            "capacity": 0
-          },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -126,41 +102,29 @@
           "gangEdid": "",
           "imageSlug": "dada",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "Assault Rifle",
+            "baseName": "Assault Rifle",
+            "baseEdid": "crAssaultRifle",
+            "lvliEdid": "crLLI_Weapon_Ranged_AssaultRifle_Rifle_Auto",
+            "templateKeyword": "if_tmp_Rifle_Auto",
             "weaponType": "Gun",
             "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
-              {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
-              }
-            ]
+            "maxRange": 3173.0,
+            "ammo": "Ammo556 \"5.56 Round\" [AMMO:0001F278]",
+            "capacity": 20
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Fragmentation Grenade",
+            "baseName": "Fragmentation Grenade",
+            "baseEdid": "crFragGrenade",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Frag",
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -178,41 +142,45 @@
           "gangEdid": "",
           "imageSlug": "detonation-dave",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "Radium Rifle",
+            "baseName": "Radium",
+            "baseEdid": "crRadiumRifle",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_RadiumRifle",
+            "templateKeyword": "if_tmp_Bounty_EnchRadExplosive",
             "weaponType": "Gun",
             "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "maxRange": 2821.0,
+            "ammo": "Ammo45Caliber \".45 Round\" [AMMO:0001F66A]",
+            "capacity": 20,
+            "legendaryMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "star": 2,
+                "name": "Explosive",
+                "edid": "mod_Legendary_Weapon2_Guns_ExplosiveBullets",
+                "formId": "004F5771"
+              }
+            ],
+            "customMods": [
+              {
+                "name": "Radiation Effect",
+                "edid": "Burn_Bounty_mod_custom_RadiationEffect",
+                "formId": "008039B0",
+                "effect": "8 radiation"
               }
             ]
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Fragmentation Grenade MIRV",
+            "baseName": "Fragmentation Grenade MIRV",
+            "baseEdid": "crDLC04_FragGrenadeMIRV",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_MIRVFrag",
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -230,41 +198,43 @@
           "gangEdid": "",
           "imageSlug": "il-maestro",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "Sniper Hunting Rifle",
+            "baseName": "Hunting Rifle",
+            "baseEdid": "crHuntingRifle",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_HuntingRifle_Sniper",
+            "templateKeyword": "if_tmp_Bounty_Sniper",
             "weaponType": "Gun",
-            "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "speed": 1.25,
+            "maxRange": 5225.0,
+            "ammo": "Ammo308Caliber \".308 Round\" [AMMO:0001F66B]",
+            "capacity": 5,
+            "legendaryMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "star": 1,
+                "name": "Executioner's",
+                "edid": "mod_Legendary_Weapon1_Execute",
+                "formId": "004F6AA1"
+              },
+              {
+                "star": 2,
+                "name": "Crippling",
+                "edid": "mod_Legendary_Weapon2_DmgLimbs",
+                "formId": "004ED02C"
               }
             ]
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Pulse Grenade or Plasma Grenade",
+            "baseName": "Pulse Grenade",
+            "baseEdid": "crPulseGrenade",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Energy",
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -282,41 +252,37 @@
           "gangEdid": "",
           "imageSlug": "the-black-horseman",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "Gatling Plasma",
+            "baseName": "Gatling Plasma",
+            "baseEdid": "crGatlingPlasma",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_GatlingPlasma_Famine",
+            "templateKeyword": "if_tmp_Bounty_Famine",
             "weaponType": "Gun",
             "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "maxRange": 3619.0,
+            "ammo": "AmmoPlasmaCore \"Plasma Core\" [AMMO:0001EC49]",
+            "capacity": 500,
+            "customMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "name": "Hunger Effect",
+                "edid": "Burn_Bounty_mod_custom_HungerEffect",
+                "formId": "0082073E",
+                "effect": "283 damage per second for 1 second"
               }
             ]
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Pulse Grenade or Plasma Grenade",
+            "baseName": "Pulse Grenade",
+            "baseEdid": "crPulseGrenade",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Energy",
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -334,41 +300,37 @@
           "gangEdid": "",
           "imageSlug": "the-oversearer",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "Tesla",
+            "baseName": "Tesla",
+            "baseEdid": "crLightningGun",
+            "lvliEdid": "crLLI_RTSV_BountyHunt_Weapon_Ranged_LightningGun",
+            "templateKeyword": "if_tmp_Bounty_VaultLooter",
             "weaponType": "Gun",
             "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "maxRange": 3966.0,
+            "ammo": "AmmoFusionCell \"Fusion Cell\" [AMMO:000C1897]",
+            "capacity": 15,
+            "legendaryMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "star": 1,
+                "name": "Juggernaut's",
+                "edid": "mod_Legendary_Weapon1_DamageViaHealth",
+                "formId": "00606B73"
               }
             ]
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Fragmentation Grenade or Molotov Cocktail",
+            "baseName": "Fragmentation Grenade",
+            "baseEdid": "crFragGrenade",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_FragMolotovBundle",
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -390,37 +352,33 @@
             "baseName": ".50 Cal Machine Gun",
             "baseEdid": "cr50CalMachineGun",
             "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "templateKeyword": "if_tmp_DeathGun",
             "weaponType": "Gun",
             "speed": 1.0,
             "maxRange": 3895.0,
             "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "capacity": 250,
+            "legendaryMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "star": 2,
+                "name": "Crippling",
+                "edid": "mod_Legendary_Weapon2_DmgLimbs",
+                "formId": "004ED02C"
               }
             ]
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Fragmentation Grenade",
+            "baseName": "Fragmentation Grenade",
+            "baseEdid": "crFragGrenade",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Frag",
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -438,41 +396,49 @@
           "gangEdid": "",
           "imageSlug": "the-pied-pipebomber",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "M79 Grenade Launcher",
+            "baseName": "M79 Grenade Launcher",
+            "baseEdid": "crMobsterM79",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_M79",
+            "templateKeyword": "if_tmp_Bounty_Underminer",
             "weaponType": "Gun",
             "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "maxRange": 3437.0,
+            "ammo": "AmmoGrenadeLauncher \"40mm Grenade Round\" [AMMO:001CF27D]",
+            "capacity": 1,
+            "legendaryMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "star": 1,
+                "name": "Quad",
+                "edid": "mod_Legendary_Weapon1_Guns_AmmoCapacity4x",
+                "formId": "004F6AB1"
+              },
+              {
+                "star": 2,
+                "name": "Rapid",
+                "edid": "mod_Legendary_Weapon2_Guns_RoF",
+                "formId": "0052414F"
+              },
+              {
+                "star": 3,
+                "name": "Swift",
+                "edid": "mod_Legendary_Weapon3_Guns_ReloadSpeed",
+                "formId": "00524150"
               }
             ]
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Floater Flamer Grenade or Molotov Cocktail",
+            "baseName": "Floater Flamer Grenade",
+            "baseEdid": "crFloaterFlamerGrenade",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Fire",
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -490,41 +456,37 @@
           "gangEdid": "",
           "imageSlug": "the-red-rider",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "Cremator",
+            "baseName": "Cremator",
+            "baseEdid": "crCremator",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_Cremator",
+            "templateKeyword": "if_tmp_Bounty_War",
             "weaponType": "Gun",
             "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "maxRange": 3850.0,
+            "ammo": "AmmoFlamerFuel \"Fuel\" [AMMO:000CAC78]",
+            "capacity": 90,
+            "legendaryMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "star": 1,
+                "name": "Executioner's",
+                "edid": "mod_Legendary_Weapon1_Execute",
+                "formId": "004F6AA1"
               }
             ]
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Floater Flamer Grenade or Molotov Cocktail",
+            "baseName": "Floater Flamer Grenade",
+            "baseEdid": "crFloaterFlamerGrenade",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Fire",
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -542,41 +504,43 @@
           "gangEdid": "",
           "imageSlug": "the-white-horseman",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "Plasma Caster",
+            "baseName": "Plasma Caster",
+            "baseEdid": "Bounty_crPlasmaCaster",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_PlasmaCaster",
+            "templateKeyword": "if_tmp_Bounty_Pestilence",
             "weaponType": "Gun",
             "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "maxRange": 256.0,
+            "ammo": "AmmoPlasmaCartridge \"Plasma Cartridge\" [AMMO:0001DBB7]",
+            "capacity": 20,
+            "customMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "name": "Radiation Effect",
+                "edid": "Burn_Bounty_mod_custom_RadiationEffect",
+                "formId": "008039B0",
+                "effect": "8 radiation"
+              },
+              {
+                "name": "Poison Effect",
+                "edid": "Burn_Bounty_mod_custom_PoisonEffect",
+                "formId": "008039AE",
+                "effect": "9 damage per second for 8 seconds"
               }
             ]
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Bug Grenade",
+            "baseName": "Bug Grenade",
+            "baseEdid": "crD01C_BugGrenade",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Bug",
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -605,41 +569,38 @@
           "gangEdid": "",
           "imageSlug": "anna-the-nuka-queen",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "Quantum Thirst Zapper",
+            "baseName": "Thirst Zapper",
+            "baseEdid": "crThirstZapper",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_ThirstZapper_Quantum",
+            "templateKeyword": "if_tmp_Bounty_EnchRadExplosive",
             "weaponType": "Gun",
             "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "maxRange": 823.0,
+            "ammo": "Ammo10mm \"10mm Round\" [AMMO:0001F276]",
+            "capacity": 1,
+            "legendaryMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "star": 2,
+                "name": "Crippling",
+                "edid": "mod_Legendary_Weapon2_DmgLimbs",
+                "formId": "004ED02C"
               }
             ]
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Nuka Grenade",
+            "baseName": "Nuka Grenade",
+            "baseEdid": "crNukaGrenade",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Rad_NukaCola",
+            "templateKeyword": "if_tmp_Bounty_NukaRifle",
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -657,41 +618,26 @@
           "gangEdid": "",
           "imageSlug": "ayam-legion",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "10mm Submachine Gun",
+            "baseName": "10mm Submachine Gun",
+            "baseEdid": "cr10mmSMG",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_10mmSMG",
+            "templateKeyword": "if_tmp_Bounty_EnchCryo",
             "weaponType": "Gun",
             "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "maxRange": 2565.0,
+            "ammo": "Ammo10mm \"10mm Round\" [AMMO:0001F276]",
+            "capacity": 30,
+            "customMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "name": "Cryo Effect",
+                "edid": "Burn_Bounty_mod_custom_CryoEffect",
+                "formId": "008039B2",
+                "effect": "11 damage per second for 1 second"
               }
             ]
           },
-          "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
-            "weaponType": "Grenade",
-            "speed": 1.0,
-            "maxRange": 2000.0,
-            "ammo": "NULL - Null Reference [00000000]",
-            "capacity": 0
-          },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -709,41 +655,36 @@
           "gangEdid": "",
           "imageSlug": "cletus-brimstone",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "Purifier Cremator",
+            "baseName": "Cremator",
+            "baseEdid": "crCremator",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_Cremator_Purifier",
+            "templateKeyword": "if_tmp_Bounty_Purifier",
             "weaponType": "Gun",
             "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "maxRange": 3850.0,
+            "ammo": "AmmoFlamerFuel \"Fuel\" [AMMO:000CAC78]",
+            "capacity": 90,
+            "customMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "name": "Purifier",
+                "edid": "Burn_Bounty_mod_Custom_Purifier",
+                "formId": "008206C0"
               }
             ]
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Floater Flamer Grenade",
+            "baseName": "Floater Flamer Grenade",
+            "baseEdid": "crFloaterFlamerGrenade",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_FloaterFlamer",
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -761,41 +702,45 @@
           "gangEdid": "",
           "imageSlug": "irene-the-irradiated",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "Hunting Rifle",
+            "baseName": "Hunting Rifle",
+            "baseEdid": "crHuntingRifle",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_HuntingRifle",
+            "templateKeyword": "if_tmp_Bounty_Irradiated",
             "weaponType": "Gun",
-            "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "speed": 1.25,
+            "maxRange": 5225.0,
+            "ammo": "Ammo308Caliber \".308 Round\" [AMMO:0001F66B]",
+            "capacity": 5,
+            "legendaryMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "star": 2,
+                "name": "Crippling",
+                "edid": "mod_Legendary_Weapon2_DmgLimbs",
+                "formId": "004ED02C"
+              }
+            ],
+            "customMods": [
+              {
+                "name": "Radiation Effect",
+                "edid": "Burn_Bounty_mod_custom_RadiationEffect",
+                "formId": "008039B0",
+                "effect": "8 radiation"
               }
             ]
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Nuka Grenade",
+            "baseName": "Nuka Grenade",
+            "baseEdid": "crNukaGrenade",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Rad",
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -813,41 +758,37 @@
           "gangEdid": "",
           "imageSlug": "jaques-the-jammer",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "Minigun",
+            "baseName": "Minigun",
+            "baseEdid": "Bounty_crMinigun",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_Minigun_Jammer",
+            "templateKeyword": "if_tmp_Bounty_Jammer",
             "weaponType": "Gun",
-            "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "speed": 2.0,
+            "maxRange": 5147.0,
+            "ammo": "Ammo5mm \"5mm Round\" [AMMO:0001F66C]",
+            "capacity": 500,
+            "legendaryMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "star": 1,
+                "name": "Anti-armor",
+                "edid": "mod_Legendary_Weapon1_AntiArmor",
+                "formId": "005281B4"
               }
             ]
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Baseball Grenade",
+            "baseName": "Baseball Grenade",
+            "baseEdid": "crBaseballGrenade",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Baseball",
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -865,41 +806,17 @@
           "gangEdid": "",
           "imageSlug": "mercys-end",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "Minigun",
+            "baseName": "Minigun",
+            "baseEdid": "crMinigun",
+            "lvliEdid": "crLLI_Weapon_Ranged_Minigun",
             "weaponType": "Gun",
-            "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
+            "speed": 2.0,
+            "maxRange": 5147.0,
+            "ammo": "Ammo5mm \"5mm Round\" [AMMO:0001F66C]",
+            "capacity": 500
           },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
-              {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
-              }
-            ]
-          },
-          "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
-            "weaponType": "Grenade",
-            "speed": 1.0,
-            "maxRange": 2000.0,
-            "ammo": "NULL - Null Reference [00000000]",
-            "capacity": 0
-          },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -917,41 +834,45 @@
           "gangEdid": "",
           "imageSlug": "micro-mike",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
-            "weaponType": "Gun",
+            "name": "Tenderizer",
+            "baseName": "Tenderizer",
+            "baseEdid": "crMeatTenderizer",
+            "lvliEdid": "crLLI_RTSV_BountyHunt_Weapon_Melee_Tenderizer",
+            "templateKeyword": "if_tmp_Bounty_Micro",
+            "weaponType": "TwoHandSword",
             "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "maxRange": 10.0,
+            "ammo": "NULL - Null Reference [00000000]",
+            "capacity": 0,
+            "legendaryMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "star": 1,
+                "name": "Executioner's",
+                "edid": "mod_Legendary_Weapon1_Execute",
+                "formId": "004F6AA1"
+              }
+            ],
+            "customMods": [
+              {
+                "name": "Radiation Effect",
+                "edid": "Burn_Bounty_mod_custom_RadiationEffect",
+                "formId": "008039B0",
+                "effect": "8 radiation"
               }
             ]
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Baseball Grenade",
+            "baseName": "Baseball Grenade",
+            "baseEdid": "crBaseballGrenade",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Baseball",
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -969,41 +890,50 @@
           "gangEdid": "",
           "imageSlug": "storm-warning",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "Railway Rifle",
+            "baseName": "crRailway Rifle",
+            "baseEdid": "crRailwayRifle",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_RailwayRifle_Chainer",
+            "templateKeyword": "if_tmp_Bounty_Chainer",
             "weaponType": "Gun",
-            "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "speed": 0.5774,
+            "maxRange": 3406.0,
+            "ammo": "AmmoRRSpike \"Railway Spike\" [AMMO:000FE269]",
+            "capacity": 10,
+            "legendaryMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "star": 1,
+                "name": "Anti-armor",
+                "edid": "mod_Legendary_Weapon1_AntiArmor",
+                "formId": "005281B4"
+              },
+              {
+                "star": 2,
+                "name": "Explosive",
+                "edid": "mod_Legendary_Weapon2_Guns_ExplosiveBullets",
+                "formId": "004F5771"
+              }
+            ],
+            "customMods": [
+              {
+                "name": "Start The Chain",
+                "edid": "RTSV_Bounty_mod_Custom_Chainer_StartChain",
+                "formId": "008C025F"
               }
             ]
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Pulse Grenade or Plasma Grenade",
+            "baseName": "Pulse Grenade",
+            "baseEdid": "crPulseGrenade",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Energy",
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -1021,41 +951,57 @@
           "gangEdid": "",
           "imageSlug": "the-cleaner",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "Meadow Breeze Sprayer",
+            "baseName": "Plasma Gun",
+            "baseEdid": "crPlasmaGun",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_AbraxoGun",
+            "templateKeyword": "if_tmp_AbraxoGun",
             "weaponType": "Gun",
             "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "maxRange": 1880.0,
+            "ammo": "AmmoPlasmaCartridge \"Plasma Cartridge\" [AMMO:0001DBB7]",
+            "capacity": 18,
+            "legendaryMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "star": 1,
+                "name": "Anti-armor",
+                "edid": "mod_Legendary_Weapon1_AntiArmor",
+                "formId": "005281B4"
+              },
+              {
+                "star": 2,
+                "name": "Inertial",
+                "edid": "mod_Legendary_Weapon2_APViaKill",
+                "formId": "00606B72"
+              },
+              {
+                "star": 3,
+                "name": "Durability",
+                "edid": "mod_Legendary_Weapon3_Durability",
+                "formId": "0037F7D9"
+              }
+            ],
+            "customMods": [
+              {
+                "name": "Meadow Breeze Sprayer Bounty",
+                "edid": "Bounty_Mod_Custom_AbraxoGun",
+                "formId": "00885C2D",
+                "effect": "Sprays Meadow Breeze"
               }
             ]
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Floater Flamer Grenade or Molotov Cocktail",
+            "baseName": "Floater Flamer Grenade",
+            "baseEdid": "crFloaterFlamerGrenade",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Fire",
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -1073,41 +1019,51 @@
           "gangEdid": "",
           "imageSlug": "the-malpractitioner",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "Medical Malpractice",
+            "baseName": "Medical Malpractice",
+            "baseEdid": "cr44_MedicalMalpractice",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_MedicalMalpractice",
+            "templateKeyword": "if_tmp_Bounty_Quack",
             "weaponType": "Gun",
             "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "maxRange": 2978.0,
+            "ammo": "Ammo44 \".44 Round\" [AMMO:0009221C]",
+            "capacity": 6,
+            "legendaryMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "star": 2,
+                "name": "Rapid",
+                "edid": "mod_Legendary_Weapon2_Guns_RoF",
+                "formId": "0052414F"
+              },
+              {
+                "star": 3,
+                "name": "Swift",
+                "edid": "mod_Legendary_Weapon3_Guns_ReloadSpeed",
+                "formId": "00524150"
+              }
+            ],
+            "customMods": [
+              {
+                "name": "Debuff Cocktail",
+                "edid": "Burn_Bounty_mod_custom_DebuffCocktail",
+                "formId": "0082073F",
+                "effect": "5 damage per second for 20 seconds · 9 damage per second for 1 second · 16 damage per second for 5 seconds · 19 damage per second for 20 seconds · 60 damage per second for 20 seconds"
               }
             ]
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "HalluciGen Gas Grenade",
+            "baseName": "HalluciGen Gas Grenade",
+            "baseEdid": "crHalluciGenGrenade_Bounty",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Hallucigen",
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -1124,42 +1080,7 @@
           "gangName": "",
           "gangEdid": "",
           "imageSlug": "the-secret-weapon",
-          "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
-            "weaponType": "Gun",
-            "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
-              {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
-              }
-            ]
-          },
-          "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
-            "weaponType": "Grenade",
-            "speed": 1.0,
-            "maxRange": 2000.0,
-            "ammo": "NULL - Null Reference [00000000]",
-            "capacity": 0
-          },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -1177,41 +1098,38 @@
           "gangEdid": "",
           "imageSlug": "the-sharpshooter",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "Black Powder Pistol",
+            "baseName": "Black Powder Pistol",
+            "baseEdid": "crBlackpowder_Pistol",
+            "lvliEdid": "crLLI_RTSV_BountyHunt_Weapon_Ranged_Blackpowder_Pistol",
+            "templateKeyword": "if_tmp_Bounty_Gunner",
             "weaponType": "Gun",
             "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "maxRange": 2115.0,
+            "ammo": "Ammo50CaliberBall \".50 Caliber Ball\" [AMMO:0000796E]",
+            "capacity": 1,
+            "legendaryMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "star": 1,
+                "name": "Two Shot",
+                "edid": "mod_Legendary_Weapon1_Guns_TwoShot",
+                "formId": "004F6D76"
+              },
+              {
+                "star": 2,
+                "name": "Explosive",
+                "edid": "mod_Legendary_Weapon2_Guns_ExplosiveBullets",
+                "formId": "004F5771"
+              },
+              {
+                "star": 3,
+                "name": "Swift",
+                "edid": "mod_Legendary_Weapon3_Guns_ReloadSpeed",
+                "formId": "00524150"
               }
             ]
           },
-          "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
-            "weaponType": "Grenade",
-            "speed": 1.0,
-            "maxRange": 2000.0,
-            "ammo": "NULL - Null Reference [00000000]",
-            "capacity": 0
-          },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -1240,41 +1158,49 @@
           "gangEdid": "",
           "imageSlug": "chief-meteorologist-sally-mcsun",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
-            "weaponType": "Gun",
+            "name": "Storm Cutter",
+            "baseName": "Storm Cutter",
+            "baseEdid": "Bounty_crStormcutter_Lost",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Melee_Stormcutter",
+            "templateKeyword": "if_tmp_Bounty_Weather",
+            "weaponType": "TwoHandSword",
             "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "maxRange": 10.0,
+            "ammo": "NULL - Null Reference [00000000]",
+            "capacity": 0,
+            "legendaryMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "star": 1,
+                "name": "Vampire's",
+                "edid": "mod_Legendary_Weapon1_Vampire",
+                "formId": "00527F84"
+              },
+              {
+                "star": 2,
+                "name": "Steady",
+                "edid": "mod_Legendary_Weapon2_Melee_Steady",
+                "formId": "00606C8D"
+              },
+              {
+                "star": 3,
+                "name": "Strength",
+                "edid": "mod_Legendary_Weapon3_StatStrength",
+                "formId": "005299FC"
               }
             ]
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Pulse Grenade or Plasma Grenade",
+            "baseName": "Pulse Grenade",
+            "baseEdid": "crPulseGrenade",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Energy",
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -1292,41 +1218,32 @@
           "gangEdid": "",
           "imageSlug": "greasehands-greta",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
-            "weaponType": "Gun",
+            "name": "Combat Knife",
+            "baseName": "Combat Knife",
+            "baseEdid": "crKnife_Stabitha",
+            "lvliEdid": "crLLI_RTSV_BountyHunt_Weapon_Melee_Knife",
+            "templateKeyword": "if_tmp_Bounty_Stabitha",
+            "weaponType": "OneHandSword",
             "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "maxRange": 256.0,
+            "ammo": "NULL - Null Reference [00000000]",
+            "capacity": 0,
+            "legendaryMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "star": 1,
+                "name": "Furious",
+                "edid": "mod_Legendary_Weapon1_DmgConsecutiveHits",
+                "formId": "004F577D"
+              },
+              {
+                "star": 2,
+                "name": "Rapid",
+                "edid": "mod_Legendary_Weapon2_Melee_SwingSpeed",
+                "formId": "001A7BDA"
               }
             ]
           },
-          "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
-            "weaponType": "Grenade",
-            "speed": 1.0,
-            "maxRange": 2000.0,
-            "ammo": "NULL - Null Reference [00000000]",
-            "capacity": 0
-          },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -1344,41 +1261,37 @@
           "gangEdid": "",
           "imageSlug": "lilly-oleander",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "Flamer",
+            "baseName": "Flamer",
+            "baseEdid": "crFlamer",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_Flamer_Florist",
+            "templateKeyword": "if_tmp_Bounty_Florist",
             "weaponType": "Gun",
             "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "maxRange": 1319.0,
+            "ammo": "AmmoFlamerFuel \"Fuel\" [AMMO:000CAC78]",
+            "capacity": 100,
+            "customMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "name": "Poison Effect",
+                "edid": "Burn_Bounty_mod_custom_PoisonEffect",
+                "formId": "008039AE",
+                "effect": "9 damage per second for 8 seconds"
               }
             ]
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Bug Grenade",
+            "baseName": "Bug Grenade",
+            "baseEdid": "crD01C_BugGrenade",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Bug",
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -1396,41 +1309,63 @@
           "gangEdid": "",
           "imageSlug": "ragtime-randy",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "Grand Finale",
+            "baseName": "Grand Finale",
+            "baseEdid": "crE09A_Broadsider_GrandFinale",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_GrandFinale",
+            "templateKeyword": "if_tmp_Bounty_Jazz",
             "weaponType": "Gun",
             "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "maxRange": 4400.0,
+            "ammo": "AmmoCannonBall \"Cannonball\" [AMMO:000FD11C]",
+            "capacity": 1,
+            "legendaryMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "star": 1,
+                "name": "Two Shot",
+                "edid": "mod_Legendary_Weapon1_Guns_TwoShot",
+                "formId": "004F6D76"
+              },
+              {
+                "star": 2,
+                "name": "Last Shot",
+                "edid": "mod_Legendary_Weapon2_Guns_LastShot",
+                "formId": "006069EC"
+              },
+              {
+                "star": 3,
+                "name": "Swift",
+                "edid": "mod_Legendary_Weapon3_Guns_ReloadSpeed",
+                "formId": "00524150"
+              }
+            ],
+            "customMods": [
+              {
+                "name": "Grand Finale",
+                "edid": "crmod_Custom_GrandFinale",
+                "formId": "008975BC",
+                "effect": "Increases Damage by 10% & Explodes with fireworks"
+              },
+              {
+                "name": "Bleed Effect",
+                "edid": "Burn_Bounty_mod_custom_BleedEffect",
+                "formId": "008039AD",
+                "effect": "11 damage per second for 6 seconds"
               }
             ]
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Baseball Grenade",
+            "baseName": "Baseball Grenade",
+            "baseEdid": "crBaseballGrenade",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Baseball",
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -1448,41 +1383,44 @@
           "gangEdid": "",
           "imageSlug": "the-ace",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "Auto Grenade Launcher",
+            "baseName": "Auto Grenade Launcher",
+            "baseEdid": "crMobsterAutoGrenadeLauncher",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_AutoGrenadeLauncher",
+            "templateKeyword": "if_tmp_Bounty_Pilot",
             "weaponType": "Gun",
-            "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "speed": 0.8,
+            "maxRange": 5225.0,
+            "ammo": "AmmoGrenadeLauncher \"40mm Grenade Round\" [AMMO:001CF27D]",
+            "capacity": 9999,
+            "legendaryMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "star": 1,
+                "name": "Two Shot",
+                "edid": "mod_Legendary_Weapon1_Guns_TwoShot",
+                "formId": "004F6D76"
+              }
+            ],
+            "customMods": [
+              {
+                "name": "Quad",
+                "edid": "Bounty_mod_Custom_QuadLegendary2",
+                "formId": "0088FCE8"
               }
             ]
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Fragmentation Grenade MIRV",
+            "baseName": "Fragmentation Grenade MIRV",
+            "baseEdid": "crDLC04_FragGrenadeMIRV",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_MIRVFrag",
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -1500,41 +1438,45 @@
           "gangEdid": "",
           "imageSlug": "the-chief-researcher",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "Laser Gun",
+            "baseName": "Laser",
+            "baseEdid": "Bounty_crLaserGun",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_LaserGun",
+            "templateKeyword": "if_tmp_Bounty_VaultTec",
             "weaponType": "Gun",
             "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "maxRange": 2350.0,
+            "ammo": "AmmoFusionCell \"Fusion Cell\" [AMMO:000C1897]",
+            "capacity": 30,
+            "legendaryMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "star": 1,
+                "name": "Anti-armor",
+                "edid": "mod_Legendary_Weapon1_AntiArmor",
+                "formId": "005281B4"
+              }
+            ],
+            "customMods": [
+              {
+                "name": "Radiation Effect",
+                "edid": "Burn_Bounty_mod_custom_RadiationEffect",
+                "formId": "008039B0",
+                "effect": "8 radiation"
               }
             ]
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Pulse Grenade or Plasma Grenade",
+            "baseName": "Pulse Grenade",
+            "baseEdid": "crPulseGrenade",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Energy",
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -1552,41 +1494,37 @@
           "gangEdid": "",
           "imageSlug": "the-inquisitionor",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "Flamer",
+            "baseName": "Flamer",
+            "baseEdid": "crFlamer",
+            "lvliEdid": "crLL_Weapon_Ranged_Flamer",
             "weaponType": "Gun",
             "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "maxRange": 1319.0,
+            "ammo": "AmmoFlamerFuel \"Fuel\" [AMMO:000CAC78]",
+            "capacity": 100,
+            "legendaryMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "star": 1,
+                "name": "Nocturnal",
+                "edid": "mod_Legendary_Weapon1_DamageNight",
+                "formId": "004F6AAE"
+              },
+              {
+                "star": 2,
+                "name": "Crippling",
+                "edid": "mod_Legendary_Weapon2_DmgLimbs",
+                "formId": "004ED02C"
+              },
+              {
+                "star": 3,
+                "name": "Durability",
+                "edid": "mod_Legendary_Weapon3_Durability",
+                "formId": "0037F7D9"
               }
             ]
           },
-          "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
-            "weaponType": "Grenade",
-            "speed": 1.0,
-            "maxRange": 2000.0,
-            "ammo": "NULL - Null Reference [00000000]",
-            "capacity": 0
-          },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -1604,41 +1542,49 @@
           "gangEdid": "",
           "imageSlug": "the-pirate-king",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "The Dragon",
+            "baseName": "The Dragon",
+            "baseEdid": "crBlackPowder_Rifle_Dragon",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_Dragon_Captain",
+            "templateKeyword": "if_tmp_Bounty_Captain",
             "weaponType": "Gun",
             "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "maxRange": 4469.0,
+            "ammo": "Ammo50CaliberBall \".50 Caliber Ball\" [AMMO:0000796E]",
+            "capacity": 1,
+            "legendaryMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "star": 1,
+                "name": "Executioner's",
+                "edid": "mod_Legendary_Weapon1_Execute",
+                "formId": "004F6AA1"
+              },
+              {
+                "star": 2,
+                "name": "Explosive",
+                "edid": "mod_Legendary_Weapon2_Guns_ExplosiveBullets",
+                "formId": "004F5771"
+              },
+              {
+                "star": 4,
+                "name": "Bully's",
+                "edid": "mod_Legendary_Weapon4_Bully",
+                "formId": "0079298C"
               }
             ]
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Dynamite Bundle",
+            "baseName": "Dynamite Bundle",
+            "baseEdid": "crDynamiteBundleGrenade",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_DynamiteBundle",
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -1656,41 +1602,29 @@
           "gangEdid": "",
           "imageSlug": "the-proletariat-punisher",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "Communist Handmade",
+            "baseName": "Handmade Rifle",
+            "baseEdid": "Bounty_crHandMadeGun",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_HandmadeCommunist",
+            "templateKeyword": "if_tmp_Bounty_Communist",
             "weaponType": "Gun",
             "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
-              {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
-              }
-            ]
+            "maxRange": 3173.0,
+            "ammo": "Ammo556 \"5.56 Round\" [AMMO:0001F278]",
+            "capacity": 20
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Floater Flamer Grenade or Molotov Cocktail",
+            "baseName": "Floater Flamer Grenade",
+            "baseEdid": "crFloaterFlamerGrenade",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Fire",
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -1708,41 +1642,37 @@
           "gangEdid": "",
           "imageSlug": "the-pseudo-subjugator",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
-            "weaponType": "Gun",
+            "name": "Chinese Officer Sword",
+            "baseName": "Chinese Officer Sword",
+            "baseEdid": "Bounty_crChineseOfficerSword",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Melee_ChineseOfficerSword",
+            "templateKeyword": "if_tmp_Bounty_Subjugator",
+            "weaponType": "OneHandSword",
             "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "maxRange": 10.0,
+            "ammo": "NULL - Null Reference [00000000]",
+            "capacity": 0,
+            "legendaryMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "star": 1,
+                "name": "Suppressor's",
+                "edid": "mod_Legendary_Weapon1_DebuffDamage",
+                "formId": "005281B8"
               }
             ]
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "HalluciGen Gas Grenade",
+            "baseName": "HalluciGen Gas Grenade",
+            "baseEdid": "crHalluciGenGrenade_Bounty_Subjugator",
+            "lvliEdid": "crLLI_RTSV_BountyHunt_Grenade_Subjugator",
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -1760,41 +1690,29 @@
           "gangEdid": "",
           "imageSlug": "the-space-ranger",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "Alien Blaster",
+            "baseName": "Cryo Alien Blaster",
+            "baseEdid": "crAlienBlaster_Cryo",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_AlienBlaster",
+            "templateKeyword": "if_tmp_Bounty_EnchCryo",
             "weaponType": "Gun",
             "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
-              {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
-              }
-            ]
+            "maxRange": 2115.0,
+            "ammo": "AmmoAlienBlaster \"Alien Blaster Round\" [AMMO:001025AA]",
+            "capacity": 0
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Cryogenic Grenade",
+            "baseName": "Cryogenic Grenade",
+            "baseEdid": "crCryoGrenade",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Cryo",
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -1812,41 +1730,43 @@
           "gangEdid": "",
           "imageSlug": "the-temporal-technician",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "Plasma Caster",
+            "baseName": "Plasma Caster",
+            "baseEdid": "Bounty_crPlasmaCaster",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_PlasmaCaster_Time",
+            "templateKeyword": "if_tmp_Bounty_Time",
             "weaponType": "Gun",
             "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "maxRange": 256.0,
+            "ammo": "AmmoPlasmaCartridge \"Plasma Cartridge\" [AMMO:0001DBB7]",
+            "capacity": 20,
+            "legendaryMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "star": 1,
+                "name": "Bloodied",
+                "edid": "mod_Legendary_Weapon1_DamageInverseHealth",
+                "formId": "004F6AA0"
+              },
+              {
+                "star": 2,
+                "name": "Crippling",
+                "edid": "mod_Legendary_Weapon2_DmgLimbs",
+                "formId": "004ED02C"
               }
             ]
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Cryogenic Grenade",
+            "baseName": "Cryogenic Grenade",
+            "baseEdid": "crCryoGrenade",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Cryo",
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -1875,41 +1795,29 @@
           "gangEdid": "",
           "imageSlug": "baron-boris-wazie",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
+            "name": "Gold .50 Cal Machine Gun",
             "baseName": ".50 Cal Machine Gun",
             "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun_Gold",
+            "templateKeyword": "if_tmp_Bounty_Money",
             "weaponType": "Gun",
             "speed": 1.0,
             "maxRange": 3895.0,
             "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
             "capacity": 250
           },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
-              {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
-              }
-            ]
-          },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Fragmentation Grenade MIRV",
+            "baseName": "Fragmentation Grenade MIRV",
+            "baseEdid": "crDLC04_FragGrenadeMIRV",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_MIRVFrag",
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -1926,42 +1834,7 @@
           "gangName": "",
           "gangEdid": "",
           "imageSlug": "chief-engineer-lewis",
-          "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
-            "weaponType": "Gun",
-            "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
-              {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
-              }
-            ]
-          },
-          "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
-            "weaponType": "Grenade",
-            "speed": 1.0,
-            "maxRange": 2000.0,
-            "ammo": "NULL - Null Reference [00000000]",
-            "capacity": 0
-          },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -1979,41 +1852,37 @@
           "gangEdid": "",
           "imageSlug": "corporal-jane",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "Patriot Missile Launcher",
+            "baseName": "Missile Launcher",
+            "baseEdid": "crMissileLauncher",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_MissileLauncher_Patriot",
+            "templateKeyword": "if_tmp_Bounty_Patriot",
             "weaponType": "Gun",
             "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "maxRange": 5225.0,
+            "ammo": "AmmoMissile \"Missile\" [AMMO:000CABA3]",
+            "capacity": 1,
+            "legendaryMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "star": 1,
+                "name": "Instigating",
+                "edid": "mod_Legendary_Weapon1_DamageFirstBlood",
+                "formId": "004F6AA5"
               }
             ]
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Bug Grenade",
+            "baseName": "Bug Grenade",
+            "baseEdid": "crD01C_BugGrenade",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Bug",
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -2031,41 +1900,45 @@
           "gangEdid": "",
           "imageSlug": "tincan-toni",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "Tesla Rifle",
+            "baseName": "Tesla",
+            "baseEdid": "crLightningGun",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_Tesla_Rifle",
+            "templateKeyword": "if_tmp_Bounty_Mechanist",
             "weaponType": "Gun",
             "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "maxRange": 3966.0,
+            "ammo": "AmmoFusionCell \"Fusion Cell\" [AMMO:000C1897]",
+            "capacity": 15,
+            "legendaryMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "star": 1,
+                "name": "Anti-armor",
+                "edid": "mod_Legendary_Weapon1_AntiArmor",
+                "formId": "005281B4"
+              }
+            ],
+            "customMods": [
+              {
+                "name": "Mechanist",
+                "edid": "Burn_Bounty_mod_Custom_Mechanist",
+                "formId": "00825CC7",
+                "effect": "Mech Bay-beeeeeeeee"
               }
             ]
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Pulse Grenade or Plasma Grenade",
+            "baseName": "Pulse Grenade",
+            "baseEdid": "crPulseGrenade",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Energy",
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -2094,41 +1967,44 @@
           "gangEdid": "",
           "imageSlug": "becca-the-heavyweight",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
-            "weaponType": "Gun",
+            "name": "Knuckles",
+            "baseName": "Knuckles",
+            "baseEdid": "crKnuckles",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Melee_Knuckles",
+            "templateKeyword": "if_tmp_Bounty_Boxer",
+            "weaponType": "HandToHandMelee",
             "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "maxRange": 0.0,
+            "ammo": "NULL - Null Reference [00000000]",
+            "capacity": 0,
+            "legendaryMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "star": 2,
+                "name": "Rapid",
+                "edid": "mod_Legendary_Weapon2_Melee_SwingSpeed",
+                "formId": "001A7BDA"
+              },
+              {
+                "star": 4,
+                "name": "Fracturer's",
+                "edid": "mod_Legendary_Weapon4_Fracturers",
+                "formId": "00792983"
               }
             ]
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Throwing Knife",
+            "baseName": "Throwing Knife",
+            "baseEdid": "crThrowing_Knife",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Throwable_ThrowingKnife_Boxers",
+            "templateKeyword": "if_tmp_Bounty_Boxer",
             "weaponType": "Grenade",
             "speed": 1.0,
-            "maxRange": 2000.0,
+            "maxRange": 2115.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -2146,41 +2022,55 @@
           "gangEdid": "",
           "imageSlug": "charlie-half-cocked",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "Gauss Rifle",
+            "baseName": "Gauss Rifle",
+            "baseEdid": "crGaussRifle",
+            "lvliEdid": "crLLI_RTSV_BountyHunt_Weapon_Ranged_GaussRifle",
+            "templateKeyword": "RD01_if_tmp_StrikeBreaker",
             "weaponType": "Gun",
             "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "maxRange": 5500.0,
+            "ammo": "Ammo2mmEC \"2mm Electromagnetic Cartridge\" [AMMO:0018ABDF]",
+            "capacity": 5,
+            "legendaryMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "star": 1,
+                "name": "Assassin's",
+                "edid": "mod_Legendary_Weapon1_DmgVsPlayers",
+                "formId": "004F5770"
+              },
+              {
+                "star": 2,
+                "name": "V.A.T.S. Enhanced",
+                "edid": "mod_Legendary_Weapon2_Guns_VATSAccuracy",
+                "formId": "00524153"
+              },
+              {
+                "star": 3,
+                "name": "Nimble",
+                "edid": "mod_Legendary_Weapon3_Guns_MoveSpeedSights",
+                "formId": "004ED02E"
+              },
+              {
+                "star": 4,
+                "name": "Conductor's",
+                "edid": "mod_Legendary_Weapon4_Conductors",
+                "formId": "007ACB0B"
               }
             ]
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Bug Grenade",
+            "baseName": "Bug Grenade",
+            "baseEdid": "crD01C_BugGrenade",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Bug",
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -2198,41 +2088,49 @@
           "gangEdid": "",
           "imageSlug": "cowgirl-janine",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "Pipe Revolver",
+            "baseName": "Pipe Revolver",
+            "baseEdid": "crPipeRevolver",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_PipeRevolver",
+            "templateKeyword": "if_tmp_Bounty_Gunslinger",
             "weaponType": "Gun",
             "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "maxRange": 2792.0,
+            "ammo": "Ammo45Caliber \".45 Round\" [AMMO:0001F66A]",
+            "capacity": 6,
+            "legendaryMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "star": 1,
+                "name": "Executioner's",
+                "edid": "mod_Legendary_Weapon1_Execute",
+                "formId": "004F6AA1"
+              },
+              {
+                "star": 2,
+                "name": "Rapid",
+                "edid": "mod_Legendary_Weapon2_Guns_RoF",
+                "formId": "0052414F"
+              },
+              {
+                "star": 3,
+                "name": "Swift",
+                "edid": "mod_Legendary_Weapon3_Guns_ReloadSpeed",
+                "formId": "00524150"
               }
             ]
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Dynamite Bundle",
+            "baseName": "Dynamite Bundle",
+            "baseEdid": "crDynamiteBundleGrenade",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_DynamiteBundle",
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -2250,41 +2148,43 @@
           "gangEdid": "",
           "imageSlug": "richie-finesse",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "Minigun",
+            "baseName": "Minigun",
+            "baseEdid": "Bounty_crMinigun",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_Minigun",
+            "templateKeyword": "if_tmp_Bounty_Scrambler",
             "weaponType": "Gun",
-            "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "speed": 2.0,
+            "maxRange": 5147.0,
+            "ammo": "Ammo5mm \"5mm Round\" [AMMO:0001F66C]",
+            "capacity": 500,
+            "legendaryMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "star": 1,
+                "name": "Anti-armor",
+                "edid": "mod_Legendary_Weapon1_AntiArmor",
+                "formId": "005281B4"
+              },
+              {
+                "star": 2,
+                "name": "Explosive",
+                "edid": "mod_Legendary_Weapon2_Guns_ExplosiveBullets",
+                "formId": "004F5771"
               }
             ]
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Fragmentation Grenade MIRV",
+            "baseName": "Fragmentation Grenade MIRV",
+            "baseEdid": "crDLC04_FragGrenadeMIRV",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_MIRVFrag",
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -2313,41 +2213,37 @@
           "gangEdid": "",
           "imageSlug": "colt-the-bolt",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "Automatic Tesla Rifle",
+            "baseName": "Tesla",
+            "baseEdid": "crLightningGun",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_Tesla_Rifle_Automatic",
+            "templateKeyword": "if_tmp_Bounty_Hunter",
             "weaponType": "Gun",
             "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "maxRange": 3966.0,
+            "ammo": "AmmoFusionCell \"Fusion Cell\" [AMMO:000C1897]",
+            "capacity": 15,
+            "customMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "name": "Electricians No Stun",
+                "edid": "Burn_Bounty_mod_Custom_Electricians_NoStun",
+                "formId": "0083D599",
+                "effect": "Apply Legendary Weapon Electrician's Explosion Effect"
               }
             ]
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Pulse Grenade or Plasma Grenade",
+            "baseName": "Pulse Grenade",
+            "baseEdid": "crPulseGrenade",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Energy",
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -2365,41 +2261,49 @@
           "gangEdid": "",
           "imageSlug": "granny-dolores",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "Double-Barrel Shotgun",
+            "baseName": "Double-Barrel Shotgun",
+            "baseEdid": "crDoubleBarrelShotgun",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_DoubleBarrelShotgun",
+            "templateKeyword": "if_tmp_Bounty_Granny",
             "weaponType": "Gun",
             "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "maxRange": 1439.0,
+            "ammo": "AmmoShotgunShell \"Shotgun Shell\" [AMMO:0001F673]",
+            "capacity": 2,
+            "legendaryMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "star": 1,
+                "name": "Two Shot",
+                "edid": "mod_Legendary_Weapon1_Guns_TwoShot",
+                "formId": "004F6D76"
+              },
+              {
+                "star": 2,
+                "name": "Last Shot",
+                "edid": "mod_Legendary_Weapon2_Guns_LastShot",
+                "formId": "006069EC"
+              },
+              {
+                "star": 3,
+                "name": "Swift",
+                "edid": "mod_Legendary_Weapon3_Guns_ReloadSpeed",
+                "formId": "00524150"
               }
             ]
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Baseball Grenade",
+            "baseName": "Baseball Grenade",
+            "baseEdid": "crBaseballGrenade",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Baseball",
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -2417,41 +2321,51 @@
           "gangEdid": "",
           "imageSlug": "the-devil-of-defiance",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "Wolf Double-Barrel Shotgun",
+            "baseName": "Double-Barrel Shotgun",
+            "baseEdid": "crDoubleBarrelShotgun",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_DoubleBarrelShotgun_Wolf",
+            "templateKeyword": "if_tmp_Bounty_BlueDevil",
             "weaponType": "Gun",
             "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "maxRange": 1439.0,
+            "ammo": "AmmoShotgunShell \"Shotgun Shell\" [AMMO:0001F673]",
+            "capacity": 2,
+            "legendaryMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "star": 1,
+                "name": "Executioner's",
+                "edid": "mod_Legendary_Weapon1_Execute",
+                "formId": "004F6AA1"
+              },
+              {
+                "star": 2,
+                "name": "Last Shot",
+                "edid": "mod_Legendary_Weapon2_Guns_LastShot",
+                "formId": "006069EC"
+              }
+            ],
+            "customMods": [
+              {
+                "name": "Bleed Effect",
+                "edid": "Burn_Bounty_mod_custom_BleedEffect",
+                "formId": "008039AD",
+                "effect": "11 damage per second for 6 seconds"
               }
             ]
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Tomahawk",
+            "baseName": "Tomahawk",
+            "baseEdid": "crTomahawk",
+            "lvliEdid": "crLLI_Throwable_Tomahawk",
             "weaponType": "Grenade",
             "speed": 1.0,
-            "maxRange": 2000.0,
+            "maxRange": 2115.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -2469,41 +2383,45 @@
           "gangEdid": "",
           "imageSlug": "vito-the-vic-bronco",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "Plasma Gun",
+            "baseName": "Plasma Gun",
+            "baseEdid": "crPlasmaGun",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_PlasmaGun",
+            "templateKeyword": "if_tmp_Bounty_Gambler",
             "weaponType": "Gun",
             "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "maxRange": 1880.0,
+            "ammo": "AmmoPlasmaCartridge \"Plasma Cartridge\" [AMMO:0001DBB7]",
+            "capacity": 18,
+            "legendaryMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "star": 1,
+                "name": "Anti-armor",
+                "edid": "mod_Legendary_Weapon1_AntiArmor",
+                "formId": "005281B4"
+              }
+            ],
+            "customMods": [
+              {
+                "name": "Gambling",
+                "edid": "Burn_Bounty_mod_Custom_Gambling",
+                "formId": "00825AA0",
+                "effect": "Magnitude 228"
               }
             ]
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Cryogenic Grenade",
+            "baseName": "Cryogenic Grenade",
+            "baseEdid": "crCryoGrenade",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Cryo",
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -2532,41 +2450,45 @@
           "gangEdid": "",
           "imageSlug": "amadi-the-piranha",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "Fishing Tesla Rifle",
+            "baseName": "Tesla",
+            "baseEdid": "crLightningGun",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_Tesla_Fishing",
+            "templateKeyword": "if_tmp_Bounty_Fisherman",
             "weaponType": "Gun",
             "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "maxRange": 3966.0,
+            "ammo": "AmmoFusionCell \"Fusion Cell\" [AMMO:000C1897]",
+            "capacity": 15,
+            "legendaryMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "star": 1,
+                "name": "Anti-armor",
+                "edid": "mod_Legendary_Weapon1_AntiArmor",
+                "formId": "005281B4"
+              }
+            ],
+            "customMods": [
+              {
+                "name": "Fisherman",
+                "edid": "Burn_Bounty_mod_Custom_Fisherman",
+                "formId": "0083BD88",
+                "effect": "Hooked!"
               }
             ]
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Cryogenic Grenade",
+            "baseName": "Cryogenic Grenade",
+            "baseEdid": "crCryoGrenade",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Cryo",
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -2584,41 +2506,55 @@
           "gangEdid": "",
           "imageSlug": "gentle-gary",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "Flatliner",
+            "baseName": "Gauss Rifle",
+            "baseEdid": "crGaussRifle",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_Flatliner",
+            "templateKeyword": "RD01_if_tmp_StrikeBreaker",
             "weaponType": "Gun",
             "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "maxRange": 5500.0,
+            "ammo": "Ammo2mmEC \"2mm Electromagnetic Cartridge\" [AMMO:0018ABDF]",
+            "capacity": 5,
+            "legendaryMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "star": 1,
+                "name": "Assassin's",
+                "edid": "mod_Legendary_Weapon1_DmgVsPlayers",
+                "formId": "004F5770"
+              },
+              {
+                "star": 2,
+                "name": "V.A.T.S. Enhanced",
+                "edid": "mod_Legendary_Weapon2_Guns_VATSAccuracy",
+                "formId": "00524153"
+              },
+              {
+                "star": 3,
+                "name": "Nimble",
+                "edid": "mod_Legendary_Weapon3_Guns_MoveSpeedSights",
+                "formId": "004ED02E"
+              },
+              {
+                "star": 4,
+                "name": "Conductor's",
+                "edid": "mod_Legendary_Weapon4_Conductors",
+                "formId": "007ACB0B"
               }
             ]
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Throwing Knife",
+            "baseName": "Throwing Knife",
+            "baseEdid": "crThrowing_Knife",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Throwable_ThrowingKnife",
             "weaponType": "Grenade",
             "speed": 1.0,
-            "maxRange": 2000.0,
+            "maxRange": 2115.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -2636,41 +2572,51 @@
           "gangEdid": "",
           "imageSlug": "scout-leader-karen",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "Crossbow",
+            "baseName": "Crossbow",
+            "baseEdid": "crcrossbow",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_Crossbow",
+            "templateKeyword": "if_tmp_Bounty_Scout",
             "weaponType": "Gun",
             "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "maxRange": 5237.0,
+            "ammo": "AmmoCrossbowBolt \"Crossbow Bolt\" [AMMO:0032B235]",
+            "capacity": 1,
+            "legendaryMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "star": 1,
+                "name": "Anti-armor",
+                "edid": "mod_Legendary_Weapon1_AntiArmor",
+                "formId": "005281B4"
+              },
+              {
+                "star": 2,
+                "name": "Rapid",
+                "edid": "mod_Legendary_Weapon2_Guns_RoF",
+                "formId": "0052414F"
+              }
+            ],
+            "customMods": [
+              {
+                "name": "Bleed Effect",
+                "edid": "Burn_Bounty_mod_custom_BleedEffect",
+                "formId": "008039AD",
+                "effect": "11 damage per second for 6 seconds"
               }
             ]
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Tomahawk",
+            "baseName": "Tomahawk",
+            "baseEdid": "crTomahawk",
+            "lvliEdid": "crLLI_Throwable_Tomahawk",
             "weaponType": "Grenade",
             "speed": 1.0,
-            "maxRange": 2000.0,
+            "maxRange": 2115.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."
@@ -2688,41 +2634,44 @@
           "gangEdid": "",
           "imageSlug": "the-foreman",
           "weapon": {
-            "name": ".50 Cal Machine Gun",
-            "baseName": ".50 Cal Machine Gun",
-            "baseEdid": "cr50CalMachineGun",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_50CalMachineGun",
-            "lvliFormId": "008039A2",
+            "name": "Auto Grenade Launcher",
+            "baseName": "Auto Grenade Launcher",
+            "baseEdid": "crMobsterAutoGrenadeLauncher",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Weapon_Ranged_AutoGrenadeLauncher",
+            "templateKeyword": "if_tmp_Bounty_Pilot",
             "weaponType": "Gun",
-            "speed": 1.0,
-            "maxRange": 3895.0,
-            "ammo": "Ammo50Caliber \".50 Round\" [AMMO:0001F279]",
-            "capacity": 250
-          },
-          "enchantment": {
-            "name": "Bleed",
-            "edid": "Burn_BountyHunt_EnchBleedChanceAlways",
-            "effects": [
+            "speed": 0.8,
+            "maxRange": 5225.0,
+            "ammo": "AmmoGrenadeLauncher \"40mm Grenade Round\" [AMMO:001CF27D]",
+            "capacity": 9999,
+            "legendaryMods": [
               {
-                "effect": "Damage Health",
-                "magnitude": 11.0,
-                "duration": 6,
-                "text": "11 damage per second for 6 seconds"
+                "star": 1,
+                "name": "Two Shot",
+                "edid": "mod_Legendary_Weapon1_Guns_TwoShot",
+                "formId": "004F6D76"
+              }
+            ],
+            "customMods": [
+              {
+                "name": "Quad",
+                "edid": "Bounty_mod_Custom_QuadLegendary2",
+                "formId": "0088FCE8"
               }
             ]
           },
           "grenade": {
-            "name": "Floater Gnasher Grenade",
-            "baseName": "Floater Gnasher Grenade",
-            "baseEdid": "crFloaterGnasherGrenade",
-            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Poison",
-            "lvliFormId": "008039A3",
+            "name": "Dynamite Bundle",
+            "baseName": "Dynamite Bundle",
+            "baseEdid": "crDynamiteBundleGrenade",
+            "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_DynamiteBundle",
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
             "ammo": "NULL - Null Reference [00000000]",
             "capacity": 0
           },
+          "weaponsFrom": "inventory",
           "sidekick": {
             "name": "Rust Raiders",
             "description": "Support wave enemies that spawn alongside the boss. They carry standard weapons and add pressure during the fight."

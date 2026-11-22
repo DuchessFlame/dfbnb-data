@@ -1,26 +1,36 @@
 {
- "generated": "2026-11-21T19:28:00+00:00",
+ "generated": "2026-11-22T05:46:05+00:00",
  "channel": "pts",
  "isPts": true,
  "sources": {
-  "BPTD": "tsv/BPTD_Export_November_2026.tsv",
-  "CURV_POINTS": "tsv/CURV_Export_November_2026_POINTS.tsv",
-  "FLST_Entries": "tsv/FLST_Export_November_2026_Entries.tsv",
-  "GLOB": "tsv/GLOB_Export_November_2026.tsv",
-  "KYWD": "tsv/KYWD_Export_November_2026.tsv",
-  "LVLI_Entries": "tsv/LVLI_Export_November_2026_LVLI_Entries.tsv",
-  "NPC": "tsv/NPC_Export_November_2026.tsv",
-  "NPC_PRPS": "tsv/NPC_Export_November_2026_PRPS.tsv",
-  "NPC_Refs": "tsv/NPC_Export_November_2026_Refs.tsv",
-  "SPEL_HEADER": "tsv/SPEL_Export_November_2026_HEADER.tsv",
-  "WEAP_DNAM": "tsv/WEAP_Export_November_2026_DNAM.tsv",
-  "head_hunt_bosses": "dist/bounty-hunting/head_hunt_bosses.json"
+  "BPTD": "tsv/pts/BPTD_Export_PTS_2026-11-14_0949.tsv",
+  "CURV_POINTS": "tsv/pts/CURV_Export_PTS_2026-11-14_0949_POINTS.tsv",
+  "ENCH": "tsv/pts/ENCH_Export_PTS_2026-11-14_0955.tsv",
+  "FLST_Entries": "tsv/pts/FLST_Export_PTS_2026-11-14_0956_Entries.tsv",
+  "GLOB": "tsv/pts/GLOB_Export_PTS_2026-11-14_0948.tsv",
+  "KYWD": "tsv/pts/KYWD_Export_PTS_2026-11-14_0949.tsv",
+  "LVLI_Entries": "tsv/pts/LVLI_Export_PTS_2026-11-14_0952_LVLI_Entries.tsv",
+  "MGEF": "tsv/pts/MGEF_Export_PTS_2026-11-15_1815.tsv",
+  "NPC": "tsv/pts/NPC_Export_PTS_2026-11-14_0950.tsv",
+  "NPCSP_Abilities": "tsv/pts/NPCSP_Export_PTS_2026-11-22_1106_Abilities.tsv",
+  "NPCSP_Messages": "tsv/pts/NPCSP_Export_PTS_2026-11-22_1106_Messages.tsv",
+  "NPCSP_Objects": "tsv/pts/NPCSP_Export_PTS_2026-11-22_1106_Objects.tsv",
+  "NPCSP_PerkEntries": "tsv/pts/NPCSP_Export_PTS_2026-11-22_1106_PerkEntries.tsv",
+  "NPCSP_Perks": "tsv/pts/NPCSP_Export_PTS_2026-11-22_1106_Perks.tsv",
+  "NPCSP_ScriptDefaults": "tsv/pts/NPCSP_Export_PTS_2026-11-22_1106_ScriptDefaults.tsv",
+  "NPCSP_ScriptProps": "tsv/pts/NPCSP_Export_PTS_2026-11-22_1106_ScriptProps.tsv",
+  "NPCSP_Spells": "tsv/pts/NPCSP_Export_PTS_2026-11-22_1106_Spells.tsv",
+  "NPC_PRPS": "tsv/pts/NPC_Export_PTS_2026-11-14_0950_PRPS.tsv",
+  "NPC_Refs": "tsv/pts/NPC_Export_PTS_2026-11-14_0950_Refs.tsv",
+  "SPEL_HEADER": "tsv/pts/SPEL_Export_PTS_2026-11-14_0948_HEADER.tsv",
+  "WEAP_DNAM": "tsv/pts/WEAP_Export_PTS_2026-11-14_0958_DNAM.tsv",
+  "head_hunt_bosses": "dist/pts/bounty-hunting/head_hunt_bosses.json"
  },
  "page": "head_hunts_skyline",
  "region": "Skyline Valley",
  "intro": {
   "title": "Bounty Hunting - Skyline Valley Head Hunt Boss Stats",
-  "blurb": "Each Skyline Valley Head Hunt boss comes with a distinct weapon setup and a signature mechanic, and the gang they bring follows the same theme. This page lists every boss by group with their weapons, health, damage and resistances, plus the gang members and support waves that fight alongside them. All numbers are read straight from the game files and update with every patch.",
+  "blurb": "Each Skyline Valley Head Hunt boss comes with a distinct weapon setup and a signature mechanic, and the gang they bring follows the same theme. This page lists every boss by group with their weapons, health, damage and resistances, plus the gang members and support waves that fight alongside them. All numbers update with every patch.",
   "profiles": "Bosses are grouped the same way as the Skyline Valley Head Hunt Groups lifetime challenges. Track your kills on the Grunt Hunt and Head Hunt Challenges page.",
   "mutations": "Mutation effects used by bounty targets. One-star outlaws are named after theirs, and some Head Hunt bosses carry a forced mutation as part of their signature attack.",
   "mechanics": "Skyline Valley Head Hunt bosses share the following stats.",
@@ -59,36 +69,38 @@
      "imageSlug": "bird-of-prey",
      "weapons": [
       {
-       "edid": "cr50CalMachineGun",
-       "name": ".50 Cal Machine Gun",
-       "ammo": ".50 Round",
-       "range": 3895,
-       "type": "Gun",
-       "damageMin": 11,
-       "damageMax": 77,
-       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
-       "slot": "Main"
-      },
-      {
-       "edid": "crFloaterGnasherGrenade",
-       "name": "Floater Gnasher Grenade",
+       "edid": "crBaseballBat_Spiked_Gobbler",
+       "name": "Baseball Bat",
        "ammo": "",
-       "range": 2000,
-       "type": "Grenade",
-       "damageMin": null,
-       "damageMax": null,
-       "damageCurve": "",
-       "slot": "Thrown"
+       "range": 10,
+       "type": "TwoHandSword",
+       "damageMin": 82,
+       "damageMax": 416,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier36",
+       "slot": "Main",
+       "custom": [
+        {
+         "name": "Bleed Effect",
+         "effect": "11 damage per second for 6 seconds"
+        }
+       ]
       }
      ],
-     "specials": [
-      {
-       "name": "Bleed",
-       "text": "11 damage per second for 6 seconds"
-      }
-     ],
+     "specials": [],
      "gangMembers": [
       "Pack Hunter"
+     ],
+     "mechanics": [],
+     "sideKickMechanics": [
+      {
+       "name": "Pack Hunters",
+       "lines": [
+        [
+         "Wound Salter",
+         "+50% damage to bleeding targets."
+        ]
+       ]
+      }
      ],
      "weakSpot": "Head — takes 1.5× damage",
      "limbs": [
@@ -161,36 +173,41 @@
      "imageSlug": "buzzkill",
      "weapons": [
       {
-       "edid": "cr50CalMachineGun",
-       "name": ".50 Cal Machine Gun",
-       "ammo": ".50 Round",
-       "range": 3895,
+       "edid": "crBeekeeperBoss_RTSV_AutoGL",
+       "name": "Auto Grenade Launcher",
+       "ammo": "40mm Grenade Round",
+       "range": 256,
        "type": "Gun",
-       "damageMin": 11,
-       "damageMax": 77,
-       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
-       "slot": "Main"
-      },
-      {
-       "edid": "crFloaterGnasherGrenade",
-       "name": "Floater Gnasher Grenade",
-       "ammo": "",
-       "range": 2000,
-       "type": "Grenade",
-       "damageMin": null,
-       "damageMax": null,
-       "damageCurve": "",
-       "slot": "Thrown"
+       "damageMin": 48,
+       "damageMax": 267,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier31",
+       "slot": "Main",
+       "legendary": [
+        "1★ Executioner's"
+       ],
+       "custom": [
+        {
+         "name": "Poison Effect",
+         "effect": "9 damage per second for 8 seconds"
+        }
+       ]
       }
      ],
-     "specials": [
-      {
-       "name": "Bleed",
-       "text": "11 damage per second for 6 seconds"
-      }
-     ],
+     "specials": [],
      "gangMembers": [
       "Belligerent Beekeeper"
+     ],
+     "mechanics": [],
+     "sideKickMechanics": [
+      {
+       "name": "Belligerent Beekeepers",
+       "lines": [
+        [
+         "Picks on the poisoned",
+         "×1.5 damage to targets that are poisoned."
+        ]
+       ]
+      }
      ],
      "weakSpot": "Head — takes 1.5× damage",
      "limbs": [
@@ -263,19 +280,19 @@
      "imageSlug": "dada",
      "weapons": [
       {
-       "edid": "cr50CalMachineGun",
-       "name": ".50 Cal Machine Gun",
-       "ammo": ".50 Round",
-       "range": 3895,
+       "edid": "crAssaultRifle",
+       "name": "Assault Rifle",
+       "ammo": "5.56 Round",
+       "range": 3173,
        "type": "Gun",
-       "damageMin": 11,
-       "damageMax": 77,
-       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "damageMin": 14,
+       "damageMax": 93,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier19",
        "slot": "Main"
       },
       {
-       "edid": "crFloaterGnasherGrenade",
-       "name": "Floater Gnasher Grenade",
+       "edid": "crFragGrenade",
+       "name": "Fragmentation Grenade",
        "ammo": "",
        "range": 2000,
        "type": "Grenade",
@@ -285,14 +302,60 @@
        "slot": "Thrown"
       }
      ],
-     "specials": [
-      {
-       "name": "Bleed",
-       "text": "11 damage per second for 6 seconds"
-      }
-     ],
+     "specials": [],
      "gangMembers": [
       "Dada's Hound"
+     ],
+     "mechanics": [
+      {
+       "title": "Limb damage",
+       "lines": [
+        [
+         "Damage",
+         "+75% damage to limbs."
+        ]
+       ],
+       "source": "perk"
+      },
+      {
+       "title": "Picks on the crippled",
+       "lines": [
+        [
+         "Damage",
+         "×2 damage to targets the game flags with a VATS target height of 1."
+        ]
+       ],
+       "source": "perk"
+      },
+      {
+       "title": "Immunities",
+       "lines": [
+        [
+         "Immune to",
+         "radiation."
+        ]
+       ],
+       "source": "perk"
+      }
+     ],
+     "sideKickMechanics": [
+      {
+       "name": "Dada's Hounds",
+       "lines": [
+        [
+         "Limb damage",
+         "same as the boss."
+        ],
+        [
+         "Armour piercing",
+         "Ignores 50% of your armour."
+        ],
+        [
+         "Immunities",
+         "same as the boss."
+        ]
+       ]
+      }
      ],
      "weakSpot": "Head — takes 1.25× damage",
      "limbs": [
@@ -363,19 +426,28 @@
      "imageSlug": "detonation-dave",
      "weapons": [
       {
-       "edid": "cr50CalMachineGun",
-       "name": ".50 Cal Machine Gun",
-       "ammo": ".50 Round",
-       "range": 3895,
+       "edid": "crRadiumRifle",
+       "name": "Radium Rifle",
+       "ammo": ".45 Round",
+       "range": 2821,
        "type": "Gun",
-       "damageMin": 11,
-       "damageMax": 77,
-       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
-       "slot": "Main"
+       "damageMin": 14,
+       "damageMax": 93,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier19",
+       "slot": "Main",
+       "legendary": [
+        "2★ Explosive"
+       ],
+       "custom": [
+        {
+         "name": "Radiation Effect",
+         "effect": "8 radiation"
+        }
+       ]
       },
       {
-       "edid": "crFloaterGnasherGrenade",
-       "name": "Floater Gnasher Grenade",
+       "edid": "crDLC04_FragGrenadeMIRV",
+       "name": "Fragmentation Grenade MIRV",
        "ammo": "",
        "range": 2000,
        "type": "Grenade",
@@ -385,14 +457,25 @@
        "slot": "Thrown"
       }
      ],
-     "specials": [
-      {
-       "name": "Bleed",
-       "text": "11 damage per second for 6 seconds"
-      }
-     ],
+     "specials": [],
      "gangMembers": [
       "Bewildered Bomber"
+     ],
+     "mechanics": [
+      {
+       "title": "Orbital strikes",
+       "lines": [
+        [
+         "When",
+         "at 90%, 50% and 30% of his health."
+        ],
+        [
+         "Warning first",
+         "an alarm sounds and a targeting laser runs for 5.9 seconds, then the strike explodes."
+        ]
+       ],
+       "source": "script"
+      }
      ],
      "weakSpot": "Head — takes 1.5× damage",
      "limbs": [
@@ -465,19 +548,23 @@
      "imageSlug": "il-maestro",
      "weapons": [
       {
-       "edid": "cr50CalMachineGun",
-       "name": ".50 Cal Machine Gun",
-       "ammo": ".50 Round",
-       "range": 3895,
+       "edid": "crHuntingRifle",
+       "name": "Sniper Hunting Rifle",
+       "ammo": ".308 Round",
+       "range": 5225,
        "type": "Gun",
-       "damageMin": 11,
-       "damageMax": 77,
-       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
-       "slot": "Main"
+       "damageMin": 36,
+       "damageMax": 205,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier28",
+       "slot": "Main",
+       "legendary": [
+        "1★ Executioner's",
+        "2★ Crippling"
+       ]
       },
       {
-       "edid": "crFloaterGnasherGrenade",
-       "name": "Floater Gnasher Grenade",
+       "edid": "crPulseGrenade",
+       "name": "Pulse Grenade or Plasma Grenade",
        "ammo": "",
        "range": 2000,
        "type": "Grenade",
@@ -487,14 +574,21 @@
        "slot": "Thrown"
       }
      ],
-     "specials": [
-      {
-       "name": "Bleed",
-       "text": "11 damage per second for 6 seconds"
-      }
-     ],
+     "specials": [],
      "gangMembers": [
       "Provocative Performer"
+     ],
+     "mechanics": [
+      {
+       "title": "Hates your radio",
+       "lines": [
+        [
+         "Damage",
+         "×2 damage to you while your Pip-Boy radio is on."
+        ]
+       ],
+       "source": "perk"
+      }
      ],
      "weakSpot": "Head — takes 1.5× damage",
      "limbs": [
@@ -567,19 +661,22 @@
      "imageSlug": "the-oversearer",
      "weapons": [
       {
-       "edid": "cr50CalMachineGun",
-       "name": ".50 Cal Machine Gun",
-       "ammo": ".50 Round",
-       "range": 3895,
+       "edid": "crLightningGun",
+       "name": "Tesla",
+       "ammo": "Fusion Cell",
+       "range": 3966,
        "type": "Gun",
-       "damageMin": 11,
-       "damageMax": 77,
-       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
-       "slot": "Main"
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Main",
+       "legendary": [
+        "1★ Juggernaut's"
+       ]
       },
       {
-       "edid": "crFloaterGnasherGrenade",
-       "name": "Floater Gnasher Grenade",
+       "edid": "crFragGrenade",
+       "name": "Fragmentation Grenade or Molotov Cocktail",
        "ammo": "",
        "range": 2000,
        "type": "Grenade",
@@ -589,15 +686,42 @@
        "slot": "Thrown"
       }
      ],
-     "specials": [
-      {
-       "name": "Bleed",
-       "text": "11 damage per second for 6 seconds"
-      }
-     ],
+     "specials": [],
      "gangMembers": [
       "Vault Wannabe",
       "Vault Wannabe"
+     ],
+     "mechanics": [
+      {
+       "title": "Wrecking Ball",
+       "lines": [
+        [
+         "Damage",
+         "×2 damage to turrets and objects."
+        ]
+       ],
+       "source": "perk"
+      },
+      {
+       "title": "Vault-Tec weakness",
+       "lines": [
+        [
+         "Takes",
+         "×1.5 damage from players wearing Vault clothing."
+        ]
+       ],
+       "source": "perk"
+      },
+      {
+       "title": "Vault-Tec grudge",
+       "lines": [
+        [
+         "Deals",
+         "×1.5 damage to anyone in a vault suit or one of 9 Vault-Tec outfits and hazmat suits."
+        ]
+       ],
+       "source": "perk"
+      }
      ],
      "weakSpot": "Head — takes 1.5× damage",
      "limbs": [
@@ -670,19 +794,24 @@
      "imageSlug": "the-pied-pipebomber",
      "weapons": [
       {
-       "edid": "cr50CalMachineGun",
-       "name": ".50 Cal Machine Gun",
-       "ammo": ".50 Round",
-       "range": 3895,
+       "edid": "crMobsterM79",
+       "name": "M79 Grenade Launcher",
+       "ammo": "40mm Grenade Round",
+       "range": 3437,
        "type": "Gun",
-       "damageMin": 11,
-       "damageMax": 77,
-       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
-       "slot": "Main"
+       "damageMin": 3,
+       "damageMax": 3,
+       "damageCurve": "",
+       "slot": "Main",
+       "legendary": [
+        "1★ Quad",
+        "2★ Rapid",
+        "3★ Swift"
+       ]
       },
       {
-       "edid": "crFloaterGnasherGrenade",
-       "name": "Floater Gnasher Grenade",
+       "edid": "crFloaterFlamerGrenade",
+       "name": "Floater Flamer Grenade or Molotov Cocktail",
        "ammo": "",
        "range": 2000,
        "type": "Grenade",
@@ -692,14 +821,29 @@
        "slot": "Thrown"
       }
      ],
-     "specials": [
-      {
-       "name": "Bleed",
-       "text": "11 damage per second for 6 seconds"
-      }
-     ],
+     "specials": [],
      "gangMembers": [
       "Tunneling Terror"
+     ],
+     "mechanics": [
+      {
+       "title": "Mole rat waves",
+       "lines": [
+        [
+         "When",
+         "at 80%, 60% and 30% of his health, so three waves in a full fight."
+        ],
+        [
+         "Warning first",
+         "a screen message, \"The Molerats are coming!\", plus a 4-second camera shake. The waves hit 3 seconds after the warning."
+        ],
+        [
+         "What spawns",
+         "10 Enraged Mole Rat Landminers per wave, at the hunt's three spawn markers around the area. These are the same bomb-vest mole rats as the drill section of the Gleaming Depths raid, so they run at you and blow up."
+        ]
+       ],
+       "source": "script"
+      }
      ],
      "weakSpot": "Head — takes 1.5× damage",
      "limbs": [
@@ -779,36 +923,38 @@
      "imageSlug": "ayam-legion",
      "weapons": [
       {
-       "edid": "cr50CalMachineGun",
-       "name": ".50 Cal Machine Gun",
-       "ammo": ".50 Round",
-       "range": 3895,
+       "edid": "cr10mmSMG",
+       "name": "10mm Submachine Gun",
+       "ammo": "10mm Round",
+       "range": 2565,
        "type": "Gun",
-       "damageMin": 11,
-       "damageMax": 77,
-       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
-       "slot": "Main"
-      },
-      {
-       "edid": "crFloaterGnasherGrenade",
-       "name": "Floater Gnasher Grenade",
-       "ammo": "",
-       "range": 2000,
-       "type": "Grenade",
-       "damageMin": null,
-       "damageMax": null,
-       "damageCurve": "",
-       "slot": "Thrown"
+       "damageMin": 8,
+       "damageMax": 59,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier14",
+       "slot": "Main",
+       "custom": [
+        {
+         "name": "Cryo Effect",
+         "effect": "11 damage per second for 1 second"
+        }
+       ]
       }
      ],
-     "specials": [
-      {
-       "name": "Bleed",
-       "text": "11 damage per second for 6 seconds"
-      }
-     ],
+     "specials": [],
      "gangMembers": [
       "Legion's Lieutenant"
+     ],
+     "mechanics": [
+      {
+       "title": "Special Agent Damage",
+       "lines": [
+        [
+         "Script",
+         "a Special Agent Damage effect that watches his health."
+        ]
+       ],
+       "source": "script"
+      }
      ],
      "weakSpot": "Head — takes 1.5× damage",
      "limbs": [
@@ -881,19 +1027,22 @@
      "imageSlug": "jaques-the-jammer",
      "weapons": [
       {
-       "edid": "cr50CalMachineGun",
-       "name": ".50 Cal Machine Gun",
-       "ammo": ".50 Round",
-       "range": 3895,
+       "edid": "Bounty_crMinigun",
+       "name": "Minigun",
+       "ammo": "5mm Round",
+       "range": 5147,
        "type": "Gun",
-       "damageMin": 11,
-       "damageMax": 77,
-       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
-       "slot": "Main"
+       "damageMin": 10,
+       "damageMax": 71,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier16",
+       "slot": "Main",
+       "legendary": [
+        "1★ Anti-armor"
+       ]
       },
       {
-       "edid": "crFloaterGnasherGrenade",
-       "name": "Floater Gnasher Grenade",
+       "edid": "crBaseballGrenade",
+       "name": "Baseball Grenade",
        "ammo": "",
        "range": 2000,
        "type": "Grenade",
@@ -903,14 +1052,37 @@
        "slot": "Thrown"
       }
      ],
-     "specials": [
-      {
-       "name": "Bleed",
-       "text": "11 damage per second for 6 seconds"
-      }
-     ],
+     "specials": [],
      "gangMembers": [
       "Ticked Off Technician"
+     ],
+     "mechanics": [
+      {
+       "title": "Damage jammers",
+       "lines": [
+        [
+         "When",
+         "at 80%, 50% and 30% of his health."
+        ],
+        [
+         "Warning",
+         "a screen message, \"Three strange devices are limiting your damage!\""
+        ],
+        [
+         "What spawns",
+         "3 Jaques' Jammers around the hunt area."
+        ],
+        [
+         "Effect",
+         "while they work, Damage Inhibiting (\"A nearby device is lowering your damage\") cuts your weapon damage to 1% of normal; each dose lasts 60 seconds."
+        ],
+        [
+         "How long",
+         "up to 120 seconds, then \"The devices no longer restrict your damage!\"."
+        ]
+       ],
+       "source": "script"
+      }
      ],
      "weakSpot": "Head — takes 1.5× damage",
      "limbs": [
@@ -983,36 +1155,43 @@
      "imageSlug": "mercys-end",
      "weapons": [
       {
-       "edid": "cr50CalMachineGun",
-       "name": ".50 Cal Machine Gun",
-       "ammo": ".50 Round",
-       "range": 3895,
+       "edid": "crMinigun",
+       "name": "Minigun",
+       "ammo": "5mm Round",
+       "range": 5147,
        "type": "Gun",
-       "damageMin": 11,
-       "damageMax": 77,
-       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "damageMin": 7,
+       "damageMax": 54,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier13",
        "slot": "Main"
-      },
-      {
-       "edid": "crFloaterGnasherGrenade",
-       "name": "Floater Gnasher Grenade",
-       "ammo": "",
-       "range": 2000,
-       "type": "Grenade",
-       "damageMin": null,
-       "damageMax": null,
-       "damageCurve": "",
-       "slot": "Thrown"
       }
      ],
-     "specials": [
-      {
-       "name": "Bleed",
-       "text": "11 damage per second for 6 seconds"
-      }
-     ],
+     "specials": [],
      "gangMembers": [
       "Runaway Responder"
+     ],
+     "mechanics": [
+      {
+       "title": "Medic's weakness",
+       "lines": [
+        [
+         "Takes",
+         "×1.5 damage from Medic's weapons."
+        ]
+       ],
+       "source": "perk"
+      }
+     ],
+     "sideKickMechanics": [
+      {
+       "name": "Runaway Responders",
+       "lines": [
+        [
+         "Medic's weakness",
+         "same as the boss."
+        ]
+       ]
+      }
      ],
      "weakSpot": "Head — takes 1.5× damage",
      "limbs": [
@@ -1085,19 +1264,28 @@
      "imageSlug": "micro-mike",
      "weapons": [
       {
-       "edid": "cr50CalMachineGun",
-       "name": ".50 Cal Machine Gun",
-       "ammo": ".50 Round",
-       "range": 3895,
-       "type": "Gun",
-       "damageMin": 11,
-       "damageMax": 77,
-       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
-       "slot": "Main"
+       "edid": "crMeatTenderizer",
+       "name": "Tenderizer",
+       "ammo": "",
+       "range": 10,
+       "type": "TwoHandSword",
+       "damageMin": 48,
+       "damageMax": 267,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier31",
+       "slot": "Main",
+       "legendary": [
+        "1★ Executioner's"
+       ],
+       "custom": [
+        {
+         "name": "Radiation Effect",
+         "effect": "8 radiation"
+        }
+       ]
       },
       {
-       "edid": "crFloaterGnasherGrenade",
-       "name": "Floater Gnasher Grenade",
+       "edid": "crBaseballGrenade",
+       "name": "Baseball Grenade",
        "ammo": "",
        "range": 2000,
        "type": "Grenade",
@@ -1107,14 +1295,32 @@
        "slot": "Thrown"
       }
      ],
-     "specials": [
-      {
-       "name": "Bleed",
-       "text": "11 damage per second for 6 seconds"
-      }
-     ],
+     "specials": [],
      "gangMembers": [
       "Radioactive Raider"
+     ],
+     "mechanics": [
+      {
+       "title": "Exploits Weakness to Mike",
+       "lines": [
+        [
+         "Damage",
+         "×2 damage to anyone with Weakness to Mike (his side-kicks' hits give it, 10 seconds)."
+        ]
+       ],
+       "source": "perk"
+      }
+     ],
+     "sideKickMechanics": [
+      {
+       "name": "Radioactive Raiders",
+       "lines": [
+        [
+         "Weakness to Mike",
+         "Their hits give you Weakness to Mike for 10 seconds, which lowers your Damage Resistance."
+        ]
+       ]
+      }
      ],
      "weakSpot": "Head — takes 1.5× damage",
      "limbs": [
@@ -1187,19 +1393,29 @@
      "imageSlug": "storm-warning",
      "weapons": [
       {
-       "edid": "cr50CalMachineGun",
-       "name": ".50 Cal Machine Gun",
-       "ammo": ".50 Round",
-       "range": 3895,
+       "edid": "crRailwayRifle",
+       "name": "Railway Rifle",
+       "ammo": "Railway Spike",
+       "range": 3406,
        "type": "Gun",
-       "damageMin": 11,
-       "damageMax": 77,
-       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
-       "slot": "Main"
+       "damageMin": 40,
+       "damageMax": 224,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier29",
+       "slot": "Main",
+       "legendary": [
+        "1★ Anti-armor",
+        "2★ Explosive"
+       ],
+       "custom": [
+        {
+         "name": "Start The Chain",
+         "effect": ""
+        }
+       ]
       },
       {
-       "edid": "crFloaterGnasherGrenade",
-       "name": "Floater Gnasher Grenade",
+       "edid": "crPulseGrenade",
+       "name": "Pulse Grenade or Plasma Grenade",
        "ammo": "",
        "range": 2000,
        "type": "Grenade",
@@ -1209,15 +1425,11 @@
        "slot": "Thrown"
       }
      ],
-     "specials": [
-      {
-       "name": "Bleed",
-       "text": "11 damage per second for 6 seconds"
-      }
-     ],
+     "specials": [],
      "gangMembers": [
       "Sadistic Shocker"
      ],
+     "mechanics": [],
      "weakSpot": "Head — takes 1.5× damage",
      "limbs": [
       {
@@ -1287,38 +1499,61 @@
      "speedMult": 120.0,
      "gang": "",
      "imageSlug": "the-secret-weapon",
-     "weapons": [
-      {
-       "edid": "cr50CalMachineGun",
-       "name": ".50 Cal Machine Gun",
-       "ammo": ".50 Round",
-       "range": 3895,
-       "type": "Gun",
-       "damageMin": 11,
-       "damageMax": 77,
-       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
-       "slot": "Main"
-      },
-      {
-       "edid": "crFloaterGnasherGrenade",
-       "name": "Floater Gnasher Grenade",
-       "ammo": "",
-       "range": 2000,
-       "type": "Grenade",
-       "damageMin": null,
-       "damageMax": null,
-       "damageCurve": "",
-       "slot": "Thrown"
-      }
-     ],
-     "specials": [
-      {
-       "name": "Bleed",
-       "text": "11 damage per second for 6 seconds"
-      }
-     ],
+     "weapons": [],
+     "specials": [],
      "gangMembers": [
       "Stealth Killer"
+     ],
+     "mechanics": [
+      {
+       "title": "Stealth Killers backup",
+       "lines": [
+        [
+         "Backup",
+         "he brings in Stealth Killers, up to 3 at a time."
+        ],
+        [
+         "Player down",
+         "extra ones can spawn when a player goes down."
+        ]
+       ],
+       "source": "script"
+      },
+      {
+       "title": "Self-heal",
+       "lines": [
+        [
+         "Healing",
+         "a \"Bounty Healing Effect\" on his Health (magnitude 19) while alive."
+        ]
+       ],
+       "source": "ability"
+      },
+      {
+       "title": "Immunities",
+       "lines": [
+        [
+         "Immune to",
+         "poison and radiation."
+        ]
+       ],
+       "source": "perk"
+      }
+     ],
+     "sideKickMechanics": [
+      {
+       "name": "Stealth Killers",
+       "lines": [
+        [
+         "Stealth Field",
+         "Invisible while above 40% health."
+        ],
+        [
+         "Volatile",
+         "Explodes when it dies."
+        ]
+       ]
+      }
      ],
      "weakSpot": "Fusion Cores — takes 4× damage",
      "limbs": [
@@ -1431,36 +1666,37 @@
      "imageSlug": "the-sharpshooter",
      "weapons": [
       {
-       "edid": "cr50CalMachineGun",
-       "name": ".50 Cal Machine Gun",
-       "ammo": ".50 Round",
-       "range": 3895,
+       "edid": "crBlackpowder_Pistol",
+       "name": "Black Powder Pistol",
+       "ammo": ".50 Caliber Ball",
+       "range": 2115,
        "type": "Gun",
-       "damageMin": 30,
-       "damageMax": 30,
-       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
-       "slot": "Main"
-      },
-      {
-       "edid": "crFloaterGnasherGrenade",
-       "name": "Floater Gnasher Grenade",
-       "ammo": "",
-       "range": 2000,
-       "type": "Grenade",
-       "damageMin": null,
-       "damageMax": null,
-       "damageCurve": "",
-       "slot": "Thrown"
+       "damageMin": 114,
+       "damageMax": 114,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier31",
+       "slot": "Main",
+       "legendary": [
+        "1★ Two Shot",
+        "2★ Explosive",
+        "3★ Swift"
+       ]
       }
      ],
-     "specials": [
-      {
-       "name": "Bleed",
-       "text": "11 damage per second for 6 seconds"
-      }
-     ],
+     "specials": [],
      "gangMembers": [
       "Mutinous Cannoneer"
+     ],
+     "mechanics": [
+      {
+       "title": "Gun-crew aura",
+       "lines": [
+        [
+         "Aura",
+         "players near him deal ×2 damage with ranged ballistic weapons."
+        ]
+       ],
+       "source": "aura"
+      }
      ],
      "weakSpot": "Head — takes 1.5× damage",
      "limbs": [
@@ -1540,19 +1776,24 @@
      "imageSlug": "chief-meteorologist-sally-mcsun",
      "weapons": [
       {
-       "edid": "cr50CalMachineGun",
-       "name": ".50 Cal Machine Gun",
-       "ammo": ".50 Round",
-       "range": 3895,
-       "type": "Gun",
-       "damageMin": 30,
-       "damageMax": 30,
-       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
-       "slot": "Main"
+       "edid": "Bounty_crStormcutter_Lost",
+       "name": "Storm Cutter",
+       "ammo": "",
+       "range": 10,
+       "type": "TwoHandSword",
+       "damageMin": 272,
+       "damageMax": 272,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier40",
+       "slot": "Main",
+       "legendary": [
+        "1★ Vampire's",
+        "2★ Steady",
+        "3★ Strength"
+       ]
       },
       {
-       "edid": "crFloaterGnasherGrenade",
-       "name": "Floater Gnasher Grenade",
+       "edid": "crPulseGrenade",
+       "name": "Pulse Grenade or Plasma Grenade",
        "ammo": "",
        "range": 2000,
        "type": "Grenade",
@@ -1562,14 +1803,40 @@
        "slot": "Thrown"
       }
      ],
-     "specials": [
-      {
-       "name": "Bleed",
-       "text": "11 damage per second for 6 seconds"
-      }
-     ],
+     "specials": [],
      "gangMembers": [
       "Underpaid Crew Member"
+     ],
+     "mechanics": [
+      {
+       "title": "Lightning crew",
+       "lines": [
+        [
+         "Warning",
+         "a screen message, \"The Underpaid Crew Members are calling down lightning!\""
+        ],
+        [
+         "Channel",
+         "a channel takes 6 seconds; the caster glows blue and gains 50 Damage Resistance while channelling. Deal 5,000 damage to stagger it."
+        ],
+        [
+         "Weather Buff",
+         "lasts 12 seconds and gives ×2 weapon damage."
+        ]
+       ],
+       "source": "script"
+      }
+     ],
+     "sideKickMechanics": [
+      {
+       "name": "Underpaid Crew Members",
+       "lines": [
+        [
+         "Lightning channel",
+         "The side-kick half of the boss's lightning mechanic."
+        ]
+       ]
+      }
      ],
      "weakSpot": "Head — takes 1.5× damage",
      "limbs": [
@@ -1642,36 +1909,47 @@
      "imageSlug": "greasehands-greta",
      "weapons": [
       {
-       "edid": "cr50CalMachineGun",
-       "name": ".50 Cal Machine Gun",
-       "ammo": ".50 Round",
-       "range": 3895,
-       "type": "Gun",
-       "damageMin": 11,
-       "damageMax": 77,
-       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
-       "slot": "Main"
-      },
-      {
-       "edid": "crFloaterGnasherGrenade",
-       "name": "Floater Gnasher Grenade",
+       "edid": "crKnife_Stabitha",
+       "name": "Combat Knife",
        "ammo": "",
-       "range": 2000,
-       "type": "Grenade",
-       "damageMin": null,
-       "damageMax": null,
-       "damageCurve": "",
-       "slot": "Thrown"
+       "range": 256,
+       "type": "OneHandSword",
+       "damageMin": 74,
+       "damageMax": 380,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier35",
+       "slot": "Main",
+       "legendary": [
+        "1★ Furious",
+        "2★ Rapid"
+       ]
       }
      ],
-     "specials": [
-      {
-       "name": "Bleed",
-       "text": "11 damage per second for 6 seconds"
-      }
-     ],
+     "specials": [],
      "gangMembers": [
       "Greasy Motorhead"
+     ],
+     "mechanics": [
+      {
+       "title": "Hard to hit on the move",
+       "lines": [
+        [
+         "Takes",
+         "the faster she moves, the less damage she takes:",
+         [
+          "×0.05 damage at speed over 200",
+          "×0.1 damage at speed 100–200",
+          "×0.2 damage at speed 50–100",
+          "×0.3 damage at speed 10–50",
+          "full damage at speed 10 or slower"
+         ]
+        ],
+        [
+         "Covers",
+         "weapon, explosion, limb and spell damage."
+        ]
+       ],
+       "source": "perk"
+      }
      ],
      "weakSpot": "Head — takes 1.5× damage",
      "limbs": [
@@ -1744,19 +2022,25 @@
      "imageSlug": "lilly-oleander",
      "weapons": [
       {
-       "edid": "cr50CalMachineGun",
-       "name": ".50 Cal Machine Gun",
-       "ammo": ".50 Round",
-       "range": 3895,
+       "edid": "crFlamer",
+       "name": "Flamer",
+       "ammo": "Fuel",
+       "range": 1319,
        "type": "Gun",
-       "damageMin": 11,
-       "damageMax": 77,
-       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
-       "slot": "Main"
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Main",
+       "custom": [
+        {
+         "name": "Poison Effect",
+         "effect": "9 damage per second for 8 seconds"
+        }
+       ]
       },
       {
-       "edid": "crFloaterGnasherGrenade",
-       "name": "Floater Gnasher Grenade",
+       "edid": "crD01C_BugGrenade",
+       "name": "Bug Grenade",
        "ammo": "",
        "range": 2000,
        "type": "Grenade",
@@ -1766,14 +2050,25 @@
        "slot": "Thrown"
       }
      ],
-     "specials": [
-      {
-       "name": "Bleed",
-       "text": "11 damage per second for 6 seconds"
-      }
-     ],
+     "specials": [],
      "gangMembers": [
       "Frenzied Florist"
+     ],
+     "mechanics": [
+      {
+       "title": "Poison flower patches",
+       "lines": [
+        [
+         "What spawns",
+         "20 flower patches scattered around the fight."
+        ],
+        [
+         "Effect",
+         "standing in one deals 33 poison damage per second (Flower Vulnerability)."
+        ]
+       ],
+       "source": "script"
+      }
      ],
      "weakSpot": "Head — takes 1.5× damage",
      "limbs": [
@@ -1846,36 +2141,50 @@
      "imageSlug": "the-inquisitionor",
      "weapons": [
       {
-       "edid": "cr50CalMachineGun",
-       "name": ".50 Cal Machine Gun",
-       "ammo": ".50 Round",
-       "range": 3895,
+       "edid": "crFlamer",
+       "name": "Flamer",
+       "ammo": "Fuel",
+       "range": 1319,
        "type": "Gun",
-       "damageMin": 11,
-       "damageMax": 77,
-       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
-       "slot": "Main"
-      },
-      {
-       "edid": "crFloaterGnasherGrenade",
-       "name": "Floater Gnasher Grenade",
-       "ammo": "",
-       "range": 2000,
-       "type": "Grenade",
        "damageMin": null,
        "damageMax": null,
        "damageCurve": "",
-       "slot": "Thrown"
+       "slot": "Main",
+       "legendary": [
+        "1★ Nocturnal",
+        "2★ Crippling",
+        "3★ Durability"
+       ]
       }
      ],
-     "specials": [
-      {
-       "name": "Bleed",
-       "text": "11 damage per second for 6 seconds"
-      }
-     ],
+     "specials": [],
      "gangMembers": [
       "Inquisitionor's Disciple"
+     ],
+     "mechanics": [
+      {
+       "title": "Disciple shield",
+       "lines": [
+        [
+         "Shield",
+         "while his disciples are alive he takes reduced weapon and explosion damage, stepping up as they die off:",
+         [
+          "30% of normal damage",
+          "60% of normal damage",
+          "90% of normal damage"
+         ]
+        ],
+        [
+         "Each disciple death",
+         "\"A disciple has died, and The Inquisitionor weakens!\""
+        ],
+        [
+         "All disciples dead",
+         "\"All disciples are dead, and The Inquisitionor's defenses are gone!\""
+        ]
+       ],
+       "source": "script"
+      }
      ],
      "weakSpot": "Head — takes 1.5× damage",
      "limbs": [
@@ -1948,19 +2257,24 @@
      "imageSlug": "the-pirate-king",
      "weapons": [
       {
-       "edid": "cr50CalMachineGun",
-       "name": ".50 Cal Machine Gun",
-       "ammo": ".50 Round",
-       "range": 3895,
+       "edid": "crBlackPowder_Rifle_Dragon",
+       "name": "The Dragon",
+       "ammo": ".50 Caliber Ball",
+       "range": 4469,
        "type": "Gun",
-       "damageMin": 11,
-       "damageMax": 77,
-       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
-       "slot": "Main"
+       "damageMin": 288,
+       "damageMax": 1241,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier48",
+       "slot": "Main",
+       "legendary": [
+        "1★ Executioner's",
+        "2★ Explosive",
+        "4★ Bully's"
+       ]
       },
       {
-       "edid": "crFloaterGnasherGrenade",
-       "name": "Floater Gnasher Grenade",
+       "edid": "crDynamiteBundleGrenade",
+       "name": "Dynamite Bundle",
        "ammo": "",
        "range": 2000,
        "type": "Grenade",
@@ -1970,14 +2284,42 @@
        "slot": "Thrown"
       }
      ],
-     "specials": [
-      {
-       "name": "Bleed",
-       "text": "11 damage per second for 6 seconds"
-      }
-     ],
+     "specials": [],
      "gangMembers": [
       "Crewmate"
+     ],
+     "mechanics": [
+      {
+       "title": "Field promotions",
+       "lines": [
+        [
+         "Promotion",
+         "when a ranked pirate dies, a Crewmate is promoted: a screen message, \"Death in the ranks has triggered a field promotion!\", a pirate hat, a 5-second glow and a new weapon (Dragon, Black Powder Rifle or Black Powder Pistol)."
+        ],
+        [
+         "Ranks",
+         "top down:",
+         [
+          "The Pirate King",
+          "The First Mate",
+          "The Helmsman",
+          "Poop Deck Scrubber"
+         ]
+        ]
+       ],
+       "source": "script"
+      }
+     ],
+     "sideKickMechanics": [
+      {
+       "name": "Crewmates",
+       "lines": [
+        [
+         "Field promotions",
+         "Can be promoted and pirate weapon list (Dragon, Black Powder Rifle or Black Powder Pistol)."
+        ]
+       ]
+      }
      ],
      "weakSpot": "Head — takes 1.5× damage",
      "limbs": [
@@ -2050,36 +2392,67 @@
      "imageSlug": "the-pseudo-subjugator",
      "weapons": [
       {
-       "edid": "cr50CalMachineGun",
-       "name": ".50 Cal Machine Gun",
-       "ammo": ".50 Round",
-       "range": 3895,
-       "type": "Gun",
-       "damageMin": 11,
-       "damageMax": 77,
-       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
-       "slot": "Main"
+       "edid": "Bounty_crChineseOfficerSword",
+       "name": "Chinese Officer Sword",
+       "ammo": "",
+       "range": 10,
+       "type": "OneHandSword",
+       "damageMin": 91,
+       "damageMax": 455,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier37",
+       "slot": "Main",
+       "legendary": [
+        "1★ Suppressor's"
+       ]
       },
       {
-       "edid": "crFloaterGnasherGrenade",
-       "name": "Floater Gnasher Grenade",
+       "edid": "crHalluciGenGrenade_Bounty_Subjugator",
+       "name": "HalluciGen Gas Grenade",
        "ammo": "",
        "range": 2000,
        "type": "Grenade",
-       "damageMin": null,
-       "damageMax": null,
+       "damageMin": 1,
+       "damageMax": 1,
        "damageCurve": "",
        "slot": "Thrown"
       }
      ],
-     "specials": [
-      {
-       "name": "Bleed",
-       "text": "11 damage per second for 6 seconds"
-      }
-     ],
+     "specials": [],
      "gangMembers": [
       "Aspiring Red Viper"
+     ],
+     "mechanics": [
+      {
+       "title": "Incisor",
+       "lines": [
+        [
+         "Armour",
+         "melee and unarmed hits ignore 75% of your armour."
+        ]
+       ],
+       "source": "perk"
+      },
+      {
+       "title": "Exploits Red Scare",
+       "lines": [
+        [
+         "Damage",
+         "×2 damage to anyone with Red Scare (from his Subjugator Grenade, 25 seconds)."
+        ]
+       ],
+       "source": "perk"
+      }
+     ],
+     "sideKickMechanics": [
+      {
+       "name": "Aspiring Red Vipers",
+       "lines": [
+        [
+         "Exploits Red Scare",
+         "same as the boss."
+        ]
+       ]
+      }
      ],
      "weakSpot": "Head — takes 1.5× damage",
      "limbs": [
@@ -2152,19 +2525,23 @@
      "imageSlug": "the-temporal-technician",
      "weapons": [
       {
-       "edid": "cr50CalMachineGun",
-       "name": ".50 Cal Machine Gun",
-       "ammo": ".50 Round",
-       "range": 3895,
+       "edid": "Bounty_crPlasmaCaster",
+       "name": "Plasma Caster",
+       "ammo": "Plasma Cartridge",
+       "range": 256,
        "type": "Gun",
-       "damageMin": 11,
-       "damageMax": 77,
-       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
-       "slot": "Main"
+       "damageMin": 36,
+       "damageMax": 205,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier28",
+       "slot": "Main",
+       "legendary": [
+        "1★ Bloodied",
+        "2★ Crippling"
+       ]
       },
       {
-       "edid": "crFloaterGnasherGrenade",
-       "name": "Floater Gnasher Grenade",
+       "edid": "crCryoGrenade",
+       "name": "Cryogenic Grenade",
        "ammo": "",
        "range": 2000,
        "type": "Grenade",
@@ -2174,14 +2551,37 @@
        "slot": "Thrown"
       }
      ],
-     "specials": [
-      {
-       "name": "Bleed",
-       "text": "11 damage per second for 6 seconds"
-      }
-     ],
+     "specials": [],
      "gangMembers": [
       "Time Tourist"
+     ],
+     "mechanics": [
+      {
+       "title": "Time bubble",
+       "lines": [
+        [
+         "Aura",
+         "the closer you get, the slower you move (four rings):",
+         [
+          "inside ring 80: 15% slower (\"Time is slowing down\")",
+          "inside ring 60: 30% slower (\"Time slows further\")",
+          "inside ring 40: 45% slower (\"Time slows to a crawl\")",
+          "inside ring 20: 60% slower (\"Time almost stops\")"
+         ]
+        ]
+       ],
+       "source": "aura"
+      },
+      {
+       "title": "Swift-Footed",
+       "lines": [
+        [
+         "Speed",
+         "+60% movement and attack speed and +40% reload speed."
+        ]
+       ],
+       "source": "perk"
+      }
      ],
      "weakSpot": "Head — takes 1.5× damage",
      "limbs": [
@@ -2258,36 +2658,38 @@
    "imageSlug": "bird-of-prey",
    "weapons": [
     {
-     "edid": "cr50CalMachineGun",
-     "name": ".50 Cal Machine Gun",
-     "ammo": ".50 Round",
-     "range": 3895,
-     "type": "Gun",
-     "damageMin": 11,
-     "damageMax": 77,
-     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
-     "slot": "Main"
-    },
-    {
-     "edid": "crFloaterGnasherGrenade",
-     "name": "Floater Gnasher Grenade",
+     "edid": "crBaseballBat_Spiked_Gobbler",
+     "name": "Baseball Bat",
      "ammo": "",
-     "range": 2000,
-     "type": "Grenade",
-     "damageMin": null,
-     "damageMax": null,
-     "damageCurve": "",
-     "slot": "Thrown"
+     "range": 10,
+     "type": "TwoHandSword",
+     "damageMin": 82,
+     "damageMax": 416,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier36",
+     "slot": "Main",
+     "custom": [
+      {
+       "name": "Bleed Effect",
+       "effect": "11 damage per second for 6 seconds"
+      }
+     ]
     }
    ],
-   "specials": [
-    {
-     "name": "Bleed",
-     "text": "11 damage per second for 6 seconds"
-    }
-   ],
+   "specials": [],
    "gangMembers": [
     "Pack Hunter"
+   ],
+   "mechanics": [],
+   "sideKickMechanics": [
+    {
+     "name": "Pack Hunters",
+     "lines": [
+      [
+       "Wound Salter",
+       "+50% damage to bleeding targets."
+      ]
+     ]
+    }
    ],
    "weakSpot": "Head — takes 1.5× damage",
    "limbs": [
@@ -2360,36 +2762,41 @@
    "imageSlug": "buzzkill",
    "weapons": [
     {
-     "edid": "cr50CalMachineGun",
-     "name": ".50 Cal Machine Gun",
-     "ammo": ".50 Round",
-     "range": 3895,
+     "edid": "crBeekeeperBoss_RTSV_AutoGL",
+     "name": "Auto Grenade Launcher",
+     "ammo": "40mm Grenade Round",
+     "range": 256,
      "type": "Gun",
-     "damageMin": 11,
-     "damageMax": 77,
-     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
-     "slot": "Main"
-    },
-    {
-     "edid": "crFloaterGnasherGrenade",
-     "name": "Floater Gnasher Grenade",
-     "ammo": "",
-     "range": 2000,
-     "type": "Grenade",
-     "damageMin": null,
-     "damageMax": null,
-     "damageCurve": "",
-     "slot": "Thrown"
+     "damageMin": 48,
+     "damageMax": 267,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier31",
+     "slot": "Main",
+     "legendary": [
+      "1★ Executioner's"
+     ],
+     "custom": [
+      {
+       "name": "Poison Effect",
+       "effect": "9 damage per second for 8 seconds"
+      }
+     ]
     }
    ],
-   "specials": [
-    {
-     "name": "Bleed",
-     "text": "11 damage per second for 6 seconds"
-    }
-   ],
+   "specials": [],
    "gangMembers": [
     "Belligerent Beekeeper"
+   ],
+   "mechanics": [],
+   "sideKickMechanics": [
+    {
+     "name": "Belligerent Beekeepers",
+     "lines": [
+      [
+       "Picks on the poisoned",
+       "×1.5 damage to targets that are poisoned."
+      ]
+     ]
+    }
    ],
    "weakSpot": "Head — takes 1.5× damage",
    "limbs": [
@@ -2462,19 +2869,19 @@
    "imageSlug": "dada",
    "weapons": [
     {
-     "edid": "cr50CalMachineGun",
-     "name": ".50 Cal Machine Gun",
-     "ammo": ".50 Round",
-     "range": 3895,
+     "edid": "crAssaultRifle",
+     "name": "Assault Rifle",
+     "ammo": "5.56 Round",
+     "range": 3173,
      "type": "Gun",
-     "damageMin": 11,
-     "damageMax": 77,
-     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "damageMin": 14,
+     "damageMax": 93,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier19",
      "slot": "Main"
     },
     {
-     "edid": "crFloaterGnasherGrenade",
-     "name": "Floater Gnasher Grenade",
+     "edid": "crFragGrenade",
+     "name": "Fragmentation Grenade",
      "ammo": "",
      "range": 2000,
      "type": "Grenade",
@@ -2484,14 +2891,60 @@
      "slot": "Thrown"
     }
    ],
-   "specials": [
-    {
-     "name": "Bleed",
-     "text": "11 damage per second for 6 seconds"
-    }
-   ],
+   "specials": [],
    "gangMembers": [
     "Dada's Hound"
+   ],
+   "mechanics": [
+    {
+     "title": "Limb damage",
+     "lines": [
+      [
+       "Damage",
+       "+75% damage to limbs."
+      ]
+     ],
+     "source": "perk"
+    },
+    {
+     "title": "Picks on the crippled",
+     "lines": [
+      [
+       "Damage",
+       "×2 damage to targets the game flags with a VATS target height of 1."
+      ]
+     ],
+     "source": "perk"
+    },
+    {
+     "title": "Immunities",
+     "lines": [
+      [
+       "Immune to",
+       "radiation."
+      ]
+     ],
+     "source": "perk"
+    }
+   ],
+   "sideKickMechanics": [
+    {
+     "name": "Dada's Hounds",
+     "lines": [
+      [
+       "Limb damage",
+       "same as the boss."
+      ],
+      [
+       "Armour piercing",
+       "Ignores 50% of your armour."
+      ],
+      [
+       "Immunities",
+       "same as the boss."
+      ]
+     ]
+    }
    ],
    "weakSpot": "Head — takes 1.25× damage",
    "limbs": [
@@ -2562,19 +3015,28 @@
    "imageSlug": "detonation-dave",
    "weapons": [
     {
-     "edid": "cr50CalMachineGun",
-     "name": ".50 Cal Machine Gun",
-     "ammo": ".50 Round",
-     "range": 3895,
+     "edid": "crRadiumRifle",
+     "name": "Radium Rifle",
+     "ammo": ".45 Round",
+     "range": 2821,
      "type": "Gun",
-     "damageMin": 11,
-     "damageMax": 77,
-     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
-     "slot": "Main"
+     "damageMin": 14,
+     "damageMax": 93,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier19",
+     "slot": "Main",
+     "legendary": [
+      "2★ Explosive"
+     ],
+     "custom": [
+      {
+       "name": "Radiation Effect",
+       "effect": "8 radiation"
+      }
+     ]
     },
     {
-     "edid": "crFloaterGnasherGrenade",
-     "name": "Floater Gnasher Grenade",
+     "edid": "crDLC04_FragGrenadeMIRV",
+     "name": "Fragmentation Grenade MIRV",
      "ammo": "",
      "range": 2000,
      "type": "Grenade",
@@ -2584,14 +3046,25 @@
      "slot": "Thrown"
     }
    ],
-   "specials": [
-    {
-     "name": "Bleed",
-     "text": "11 damage per second for 6 seconds"
-    }
-   ],
+   "specials": [],
    "gangMembers": [
     "Bewildered Bomber"
+   ],
+   "mechanics": [
+    {
+     "title": "Orbital strikes",
+     "lines": [
+      [
+       "When",
+       "at 90%, 50% and 30% of his health."
+      ],
+      [
+       "Warning first",
+       "an alarm sounds and a targeting laser runs for 5.9 seconds, then the strike explodes."
+      ]
+     ],
+     "source": "script"
+    }
    ],
    "weakSpot": "Head — takes 1.5× damage",
    "limbs": [
@@ -2664,19 +3137,23 @@
    "imageSlug": "il-maestro",
    "weapons": [
     {
-     "edid": "cr50CalMachineGun",
-     "name": ".50 Cal Machine Gun",
-     "ammo": ".50 Round",
-     "range": 3895,
+     "edid": "crHuntingRifle",
+     "name": "Sniper Hunting Rifle",
+     "ammo": ".308 Round",
+     "range": 5225,
      "type": "Gun",
-     "damageMin": 11,
-     "damageMax": 77,
-     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
-     "slot": "Main"
+     "damageMin": 36,
+     "damageMax": 205,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier28",
+     "slot": "Main",
+     "legendary": [
+      "1★ Executioner's",
+      "2★ Crippling"
+     ]
     },
     {
-     "edid": "crFloaterGnasherGrenade",
-     "name": "Floater Gnasher Grenade",
+     "edid": "crPulseGrenade",
+     "name": "Pulse Grenade or Plasma Grenade",
      "ammo": "",
      "range": 2000,
      "type": "Grenade",
@@ -2686,14 +3163,21 @@
      "slot": "Thrown"
     }
    ],
-   "specials": [
-    {
-     "name": "Bleed",
-     "text": "11 damage per second for 6 seconds"
-    }
-   ],
+   "specials": [],
    "gangMembers": [
     "Provocative Performer"
+   ],
+   "mechanics": [
+    {
+     "title": "Hates your radio",
+     "lines": [
+      [
+       "Damage",
+       "×2 damage to you while your Pip-Boy radio is on."
+      ]
+     ],
+     "source": "perk"
+    }
    ],
    "weakSpot": "Head — takes 1.5× damage",
    "limbs": [
@@ -2766,19 +3250,22 @@
    "imageSlug": "the-oversearer",
    "weapons": [
     {
-     "edid": "cr50CalMachineGun",
-     "name": ".50 Cal Machine Gun",
-     "ammo": ".50 Round",
-     "range": 3895,
+     "edid": "crLightningGun",
+     "name": "Tesla",
+     "ammo": "Fusion Cell",
+     "range": 3966,
      "type": "Gun",
-     "damageMin": 11,
-     "damageMax": 77,
-     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
-     "slot": "Main"
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Main",
+     "legendary": [
+      "1★ Juggernaut's"
+     ]
     },
     {
-     "edid": "crFloaterGnasherGrenade",
-     "name": "Floater Gnasher Grenade",
+     "edid": "crFragGrenade",
+     "name": "Fragmentation Grenade or Molotov Cocktail",
      "ammo": "",
      "range": 2000,
      "type": "Grenade",
@@ -2788,15 +3275,42 @@
      "slot": "Thrown"
     }
    ],
-   "specials": [
-    {
-     "name": "Bleed",
-     "text": "11 damage per second for 6 seconds"
-    }
-   ],
+   "specials": [],
    "gangMembers": [
     "Vault Wannabe",
     "Vault Wannabe"
+   ],
+   "mechanics": [
+    {
+     "title": "Wrecking Ball",
+     "lines": [
+      [
+       "Damage",
+       "×2 damage to turrets and objects."
+      ]
+     ],
+     "source": "perk"
+    },
+    {
+     "title": "Vault-Tec weakness",
+     "lines": [
+      [
+       "Takes",
+       "×1.5 damage from players wearing Vault clothing."
+      ]
+     ],
+     "source": "perk"
+    },
+    {
+     "title": "Vault-Tec grudge",
+     "lines": [
+      [
+       "Deals",
+       "×1.5 damage to anyone in a vault suit or one of 9 Vault-Tec outfits and hazmat suits."
+      ]
+     ],
+     "source": "perk"
+    }
    ],
    "weakSpot": "Head — takes 1.5× damage",
    "limbs": [
@@ -2869,19 +3383,24 @@
    "imageSlug": "the-pied-pipebomber",
    "weapons": [
     {
-     "edid": "cr50CalMachineGun",
-     "name": ".50 Cal Machine Gun",
-     "ammo": ".50 Round",
-     "range": 3895,
+     "edid": "crMobsterM79",
+     "name": "M79 Grenade Launcher",
+     "ammo": "40mm Grenade Round",
+     "range": 3437,
      "type": "Gun",
-     "damageMin": 11,
-     "damageMax": 77,
-     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
-     "slot": "Main"
+     "damageMin": 3,
+     "damageMax": 3,
+     "damageCurve": "",
+     "slot": "Main",
+     "legendary": [
+      "1★ Quad",
+      "2★ Rapid",
+      "3★ Swift"
+     ]
     },
     {
-     "edid": "crFloaterGnasherGrenade",
-     "name": "Floater Gnasher Grenade",
+     "edid": "crFloaterFlamerGrenade",
+     "name": "Floater Flamer Grenade or Molotov Cocktail",
      "ammo": "",
      "range": 2000,
      "type": "Grenade",
@@ -2891,14 +3410,29 @@
      "slot": "Thrown"
     }
    ],
-   "specials": [
-    {
-     "name": "Bleed",
-     "text": "11 damage per second for 6 seconds"
-    }
-   ],
+   "specials": [],
    "gangMembers": [
     "Tunneling Terror"
+   ],
+   "mechanics": [
+    {
+     "title": "Mole rat waves",
+     "lines": [
+      [
+       "When",
+       "at 80%, 60% and 30% of his health, so three waves in a full fight."
+      ],
+      [
+       "Warning first",
+       "a screen message, \"The Molerats are coming!\", plus a 4-second camera shake. The waves hit 3 seconds after the warning."
+      ],
+      [
+       "What spawns",
+       "10 Enraged Mole Rat Landminers per wave, at the hunt's three spawn markers around the area. These are the same bomb-vest mole rats as the drill section of the Gleaming Depths raid, so they run at you and blow up."
+      ]
+     ],
+     "source": "script"
+    }
    ],
    "weakSpot": "Head — takes 1.5× damage",
    "limbs": [
@@ -2971,36 +3505,38 @@
    "imageSlug": "ayam-legion",
    "weapons": [
     {
-     "edid": "cr50CalMachineGun",
-     "name": ".50 Cal Machine Gun",
-     "ammo": ".50 Round",
-     "range": 3895,
+     "edid": "cr10mmSMG",
+     "name": "10mm Submachine Gun",
+     "ammo": "10mm Round",
+     "range": 2565,
      "type": "Gun",
-     "damageMin": 11,
-     "damageMax": 77,
-     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
-     "slot": "Main"
-    },
-    {
-     "edid": "crFloaterGnasherGrenade",
-     "name": "Floater Gnasher Grenade",
-     "ammo": "",
-     "range": 2000,
-     "type": "Grenade",
-     "damageMin": null,
-     "damageMax": null,
-     "damageCurve": "",
-     "slot": "Thrown"
+     "damageMin": 8,
+     "damageMax": 59,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier14",
+     "slot": "Main",
+     "custom": [
+      {
+       "name": "Cryo Effect",
+       "effect": "11 damage per second for 1 second"
+      }
+     ]
     }
    ],
-   "specials": [
-    {
-     "name": "Bleed",
-     "text": "11 damage per second for 6 seconds"
-    }
-   ],
+   "specials": [],
    "gangMembers": [
     "Legion's Lieutenant"
+   ],
+   "mechanics": [
+    {
+     "title": "Special Agent Damage",
+     "lines": [
+      [
+       "Script",
+       "a Special Agent Damage effect that watches his health."
+      ]
+     ],
+     "source": "script"
+    }
    ],
    "weakSpot": "Head — takes 1.5× damage",
    "limbs": [
@@ -3073,19 +3609,22 @@
    "imageSlug": "jaques-the-jammer",
    "weapons": [
     {
-     "edid": "cr50CalMachineGun",
-     "name": ".50 Cal Machine Gun",
-     "ammo": ".50 Round",
-     "range": 3895,
+     "edid": "Bounty_crMinigun",
+     "name": "Minigun",
+     "ammo": "5mm Round",
+     "range": 5147,
      "type": "Gun",
-     "damageMin": 11,
-     "damageMax": 77,
-     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
-     "slot": "Main"
+     "damageMin": 10,
+     "damageMax": 71,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier16",
+     "slot": "Main",
+     "legendary": [
+      "1★ Anti-armor"
+     ]
     },
     {
-     "edid": "crFloaterGnasherGrenade",
-     "name": "Floater Gnasher Grenade",
+     "edid": "crBaseballGrenade",
+     "name": "Baseball Grenade",
      "ammo": "",
      "range": 2000,
      "type": "Grenade",
@@ -3095,14 +3634,37 @@
      "slot": "Thrown"
     }
    ],
-   "specials": [
-    {
-     "name": "Bleed",
-     "text": "11 damage per second for 6 seconds"
-    }
-   ],
+   "specials": [],
    "gangMembers": [
     "Ticked Off Technician"
+   ],
+   "mechanics": [
+    {
+     "title": "Damage jammers",
+     "lines": [
+      [
+       "When",
+       "at 80%, 50% and 30% of his health."
+      ],
+      [
+       "Warning",
+       "a screen message, \"Three strange devices are limiting your damage!\""
+      ],
+      [
+       "What spawns",
+       "3 Jaques' Jammers around the hunt area."
+      ],
+      [
+       "Effect",
+       "while they work, Damage Inhibiting (\"A nearby device is lowering your damage\") cuts your weapon damage to 1% of normal; each dose lasts 60 seconds."
+      ],
+      [
+       "How long",
+       "up to 120 seconds, then \"The devices no longer restrict your damage!\"."
+      ]
+     ],
+     "source": "script"
+    }
    ],
    "weakSpot": "Head — takes 1.5× damage",
    "limbs": [
@@ -3175,36 +3737,43 @@
    "imageSlug": "mercys-end",
    "weapons": [
     {
-     "edid": "cr50CalMachineGun",
-     "name": ".50 Cal Machine Gun",
-     "ammo": ".50 Round",
-     "range": 3895,
+     "edid": "crMinigun",
+     "name": "Minigun",
+     "ammo": "5mm Round",
+     "range": 5147,
      "type": "Gun",
-     "damageMin": 11,
-     "damageMax": 77,
-     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "damageMin": 7,
+     "damageMax": 54,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier13",
      "slot": "Main"
-    },
-    {
-     "edid": "crFloaterGnasherGrenade",
-     "name": "Floater Gnasher Grenade",
-     "ammo": "",
-     "range": 2000,
-     "type": "Grenade",
-     "damageMin": null,
-     "damageMax": null,
-     "damageCurve": "",
-     "slot": "Thrown"
     }
    ],
-   "specials": [
-    {
-     "name": "Bleed",
-     "text": "11 damage per second for 6 seconds"
-    }
-   ],
+   "specials": [],
    "gangMembers": [
     "Runaway Responder"
+   ],
+   "mechanics": [
+    {
+     "title": "Medic's weakness",
+     "lines": [
+      [
+       "Takes",
+       "×1.5 damage from Medic's weapons."
+      ]
+     ],
+     "source": "perk"
+    }
+   ],
+   "sideKickMechanics": [
+    {
+     "name": "Runaway Responders",
+     "lines": [
+      [
+       "Medic's weakness",
+       "same as the boss."
+      ]
+     ]
+    }
    ],
    "weakSpot": "Head — takes 1.5× damage",
    "limbs": [
@@ -3277,19 +3846,28 @@
    "imageSlug": "micro-mike",
    "weapons": [
     {
-     "edid": "cr50CalMachineGun",
-     "name": ".50 Cal Machine Gun",
-     "ammo": ".50 Round",
-     "range": 3895,
-     "type": "Gun",
-     "damageMin": 11,
-     "damageMax": 77,
-     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
-     "slot": "Main"
+     "edid": "crMeatTenderizer",
+     "name": "Tenderizer",
+     "ammo": "",
+     "range": 10,
+     "type": "TwoHandSword",
+     "damageMin": 48,
+     "damageMax": 267,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier31",
+     "slot": "Main",
+     "legendary": [
+      "1★ Executioner's"
+     ],
+     "custom": [
+      {
+       "name": "Radiation Effect",
+       "effect": "8 radiation"
+      }
+     ]
     },
     {
-     "edid": "crFloaterGnasherGrenade",
-     "name": "Floater Gnasher Grenade",
+     "edid": "crBaseballGrenade",
+     "name": "Baseball Grenade",
      "ammo": "",
      "range": 2000,
      "type": "Grenade",
@@ -3299,14 +3877,32 @@
      "slot": "Thrown"
     }
    ],
-   "specials": [
-    {
-     "name": "Bleed",
-     "text": "11 damage per second for 6 seconds"
-    }
-   ],
+   "specials": [],
    "gangMembers": [
     "Radioactive Raider"
+   ],
+   "mechanics": [
+    {
+     "title": "Exploits Weakness to Mike",
+     "lines": [
+      [
+       "Damage",
+       "×2 damage to anyone with Weakness to Mike (his side-kicks' hits give it, 10 seconds)."
+      ]
+     ],
+     "source": "perk"
+    }
+   ],
+   "sideKickMechanics": [
+    {
+     "name": "Radioactive Raiders",
+     "lines": [
+      [
+       "Weakness to Mike",
+       "Their hits give you Weakness to Mike for 10 seconds, which lowers your Damage Resistance."
+      ]
+     ]
+    }
    ],
    "weakSpot": "Head — takes 1.5× damage",
    "limbs": [
@@ -3379,19 +3975,29 @@
    "imageSlug": "storm-warning",
    "weapons": [
     {
-     "edid": "cr50CalMachineGun",
-     "name": ".50 Cal Machine Gun",
-     "ammo": ".50 Round",
-     "range": 3895,
+     "edid": "crRailwayRifle",
+     "name": "Railway Rifle",
+     "ammo": "Railway Spike",
+     "range": 3406,
      "type": "Gun",
-     "damageMin": 11,
-     "damageMax": 77,
-     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
-     "slot": "Main"
+     "damageMin": 40,
+     "damageMax": 224,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier29",
+     "slot": "Main",
+     "legendary": [
+      "1★ Anti-armor",
+      "2★ Explosive"
+     ],
+     "custom": [
+      {
+       "name": "Start The Chain",
+       "effect": ""
+      }
+     ]
     },
     {
-     "edid": "crFloaterGnasherGrenade",
-     "name": "Floater Gnasher Grenade",
+     "edid": "crPulseGrenade",
+     "name": "Pulse Grenade or Plasma Grenade",
      "ammo": "",
      "range": 2000,
      "type": "Grenade",
@@ -3401,15 +4007,11 @@
      "slot": "Thrown"
     }
    ],
-   "specials": [
-    {
-     "name": "Bleed",
-     "text": "11 damage per second for 6 seconds"
-    }
-   ],
+   "specials": [],
    "gangMembers": [
     "Sadistic Shocker"
    ],
+   "mechanics": [],
    "weakSpot": "Head — takes 1.5× damage",
    "limbs": [
     {
@@ -3479,38 +4081,61 @@
    "speedMult": 120.0,
    "gang": "",
    "imageSlug": "the-secret-weapon",
-   "weapons": [
-    {
-     "edid": "cr50CalMachineGun",
-     "name": ".50 Cal Machine Gun",
-     "ammo": ".50 Round",
-     "range": 3895,
-     "type": "Gun",
-     "damageMin": 11,
-     "damageMax": 77,
-     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
-     "slot": "Main"
-    },
-    {
-     "edid": "crFloaterGnasherGrenade",
-     "name": "Floater Gnasher Grenade",
-     "ammo": "",
-     "range": 2000,
-     "type": "Grenade",
-     "damageMin": null,
-     "damageMax": null,
-     "damageCurve": "",
-     "slot": "Thrown"
-    }
-   ],
-   "specials": [
-    {
-     "name": "Bleed",
-     "text": "11 damage per second for 6 seconds"
-    }
-   ],
+   "weapons": [],
+   "specials": [],
    "gangMembers": [
     "Stealth Killer"
+   ],
+   "mechanics": [
+    {
+     "title": "Stealth Killers backup",
+     "lines": [
+      [
+       "Backup",
+       "he brings in Stealth Killers, up to 3 at a time."
+      ],
+      [
+       "Player down",
+       "extra ones can spawn when a player goes down."
+      ]
+     ],
+     "source": "script"
+    },
+    {
+     "title": "Self-heal",
+     "lines": [
+      [
+       "Healing",
+       "a \"Bounty Healing Effect\" on his Health (magnitude 19) while alive."
+      ]
+     ],
+     "source": "ability"
+    },
+    {
+     "title": "Immunities",
+     "lines": [
+      [
+       "Immune to",
+       "poison and radiation."
+      ]
+     ],
+     "source": "perk"
+    }
+   ],
+   "sideKickMechanics": [
+    {
+     "name": "Stealth Killers",
+     "lines": [
+      [
+       "Stealth Field",
+       "Invisible while above 40% health."
+      ],
+      [
+       "Volatile",
+       "Explodes when it dies."
+      ]
+     ]
+    }
    ],
    "weakSpot": "Fusion Cores — takes 4× damage",
    "limbs": [
@@ -3623,36 +4248,37 @@
    "imageSlug": "the-sharpshooter",
    "weapons": [
     {
-     "edid": "cr50CalMachineGun",
-     "name": ".50 Cal Machine Gun",
-     "ammo": ".50 Round",
-     "range": 3895,
+     "edid": "crBlackpowder_Pistol",
+     "name": "Black Powder Pistol",
+     "ammo": ".50 Caliber Ball",
+     "range": 2115,
      "type": "Gun",
-     "damageMin": 30,
-     "damageMax": 30,
-     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
-     "slot": "Main"
-    },
-    {
-     "edid": "crFloaterGnasherGrenade",
-     "name": "Floater Gnasher Grenade",
-     "ammo": "",
-     "range": 2000,
-     "type": "Grenade",
-     "damageMin": null,
-     "damageMax": null,
-     "damageCurve": "",
-     "slot": "Thrown"
+     "damageMin": 114,
+     "damageMax": 114,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier31",
+     "slot": "Main",
+     "legendary": [
+      "1★ Two Shot",
+      "2★ Explosive",
+      "3★ Swift"
+     ]
     }
    ],
-   "specials": [
-    {
-     "name": "Bleed",
-     "text": "11 damage per second for 6 seconds"
-    }
-   ],
+   "specials": [],
    "gangMembers": [
     "Mutinous Cannoneer"
+   ],
+   "mechanics": [
+    {
+     "title": "Gun-crew aura",
+     "lines": [
+      [
+       "Aura",
+       "players near him deal ×2 damage with ranged ballistic weapons."
+      ]
+     ],
+     "source": "aura"
+    }
    ],
    "weakSpot": "Head — takes 1.5× damage",
    "limbs": [
@@ -3725,19 +4351,24 @@
    "imageSlug": "chief-meteorologist-sally-mcsun",
    "weapons": [
     {
-     "edid": "cr50CalMachineGun",
-     "name": ".50 Cal Machine Gun",
-     "ammo": ".50 Round",
-     "range": 3895,
-     "type": "Gun",
-     "damageMin": 30,
-     "damageMax": 30,
-     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
-     "slot": "Main"
+     "edid": "Bounty_crStormcutter_Lost",
+     "name": "Storm Cutter",
+     "ammo": "",
+     "range": 10,
+     "type": "TwoHandSword",
+     "damageMin": 272,
+     "damageMax": 272,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier40",
+     "slot": "Main",
+     "legendary": [
+      "1★ Vampire's",
+      "2★ Steady",
+      "3★ Strength"
+     ]
     },
     {
-     "edid": "crFloaterGnasherGrenade",
-     "name": "Floater Gnasher Grenade",
+     "edid": "crPulseGrenade",
+     "name": "Pulse Grenade or Plasma Grenade",
      "ammo": "",
      "range": 2000,
      "type": "Grenade",
@@ -3747,14 +4378,40 @@
      "slot": "Thrown"
     }
    ],
-   "specials": [
-    {
-     "name": "Bleed",
-     "text": "11 damage per second for 6 seconds"
-    }
-   ],
+   "specials": [],
    "gangMembers": [
     "Underpaid Crew Member"
+   ],
+   "mechanics": [
+    {
+     "title": "Lightning crew",
+     "lines": [
+      [
+       "Warning",
+       "a screen message, \"The Underpaid Crew Members are calling down lightning!\""
+      ],
+      [
+       "Channel",
+       "a channel takes 6 seconds; the caster glows blue and gains 50 Damage Resistance while channelling. Deal 5,000 damage to stagger it."
+      ],
+      [
+       "Weather Buff",
+       "lasts 12 seconds and gives ×2 weapon damage."
+      ]
+     ],
+     "source": "script"
+    }
+   ],
+   "sideKickMechanics": [
+    {
+     "name": "Underpaid Crew Members",
+     "lines": [
+      [
+       "Lightning channel",
+       "The side-kick half of the boss's lightning mechanic."
+      ]
+     ]
+    }
    ],
    "weakSpot": "Head — takes 1.5× damage",
    "limbs": [
@@ -3827,36 +4484,47 @@
    "imageSlug": "greasehands-greta",
    "weapons": [
     {
-     "edid": "cr50CalMachineGun",
-     "name": ".50 Cal Machine Gun",
-     "ammo": ".50 Round",
-     "range": 3895,
-     "type": "Gun",
-     "damageMin": 11,
-     "damageMax": 77,
-     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
-     "slot": "Main"
-    },
-    {
-     "edid": "crFloaterGnasherGrenade",
-     "name": "Floater Gnasher Grenade",
+     "edid": "crKnife_Stabitha",
+     "name": "Combat Knife",
      "ammo": "",
-     "range": 2000,
-     "type": "Grenade",
-     "damageMin": null,
-     "damageMax": null,
-     "damageCurve": "",
-     "slot": "Thrown"
+     "range": 256,
+     "type": "OneHandSword",
+     "damageMin": 74,
+     "damageMax": 380,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier35",
+     "slot": "Main",
+     "legendary": [
+      "1★ Furious",
+      "2★ Rapid"
+     ]
     }
    ],
-   "specials": [
-    {
-     "name": "Bleed",
-     "text": "11 damage per second for 6 seconds"
-    }
-   ],
+   "specials": [],
    "gangMembers": [
     "Greasy Motorhead"
+   ],
+   "mechanics": [
+    {
+     "title": "Hard to hit on the move",
+     "lines": [
+      [
+       "Takes",
+       "the faster she moves, the less damage she takes:",
+       [
+        "×0.05 damage at speed over 200",
+        "×0.1 damage at speed 100–200",
+        "×0.2 damage at speed 50–100",
+        "×0.3 damage at speed 10–50",
+        "full damage at speed 10 or slower"
+       ]
+      ],
+      [
+       "Covers",
+       "weapon, explosion, limb and spell damage."
+      ]
+     ],
+     "source": "perk"
+    }
    ],
    "weakSpot": "Head — takes 1.5× damage",
    "limbs": [
@@ -3929,19 +4597,25 @@
    "imageSlug": "lilly-oleander",
    "weapons": [
     {
-     "edid": "cr50CalMachineGun",
-     "name": ".50 Cal Machine Gun",
-     "ammo": ".50 Round",
-     "range": 3895,
+     "edid": "crFlamer",
+     "name": "Flamer",
+     "ammo": "Fuel",
+     "range": 1319,
      "type": "Gun",
-     "damageMin": 11,
-     "damageMax": 77,
-     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
-     "slot": "Main"
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Main",
+     "custom": [
+      {
+       "name": "Poison Effect",
+       "effect": "9 damage per second for 8 seconds"
+      }
+     ]
     },
     {
-     "edid": "crFloaterGnasherGrenade",
-     "name": "Floater Gnasher Grenade",
+     "edid": "crD01C_BugGrenade",
+     "name": "Bug Grenade",
      "ammo": "",
      "range": 2000,
      "type": "Grenade",
@@ -3951,14 +4625,25 @@
      "slot": "Thrown"
     }
    ],
-   "specials": [
-    {
-     "name": "Bleed",
-     "text": "11 damage per second for 6 seconds"
-    }
-   ],
+   "specials": [],
    "gangMembers": [
     "Frenzied Florist"
+   ],
+   "mechanics": [
+    {
+     "title": "Poison flower patches",
+     "lines": [
+      [
+       "What spawns",
+       "20 flower patches scattered around the fight."
+      ],
+      [
+       "Effect",
+       "standing in one deals 33 poison damage per second (Flower Vulnerability)."
+      ]
+     ],
+     "source": "script"
+    }
    ],
    "weakSpot": "Head — takes 1.5× damage",
    "limbs": [
@@ -4031,36 +4716,50 @@
    "imageSlug": "the-inquisitionor",
    "weapons": [
     {
-     "edid": "cr50CalMachineGun",
-     "name": ".50 Cal Machine Gun",
-     "ammo": ".50 Round",
-     "range": 3895,
+     "edid": "crFlamer",
+     "name": "Flamer",
+     "ammo": "Fuel",
+     "range": 1319,
      "type": "Gun",
-     "damageMin": 11,
-     "damageMax": 77,
-     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
-     "slot": "Main"
-    },
-    {
-     "edid": "crFloaterGnasherGrenade",
-     "name": "Floater Gnasher Grenade",
-     "ammo": "",
-     "range": 2000,
-     "type": "Grenade",
      "damageMin": null,
      "damageMax": null,
      "damageCurve": "",
-     "slot": "Thrown"
+     "slot": "Main",
+     "legendary": [
+      "1★ Nocturnal",
+      "2★ Crippling",
+      "3★ Durability"
+     ]
     }
    ],
-   "specials": [
-    {
-     "name": "Bleed",
-     "text": "11 damage per second for 6 seconds"
-    }
-   ],
+   "specials": [],
    "gangMembers": [
     "Inquisitionor's Disciple"
+   ],
+   "mechanics": [
+    {
+     "title": "Disciple shield",
+     "lines": [
+      [
+       "Shield",
+       "while his disciples are alive he takes reduced weapon and explosion damage, stepping up as they die off:",
+       [
+        "30% of normal damage",
+        "60% of normal damage",
+        "90% of normal damage"
+       ]
+      ],
+      [
+       "Each disciple death",
+       "\"A disciple has died, and The Inquisitionor weakens!\""
+      ],
+      [
+       "All disciples dead",
+       "\"All disciples are dead, and The Inquisitionor's defenses are gone!\""
+      ]
+     ],
+     "source": "script"
+    }
    ],
    "weakSpot": "Head — takes 1.5× damage",
    "limbs": [
@@ -4133,19 +4832,24 @@
    "imageSlug": "the-pirate-king",
    "weapons": [
     {
-     "edid": "cr50CalMachineGun",
-     "name": ".50 Cal Machine Gun",
-     "ammo": ".50 Round",
-     "range": 3895,
+     "edid": "crBlackPowder_Rifle_Dragon",
+     "name": "The Dragon",
+     "ammo": ".50 Caliber Ball",
+     "range": 4469,
      "type": "Gun",
-     "damageMin": 11,
-     "damageMax": 77,
-     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
-     "slot": "Main"
+     "damageMin": 288,
+     "damageMax": 1241,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier48",
+     "slot": "Main",
+     "legendary": [
+      "1★ Executioner's",
+      "2★ Explosive",
+      "4★ Bully's"
+     ]
     },
     {
-     "edid": "crFloaterGnasherGrenade",
-     "name": "Floater Gnasher Grenade",
+     "edid": "crDynamiteBundleGrenade",
+     "name": "Dynamite Bundle",
      "ammo": "",
      "range": 2000,
      "type": "Grenade",
@@ -4155,14 +4859,42 @@
      "slot": "Thrown"
     }
    ],
-   "specials": [
-    {
-     "name": "Bleed",
-     "text": "11 damage per second for 6 seconds"
-    }
-   ],
+   "specials": [],
    "gangMembers": [
     "Crewmate"
+   ],
+   "mechanics": [
+    {
+     "title": "Field promotions",
+     "lines": [
+      [
+       "Promotion",
+       "when a ranked pirate dies, a Crewmate is promoted: a screen message, \"Death in the ranks has triggered a field promotion!\", a pirate hat, a 5-second glow and a new weapon (Dragon, Black Powder Rifle or Black Powder Pistol)."
+      ],
+      [
+       "Ranks",
+       "top down:",
+       [
+        "The Pirate King",
+        "The First Mate",
+        "The Helmsman",
+        "Poop Deck Scrubber"
+       ]
+      ]
+     ],
+     "source": "script"
+    }
+   ],
+   "sideKickMechanics": [
+    {
+     "name": "Crewmates",
+     "lines": [
+      [
+       "Field promotions",
+       "Can be promoted and pirate weapon list (Dragon, Black Powder Rifle or Black Powder Pistol)."
+      ]
+     ]
+    }
    ],
    "weakSpot": "Head — takes 1.5× damage",
    "limbs": [
@@ -4235,36 +4967,67 @@
    "imageSlug": "the-pseudo-subjugator",
    "weapons": [
     {
-     "edid": "cr50CalMachineGun",
-     "name": ".50 Cal Machine Gun",
-     "ammo": ".50 Round",
-     "range": 3895,
-     "type": "Gun",
-     "damageMin": 11,
-     "damageMax": 77,
-     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
-     "slot": "Main"
+     "edid": "Bounty_crChineseOfficerSword",
+     "name": "Chinese Officer Sword",
+     "ammo": "",
+     "range": 10,
+     "type": "OneHandSword",
+     "damageMin": 91,
+     "damageMax": 455,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier37",
+     "slot": "Main",
+     "legendary": [
+      "1★ Suppressor's"
+     ]
     },
     {
-     "edid": "crFloaterGnasherGrenade",
-     "name": "Floater Gnasher Grenade",
+     "edid": "crHalluciGenGrenade_Bounty_Subjugator",
+     "name": "HalluciGen Gas Grenade",
      "ammo": "",
      "range": 2000,
      "type": "Grenade",
-     "damageMin": null,
-     "damageMax": null,
+     "damageMin": 1,
+     "damageMax": 1,
      "damageCurve": "",
      "slot": "Thrown"
     }
    ],
-   "specials": [
-    {
-     "name": "Bleed",
-     "text": "11 damage per second for 6 seconds"
-    }
-   ],
+   "specials": [],
    "gangMembers": [
     "Aspiring Red Viper"
+   ],
+   "mechanics": [
+    {
+     "title": "Incisor",
+     "lines": [
+      [
+       "Armour",
+       "melee and unarmed hits ignore 75% of your armour."
+      ]
+     ],
+     "source": "perk"
+    },
+    {
+     "title": "Exploits Red Scare",
+     "lines": [
+      [
+       "Damage",
+       "×2 damage to anyone with Red Scare (from his Subjugator Grenade, 25 seconds)."
+      ]
+     ],
+     "source": "perk"
+    }
+   ],
+   "sideKickMechanics": [
+    {
+     "name": "Aspiring Red Vipers",
+     "lines": [
+      [
+       "Exploits Red Scare",
+       "same as the boss."
+      ]
+     ]
+    }
    ],
    "weakSpot": "Head — takes 1.5× damage",
    "limbs": [
@@ -4337,19 +5100,23 @@
    "imageSlug": "the-temporal-technician",
    "weapons": [
     {
-     "edid": "cr50CalMachineGun",
-     "name": ".50 Cal Machine Gun",
-     "ammo": ".50 Round",
-     "range": 3895,
+     "edid": "Bounty_crPlasmaCaster",
+     "name": "Plasma Caster",
+     "ammo": "Plasma Cartridge",
+     "range": 256,
      "type": "Gun",
-     "damageMin": 11,
-     "damageMax": 77,
-     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
-     "slot": "Main"
+     "damageMin": 36,
+     "damageMax": 205,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier28",
+     "slot": "Main",
+     "legendary": [
+      "1★ Bloodied",
+      "2★ Crippling"
+     ]
     },
     {
-     "edid": "crFloaterGnasherGrenade",
-     "name": "Floater Gnasher Grenade",
+     "edid": "crCryoGrenade",
+     "name": "Cryogenic Grenade",
      "ammo": "",
      "range": 2000,
      "type": "Grenade",
@@ -4359,14 +5126,37 @@
      "slot": "Thrown"
     }
    ],
-   "specials": [
-    {
-     "name": "Bleed",
-     "text": "11 damage per second for 6 seconds"
-    }
-   ],
+   "specials": [],
    "gangMembers": [
     "Time Tourist"
+   ],
+   "mechanics": [
+    {
+     "title": "Time bubble",
+     "lines": [
+      [
+       "Aura",
+       "the closer you get, the slower you move (four rings):",
+       [
+        "inside ring 80: 15% slower (\"Time is slowing down\")",
+        "inside ring 60: 30% slower (\"Time slows further\")",
+        "inside ring 40: 45% slower (\"Time slows to a crawl\")",
+        "inside ring 20: 60% slower (\"Time almost stops\")"
+       ]
+      ]
+     ],
+     "source": "aura"
+    },
+    {
+     "title": "Swift-Footed",
+     "lines": [
+      [
+       "Speed",
+       "+60% movement and attack speed and +40% reload speed."
+      ]
+     ],
+     "source": "perk"
+    }
    ],
    "weakSpot": "Head — takes 1.5× damage",
    "limbs": [
@@ -4466,6 +5256,8 @@
    "Volatile Outlaw"
   ]
  },
+ "reviewFlags": [],
+ "specialMechanicsNote": "Each boss card lists the boss's special mechanics, plus any its side-kicks have.",
  "mechanics": {
   "intro": "Skyline Valley Head Hunt bosses share the following stats.",
   "rows": [
@@ -4751,172 +5543,172 @@
   "intro": "Damage per hit from each boss's main weapon at the bottom and top of the bounty level range.",
   "rows": [
    {
-    "boss": "Bird of Prey",
-    "weapon": ".50 Cal Machine Gun",
-    "levelMin": 25,
-    "levelMax": 175,
-    "damageMin": 11,
-    "damageMax": 77
-   },
-   {
-    "boss": "Buzzkill",
-    "weapon": ".50 Cal Machine Gun",
-    "levelMin": 25,
-    "levelMax": 175,
-    "damageMin": 11,
-    "damageMax": 77
-   },
-   {
-    "boss": "Dada",
-    "weapon": ".50 Cal Machine Gun",
-    "levelMin": 25,
-    "levelMax": 175,
-    "damageMin": 11,
-    "damageMax": 77
-   },
-   {
-    "boss": "Detonation Dave",
-    "weapon": ".50 Cal Machine Gun",
-    "levelMin": 25,
-    "levelMax": 175,
-    "damageMin": 11,
-    "damageMax": 77
-   },
-   {
-    "boss": "Il Maestro",
-    "weapon": ".50 Cal Machine Gun",
-    "levelMin": 25,
-    "levelMax": 175,
-    "damageMin": 11,
-    "damageMax": 77
-   },
-   {
-    "boss": "The Oversearer",
-    "weapon": ".50 Cal Machine Gun",
-    "levelMin": 25,
-    "levelMax": 175,
-    "damageMin": 11,
-    "damageMax": 77
-   },
-   {
-    "boss": "The Pied Pipebomber",
-    "weapon": ".50 Cal Machine Gun",
-    "levelMin": 25,
-    "levelMax": 175,
-    "damageMin": 11,
-    "damageMax": 77
-   },
-   {
-    "boss": "Ayam Legion",
-    "weapon": ".50 Cal Machine Gun",
-    "levelMin": 25,
-    "levelMax": 175,
-    "damageMin": 11,
-    "damageMax": 77
-   },
-   {
-    "boss": "Jaques the Jammer",
-    "weapon": ".50 Cal Machine Gun",
-    "levelMin": 25,
-    "levelMax": 175,
-    "damageMin": 11,
-    "damageMax": 77
-   },
-   {
-    "boss": "Mercy's End",
-    "weapon": ".50 Cal Machine Gun",
-    "levelMin": 25,
-    "levelMax": 175,
-    "damageMin": 11,
-    "damageMax": 77
-   },
-   {
-    "boss": "Micro Mike",
-    "weapon": ".50 Cal Machine Gun",
-    "levelMin": 25,
-    "levelMax": 175,
-    "damageMin": 11,
-    "damageMax": 77
-   },
-   {
-    "boss": "Storm Warning",
-    "weapon": ".50 Cal Machine Gun",
-    "levelMin": 25,
-    "levelMax": 175,
-    "damageMin": 11,
-    "damageMax": 77
-   },
-   {
-    "boss": "The Secret Weapon",
-    "weapon": ".50 Cal Machine Gun",
-    "levelMin": 25,
-    "levelMax": 175,
-    "damageMin": 11,
-    "damageMax": 77
-   },
-   {
-    "boss": "Greasehands Greta",
-    "weapon": ".50 Cal Machine Gun",
-    "levelMin": 25,
-    "levelMax": 175,
-    "damageMin": 11,
-    "damageMax": 77
-   },
-   {
-    "boss": "Lilly Oleander",
-    "weapon": ".50 Cal Machine Gun",
-    "levelMin": 25,
-    "levelMax": 175,
-    "damageMin": 11,
-    "damageMax": 77
-   },
-   {
-    "boss": "The Inquisitionor",
-    "weapon": ".50 Cal Machine Gun",
-    "levelMin": 25,
-    "levelMax": 175,
-    "damageMin": 11,
-    "damageMax": 77
-   },
-   {
     "boss": "The Pirate King",
-    "weapon": ".50 Cal Machine Gun",
+    "weapon": "The Dragon",
     "levelMin": 25,
     "levelMax": 175,
-    "damageMin": 11,
-    "damageMax": 77
+    "damageMin": 288,
+    "damageMax": 1241
    },
    {
     "boss": "The Pseudo Subjugator",
-    "weapon": ".50 Cal Machine Gun",
+    "weapon": "Chinese Officer Sword",
     "levelMin": 25,
     "levelMax": 175,
-    "damageMin": 11,
-    "damageMax": 77
+    "damageMin": 91,
+    "damageMax": 455
    },
    {
-    "boss": "The Temporal Technician",
-    "weapon": ".50 Cal Machine Gun",
+    "boss": "Bird of Prey",
+    "weapon": "Baseball Bat",
     "levelMin": 25,
     "levelMax": 175,
-    "damageMin": 11,
-    "damageMax": 77
+    "damageMin": 82,
+    "damageMax": 416
    },
    {
-    "boss": "The Sharpshooter",
-    "weapon": ".50 Cal Machine Gun",
-    "levelMin": 100,
-    "levelMax": 100,
-    "damageMin": 30,
-    "damageMax": 30
+    "boss": "Greasehands Greta",
+    "weapon": "Combat Knife",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 74,
+    "damageMax": 380
    },
    {
     "boss": "Chief Meteorologist Sally McSun",
-    "weapon": ".50 Cal Machine Gun",
+    "weapon": "Storm Cutter",
     "levelMin": 100,
     "levelMax": 100,
-    "damageMin": 30,
-    "damageMax": 30
+    "damageMin": 272,
+    "damageMax": 272
+   },
+   {
+    "boss": "Buzzkill",
+    "weapon": "Auto Grenade Launcher",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 48,
+    "damageMax": 267
+   },
+   {
+    "boss": "Micro Mike",
+    "weapon": "Tenderizer",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 48,
+    "damageMax": 267
+   },
+   {
+    "boss": "Storm Warning",
+    "weapon": "Railway Rifle",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 40,
+    "damageMax": 224
+   },
+   {
+    "boss": "Il Maestro",
+    "weapon": "Sniper Hunting Rifle",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 36,
+    "damageMax": 205
+   },
+   {
+    "boss": "The Temporal Technician",
+    "weapon": "Plasma Caster",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 36,
+    "damageMax": 205
+   },
+   {
+    "boss": "The Sharpshooter",
+    "weapon": "Black Powder Pistol",
+    "levelMin": 100,
+    "levelMax": 100,
+    "damageMin": 114,
+    "damageMax": 114
+   },
+   {
+    "boss": "Dada",
+    "weapon": "Assault Rifle",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 14,
+    "damageMax": 93
+   },
+   {
+    "boss": "Detonation Dave",
+    "weapon": "Radium Rifle",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 14,
+    "damageMax": 93
+   },
+   {
+    "boss": "Jaques the Jammer",
+    "weapon": "Minigun",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 10,
+    "damageMax": 71
+   },
+   {
+    "boss": "Ayam Legion",
+    "weapon": "10mm Submachine Gun",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 8,
+    "damageMax": 59
+   },
+   {
+    "boss": "Mercy's End",
+    "weapon": "Minigun",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 7,
+    "damageMax": 54
+   },
+   {
+    "boss": "The Pied Pipebomber",
+    "weapon": "M79 Grenade Launcher",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 3,
+    "damageMax": 3
+   },
+   {
+    "boss": "The Oversearer",
+    "weapon": "—",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": null,
+    "damageMax": null
+   },
+   {
+    "boss": "The Secret Weapon",
+    "weapon": "—",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": null,
+    "damageMax": null
+   },
+   {
+    "boss": "Lilly Oleander",
+    "weapon": "—",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": null,
+    "damageMax": null
+   },
+   {
+    "boss": "The Inquisitionor",
+    "weapon": "—",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": null,
+    "damageMax": null
    }
   ]
  },

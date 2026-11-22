@@ -1469,6 +1469,202 @@ def build_stats():
 
 
 # ---------------------------------------------------------------------------
+# HEALING / SURVIVAL (World Pets - Health, Healing & Survival page, 22 Nov 2026)
+# Everything here is read from the exports on every build — nothing typed in:
+#   pet stimpak perk   PERKEP WorldPets_Healing_SpeedHealing (Mod Spell Magnitude /
+#                      Mod Spell Duration, condition ChemTypeStimpack). Every World
+#                      Pet NPC carries it (PRKR; checked in SeventySix.esm 22 Nov 2026).
+#   poison             PERKEP WorldPets_ResistantToPoison (Mod Typed Incoming Weapon Damage)
+#   stimpaks           ALCH (keyword ObjectTypeStimpak, FULL "Stimpak…") + ALCH effects
+#                      (MGEF StimpakRestoreHealth: magnitude per second × duration)
+#   player cards       PERKEP rows on the player side that change ChemTypeStimpack
+#                      effects (Multiply Value only), named from the PERK export
+#   help text          MESG HelpWorldPetsControls_PC (the game's own Pets help page)
+#   health curve       CURV CT_WorldPets_PetProwess_Health0 (WorldPetsClass Health)
+# ---------------------------------------------------------------------------
+PERKEP_PATH = _optional_tsv("PERKEP_TSV", "PERKEP_Export_*.tsv", "PERKEP_Export.tsv")
+PERK_PATH = _optional_tsv("PERK_TSV", "PERK_Export_*.tsv", "PERK_Export.tsv")
+print(f"  PERKEP: {PERKEP_PATH if PERKEP_PATH else '(not found — healing block ships empty)'}")
+print(f"  PERK:   {PERK_PATH if PERK_PATH else '(not found — perk names ship empty)'}")
+
+_HEAL_ENTRY = ("Mod Spell Magnitude", "Mod Spell Duration", "Mod Typed Incoming Weapon Damage")
+perkep_heal_rows = _load_filtered(
+    PERKEP_PATH,
+    lambda r: (r.get("EntryPoint") in _HEAL_ENTRY) and (
+        _wp(r.get("PERK_EDID")) or "ChemTypeStimpack" in (r.get("Conditions") or "")))
+_perk_heal_edids = {r.get("PERK_EDID", "") for r in perkep_heal_rows}
+perk_name_rows = _load_filtered(PERK_PATH, lambda r: r.get("PERK_EDID", "") in _perk_heal_edids)
+perk_info = {}
+for r in perk_name_rows:
+    perk_info.setdefault(r.get("PERK_EDID", ""), {
+        "formId": r.get("PERK_FormID", ""), "name": r.get("FULL", ""), "desc": r.get("DESC", "")})
+
+
+def _perk_value(edid, entry):
+    for r in perkep_heal_rows:
+        if r.get("PERK_EDID") == edid and r.get("EntryPoint") == entry:
+            return fmt_num(r.get("Value"))
+    return None
+
+
+def _is_cut(edid):
+    e = str(edid or "").lower()
+    return e.startswith(("zzz", "cut_")) or "babylon" in e or "debug" in e or "test" in e
+
+
+
+# Exe-only / ESM-overridden game settings the healing page uses (dist[/pts]/exe_settings.json,
+# written by src/exe_settings.py on patch day). ESM value wins over the exe default.
+# client_readers == 0 means nothing on the PC reads it: the servers use it.
+HEAL_EXE_NAMES = (
+    "bUsePlayerLevelForPetBaseHealthCalculation",  # False -> pet health is not from your level
+    "fBasePetHealthPipBoy",                        # Pip-Boy shows pet health out of this
+    "fEssentialHealthPercentReGain",               # essential actor gets up with this share
+    "fCreatureOutOfCombatHealthRegenRate",         # out-of-combat regen per second
+    "fCreatureOutOfCombatHealthRegenDelay",        # seconds after combat before regen starts
+    "fCreatureOutOfCombatHealthRegenPlayerMinDist",# only while the player is this close
+    "fCombatHealthRegenRateMult",                  # in-combat regen multiplier
+    "fWorldPetInvulerabilityTimer",                # seconds a pet can't be hurt (after getting up)
+    "iWorldPetWoundedPickBonus",                   # crosshair prefers a wounded pet
+)
+
+
+def _heal_exe_settings():
+    repo = Path(__file__).resolve().parent.parent
+    exe_path = repo / "dist" / ("pts" if PTS_MODE else "") / "exe_settings.json"
+    if not exe_path.exists():
+        return {}, None
+    try:
+        rows = {r["name"]: r for r in json.load(open(exe_path, encoding="utf-8")).get("settings", [])}
+    except Exception as e:
+        print(f"[world_pet_types] WARN could not read {exe_path}: {e}")
+        return {}, None
+    out = {}
+    for n in HEAL_EXE_NAMES:
+        r = rows.get(n)
+        if r is None:
+            continue
+        v = r.get("esm_value")
+        where = "ESM"
+        if v in (None, ""):
+            v, where = r.get("exe_default"), "exe"
+        if isinstance(v, str):
+            if v.lower() in ("true", "false"):
+                v = v.lower() == "true"
+            else:
+                try:
+                    v = _num(float(v))
+                except ValueError:
+                    pass
+        elif isinstance(v, (int, float)) and not isinstance(v, bool):
+            v = _num(float(v))
+        out[n] = {"value": v, "from": where, "serverSide": not r.get("client_readers")}
+    return out, str(exe_path.relative_to(repo)).replace(os.sep, "/")
+
+
+def _desc_mismatch(desc, mags):
+    """'Stimpaks restore 15% more lost Health.' with ×1.25 in the files -> {'desc': 15, 'files': 25}."""
+    m = re.search(r"(\d+(?:\.\d+)?)%\s*(?:more|effectiveness)", str(desc or ""), re.I)
+    if not m or len(mags) != 1:
+        return None
+    said = float(m.group(1))
+    files = round((float(mags[0]) - 1) * 100, 2)
+    return None if abs(said - files) < 0.5 else {"desc": _num(said), "files": _num(files)}
+
+
+def build_healing():
+    pet_perk_edid = "WorldPets_Healing_SpeedHealing"
+    mag_mult = _perk_value(pet_perk_edid, "Mod Spell Magnitude")
+    dur_mult = _perk_value(pet_perk_edid, "Mod Spell Duration")
+    has_perk = mag_mult is not None or dur_mult is not None
+    m = mag_mult if mag_mult is not None else 1
+    d = dur_mult if dur_mult is not None else 1
+
+    # Stimpaks: every ALCH with the Stimpak object keyword whose name starts "Stimpak".
+    effects_by_alch = {}
+    for r in alch_effect_rows:
+        if (r.get("MGEF_EDID") or "") == "StimpakRestoreHealth":
+            effects_by_alch.setdefault(r.get("ALCH_FormID", ""), []).append(r)
+    stims = []
+    for r in alch_rows:
+        edid = r.get("ALCH_EDID", "")
+        name = r.get("FULL", "")
+        if _is_cut(edid) or "ObjectTypeStimpak" not in (r.get("Keywords_Flat") or ""):
+            continue
+        if not name.lower().startswith("stimpak"):
+            continue
+        effs = []
+        for e in sorted(effects_by_alch.get(r.get("ALCH_FormID", ""), []),
+                        key=lambda x: int(x.get("EffectIndex") or 0)):
+            mag = fmt_num(e.get("EFIT_Magnitude")) or 0
+            dur = fmt_num(e.get("EFIT_Duration")) or 0
+            effs.append({"perSec": mag, "seconds": dur})
+        if not effs:
+            continue
+        base_total = sum(e["perSec"] * e["seconds"] for e in effs)
+        pet_total = sum(e["perSec"] * m * e["seconds"] * d for e in effs)
+        stims.append({
+            "name": name, "edid": edid, "formId": r.get("ALCH_FormID", ""),
+            "weight": fmt_num(r.get("Weight")),
+            "effects": effs,
+            "baseTotal": _num(round(base_total, 4)),
+            "baseSeconds": _num(max(e["seconds"] for e in effs)),
+            "petTotal": _num(round(pet_total, 2)),
+            "petSeconds": _num(round(max(e["seconds"] for e in effs) * d, 2)),
+            "petBurstSeconds": _num(round(min(e["seconds"] for e in effs) * d, 2)),
+        })
+    stims.sort(key=lambda s: s["baseTotal"])
+
+    # Player-side perks / effects that change stimpak healing (Multiply Value only).
+    player = {}
+    for r in perkep_heal_rows:
+        edid = r.get("PERK_EDID", "")
+        if _wp(edid) or _is_cut(edid) or r.get("Function") != "Multiply Value":
+            continue
+        if "ChemTypeStimpack" not in (r.get("Conditions") or ""):
+            continue
+        p = player.setdefault(edid, {"edid": edid, **perk_info.get(edid, {"formId": "", "name": "", "desc": ""}),
+                                     "magnitude": [], "duration": []})
+        v = fmt_num(r.get("Value"))
+        key = "magnitude" if r.get("EntryPoint") == "Mod Spell Magnitude" else "duration"
+        if v is not None and v not in p[key]:
+            p[key].append(v)
+    player_list = sorted(player.values(), key=lambda p: (p["name"] or p["desc"] or p["edid"]).lower())
+    for p in player_list:
+        p["descMismatch"] = _desc_mismatch(p.get("desc"), p["magnitude"])
+    exe_set, exe_file = _heal_exe_settings()
+
+    help_lines = [p for p in _help_paras("HelpWorldPetsControls_PC")
+                  if re.search(r"wounded|stimpak|combat ends", p, re.I)]
+
+    return {
+        "source": {
+            "perkep": os.path.basename(str(PERKEP_PATH)) if PERKEP_PATH else None,
+            "alch": os.path.basename(str(ALCH_EFFECTS_PATH)) if ALCH_EFFECTS_PATH else None,
+            "curve": os.path.basename(str(CURV_PATH)) if CURV_PATH else None,
+        },
+        "petPerk": {
+            "edid": pet_perk_edid, "formId": perk_info.get(pet_perk_edid, {}).get("formId", ""),
+            "name": perk_info.get(pet_perk_edid, {}).get("name", ""),
+            "found": has_perk, "magnitudeMult": mag_mult, "durationMult": dur_mult,
+            "healingMult": _num(round(m * d, 4)) if has_perk else None,
+        },
+        "poisonTakenMult": _perk_value("WorldPets_ResistantToPoison", "Mod Typed Incoming Weapon Damage"),
+        "stimpaks": stims,
+        "playerPerks": player_list,
+        "help": help_lines,
+        # Full health curve (x = the pet's combat level, y = max health).
+        "healthCurve": _curve("CT_WorldPets_PetProwess_Health0"),
+        # Prowess "health" is a damage-taken multiplier, not a bigger bar.
+        "prowessTaken": [glob_val(f"WorldPets_Buff_All_PetProwess0{n}_Health") for n in (1, 2, 3, 4)],
+        "prowessDamage": [glob_val(f"WorldPets_Buff_All_PetProwess0{n}_Damage") for n in (1, 2, 3, 4)],
+        "resistMax": _num(max([y for k, v in CURVES.items() if "_Resist_" in k for _x, y in v] or [0])),
+        "settings": exe_set,
+        "settingsFile": exe_file,
+    }
+
+
+# ---------------------------------------------------------------------------
 # Assemble + write
 # ---------------------------------------------------------------------------
 REWARD_TRACK = build_reward_track()
@@ -1491,6 +1687,7 @@ data = {
     "rewardTrack": REWARD_TRACK,
     "levelling": LEVELLING,
     "stats": build_stats(),
+    "healing": build_healing(),
     "playerGift": {
         "interval": glob_val("WorldPets_ConsumableGiftInterval"),
         "intervalMin": _secs_to_minutes(glob_val("WorldPets_ConsumableGiftInterval")),
