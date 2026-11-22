@@ -1,13 +1,13 @@
 {
  "version": "2026-11-22",
- "generated": "2026-11-22T11:58:28+00:00",
+ "generated": "2026-11-22T14:42:28+00:00",
  "page": "magazines",
  "title": "Magazine Buffs",
  "url": "/bnb/buffs/magazines/magazine-buffs/",
  "blurb": "Every magazine issue and the buff it grants, A-Z.",
  "countNoun": "magazines",
  "sourceAlch": "ALCH_Export_October_2026.tsv",
- "sourceMgef": "MGEF_Export_November_2026_Explosions.tsv",
+ "sourceMgef": "MGEF_Export_November_2026.tsv",
  "mode": "items-abc",
  "groups": [],
  "items": [
@@ -293,7 +293,7 @@
      "formId": "0000BBC2",
      "edid": "Magazine_AwesomeTales13_Effect",
      "full": "Fortify RadAway",
-     "dnam": "",
+     "dnam": "+<mag>% RadAway Effectiveness",
      "magnitude": 30.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -301,7 +301,7 @@
      "name": "Fortify RadAway",
      "polarity": "buff",
      "durationDisplay": "30 min",
-     "display": "+30 RadAway",
+     "display": "+30% RadAway Effectiveness",
      "groupKey": "fortify-radaway",
      "groupLabel": "Fortify RadAway"
     }
@@ -443,7 +443,7 @@
      "formId": "005F26A8",
      "edid": "Magazine_FortifyWaterBreathing",
      "full": "Water Breathing",
-     "dnam": "",
+     "dnam": "Breathe Underwater.",
      "magnitude": 4.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -451,7 +451,7 @@
      "name": "Water Breathing",
      "polarity": "buff",
      "durationDisplay": "30 min",
-     "display": "+4 Water Breathing",
+     "display": "Breathe Underwater.",
      "groupKey": "water-breathing",
      "groupLabel": "Water Breathing"
     }
@@ -512,7 +512,7 @@
      "formId": "0000A229",
      "edid": "Magazine_AwesomeTales04_Effect",
      "full": "Fortify Alien Blaster Damage",
-     "dnam": "",
+     "dnam": "+<mag>% Alien Blaster Dmg.",
      "magnitude": 25.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -520,7 +520,7 @@
      "name": "Fortify Alien Blaster Damage",
      "polarity": "buff",
      "durationDisplay": "30 min",
-     "display": "+25 Alien Blaster Damage",
+     "display": "+25% Alien Blaster Dmg.",
      "groupKey": "fortify-alien-blaster-damage",
      "groupLabel": "Fortify Alien Blaster Damage"
     }
@@ -579,7 +579,7 @@
      "formId": "0000A6C0",
      "edid": "Magazine_AwesomeTales05_Effect",
      "full": "Fortify Cryolator Damage",
-     "dnam": "",
+     "dnam": "+<mag>% Cryolator Dmg.",
      "magnitude": 25.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -587,7 +587,7 @@
      "name": "Fortify Cryolator Damage",
      "polarity": "buff",
      "durationDisplay": "30 min",
-     "display": "+25 Cryolator Damage",
+     "display": "+25% Cryolator Dmg.",
      "groupKey": "fortify-cryolator-damage",
      "groupLabel": "Fortify Cryolator Damage"
     }
@@ -780,7 +780,7 @@
      "formId": "0000B20F",
      "edid": "Magazine_AwesomeTales08Effect",
      "full": "Reduce Damage From Robots",
-     "dnam": "",
+     "dnam": "<mag>% Less Dmg. from Robots",
      "magnitude": 25.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -788,7 +788,7 @@
      "name": "Reduce Damage From Robots",
      "polarity": "debuff",
      "durationDisplay": "30 min",
-     "display": "-25 Damage From Robots",
+     "display": "-25% Less Dmg. from Robots",
      "groupKey": "reduce-damage-from-robots",
      "groupLabel": "Reduce Damage from Robots"
     }
@@ -914,7 +914,7 @@
      "formId": "0030F584",
      "edid": "Magazine_Backwoodsman01Effect",
      "full": "Search Meat from Animals",
-     "dnam": "",
+     "dnam": "Find Meat from Animal Kills",
      "magnitude": 1.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -981,7 +981,7 @@
      "formId": "00379171",
      "edid": "Magazine_Backwoodsman10Effect",
      "full": "Fortify Workshop Turrets",
-     "dnam": "",
+     "dnam": "+<mag>% Workshop Turret Dmg.",
      "magnitude": 50.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -989,7 +989,7 @@
      "name": "Fortify Workshop Turrets",
      "polarity": "buff",
      "durationDisplay": "30 min",
-     "display": "+50 Workshop Turrets",
+     "display": "+50% Workshop Turret Dmg.",
      "groupKey": "fortify-workshop-turrets",
      "groupLabel": "Fortify Workshop Turrets"
     }
@@ -1048,7 +1048,7 @@
      "formId": "0030F5B6",
      "edid": "Magazine_Backwoodsman07Effect",
      "full": "Reduce Disease/Poison from Food/Drink",
-     "dnam": "",
+     "dnam": "-<mag>% food/drink disease chance",
      "magnitude": 50.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -1056,7 +1056,7 @@
      "name": "Reduce Disease/Poison from Food/Drink",
      "polarity": "debuff",
      "durationDisplay": "30 min",
-     "display": "-50 Disease/Poison from Food/Drink",
+     "display": "-50% food/drink disease chance",
      "groupKey": "reduce-disease-poison-from-food-drink",
      "groupLabel": "Reduce Disease/Poison from Food/Drink"
     }
@@ -1115,15 +1115,15 @@
      "formId": "0033843D",
      "edid": "Magazine_Backwoodsman03Effect",
      "full": "Cheaper Weapon Crafting",
-     "dnam": "",
+     "dnam": "Reduced weapon material costs",
      "magnitude": 1.0,
      "duration": 1800.0,
      "magGlob": null,
      "durGlob": "Magazine_BuffDurationGlobal",
      "name": "Cheaper Weapon Crafting",
-     "polarity": "buff",
+     "polarity": "debuff",
      "durationDisplay": "30 min",
-     "display": "+1 Cheaper Weapon Crafting",
+     "display": "-1 Cheaper Weapon Crafting",
      "groupKey": "cheaper-weapon-crafting",
      "groupLabel": "Cheaper Weapon Crafting"
     }
@@ -1182,7 +1182,7 @@
      "formId": "002ED842",
      "edid": "Magazine_Backwoodsman04Effect",
      "full": "Increased Food from Plants",
-     "dnam": "",
+     "dnam": "+<mag>% to Gain Double Yield From Plants",
      "magnitude": 50.0,
      "duration": 1800.0,
      "magGlob": "Backwoodsman04_Chance_Global",
@@ -1190,7 +1190,7 @@
      "name": "Increased Food from Plants",
      "polarity": "buff",
      "durationDisplay": "30 min",
-     "display": "+50 Increased Food from Plants",
+     "display": "+50% to Gain Double Yield From Plants",
      "groupKey": "increased-food-from-plants",
      "groupLabel": "Increased Food from Plants"
     }
@@ -1316,7 +1316,7 @@
      "formId": "0030F596",
      "edid": "Magazine_Backwoodsman06Effect",
      "full": "Magazine_Backwoodsman06Effect",
-     "dnam": "",
+     "dnam": "+<mag>% Healing from Cooked Food",
      "magnitude": 50.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -1324,7 +1324,7 @@
      "name": "Magazine_Backwoodsman06Effect",
      "polarity": "buff",
      "durationDisplay": "30 min",
-     "display": "+50 Magazine_Backwoodsman06Effect",
+     "display": "+50% Healing from Cooked Food",
      "groupKey": "magazine-backwoodsman06effect",
      "groupLabel": "Magazine_Backwoodsman06Effect"
     }
@@ -1383,7 +1383,7 @@
      "formId": "0030F585",
      "edid": "Magazine_Backwoodsman02Effect",
      "full": "Fortify Throwing Weapon Damage",
-     "dnam": "",
+     "dnam": "+<mag>% Throwing Weapon Dmg.",
      "magnitude": 50.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -1391,7 +1391,7 @@
      "name": "Fortify Throwing Weapon Damage",
      "polarity": "buff",
      "durationDisplay": "30 min",
-     "display": "+50 Throwing Weapon Damage",
+     "display": "+50% Throwing Weapon Dmg.",
      "groupKey": "fortify-throwing-weapon-damage",
      "groupLabel": "Fortify Throwing Weapon Damage"
     }
@@ -1450,7 +1450,7 @@
      "formId": "0030F5A1",
      "edid": "Magazine_Backwoodsman08Effect",
      "full": "Fortify Hunger/Thirst Healing",
-     "dnam": "",
+     "dnam": "+<mag>% Hunger & Thirst Cured by Food & Drink",
      "magnitude": 30.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -1517,7 +1517,7 @@
      "formId": "00346E9F",
      "edid": "Magazine_Backwoodsman09Effect",
      "full": "Reduced Workshop Repair Cost",
-     "dnam": "",
+     "dnam": "-<mag>% Workshop Repair Cost",
      "magnitude": 50.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -1525,7 +1525,7 @@
      "name": "Reduced Workshop Repair Cost",
      "polarity": "debuff",
      "durationDisplay": "30 min",
-     "display": "-50 Reduced Workshop Repair Cost",
+     "display": "-50% Workshop Repair Cost",
      "groupKey": "reduced-workshop-repair-cost",
      "groupLabel": "Reduced Workshop Repair Cost"
     }
@@ -1718,7 +1718,7 @@
      "formId": "00007035",
      "edid": "Magazine_GrognakTheBarbarian02Effect",
      "full": "Harder to Detect",
-     "dnam": "",
+     "dnam": "<mag>% Harder to Detect",
      "magnitude": 20.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -1726,7 +1726,7 @@
      "name": "Harder to Detect",
      "polarity": "buff",
      "durationDisplay": "30 min",
-     "display": "+20 Harder to Detect",
+     "display": "20% Harder to Detect",
      "groupKey": "harder-to-detect",
      "groupLabel": "Harder to Detect"
     }
@@ -1986,7 +1986,7 @@
      "formId": "00008D14",
      "edid": "Magazine_GrognakTheBarbarian06_Effect",
      "full": "Magazine_GrognakTheBarbarian06Effect",
-     "dnam": "",
+     "dnam": "-<mag>% Melee Weapon Weight",
      "magnitude": 75.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -1994,7 +1994,7 @@
      "name": "Magazine_GrognakTheBarbarian06Effect",
      "polarity": "buff",
      "durationDisplay": "30 min",
-     "display": "+75 Magazine_GrognakTheBarbarian06Effect",
+     "display": "-75% Melee Weapon Weight",
      "groupKey": "magazine-grognakthebarbarian06effect",
      "groupLabel": "Magazine_GrognakTheBarbarian06Effect"
     }
@@ -2053,7 +2053,7 @@
      "formId": "000090C7",
      "edid": "Magazine_GrognakTheBarbarian07_Effect",
      "full": "Magazine_GrognakTheBarbarian07Effect",
-     "dnam": "",
+     "dnam": "-<mag>% Melee Weapon Condition Loss",
      "magnitude": 50.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -2061,13 +2061,13 @@
      "name": "Magazine_GrognakTheBarbarian07Effect",
      "polarity": "buff",
      "durationDisplay": "30 min",
-     "display": "+50 Magazine_GrognakTheBarbarian07Effect",
-     "groupKey": "magazine-grognakthebarbarian07effect",
-     "groupLabel": "Magazine_GrognakTheBarbarian07Effect"
+     "display": "-50% Melee Weapon Condition Loss",
+     "groupKey": "weapon-condition",
+     "groupLabel": "Weapon Condition"
     }
    ],
    "effectGroups": [
-    "magazine-grognakthebarbarian07effect"
+    "weapon-condition"
    ],
    "obtainRoutes": [
     {
@@ -2455,7 +2455,7 @@
      "formId": "00005725",
      "edid": "Magazine_FortifyCritDamageBallistic_Effect",
      "full": "Fortify Ballistic Crit Damage",
-     "dnam": "",
+     "dnam": "+<MAG>% Ballistic Gun Crit Damage",
      "magnitude": 100.0,
      "duration": 1800.0,
      "magGlob": "Magazine_WeaponCritDamageBuff",
@@ -2463,7 +2463,7 @@
      "name": "Fortify Ballistic Crit Damage",
      "polarity": "buff",
      "durationDisplay": "30 min",
-     "display": "+100 Ballistic Crit Damage",
+     "display": "+100% Ballistic Gun Crit Damage",
      "groupKey": "critical-damage",
      "groupLabel": "Critical Damage"
     }
@@ -2589,7 +2589,7 @@
      "formId": "001EFDCB",
      "edid": "Magazine_GunsAndBullets05Effect",
      "full": "Magazine_GunsAndBullets05Effect",
-     "dnam": "",
+     "dnam": "More Scrap From Weapons",
      "magnitude": 50.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -2656,7 +2656,7 @@
      "formId": "0005B15E",
      "edid": "Magazine_FortifyDamageResistNight_Effect",
      "full": "Damage Resist at Night",
-     "dnam": "",
+     "dnam": "Damage Resist at Night: <mag>",
      "magnitude": 75.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -2664,7 +2664,7 @@
      "name": "Damage Resist at Night",
      "polarity": "buff",
      "durationDisplay": "30 min",
-     "display": "+75 Damage Resist at Night",
+     "display": "Damage Resist at Night: 75",
      "groupKey": "damage-resistance",
      "groupLabel": "Damage Resistance"
     }
@@ -2723,7 +2723,7 @@
      "formId": "001EFC28",
      "edid": "Magazine_GunsAndBullets07Effect",
      "full": "Magazine_GunsAndBullets07Effect",
-     "dnam": "",
+     "dnam": "+<mag>% Unscoped Weapon Dmg.",
      "magnitude": 10.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -2731,7 +2731,7 @@
      "name": "Magazine_GunsAndBullets07Effect",
      "polarity": "buff",
      "durationDisplay": "30 min",
-     "display": "+10 Magazine_GunsAndBullets07Effect",
+     "display": "+10% Unscoped Weapon Dmg.",
      "groupKey": "magazine-gunsandbullets07effect",
      "groupLabel": "Magazine_GunsAndBullets07Effect"
     }
@@ -3058,7 +3058,7 @@
      "formId": "001EFE4B",
      "edid": "Magazine_LiveAndLove03Effect",
      "full": "Magazine_LiveAndLove03Effect",
-     "dnam": "",
+     "dnam": "+<mag>% Healing from Veggies and Fruits",
      "magnitude": 50.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -3066,7 +3066,7 @@
      "name": "Magazine_LiveAndLove03Effect",
      "polarity": "buff",
      "durationDisplay": "30 min",
-     "display": "+50 Magazine_LiveAndLove03Effect",
+     "display": "+50% Healing from Veggies and Fruits",
      "groupKey": "magazine-liveandlove03effect",
      "groupLabel": "Magazine_LiveAndLove03Effect"
     }
@@ -3259,7 +3259,7 @@
      "formId": "0005D616",
      "edid": "Magazine_FortifyDamageResistTeam_Effect",
      "full": "Fortify Damage Resist When in a Team",
-     "dnam": "",
+     "dnam": "Damage Resist When in a Team <mag>",
      "magnitude": 25.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -3267,7 +3267,7 @@
      "name": "Fortify Damage Resist When in a Team",
      "polarity": "buff",
      "durationDisplay": "30 min",
-     "display": "+25 Damage Resist When in a Team",
+     "display": "Damage Resist When in a Team 25",
      "groupKey": "damage-resistance",
      "groupLabel": "Damage Resistance"
     }
@@ -3393,7 +3393,7 @@
      "formId": "00126152",
      "edid": "Magazine_LiveAndLove08UIDummyEffect",
      "full": "Live And Love text dummy",
-     "dnam": "",
+     "dnam": "+<mag>% XP in a team",
      "magnitude": 5.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -3401,9 +3401,9 @@
      "name": "Live And Love text dummy",
      "polarity": "buff",
      "durationDisplay": "30 min",
-     "display": "+5 Live And Love text dummy",
-     "groupKey": "live-and-love-text-dummy",
-     "groupLabel": "Live and Love Text Dummy"
+     "display": "+5% XP in a team",
+     "groupKey": "xp-bonus",
+     "groupLabel": "XP Bonus"
     },
     {
      "formId": "00126151",
@@ -3423,7 +3423,6 @@
     }
    ],
    "effectGroups": [
-    "live-and-love-text-dummy",
     "xp-bonus"
    ],
    "obtainRoutes": [
@@ -3478,7 +3477,7 @@
      "formId": "001F39CC",
      "edid": "Magazine_ReduceDamageFromRobots_Effect",
      "full": "Reduced Damage from Robots",
-     "dnam": "",
+     "dnam": "-<mag>% Damage from Robots",
      "magnitude": 25.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -3486,7 +3485,7 @@
      "name": "Reduced Damage from Robots",
      "polarity": "debuff",
      "durationDisplay": "30 min",
-     "display": "-25 Reduced Damage from Robots",
+     "display": "-25% Damage from Robots",
      "groupKey": "reduced-damage-from-robots",
      "groupLabel": "Reduced Damage from Robots"
     }
@@ -3679,7 +3678,7 @@
      "formId": "0030F5B3",
      "edid": "Magazine_ScoutsLife02Effect",
      "full": "Reduce Damage From Insects",
-     "dnam": "",
+     "dnam": "<mag>% Less Dmg. from Insects",
      "magnitude": 25.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -3687,7 +3686,7 @@
      "name": "Reduce Damage From Insects",
      "polarity": "debuff",
      "durationDisplay": "30 min",
-     "display": "-25 Damage From Insects",
+     "display": "-25% Less Dmg. from Insects",
      "groupKey": "insect-repellent",
      "groupLabel": "Insect Repellent"
     }
@@ -3746,7 +3745,7 @@
      "formId": "007B11C6",
      "edid": "Magazine_ScoutsLife03_Effect",
      "full": "Magazine_ScoutsLife03Effect",
-     "dnam": "",
+     "dnam": "-<mag>% All Items Weight",
      "magnitude": 10.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -3754,7 +3753,7 @@
      "name": "Magazine_ScoutsLife03Effect",
      "polarity": "buff",
      "durationDisplay": "30 min",
-     "display": "+10 Magazine_ScoutsLife03Effect",
+     "display": "-10% All Items Weight",
      "groupKey": "magazine-scoutslife03effect",
      "groupLabel": "Magazine_ScoutsLife03Effect"
     }
@@ -3813,7 +3812,7 @@
      "formId": "002ED83B",
      "edid": "Magazine_ScoutsLife04Effect",
      "full": "Extend Bleedout Time",
-     "dnam": "",
+     "dnam": "100% Longer Bleedout Time",
      "magnitude": 100.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -3821,7 +3820,7 @@
      "name": "Extend Bleedout Time",
      "polarity": "buff",
      "durationDisplay": "30 min",
-     "display": "+100 Extend Bleedout Time",
+     "display": "100% Longer Bleedout Time",
      "groupKey": "extend-bleedout-time",
      "groupLabel": "Extend Bleedout Time"
     }
@@ -3947,7 +3946,7 @@
      "formId": "00312B55",
      "edid": "Magazine_ScoutsLife06Effect",
      "full": "Less hunger & thirst",
-     "dnam": "",
+     "dnam": "Gain <mag>% less hunger & thirst",
      "magnitude": 30.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -4014,7 +4013,7 @@
      "formId": "00312B56",
      "edid": "Magazine_ScoutsLife07Effect",
      "full": "Reduce Damage From Animals",
-     "dnam": "",
+     "dnam": "<mag>% Less Dmg. from Animals",
      "magnitude": 25.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -4022,7 +4021,7 @@
      "name": "Reduce Damage From Animals",
      "polarity": "debuff",
      "durationDisplay": "30 min",
-     "display": "-25 Damage From Animals",
+     "display": "-25% Less Dmg. from Animals",
      "groupKey": "reduce-damage-from-animals",
      "groupLabel": "Reduce Damage from Animals"
     }
@@ -4215,7 +4214,7 @@
      "formId": "002BA579",
      "edid": "Magazine_AstonishingTales05Effect",
      "full": "Damage Bonus vs. Wendigo",
-     "dnam": "",
+     "dnam": "+<mag>% Dmg. vs. the Wendigo",
      "magnitude": 15.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -4223,7 +4222,7 @@
      "name": "Damage Bonus vs. Wendigo",
      "polarity": "buff",
      "durationDisplay": "30 min",
-     "display": "+15 Damage Bonus vs. Wendigo",
+     "display": "+15% Dmg. vs. the Wendigo",
      "groupKey": "damage-bonus-vs-wendigo",
      "groupLabel": "Damage Bonus Vs. Wendigo"
     }
@@ -4282,7 +4281,7 @@
      "formId": "002BA574",
      "edid": "Magazine_AstonishingTales01Effect",
      "full": "Damage Bonus vs. Mothman",
-     "dnam": "",
+     "dnam": "+<mag>% Dmg. vs. the Mothman",
      "magnitude": 15.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -4290,7 +4289,7 @@
      "name": "Damage Bonus vs. Mothman",
      "polarity": "buff",
      "durationDisplay": "30 min",
-     "display": "+15 Damage Bonus vs. Mothman",
+     "display": "+15% Dmg. vs. the Mothman",
      "groupKey": "damage-bonus-vs-mothman",
      "groupLabel": "Damage Bonus Vs. Mothman"
     }
@@ -4349,7 +4348,7 @@
      "formId": "002BA576",
      "edid": "Magazine_AstonishingTales02Effect",
      "full": "Damage Bonus vs. Grafton Monster",
-     "dnam": "",
+     "dnam": "+<mag>% Dmg. vs. the Grafton Monster",
      "magnitude": 15.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -4357,7 +4356,7 @@
      "name": "Damage Bonus vs. Grafton Monster",
      "polarity": "buff",
      "durationDisplay": "30 min",
-     "display": "+15 Damage Bonus vs. Grafton Monster",
+     "display": "+15% Dmg. vs. the Grafton Monster",
      "groupKey": "damage-bonus-vs-grafton-monster",
      "groupLabel": "Damage Bonus Vs. Grafton Monster"
     }
@@ -4416,7 +4415,7 @@
      "formId": "002BA577",
      "edid": "Magazine_AstonishingTales03Effect",
      "full": "Damage Bonus vs. Snallygaster",
-     "dnam": "",
+     "dnam": "+<mag>% Dmg. vs. the Snallygaster",
      "magnitude": 15.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -4424,7 +4423,7 @@
      "name": "Damage Bonus vs. Snallygaster",
      "polarity": "buff",
      "durationDisplay": "30 min",
-     "display": "+15 Damage Bonus vs. Snallygaster",
+     "display": "+15% Dmg. vs. the Snallygaster",
      "groupKey": "damage-bonus-vs-snallygaster",
      "groupLabel": "Damage Bonus Vs. Snallygaster"
     }
@@ -4483,7 +4482,7 @@
      "formId": "002BA578",
      "edid": "Magazine_AstonishingTales04Effect",
      "full": "Damage Bonus vs. Flatwoods Alien",
-     "dnam": "",
+     "dnam": "+<mag>% Dmg. vs. the Flatwoods Alien",
      "magnitude": 15.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -4491,7 +4490,7 @@
      "name": "Damage Bonus vs. Flatwoods Alien",
      "polarity": "buff",
      "durationDisplay": "30 min",
-     "display": "+15 Damage Bonus vs. Flatwoods Alien",
+     "display": "+15% Dmg. vs. the Flatwoods Alien",
      "groupKey": "damage-bonus-vs-flatwoods-alien",
      "groupLabel": "Damage Bonus Vs. Flatwoods Alien"
     }
@@ -4550,7 +4549,7 @@
      "formId": "001F39CC",
      "edid": "Magazine_ReduceDamageFromRobots_Effect",
      "full": "Reduced Damage from Robots",
-     "dnam": "",
+     "dnam": "-<mag>% Damage from Robots",
      "magnitude": 25.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -4558,7 +4557,7 @@
      "name": "Reduced Damage from Robots",
      "polarity": "debuff",
      "durationDisplay": "30 min",
-     "display": "-25 Reduced Damage from Robots",
+     "display": "-25% Damage from Robots",
      "groupKey": "reduced-damage-from-robots",
      "groupLabel": "Reduced Damage from Robots"
     }
@@ -4617,7 +4616,7 @@
      "formId": "001F39CE",
      "edid": "Magazine_TeslaScience02Effect",
      "full": "Magazine_TeslaScience02Effect",
-     "dnam": "",
+     "dnam": "-<mag>% Plasma Damage Taken",
      "magnitude": 25.0,
      "duration": 1800.0,
      "magGlob": "Magazine_ReduceEnemyDamage",
@@ -4625,7 +4624,7 @@
      "name": "Magazine_TeslaScience02Effect",
      "polarity": "buff",
      "durationDisplay": "30 min",
-     "display": "+25 Magazine_TeslaScience02Effect",
+     "display": "-25% Plasma Damage Taken",
      "groupKey": "magazine-teslascience02effect",
      "groupLabel": "Magazine_TeslaScience02Effect"
     }
@@ -4751,7 +4750,7 @@
      "formId": "001F39D2",
      "edid": "Magazine_TeslaScience04Effect",
      "full": "Magazine_TeslaScience04Effect",
-     "dnam": "",
+     "dnam": "+<mag>% Fusion Core Duration",
      "magnitude": 15.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -4759,7 +4758,7 @@
      "name": "Magazine_TeslaScience04Effect",
      "polarity": "buff",
      "durationDisplay": "30 min",
-     "display": "+15 Magazine_TeslaScience04Effect",
+     "display": "+15% Fusion Core Duration",
      "groupKey": "magazine-teslascience04effect",
      "groupLabel": "Magazine_TeslaScience04Effect"
     }
@@ -4818,7 +4817,7 @@
      "formId": "001F39D3",
      "edid": "Magazine_TeslaScience05Effect",
      "full": "Magazine_TeslaScience05Effect",
-     "dnam": "",
+     "dnam": "-<mag>% Heavy Weapon Ammo Consumption",
      "magnitude": 20.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -4826,7 +4825,7 @@
      "name": "Magazine_TeslaScience05Effect",
      "polarity": "buff",
      "durationDisplay": "30 min",
-     "display": "+20 Magazine_TeslaScience05Effect",
+     "display": "-20% Heavy Weapon Ammo Consumption",
      "groupKey": "magazine-teslascience05effect",
      "groupLabel": "Magazine_TeslaScience05Effect"
     }
@@ -5220,7 +5219,7 @@
      "formId": "004E75A8",
      "edid": "Magazine_TumblersToday02Effect",
      "full": "Search for Bobby Pins",
-     "dnam": "",
+     "dnam": "Find extra bobby pins when picking up bobby pin boxes.",
      "magnitude": 1.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -5228,7 +5227,7 @@
      "name": "Search for Bobby Pins",
      "polarity": "buff",
      "durationDisplay": "30 min",
-     "display": "+1 Search for Bobby Pins",
+     "display": "Find extra bobby pins when picking up bobby pin boxes.",
      "groupKey": "search-for-bobby-pins",
      "groupLabel": "Search for Bobby Pins"
     }
@@ -5287,7 +5286,7 @@
      "formId": "0031761C",
      "edid": "Magazine_TumblersToday03Effect",
      "full": "Pick Higher Tier Locks",
-     "dnam": "",
+     "dnam": "Pick Locks of <mag> Higher Tier",
      "magnitude": 1.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -5295,7 +5294,7 @@
      "name": "Pick Higher Tier Locks",
      "polarity": "buff",
      "durationDisplay": "30 min",
-     "display": "+1 Pick Higher Tier Locks",
+     "display": "Pick Locks of 1 Higher Tier",
      "groupKey": "pick-higher-tier-locks",
      "groupLabel": "Pick Higher Tier Locks"
     }
@@ -5354,7 +5353,7 @@
      "formId": "00317619",
      "edid": "Magazine_TumblersToday04Effect",
      "full": "Lockpicks Don't Break",
-     "dnam": "",
+     "dnam": "Bobby Pins are Unbreakable",
      "magnitude": 1.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -5622,7 +5621,7 @@
      "formId": "002E5FAB",
      "edid": "Magazine_FortifySneakLight_Effect",
      "full": "Fortify Sneak (Light)",
-     "dnam": "",
+     "dnam": "Hide <mag>% Better in Full Light",
      "magnitude": 50.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -5630,7 +5629,7 @@
      "name": "Fortify Sneak (Light)",
      "polarity": "buff",
      "durationDisplay": "30 min",
-     "display": "+50 Sneak (Light)",
+     "display": "Hide 50% Better in Full Light",
      "groupKey": "fortify-sneak-light",
      "groupLabel": "Fortify Sneak (Light)"
     }
@@ -5689,7 +5688,7 @@
      "formId": "00312B75",
      "edid": "Magazine_USCovertOps03Effect",
      "full": "Reduced Damage from Players",
-     "dnam": "",
+     "dnam": "-<mag>% Damage from Players",
      "magnitude": 10.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -5697,7 +5696,7 @@
      "name": "Reduced Damage from Players",
      "polarity": "debuff",
      "durationDisplay": "30 min",
-     "display": "-10 Reduced Damage from Players",
+     "display": "-10% Damage from Players",
      "groupKey": "reduced-damage-from-players",
      "groupLabel": "Reduced Damage from Players"
     }
@@ -5890,7 +5889,7 @@
      "formId": "002ED847",
      "edid": "Magazine_FortifySneakAudio_Effect",
      "full": "Fortify Sneak (Audio)",
-     "dnam": "",
+     "dnam": "Make <mag>% Less Noise While Sneaking",
      "magnitude": 50.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -5898,7 +5897,7 @@
      "name": "Fortify Sneak (Audio)",
      "polarity": "buff",
      "durationDisplay": "30 min",
-     "display": "+50 Sneak (Audio)",
+     "display": "Make 50% Less Noise While Sneaking",
      "groupKey": "fortify-sneak-audio",
      "groupLabel": "Fortify Sneak (Audio)"
     }
@@ -5957,7 +5956,7 @@
      "formId": "0037A25B",
      "edid": "Magazine_USCovertOps07Effect",
      "full": "Reduced VATS accuracy for other Players",
-     "dnam": "",
+     "dnam": "-<mag>% Enemy Player V.A.T.S. Accuracy",
      "magnitude": 50.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -5965,7 +5964,7 @@
      "name": "Reduced VATS accuracy for other Players",
      "polarity": "debuff",
      "durationDisplay": "30 min",
-     "display": "-50 Reduced VATS accuracy for other Players",
+     "display": "-50% Enemy Player V.A.T.S. Accuracy",
      "groupKey": "accuracy",
      "groupLabel": "Accuracy"
     }
@@ -6024,7 +6023,7 @@
      "formId": "00312B71",
      "edid": "Magazine_USCovertOps08Effect",
      "full": "Fortify Fists & Knife Damage",
-     "dnam": "",
+     "dnam": "+<mag>% Fists & Knife Dmg.",
      "magnitude": 25.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -6032,7 +6031,7 @@
      "name": "Fortify Fists & Knife Damage",
      "polarity": "buff",
      "durationDisplay": "30 min",
-     "display": "+25 Fists & Knife Damage",
+     "display": "+25% Fists & Knife Dmg.",
      "groupKey": "fortify-fists-knife-damage",
      "groupLabel": "Fortify Fists & Knife Damage"
     }
@@ -6158,7 +6157,7 @@
      "formId": "002ED829",
      "edid": "Magazine_Unstoppables01Effect",
      "full": "Unstoppables 1",
-     "dnam": "",
+     "dnam": "+<mag>% Chance to Avoid Dmg.",
      "magnitude": 5.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -6166,7 +6165,7 @@
      "name": "Unstoppables 1",
      "polarity": "buff",
      "durationDisplay": "30 min",
-     "display": "+5 Unstoppables 1",
+     "display": "+5% Chance to Avoid Dmg.",
      "groupKey": "unstoppables-1",
      "groupLabel": "Unstoppables 1"
     }
@@ -6225,7 +6224,7 @@
      "formId": "002ED82A",
      "edid": "Magazine_Unstoppables02Effect",
      "full": "Unstoppables 2",
-     "dnam": "",
+     "dnam": "+<mag>% Chance to Avoid Dmg. From Scorched",
      "magnitude": 20.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -6233,7 +6232,7 @@
      "name": "Unstoppables 2",
      "polarity": "buff",
      "durationDisplay": "30 min",
-     "display": "+20 Unstoppables 2",
+     "display": "+20% Chance to Avoid Dmg. From Scorched",
      "groupKey": "unstoppables-2",
      "groupLabel": "Unstoppables 2"
     }
@@ -6292,7 +6291,7 @@
      "formId": "002ED82B",
      "edid": "Magazine_Unstoppables03Effect",
      "full": "Unstoppables 3",
-     "dnam": "",
+     "dnam": "+<mag>% Chance to Avoid Dmg. From Explosions",
      "magnitude": 30.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -6300,7 +6299,7 @@
      "name": "Unstoppables 3",
      "polarity": "buff",
      "durationDisplay": "30 min",
-     "display": "+30 Unstoppables 3",
+     "display": "+30% Chance to Avoid Dmg. From Explosions",
      "groupKey": "unstoppables-3",
      "groupLabel": "Unstoppables 3"
     }
@@ -6359,7 +6358,7 @@
      "formId": "002ED82C",
      "edid": "Magazine_Unstoppables04Effect",
      "full": "Unstoppables 4",
-     "dnam": "",
+     "dnam": "+<mag>% Chance to Avoid Melee Dmg.",
      "magnitude": 30.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -6367,7 +6366,7 @@
      "name": "Unstoppables 4",
      "polarity": "buff",
      "durationDisplay": "30 min",
-     "display": "+30 Unstoppables 4",
+     "display": "+30% Chance to Avoid Melee Dmg.",
      "groupKey": "unstoppables-4",
      "groupLabel": "Unstoppables 4"
     }
@@ -6426,7 +6425,7 @@
      "formId": "002ED82D",
      "edid": "Magazine_Unstoppables05Effect",
      "full": "Unstoppables 5",
-     "dnam": "",
+     "dnam": "+<mag>% Chance to Avoid Energy Dmg.",
      "magnitude": 30.0,
      "duration": 1800.0,
      "magGlob": null,
@@ -6434,7 +6433,7 @@
      "name": "Unstoppables 5",
      "polarity": "buff",
      "durationDisplay": "30 min",
-     "display": "+30 Unstoppables 5",
+     "display": "+30% Chance to Avoid Energy Dmg.",
      "groupKey": "unstoppables-5",
      "groupLabel": "Unstoppables 5"
     }
