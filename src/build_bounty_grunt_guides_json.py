@@ -112,6 +112,30 @@ def _token(edid, prefix_re):
     return re.sub(r"s$", "", t)          # RustRaiders ~ RustRaider, Ferals ~ Feral
 
 
+# Item keywords on a Wanted Poster (MISC export) -> the rule a player sees.
+POSTER_KEYWORD_RULES = [
+    ("NonPlayerTradable", "Can't be traded to other players."),
+    ("UnsellableObject", "Can't be sold to vendors."),
+    ("NonDroppable", "Can't be dropped."),
+    ("UnscrappableObject", "Can't be scrapped."),
+    ("ExcludeFromDisplays", "Can't be put on display."),
+]
+BURN_POSTER = "008206C6"     # BountyHunting_Burn_WantedPoster (Burning Springs Head Hunt guide)
+
+
+def poster_rules(row):
+    """Plain rules for a Wanted Poster from its keywords and weight."""
+    row = row or {}
+    kws = set((row.get("Keywords") or "").split("|"))
+    rules = [txt for kw, txt in POSTER_KEYWORD_RULES if kw in kws]
+    try:
+        if float(row.get("Weight") or 0) == 0:
+            rules.append("Weighs nothing.")
+    except ValueError:
+        pass
+    return rules
+
+
 def build(tsv_dir):
     ex = Exports(tsv_dir)
     flst = {}
@@ -206,6 +230,7 @@ def build(tsv_dir):
                 "everyMin": int(globs.get(POSTER_MIN, 0)), "everyMax": int(globs.get(POSTER_MAX, 0)),
                 "limitedTimeOn": globs.get(POSTER_LT_TOGGLE, 0) >= 1,
                 "limitedMin": int(globs.get(POSTER_LT_MIN, 0)), "limitedMax": int(globs.get(POSTER_LT_MAX, 0)),
+                "rules": poster_rules(misc.get(poster_fid)),
             },
             "supportWaves": [{"name": w["name"], "formid": w["formid"],
                               "isDefault": bool(default and w["formid"] == default["formid"])} for w in waves],
@@ -215,7 +240,11 @@ def build(tsv_dir):
         print(f"[grunt guides] {slug}: {len(locations)} locations, {len(waves)} support waves, "
               f"{len(outlaws)} outlaws, stars {[s['count'] for s in stars]}")
     return {"generated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-            "sources": ex.used, "byPage": pages}
+            "sources": ex.used, "byPage": pages,
+            # Burning Springs Head Hunt guide is hand-written; it reads its poster rules from here.
+            "posterRules": {"burning-springs": {
+                "name": ((misc.get(BURN_POSTER) or {}).get("FULL") or "").strip(),
+                "rules": poster_rules(misc.get(BURN_POSTER))}}}
 
 
 # ── Skyline Valley Head Hunt guide ──────────────────────────────────────────
@@ -317,6 +346,7 @@ def build_head(tsv_dir, dist_dir, ex=None):
             "hub": (lctn.get(cfg["hub"], {}).get("LCTN_FULL") or "").strip(),
             "giver": giver,
             "posterName": ((misc.get(poster_fid) or {}).get("FULL") or "").strip(),
+            "posterRules": poster_rules(misc.get(poster_fid)),
             "posterPrice": int(globs.get(POSTER_PRICE, 0)),
             "timers": {k: int(globs.get(v, 0)) for k, v in HEAD_TIMERS.items()},
             "xpBonus": xp,

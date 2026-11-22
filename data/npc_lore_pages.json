@@ -1,5 +1,5 @@
 {
- "_note": "NPC Lore & Dialogue pages (build_npc_lore_json.py). Prose is written here; every dialogue line, condition, quest name and the poster price come from the game-file exports. {posterPrice} = BountyHunty_CapsPriceHeadHunt GLOB. {img:file} = picture from imageDir (placeholder until uploaded). {spawns} = every placed copy of the NPC (LCTN LCSR location refs), grouped by region (LocRegion keyword), with a picture slot each.",
+ "_note": "NPC Lore & Dialogue pages (build_npc_lore_json.py). Prose is written here; every dialogue line, condition, quest name and the poster price come from the game-file exports. {posterPrice} = BountyHunty_CapsPriceHeadHunt GLOB. {img:file} = picture from imageDir (placeholder until uploaded). {spawns} = every placed copy of the NPC (LCTN LCSR location refs), grouped by region (LocRegion keyword), with a picture slot each. voice may be a list (every voice type that is this NPC). footNote = small note at the bottom of the page.",
  "pages": {
   "marshal-canton-lore-and-dialogue": {
    "title": "Bounty Hunting - Marshal Canton Lore & Dialogue",
@@ -34,7 +34,7 @@
    "sections": [
     {
      "title": "Who Is Marshal Canton?",
-     "html": "<p>Marshal Canton is the bounty giver for Skyline Valley. He stands at The Trading Post by the Bounty Board and hands out Grunt Hunts and Head Hunts.</p>{img:canton-trading-post.avif}<p>He is a robot in a cowboy hat with a glass dome on top, and he introduces himself as \"Frank Canton, United States Marshal\". He says he was first appointed as a Marshal in Oklahoma in 1894, and that \"this whole robot business came later\".</p><p>He talks like an old Western lawman: outlaws, rustlers, desperadoes, the Law with a capital L. He no longer has a body that can handle rough ground (\"this goddarned drive motor\"), so he farms the gunslinging out to bounty hunters.</p><p>There's no pay from him, because \"the governor ain't exactly been filling the kitty lately\". You keep whatever you loot. Head Hunt contracts, though, cost a {posterPrice}-cap \"charitable donation\".</p><h3>Is he really Frank Canton?</h3><p>Push him on his past and the act cracks. With Intelligence 12+ you can tell him the real Frank Canton died in the 1920s. Ask him to explain and he breaks down mid-sentence: \"Oh, God, what've they done to me? Where am I? What happened to the spa?\" Then he snaps back and refuses to talk about it.</p>{img:canton-personal-questions.avif}<p>The Scan 14: Josiah Harrison holotape from A Matter of Matter (Rapidan Camp) has Canton's voice in it. Iggy Stolz tells him: \"You're not even really you, just a miscalibration of a has-been actor.\" Canton answers \"Actor? What kind of...\" and goes into the same pained \"Where am I? Why can't I see anything?\" breakdown.</p><p>Put together, it looks like the brain in the robot was scanned from someone who played Frank Canton, and the personality took over. The tape's title names Josiah Harrison. The files never say this in one line, so treat it as a reading of the clues rather than a stated fact.</p><h3>Little details</h3><ul><li>He hums \"Camptown Races\" while idle, keeps losing his hat (\"Got a powerful need for some more glue\") and can't remember where he got it.</li><li>\"Nothing like fresh air. Be real nice if I could still smell it.\"</li><li>He greets you differently if you're a ghoul the first time you meet.</li><li>He has worked \"with every cattle baron, sheriff's office, Pinkerton, and governor from Wyoming to Texas\".</li></ul>"
+     "html": "<p>Marshal Canton is the bounty giver for Skyline Valley. He stands at The Trading Post by the Bounty Board and hands out Grunt Hunts and Head Hunts.</p>{img:canton-trading-post.avif}<p>He is a robot in a cowboy hat with a glass dome on top, and he introduces himself as \"Frank Canton, United States Marshal\". He says he was first appointed as a Marshal in Oklahoma in 1894, and that \"this whole robot business came later\".</p><p>He talks like an old Western lawman: outlaws, rustlers, desperadoes, the Law with a capital L. He no longer has a body that can handle rough ground (\"this goddarned drive motor\"), so he farms the gunslinging out to bounty hunters.</p><p>There's no pay from him, because \"the governor ain't exactly been filling the kitty lately\". You keep whatever you loot. Head Hunt contracts, though, cost a {posterPrice}-cap \"charitable donation\".</p><h3>Is he really Frank Canton?</h3><p>Push him on his past and the act cracks. With Intelligence 12+ you can tell him the real Frank Canton died in the 1920s. Ask him to explain and he breaks down mid-sentence: \"Oh, God, what've they done to me? Where am I? What happened to the spa?\" Then he snaps back and refuses to talk about it.</p>{img:canton-personal-questions.avif}<p>The Scan 14: Josiah Harrison holotape from A Matter of Matter (Rapidan Camp) has Canton's voice in it. Iggy Stolz tells him: \"You're not even really you, just a miscalibration of a has-been actor.\" Canton answers \"Actor? What kind of...\" and goes into the same pained \"Where am I? Why can't I see anything?\" breakdown.</p><p>Put together, it looks like the brain in the robot was scanned from someone who played Frank Canton, and the personality took over. The tape's title names Josiah Harrison. He never says this in one line, so treat it as a reading of the clues rather than a stated fact.</p><h3>Little details</h3><ul><li>He hums \"Camptown Races\" while idle, keeps losing his hat (\"Got a powerful need for some more glue\") and can't remember where he got it.</li><li>\"Nothing like fresh air. Be real nice if I could still smell it.\"</li><li>He greets you differently if you're a ghoul the first time you meet.</li><li>He has worked \"with every cattle baron, sheriff's office, Pinkerton, and governor from Wyoming to Texas\".</li></ul>"
     },
     {
      "title": "Where to Find Him",
@@ -54,10 +54,13 @@
   "the-ghoul-lore-and-dialogue": {
    "title": "Bounty Hunting - The Ghoul Lore & Dialogue",
    "npc": "The Ghoul",
-   "voice": "burn_npcm_bountygiver",
+   "voice": [
+    "burn_npcm_bountygiver",
+    "burn_npcf_billie"
+   ],
    "ptsOnly": false,
    "imageDir": "guide-images/bounty-hunting/npc-lore",
-   "blurb": "Who The Ghoul is in Fallout 76, where he turns up in every region, what he lets slip about himself, his Billie codename, and every line he says, laid out as the conversation menus you see in game.",
+   "blurb": "Who The Ghoul is in Fallout 76, where he turns up in every region, what he lets slip about himself, and every line he says, laid out as the conversation menus you see in game.",
    "strip": [
     "BURN_BountyGiver_Applachia_",
     "BURN_BountyGiver_",
@@ -70,22 +73,13 @@
      "Talking to The Ghoul at The Last Resort"
     ],
     [
+     "BURN_Billie_Dialogue",
+     "More of his lines at The Last Resort"
+    ],
+    [
      "BURN_BountyGiver_Appalachia_Dialogue",
      "Meeting The Ghoul out in Appalachia"
     ]
-   ],
-   "extraDialogue": [
-    {
-     "title": "Full Dialogue - The Ghoul as Billie (codename version)",
-     "npc": "The Ghoul (as Billie)",
-     "voice": "burn_npcf_billie",
-     "quests": [
-      [
-       "BURN_Billie_Dialogue",
-       "Billie's lines at The Last Resort"
-      ]
-     ]
-    }
    ],
    "lore": {
     "keywords": [
@@ -98,15 +92,11 @@
    "sections": [
     {
      "title": "Who Is The Ghoul?",
-     "html": "<p>The Ghoul runs bounty hunting in Burning Springs. He works out of The Last Resort, the saloon in Highway Town, and hands out Grunt Hunts and Head Hunts from a stack of contracts.</p><p>He is Cooper Howard from the Fallout TV series, voiced by Walton Goggins, and arrived with the Burning Springs update (per Bethesda). In the game files he is only ever \"The Ghoul\", and his voice type is labelled \"Bounty Hunter\".</p><h3>What he lets slip</h3><ul><li>He isn't from Ohio, and he isn't saying where he's from: \"Where I'm from is one of those things that's not your concern.\"</li><li>He's here for a reason: \"Let's just say I followed somebody out here. Somebody I'd very much like to meet.\"</li><li>He's been looking into the Vaults. He tells a fresh Vault 76 dweller he \"already interrogated the last one of you to come out of that hole. Sounds like there's nothing down there for me.\"</li><li>He doesn't care what a target did, \"so long as the caps from the bounty end up in my pocket to pay for the chems in my lungs.\" He stays at The Last Resort because \"the barkeep here's got the vials I like\".</li><li>On the Rust King: \"Not the first would-be king I've seen in the Wasteland. Doubt he'll be the last... All I know is kings fall, and all crowns rust.\"</li><li>His one rule for bounty hunters: \"We don't do 'dead or alive'. Just dead.\"</li></ul><p class=\"nl-note\">In the TV show he's searching for his family, which fits \"followed somebody out here\". Nothing in the Fallout 76 files names who he's following, though.</p>"
+     "html": "<p>The Ghoul runs bounty hunting in Burning Springs. He works out of The Last Resort, the saloon in Highway Town, and hands out Grunt Hunts and Head Hunts from a stack of contracts.</p><p>He is Cooper Howard from the Fallout TV series, voiced by Walton Goggins, and arrived with the Burning Springs update (per Bethesda).</p><h3>What he lets slip</h3><ul><li>He isn't from Ohio, and he isn't saying where he's from: \"Where I'm from is one of those things that's not your concern.\"</li><li>He's here for a reason: \"Let's just say I followed somebody out here. Somebody I'd very much like to meet.\"</li><li>He's been looking into the Vaults. He tells a fresh Vault 76 dweller he \"already interrogated the last one of you to come out of that hole. Sounds like there's nothing down there for me.\"</li><li>He doesn't care what a target did, \"so long as the caps from the bounty end up in my pocket to pay for the chems in my lungs.\" He stays at The Last Resort because \"the barkeep here's got the vials I like\".</li><li>On the Rust King: \"Not the first would-be king I've seen in the Wasteland. Doubt he'll be the last... All I know is kings fall, and all crowns rust.\"</li><li>His one rule for bounty hunters: \"We don't do 'dead or alive'. Just dead.\"</li></ul><p class=\"nl-note\">In the TV show he's searching for his family, which fits \"followed somebody out here\". Nothing in Fallout 76 names who he's following, though.</p>"
     },
     {
      "title": "Where to Find Him",
      "html": "<p>His home is The Last Resort, the saloon in Highway Town, Burning Springs. He stands against the back wall.</p><p>Before you've been to Burning Springs, he can also turn up in every region of Appalachia, standing over a target he's just killed. He tells you about Burning Springs (\"burnt clean away after the war\"), points you to the bridge by Point Pleasant, and says to find him at The Last Resort.</p>{spawns}"
-    },
-    {
-     "title": "Billie Is The Ghoul",
-     "html": "<p>Billie and The Ghoul are the same person. Bethesda used the name Billie as a codename, so data miners wouldn't spot The Ghoul in the files before he was revealed.</p><p>The codename version is still in the files. It has its own set of lines (\"Give me a premium target\", the {posterPrice}-cap fee, \"Wasteland's full of confident dead guys\") and is set up in the exact same spot in The Last Resort. The two versions share one switch, so only one is ever standing there, and in game it's The Ghoul.</p><p>The codename lines are at the bottom of this page.</p>"
     },
     {
      "title": "Buying a Wanted Poster",
@@ -123,7 +113,8 @@
       "img": "the-ghoul-last-resort.avif"
      }
     }
-   }
+   },
+   "footNote": "Billie was the codename Bethesda used for The Ghoul to keep data miners off the trail, so some of his lines and dialogue are listed under the name Billie."
   },
   "minerva-lore-and-dialogue": {
    "title": "Minerva - Minerva Lore & Dialogue",

@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-22T03:12:16.149614+00:00",
+  "generated": "2026-11-22T06:13:16.454419+00:00",
   "channel": "live",
   "groupCount": 7,
   "totalBosses": 30,
@@ -37,7 +37,17 @@
                 "name": "Hunger Effect",
                 "edid": "Burn_Bounty_mod_custom_HungerEffect",
                 "formId": "0082073E",
-                "effect": "283 damage per second for 1 second"
+                "effect": "283 damage per second for 1 second",
+                "effectData": [
+                  {
+                    "effect": "Hunger",
+                    "curve": "CT_Creatures_Damage_Universal_Tier50",
+                    "actorValue": "SURV_Hunger",
+                    "magnitude": 283.0,
+                    "duration": 1,
+                    "text": "283 damage per second for 1 second"
+                  }
+                ]
               }
             ]
           },
@@ -46,6 +56,10 @@
             "baseName": "Pulse Grenade",
             "baseEdid": "crPulseGrenade",
             "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Energy",
+            "edids": [
+              "crPulseGrenade",
+              "crPlasmaGrenade"
+            ],
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
@@ -142,6 +156,10 @@
             "baseName": "Floater Flamer Grenade",
             "baseEdid": "crFloaterFlamerGrenade",
             "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Fire",
+            "edids": [
+              "crFloaterFlamerGrenade",
+              "CrMolotovCocktail"
+            ],
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
@@ -181,13 +199,30 @@
                 "name": "Radiation Effect",
                 "edid": "Burn_Bounty_mod_custom_RadiationEffect",
                 "formId": "008039B0",
-                "effect": "8 radiation"
+                "effect": "8 radiation",
+                "effectData": [
+                  {
+                    "effect": "Radiation Damage",
+                    "curve": "CT_Creatures_Damage_Universal_Tier17",
+                    "magnitude": 8.0,
+                    "text": "8 radiation"
+                  }
+                ]
               },
               {
                 "name": "Poison Effect",
                 "edid": "Burn_Bounty_mod_custom_PoisonEffect",
                 "formId": "008039AE",
-                "effect": "9 damage per second for 8 seconds"
+                "effect": "9 damage per second for 8 seconds",
+                "effectData": [
+                  {
+                    "effect": "Poison",
+                    "curve": "CT_Creatures_Damage_Universal_Tier18",
+                    "magnitude": 9.0,
+                    "duration": 8,
+                    "text": "9 damage per second for 8 seconds"
+                  }
+                ]
               }
             ]
           },
@@ -350,7 +385,15 @@
                 "name": "Radiation Effect",
                 "edid": "Burn_Bounty_mod_custom_RadiationEffect",
                 "formId": "008039B0",
-                "effect": "8 radiation"
+                "effect": "8 radiation",
+                "effectData": [
+                  {
+                    "effect": "Radiation Damage",
+                    "curve": "CT_Creatures_Damage_Universal_Tier17",
+                    "magnitude": 8.0,
+                    "text": "8 radiation"
+                  }
+                ]
               }
             ]
           },
@@ -427,6 +470,10 @@
             "baseName": "Floater Flamer Grenade",
             "baseEdid": "crFloaterFlamerGrenade",
             "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Fire",
+            "edids": [
+              "crFloaterFlamerGrenade",
+              "CrMolotovCocktail"
+            ],
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
@@ -480,7 +527,45 @@
                 "name": "Debuff Cocktail",
                 "edid": "Burn_Bounty_mod_custom_DebuffCocktail",
                 "formId": "0082073F",
-                "effect": "5 damage per second for 20 seconds · 9 damage per second for 1 second · 16 damage per second for 5 seconds · 19 damage per second for 20 seconds · 60 damage per second for 20 seconds"
+                "effect": "5 damage per second for 20 seconds · 9 damage per second for 1 second · 16 damage per second for 5 seconds · 19 damage per second for 20 seconds · 60 damage per second for 20 seconds",
+                "effectData": [
+                  {
+                    "effect": "Poison",
+                    "curve": "CT_Creatures_Damage_Universal_Tier12",
+                    "magnitude": 5.0,
+                    "duration": 20,
+                    "text": "5 damage per second for 20 seconds"
+                  },
+                  {
+                    "effect": "Cryo Damage",
+                    "curve": "CT_Creatures_Damage_Universal_Tier18",
+                    "magnitude": 9.0,
+                    "duration": 1,
+                    "text": "9 damage per second for 1 second"
+                  },
+                  {
+                    "effect": "Fire",
+                    "curve": "CT_Creatures_Damage_Universal_Tier23",
+                    "magnitude": 16.0,
+                    "duration": 5,
+                    "text": "16 damage per second for 5 seconds"
+                  },
+                  {
+                    "effect": "Energy",
+                    "curve": "CT_Creatures_Damage_Universal_Tier25",
+                    "magnitude": 19.0,
+                    "duration": 20,
+                    "text": "19 damage per second for 20 seconds"
+                  },
+                  {
+                    "effect": "Abraxodyne Anti-Armour Effect",
+                    "actorValue": "DamageRecieved",
+                    "magnitude": 60.0,
+                    "duration": 20,
+                    "description": "+60% Damage Taken",
+                    "text": "60 damage per second for 20 seconds"
+                  }
+                ]
               }
             ]
           },
@@ -565,7 +650,16 @@
                 "name": "Bleed Effect",
                 "edid": "Burn_Bounty_mod_custom_BleedEffect",
                 "formId": "008039AD",
-                "effect": "11 damage per second for 6 seconds"
+                "effect": "11 damage per second for 6 seconds",
+                "effectData": [
+                  {
+                    "effect": "Damage Health",
+                    "curve": "CT_Creatures_Damage_Universal_Tier20",
+                    "magnitude": 11.0,
+                    "duration": 6,
+                    "text": "11 damage per second for 6 seconds"
+                  }
+                ]
               }
             ]
           },
@@ -676,7 +770,15 @@
                 "name": "Radiation Effect",
                 "edid": "Burn_Bounty_mod_custom_RadiationEffect",
                 "formId": "008039B0",
-                "effect": "8 radiation"
+                "effect": "8 radiation",
+                "effectData": [
+                  {
+                    "effect": "Radiation Damage",
+                    "curve": "CT_Creatures_Damage_Universal_Tier17",
+                    "magnitude": 8.0,
+                    "text": "8 radiation"
+                  }
+                ]
               }
             ]
           },
@@ -685,6 +787,10 @@
             "baseName": "Pulse Grenade",
             "baseEdid": "crPulseGrenade",
             "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Energy",
+            "edids": [
+              "crPulseGrenade",
+              "crPlasmaGrenade"
+            ],
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
@@ -725,6 +831,10 @@
             "baseName": "Floater Flamer Grenade",
             "baseEdid": "crFloaterFlamerGrenade",
             "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Fire",
+            "edids": [
+              "crFloaterFlamerGrenade",
+              "CrMolotovCocktail"
+            ],
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
@@ -937,6 +1047,10 @@
             "baseName": "Pulse Grenade",
             "baseEdid": "crPulseGrenade",
             "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Energy",
+            "edids": [
+              "crPulseGrenade",
+              "crPlasmaGrenade"
+            ],
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
@@ -1221,7 +1335,24 @@
                 "name": "Electricians No Stun",
                 "edid": "Burn_Bounty_mod_Custom_Electricians_NoStun",
                 "formId": "0083D599",
-                "effect": "Apply Legendary Weapon Electrician's Explosion Effect"
+                "effect": "Apply Legendary Weapon Electrician's Explosion Effect",
+                "effectData": [
+                  {
+                    "effect": "Apply Legendary Weapon Electrician's Explosion Effect"
+                  },
+                  {
+                    "effect": "Apply Legendary Weapon Electrician's Explosion Effect"
+                  },
+                  {
+                    "effect": "Apply Legendary Weapon Electrician's Explosion Effect"
+                  },
+                  {
+                    "effect": "Apply Legendary Weapon Electrician's Explosion Effect"
+                  },
+                  {
+                    "effect": "Apply Legendary Weapon Electrician's Explosion Effect"
+                  }
+                ]
               }
             ]
           },
@@ -1230,6 +1361,10 @@
             "baseName": "Pulse Grenade",
             "baseEdid": "crPulseGrenade",
             "lvliEdid": "crLLI_Burn_BountyHunt_Grenade_Energy",
+            "edids": [
+              "crPulseGrenade",
+              "crPlasmaGrenade"
+            ],
             "weaponType": "Grenade",
             "speed": 1.0,
             "maxRange": 2000.0,
@@ -1343,7 +1478,16 @@
                 "name": "Bleed Effect",
                 "edid": "Burn_Bounty_mod_custom_BleedEffect",
                 "formId": "008039AD",
-                "effect": "11 damage per second for 6 seconds"
+                "effect": "11 damage per second for 6 seconds",
+                "effectData": [
+                  {
+                    "effect": "Damage Health",
+                    "curve": "CT_Creatures_Damage_Universal_Tier20",
+                    "magnitude": 11.0,
+                    "duration": 6,
+                    "text": "11 damage per second for 6 seconds"
+                  }
+                ]
               }
             ]
           },
@@ -1399,7 +1543,15 @@
                 "name": "Gambling",
                 "edid": "Burn_Bounty_mod_Custom_Gambling",
                 "formId": "00825AA0",
-                "effect": "Magnitude 228"
+                "effect": "Magnitude 228",
+                "effectData": [
+                  {
+                    "effect": "Lucky Shot",
+                    "curve": "CT_Creatures_Damage_Universal_Tier48",
+                    "magnitude": 228.0,
+                    "text": "Magnitude 228"
+                  }
+                ]
               }
             ]
           },
@@ -1466,7 +1618,38 @@
                 "name": "Fisherman",
                 "edid": "Burn_Bounty_mod_Custom_Fisherman",
                 "formId": "0083BD88",
-                "effect": "1 damage per second for 10 seconds · 4 damage per second for 10 seconds · 0.65 damage per second for 10 seconds · 90 damage per second for 10 seconds"
+                "effect": "1 damage per second for 10 seconds · 4 damage per second for 10 seconds · 0.65 damage per second for 10 seconds · 90 damage per second for 10 seconds",
+                "effectData": [
+                  {
+                    "effect": "Hooked!",
+                    "magnitude": 1.0,
+                    "duration": 10,
+                    "description": "Get away from Amadi to free yourself!",
+                    "text": "1 damage per second for 10 seconds"
+                  },
+                  {
+                    "effect": "Fortify",
+                    "actorValue": "JumpHeightMult",
+                    "magnitude": 4.0,
+                    "duration": 10,
+                    "text": "4 damage per second for 10 seconds"
+                  },
+                  {
+                    "effect": "Mutation: Reduce Fall Speed",
+                    "actorValue": "FallSpeedMult",
+                    "magnitude": 0.65,
+                    "duration": 10,
+                    "text": "0.65 damage per second for 10 seconds"
+                  },
+                  {
+                    "effect": "Hook Slow Effect",
+                    "actorValue": "SpeedMult",
+                    "magnitude": 90.0,
+                    "duration": 10,
+                    "description": "Target Movement Speed Reduced by <MAG>% for <DUR>",
+                    "text": "90 damage per second for 10 seconds"
+                  }
+                ]
               }
             ]
           },
@@ -1594,7 +1777,16 @@
                 "name": "Bleed Effect",
                 "edid": "Burn_Bounty_mod_custom_BleedEffect",
                 "formId": "008039AD",
-                "effect": "11 damage per second for 6 seconds"
+                "effect": "11 damage per second for 6 seconds",
+                "effectData": [
+                  {
+                    "effect": "Damage Health",
+                    "curve": "CT_Creatures_Damage_Universal_Tier20",
+                    "magnitude": 11.0,
+                    "duration": 6,
+                    "text": "11 damage per second for 6 seconds"
+                  }
+                ]
               }
             ]
           },

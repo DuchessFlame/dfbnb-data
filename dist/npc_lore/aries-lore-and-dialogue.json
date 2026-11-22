@@ -4,7 +4,7 @@
  "blurb": "Who Aries really is, how Calvin van Lowe became a masked caravan guard, the quests he's part of, every holotape, note and terminal about him, and his full dialogue.",
  "channel": "live",
  "ptsOnly": false,
- "generated": "2026-11-22T02:23:35Z",
+ "generated": "2026-11-22T08:32:21Z",
  "sources": [
   "NPCDLG_Export_November_2026_Lines.tsv",
   "NPCDLG_Export_November_2026_Scenes.tsv",
@@ -26,6 +26,7 @@
    "html": "<ul><li>Out of the Blue (main quest): he guides you and Paladin Rahmani through Harpers Ferry Tunnel to look for missing caravanners.</li><li>Protocol Adonais (side quest): he sends you after his Protocol Adonais holotapes, then asks you to burn the last one or give it to Carver.</li><li>Activity: Riding Shotgun: one of the possible caravan guards through Big Bend Tunnel.</li></ul>"
   }
  ],
+ "footNote": "",
  "lore": {
   "intro": "Holotapes, notes and terminals about Aries and Calvin van Lowe, including the Protocol Adonais tapes.",
   "docs": [
@@ -607,7 +608,7 @@
             "It was long ago, and not a memory that comes without effort to conjure."
            ],
            "conds": [
-            "This reply is switched off in the files"
+            "This reply is switched off"
            ],
            "next": [
             "back"
@@ -631,7 +632,7 @@
             "Burning the what? You burned some holotapes? Is that slang or something? Sorry, cat, I'm not hip with the jam your slammin' down there, daddio."
            ],
            "conds": [
-            "This reply is switched off in the files"
+            "This reply is switched off"
            ],
            "next": [
             "back"
@@ -4751,7 +4752,7 @@
         "Don't be hard on yourself. The merchant isn't dead, and neither are you. We'll get 'em next time."
        ],
        "conds": [
-        "This reply is switched off in the files",
+        "This reply is switched off",
         "E05_Caravan_Global_Schedule == 1"
        ]
       },
@@ -4780,7 +4781,7 @@
         "Guess the Brotherhood really taught you how to fight, huh? Good seeing you strut your stuff again, buddy."
        ],
        "conds": [
-        "This reply is switched off in the files",
+        "This reply is switched off",
         "Only after: av success",
         "E05_Caravan_Global_Schedule == 1",
         "GetQuestCompleted(BS02_MQ03_Blue \"Out of the Blue\") >= 1"
@@ -4811,7 +4812,7 @@
         "Well, well. \"Ad Victoriam.\" You going to be joining us on this run? I'd feel a hell of a lot safer if you did."
        ],
        "conds": [
-        "This reply is switched off in the files",
+        "This reply is switched off",
         "E05_Caravan_Global_Schedule == 3",
         "GetQuestCompleted(BS02_MQ03_Blue \"Out of the Blue\") >= 1"
        ]
@@ -4845,7 +4846,7 @@
         "Look alive."
        ],
        "conds": [
-        "This reply is switched off in the files",
+        "This reply is switched off",
         "GetQuestCompleted(E05_Caravan \"Activity: Riding Shotgun\") == 0"
        ]
       }

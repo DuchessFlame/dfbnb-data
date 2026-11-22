@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-22T05:46:05+00:00",
+ "generated": "2026-11-22T08:18:04+00:00",
  "channel": "pts",
  "isPts": true,
  "sources": {
@@ -12,14 +12,15 @@
   "LVLI_Entries": "tsv/pts/LVLI_Export_PTS_2026-11-14_0952_LVLI_Entries.tsv",
   "MGEF": "tsv/pts/MGEF_Export_PTS_2026-11-15_1815.tsv",
   "NPC": "tsv/pts/NPC_Export_PTS_2026-11-14_0950.tsv",
-  "NPCSP_Abilities": "tsv/pts/NPCSP_Export_PTS_2026-11-22_1106_Abilities.tsv",
-  "NPCSP_Messages": "tsv/pts/NPCSP_Export_PTS_2026-11-22_1106_Messages.tsv",
-  "NPCSP_Objects": "tsv/pts/NPCSP_Export_PTS_2026-11-22_1106_Objects.tsv",
-  "NPCSP_PerkEntries": "tsv/pts/NPCSP_Export_PTS_2026-11-22_1106_PerkEntries.tsv",
-  "NPCSP_Perks": "tsv/pts/NPCSP_Export_PTS_2026-11-22_1106_Perks.tsv",
-  "NPCSP_ScriptDefaults": "tsv/pts/NPCSP_Export_PTS_2026-11-22_1106_ScriptDefaults.tsv",
-  "NPCSP_ScriptProps": "tsv/pts/NPCSP_Export_PTS_2026-11-22_1106_ScriptProps.tsv",
-  "NPCSP_Spells": "tsv/pts/NPCSP_Export_PTS_2026-11-22_1106_Spells.tsv",
+  "NPCSP_Abilities": "tsv/pts/NPCSP_Export_PTS_2026-11-22_1411_Abilities.tsv",
+  "NPCSP_Messages": "tsv/pts/NPCSP_Export_PTS_2026-11-22_1411_Messages.tsv",
+  "NPCSP_Objects": "tsv/pts/NPCSP_Export_PTS_2026-11-22_1411_Objects.tsv",
+  "NPCSP_PerkEntries": "tsv/pts/NPCSP_Export_PTS_2026-11-22_1411_PerkEntries.tsv",
+  "NPCSP_Perks": "tsv/pts/NPCSP_Export_PTS_2026-11-22_1411_Perks.tsv",
+  "NPCSP_ScriptDefaults": "tsv/pts/NPCSP_Export_PTS_2026-11-22_1411_ScriptDefaults.tsv",
+  "NPCSP_ScriptProps": "tsv/pts/NPCSP_Export_PTS_2026-11-22_1411_ScriptProps.tsv",
+  "NPCSP_Spells": "tsv/pts/NPCSP_Export_PTS_2026-11-22_1411_Spells.tsv",
+  "NPCSP_Weapons": "tsv/pts/NPCSP_Export_PTS_2026-11-22_1411_Weapons.tsv",
   "NPC_PRPS": "tsv/pts/NPC_Export_PTS_2026-11-14_0950_PRPS.tsv",
   "NPC_Refs": "tsv/pts/NPC_Export_PTS_2026-11-14_0950_Refs.tsv",
   "SPEL_HEADER": "tsv/pts/SPEL_Export_PTS_2026-11-14_0948_HEADER.tsv",
@@ -82,7 +83,7 @@
        "custom": [
         {
          "name": "Hunger Effect",
-         "effect": "283 damage per second for 1 second"
+         "effect": "each hit drains about 5% to 21% of your hunger bar (more at higher levels)"
         }
        ]
       },
@@ -92,8 +93,8 @@
        "ammo": "",
        "range": 2000,
        "type": "Grenade",
-       "damageMin": null,
-       "damageMax": null,
+       "damageMin": 40,
+       "damageMax": 498,
        "damageCurve": "",
        "slot": "Thrown"
       }
@@ -108,7 +109,7 @@
        "lines": [
         [
          "Damage",
-         "×2 damage to you when your hunger value is 6,000 or more (the game's internal hunger counter)."
+         "×2 damage to you when your hunger bar is down to 17% or less."
         ]
        ],
        "switch": true,
@@ -206,8 +207,8 @@
        "ammo": "",
        "range": 2000,
        "type": "Grenade",
-       "damageMin": null,
-       "damageMax": null,
+       "damageMin": 100,
+       "damageMax": 498,
        "damageCurve": "",
        "slot": "Thrown"
       }
@@ -294,8 +295,8 @@
        "ammo": "Fuel",
        "range": 3850,
        "type": "Gun",
-       "damageMin": null,
-       "damageMax": null,
+       "damageMin": 32,
+       "damageMax": 188,
        "damageCurve": "",
        "slot": "Main",
        "legendary": [
@@ -308,8 +309,8 @@
        "ammo": "",
        "range": 2000,
        "type": "Grenade",
-       "damageMin": null,
-       "damageMax": null,
+       "damageMin": 22,
+       "damageMax": 300,
        "damageCurve": "",
        "slot": "Thrown"
       }
@@ -407,18 +408,18 @@
        "ammo": "Plasma Cartridge",
        "range": 256,
        "type": "Gun",
-       "damageMin": 36,
-       "damageMax": 205,
+       "damageMin": 528,
+       "damageMax": 968,
        "damageCurve": "CT_Creatures_Damage_Universal_Tier28",
        "slot": "Main",
        "custom": [
         {
          "name": "Radiation Effect",
-         "effect": "8 radiation"
+         "effect": "11–77 radiation per hit"
         },
         {
          "name": "Poison Effect",
-         "effect": "9 damage per second for 8 seconds"
+         "effect": "12–85 damage per second for 8 seconds"
         }
        ]
       },
@@ -428,8 +429,8 @@
        "ammo": "",
        "range": 2000,
        "type": "Grenade",
-       "damageMin": null,
-       "damageMax": null,
+       "damageMin": 32,
+       "damageMax": 59,
        "damageCurve": "",
        "slot": "Thrown"
       }
@@ -569,8 +570,8 @@
        "ammo": "",
        "range": 2000,
        "type": "Grenade",
-       "damageMin": null,
-       "damageMax": null,
+       "damageMin": 140,
+       "damageMax": 257,
        "damageCurve": "",
        "slot": "Thrown"
       }
@@ -657,8 +658,8 @@
        "ammo": "Fuel",
        "range": 3850,
        "type": "Gun",
-       "damageMin": null,
-       "damageMax": null,
+       "damageMin": 32,
+       "damageMax": 188,
        "damageCurve": "",
        "slot": "Main",
        "custom": [
@@ -674,8 +675,8 @@
        "ammo": "",
        "range": 2000,
        "type": "Grenade",
-       "damageMin": null,
-       "damageMax": null,
+       "damageMin": 163,
+       "damageMax": 300,
        "damageCurve": "",
        "slot": "Thrown"
       }
@@ -784,7 +785,7 @@
        "custom": [
         {
          "name": "Radiation Effect",
-         "effect": "8 radiation"
+         "effect": "11–77 radiation per hit"
         }
        ]
       },
@@ -794,8 +795,8 @@
        "ammo": "",
        "range": 2000,
        "type": "Grenade",
-       "damageMin": null,
-       "damageMax": null,
+       "damageMin": 140,
+       "damageMax": 257,
        "damageCurve": "",
        "slot": "Thrown"
       }
@@ -929,8 +930,8 @@
        "ammo": "",
        "range": 2000,
        "type": "Grenade",
-       "damageMin": null,
-       "damageMax": null,
+       "damageMin": 22,
+       "damageMax": 300,
        "damageCurve": "",
        "slot": "Thrown"
       }
@@ -1028,7 +1029,7 @@
        "custom": [
         {
          "name": "Debuff Cocktail",
-         "effect": "5 damage per second for 20 seconds · 9 damage per second for 1 second · 16 damage per second for 5 seconds · 19 damage per second for 20 seconds · 60 damage per second for 20 seconds"
+         "effect": "6–49 damage per second for 20 seconds · 12–85 damage per second for 1 second · 22–133 damage per second for 5 seconds · 26–158 damage per second for 20 seconds · 60 damage per second for 20 seconds"
         }
        ]
       },
@@ -1144,8 +1145,8 @@
        "ammo": "Cannonball",
        "range": 4400,
        "type": "Gun",
-       "damageMin": 5,
-       "damageMax": 5,
+       "damageMin": 54,
+       "damageMax": 292,
        "damageCurve": "",
        "slot": "Main",
        "legendary": [
@@ -1160,7 +1161,7 @@
         },
         {
          "name": "Bleed Effect",
-         "effect": "11 damage per second for 6 seconds"
+         "effect": "15–102 damage per second for 6 seconds"
         }
        ]
       },
@@ -1170,8 +1171,8 @@
        "ammo": "",
        "range": 2000,
        "type": "Grenade",
-       "damageMin": null,
-       "damageMax": null,
+       "damageMin": 189,
+       "damageMax": 346,
        "damageCurve": "",
        "slot": "Thrown"
       }
@@ -1294,8 +1295,8 @@
        "ammo": "40mm Grenade Round",
        "range": 5225,
        "type": "Gun",
-       "damageMin": 1,
-       "damageMax": 1,
+       "damageMin": 54,
+       "damageMax": 292,
        "damageCurve": "",
        "slot": "Main",
        "legendary": [
@@ -1314,8 +1315,8 @@
        "ammo": "",
        "range": 2000,
        "type": "Grenade",
-       "damageMin": null,
-       "damageMax": null,
+       "damageMin": 26,
+       "damageMax": 158,
        "damageCurve": "",
        "slot": "Thrown"
       }
@@ -1402,8 +1403,8 @@
        "ammo": "Fusion Cell",
        "range": 2350,
        "type": "Gun",
-       "damageMin": null,
-       "damageMax": null,
+       "damageMin": 54,
+       "damageMax": 292,
        "damageCurve": "",
        "slot": "Main",
        "legendary": [
@@ -1412,7 +1413,7 @@
        "custom": [
         {
          "name": "Radiation Effect",
-         "effect": "8 radiation"
+         "effect": "11–77 radiation per hit"
         }
        ]
       },
@@ -1422,8 +1423,8 @@
        "ammo": "",
        "range": 2000,
        "type": "Grenade",
-       "damageMin": null,
-       "damageMax": null,
+       "damageMin": 40,
+       "damageMax": 498,
        "damageCurve": "",
        "slot": "Thrown"
       }
@@ -1550,8 +1551,8 @@
        "ammo": "",
        "range": 2000,
        "type": "Grenade",
-       "damageMin": null,
-       "damageMax": null,
+       "damageMin": 22,
+       "damageMax": 300,
        "damageCurve": "",
        "slot": "Thrown"
       }
@@ -1680,8 +1681,8 @@
        "ammo": "Alien Blaster Round",
        "range": 2115,
        "type": "Gun",
-       "damageMin": null,
-       "damageMax": null,
+       "damageMin": 12,
+       "damageMax": 85,
        "damageCurve": "",
        "slot": "Main"
       },
@@ -1691,8 +1692,8 @@
        "ammo": "",
        "range": 2000,
        "type": "Grenade",
-       "damageMin": null,
-       "damageMax": null,
+       "damageMin": 82,
+       "damageMax": 416,
        "damageCurve": "",
        "slot": "Thrown"
       }
@@ -1812,8 +1813,8 @@
        "ammo": "",
        "range": 2000,
        "type": "Grenade",
-       "damageMin": null,
-       "damageMax": null,
+       "damageMin": 26,
+       "damageMax": 158,
        "damageCurve": "",
        "slot": "Thrown"
       }
@@ -2039,8 +2040,8 @@
        "ammo": "Missile",
        "range": 5225,
        "type": "Gun",
-       "damageMin": null,
-       "damageMax": null,
+       "damageMin": 54,
+       "damageMax": 292,
        "damageCurve": "",
        "slot": "Main",
        "legendary": [
@@ -2053,8 +2054,8 @@
        "ammo": "",
        "range": 2000,
        "type": "Grenade",
-       "damageMin": null,
-       "damageMax": null,
+       "damageMin": 32,
+       "damageMax": 59,
        "damageCurve": "",
        "slot": "Thrown"
       }
@@ -2141,8 +2142,8 @@
        "ammo": "Fusion Cell",
        "range": 3966,
        "type": "Gun",
-       "damageMin": null,
-       "damageMax": null,
+       "damageMin": 32,
+       "damageMax": 188,
        "damageCurve": "",
        "slot": "Main",
        "legendary": [
@@ -2161,8 +2162,8 @@
        "ammo": "",
        "range": 2000,
        "type": "Grenade",
-       "damageMin": null,
-       "damageMax": null,
+       "damageMin": 40,
+       "damageMax": 498,
        "damageCurve": "",
        "slot": "Thrown"
       }
@@ -2424,8 +2425,8 @@
        "ammo": "",
        "range": 2000,
        "type": "Grenade",
-       "damageMin": null,
-       "damageMax": null,
+       "damageMin": 32,
+       "damageMax": 59,
        "damageCurve": "",
        "slot": "Thrown"
       }
@@ -2552,8 +2553,8 @@
        "ammo": "",
        "range": 2000,
        "type": "Grenade",
-       "damageMin": null,
-       "damageMax": null,
+       "damageMin": 356,
+       "damageMax": 1495,
        "damageCurve": "",
        "slot": "Thrown"
       }
@@ -2677,8 +2678,8 @@
        "ammo": "",
        "range": 2000,
        "type": "Grenade",
-       "damageMin": null,
-       "damageMax": null,
+       "damageMin": 26,
+       "damageMax": 158,
        "damageCurve": "",
        "slot": "Thrown"
       }
@@ -2783,8 +2784,8 @@
        "ammo": "Fusion Cell",
        "range": 3966,
        "type": "Gun",
-       "damageMin": null,
-       "damageMax": null,
+       "damageMin": 32,
+       "damageMax": 188,
        "damageCurve": "",
        "slot": "Main",
        "custom": [
@@ -2800,8 +2801,8 @@
        "ammo": "",
        "range": 2000,
        "type": "Grenade",
-       "damageMin": null,
-       "damageMax": null,
+       "damageMin": 40,
+       "damageMax": 498,
        "damageCurve": "",
        "slot": "Thrown"
       }
@@ -2919,8 +2920,8 @@
        "ammo": "",
        "range": 2000,
        "type": "Grenade",
-       "damageMin": null,
-       "damageMax": null,
+       "damageMin": 189,
+       "damageMax": 346,
        "damageCurve": "",
        "slot": "Thrown"
       }
@@ -3029,7 +3030,7 @@
        "custom": [
         {
          "name": "Bleed Effect",
-         "effect": "11 damage per second for 6 seconds"
+         "effect": "15–102 damage per second for 6 seconds"
         }
        ]
       },
@@ -3173,8 +3174,8 @@
        "ammo": "",
        "range": 2000,
        "type": "Grenade",
-       "damageMin": null,
-       "damageMax": null,
+       "damageMin": 82,
+       "damageMax": 416,
        "damageCurve": "",
        "slot": "Thrown"
       }
@@ -3268,8 +3269,8 @@
        "ammo": "Fusion Cell",
        "range": 3966,
        "type": "Gun",
-       "damageMin": null,
-       "damageMax": null,
+       "damageMin": 32,
+       "damageMax": 188,
        "damageCurve": "",
        "slot": "Main",
        "legendary": [
@@ -3288,8 +3289,8 @@
        "ammo": "",
        "range": 2000,
        "type": "Grenade",
-       "damageMin": null,
-       "damageMax": null,
+       "damageMin": 82,
+       "damageMax": 416,
        "damageCurve": "",
        "slot": "Thrown"
       }
@@ -3308,6 +3309,16 @@
         ]
        ],
        "source": "aura"
+      },
+      {
+       "title": "Hits hard",
+       "lines": [
+        [
+         "Damage",
+         "×3 weapon damage, the whole fight."
+        ]
+       ],
+       "source": "perk"
       }
      ],
      "weakSpot": "Head — takes 1.5× damage",
@@ -3503,7 +3514,7 @@
        "custom": [
         {
          "name": "Bleed Effect",
-         "effect": "11 damage per second for 6 seconds"
+         "effect": "15–102 damage per second for 6 seconds"
         }
        ]
       },
@@ -3529,7 +3540,7 @@
        "lines": [
         [
          "On hit",
-         "her hits carry a 10-second Stealth Field (invisibility)."
+         "turns invisible for 10 seconds when she hits you."
         ]
        ],
        "source": "ability"
@@ -3637,8 +3648,8 @@
        "ammo": "40mm Grenade Round",
        "range": 5225,
        "type": "Gun",
-       "damageMin": 1,
-       "damageMax": 1,
+       "damageMin": 54,
+       "damageMax": 292,
        "damageCurve": "",
        "slot": "Main",
        "legendary": [
@@ -3657,8 +3668,8 @@
        "ammo": "",
        "range": 2000,
        "type": "Grenade",
-       "damageMin": null,
-       "damageMax": null,
+       "damageMin": 356,
+       "damageMax": 1495,
        "damageCurve": "",
        "slot": "Thrown"
       }
@@ -3806,7 +3817,7 @@
      "custom": [
       {
        "name": "Hunger Effect",
-       "effect": "283 damage per second for 1 second"
+       "effect": "each hit drains about 5% to 21% of your hunger bar (more at higher levels)"
       }
      ]
     },
@@ -3816,8 +3827,8 @@
      "ammo": "",
      "range": 2000,
      "type": "Grenade",
-     "damageMin": null,
-     "damageMax": null,
+     "damageMin": 40,
+     "damageMax": 498,
      "damageCurve": "",
      "slot": "Thrown"
     }
@@ -3832,7 +3843,7 @@
      "lines": [
       [
        "Damage",
-       "×2 damage to you when your hunger value is 6,000 or more (the game's internal hunger counter)."
+       "×2 damage to you when your hunger bar is down to 17% or less."
       ]
      ],
      "switch": true,
@@ -3930,8 +3941,8 @@
      "ammo": "",
      "range": 2000,
      "type": "Grenade",
-     "damageMin": null,
-     "damageMax": null,
+     "damageMin": 100,
+     "damageMax": 498,
      "damageCurve": "",
      "slot": "Thrown"
     }
@@ -4018,8 +4029,8 @@
      "ammo": "Fuel",
      "range": 3850,
      "type": "Gun",
-     "damageMin": null,
-     "damageMax": null,
+     "damageMin": 32,
+     "damageMax": 188,
      "damageCurve": "",
      "slot": "Main",
      "legendary": [
@@ -4032,8 +4043,8 @@
      "ammo": "",
      "range": 2000,
      "type": "Grenade",
-     "damageMin": null,
-     "damageMax": null,
+     "damageMin": 22,
+     "damageMax": 300,
      "damageCurve": "",
      "slot": "Thrown"
     }
@@ -4131,18 +4142,18 @@
      "ammo": "Plasma Cartridge",
      "range": 256,
      "type": "Gun",
-     "damageMin": 36,
-     "damageMax": 205,
+     "damageMin": 528,
+     "damageMax": 968,
      "damageCurve": "CT_Creatures_Damage_Universal_Tier28",
      "slot": "Main",
      "custom": [
       {
        "name": "Radiation Effect",
-       "effect": "8 radiation"
+       "effect": "11–77 radiation per hit"
       },
       {
        "name": "Poison Effect",
-       "effect": "9 damage per second for 8 seconds"
+       "effect": "12–85 damage per second for 8 seconds"
       }
      ]
     },
@@ -4152,8 +4163,8 @@
      "ammo": "",
      "range": 2000,
      "type": "Grenade",
-     "damageMin": null,
-     "damageMax": null,
+     "damageMin": 32,
+     "damageMax": 59,
      "damageCurve": "",
      "slot": "Thrown"
     }
@@ -4286,8 +4297,8 @@
      "ammo": "",
      "range": 2000,
      "type": "Grenade",
-     "damageMin": null,
-     "damageMax": null,
+     "damageMin": 140,
+     "damageMax": 257,
      "damageCurve": "",
      "slot": "Thrown"
     }
@@ -4374,8 +4385,8 @@
      "ammo": "Fuel",
      "range": 3850,
      "type": "Gun",
-     "damageMin": null,
-     "damageMax": null,
+     "damageMin": 32,
+     "damageMax": 188,
      "damageCurve": "",
      "slot": "Main",
      "custom": [
@@ -4391,8 +4402,8 @@
      "ammo": "",
      "range": 2000,
      "type": "Grenade",
-     "damageMin": null,
-     "damageMax": null,
+     "damageMin": 163,
+     "damageMax": 300,
      "damageCurve": "",
      "slot": "Thrown"
     }
@@ -4501,7 +4512,7 @@
      "custom": [
       {
        "name": "Radiation Effect",
-       "effect": "8 radiation"
+       "effect": "11–77 radiation per hit"
       }
      ]
     },
@@ -4511,8 +4522,8 @@
      "ammo": "",
      "range": 2000,
      "type": "Grenade",
-     "damageMin": null,
-     "damageMax": null,
+     "damageMin": 140,
+     "damageMax": 257,
      "damageCurve": "",
      "slot": "Thrown"
     }
@@ -4646,8 +4657,8 @@
      "ammo": "",
      "range": 2000,
      "type": "Grenade",
-     "damageMin": null,
-     "damageMax": null,
+     "damageMin": 22,
+     "damageMax": 300,
      "damageCurve": "",
      "slot": "Thrown"
     }
@@ -4745,7 +4756,7 @@
      "custom": [
       {
        "name": "Debuff Cocktail",
-       "effect": "5 damage per second for 20 seconds · 9 damage per second for 1 second · 16 damage per second for 5 seconds · 19 damage per second for 20 seconds · 60 damage per second for 20 seconds"
+       "effect": "6–49 damage per second for 20 seconds · 12–85 damage per second for 1 second · 22–133 damage per second for 5 seconds · 26–158 damage per second for 20 seconds · 60 damage per second for 20 seconds"
       }
      ]
     },
@@ -4854,8 +4865,8 @@
      "ammo": "Cannonball",
      "range": 4400,
      "type": "Gun",
-     "damageMin": 5,
-     "damageMax": 5,
+     "damageMin": 54,
+     "damageMax": 292,
      "damageCurve": "",
      "slot": "Main",
      "legendary": [
@@ -4870,7 +4881,7 @@
       },
       {
        "name": "Bleed Effect",
-       "effect": "11 damage per second for 6 seconds"
+       "effect": "15–102 damage per second for 6 seconds"
       }
      ]
     },
@@ -4880,8 +4891,8 @@
      "ammo": "",
      "range": 2000,
      "type": "Grenade",
-     "damageMin": null,
-     "damageMax": null,
+     "damageMin": 189,
+     "damageMax": 346,
      "damageCurve": "",
      "slot": "Thrown"
     }
@@ -5004,8 +5015,8 @@
      "ammo": "40mm Grenade Round",
      "range": 5225,
      "type": "Gun",
-     "damageMin": 1,
-     "damageMax": 1,
+     "damageMin": 54,
+     "damageMax": 292,
      "damageCurve": "",
      "slot": "Main",
      "legendary": [
@@ -5024,8 +5035,8 @@
      "ammo": "",
      "range": 2000,
      "type": "Grenade",
-     "damageMin": null,
-     "damageMax": null,
+     "damageMin": 26,
+     "damageMax": 158,
      "damageCurve": "",
      "slot": "Thrown"
     }
@@ -5112,8 +5123,8 @@
      "ammo": "Fusion Cell",
      "range": 2350,
      "type": "Gun",
-     "damageMin": null,
-     "damageMax": null,
+     "damageMin": 54,
+     "damageMax": 292,
      "damageCurve": "",
      "slot": "Main",
      "legendary": [
@@ -5122,7 +5133,7 @@
      "custom": [
       {
        "name": "Radiation Effect",
-       "effect": "8 radiation"
+       "effect": "11–77 radiation per hit"
       }
      ]
     },
@@ -5132,8 +5143,8 @@
      "ammo": "",
      "range": 2000,
      "type": "Grenade",
-     "damageMin": null,
-     "damageMax": null,
+     "damageMin": 40,
+     "damageMax": 498,
      "damageCurve": "",
      "slot": "Thrown"
     }
@@ -5260,8 +5271,8 @@
      "ammo": "",
      "range": 2000,
      "type": "Grenade",
-     "damageMin": null,
-     "damageMax": null,
+     "damageMin": 22,
+     "damageMax": 300,
      "damageCurve": "",
      "slot": "Thrown"
     }
@@ -5390,8 +5401,8 @@
      "ammo": "Alien Blaster Round",
      "range": 2115,
      "type": "Gun",
-     "damageMin": null,
-     "damageMax": null,
+     "damageMin": 12,
+     "damageMax": 85,
      "damageCurve": "",
      "slot": "Main"
     },
@@ -5401,8 +5412,8 @@
      "ammo": "",
      "range": 2000,
      "type": "Grenade",
-     "damageMin": null,
-     "damageMax": null,
+     "damageMin": 82,
+     "damageMax": 416,
      "damageCurve": "",
      "slot": "Thrown"
     }
@@ -5515,8 +5526,8 @@
      "ammo": "",
      "range": 2000,
      "type": "Grenade",
-     "damageMin": null,
-     "damageMax": null,
+     "damageMin": 26,
+     "damageMax": 158,
      "damageCurve": "",
      "slot": "Thrown"
     }
@@ -5742,8 +5753,8 @@
      "ammo": "Missile",
      "range": 5225,
      "type": "Gun",
-     "damageMin": null,
-     "damageMax": null,
+     "damageMin": 54,
+     "damageMax": 292,
      "damageCurve": "",
      "slot": "Main",
      "legendary": [
@@ -5756,8 +5767,8 @@
      "ammo": "",
      "range": 2000,
      "type": "Grenade",
-     "damageMin": null,
-     "damageMax": null,
+     "damageMin": 32,
+     "damageMax": 59,
      "damageCurve": "",
      "slot": "Thrown"
     }
@@ -5844,8 +5855,8 @@
      "ammo": "Fusion Cell",
      "range": 3966,
      "type": "Gun",
-     "damageMin": null,
-     "damageMax": null,
+     "damageMin": 32,
+     "damageMax": 188,
      "damageCurve": "",
      "slot": "Main",
      "legendary": [
@@ -5864,8 +5875,8 @@
      "ammo": "",
      "range": 2000,
      "type": "Grenade",
-     "damageMin": null,
-     "damageMax": null,
+     "damageMin": 40,
+     "damageMax": 498,
      "damageCurve": "",
      "slot": "Thrown"
     }
@@ -6120,8 +6131,8 @@
      "ammo": "",
      "range": 2000,
      "type": "Grenade",
-     "damageMin": null,
-     "damageMax": null,
+     "damageMin": 32,
+     "damageMax": 59,
      "damageCurve": "",
      "slot": "Thrown"
     }
@@ -6248,8 +6259,8 @@
      "ammo": "",
      "range": 2000,
      "type": "Grenade",
-     "damageMin": null,
-     "damageMax": null,
+     "damageMin": 356,
+     "damageMax": 1495,
      "damageCurve": "",
      "slot": "Thrown"
     }
@@ -6373,8 +6384,8 @@
      "ammo": "",
      "range": 2000,
      "type": "Grenade",
-     "damageMin": null,
-     "damageMax": null,
+     "damageMin": 26,
+     "damageMax": 158,
      "damageCurve": "",
      "slot": "Thrown"
     }
@@ -6472,8 +6483,8 @@
      "ammo": "Fusion Cell",
      "range": 3966,
      "type": "Gun",
-     "damageMin": null,
-     "damageMax": null,
+     "damageMin": 32,
+     "damageMax": 188,
      "damageCurve": "",
      "slot": "Main",
      "custom": [
@@ -6489,8 +6500,8 @@
      "ammo": "",
      "range": 2000,
      "type": "Grenade",
-     "damageMin": null,
-     "damageMax": null,
+     "damageMin": 40,
+     "damageMax": 498,
      "damageCurve": "",
      "slot": "Thrown"
     }
@@ -6608,8 +6619,8 @@
      "ammo": "",
      "range": 2000,
      "type": "Grenade",
-     "damageMin": null,
-     "damageMax": null,
+     "damageMin": 189,
+     "damageMax": 346,
      "damageCurve": "",
      "slot": "Thrown"
     }
@@ -6718,7 +6729,7 @@
      "custom": [
       {
        "name": "Bleed Effect",
-       "effect": "11 damage per second for 6 seconds"
+       "effect": "15–102 damage per second for 6 seconds"
       }
      ]
     },
@@ -6862,8 +6873,8 @@
      "ammo": "",
      "range": 2000,
      "type": "Grenade",
-     "damageMin": null,
-     "damageMax": null,
+     "damageMin": 82,
+     "damageMax": 416,
      "damageCurve": "",
      "slot": "Thrown"
     }
@@ -6950,8 +6961,8 @@
      "ammo": "Fusion Cell",
      "range": 3966,
      "type": "Gun",
-     "damageMin": null,
-     "damageMax": null,
+     "damageMin": 32,
+     "damageMax": 188,
      "damageCurve": "",
      "slot": "Main",
      "legendary": [
@@ -6970,8 +6981,8 @@
      "ammo": "",
      "range": 2000,
      "type": "Grenade",
-     "damageMin": null,
-     "damageMax": null,
+     "damageMin": 82,
+     "damageMax": 416,
      "damageCurve": "",
      "slot": "Thrown"
     }
@@ -6990,6 +7001,16 @@
       ]
      ],
      "source": "aura"
+    },
+    {
+     "title": "Hits hard",
+     "lines": [
+      [
+       "Damage",
+       "×3 weapon damage, the whole fight."
+      ]
+     ],
+     "source": "perk"
     }
    ],
    "weakSpot": "Head — takes 1.5× damage",
@@ -7185,7 +7206,7 @@
      "custom": [
       {
        "name": "Bleed Effect",
-       "effect": "11 damage per second for 6 seconds"
+       "effect": "15–102 damage per second for 6 seconds"
       }
      ]
     },
@@ -7211,7 +7232,7 @@
      "lines": [
       [
        "On hit",
-       "her hits carry a 10-second Stealth Field (invisibility)."
+       "turns invisible for 10 seconds when she hits you."
       ]
      ],
      "source": "ability"
@@ -7319,8 +7340,8 @@
      "ammo": "40mm Grenade Round",
      "range": 5225,
      "type": "Gun",
-     "damageMin": 1,
-     "damageMax": 1,
+     "damageMin": 54,
+     "damageMax": 292,
      "damageCurve": "",
      "slot": "Main",
      "legendary": [
@@ -7339,8 +7360,8 @@
      "ammo": "",
      "range": 2000,
      "type": "Grenade",
-     "damageMin": null,
-     "damageMax": null,
+     "damageMin": 356,
+     "damageMax": 1495,
      "damageCurve": "",
      "slot": "Thrown"
     }
@@ -7490,16 +7511,7 @@
    "Volatile Outlaw"
   ]
  },
- "reviewFlags": [
-  {
-   "boss": "Amadi the Piranha",
-   "flag": "×3 weapon damage whose only condition is that the boss is alive (BountyHunting_Burn_DamageUpPerk). Looks unintended; check in game before it goes on the page."
-  },
-  {
-   "boss": "Scout Leader Karen",
-   "flag": "Scout Leader Karen (and Pioneer Posers): Burn_Bounty_ScoutCloak_PK applies Burn_Bounty_ScoutCamo_SP (Stealth Field 10 s) as an Apply Combat Hit Spell, which normally lands on the target - the player. Check in game who turns invisible."
-  }
- ],
+ "reviewFlags": [],
  "specialMechanicsNote": "Each boss card lists the boss's special mechanics, plus any its side-kicks have. Ones marked Event switch only work while the Head Hunt effects switch is on, which it currently is.",
  "mechanics": {
   "intro": "Burning Springs Head Hunt bosses share the following stats.",
@@ -7891,6 +7903,14 @@
   "intro": "Damage per hit from each boss's main weapon at the bottom and top of the bounty level range.",
   "rows": [
    {
+    "boss": "The White Horseman",
+    "weapon": "Plasma Caster",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 528,
+    "damageMax": 968
+   },
+   {
     "boss": "Charlie Half-Cocked",
     "weapon": "Gauss Rifle",
     "levelMin": 25,
@@ -7931,12 +7951,44 @@
     "damageMax": 319
    },
    {
-    "boss": "The White Horseman",
-    "weapon": "Plasma Caster",
+    "boss": "Ragtime Randy",
+    "weapon": "Grand Finale",
     "levelMin": 25,
     "levelMax": 175,
-    "damageMin": 36,
-    "damageMax": 205
+    "damageMin": 54,
+    "damageMax": 292
+   },
+   {
+    "boss": "The Ace",
+    "weapon": "Auto Grenade Launcher",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 54,
+    "damageMax": 292
+   },
+   {
+    "boss": "The Chief Researcher",
+    "weapon": "Laser Gun",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 54,
+    "damageMax": 292
+   },
+   {
+    "boss": "Corporal Jane",
+    "weapon": "Patriot Missile Launcher",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 54,
+    "damageMax": 292
+   },
+   {
+    "boss": "The Foreman",
+    "weapon": "Auto Grenade Launcher",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 54,
+    "damageMax": 292
    },
    {
     "boss": "Irene The Irradiated",
@@ -7945,6 +7997,46 @@
     "levelMax": 175,
     "damageMin": 36,
     "damageMax": 205
+   },
+   {
+    "boss": "The Red Rider",
+    "weapon": "Cremator",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 32,
+    "damageMax": 188
+   },
+   {
+    "boss": "Cletus Brimstone",
+    "weapon": "Purifier Cremator",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 32,
+    "damageMax": 188
+   },
+   {
+    "boss": "Tincan Toni",
+    "weapon": "Tesla Rifle",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 32,
+    "damageMax": 188
+   },
+   {
+    "boss": "Colt the Bolt",
+    "weapon": "Automatic Tesla Rifle",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 32,
+    "damageMax": 188
+   },
+   {
+    "boss": "Amadi the Piranha",
+    "weapon": "Fishing Tesla Rifle",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 32,
+    "damageMax": 188
    },
    {
     "boss": "Scout Leader Karen",
@@ -7977,6 +8069,14 @@
     "levelMax": 175,
     "damageMin": 14,
     "damageMax": 93
+   },
+   {
+    "boss": "The Space Ranger",
+    "weapon": "Alien Blaster",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 12,
+    "damageMax": 85
    },
    {
     "boss": "The Pale Horseman",
@@ -8035,98 +8135,10 @@
     "damageMax": 17
    },
    {
-    "boss": "Ragtime Randy",
-    "weapon": "Grand Finale",
-    "levelMin": 25,
-    "levelMax": 175,
-    "damageMin": 5,
-    "damageMax": 5
-   },
-   {
-    "boss": "The Ace",
-    "weapon": "Auto Grenade Launcher",
-    "levelMin": 25,
-    "levelMax": 175,
-    "damageMin": 1,
-    "damageMax": 1
-   },
-   {
-    "boss": "The Foreman",
-    "weapon": "Auto Grenade Launcher",
-    "levelMin": 25,
-    "levelMax": 175,
-    "damageMin": 1,
-    "damageMax": 1
-   },
-   {
-    "boss": "The Red Rider",
-    "weapon": "—",
-    "levelMin": 25,
-    "levelMax": 175,
-    "damageMin": null,
-    "damageMax": null
-   },
-   {
-    "boss": "Cletus Brimstone",
-    "weapon": "—",
-    "levelMin": 25,
-    "levelMax": 175,
-    "damageMin": null,
-    "damageMax": null
-   },
-   {
-    "boss": "The Chief Researcher",
-    "weapon": "—",
-    "levelMin": 25,
-    "levelMax": 175,
-    "damageMin": null,
-    "damageMax": null
-   },
-   {
-    "boss": "The Space Ranger",
-    "weapon": "—",
-    "levelMin": 25,
-    "levelMax": 175,
-    "damageMin": null,
-    "damageMax": null
-   },
-   {
     "boss": "Chief Engineer Lewis",
     "weapon": "—",
     "levelMin": 100,
     "levelMax": 100,
-    "damageMin": null,
-    "damageMax": null
-   },
-   {
-    "boss": "Corporal Jane",
-    "weapon": "—",
-    "levelMin": 25,
-    "levelMax": 175,
-    "damageMin": null,
-    "damageMax": null
-   },
-   {
-    "boss": "Tincan Toni",
-    "weapon": "—",
-    "levelMin": 25,
-    "levelMax": 175,
-    "damageMin": null,
-    "damageMax": null
-   },
-   {
-    "boss": "Colt the Bolt",
-    "weapon": "—",
-    "levelMin": 25,
-    "levelMax": 175,
-    "damageMin": null,
-    "damageMax": null
-   },
-   {
-    "boss": "Amadi the Piranha",
-    "weapon": "—",
-    "levelMin": 25,
-    "levelMax": 175,
     "damageMin": null,
     "damageMax": null
    }

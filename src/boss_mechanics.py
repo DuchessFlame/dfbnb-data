@@ -181,7 +181,8 @@ class Mech:
                 e = r.get(f"Effect_{i}_MGEF_EID")
                 if e:
                     self.ench_by_mgef.setdefault(e, []).append((r["ENCH_FULL"], num(r.get(f"Effect_{i}_Duration"))))
-        self.glob = {}
+        self.wexpl = {r["WEAPEDID"]: r for r in _rows(g("Weapons"))}
+        self.glob = {}            # set from the builder's GLOB export (Game.glob)
         self.warnings = []
 
     # script props ---------------------------------------------------------
@@ -545,11 +546,24 @@ def p_mutants(M, perk):
     return {"title": "Anti-Mutant", "lines": [["Damage", "hits harder the more mutations you have:", t]]}
 
 
+HUNGER_MAX_GLOB = "SURV_HungerThreshold_5_Max"     # the hunger counter's top (empty bar)
+
+
+def hunger_bar_pct(M, counter):
+    """The hunger counter runs up as you get hungrier (0 = full bar, the max GLOB
+    = empty bar). Returns how full the bar is at that counter value, in %."""
+    mx = M.glob.get(HUNGER_MAX_GLOB)
+    if not mx:
+        return None
+    return max(0.0, min(100.0, (mx - counter) / mx * 100))
+
+
 def p_hungry(M, perk):
     e = M.entries(perk)[0]
     c = next(x for x in e["conds"] if x["func"] == "GetValue")
-    return {"title": "Feeds on hunger", "lines": [["Damage", f"{mult(e['val'])} damage to you when your hunger value is "
-                                                   f"{fmt(c['value'])} or more (the game's internal hunger counter)."]],
+    pct = hunger_bar_pct(M, c["value"])
+    when = f"when your hunger bar is down to {fmt(round(pct))}% or less" if pct is not None else "when you're hungry"
+    return {"title": "Feeds on hunger", "lines": [["Damage", f"{mult(e['val'])} damage to you {when}."]],
             "switch": M.has_switch(perk=perk)}
 
 
@@ -912,8 +926,8 @@ def a_scout(M, sp):
     perk = M.ptap(sp)
     hit = M.perk_spell(perk)
     r = M.eff(hit) or {}
-    return {"title": "Scout camouflage", "lines": [["On hit", f"her hits carry a {fmt(num(r.get('Duration')))}-second Stealth Field (invisibility)."]],
-            "note": "Whether it's her or you who turns invisible needs checking in game."}
+    # Checked in game by Kat, 22 Nov 2026: Karen is the one who turns invisible.
+    return {"title": "Scout camouflage", "lines": [["On hit", f"turns invisible for {fmt(num(r.get('Duration')))} seconds when she hits you."]]}
 
 
 def a_time(M, sps):
@@ -961,12 +975,18 @@ def _flag_damage_up(M, p):
             f"({p}). Looks unintended; check in game before it goes on the page.")
 
 
-FLAG_PERKS = {
-    "Burn_BountyHunting_DamageUpPerk": _flag_damage_up,      # live name
-    "BountyHunting_Burn_DamageUpPerk": lambda M, p: (
-        f"{mult(M.entries(p)[0]['val'])} weapon damage whose only condition is that the boss is alive "
-        f"({p}). Looks unintended; check in game before it goes on the page."),
-}
+FLAG_PERKS = {}
+
+
+def p_damage_up(M, perk):
+    """Amadi: x3 weapon damage whose only condition is 'not dead' - Bethesda's
+    usual way of making a perk always on, so it's on for the whole fight."""
+    e = M.entries(perk)[0]
+    return {"title": "Hits hard", "lines": [["Damage", f"{mult(e['val'])} weapon damage, the whole fight."]]}
+
+
+PERKS["Burn_BountyHunting_DamageUpPerk"] = p_damage_up      # live name
+PERKS["BountyHunting_Burn_DamageUpPerk"] = p_damage_up      # PTS name
 
 
 # ── assemble ───────────────────────────────────────────────────────────────
@@ -1032,10 +1052,6 @@ def mechanics_for(M, npc, region_label=""):
     out = merged
     if imm:
         out.append({"title": "Immunities", "lines": [["Immune to", and_list(sorted(imm)) + "."]], "source": "perk"})
-    if any(m.get("title") == "Scout camouflage" for m in out):
-        flags.append("Scout Leader Karen (and Pioneer Posers): Burn_Bounty_ScoutCloak_PK applies Burn_Bounty_ScoutCamo_SP "
-                     "(Stealth Field 10 s) as an Apply Combat Hit Spell, which normally lands on the target - the player. "
-                     "Check in game who turns invisible.")
     for m in out:
         m["lines"] = [l for l in m.get("lines", []) if l[1] or (len(l) > 2 and l[2])]
         # Kat, 22 Nov 2026: no disclaimer notes on the page (server-side / unconfirmed).

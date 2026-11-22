@@ -268,7 +268,8 @@ def hud_page(refs, pet_icons=None):
             E("WorldPets_UI_Icon_RadhogBuff")),
           row("pet-rested", "Pet Rested", "pet-rested", "Buff",
             "Your world pet is earning bonus Pet XP.",
-            ["Shows in the Pip-Boy Effects list after you log in and bring out a pet each day.",
+            ["Shows on your HUD with your other effect squares, and in the Pip-Boy Effects list, after you log in and bring out a pet each day.",
+             "On the HUD it shows as a grey square with a sleeping pet on it.",
              "Lasts 4 hours of pet time. The timer pauses while no pet is out and resets with the daily challenges."],
             E("WorldPets_UI_Icon_WellRestedBuff"))]
           if rested_own_icon else
@@ -308,8 +309,11 @@ def hud_page(refs, pet_icons=None):
                       "is hurting you. The square slowly fills as the effect runs out, and a number in the small box "
                       "beside it is how many stacks you have. The same icons show in the Pip-Boy under Stat > Effects.",
              "rows": status},
-            {"key": "pets", "title": "World Pet Buff Icons",
-             "blurb": "These only show in the Pip-Boy under Stat > Effects, not on the HUD.",
+            {"key": "pets", "title": "World Pet Icons",
+             "blurb": ("The four species buff icons and Pet Buffs Off only show in the Pip-Boy under Stat > Effects. "
+                       + ("Pet Rested shows on your HUD as well. " if rested_own_icon else "")
+                       + "Every other World Pet icon (commands, emotes, the wounded icon, the nameplate) is on the "
+                         "World Pets - Icons & Commands page."),
              "rows": pets},
             {"key": "team", "title": "Teammate Icons",
              "blurb": "Icons on your teammates' name plates.",

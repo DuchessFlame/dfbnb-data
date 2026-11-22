@@ -3,7 +3,7 @@ r"""
 build_npc_lore_json.py - NPC Lore & Dialogue pages (Duchess, 22 Nov 2026).
 
   /df/bounty-hunting/marshal-canton-lore-and-dialogue/   (PTS only for now)
-  /df/bounty-hunting/the-ghoul-lore-and-dialogue/         (+ the Billie codename lines)
+  /df/bounty-hunting/the-ghoul-lore-and-dialogue/         (Billie = his codename; her lines count as his)
   /df/minerva/minerva-lore-and-dialogue/                  (+ Tommy Ten-Toes)
   /df/npcs/aries-lore-and-dialogue/
 
@@ -94,7 +94,7 @@ def cond_text(c, strip):
     if fn in ("GetIsAliasRef", "GetIsVoiceType", "GetIsID"):
         return None
     if fn == "GetGlobalValue" and "TrueGlobal" in a:
-        return "This reply is switched off in the files"
+        return "This reply is switched off"
     if fn == "GetCurrency" and "Cap" in a:
         return f"Needs {vi:,} caps"
     if fn == "GetItemCount":
@@ -194,7 +194,8 @@ class Dialogue:
         return ""
 
     def build(self, quests, voice, strip, names, only_speaker=(), all_scenes=False):
-        npc_name = names.get(voice, "")
+        voices = set(voice) if isinstance(voice, (list, tuple)) else {voice}
+        npc_name = next((names[v] for v in voices if v in names), "")
         idat = {}
         for q, _t in quests:
             for i in self.info.values():
@@ -214,7 +215,7 @@ class Dialogue:
                     for t in a["topics"]:
                         for i in self.topic.get(t, []):
                             used.add(i["fid"])
-                            if voice in i["voices"]:
+                            if voices & set(i["voices"]):
                                 touches = True
                             resp, who = i["resp"], self.speaker(i, names)
                             if a["type"] == 3 and not resp and i["prompt"] in idat:
@@ -244,7 +245,7 @@ class Dialogue:
                    "IDAT": "Other lines", "GBYE": "Goodbye", "HIT_": "When hit", "CUST": "Other lines"}
         loose = defaultdict(list)
         for i in self.info.values():
-            if i["fid"] in used or voice not in i["voices"] or not i["resp"] or i["own_prompt"]:
+            if i["fid"] in used or not (voices & set(i["voices"])) or not i["resp"] or i["own_prompt"]:
                 continue
             if i["quest"] not in [q for q, _t in quests]:
                 continue
@@ -397,7 +398,7 @@ def main():
         if not any(q in have_quests for q, _t in quests):
             print(f"  {slug}: none of its quests are in the {ch} files - not written")
             continue
-        names = {p["voice"]: p["npc"]}
+        names = {v: p["npc"] for v in (p["voice"] if isinstance(p["voice"], list) else [p["voice"]])}
         for ex in p.get("extraDialogue", []):
             names[ex["voice"]] = ex["npc"]
         groups, loose = dlg.build(quests, p["voice"], p["strip"], names, p.get("onlySpeakerQuests", []), p.get("allScenes", False))
@@ -415,7 +416,7 @@ def main():
         data = dict(slug=slug, title=p["title"], blurb=p["blurb"], channel=ch, ptsOnly=p.get("ptsOnly", False),
                     generated=datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
                     sources=[os.path.basename(x) for x in (lines_p, scenes_p, npc_p, glob_p)],
-                    imageDir=p.get("imageDir", ""), sections=sections,
+                    imageDir=p.get("imageDir", ""), sections=sections, footNote=p.get("footNote", ""),
                     lore=dict(intro=p.get("loreIntro", ""), docs=docs), dialogue=dialogue)
         with open(os.path.join(out_dir, slug + ".json"), "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=1)

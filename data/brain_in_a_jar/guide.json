@@ -1,5 +1,5 @@
 {
- "_note": "Hand-authored guide prose for /df/collectables/brain-in-a-jar/guide/ (rewritten 5 Nov 2026 from the quest's own logs, objectives and dialogue in SeventySix.esm, PTS). build_brain_in_a_jar_json.py fills {total} {quest} {caps} {regions} {batch_count} {quest_brains} {batch_table} {pickup_xp} {camp_name} {camp_cost} {holotape_count} from the game files and adds the generated sections (locations, lifetime milestones, holotapes). 'images' = picture names under guide-images/Brain-in-a-Jar-Locations/guide-images/<name>.avif; each one shows only once it is on the server. Edit the html freely; keep the placeholders.",
+ "_note": "Hand-authored guide prose for /df/collectables/brain-in-a-jar/guide/ (rewritten 5 Nov 2026 from the quest's own logs, objectives and dialogue in SeventySix.esm, PTS). build_brain_in_a_jar_json.py fills {total} {quest} {caps} {regions} {batch_count} {quest_brains} {batch_table} {pickup_xp} {camp_name} {camp_cost} {holotape_count} from the game files and adds the generated sections (locations, lifetime milestones, holotapes). 'images' = picture names under guide-images/collectables/Brain-in-a-Jar-Locations/jar-guide-images/<name>.avif; each one shows only once it is on the server. Edit the html freely; keep the placeholders.",
  "title": "Collectables - Brain in a Jar Guide",
  "subtitle": "How to start {quest} in Skyline Valley, what Dr. Regina Marcs wants with all those brains, how the hand-ins and the finale work, and every reward for collecting all {total} Brains in Jars.",
  "intro": {
@@ -36,13 +36,12 @@
    "html": "<p>When you hand in the final batch, Marcs asks you to help her open a bunker hidden <strong>below the Brown House</strong>. She says the man inside may have gone feral, so expect a fight. You can say no and walk away with your rewards, but she makes it clear there's a bonus if you escort her down.</p><h4>Step 1 &ndash; Get the last tape</h4><p>Agree to help and Marcs gives you the last holotape she decoded. It's a set of song lyrics, and it's the key to the bunker.</p><h4>Step 2 &ndash; Follow Marcs downstairs</h4><p>Tell her you're ready and follow her down to the bunker door. Marcs says the password is <strong>565 characters long</strong>, the length of the song's lyrics without spaces or punctuation. She types it in for you and the door opens.</p><p>The password, if you want to see it:</p>{password_block}<h4>Step 3 &ndash; Find Iggy</h4><p>The man inside is <strong>Iggy Stolz</strong>, and he's already dead. Ask Marcs about it and the truth comes out: she shot him herself after he stole her weather machine plans, and he crawled down here before he died.</p><h4>Step 4 &ndash; Deal with Marcs</h4><p>Marcs wants to tie up loose ends, and you're one of them. The quest then turns into <em>Kill Marcs</em> or <em>Flee the Brown House</em>. Some answers in the conversation let you talk your way out of it; most end in a fight. Either way, finishing the quest pays <strong>{caps} caps</strong>, XP and a Skyline Valley loot roll.</p><h4>Dialogue checks</h4><p>There are no Charisma checks in A Matter of Matter. These are the only special answers in the conversations with Marcs:</p><ul><li><strong>[PER 12+]</strong> &ndash; &quot;This isn't adding up. You're hiding something.&quot; Needs Perception 12 or more. Marcs admits she and Iggy were planning to steal the weather machine plans together.</li><li><strong>[Enclave]</strong> &ndash; &quot;Wait... you mean the Enclave? I'm a member, too.&quot; Only if you have finished <em>One of Us</em>. Marcs lets you say a few more words before the fight.</li><li><strong>[Ghoul]</strong> &ndash; &quot;To do whatever it takes to survive as one of us...&quot; Only if you are a Ghoul, when she asks what your role is. She calls a truce.</li></ul>",
    "images": [
     "finale-bunker-door",
-    "finale-iggy",
-    "finale-marcs"
+    "finale-iggy"
    ]
   },
   {
    "title": "The {camp_name} CAMP Item",
-   "html": "<p>Finishing {quest} unlocks the <strong>{camp_name}</strong> for your CAMP. It costs {camp_cost}, and you can place up to 10 of them.</p>",
+   "html": "<p>Finishing {quest} unlocks the <strong>{camp_name}</strong> for your CAMP. It costs {camp_cost}, and you can place up to 10 of them.</p><p>To build it, open the CAMP Build menu and go to <strong>Decorations &rarr; Novelties</strong>.</p>",
    "images": [
     "camp-brain-jar"
    ]
@@ -120,6 +119,14 @@
    1200
   ],
   "handin-give-brains": [
+   1920,
+   1200
+  ],
+  "finale-bunker-door": [
+   1920,
+   1200
+  ],
+  "camp-brain-jar": [
    1920,
    1200
   ]

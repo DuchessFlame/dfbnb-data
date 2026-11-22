@@ -583,7 +583,7 @@ def main():
     print("brain_in_a_jar_guide.json written")
 
 
-GUIDE_IMG_BASE = IMAGE_BASE   # guide photos loose in the root (8 Nov 2026)
+GUIDE_IMG_BASE = IMAGE_BASE + "jar-guide-images/"   # guide photos in jar-guide-images/ (Duchess, 22 Nov 2026)
 
 
 def _quest_facts(channel):

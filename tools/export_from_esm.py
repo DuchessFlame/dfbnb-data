@@ -29,7 +29,7 @@ straight from the game files, so these no longer need xEdit:
     MISC    MISC_Export_<Month>_<Year>.tsv          (ExportMISCToCSV.pas)
     NPC     NPC_Export_<Month>_<Year>.tsv + _PRPS + _Refs  (ExportNPCToTSV.pas)
     NPCSP   NPCSP_Export_<Month>_<Year>_ScriptProps / _Abilities / _Perks / _Spells / _PerkEntries
-            / _Messages / _Objects / _ScriptDefaults / _Inventory.tsv  (NPC script properties, abilities, perks, the spells / perks they
+            / _Messages / _Objects / _ScriptDefaults / _Inventory / _Weapons.tsv  (NPC script properties, abilities, perks, the spells / perks they
             reach incl. each aura's applied spell, script message text - Boss Stats mechanics; no .pas)
     NPC2    NPC2_Vendors_<Month>_<Year>.tsv + _Placements, _Currencies, _Factions,
             _FactionsPlacements                     (ExportNPC2VendorsToTSV.pas)
@@ -4612,6 +4612,70 @@ def _npc_inventory(esm):
     return out
 
 
+def _npc_weapons(esm, inv_rows):
+    """NPCSP _Weapons (22 Nov 2026): the explosion behind every weapon an NPC
+    carries (inventory items and the weapons in its leveled lists): projectile
+    (WEAP RGW3), the projectile's explosion (PROJ DNAM offset 32), the explosion's
+    base damage, radii, damage types with their level curves (DAMA) and the
+    enchantment it puts on what it hits (EITM). Grenades and launchers keep
+    their damage here, not in the weapon's own damage (0 for a Plasma Grenade)."""
+    out = ["WEAPEDID\tWEAPName\tProjectileEDID\tExplosionEDID\tDamage\tInnerRadius\tOuterRadius\tDamageTypes\tEnchantment\t"
+           "DamageCurve\tChildExplosionEDID\tChildDamage\tChildDamageCurve"]
+    weaps = set()
+    for line in inv_rows[1:]:
+        c = line.split("\t")
+        if c[6] == "WEAP":
+            weaps.add(c[5])
+        for e in (c[9] or "").split(";"):
+            if e.endswith(":WEAP"):
+                weaps.add(e[:-5])
+    by = {r.edid: r for r in esm.records.get("WEAP", [])}
+    for ed in sorted(weaps):
+        w = by.get(ed)
+        rg = w.first("RGW3") if w else None
+        pf = struct.unpack_from("<I", rg)[0] if rg and len(rg) >= 4 else 0
+        if not pf or esm.sig_of(pf) != "PROJ":
+            continue
+        pr = esm.get(pf)
+        dn = (pr.first("DNAM") if pr else None) or b""
+        xf = struct.unpack_from("<I", dn, 32)[0] if len(dn) >= 36 else 0
+        if not xf or esm.sig_of(xf) != "EXPL":
+            continue
+        x = esm.get(xf)
+        xd = (x.first("DATA") if x else None) or b""
+        fl = lambda o: C.fmt_float(struct.unpack_from("<f", xd, o)[0]) if len(xd) >= o + 4 else ""
+        dama = (x.first("DAMA") if x else None) or b""
+        types = []
+        for o in range(0, len(dama) - len(dama) % 12, 12):
+            dt, amt, cv = struct.unpack_from("<III", dama, o)
+            types.append("%s:%d:%s" % (cc(esm.edid_of(dt)) if dt else "", amt,
+                                       cc(esm.edid_of(cv)) if cv and esm.exists(cv) else ""))
+        ei = (x.first("EITM") if x else None) or b""
+        ef = struct.unpack_from("<I", ei)[0] if len(ei) >= 4 else 0
+        ench = ("%s:%s" % (cc(esm.edid_of(ef)), cc(esm.full_of(ef)))) if ef and esm.exists(ef) else ""
+        # FO76 EXPL DATA: offset 20 = projectile it spawns (MIRV children), 24 = the
+        # level curve for its damage (Baseball Grenade: CT_Player_Damage_Universal_Tier44)
+        u = lambda d, o: struct.unpack_from("<I", d, o)[0] if len(d) >= o + 4 else 0
+        crv = u(xd, 24)
+        crv_s = cc(esm.edid_of(crv)) if crv and esm.sig_of(crv) == "CURV" else ""
+        ch_x = ch_d = ch_c = ""
+        cp = u(xd, 20)
+        if cp and esm.sig_of(cp) == "PROJ":
+            cpr = esm.get(cp)
+            cdn = (cpr.first("DNAM") if cpr else None) or b""
+            cx = u(cdn, 32)
+            if cx and esm.sig_of(cx) == "EXPL":
+                cxr = esm.get(cx)
+                cxd = (cxr.first("DATA") if cxr else None) or b""
+                ch_x = cc(cxr.edid)
+                ch_d = C.fmt_float(struct.unpack_from("<f", cxd, 32)[0]) if len(cxd) >= 36 else ""
+                cc_ = u(cxd, 24)
+                ch_c = cc(esm.edid_of(cc_)) if cc_ and esm.sig_of(cc_) == "CURV" else ""
+        out.append("\t".join([ed, cc(esm.lstring(w.first("FULL"))), cc(pr.edid), cc(x.edid),
+                               fl(32), fl(36), fl(40), " | ".join(types), ench, crv_s, ch_x, ch_d, ch_c]))
+    return out
+
+
 def _npc_spell_owner(esm, r, seen=None):
     """(record whose SPLO / PRKR the actor really uses, source text). An actor with
     the Use Spell List template flag takes its spells and perks from its template
@@ -4788,9 +4852,10 @@ def _npc_sp_links(esm, sp_rows):
         m = esm.get(f)
         ms_out.append("\t".join(["%08X" % f, cc(m.edid), cc(esm.lstring(m.first("FULL"))),
                                   cc(esm.lstring(m.first("DESC"))), msgs[f]]))
+    inv = _npc_inventory(esm)
     return {"_Abilities": ab_out, "_Perks": pk_out, "_Spells": sp_out, "_PerkEntries": pe_out, "_Messages": ms_out,
             "_Objects": ob_out, "_ScriptDefaults": _npc_script_defaults(esm, sp_rows),
-            "_Inventory": _npc_inventory(esm)}
+            "_Inventory": inv, "_Weapons": _npc_weapons(esm, inv)}
 
 
 def _npc_script_defaults(esm, sp_rows):
@@ -5940,7 +6005,7 @@ EXPORTS = {
     "MISC": (["MISC"], "MISC_Export", exp_misc),
     "NPC": (["NPC_"], "NPC_Export", exp_npc),
     "NPC2": (["NPC_", "FACT", "CNCY", "LCTN"], "NPC2_Vendors", exp_npc2),
-    "NPCSP": (["NPC_", "GLOB", "SPEL", "MGEF", "PERK", "MESG", "HAZD", "EXPL", "ACTI", "LVLI", "OTFT"], "NPCSP_Export", exp_npc_sp),
+    "NPCSP": (["NPC_", "GLOB", "SPEL", "MGEF", "PERK", "MESG", "HAZD", "EXPL", "ACTI", "LVLI", "OTFT", "WEAP", "PROJ", "CURV"], "NPCSP_Export", exp_npc_sp),
     "NPCDLG": (["QUST"], "NPCDLG_Export", exp_npcdlg),
     "MISC2": (["MISC"], "MISC2_Export", exp_misc2),
     "ACTI": (["ACTI"], "ACTI_Export", exp_acti),

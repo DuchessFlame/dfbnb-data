@@ -371,9 +371,15 @@ class Game:
             return None
         curve = clean_edid(w.get("CVT0_DamageCurve", ""))
         base = fnum(w.get("DNAM_BaseDamage"))
+        # Typed damage (DAMA) with a level curve: Tesla rifles (energy), flamers
+        # (fire) have no base damage or main curve, only these.
+        dama = [c for _t, c in re.findall(r"(\w+):\d+:(\w+)", w.get("DAMA_DamageTypes", "") or "") if c in self.curves]
         if curve and curve in self.curves:
             dmin = self.curve_at(curve, lo) if lo is not None else None
             dmax = self.curve_at(curve, hi) if hi is not None else None
+        elif not base and dama and lo is not None and hi is not None:
+            dmin = sum(self.curve_at(c, lo) for c in dama)
+            dmax = sum(self.curve_at(c, hi) for c in dama)
         else:
             dmin = dmax = base or None
         ammo = quoted_name(w.get("DNAM_Ammo", "")) or ""
@@ -1535,7 +1541,16 @@ def build_head_hunts(game: Game, region: str = "burn"):
                 if w.get("legendaryMods"):
                     wo["legendary"] = [f"{m.get('star')}★ {m.get('name')}" for m in w["legendaryMods"]]
                 if w.get("customMods"):
-                    wo["custom"] = [{"name": m.get("name"), "effect": m.get("effect", "")} for m in w["customMods"]]
+                    wo["custom"] = [{"name": m.get("name"),
+                                     "effect": weapon_effect_text(game, m, b.get("levelMin"), b.get("levelMax")) or m.get("effect", "")}
+                                    for m in w["customMods"]]
+                # Grenades / launchers: the damage lives on the explosion (NPCSP
+                # _Weapons). Used when it's bigger than the weapon's own hit
+                # (an M79's shell does 3, its explosion far more).
+                dmin, dmax = explosion_damage(game, w.get("edids") or [w.get("baseEdid", "")],
+                                              b.get("levelMin"), b.get("levelMax"))
+                if dmax and dmax > (wo.get("damageMax") or 0):
+                    wo["damageMin"], wo["damageMax"] = dmin, dmax
                 weps.append(wo)
             b["weapons"] = weps
             specials = []
@@ -1674,6 +1689,65 @@ SPECIAL_MECH_NOTE = {
 MECH = None   # boss_mechanics.Mech, loaded in main()
 
 
+def _rng(game, curve, flat, lo, hi):
+    """(value at lo, value at hi) from a level curve, else the flat number."""
+    if curve and curve in game.curves and lo is not None and hi is not None:
+        return game.curve_at(curve, lo), game.curve_at(curve, hi)
+    return (flat, flat) if flat else (None, None)
+
+
+def explosion_damage(game, edids, lo, hi):
+    """Damage of a grenade / launcher's explosion at the boss's lowest and highest
+    level. Damage-type curve (DAMA) first, then the explosion's own damage curve,
+    then a spawned child explosion (MIRV), then the flat damage. With several
+    possible weapons (Pulse or Plasma Grenade) the range covers all of them."""
+    los, his = [], []
+    for ed in edids:
+        r = (MECH.wexpl if MECH else {}).get(ed)
+        if not r:
+            continue
+        curve = ""
+        for t in (r.get("DamageTypes") or "").split(" | "):
+            parts = t.split(":")
+            if len(parts) == 3 and parts[2]:
+                curve = parts[2]
+                break
+        curve = curve or r.get("DamageCurve", "") or r.get("ChildDamageCurve", "")
+        a, b2 = _rng(game, curve, fnum(r.get("Damage")) or fnum(r.get("ChildDamage")), lo, hi)
+        if b2:
+            los.append(a)
+            his.append(b2)
+    if not his:
+        return None, None
+    return round(min(los)), round(max(his))
+
+
+def weapon_effect_text(game, mod, lo, hi):
+    """Plain words for a weapon effect, with level-scaled numbers when the effect
+    has a level curve. Hunger: how much of your hunger bar each hit drains."""
+    out = []
+    for e in mod.get("effectData") or []:
+        a, b2 = _rng(game, e.get("curve", ""), e.get("magnitude") or 0, lo, hi)
+        if not b2:
+            continue
+        dur = e.get("duration") or 0
+        if e.get("actorValue") == "SURV_Hunger" and MECH:
+            mx = MECH.glob.get(boss_mechanics.HUNGER_MAX_GLOB)
+            if mx:
+                pa, pb = a / mx * 100, b2 / mx * 100
+                span = f"about {pa:.0f}%" if round(pa) == round(pb) else f"about {pa:.0f}% to {pb:.0f}%"
+                out.append(f"each hit drains {span} of your hunger bar" + (" (more at higher levels)" if round(pa) != round(pb) else ""))
+                continue
+        nums = boss_mechanics.fmt(round(a)) if round(a) == round(b2) else f"{boss_mechanics.fmt(round(a))}–{boss_mechanics.fmt(round(b2))}"
+        if dur:
+            out.append(f"{nums} damage per second for {dur} second{'' if dur == 1 else 's'}")
+        elif re.search(r"Radiation", e.get("effect", ""), re.I):
+            out.append(f"{nums} radiation per hit")
+        else:
+            return None          # no plain wording for it: keep the builder's text
+    return " · ".join(dict.fromkeys(out)) if out else None
+
+
 def _hh_server_photos():
     """slug -> uploads path of the Head Hunt boss photo already on the server
     (data/server_listing.tsv, guide-images/bounty-hunting/head-hunt-bosses/
@@ -1720,6 +1794,7 @@ def main():
     global MECH
     game = Game()
     MECH = boss_mechanics.Mech(pick)
+    MECH.glob = game.glob
     hto = build_infestations(game)
     do = build_daily_ops(game)
     hh = build_head_hunts(game, "burn")

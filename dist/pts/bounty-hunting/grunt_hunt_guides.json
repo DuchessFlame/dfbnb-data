@@ -1,12 +1,12 @@
 {
- "generated": "2026-11-21T21:36:54Z",
+ "generated": "2026-11-22T08:20:15Z",
  "sources": {
-  "FLST_Export_*_Entries.tsv": "FLST_Export_November_2026_Entries.tsv",
-  "LCTN_Export_*_LCTN.tsv": "LCTN_Export_November_2026_LCTN.tsv",
-  "GLOB_Export_*.tsv": "GLOB_Export_November_2026.tsv",
-  "QUST2_Export_*_ScriptProps.tsv": "QUST2_Export_November_2026_ScriptProps.tsv",
-  "CHAL_Export_*.tsv": "CHAL_Export_November_2026.tsv",
-  "MISC_Export_*.tsv": "MISC_Export_November_2026.tsv"
+  "FLST_Export_*_Entries.tsv": "FLST_Export_PTS_2026-11-14_0956_Entries.tsv",
+  "LCTN_Export_*_LCTN.tsv": "LCTN_Export_PTS_2026-11-14_0957_LCTN.tsv",
+  "GLOB_Export_*.tsv": "GLOB_Export_PTS_2026-11-14_0948.tsv",
+  "QUST2_Export_*_ScriptProps.tsv": "QUST2_Export_PTS_2026-11-14_0951_ScriptProps.tsv",
+  "CHAL_Export_*.tsv": "CHAL_Export_PTS_2026-11-14_0948.tsv",
+  "MISC_Export_*.tsv": "MISC_Export_PTS_2026-11-14_0949.tsv"
  },
  "byPage": {
   "skyline-valley-grunt-hunts-guide": {
@@ -51,7 +51,15 @@
     "everyMax": 6,
     "limitedTimeOn": false,
     "limitedMin": 1,
-    "limitedMax": 4
+    "limitedMax": 4,
+    "rules": [
+     "Can't be traded to other players.",
+     "Can't be sold to vendors.",
+     "Can't be dropped.",
+     "Can't be scrapped.",
+     "Can't be put on display.",
+     "Weighs nothing."
+    ]
    },
    "supportWaves": [
     {
@@ -191,6 +199,14 @@
    "hub": "The Trading Post",
    "giver": "Marshal Canton",
    "posterName": "Skyline Valley Wanted Poster",
+   "posterRules": [
+    "Can't be traded to other players.",
+    "Can't be sold to vendors.",
+    "Can't be dropped.",
+    "Can't be scrapped.",
+    "Can't be put on display.",
+    "Weighs nothing."
+   ],
    "posterPrice": 5000,
    "timers": {
     "beaconWait": 45,
@@ -369,6 +385,19 @@
    "recentMemory": 3,
    "rewardsUrl": "/df/bounty-hunting/head-hunts/skyline-valley-head-hunt-rewards/",
    "bossStatsUrl": "/df/bounty-hunting/head-hunts/skyline-valley-head-hunt-boss-stats/"
+  }
+ },
+ "posterRules": {
+  "burning-springs": {
+   "name": "Burning Springs Wanted Poster",
+   "rules": [
+    "Can't be traded to other players.",
+    "Can't be sold to vendors.",
+    "Can't be dropped.",
+    "Can't be scrapped.",
+    "Can't be put on display.",
+    "Weighs nothing."
+   ]
   }
  }
 }

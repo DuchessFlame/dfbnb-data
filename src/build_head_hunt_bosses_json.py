@@ -319,13 +319,16 @@ def load_enchantments(ench_rows):
                 "mgefEdid": mgef_edid,
                 "magnitude": safe_float(row.get(f"Effect_{i}_Magnitude")),
                 "duration": safe_int(safe_float(row.get(f"Effect_{i}_Duration"))),
+                "curve": (row.get(f"Effect_{i}_CURV_EID", "") or "").strip(),
             })
         enchants[edid] = {"name": row.get("ENCH_FULL", "") or edid, "formId": row.get("ENCH_FormID", ""), "effects": effects}
     return enchants
 
 
 def load_magic_effects(mgef_rows):
-    return {r.get("EDID", ""): {"name": r.get("FULL", "") or r.get("EDID", ""), "description": r.get("DNAM_MagicItemDescription", "")} for r in mgef_rows if r.get("EDID")}
+    return {r.get("EDID", ""): {"name": r.get("FULL", "") or r.get("EDID", ""), "description": r.get("DNAM_MagicItemDescription", ""),
+                                "actorValue": r.get("ActorValue", ""), "archetype": r.get("Archetype", "")}
+            for r in mgef_rows if r.get("EDID")}
 
 
 def _clean_mod_name(edid):
@@ -557,6 +560,10 @@ def describe_enchantment(ench_data, mgef_lookup):
         mag = eff.get("magnitude") or 0
         dur = eff.get("duration") or 0
         desc = {"effect": name}
+        if eff.get("curve"):
+            desc["curve"] = eff["curve"]          # level curve: the magnitude scales with the boss's level
+        if mgef.get("actorValue"):
+            desc["actorValue"] = mgef["actorValue"]
         if mag:
             desc["magnitude"] = mag
         if dur:
@@ -623,6 +630,15 @@ def enrich_custom_mod_effects(weapon, omod_all, omod_props, enchantments, mgef_l
                                 enchantments, mgef_lookup)
         if eff:
             cm["effect"] = eff
+        # Structured effect data (magnitude, duration, level curve, actor value)
+        # so the Boss Stats page can show level-scaled numbers.
+        info = omod_all.get(cm.get("edid", ""))
+        for p in (omod_props.get(info.get("formId", ""), []) if info else []):
+            if p.get("name") == "Enchantments" and p.get("value"):
+                ench = enchantments.get(p["value"].split(" ", 1)[0].strip())
+                if ench:
+                    cm["effectData"] = describe_enchantment(ench, mgef_lookup)
+                    break
 
 
 def _weapon_stats_block(stats):
@@ -718,6 +734,8 @@ def resolve_inventory_weapon(item, weapon_names, weapon_stats, object_templates)
     else:
         friendly = derive_weapon_name(item["lvli"], base_name)
     weapon = {"name": friendly, "baseName": base_name, "baseEdid": base, "lvliEdid": item["lvli"]}
+    if len(weaps) > 1:
+        weapon["edids"] = weaps          # "Pulse Grenade or Plasma Grenade": every weapon the list can give
     if item.get("keyword"):
         weapon["templateKeyword"] = item["keyword"]
     weapon.update(_weapon_stats_block(weapon_stats.get(base, {})))
