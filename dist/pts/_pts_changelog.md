@@ -561,65 +561,110 @@ _Couldn't key this file to records; contents differ._
 ## `buffs.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `buffs/alcohol.json`  ·  +0 / -0 / ~29
+## `buffs/alcohol.json`  ·  +0 / -0 / ~40
 
-**Changed (29)**
-- Fermentable Ballistic Bock  `Brew_BallisticBockFerm` — fields: obtainRoutes
-- Fermentable Beer  `Brew_BeerBottleStandard01Ferm` — fields: obtainRoutes
-- Fermentable Blackwater Brew  `Brew_BlackwaterBrewFerm` — fields: obtainRoutes
-- Fermentable Bourbon  `Brew_BourbonFerm` — fields: obtainRoutes
-- Fermentable Cranberry Moonshine  `Brew_CranberryMoonshineFerm` — fields: obtainRoutes
-- Fermentable Nuka-Cola Dark  `Brew_DLC04_NukaCola_DarkFerm` — fields: obtainRoutes
-- Fermentable High Voltage Hefe  `Brew_HighVoltageHefeFerm` — fields: obtainRoutes
-- Fermentable Hoppy Hunter IPA  `Brew_HoppyHunterFerm` — fields: obtainRoutes
-- Lead Champagne Bellini  `Brew_LeadChampagneBellini` — fields: obtainRoutes
-- Fermentable Lead Champagne  `Brew_LeadChampagneFerm` — fields: obtainRoutes
-- Lead Champagne Mimosa  `Brew_LeadChampagneMimosa` — fields: obtainRoutes
+**Changed (40)**
+- Ballistic Bock  `Brew_BallisticBock` — fields: effectGroups, effects
+- Fermentable Ballistic Bock  `Brew_BallisticBockFerm` — fields: effects, obtainRoutes
+- Fermentable Beer  `Brew_BeerBottleStandard01Ferm` — fields: effects, obtainRoutes
+- Fermentable Blackwater Brew  `Brew_BlackwaterBrewFerm` — fields: effects, obtainRoutes
+- Fermentable Bourbon  `Brew_BourbonFerm` — fields: effects, obtainRoutes
+- Fermentable Cranberry Moonshine  `Brew_CranberryMoonshineFerm` — fields: effects, obtainRoutes
+- Fermentable Nuka-Cola Dark  `Brew_DLC04_NukaCola_DarkFerm` — fields: effects, obtainRoutes
+- Duchess's Dram  `Brew_DuchessDram` — fields: effects
+- High Voltage Hefe  `Brew_HighVoltageHefe` — fields: effectGroups, effects
+- Fermentable High Voltage Hefe  `Brew_HighVoltageHefeFerm` — fields: effects, obtainRoutes
+- Hoppy Hunter IPA  `Brew_HoppyHunter` — fields: effects
+- Fermentable Hoppy Hunter IPA  `Brew_HoppyHunterFerm` — fields: effects, obtainRoutes
+- Lead Champagne Bellini  `Brew_LeadChampagneBellini` — fields: effects, obtainRoutes
+- Fermentable Lead Champagne  `Brew_LeadChampagneFerm` — fields: effects, obtainRoutes
+- Lead Champagne  `Brew_LeadChampagneFresh` — fields: effects
+- Lead Champagne Mimosa  `Brew_LeadChampagneMimosa` — fields: effects, obtainRoutes
+- Vintage Lead Champagne  `Brew_LeadChampagneVintage` — fields: effects
 - Hard Lemonade  `Brew_LemonadeHard` — fields: obtainRoutes
-- Fermentable Liquid Courage  `Brew_LiquidCourageFerm` — fields: obtainRoutes
-- Fermentable Mountain Honey Moonshine  `Brew_MountainHoneyMoonshineFerm` — fields: obtainRoutes
-- Fermentable New River Red Ale  `Brew_NewRiverRedAleFerm` — fields: obtainRoutes
-- Fermentable Nukashine  `Brew_NukashineFerm` — fields: obtainRoutes
-- Fermentable Oak Holler Lager  `Brew_OakHollerLagerFerm` — fields: obtainRoutes
-- Fermentable Old Possum  `Brew_OldPossumFerm` — fields: obtainRoutes
-- Fermentable Pickaxe Pilsner  `Brew_PickAxePilsnerFerm` — fields: obtainRoutes
-- Fermentable Rad Ant Lager  `Brew_RadAntLagerFerm` — fields: obtainRoutes
-- Fermentable Rum  `Brew_RumFerm` — fields: obtainRoutes
-- Fermentable Tick Blood Tequila  `Brew_TickBloodTequilaFerm` — fields: obtainRoutes
-- Tick Blood Tequila Margarita  `Brew_TickBloodTequilaMargarita` — fields: obtainRoutes
-- Tick Blood Tequila Sunrise  `Brew_TickBloodTequilaSunrise` — fields: obtainRoutes
-- Fermentable Vodka  `Brew_VodkaFerm` — fields: obtainRoutes
-- Fermentable Whiskey  `Brew_WhiskeyFerm` — fields: obtainRoutes
-- White Russian  `Brew_WhiteRussian` — fields: obtainRoutes
-- Fermentable Wine  `Brew_WineFerm` — fields: obtainRoutes
-- Fermentable Mire Magic Moonshine  `E08A_Brew_GulpershineFerm` — fields: obtainRoutes
+- Liquid Courage  `Brew_LiquidCourage` — fields: effects
+- Fermentable Liquid Courage  `Brew_LiquidCourageFerm` — fields: effects, obtainRoutes
+- Fermentable Mountain Honey Moonshine  `Brew_MountainHoneyMoonshineFerm` — fields: effects, obtainRoutes
+- Fermentable New River Red Ale  `Brew_NewRiverRedAleFerm` — fields: effects, obtainRoutes
+- Fermentable Nukashine  `Brew_NukashineFerm` — fields: effects, obtainRoutes
+- Fermentable Oak Holler Lager  `Brew_OakHollerLagerFerm` — fields: effects, obtainRoutes
+- Fermentable Old Possum  `Brew_OldPossumFerm` — fields: effects, obtainRoutes
+- Fermentable Pickaxe Pilsner  `Brew_PickAxePilsnerFerm` — fields: effects, obtainRoutes
+- Fermentable Rad Ant Lager  `Brew_RadAntLagerFerm` — fields: effects, obtainRoutes
+- Fermentable Rum  `Brew_RumFerm` — fields: effects, obtainRoutes
+- Fermentable Tick Blood Tequila  `Brew_TickBloodTequilaFerm` — fields: effects, obtainRoutes
+- Tick Blood Tequila  `Brew_TickBloodTequilaFresh` — fields: effects
+- Tick Blood Tequila Margarita  `Brew_TickBloodTequilaMargarita` — fields: effects, obtainRoutes
+- Tick Blood Tequila Sunrise  `Brew_TickBloodTequilaSunrise` — fields: effects, obtainRoutes
+- Vintage Tick Blood Tequila  `Brew_TickBloodTequilaVintage` — fields: effects
+- Fermentable Vodka  `Brew_VodkaFerm` — fields: effects, obtainRoutes
+- Fermentable Whiskey  `Brew_WhiskeyFerm` — fields: effects, obtainRoutes
+- White Russian  `Brew_WhiteRussian` — fields: effects, obtainRoutes
+- Fermentable Wine  `Brew_WineFerm` — fields: effects, obtainRoutes
+- Fermentable Mire Magic Moonshine  `E08A_Brew_GulpershineFerm` — fields: effects, obtainRoutes
+- Mire Magic Moonshine  `E08A_Brew_GulpershineFresh` — fields: effects
+- Vintage Mire Magic Moonshine  `E08A_Brew_GulpershineVintage` — fields: effects
 
-## `buffs/bobbleheads.json`  ·  +0 / -0 / ~0
+## `buffs/bobbleheads.json`  ·  +0 / -0 / ~20
 
-## `buffs/chems.json`  ·  +0 / -0 / ~45
+**Changed (20)**
+- Big Guns Bobblehead  `BobbleHead_BigGuns_Potion` — fields: effects
+- Caps Bobblehead  `BobbleHead_Caps_Potion` — fields: effects
+- Lock Picking Bobblehead  `BobbleHead_LockPicking_Potion` — fields: effects
+- Medicine Bobblehead  `BobbleHead_Medicine_Potion` — fields: effects
+- Melee Bobblehead  `BobbleHead_Melee_Potion` — fields: effects
+- Repair Bobblehead  `BobbleHead_Repair_Potion` — fields: effects
+- Science Bobblehead  `BobbleHead_Science_Potion` — fields: effects
+- Small Guns Bobblehead  `BobbleHead_SmallGuns_Potion` — fields: effects
+- Sneak Bobblehead  `BobbleHead_Sneak_Potion` — fields: effects
+- Unarmed Bobblehead  `BobbleHead_Unarmed_Potion` — fields: effects
+- Big Guns Bobblehead (Glowing)  `GHL_GlowingBobbleHead_BigGuns_Potion` — fields: effects
+- Caps Bobblehead (Glowing)  `GHL_GlowingBobbleHead_Caps_Potion` — fields: effects
+- Lock Picking Bobblehead (Glowing)  `GHL_GlowingBobbleHead_LockPicking_Potion` — fields: effects
+- Medicine Bobblehead (Glowing)  `GHL_GlowingBobbleHead_Medicine_Potion` — fields: effects
+- Melee Bobblehead (Glowing)  `GHL_GlowingBobbleHead_Melee_Potion` — fields: effects
+- Repair Bobblehead (Glowing)  `GHL_GlowingBobbleHead_Repair_Potion` — fields: effects
+- Science Bobblehead (Glowing)  `GHL_GlowingBobbleHead_Science_Potion` — fields: effects
+- Small Guns Bobblehead (Glowing)  `GHL_GlowingBobbleHead_SmallGuns_Potion` — fields: effects
+- Sneak Bobblehead (Glowing)  `GHL_GlowingBobbleHead_Sneak_Potion` — fields: effects
+- Unarmed Bobblehead (Glowing)  `GHL_GlowingBobbleHead_Unarmed_Potion` — fields: effects
 
-**Changed (45)**
+## `buffs/chems.json`  ·  +0 / -0 / ~59
+
+**Changed (59)**
+- Addictol  `Addictol` — fields: effects
 - Berry Mentats  `BerryMentats` — fields: obtainRoutes
-- Blood Pack  `Bloodpack` — fields: obtainRoutes
-- Glowing Blood Pack  `BloodpackGlowing` — fields: obtainRoutes
+- Blood Pack  `Bloodpack` — fields: effects, obtainRoutes
+- Glowing Blood Pack  `BloodpackGlowing` — fields: effects, obtainRoutes
+- Irradiated Blood Pack  `BloodpackIrradiated` — fields: effects
 - Bufftats  `Bufftats` — fields: obtainRoutes
-- Fury  `Fury` — fields: obtainRoutes
-- Grape Mentats  `GrapeMentats` — fields: obtainRoutes
-- Healing Salve  `HealingSalve` — fields: obtainRoutes
+- High-Radiation Fluids  `EN07_HighRadiationFluids` — fields: effects
+- Fury  `Fury` — fields: effects, obtainRoutes
+- Glowing Blood  `GlowingOneBlood` — fields: effects
+- Grape Mentats  `GrapeMentats` — fields: effects, obtainRoutes
+- Healing Salve  `HealingSalve` — fields: effects, obtainRoutes
+- Super Chem MK I  `LGN_BrawlingChemist_Chem01` — fields: effects
+- Super Chem MK II  `LGN_BrawlingChemist_Chem02` — fields: effects
+- Super Chem MK III  `LGN_BrawlingChemist_Chem03` — fields: effects
+- SuperChem  `LGN_BrawlingChemist_Chem04` — fields: effects
+- Survival Syringe  `LGN_SurvivalShortcut_Chem01` — fields: effects
+- Med-X  `MedX` — fields: effects
 - Mentats  `Mentats` — fields: obtainRoutes
 - Phantom Device  `MoM_PhantomDevice` — fields: obtainRoutes
 - Orange Mentats  `OrangeMentats` — fields: obtainRoutes
 - Overdrive  `Overdrive` — fields: obtainRoutes
-- Insect Repellent  `Potion_D01C_InsectRepellent` — fields: obtainRoutes
-- Psycho  `Psycho` — fields: obtainRoutes
+- Insect Repellent  `Potion_D01C_InsectRepellent` — fields: effects, obtainRoutes
+- Psycho  `Psycho` — fields: effects, obtainRoutes
 - Psychobuff  `Psychobuff` — fields: obtainRoutes
-- RadAway  `RadAway` — fields: obtainRoutes
-- RadAway: Diluted  `RadAwayDiluted` — fields: obtainRoutes
-- Rad-X: Diluted  `RadXDiluted` — fields: obtainRoutes
-- RadShield  `SFM04_Organic_RadShield` — fields: obtainRoutes
-- Formula P  `SFS09_FormulaP` — fields: obtainRoutes
-- Antibiotics  `SURV_DiseaseCure_Antibiotics` — fields: obtainRoutes
-- Disease Cure  `SURV_DiseaseCure_HerbalMedicine` — fields: obtainRoutes
+- Psychotats  `Psychotats` — fields: effects
+- RadAway  `RadAway` — fields: effects, obtainRoutes
+- RadAway: Diluted  `RadAwayDiluted` — fields: effects, obtainRoutes
+- Rad-X  `RadX` — fields: effects
+- Rad-X: Diluted  `RadXDiluted` — fields: effects, obtainRoutes
+- RadShield  `SFM04_Organic_RadShield` — fields: effects, obtainRoutes
+- Formula P  `SFS09_FormulaP` — fields: effects, obtainRoutes
+- Antibiotics  `SURV_DiseaseCure_Antibiotics` — fields: effects, obtainRoutes
+- Disease Cure  `SURV_DiseaseCure_HerbalMedicine` — fields: effects, obtainRoutes
 - Adrenal Reaction Serum  `Serum_AdrenalReaction` — fields: obtainRoutes
 - Bird Bones Serum  `Serum_BirdBones` — fields: obtainRoutes
 - Carnivore Serum  `Serum_Carnivore` — fields: obtainRoutes
@@ -627,81 +672,151 @@ _Couldn't key this file to records; contents differ._
 - Eagle Eyes Serum  `Serum_EagleEyes` — fields: obtainRoutes
 - Egg Head Serum  `Serum_EggHead` — fields: obtainRoutes
 - Electrically Charged Serum  `Serum_ElectricallyCharged` — fields: obtainRoutes
-- Empath Serum  `Serum_Empath` — fields: obtainRoutes
-- Grounded Serum  `Serum_Grounded` — fields: obtainRoutes
-- Healing Factor Serum  `Serum_HealingFactor` — fields: obtainRoutes
-- Herbivore Serum  `Serum_Herbivore` — fields: obtainRoutes
-- Herd Mentality Serum  `Serum_HerdMentality` — fields: obtainRoutes
-- Marsupial Serum  `Serum_Marsupial` — fields: obtainRoutes
-- Plague Walker Serum  `Serum_PlagueWalker` — fields: obtainRoutes
-- Scaly Skin Serum  `Serum_ScalySkin` — fields: obtainRoutes
-- Speed Demon Serum  `Serum_SpeedDemon` — fields: obtainRoutes
-- Talons Serum  `Serum_Talons` — fields: obtainRoutes
-- Twisted Muscles Serum  `Serum_TwistedMuscles` — fields: obtainRoutes
-- Unstable Isotope Serum  `Serum_UnstableIsotope` — fields: obtainRoutes
-- …and 5 more
+- …and 19 more
 
-## `buffs/food.json`  ·  +2 / -0 / ~39
+## `buffs/food.json`  ·  +2 / -0 / ~86
 
 **Added (2)**
 - Fish Kabomb  `SeasonalFish_Meal_WinterFishKabomb`
 - Fish Sauce  `SeasonalFish_Meal_WinterFishSauce`
 
-**Changed (39)**
-- Canned Poached Angler  `AnglerMeatCooked_Cannery` — fields: obtainRoutes
-- Canned Ribeye Steak  `BrahminMeatCooked_Cannery` — fields: obtainRoutes
+**Changed (86)**
+- Slice of Vault-Tec Gelatin Cake  `ATX_VaultTecGelatinCake_CakeSlice` — fields: effectGroups, effects
+- Canned Poached Angler  `AnglerMeatCooked_Cannery` — fields: effects, obtainRoutes
+- Slice of Birthday Cake  `BirthdayCakeSlice` — fields: effects
+- Blamco Brand Mac and Cheese  `BlamcoMacAndCheese` — fields: effects
+- Blamco Brand Mac and Cheese  `BlamcoMacAndCheese_PreWar_Clean` — fields: effects
+- Canned Ribeye Steak  `BrahminMeatCooked_Cannery` — fields: effects, obtainRoutes
+- Bubblegum  `Bubblegum` — fields: effects
 - Sugar  `CookingFlavor_Sugar` — fields: obtainRoutes
 - Razorgrain Flour  `Cooking_Razorgrain_Flour` — fields: obtainRoutes
-- Canned Corn Soup  `CornVegetableCookedSoup_Cannery` — fields: obtainRoutes
-- Fasnacht Donut  `Donut_Fasnacht` — fields: obtainRoutes
-- Canned Fish Chowder  `Fishing_FishChowder_Cannery` — fields: obtainRoutes
-- Canned Grilled Fish  `Fishing_GrilledFish_Cannery` — fields: obtainRoutes
-- Canned Glowing Fungus Soup  `GlowingFungusVegetableCookedSoup_Cannery` — fields: obtainRoutes
-- Canned Glowing Fungus Puree  `GlowingFungusVegetableTastySoup_Cannery` — fields: obtainRoutes
-- Canned Gourd Soup  `GourdVegetableCookedSoup_Cannery` — fields: obtainRoutes
-- Canned Gut Shroom Soup  `GutShroomVegetableCookedSoup_Cannery` — fields: obtainRoutes
-- Simple Gut Shroom Tea  `GutShroomVegetableCookedTea` — fields: obtainRoutes
-- Royal Jelly Taffy  `HoneyBeastRoyalJellyCooked` — fields: obtainRoutes
-- Moo-Moo Curd  `MeatWeek_BrahminCurd` — fields: obtainRoutes
-- Canned Megasloth Mushroom Soup  `MegaSlothMushroomVegetableCookedSoup_Cannery` — fields: obtainRoutes
-- Canned Mirelurk Queen Steak  `MirelurkQueenMeatCooked_Cannery` — fields: obtainRoutes
-- Canned Aged Mirelurk Queen Steak  `MirelurkQueenMeatTasty_Cannery` — fields: obtainRoutes
-- Mud Cookie  `MudCookie_RSVP02` — fields: obtainRoutes
-- Nuka-Cola My Blood's In It  `NukaCola_Vaccine_Blood` — fields: obtainRoutes
-- Nuka-Cola Scorched  `NukaCola_Vaccine_Scorched` — fields: obtainRoutes
-- Nuka-Cola Vaccinated  `NukaCola_Vaccine_Vaccinated` — fields: obtainRoutes
-- Canned Awesome Opossum Bacon  `OpossumMeatCooked_Cannery` — fields: obtainRoutes
-- Canned Radscorpion Steak  `RadscorpionMeatCooked_Cannery` — fields: obtainRoutes
-- Canned Brain Bombs  `SCORE_25_BrainBombsGourmet_Cannery_G1` — fields: obtainRoutes
-- Canned Tato Salad  `SCORE_25_MeatWeek_TatoSaladCooked_Cannery_G1` — fields: obtainRoutes
-- Canned Broiled Scorchbeast Brain  `SCORE_25_ScorchBeastMeatBrainCooked_Cannery_G1` — fields: obtainRoutes
-- Canned Blight Soup  `SCORE_S25_BlightVegetableCookedSoup_Cannery_G2` — fields: obtainRoutes
-- Canned Deathclaw Wellington  `SCORE_S25_DeathclawMeatTastySouffle_Cannery_G2` — fields: obtainRoutes
-- Canned Smoked Mirelurk Fillets  `SCORE_S25_SmokedMirelurkGourmet_Cannery_G2` — fields: obtainRoutes
-- S'mores  `Smores` — fields: obtainRoutes
-- Canned Tasty Squirrel Stew  `SquirrelMeatTastyStew_Cannery` — fields: obtainRoutes
-- Canned Stingwing Stew  `StingwingMeatTastyStew_Cannery` — fields: obtainRoutes
-- Canned Swamp Tofu Soup  `SwampPlantTastyTofuSoup_Cannery` — fields: obtainRoutes
-- Sweet Roll  `SweetRollGourmet` — fields: obtainRoutes
-- Canned Sweet Tato Stew  `TatoVegetableTastyStew_Cannery` — fields: obtainRoutes
-- Canned Vegetable Medley Soup  `VegetableTastySoup_Cannery` — fields: obtainRoutes
-- Boiled Water  `WaterBoiled` — fields: obtainRoutes, technical
-- Purified Water  `WaterPurified` — fields: obtainRoutes
+- Canned Corn Soup  `CornVegetableCookedSoup_Cannery` — fields: effects, obtainRoutes
+- Cream  `Cream` — fields: effects
+- Cotton Candy Bites  `DLC04_CottonCandyBites` — fields: effects
+- Funnel Cake  `DLC04_FunnelCake` — fields: effects
+- Nuka-Grape  `DLC04_NukaCola_Grape` — fields: effects
+- Nuka-Orange  `DLC04_NukaCola_Orange` — fields: effects
+- Nuka-Cola Wild  `DLC04_NukaCola_Wild` — fields: effects
+- Dandy Boy Apples  `DandyBoyApples` — fields: effects
+- Canned Dog Food  `Dogfood` — fields: effects
+- Fasnacht Donut  `Donut_Fasnacht` — fields: effects, obtainRoutes
+- Canned Meat Stew  `FF06_Feed_CannedMeatTastyStew` — fields: effects
+- Fancy Lads Snack Cakes  `FancyLadSnackCakes` — fields: effects
+- Fancy Lads Snack Cakes  `FancyLadSnackCakes_PreWar_Clean` — fields: effects
+- Canned Fish Chowder  `Fishing_FishChowder_Cannery` — fields: effects, obtainRoutes
+- Canned Grilled Fish  `Fishing_GrilledFish_Cannery` — fields: effects, obtainRoutes
+- Canned Glowing Fungus Soup  `GlowingFungusVegetableCookedSoup_Cannery` — fields: effects, obtainRoutes
+- Canned Glowing Fungus Puree  `GlowingFungusVegetableTastySoup_Cannery` — fields: effects, obtainRoutes
+- Canned Gourd Soup  `GourdVegetableCookedSoup_Cannery` — fields: effects, obtainRoutes
+- Gum Drops  `Gumdrops` — fields: effects
+- Canned Gut Shroom Soup  `GutShroomVegetableCookedSoup_Cannery` — fields: effects, obtainRoutes
+- Simple Gut Shroom Tea  `GutShroomVegetableCookedTea` — fields: effects, obtainRoutes
+- Royal Jelly Taffy  `HoneyBeastRoyalJellyCooked` — fields: effects, obtainRoutes
+- Cotton Candy Bites  `MTR04_Candy` — fields: effects
+- Gum Drops  `MTR04_Gumdrops` — fields: effects
+- Moo-Moo Curd  `MeatWeek_BrahminCurd` — fields: effects, obtainRoutes
+- Canned Megasloth Mushroom Soup  `MegaSlothMushroomVegetableCookedSoup_Cannery` — fields: effects, obtainRoutes
+- Brahmin Milk  `Milk_Brahmin` — fields: effects
+- Chally's Milk  `Milk_Chally` — fields: effects
+- Canned Mirelurk Queen Steak  `MirelurkQueenMeatCooked_Cannery` — fields: effects, obtainRoutes
+- Canned Aged Mirelurk Queen Steak  `MirelurkQueenMeatTasty_Cannery` — fields: effects, obtainRoutes
+- Rudy's Canned Pozole  `Moon_Rudy_Pozole` — fields: effects
+- …and 46 more
 
-## `buffs/magazines.json`  ·  +0 / -0 / ~0
+## `buffs/magazines.json`  ·  +0 / -0 / ~52
 
-## `buffs/mutations.json`  ·  +0 / -0 / ~0
+**Changed (52)**
+- Tales from the West Virginia Hills 2  `Magazine_AstonishingTales01_Potion` — fields: effects
+- Tales from the West Virginia Hills 3  `Magazine_AstonishingTales02_Potion` — fields: effects
+- Tales from the West Virginia Hills 4  `Magazine_AstonishingTales03_Potion` — fields: effects
+- Tales from the West Virginia Hills 5  `Magazine_AstonishingTales04_Potion` — fields: effects
+- Tales from the West Virginia Hills 1  `Magazine_AstonishingTales05_Potion` — fields: effects
+- Astoundingly Awesome Tales 3  `Magazine_AwesomeTales03_Potion` — fields: effects
+- Astoundingly Awesome Tales 4  `Magazine_AwesomeTales04_Potion` — fields: effects
+- Astoundingly Awesome Tales 5  `Magazine_AwesomeTales05_Potion` — fields: effects
+- Astoundingly Awesome Tales 8  `Magazine_AwesomeTales08_Potion` — fields: effects
+- Astoundingly Awesome Tales 13  `Magazine_AwesomeTales13_Potion` — fields: effects
+- Backwoodsman 1  `Magazine_Backwoodsman01_Potion` — fields: effects
+- Backwoodsman 7  `Magazine_Backwoodsman02_Potion` — fields: effects
+- Backwoodsman 3  `Magazine_Backwoodsman03_Potion` — fields: effects
+- Backwoodsman 4  `Magazine_Backwoodsman04_Potion` — fields: effects
+- Backwoodsman 6  `Magazine_Backwoodsman06_Potion` — fields: effects
+- Backwoodsman 2  `Magazine_Backwoodsman07_Potion` — fields: effects
+- Backwoodsman 8  `Magazine_Backwoodsman08_Potion` — fields: effects
+- Backwoodsman 9  `Magazine_Backwoodsman09_Potion` — fields: effects
+- Backwoodsman 10  `Magazine_Backwoodsman10_Potion` — fields: effects
+- Grognak the Barbarian 2  `Magazine_GrognakTheBarbarian02_Potion` — fields: effects
+- Grognak the Barbarian 6  `Magazine_GrognakTheBarbarian06_Potion` — fields: effects
+- Grognak the Barbarian 7  `Magazine_GrognakTheBarbarian07_Potion` — fields: effectGroups, effects
+- Guns and Bullets 3  `Magazine_GunsAndBullets03_Potion` — fields: effects
+- Guns and Bullets 5  `Magazine_GunsAndBullets05_Potion` — fields: effects
+- Guns and Bullets 6  `Magazine_GunsAndBullets06_Potion` — fields: effects
+- Guns and Bullets 7  `Magazine_GunsAndBullets07_Potion` — fields: effects
+- Live & Love 3  `Magazine_LiveAndLove03_Potion` — fields: effects
+- Live & Love 6  `Magazine_LiveAndLove06_Potion` — fields: effects
+- Live & Love 8  `Magazine_LiveAndLove08_Potion` — fields: effectGroups, effects
+- Live & Love 9  `Magazine_LiveAndLove09_Potion` — fields: effects
+- Scouts' Life 2  `Magazine_ScoutsLife02_Potion` — fields: effects
+- Scouts' Life 3  `Magazine_ScoutsLife03_Potion` — fields: effects
+- Scouts' Life 4  `Magazine_ScoutsLife04_Potion` — fields: effects
+- Scouts' Life 6  `Magazine_ScoutsLife06_Potion` — fields: effects
+- Scouts' Life 7  `Magazine_ScoutsLife07_Potion` — fields: effects
+- Tesla Science 1  `Magazine_TeslaScience01_Potion` — fields: effects
+- Tesla Science 2  `Magazine_TeslaScience02_Potion` — fields: effects
+- Tesla Science 4  `Magazine_TeslaScience04_Potion` — fields: effects
+- Tesla Science 5  `Magazine_TeslaScience05_Potion` — fields: effects
+- Tumblers Today 2  `Magazine_TumblersToday02_Potion` — fields: effects
+- …and 12 more
 
-## `buffs/nuka-cola.json`  ·  +0 / -0 / ~5
+## `buffs/mutations.json`  ·  +0 / -0 / ~17
 
-**Changed (5)**
-- Fermentable Nuka-Cola Dark  `Brew_DLC04_NukaCola_DarkFerm` — fields: obtainRoutes
-- Fermentable Nukashine  `Brew_NukashineFerm` — fields: obtainRoutes
-- Nuka-Cola My Blood's In It  `NukaCola_Vaccine_Blood` — fields: obtainRoutes
-- Nuka-Cola Scorched  `NukaCola_Vaccine_Scorched` — fields: obtainRoutes
-- Nuka-Cola Vaccinated  `NukaCola_Vaccine_Vaccinated` — fields: obtainRoutes
+**Changed (17)**
+- Adrenal Reaction Mutation  `Mutation_AdrenalReaction` — fields: effects
+- Bird Bones Mutation  `Mutation_BirdBones` — fields: effects
+- Carnivore Mutation  `Mutation_Carnivore` — fields: effects
+- Eagle Eyes Mutation  `Mutation_EagleEyes` — fields: effects
+- Egg Head Mutation  `Mutation_EggHead` — fields: effects
+- Electrically Charged Mutation  `Mutation_ElectricallyCharged` — fields: effects
+- Grounded Mutation  `Mutation_Grounded` — fields: effects
+- Healing Factor Mutation  `Mutation_HealingFactor` — fields: effectGroups, effects, technical
+- Herbivore Mutation  `Mutation_Herbivore` — fields: effects
+- Herd Mentality Mutation  `Mutation_HerdMentality` — fields: effectGroups, effects, technical
+- Marsupial Mutation  `Mutation_Marsupial` — fields: effects
+- Plague Walker Mutation  `Mutation_PlagueWalker` — fields: effects
+- Scaly Skin Mutation  `Mutation_ScalySkin` — fields: effects
+- Speed Demon Mutation  `Mutation_SpeedDemon` — fields: effects
+- Talons Mutation  `Mutation_Talons` — fields: effectGroups, effects, technical
+- Twisted Muscles Mutation  `Mutation_TwistedMuscles` — fields: effectGroups, effects
+- Unstable Isotope Mutation  `Mutation_UnstableIsotope` — fields: effects
 
-## `buffs/scout-banners.json`  ·  +0 / -0 / ~0
+## `buffs/nuka-cola.json`  ·  +0 / -0 / ~13
+
+**Changed (13)**
+- Fermentable Nuka-Cola Dark  `Brew_DLC04_NukaCola_DarkFerm` — fields: effects, obtainRoutes
+- Fermentable Nukashine  `Brew_NukashineFerm` — fields: effects, obtainRoutes
+- Nuka-Grape  `DLC04_NukaCola_Grape` — fields: effects
+- Nuka-Orange  `DLC04_NukaCola_Orange` — fields: effects
+- Nuka-Cola Wild  `DLC04_NukaCola_Wild` — fields: effects
+- Nuka-Cola  `NukaCola` — fields: effects
+- Nuka-Cherry  `NukaColaCherry` — fields: effects
+- Nuka-Cola Cranberry  `NukaColaCranberry` — fields: effects
+- Nuka-Cola Quantum  `NukaColaQuantum` — fields: effects
+- Nuka-Cola Twist  `NukaCola_Twist` — fields: effects
+- Nuka-Cola My Blood's In It  `NukaCola_Vaccine_Blood` — fields: effects, obtainRoutes
+- Nuka-Cola Scorched  `NukaCola_Vaccine_Scorched` — fields: effects, obtainRoutes
+- Nuka-Cola Vaccinated  `NukaCola_Vaccine_Vaccinated` — fields: effects, obtainRoutes
+
+## `buffs/scout-banners.json`  ·  +0 / -0 / ~8
+
+**Changed (8)**
+- Scout's Courage  `SCORE_Banner_AutoRevive_ApplyPerk_Effect` — fields: effects, summaryLines, technical
+- Battle Charged  `SCORE_Banner_BattleCharged_Buff_Effect` — fields: technical
+- Scout's Code: Teamwork  `SCORE_Banner_Driven_Effect` — fields: effects, summaryLines, technical
+- Scout's Code: Innovation  `SCORE_Banner_Forged_Effect` — fields: effects, summaryLines, technical
+- Scout's Code: Research  `SCORE_Banner_Hardened_Effect` — fields: effects, summaryLines, technical
+- First Aid  `SCORE_Banner_HumanHeal_Effect` — fields: effects, summaryLines, technical
+- Scout's Code: Survival  `SCORE_Banner_Medic` — fields: effects, summaryLines, technical
+- Scout's Code: Discovery  `SCORE_Banner_Vision` — fields: effects, summaryLines, technical
 
 ## `bugged_plans.json`  ·  +85 / -2 / ~0
 
