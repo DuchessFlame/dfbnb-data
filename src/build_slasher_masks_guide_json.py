@@ -31,7 +31,7 @@ import collectable_guide as cg  # noqa: E402
 QUEST = "SDOW_MQ01_Bodies"
 SRC = ROOT / "data" / "pint_sized_slasher_masks" / "guide.json"
 OUT = ROOT / "dist" / "pint_sized_slasher_masks_guide.json"
-IMG = "/wp-content/uploads/guide-images/collectables/Slasher-Mask-Locations/mask-guide-images/"
+IMG = "/wp-content/uploads/guide-images/collectables/Slasher-Masks/Slasher-Mask-Guide/"
 
 
 def ordinal(n):

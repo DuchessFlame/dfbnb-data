@@ -67,12 +67,12 @@ SET_META = {
         # DATED FILENAME on purpose: the map is re-rendered when placements or the
         # watermark change, and a same-name replacement sits behind browser and CDN
         # caches for days. Bump the date here and upload under the new name.
-        "full_map": "/wp-content/uploads/guide-images/collectables/Slasher-Mask-Locations/slasher_masks-2026-09.jpg",
+        "full_map": "/wp-content/uploads/guide-images/collectables/Slasher-Masks/Slasher-Mask-Locations/slasher_masks-2026-09.jpg",
         # The same map with every mask numbered. Pairs with the printable tick-off
         # checklist: the numbers on this map are the numbers on that sheet, both
         # coming from tsv/collectable_map_numbers.tsv. Dated for the same cache
         # reason as full_map above.
-        "numbered_map": "/wp-content/uploads/guide-images/collectables/Slasher-Mask-Locations/slasher_masks_numbered-2026-09.jpg",
+        "numbered_map": "/wp-content/uploads/guide-images/collectables/Slasher-Masks/Slasher-Mask-Locations/slasher_masks_numbered-2026-09.jpg",
         # ── Editorial intro-card blocks ─────────────────────────────────
         # The quest the masks belong to. Datamined: SDOW_MQ01_Bodies, FULL
         # "The Slasher: Masked Truth" (QUST), DESC as written in game.

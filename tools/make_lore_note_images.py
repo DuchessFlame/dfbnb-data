@@ -14,7 +14,7 @@ Reads   dist/collectables_slasher_lore.json   (items with "note" + "image";
         folder of already-pulled .dds / .png files (--paper-dir)
 Writes  <out>/<file name from the item's "image">   e.g.
         a-page-torn-from-a-children-s-book-note.avif
-Upload those to wp-content/uploads/guide-images/collectables/Slasher-Lore/.
+Upload those to wp-content/uploads/guide-images/collectables/Slasher-Masks/Slasher-Lore/.
 
     python tools\make_lore_note_images.py --data "C:\...\Fallout76\Data"
     python tools\make_lore_note_images.py --paper-dir notes_img --out out_imgs

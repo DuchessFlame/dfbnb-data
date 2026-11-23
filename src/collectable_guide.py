@@ -9,7 +9,7 @@ collectable_guide.py - shared pieces for the collectable quest guides
 
 All three write the same JSON shape, mounted by df-bnb-collectable-guide.js:
   {title, subtitle, pills:[{label,url}], image_dims,
-   sections:[{title, html, images:[url...], closed, spoiler}],
+   sections:[{title, html, item_image, images:[url...], closed, spoiler}],
    missing_images:[{section, name, url}]}
 Section order (template): Finding Them / How to Start {quest} / {quest} Walkthrough /
 [Handing In or batch table] / [Quest Rewards] / FAQ and Important Info /
@@ -186,6 +186,19 @@ def build(src_path, out_path, fill, image_base):
                     dims[url] = d
             else:
                 missing.append({"section": title, "name": n, "url": url})
+        # item_image: ONE photo of the item where it spawns, shown small beside
+        # the text at the top of the section (Duchess, 23 Nov 2026: Finding Them).
+        item = s.get("item_image")
+        item_url = ""
+        if item:
+            url = item if "/" in item else f"{image_base}{item}.avif"
+            if on_server(url):
+                item_url = url
+                d = (g.get("image_dims") or {}).get(item)
+                if d:
+                    dims[url] = d
+            else:
+                missing.append({"section": title, "name": item, "url": url})
         html = fill(s.get("html", ""))
         # inline {img:name,name}: keep only pictures on the server
         def inline(m):
@@ -198,6 +211,8 @@ def build(src_path, out_path, fill, image_base):
             return "{img:" + ",".join(keep) + "}" if keep else ""
         html = re.sub(r"\{img:([^}]*)\}", inline, html)
         out = {"title": title, "html": html}
+        if item_url:
+            out["item_image"] = item_url
         if imgs:
             out["images"] = imgs
         for k in ("closed", "spoiler"):

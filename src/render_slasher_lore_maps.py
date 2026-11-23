@@ -19,7 +19,7 @@ Outputs (default: Guides and Stuff\.Collectables\Slasher Lore):
   01 Full Maps\slasher-lore-map.jpg
   03 Region Tiles\<region-slug>-lore-map.jpg   (only regions with a spot)
   slasher-lore_coords.csv
-Server folder: /wp-content/uploads/guide-images/collectables/Slasher-Lore/ (JPEG -
+Server folder: /wp-content/uploads/guide-images/collectables/Slasher-Masks/Slasher-Lore/ (JPEG -
 maps never go up as AVIF). build_slasher_lore_json.py links whichever of them are
 on data/server_listing.tsv.
 

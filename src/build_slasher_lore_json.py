@@ -22,7 +22,7 @@ Everything comes from the game files and is rebuilt every patch:
               ('Find the "Phantoms' Orders" in RobCo Research Center'), else
               data/slasher_lore_locations.json (Duchess fills it in)
 
-Pictures: the page looks for guide-images/collectables/Slasher-Lore/
+Pictures: the page looks for guide-images/collectables/Slasher-Masks/Slasher-Lore/
 <slug>-map.avif (map marker) and <slug>-location.avif (location photo) — upload
 with those names and they appear; data/slasher_lore_locations.json can point
 elsewhere ("image", "mapImage", "locationImage" per EditorID).
@@ -66,7 +66,7 @@ csv.field_size_limit(1 << 30)
 PREFIX = "SDOW_"
 OUT_NAME = "collectables_slasher_lore.json"
 LOCATIONS_JSON = REPO / "data" / "slasher_lore_locations.json"
-IMAGE_DIR = "/wp-content/uploads/guide-images/collectables/Slasher-Lore/"
+IMAGE_DIR = "/wp-content/uploads/guide-images/collectables/Slasher-Masks/Slasher-Lore/"
 HOLOTAPE_IMAGE = shared_images.HOLOTAPE_IMAGE      # the site-wide holotape picture
 # Radio row picture by who speaks in it (voice type EditorID -> file). The
 # Debunker's is his own talking-head portrait from interface/vocharacteranim.swf
