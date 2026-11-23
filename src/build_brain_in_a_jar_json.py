@@ -690,7 +690,10 @@ def build_guide(doc, channel):
                       .replace("{camp_name}", E(qf["camp_name"] or "Brain Jar"))
                       .replace("{camp_cost}", E(qf["camp_cost"] or "a few components"))
                       .replace("{holotape_count}", str(len(doc["holotapes"])))
-                      .replace("{password_block}", pw))
+                      .replace("{password_block}", pw)
+                      .replace("{finding_sentence}", cg.finding_sentence(
+                          doc["total_real"], by_reg, "Brains in Jars", "Brain in a Jar Locations",
+                          len(doc.get("pages") or []))))
     out = cg.build(os.path.join(DATA, "guide.json"), os.path.join(OUT_DIR, "brain_in_a_jar_guide.json"),
                    fill, GUIDE_IMG_BASE)
     print(f"  guide: {len(out['sections'])} sections, {len(out['missing_images'])} pictures not on the server yet")

@@ -48,16 +48,20 @@ def main():
     plan = next((cg.record_name(tsv, e) for e in rw["items"] if cg.record_name(tsv, e)), "")
     item = cg.record_name(tsv, "Burn_SQ04_AbraxoIntelDispenser", ("MISC_Export_*.tsv",)) or "Abraxodyne Intel"
     try:
-        total = json.load(open(ROOT / "dist" / "abraxodyne_intel_briefcases.json", encoding="utf-8")).get("total_real") or ""
+        locs = json.load(open(ROOT / "dist" / "abraxodyne_intel_briefcases.json", encoding="utf-8"))
     except OSError:
-        total = ""
+        locs = {}
+    total = locs.get("total_real") or ""
+    # Every briefcase is in Burning Springs (the location data has no region column).
+    finding = cg.finding_sentence(total, {"Burning Springs": total}, "Abraxodyne Intel Briefcases",
+                                  "Briefcase Locations", len(locs.get("pages") or [])) if total else ""
     table = cg.batch_table(batches, tapes, "Hand-in", "Briefcases")
     num = lambda v: f"{v:,}" if isinstance(v, int) else "some"
     fill = lambda t: (t.replace("{quest}", quest or "Dirty Laundry").replace("{batch_count}", str(len(batches)))
                        .replace("{quest_total}", str(sum(batches))).replace("{batch_table}", table)
                        .replace("{caps}", num(rw["caps"])).replace("{xp}", num(rw["xp"]))
                        .replace("{plan}", plan or "a plan").replace("{item_name}", item)
-                       .replace("{total}", str(total)))
+                       .replace("{total}", str(total)).replace("{finding_sentence}", finding))
     doc = cg.build(SRC, OUT, fill, IMG)
     print(f"{OUT.name}: {quest}, {len(batches)} hand-ins, {sum(batches)} briefcases, "
           f"{len(tapes)} tapes, {len(doc['missing_images'])} pictures not on the server yet")

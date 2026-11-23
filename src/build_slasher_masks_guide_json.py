@@ -73,6 +73,10 @@ def main():
         spawns = {}
     steps = sorted({c.get("required") for c in (spawns.get("challenges") or {}).get("items", []) if c.get("required")})
     steps_txt = (", ".join(str(s) for s in steps[:-1]) + f" and {steps[-1]}") if len(steps) > 1 else (str(steps[0]) if steps else "")
+    by_reg = {r["region"]: sum(l.get("count") or len(l.get("spawns") or []) for l in r.get("locations") or [])
+              for r in spawns.get("regions") or []}
+    finding = cg.finding_sentence(spawns["total"], by_reg, "Pint-Sized Slasher Masks",
+                                  "Mask Spawn Locations", 1) if spawns.get("total") else ""
     need = sum(batches)
     table = cg.batch_table(batches, notes, "Batch", "Masks")
     num = lambda v: f"{v:,}" if isinstance(v, int) else "some"
@@ -81,7 +85,8 @@ def main():
                        .replace("{batch_table}", table).replace("{caps}", num(rw["caps"]))
                        .replace("{plan}", plan or "a plan").replace("{pickup_xp}", num(xp))
                        .replace("{item_name}", item).replace("{total}", str(spawns.get("total") or ""))
-                       .replace("{challenge_steps}", steps_txt).replace("{challenge_max}", str(steps[-1] if steps else "")))
+                       .replace("{challenge_steps}", steps_txt).replace("{challenge_max}", str(steps[-1] if steps else ""))
+                       .replace("{finding_sentence}", finding))
     doc = cg.build(SRC, OUT, fill, IMG)
     print(f"{OUT.name}: {quest}, {need} masks in {len(batches)} batches, {len(notes)} notes, "
           f"{len(doc['missing_images'])} pictures not on the server yet")

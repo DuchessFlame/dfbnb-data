@@ -143,6 +143,29 @@ def batch_table(batches, receive, col_first="Hand-in", col_count="Count"):
             f"<tbody>{''.join(body)}</tbody></table>") if body else ""
 
 
+def finding_sentence(total, by_region, plural, pages_label, page_count, everywhere_at=4):
+    """The first line of Finding Them - the same words on every guide (Duchess,
+    23 Nov 2026); only the numbers and names change, all from the spawn data:
+      There are <b>N</b> {plural} in <b>Region</b>. / : <b>a</b> in <b>R1</b> and <b>b</b> in <b>R2</b>. /
+      all over Appalachia (4+ regions).
+      Each one is a fixed spawn, so it's always in the same place.
+      The {pages_label} page(s) has/have every one."""
+    E = _h.escape
+    regs = sorted(((r, n) for r, n in (by_region or {}).items() if n), key=lambda kv: -kv[1])
+    if len(regs) >= everywhere_at:
+        where = " all over Appalachia"
+    elif len(regs) == 1:
+        where = f" in <strong>{E(regs[0][0])}</strong>"
+    elif regs:
+        parts = [f"<strong>{n:,}</strong> in <strong>{E(r)}</strong>" for r, n in regs]
+        where = ": " + (", ".join(parts[:-1]) + " and " + parts[-1])
+    else:
+        where = ""
+    pages = f"The {E(pages_label)} page{'s have' if page_count != 1 else ' has'} every one."
+    return (f"There are <strong>{int(total):,}</strong> {E(plural)}{where}. "
+            f"Each one is a fixed spawn, so it's always in the same place. {pages}")
+
+
 # ── build ───────────────────────────────────────────────────────────────────
 def build(src_path, out_path, fill, image_base):
     """Read the hand-written guide (src_path), fill {placeholders} with fill(),
