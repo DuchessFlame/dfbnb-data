@@ -1,8 +1,827 @@
 {
-  "generated": "2026-11-24T09:12:38.781867Z",
+  "generated": "2026-11-24T10:23:41.109184Z",
   "source": "CHAL/CNDF TSV exports (build_world_pet_challenges_json.py)",
   "total": 20,
   "groups": [
+    {
+      "name": "Daily",
+      "rotation": true,
+      "challenges": [
+        {
+          "form_id": "0094F843",
+          "edid": "SCORE_Challenge_Daily_Event_Activity_WorldPet_Any",
+          "record": "CHAL",
+          "name": "Complete an Event or Activity with any Pet",
+          "group": "Daily",
+          "active_pet": "Any World Pet",
+          "tier": 0,
+          "type_label": "Daily",
+          "required": 1,
+          "counter": "Quests Completed",
+          "desc": "Complete a public event or activity while you have a World Pet out.",
+          "reward": "S.C.O.R.E.",
+          "reward_items": [
+            {
+              "name": "S.C.O.R.E.",
+              "kind": "score"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Daily",
+          "classification": "Sub Challenge (Unsorted)",
+          "rotation": true,
+          "conditions_display": [
+            "Target.IsInList(All Events [FLST:0043A1C8]) = 1",
+            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
+          ]
+        },
+        {
+          "form_id": "0095B54C",
+          "edid": "SCORE_Challenge_Daily_QuestComplete_WorldPet_Fasnacht",
+          "record": "CHAL",
+          "name": "Complete the Event: \"Fasnacht Day\" with any Pet",
+          "group": "Daily",
+          "active_pet": "Any World Pet",
+          "tier": 0,
+          "type_label": "Daily",
+          "required": 1,
+          "counter": "Quests Completed",
+          "desc": "Complete the Fasnacht Day event while you have a World Pet out.",
+          "reward": "S.C.O.R.E.",
+          "reward_items": [
+            {
+              "name": "S.C.O.R.E.",
+              "kind": "score"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Daily",
+          "classification": "Sub Challenge (Unsorted)",
+          "rotation": true,
+          "conditions_display": [
+            "Target.IsInList(Event: Fasnacht [FLST:0060E6DA]) = 1",
+            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
+          ]
+        },
+        {
+          "form_id": "0095B550",
+          "edid": "SCORE_Challenge_Daily_QuestComplete_WorldPet_MothmanEquinox",
+          "record": "CHAL",
+          "name": "Complete the Event: \"The Mothman Equinox\" with any Pet",
+          "group": "Daily",
+          "active_pet": "Any World Pet",
+          "tier": 0,
+          "type_label": "Daily",
+          "required": 1,
+          "counter": "Quests Completed",
+          "desc": "Complete The Mothman Equinox event while you have a World Pet out.",
+          "reward": "S.C.O.R.E.",
+          "reward_items": [
+            {
+              "name": "S.C.O.R.E.",
+              "kind": "score"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Daily",
+          "classification": "Sub Challenge (Unsorted)",
+          "rotation": true,
+          "conditions_display": [
+            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1",
+            "Target.IsInList(Event: The Mothman Equinox [FLST:0062FE9E]) = 1"
+          ]
+        },
+        {
+          "form_id": "0094F84B",
+          "edid": "SCORE_Challenge_Daily_XP_WorldPet_Any",
+          "record": "CHAL",
+          "name": "Gain XP with your Pet",
+          "group": "Daily",
+          "active_pet": "Any World Pet",
+          "tier": 0,
+          "type_label": "Daily",
+          "required": 2500,
+          "counter": "Experience Gained",
+          "desc": "Earn XP while you have a World Pet out.",
+          "reward": "S.C.O.R.E.",
+          "reward_items": [
+            {
+              "name": "S.C.O.R.E.",
+              "kind": "score"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Daily",
+          "classification": "Sub Challenge (Unsorted)",
+          "rotation": true,
+          "conditions_display": [
+            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
+          ]
+        },
+        {
+          "form_id": "0094F847",
+          "edid": "SCORE_Challenge_Daily_XP_WorldPet_Any_Epic",
+          "record": "CHAL",
+          "name": "Epic - Gain XP with your Pet",
+          "group": "Daily",
+          "active_pet": "Any World Pet",
+          "tier": 0,
+          "type_label": "Epic Daily",
+          "required": 5000,
+          "counter": "Experience Gained",
+          "desc": "Earn XP while you have a World Pet out.",
+          "reward": "S.C.O.R.E.",
+          "reward_items": [
+            {
+              "name": "S.C.O.R.E.",
+              "kind": "score"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Daily",
+          "classification": "Sub Challenge (Unsorted)",
+          "rotation": true,
+          "conditions_display": [
+            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
+          ]
+        },
+        {
+          "form_id": "0094F849",
+          "edid": "SCORE_Challenge_Daily_AnyPet_GivePetCommand",
+          "record": "CHAL",
+          "name": "Give a Command to your World Pet",
+          "group": "Daily",
+          "active_pet": "Any World Pet",
+          "tier": 0,
+          "type_label": "Daily",
+          "required": 3,
+          "counter": "World Pet Commanded",
+          "desc": "Give your active pet a command from the Pet Command Wheel (Follow, Stay, Attack or Protect).",
+          "reward": "S.C.O.R.E.",
+          "reward_items": [
+            {
+              "name": "S.C.O.R.E.",
+              "kind": "score"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Daily",
+          "classification": "Sub Challenge (Unsorted)",
+          "rotation": true,
+          "conditions_display": [
+            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
+          ]
+        },
+        {
+          "form_id": "0094F844",
+          "edid": "SCORE_Challenge_Daily_DealDamage_WorldPet_Any",
+          "record": "CHAL",
+          "name": "Have your Pet deal damage to an Enemy",
+          "group": "Daily",
+          "active_pet": "Any World Pet",
+          "tier": 0,
+          "type_label": "Daily",
+          "required": 250,
+          "counter": "Enemy Total Damage Inflicted",
+          "desc": "Damage from your active World Pet's own attacks (its bite or claws) counts. Damage you deal yourself doesn't.",
+          "reward": "S.C.O.R.E.",
+          "reward_items": [
+            {
+              "name": "S.C.O.R.E.",
+              "kind": "score"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Daily",
+          "classification": "Sub Challenge (Unsorted)",
+          "rotation": true,
+          "conditions_display": [
+            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1",
+            ".CHAL_DoesTargetWeaponHaveKeyword(World Pets Unarmed [KYWD:008C90FB]) = 1"
+          ]
+        },
+        {
+          "form_id": "0094F845",
+          "edid": "SCORE_Challenge_Daily_DealDamage_WorldPet_Any_Epic",
+          "record": "CHAL",
+          "name": "Epic - Have your Pet deal damage to an Enemy",
+          "group": "Daily",
+          "active_pet": "Any World Pet",
+          "tier": 0,
+          "type_label": "Epic Daily",
+          "required": 1000,
+          "counter": "Enemy Total Damage Inflicted",
+          "desc": "Damage from your active World Pet's own attacks (its bite or claws) counts. Damage you deal yourself doesn't.",
+          "reward": "S.C.O.R.E.",
+          "reward_items": [
+            {
+              "name": "S.C.O.R.E.",
+              "kind": "score"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Daily",
+          "classification": "Sub Challenge (Unsorted)",
+          "rotation": true,
+          "conditions_display": [
+            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1",
+            ".CHAL_DoesTargetWeaponHaveKeyword(World Pets Unarmed [KYWD:008C90FB]) = 1"
+          ]
+        },
+        {
+          "form_id": "0094F846",
+          "edid": "SCORE_Challenge_Daily_Kill_WorldPet_Any",
+          "record": "CHAL",
+          "name": "Have your Pet kill an Enemy",
+          "group": "Daily",
+          "active_pet": "Any World Pet",
+          "tier": 0,
+          "type_label": "Daily",
+          "required": 5,
+          "counter": "Total Enemies Killed",
+          "desc": "Your active World Pet's own attack (its bite or claws) has to land the killing blow. Your own kills don't count, even with your pet beside you. Any creature, critter or enemy NPC counts.",
+          "reward": "S.C.O.R.E.",
+          "reward_items": [
+            {
+              "name": "S.C.O.R.E.",
+              "kind": "score"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Daily",
+          "classification": "Sub Challenge (Unsorted)",
+          "rotation": true,
+          "conditions_display": [
+            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1",
+            ".CHAL_DoesTargetWeaponHaveKeyword(World Pets Unarmed [KYWD:008C90FB]) = 1"
+          ]
+        },
+        {
+          "form_id": "0094F841",
+          "edid": "SCORE_Challenge_Daily_Kill_WorldPet_Any_Epic",
+          "record": "CHAL",
+          "name": "Epic - Have your Pet kill an Enemy",
+          "group": "Daily",
+          "active_pet": "Any World Pet",
+          "tier": 0,
+          "type_label": "Epic Daily",
+          "required": 10,
+          "counter": "Total Enemies Killed",
+          "desc": "Your active World Pet's own attack (its bite or claws) has to land the killing blow. Your own kills don't count, even with your pet beside you. Any creature, critter or enemy NPC counts.",
+          "reward": "S.C.O.R.E.",
+          "reward_items": [
+            {
+              "name": "S.C.O.R.E.",
+              "kind": "score"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Daily",
+          "classification": "Sub Challenge (Unsorted)",
+          "rotation": true,
+          "conditions_display": [
+            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1",
+            ".CHAL_DoesTargetWeaponHaveKeyword(World Pets Unarmed [KYWD:008C90FB]) = 1"
+          ]
+        },
+        {
+          "form_id": "0094F848",
+          "edid": "SCORE_Challenge_Daily_Heal_WorldPet_Any",
+          "record": "CHAL",
+          "name": "Heal your Pet",
+          "group": "Daily",
+          "active_pet": "Any World Pet",
+          "tier": 0,
+          "type_label": "Daily",
+          "required": 2,
+          "counter": "World Pet Healed",
+          "desc": "Heal your active pet with a Stimpak when it is hurt or wounded.",
+          "reward": "S.C.O.R.E.",
+          "reward_items": [
+            {
+              "name": "S.C.O.R.E.",
+              "kind": "score"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Daily",
+          "classification": "Sub Challenge (Unsorted)",
+          "rotation": true,
+          "conditions_display": [
+            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
+          ]
+        },
+        {
+          "form_id": "0095B54F",
+          "edid": "SCORE_Challenge_Daily_Kill_Cultists_WorldPet_Mothman_Equinox",
+          "record": "CHAL",
+          "name": "Kill a Cultist with any Pet during \"The Mothman Equinox\" Event",
+          "group": "Daily",
+          "active_pet": "Any World Pet",
+          "tier": 0,
+          "type_label": "Daily",
+          "required": 8,
+          "counter": "Total Enemies Killed",
+          "desc": "Your active World Pet's own attack (its bite or claws) has to land the killing blow. Your own kills don't count, even with your pet beside you. Only Cultists killed during The Mothman Equinox event count.",
+          "reward": "S.C.O.R.E.",
+          "reward_items": [
+            {
+              "name": "S.C.O.R.E.",
+              "kind": "score"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Daily",
+          "classification": "Sub Challenge (Unsorted)",
+          "rotation": true,
+          "conditions_display": [
+            ".PlayerHasQuest(Event: The Mothman Equinox [QUST:006173A1]) = 1",
+            "Target.HasKeyword(ActorTypeCultist [KYWD:00571D9E]) = 1",
+            ".CHAL_DoesTargetWeaponHaveKeyword(World Pets Unarmed [KYWD:008C90FB]) = 1",
+            "Target.GetIsRace(Human [RACE:00013746]) = 1",
+            "Target.GetIsRace(Ghoul [RACE:000EAFB6]) = 1"
+          ]
+        },
+        {
+          "form_id": "0095B54D",
+          "edid": "SCORE_Challenge_Daily_Kill_WorldPet_Scorched_Festive",
+          "record": "CHAL",
+          "name": "Kill a Festive Scorched with any Pet",
+          "group": "Daily",
+          "active_pet": "Any World Pet",
+          "tier": 0,
+          "type_label": "Daily",
+          "required": 6,
+          "counter": "Scorched Killed",
+          "desc": "Your active World Pet's own attack (its bite or claws) has to land the killing blow. Your own kills don't count, even with your pet beside you. Only Festive Scorched count.",
+          "reward": "S.C.O.R.E.",
+          "reward_items": [
+            {
+              "name": "S.C.O.R.E.",
+              "kind": "score"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Daily",
+          "classification": "Sub Challenge (Unsorted)",
+          "rotation": true,
+          "conditions_display": [
+            "Target.HasKeyword(FestiveScorchedKeyword [KYWD:00630019]) > 0",
+            ".CHAL_DoesTargetWeaponHaveKeyword(World Pets Unarmed [KYWD:008C90FB]) = 1"
+          ]
+        },
+        {
+          "form_id": "0095B54E",
+          "edid": "SCORE_Challenge_Daily_Kill_SuperMutant_WorldPet_Fasnacht",
+          "record": "CHAL",
+          "name": "Kill a Super Mutant During \"Fasnacht Day\" with any Pet",
+          "group": "Daily",
+          "active_pet": "Any World Pet",
+          "tier": 0,
+          "type_label": "Daily",
+          "required": 8,
+          "counter": "Super Mutants Killed",
+          "desc": "Your active World Pet's own attack (its bite or claws) has to land the killing blow. Your own kills don't count, even with your pet beside you. Only Super Mutants killed during Fasnacht Day count.",
+          "reward": "S.C.O.R.E.",
+          "reward_items": [
+            {
+              "name": "S.C.O.R.E.",
+              "kind": "score"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Daily",
+          "classification": "Sub Challenge (Unsorted)",
+          "rotation": true,
+          "conditions_display": [
+            ".PlayerHasQuest(Event: Fasnacht Day [QUST:0049886E]) = 1",
+            ".CHAL_DoesTargetWeaponHaveKeyword(World Pets Unarmed [KYWD:008C90FB]) = 1"
+          ]
+        },
+        {
+          "form_id": "0094F84A",
+          "edid": "SCORE_Challenge_Daily_TravelDistance_WorldPet_Any",
+          "record": "CHAL",
+          "name": "Travel on foot with any Pet (KM)",
+          "group": "Daily",
+          "active_pet": "Any World Pet",
+          "tier": 0,
+          "type_label": "Daily",
+          "required": 10,
+          "counter": "Total Distance Traveled",
+          "desc": "Travel on foot while you have a World Pet out.",
+          "reward": "S.C.O.R.E.",
+          "reward_items": [
+            {
+              "name": "S.C.O.R.E.",
+              "kind": "score"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Daily",
+          "classification": "Sub Challenge (Unsorted)",
+          "rotation": true,
+          "conditions_display": [
+            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
+          ]
+        },
+        {
+          "form_id": "0094F842",
+          "edid": "SCORE_Challenge_Daily_TravelDistance_WorldPet_Any_Epic",
+          "record": "CHAL",
+          "name": "Epic - Travel on foot with any Pet (KM)",
+          "group": "Daily",
+          "active_pet": "Any World Pet",
+          "tier": 0,
+          "type_label": "Epic Daily",
+          "required": 16,
+          "counter": "Total Distance Traveled",
+          "desc": "Travel on foot while you have a World Pet out.",
+          "reward": "S.C.O.R.E.",
+          "reward_items": [
+            {
+              "name": "S.C.O.R.E.",
+              "kind": "score"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Daily",
+          "classification": "Sub Challenge (Unsorted)",
+          "rotation": true,
+          "conditions_display": [
+            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
+          ]
+        },
+        {
+          "form_id": "0094F855",
+          "edid": "SCORE_Challenge_Daily_Emote_WorldPet_Any",
+          "record": "CHAL",
+          "name": "Use an Emote while your Pet is deployed",
+          "group": "Daily",
+          "active_pet": "Any World Pet",
+          "tier": 0,
+          "type_label": "Daily",
+          "required": 1,
+          "counter": "Bodies in Emotion",
+          "desc": "Use any emote while you have a World Pet out.",
+          "reward": "S.C.O.R.E.",
+          "reward_items": [
+            {
+              "name": "S.C.O.R.E.",
+              "kind": "score"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Daily",
+          "classification": "Sub Challenge (Unsorted)",
+          "rotation": true,
+          "conditions_display": [
+            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Weekly",
+      "rotation": true,
+      "challenges": [
+        {
+          "form_id": "0095B554",
+          "edid": "SCORE_Challenge_Weekly_QuestComplete_WorldPet_Fasnacht",
+          "record": "CHAL",
+          "name": "Complete the Event: \"Fasnacht Day\" with any Pet",
+          "group": "Weekly",
+          "active_pet": "Any World Pet",
+          "tier": 0,
+          "type_label": "Weekly",
+          "required": 5,
+          "counter": "Quests Completed",
+          "desc": "Complete the Fasnacht Day event while you have a World Pet out.",
+          "reward": "S.C.O.R.E.",
+          "reward_items": [
+            {
+              "name": "S.C.O.R.E.",
+              "kind": "score"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Weekly",
+          "classification": "Sub Challenge (Unsorted)",
+          "rotation": true,
+          "conditions_display": [
+            "Target.IsInList(Event: Fasnacht [FLST:0060E6DA]) = 1",
+            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
+          ]
+        },
+        {
+          "form_id": "0095B551",
+          "edid": "SCORE_Challenge_Weekly_QuestComplete_WorldPet_MothmanEquinox",
+          "record": "CHAL",
+          "name": "Complete the Event: \"The Mothman Equinox\" with any Pet",
+          "group": "Weekly",
+          "active_pet": "Any World Pet",
+          "tier": 0,
+          "type_label": "Weekly",
+          "required": 5,
+          "counter": "Quests Completed",
+          "desc": "Complete The Mothman Equinox event while you have a World Pet out.",
+          "reward": "S.C.O.R.E.",
+          "reward_items": [
+            {
+              "name": "S.C.O.R.E.",
+              "kind": "score"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Weekly",
+          "classification": "Sub Challenge (Unsorted)",
+          "rotation": true,
+          "conditions_display": [
+            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1",
+            "Target.IsInList(Event: The Mothman Equinox [FLST:0062FE9E]) = 1"
+          ]
+        },
+        {
+          "form_id": "0094F851",
+          "edid": "SCORE_Challenge_Weekly_XP_WorldPet_Any",
+          "record": "CHAL",
+          "name": "Gain XP with your Pet",
+          "group": "Weekly",
+          "active_pet": "Any World Pet",
+          "tier": 0,
+          "type_label": "Weekly",
+          "required": 7000,
+          "counter": "Experience Gained",
+          "desc": "Earn XP while you have a World Pet out.",
+          "reward": "S.C.O.R.E.",
+          "reward_items": [
+            {
+              "name": "S.C.O.R.E.",
+              "kind": "score"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Weekly",
+          "classification": "Sub Challenge (Unsorted)",
+          "rotation": true,
+          "conditions_display": [
+            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
+          ]
+        },
+        {
+          "form_id": "0094F852",
+          "edid": "SCORE_Challenge_Weekly_XP_WorldPet_Any_Epic",
+          "record": "CHAL",
+          "name": "Epic - Gain XP with your Pet",
+          "group": "Weekly",
+          "active_pet": "Any World Pet",
+          "tier": 0,
+          "type_label": "Epic Weekly",
+          "required": 12000,
+          "counter": "Experience Gained",
+          "desc": "Earn XP while you have a World Pet out.",
+          "reward": "S.C.O.R.E.",
+          "reward_items": [
+            {
+              "name": "S.C.O.R.E.",
+              "kind": "score"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Weekly",
+          "classification": "Sub Challenge (Unsorted)",
+          "rotation": true,
+          "conditions_display": [
+            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
+          ]
+        },
+        {
+          "form_id": "0094F84E",
+          "edid": "SCORE_Challenge_Weekly_DealDamage_WorldPet_Any",
+          "record": "CHAL",
+          "name": "Have your Pet deal damage to an Enemy",
+          "group": "Weekly",
+          "active_pet": "Any World Pet",
+          "tier": 0,
+          "type_label": "Weekly",
+          "required": 600,
+          "counter": "Enemy Total Damage Inflicted",
+          "desc": "Damage from your active World Pet's own attacks (its bite or claws) counts. Damage you deal yourself doesn't.",
+          "reward": "S.C.O.R.E.",
+          "reward_items": [
+            {
+              "name": "S.C.O.R.E.",
+              "kind": "score"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Weekly",
+          "classification": "Sub Challenge (Unsorted)",
+          "rotation": true,
+          "conditions_display": [
+            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1",
+            ".CHAL_DoesTargetWeaponHaveKeyword(World Pets Unarmed [KYWD:008C90FB]) = 1"
+          ]
+        },
+        {
+          "form_id": "0094F853",
+          "edid": "SCORE_Challenge_Weekly_DealDamage_WorldPet_Any_Epic",
+          "record": "CHAL",
+          "name": "Epic - Have your Pet deal damage to an Enemy",
+          "group": "Weekly",
+          "active_pet": "Any World Pet",
+          "tier": 0,
+          "type_label": "Epic Weekly",
+          "required": 1000,
+          "counter": "Enemy Total Damage Inflicted",
+          "desc": "Damage from your active World Pet's own attacks (its bite or claws) counts. Damage you deal yourself doesn't.",
+          "reward": "S.C.O.R.E.",
+          "reward_items": [
+            {
+              "name": "S.C.O.R.E.",
+              "kind": "score"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Weekly",
+          "classification": "Sub Challenge (Unsorted)",
+          "rotation": true,
+          "conditions_display": [
+            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1",
+            ".CHAL_DoesTargetWeaponHaveKeyword(World Pets Unarmed [KYWD:008C90FB]) = 1"
+          ]
+        },
+        {
+          "form_id": "0094F84D",
+          "edid": "SCORE_Challenge_Weekly_Kill_WorldPet_Any",
+          "record": "CHAL",
+          "name": "Have your Pet kill an Enemy",
+          "group": "Weekly",
+          "active_pet": "Any World Pet",
+          "tier": 0,
+          "type_label": "Weekly",
+          "required": 15,
+          "counter": "Total Enemies Killed",
+          "desc": "Your active World Pet's own attack (its bite or claws) has to land the killing blow. Your own kills don't count, even with your pet beside you. Any creature, critter or enemy NPC counts.",
+          "reward": "S.C.O.R.E.",
+          "reward_items": [
+            {
+              "name": "S.C.O.R.E.",
+              "kind": "score"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Weekly",
+          "classification": "Sub Challenge (Unsorted)",
+          "rotation": true,
+          "conditions_display": [
+            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1",
+            ".CHAL_DoesTargetWeaponHaveKeyword(World Pets Unarmed [KYWD:008C90FB]) = 1"
+          ]
+        },
+        {
+          "form_id": "0094F854",
+          "edid": "SCORE_Challenge_Weekly_Kill_WorldPet_Any_Epic",
+          "record": "CHAL",
+          "name": "Epic - Have your Pet kill an Enemy",
+          "group": "Weekly",
+          "active_pet": "Any World Pet",
+          "tier": 0,
+          "type_label": "Epic Weekly",
+          "required": 25,
+          "counter": "Total Enemies Killed",
+          "desc": "Your active World Pet's own attack (its bite or claws) has to land the killing blow. Your own kills don't count, even with your pet beside you. Any creature, critter or enemy NPC counts.",
+          "reward": "S.C.O.R.E.",
+          "reward_items": [
+            {
+              "name": "S.C.O.R.E.",
+              "kind": "score"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Weekly",
+          "classification": "Sub Challenge (Unsorted)",
+          "rotation": true,
+          "conditions_display": [
+            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1",
+            ".CHAL_DoesTargetWeaponHaveKeyword(World Pets Unarmed [KYWD:008C90FB]) = 1"
+          ]
+        },
+        {
+          "form_id": "0095B553",
+          "edid": "SCORE_Challenge_Weekly_Kill_Cultists_WorldPet_Mothman_Equinox",
+          "record": "CHAL",
+          "name": "Kill a Cultist with any Pet during \"The Mothman Equinox\" Event",
+          "group": "Weekly",
+          "active_pet": "Any World Pet",
+          "tier": 0,
+          "type_label": "Weekly",
+          "required": 20,
+          "counter": "Total Enemies Killed",
+          "desc": "Your active World Pet's own attack (its bite or claws) has to land the killing blow. Your own kills don't count, even with your pet beside you. Only Cultists killed during The Mothman Equinox event count.",
+          "reward": "S.C.O.R.E.",
+          "reward_items": [
+            {
+              "name": "S.C.O.R.E.",
+              "kind": "score"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Weekly",
+          "classification": "Sub Challenge (Unsorted)",
+          "rotation": true,
+          "conditions_display": [
+            ".PlayerHasQuest(Event: The Mothman Equinox [QUST:006173A1]) = 1",
+            "Target.HasKeyword(ActorTypeCultist [KYWD:00571D9E]) = 1",
+            ".CHAL_DoesTargetWeaponHaveKeyword(World Pets Unarmed [KYWD:008C90FB]) = 1",
+            "Target.GetIsRace(Human [RACE:00013746]) = 1",
+            "Target.GetIsRace(Ghoul [RACE:000EAFB6]) = 1"
+          ]
+        },
+        {
+          "form_id": "0095B552",
+          "edid": "SCORE_Challenge_Weekly_Kill_SuperMutant_WorldPet_Fasnacht",
+          "record": "CHAL",
+          "name": "Kill a Super Mutant During \"Fasnacht Day\" with any Pet",
+          "group": "Weekly",
+          "active_pet": "Any World Pet",
+          "tier": 0,
+          "type_label": "Weekly",
+          "required": 20,
+          "counter": "Super Mutants Killed",
+          "desc": "Your active World Pet's own attack (its bite or claws) has to land the killing blow. Your own kills don't count, even with your pet beside you. Only Super Mutants killed during Fasnacht Day count.",
+          "reward": "S.C.O.R.E.",
+          "reward_items": [
+            {
+              "name": "S.C.O.R.E.",
+              "kind": "score"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Weekly",
+          "classification": "Sub Challenge (Unsorted)",
+          "rotation": true,
+          "conditions_display": [
+            ".PlayerHasQuest(Event: Fasnacht Day [QUST:0049886E]) = 1",
+            ".CHAL_DoesTargetWeaponHaveKeyword(World Pets Unarmed [KYWD:008C90FB]) = 1"
+          ]
+        },
+        {
+          "form_id": "0094F84F",
+          "edid": "SCORE_Challenge_Weekly_TravelDistance_WorldPet_Any",
+          "record": "CHAL",
+          "name": "Travel on foot with any Pet (KM)",
+          "group": "Weekly",
+          "active_pet": "Any World Pet",
+          "tier": 0,
+          "type_label": "Weekly",
+          "required": 25,
+          "counter": "Total Distance Traveled",
+          "desc": "Travel on foot while you have a World Pet out.",
+          "reward": "S.C.O.R.E.",
+          "reward_items": [
+            {
+              "name": "S.C.O.R.E.",
+              "kind": "score"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Weekly",
+          "classification": "Sub Challenge (Unsorted)",
+          "rotation": true,
+          "conditions_display": [
+            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
+          ]
+        },
+        {
+          "form_id": "0094F850",
+          "edid": "SCORE_Challenge_Weekly_TravelDistance_WorldPet_Any_Epic",
+          "record": "CHAL",
+          "name": "Epic - Travel on foot with any Pet (KM)",
+          "group": "Weekly",
+          "active_pet": "Any World Pet",
+          "tier": 0,
+          "type_label": "Epic Weekly",
+          "required": 40,
+          "counter": "Total Distance Traveled",
+          "desc": "Travel on foot while you have a World Pet out.",
+          "reward": "S.C.O.R.E.",
+          "reward_items": [
+            {
+              "name": "S.C.O.R.E.",
+              "kind": "score"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Weekly",
+          "classification": "Sub Challenge (Unsorted)",
+          "rotation": true,
+          "conditions_display": [
+            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
+          ]
+        }
+      ]
+    },
     {
       "name": "Any Pet",
       "challenges": [
@@ -138,7 +957,7 @@
           "type_label": "Tier I",
           "required": 25,
           "counter": "Total Enemies Killed",
-          "desc": "Have your active World Pet land the killing blow on hostiles.",
+          "desc": "Your active World Pet's own attack (its bite or claws) has to land the killing blow. Your own kills don't count, even with your pet beside you. Any creature, critter or enemy NPC counts.",
           "reward": "",
           "reward_items": [],
           "reward_note": "No reward for this tier.",
@@ -160,7 +979,7 @@
           "type_label": "Tier II",
           "required": 500,
           "counter": "Total Enemies Killed",
-          "desc": "Have your active World Pet land the killing blow on hostiles.",
+          "desc": "Your active World Pet's own attack (its bite or claws) has to land the killing blow. Your own kills don't count, even with your pet beside you. Any creature, critter or enemy NPC counts.",
           "reward": "",
           "reward_items": [],
           "reward_note": "No reward for this tier.",
@@ -182,7 +1001,7 @@
           "type_label": "Tier III",
           "required": 2000,
           "counter": "Total Enemies Killed",
-          "desc": "Have your active World Pet land the killing blow on hostiles.",
+          "desc": "Your active World Pet's own attack (its bite or claws) has to land the killing blow. Your own kills don't count, even with your pet beside you. Any creature, critter or enemy NPC counts.",
           "reward": "Player Title: Predator",
           "reward_items": [
             {
@@ -227,7 +1046,7 @@
           "scope": "Lifetime",
           "classification": "Lifetime",
           "conditions_display": [
-            ".HasKeyword(Cat [KYWD:0079AF1D]) = 1"
+            ".HasActivePet(Cat [KYWD:0079AF1D]) = 1"
           ]
         },
         {
@@ -248,7 +1067,7 @@
           "scope": "Lifetime",
           "classification": "Lifetime",
           "conditions_display": [
-            ".HasKeyword(Cat [KYWD:0079AF1D]) = 1"
+            ".HasActivePet(Cat [KYWD:0079AF1D]) = 1"
           ]
         },
         {
@@ -275,7 +1094,7 @@
           "scope": "Lifetime",
           "classification": "Lifetime",
           "conditions_display": [
-            ".HasKeyword(Cat [KYWD:0079AF1D]) = 1"
+            ".HasActivePet(Cat [KYWD:0079AF1D]) = 1"
           ]
         }
       ]
@@ -306,7 +1125,7 @@
           "scope": "Lifetime",
           "classification": "Lifetime",
           "conditions_display": [
-            ".HasKeyword(Dog [KYWD:0079AF1C]) = 1",
+            ".HasActivePet(Dog [KYWD:0079AF1C]) = 1",
             "Target.IsInList(Burn Bounty Completed Head Hunts [FLST:00843165]) = 1",
             "Target.IsInList(Completed Grunt Hunts [FLST:0084315F]) = 1"
           ]
@@ -329,7 +1148,7 @@
           "scope": "Lifetime",
           "classification": "Lifetime",
           "conditions_display": [
-            ".HasKeyword(Dog [KYWD:0079AF1C]) = 1",
+            ".HasActivePet(Dog [KYWD:0079AF1C]) = 1",
             "Target.IsInList(Burn Bounty Completed Head Hunts [FLST:00843165]) = 1",
             "Target.IsInList(Completed Grunt Hunts [FLST:0084315F]) = 1"
           ]
@@ -358,7 +1177,7 @@
           "scope": "Lifetime",
           "classification": "Lifetime",
           "conditions_display": [
-            ".HasKeyword(Dog [KYWD:0079AF1C]) = 1",
+            ".HasActivePet(Dog [KYWD:0079AF1C]) = 1",
             "Target.IsInList(Burn Bounty Completed Head Hunts [FLST:00843165]) = 1",
             "Target.IsInList(Completed Grunt Hunts [FLST:0084315F]) = 1"
           ]
@@ -391,7 +1210,7 @@
           "scope": "Lifetime",
           "classification": "Lifetime",
           "conditions_display": [
-            ".HasKeyword(Radhog [KYWD:0084FB8C]) = 1",
+            ".HasActivePet(Radhog [KYWD:0084FB8C]) = 1",
             "Target.HasKeyword(PlantTypeFluxYellow [KYWD:004713D0]) = 1",
             "Target.HasKeyword(PlantTypeFluxRed [KYWD:004713D4]) = 1",
             "Target.HasKeyword(PlantTypeFluxPurple [KYWD:004713D3]) = 1",
@@ -417,7 +1236,7 @@
           "scope": "Lifetime",
           "classification": "Lifetime",
           "conditions_display": [
-            ".HasKeyword(Radhog [KYWD:0084FB8C]) = 1",
+            ".HasActivePet(Radhog [KYWD:0084FB8C]) = 1",
             "Target.HasKeyword(PlantTypeFluxYellow [KYWD:004713D0]) = 1",
             "Target.HasKeyword(PlantTypeFluxRed [KYWD:004713D4]) = 1",
             "Target.HasKeyword(PlantTypeFluxPurple [KYWD:004713D3]) = 1",
@@ -449,7 +1268,7 @@
           "scope": "Lifetime",
           "classification": "Lifetime",
           "conditions_display": [
-            ".HasKeyword(Radhog [KYWD:0084FB8C]) = 1",
+            ".HasActivePet(Radhog [KYWD:0084FB8C]) = 1",
             "Target.HasKeyword(PlantTypeFluxYellow [KYWD:004713D0]) = 1",
             "Target.HasKeyword(PlantTypeFluxRed [KYWD:004713D4]) = 1",
             "Target.HasKeyword(PlantTypeFluxPurple [KYWD:004713D3]) = 1",
@@ -485,7 +1304,7 @@
           "scope": "Lifetime",
           "classification": "Lifetime",
           "conditions_display": [
-            ".HasKeyword(Deathclaw [KYWD:008A52BB]) = 1",
+            ".HasActivePet(Deathclaw [KYWD:008A52BB]) = 1",
             ".PlayerHasQuest(Infestation [QUST:00865FA8]) = 1"
           ]
         },
@@ -507,7 +1326,7 @@
           "scope": "Lifetime",
           "classification": "Lifetime",
           "conditions_display": [
-            ".HasKeyword(Deathclaw [KYWD:008A52BB]) = 1",
+            ".HasActivePet(Deathclaw [KYWD:008A52BB]) = 1",
             ".PlayerHasQuest(Infestation [QUST:00865FA8]) = 1"
           ]
         },
@@ -535,7 +1354,7 @@
           "scope": "Lifetime",
           "classification": "Lifetime",
           "conditions_display": [
-            ".HasKeyword(Deathclaw [KYWD:008A52BB]) = 1",
+            ".HasActivePet(Deathclaw [KYWD:008A52BB]) = 1",
             ".PlayerHasQuest(Infestation [QUST:00865FA8]) = 1"
           ]
         }

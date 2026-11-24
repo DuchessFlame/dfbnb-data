@@ -203,7 +203,13 @@ def resolve_name_from_fid(fid):
 # xEdit-format condition decode with CNDF leaf-expansion
 # (kept identical to build_challenges_json_v3.conditions_display)
 # ---------------------------------------------------------------------------
-FUNC_INDEX = {"940": "HasKeyword", "941": "HasKeyword"}
+# Condition functions xEdit has no name for (it stops at 938, HasActiveChallenge).
+# Named from the game's own function list in Fallout76.exe (PTS, 14 Nov 2026):
+# ... HasActiveChallenge, LocationHasEventQuest, PlayerHasQuestInList,
+# HasActivePet ("Does the subject player currently have an active pet?"),
+# GetPetLevel ("Gets the level of the defined pet"). 940 takes an optional pet
+# keyword (none = any pet); 941 takes the pet keyword.
+FUNC_INDEX = {"940": "HasActivePet", "941": "GetPetLevel"}
 
 def _fid_from_bytes(b):
     parts = str(b or "").strip().split()
@@ -246,6 +252,11 @@ def _cndf_conditions(row):
 def _is_null_leaf(line):
     return bool(re.search(r'\[(?:FORM|KYWD):0+\]', line) or re.search(r'\(0+\s', line))
 
+# Comparison = the first 3 characters of the xEdit type field. Matched against the
+# raw CTDA bytes in the PTS SeventySix.esm (24 Nov 2026): 100 =, 000 !=, 010 >,
+# 110 >=, 001 <, 101 <=. (Kill a Festive Scorched is "HasKeyword(...) > 0", not "= 0".)
+_CMP_OP = {"100": "=", "000": "!=", "010": ">", "110": ">=", "001": "<", "101": "<="}
+
 def decode_condition(cond_str, _seen=None):
     if _seen is None: _seen = set()
     s = str(cond_str or "").strip()
@@ -254,6 +265,7 @@ def decode_condition(cond_str, _seen=None):
         return [re.sub(r'^(Top|More|And|Or):', '', s).strip()]
     parts = s.split("|")
     value = _fmt_cond_value(parts[1] if len(parts) > 1 else "")
+    op = _CMP_OP.get((parts[0] or "").strip()[:3], "=")
     func = FUNC_INDEX.get((parts[2] if len(parts) > 2 else "").strip(),
                           (parts[2] if len(parts) > 2 else "").strip())
     param = parts[5] if len(parts) > 5 else ""
@@ -272,9 +284,9 @@ def decode_condition(cond_str, _seen=None):
                 if meaningful:
                     return meaningful
     disp, ref = _cond_param_label(param)
-    if ref:  return [f"{prefix}{func}({disp} {ref}) = {value}"]
-    if disp: return [f"{prefix}{func}({disp}) = {value}"]
-    return [f"{prefix}{func}() = {value}"]
+    if ref:  return [f"{prefix}{func}({disp} {ref}) {op} {value}"]
+    if disp: return [f"{prefix}{func}({disp}) {op} {value}"]
+    return [f"{prefix}{func}() {op} {value}"]
 
 def conditions_display(conditions):
     out, seen = [], set()
@@ -304,9 +316,9 @@ OVERLAY = {
     "AnyPet_HealPet01":       ("Heal your active pet with a Stimpak when it is hurt or wounded.", ""),
     "AnyPet_HealPet02":       ("Heal your active pet with a Stimpak when it is hurt or wounded.", ""),
     "AnyPet_HealPet03":       ("Heal your active pet with a Stimpak when it is hurt or wounded.", ""),
-    "AnyPet_PetKill01":       ("Have your active World Pet land the killing blow on hostiles.", ""),
-    "AnyPet_PetKill02":       ("Have your active World Pet land the killing blow on hostiles.", ""),
-    "AnyPet_PetKill03":       ("Have your active World Pet land the killing blow on hostiles.", ""),
+    "AnyPet_PetKill01":       ("Your active World Pet's own attack (its bite or claws) has to land the killing blow. Your own kills don't count, even with your pet beside you. Any creature, critter or enemy NPC counts.", ""),
+    "AnyPet_PetKill02":       ("Your active World Pet's own attack (its bite or claws) has to land the killing blow. Your own kills don't count, even with your pet beside you. Any creature, critter or enemy NPC counts.", ""),
+    "AnyPet_PetKill03":       ("Your active World Pet's own attack (its bite or claws) has to land the killing blow. Your own kills don't count, even with your pet beside you. Any creature, critter or enemy NPC counts.", ""),
     "Cat_CatchFish01":        ("Catch fish while a Pet Cat is your active World Pet.", "300 Caps"),
     "Cat_CatchFish02":        ("Catch fish while a Pet Cat is your active World Pet.", ""),
     "Cat_CatchFish03":        ("Catch fish while a Pet Cat is your active World Pet.", ""),
@@ -405,7 +417,67 @@ for r in wp_rows:
     groups_map.setdefault(group_label, []).append(item)
     total += 1
 
+# ---------------------------------------------------------------------------
+# Daily / Weekly S.C.O.R.E. pet challenges (Kat, 24 Nov 2026): one group each,
+# listed for reference only. They reset, so the page greys their tick boxes out
+# and leaves them out of the progress count ("rotation": true).
+# Picked by EDID: SCORE_Challenge_<Daily|Weekly>_..._(World)Pet...
+# ---------------------------------------------------------------------------
+ROT_RE = re.compile(r"^SCORE_Challenge_(Daily|Weekly)_.*(WorldPet|AnyPet)", re.I)
+PET_KILL = ("Your active World Pet's own attack (its bite or claws) has to land the killing blow. "
+            "Your own kills don't count, even with your pet beside you.")
+ROT_DESC = [   # first match wins; checked against each record's conditions
+    (r"_Kill_Cultists_", PET_KILL + " Only Cultists killed during The Mothman Equinox event count."),
+    (r"_Kill_SuperMutant_", PET_KILL + " Only Super Mutants killed during Fasnacht Day count."),
+    (r"_Kill_WorldPet_Scorched_Festive", PET_KILL + " Only Festive Scorched count."),
+    (r"_Kill_", PET_KILL + " Any creature, critter or enemy NPC counts."),
+    (r"_DealDamage_", "Damage from your active World Pet's own attacks (its bite or claws) counts. Damage you deal yourself doesn't."),
+    (r"_TravelDistance_", "Travel on foot while you have a World Pet out."),
+    (r"_XP_", "Earn XP while you have a World Pet out."),
+    (r"_Heal_", "Heal your active pet with a Stimpak when it is hurt or wounded."),
+    (r"_GivePetCommand", "Give your active pet a command from the Pet Command Wheel (Follow, Stay, Attack or Protect)."),
+    (r"_Emote_", "Use any emote while you have a World Pet out."),
+    (r"_Event_Activity_", "Complete a public event or activity while you have a World Pet out."),
+    (r"_QuestComplete_WorldPet_Fasnacht", "Complete the Fasnacht Day event while you have a World Pet out."),
+    (r"_QuestComplete_WorldPet_MothmanEquinox", "Complete The Mothman Equinox event while you have a World Pet out."),
+]
+rot_groups = {"Daily": [], "Weekly": []}
+for r in CHAL:
+    edid = pick(r, "EDID")
+    m = ROT_RE.match(edid)
+    if not m or edid.lower().startswith("zzz"):
+        continue
+    scope = m.group(1).capitalize()
+    desc = next((d for rx, d in ROT_DESC if re.search(rx, edid, re.I)), "")
+    epic = "_Epic" in edid
+    required = pick(r, "TNAM")
+    rot_groups[scope].append({
+        "form_id":   pick(r, "FormID"),
+        "edid":      edid,
+        "record":    "CHAL",
+        "name":      pick(r, "FULL"),
+        "group":     scope,
+        "active_pet": "Any World Pet",
+        "tier":      0,
+        "type_label": ("Epic " if epic else "") + scope,
+        "required":  safe_int(required, required) if required not in ("", "0") else required,
+        "counter":   pick(r, "SNAM").lstrip(),
+        "desc":      desc,
+        "reward":    "S.C.O.R.E.",
+        "reward_items": [{"name": "S.C.O.R.E.", "kind": "score"}],
+        "reward_note": "",
+        "scope":     scope,
+        "classification": pick(r, "ENAM").strip() or scope,
+        "rotation":  True,
+        "conditions_display": conditions_display(extract_conditions(r)),
+    })
+
 groups = []
+# Site rule: Daily -> Weekly first, then the lifetime groups.
+for label in ("Daily", "Weekly"):
+    items = sorted(rot_groups[label], key=lambda x: (x["name"].replace("Epic - ", "").lower(), "Epic" in x["name"], x["edid"]))
+    if items:
+        groups.append({"name": label, "rotation": True, "challenges": items})
 for label in GROUP_ORDER:
     items = sorted(groups_map.get(label, []), key=lambda x: x["edid"])
     if items:
@@ -422,6 +494,6 @@ out_path = OUT_DIR / "world_pet_challenges.json"
 with open(out_path, "w", encoding="utf-8") as f:
     json.dump(output, f, indent=2, ensure_ascii=False)
 
-print(f"[world-pet-challenges] wrote {out_path}  ({total} challenges, {len(groups)} groups)")
+print(f"[world-pet-challenges] wrote {out_path}  ({total} lifetime challenges, {len(groups)} groups)")
 for g in groups:
     print(f"    {g['name']}: {len(g['challenges'])}")

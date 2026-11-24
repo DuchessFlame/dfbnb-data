@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-24T09:28:11.066391Z",
+  "generated": "2026-11-24T10:23:56.487462Z",
   "source": "CHAL/CNDF TSV exports (build_world_pet_challenges_json.py)",
   "total": 20,
   "groups": [
@@ -138,7 +138,7 @@
           "type_label": "Tier I",
           "required": 25,
           "counter": "Total Enemies Killed",
-          "desc": "Have your active World Pet land the killing blow on hostiles.",
+          "desc": "Your active World Pet's own attack (its bite or claws) has to land the killing blow. Your own kills don't count, even with your pet beside you. Any creature, critter or enemy NPC counts.",
           "reward": "",
           "reward_items": [],
           "reward_note": "No reward for this tier.",
@@ -160,7 +160,7 @@
           "type_label": "Tier II",
           "required": 500,
           "counter": "Total Enemies Killed",
-          "desc": "Have your active World Pet land the killing blow on hostiles.",
+          "desc": "Your active World Pet's own attack (its bite or claws) has to land the killing blow. Your own kills don't count, even with your pet beside you. Any creature, critter or enemy NPC counts.",
           "reward": "",
           "reward_items": [],
           "reward_note": "No reward for this tier.",
@@ -182,7 +182,7 @@
           "type_label": "Tier III",
           "required": 2000,
           "counter": "Total Enemies Killed",
-          "desc": "Have your active World Pet land the killing blow on hostiles.",
+          "desc": "Your active World Pet's own attack (its bite or claws) has to land the killing blow. Your own kills don't count, even with your pet beside you. Any creature, critter or enemy NPC counts.",
           "reward": "Player Title: Predator",
           "reward_items": [
             {
@@ -227,7 +227,7 @@
           "scope": "Lifetime",
           "classification": "Lifetime",
           "conditions_display": [
-            ".HasKeyword(Cat [KYWD:0079AF1D]) = 1"
+            ".HasActivePet(Cat [KYWD:0079AF1D]) = 1"
           ]
         },
         {
@@ -248,7 +248,7 @@
           "scope": "Lifetime",
           "classification": "Lifetime",
           "conditions_display": [
-            ".HasKeyword(Cat [KYWD:0079AF1D]) = 1"
+            ".HasActivePet(Cat [KYWD:0079AF1D]) = 1"
           ]
         },
         {
@@ -275,7 +275,7 @@
           "scope": "Lifetime",
           "classification": "Lifetime",
           "conditions_display": [
-            ".HasKeyword(Cat [KYWD:0079AF1D]) = 1"
+            ".HasActivePet(Cat [KYWD:0079AF1D]) = 1"
           ]
         }
       ]
@@ -306,7 +306,7 @@
           "scope": "Lifetime",
           "classification": "Lifetime",
           "conditions_display": [
-            ".HasKeyword(Dog [KYWD:0079AF1C]) = 1",
+            ".HasActivePet(Dog [KYWD:0079AF1C]) = 1",
             "Target.IsInList(Burn Bounty Completed Head Hunts [FLST:00843165]) = 1",
             "Target.IsInList(Burn Bounty Completed Grunt Hunts [FLST:0084315F]) = 1"
           ]
@@ -329,7 +329,7 @@
           "scope": "Lifetime",
           "classification": "Lifetime",
           "conditions_display": [
-            ".HasKeyword(Dog [KYWD:0079AF1C]) = 1",
+            ".HasActivePet(Dog [KYWD:0079AF1C]) = 1",
             "Target.IsInList(Burn Bounty Completed Head Hunts [FLST:00843165]) = 1",
             "Target.IsInList(Burn Bounty Completed Grunt Hunts [FLST:0084315F]) = 1"
           ]
@@ -358,7 +358,7 @@
           "scope": "Lifetime",
           "classification": "Lifetime",
           "conditions_display": [
-            ".HasKeyword(Dog [KYWD:0079AF1C]) = 1",
+            ".HasActivePet(Dog [KYWD:0079AF1C]) = 1",
             "Target.IsInList(Burn Bounty Completed Head Hunts [FLST:00843165]) = 1",
             "Target.IsInList(Burn Bounty Completed Grunt Hunts [FLST:0084315F]) = 1"
           ]
@@ -391,7 +391,7 @@
           "scope": "Lifetime",
           "classification": "Lifetime",
           "conditions_display": [
-            ".HasKeyword(Radhog [KYWD:0084FB8C]) = 1",
+            ".HasActivePet(Radhog [KYWD:0084FB8C]) = 1",
             "Target.HasKeyword(PlantTypeFluxYellow [KYWD:004713D0]) = 1",
             "Target.HasKeyword(PlantTypeFluxRed [KYWD:004713D4]) = 1",
             "Target.HasKeyword(PlantTypeFluxPurple [KYWD:004713D3]) = 1",
@@ -417,7 +417,7 @@
           "scope": "Lifetime",
           "classification": "Lifetime",
           "conditions_display": [
-            ".HasKeyword(Radhog [KYWD:0084FB8C]) = 1",
+            ".HasActivePet(Radhog [KYWD:0084FB8C]) = 1",
             "Target.HasKeyword(PlantTypeFluxYellow [KYWD:004713D0]) = 1",
             "Target.HasKeyword(PlantTypeFluxRed [KYWD:004713D4]) = 1",
             "Target.HasKeyword(PlantTypeFluxPurple [KYWD:004713D3]) = 1",
@@ -449,7 +449,7 @@
           "scope": "Lifetime",
           "classification": "Lifetime",
           "conditions_display": [
-            ".HasKeyword(Radhog [KYWD:0084FB8C]) = 1",
+            ".HasActivePet(Radhog [KYWD:0084FB8C]) = 1",
             "Target.HasKeyword(PlantTypeFluxYellow [KYWD:004713D0]) = 1",
             "Target.HasKeyword(PlantTypeFluxRed [KYWD:004713D4]) = 1",
             "Target.HasKeyword(PlantTypeFluxPurple [KYWD:004713D3]) = 1",
@@ -485,7 +485,7 @@
           "scope": "Lifetime",
           "classification": "Lifetime",
           "conditions_display": [
-            ".HasKeyword(Deathclaw [KYWD:008A52BB]) = 1",
+            ".HasActivePet(Deathclaw [KYWD:008A52BB]) = 1",
             ".PlayerHasQuest(Infestation [QUST:00865FA8]) = 1"
           ]
         },
@@ -507,7 +507,7 @@
           "scope": "Lifetime",
           "classification": "Lifetime",
           "conditions_display": [
-            ".HasKeyword(Deathclaw [KYWD:008A52BB]) = 1",
+            ".HasActivePet(Deathclaw [KYWD:008A52BB]) = 1",
             ".PlayerHasQuest(Infestation [QUST:00865FA8]) = 1"
           ]
         },
@@ -535,7 +535,7 @@
           "scope": "Lifetime",
           "classification": "Lifetime",
           "conditions_display": [
-            ".HasKeyword(Deathclaw [KYWD:008A52BB]) = 1",
+            ".HasActivePet(Deathclaw [KYWD:008A52BB]) = 1",
             ".PlayerHasQuest(Infestation [QUST:00865FA8]) = 1"
           ]
         }
