@@ -1302,6 +1302,49 @@ def add_new_request_items(items, req):
     return added
 
 
+# ── Self-heal picture paths against the server list (24 Nov 2026) ─────────────
+# An older build rewrote every emote / wallpaper / player-icon path to
+# request-item-images/, where those files don't exist. Any atom-shop picture
+# that isn't on the server where it points, but IS in one of the shared
+# folders under the same file name, is pointed back at that folder.
+SERVER_LISTING = os.path.join(SCRIPT_DIR, "..", "data", "server_listing.tsv")
+SHARED_DIRS = ("guide-images/atom-shop/emotes/", "guide-images/atom-shop/wallpaper/",
+               "guide-images/atom-shop/player-icons/", "guide-images/atom-shop/bundle-images/",
+               "season_images/utility/")
+
+
+def heal_image_paths(items):
+    if not os.path.exists(SERVER_LISTING):
+        return 0
+    on_server, shared = set(), {}
+    with open(SERVER_LISTING, encoding="utf-8") as fh:
+        for line in fh:
+            if line.startswith("#") or "\t" not in line:
+                continue
+            rel = line.split("\t", 1)[0]
+            on_server.add("/wp-content/uploads/" + rel)
+            for d in SHARED_DIRS:
+                if rel.startswith(d):
+                    shared.setdefault(rel[len(d):].lower(), "/wp-content/uploads/" + rel)
+    from urllib.parse import unquote, quote
+    fixed = 0
+
+    def heal(row):
+        nonlocal fixed
+        u = row.get("imageUrl") or ""
+        if not u.startswith("/wp-content/uploads/") or unquote(u) in on_server:
+            return
+        hit = shared.get(unquote(u).rsplit("/", 1)[-1].lower())
+        if hit:
+            row["imageUrl"] = quote(hit, safe="/")
+            fixed += 1
+    for it in items:
+        heal(it)
+        for bi in it.get("bundleItems") or []:
+            heal(bi)
+    return fixed
+
+
 def main():
     try:
         with open(SRC, "r", encoding="utf-8") as f:
@@ -1406,6 +1449,8 @@ def main():
         fixed_items.append(fixed)
 
     data["items"] = fixed_items
+    healed = heal_image_paths(fixed_items)
+    print(f"[atom_shop] Picture paths pointed back at their shared folder: {healed}")
 
     # NEW pill: first seen on Bethesda's list in the last NEW_CUTOFF_DAYS days.
     import datetime as _dt
