@@ -170,6 +170,15 @@ ICON_CATEGORY_KYWD = "ATX_Entitlement_Category_Store_AvatarIcons"
 
 # Placeholder / dev / reused shells. These carry no texture and no real name —
 # "cut ones dropped" per the page brief.
+# Vault 96 raid icons: real records, but the raid was cut, so they go to the
+# Data Mining > Cut Content page (payload "cutIcons") instead of Player Icons.
+VAULT96_CUT_WHY = ("A Vault 96 raid reward. The Vault 96 raid was cut from the game.")
+
+
+def is_cut_raid_icon(edid: str) -> bool:
+    return bool(re.match(r"Vaults_.*Vault96", edid or "", re.I))
+
+
 _CUT_PREFIXES = ("ZZZ", "ZZ_", "DEBUG", "TEMPLATE", "DEL_", "CUT_", "DONOTUSE", "REUSE_")
 _RE_REUSE_SUFFIX = re.compile(r"_REUSE\d*$|_REUSE_", re.IGNORECASE)
 _RE_RARITY = re.compile(r"ATX_ItemRarity_([A-Za-z]+)")
@@ -417,10 +426,18 @@ def resolve_obtain(row: dict, season_rows: dict, season_names: dict, chal: dict)
                 "season": None, "seasonName": "", "rank": None, "page": None,
                 "premium": False}
 
-    # 8. Vault raid icons (Vault 94 / 96) — the raids were removed in 2020.
+    # 8. Vault raid icons. Vault 94 = the raid that ran and was removed in
+    #    2020. Vault 96 = the raid that never came out (Duchess, 21 Nov 2026:
+    #    "vault 96 raids is cut content"); its icons still use placeholder art
+    #    (ATX_PlayerIcon_Weapon8.dds) and are moved to Cut Content in build().
     if edid.startswith("Vaults_"):
+        if re.search(r"Vault96", edid, re.I):
+            return {"method": "cut", "source": "Cut",
+                    "text": VAULT96_CUT_WHY,
+                    "season": None, "seasonName": "", "rank": None, "page": None,
+                    "premium": False}
         return {"method": "legacy", "source": "Legacy",
-                "text": "Earned from the Vault 94 / Vault 96 raids, which were removed "
+                "text": "Earned from the Vault 94 raid, which was removed "
                         "from the game - no longer obtainable.",
                 "season": None, "seasonName": "", "rank": None, "page": None,
                 "premium": False}
@@ -888,6 +905,13 @@ def build() -> dict:
     # ABC order, case-insensitive, on the displayed name.
     icons.sort(key=lambda i: (i["name"].lower(), i["edid"].lower()))
 
+    # Vault 96 raid icons -> Cut Content (build_cut_content_json.py reads
+    # "cutIcons"); the Player Icons page leaves them out.
+    cut_icons = [{"formId": i["formId"], "edid": i["edid"], "name": i["name"],
+                  "why": VAULT96_CUT_WHY, "imageUrl": i.get("imageUrl", "")}
+                 for i in icons if is_cut_raid_icon(i["edid"])]
+    icons = [i for i in icons if not is_cut_raid_icon(i["edid"])]
+
     # ---- First-seen persistence & isNew (31-day NEW pill) ----
     new_count = 0
     boot_note = ""
@@ -925,6 +949,7 @@ def build() -> dict:
         "count": len(icons),
         "countsBySource": by_source,
         "icons": icons,
+        "cutIcons": cut_icons,
     }
 
 

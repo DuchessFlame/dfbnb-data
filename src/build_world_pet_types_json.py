@@ -286,6 +286,37 @@ for r in flst_ent_rows:
 for _k in flst_entries:
     flst_entries[_k].sort(key=lambda r: int(fmt_num(r.get("EntryIndex")) or 0))
 gmrw_by_edid = {r.get("EDID", ""): r for r in gmrw_rows}
+
+# PGTR — the level-up tracks (tools/export_pgtr_from_esm.py). Since the 28 Oct
+# 2026 PTS these are the only records that say which level gives which reward
+# (WorldPets_ProgressionTrack_<Species>_NEW, NAM0 = level). Optional: a channel
+# with no PGTR export keeps the old CHAL-slot levels (or none). Mia #714.
+pgtr_by_species = {}                    # "cat" -> [{"level", "formid", "name"}] (main slot)
+_pgtr_path = _newest_glob(str(TSV_DIR / "PGTR_Export_*.tsv"))
+if _pgtr_path:
+    with open(_pgtr_path, encoding="utf-8-sig", newline="") as _f:
+        for r in csv.DictReader(_f, delimiter="\t"):
+            _m = re.match(r"WorldPets_ProgressionTrack_(\w+?)_NEW$", (r.get("Track_EDID") or "").strip(), re.I)
+            if not _m or (r.get("Slot") or "").strip() != "main":
+                continue
+            try:
+                _lvl = int(fmt_num(r.get("Level")))
+            except (TypeError, ValueError):
+                continue
+            pgtr_by_species.setdefault(_m.group(1).lower(), []).append({
+                "level": _lvl,
+                "formid": (r.get("Reward_FormID") or "").strip().upper(),
+                "name": (r.get("Name") or "").strip()})
+
+
+def _pgtr_levels(sk, gmrw_formid):
+    """Every level the PGTR track gives this reward at (main slot), lowest first.
+
+    Goes by the reward record, not the text: Radhog level 75 (Nov 2026 PTS) says
+    "+10 Lunchboxes" but its record is the Legendary Modules GMRW, so Radhogs get
+    Modules at 75 and 140 and no Lunchboxes (Duchess, 24 Nov: go with the files)."""
+    return sorted(x["level"] for x in pgtr_by_species.get(sk, [])
+                  if gmrw_formid and x["formid"] == gmrw_formid.upper())
 lvli_entries = {}                       # LVLI EDID -> [entry rows]
 for r in lvli_ent_rows:
     lvli_entries.setdefault(r.get("LVLI_EDID", ""), []).append(r)
@@ -1186,11 +1217,24 @@ def build_reward_track():
                                        "flair" if slot == "COS_BackpackFlair01" else
                                        "outfit" if slot == "COS_PlayerOutfit01" else "pet")
             rows.append(row)
+        # PGTR levels (newest PTS) win over the retired CHAL slots. A reward the
+        # track gives twice gets a row per level; one the track never gives is dropped.
+        if pgtr_by_species.get(sk):
+            kept = []
+            for row in rows:
+                for n, lvl in enumerate(_pgtr_levels(sk, row["gmrwFormId"])):
+                    r2 = row if n == 0 else dict(row)
+                    r2["level"] = lvl
+                    r2["levelConfirmed"] = True
+                    r2["oldLevel"] = None
+                    kept.append(r2)
+            rows = kept
         rows.sort(key=lambda r: (r["level"] is None, r["level"] or 0))
         track[sk] = rows
     alt = [glob_val("WorldPets_AltLvReward_All_Caps01"), glob_val("WorldPets_AltLvReward_All_Caps02")]
     return {
-        "source": "FLST WorldPets_LvRewards_<Species> + GMRW + ENTM",
+        "source": ("PGTR WorldPets_ProgressionTrack_<Species>_NEW (levels) + FLST + GMRW + ENTM"
+                   if pgtr_by_species else "FLST WorldPets_LvRewards_<Species> + GMRW + ENTM"),
         "claimedIn": "Pip-Boy PETS - Pet Progression Menu",
         "species": track,
         "unusedAltCaps": [a for a in alt if a is not None],

@@ -30,6 +30,8 @@ jobs:
         run: |
           mkdir -p dist
           python src/build_player_icons_json.py
+          # Vault 96 raid icons go to Cut Content (player_icons.json "cutIcons").
+          python src/build_cut_content_json.py
 
       - name: Commit and push
         run: |
@@ -37,7 +39,7 @@ jobs:
           git config user.email "github-actions@users.noreply.github.com"
           # The first-seen ledger drives the 31-day NEW pill, so it is committed
           # alongside the data — without it every rebuild would re-stamp today.
-          git add dist/player_icons.json tsv/player_icons_first_seen.json
+          git add dist/player_icons.json dist/cut_content.json tsv/player_icons_first_seen.json
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else

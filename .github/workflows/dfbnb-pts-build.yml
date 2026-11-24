@@ -1666,7 +1666,11 @@ jobs:
       # dist/pts and then discards the rest of the tree, so the live NEW-pill
       # ledger is never touched by a PTS run.
       - name: Build Player Icons JSON
-        run: python src/build_player_icons_json.py
+        # Cut Content runs again straight after: it lists the Vault 96 raid
+        # icons (player_icons.json "cutIcons"), and its earlier run came first.
+        run: |
+          python src/build_player_icons_json.py
+          python src/build_cut_content_json.py
 
       # --- WALLPAPER ---
       # Mirrors the same step in dfbnb-patch-build.yml (no --pts flag, same

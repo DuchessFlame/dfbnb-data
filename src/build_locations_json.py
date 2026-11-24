@@ -696,7 +696,18 @@ def load_lctn():
     return recs
 
 
+# LCTNs whose LocRegion keyword disagrees with their PNAM parent chain. The parent
+# chain is what the game uses, so it wins. Checked 24 Nov 2026 (only one clash):
+#   LocSwampSacramentLocation [LCTN:00586D33] keeps a leftover LocRegionSwampForest
+#   (Mire) keyword, but its parent is SubRegionMountains01Location -> RegionMountainLocation.
+LCTN_REGION_OVERRIDES = {
+    "00586D33": "Savage Divide",   # Sacrament (Nerditbabe's check, 24 Nov 2026)
+}
+
+
 def lctn_region(recs, fid, depth=0):
+    if fid in LCTN_REGION_OVERRIDES:
+        return LCTN_REGION_OVERRIDES[fid]
     r = recs.get(fid)
     if not r or depth > 8:
         return ""

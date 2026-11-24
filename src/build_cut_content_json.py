@@ -21,6 +21,7 @@ zzz / CUT / DEL records). This only collects their cut rows:
     dist/titles_player.json, titles_camp.json     player / C.A.M.P. titles (cutContent)
     dist/challenges/challenges.json               challenges (page "cut") + quests (is_cut)
     dist/emotes.json  (cutEmotes)                 emotes left off the Emotes page (build_emotes_json.py)
+    dist/player_icons.json  (cutIcons)            Vault 96 raid icons (build_player_icons_json.py)
     plan_sources.CONFIRMED_CUT_SOURCE_PATTERNS    the cut families themselves
 
 Grouped by TYPE (Duchess: "by type"), each row: name, type, why it is cut,
@@ -236,6 +237,17 @@ def emote_rows(doc):
     return out
 
 
+def icon_rows(doc):
+    """Player icons the Player Icons page leaves out (build_player_icons_json.py "cutIcons")."""
+    out = collections.defaultdict(list)
+    for x in (doc or {}).get("cutIcons") or []:
+        out["Player Icons"].append({"name": x.get("name") or _pretty_edid(x.get("edid")),
+                                    "type": "Player Icon",
+                                    "why": x.get("why") or why_for(x.get("edid")), "was": [],
+                                    "id": x.get("formId") or ""})
+    return out
+
+
 # ── the cut families themselves ──────────────────────────────────────────────
 def cut_sources():
     """Every confirmed-cut family, by name, once. No dates (Duchess)."""
@@ -256,7 +268,7 @@ GROUP_ORDER = ["Weapon Plans", "Mines and Grenades Plans", "Body Armour Plans",
                "Fishing Rod Plans", "Camera Mod Plans", "Recipe Plans",
                "Legacy Nuclear Winter Plans",
                "Unique Weapons", "Unique Armour", "Legendary Mods",
-               "CAMP Items", "Collectables", "Emotes",
+               "CAMP Items", "Collectables", "Emotes", "Player Icons",
                "Player Titles", "C.A.M.P. Titles", "Quests", "Challenges"]
 
 
@@ -270,7 +282,8 @@ def build(dist):
                             _load(os.path.join(dist, "titles_camp.json"))),
                  challenge_rows(_load(os.path.join(dist, "challenges", "challenges.json"))),
                  collectable_camp_rows(dist),
-                 emote_rows(_load(os.path.join(dist, "emotes.json")))):
+                 emote_rows(_load(os.path.join(dist, "emotes.json"))),
+                 icon_rows(_load(os.path.join(dist, "player_icons.json")))):
         for g, rows in part.items():
             groups[g].extend(rows)
     order = {g: i for i, g in enumerate(GROUP_ORDER)}

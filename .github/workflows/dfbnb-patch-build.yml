@@ -1465,7 +1465,11 @@ jobs:
       # Atom Shop / Tents / Emotes, so it runs alongside them. Also writes
       # tsv/player_icons_first_seen.json, which drives the 31-day NEW pill.
       - name: Build Player Icons JSON
-        run: python src/build_player_icons_json.py
+        # Cut Content runs again straight after: it lists the Vault 96 raid
+        # icons (player_icons.json "cutIcons"), and its earlier run came first.
+        run: |
+          python src/build_player_icons_json.py
+          python src/build_cut_content_json.py
 
       # --- WALLPAPER ---
       # Reads the newest tsv/ENTM_Export_*.tsv (store filter keyword
