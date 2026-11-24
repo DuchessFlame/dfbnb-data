@@ -1,13 +1,13 @@
 {
- "version": "2026-11-23",
- "generated": "2026-11-23T15:24:56+00:00",
+ "version": "2026-11-24",
+ "generated": "2026-11-24T00:45:03+00:00",
  "page": "scout-banners",
  "title": "Scout Banner Buffs",
  "url": "/bnb/buffs/scout-banners/scout-banner-buffs/",
  "blurb": "Scout's Banner fires one of its Scout's Codes when you or a teammate get a kill. One expand per code.",
  "countNoun": "Scout's Codes",
  "sourceAlch": "ALCH_Export_October_2026.tsv",
- "sourceMgef": "MGEF_Export_November_2026.tsv",
+ "sourceMgef": "MGEF_Export_November_2026_Explosions.tsv",
  "mode": "effect-rows",
  "groups": [
   {
@@ -66,7 +66,7 @@
      "formId": "00666920",
      "edid": "SCORE_Banner_Medic",
      "full": "Banner - Medic",
-     "dnam": "Survival - Heal 20% HP",
+     "dnam": "",
      "magnitude": 1.0,
      "duration": 3615.0,
      "magGlob": null,
@@ -74,13 +74,13 @@
      "name": "Medic",
      "polarity": "buff",
      "durationDisplay": "1 hour",
-     "display": "Survival - Heal 20% HP"
+     "display": "+1 Medic"
     },
     {
      "formId": "00669181",
      "edid": "SCORE_Banner_Medic_RestoreHealth_Effect",
      "full": "Restore Health",
-     "dnam": "Healing",
+     "dnam": "",
      "magnitude": 4.0,
      "duration": 5.0,
      "magGlob": null,
@@ -93,8 +93,7 @@
    ],
    "effectGroups": [],
    "summaryLines": [
-    "Heals 20% of your maximum Health.",
-    "In-game text: Heal 20% HP"
+    "Heals 20% of your maximum Health."
    ],
    "obtainRoutes": [
     {
@@ -122,7 +121,7 @@
    "technical": {
     "build": [
      "Source: Scout's Banner",
-     "Trigger: Fires on a kill by you or a nearby teammate.",
+     "Trigger: Battle Banner",
      "Duration: 1 hour",
      "Effect Duration: 5s"
     ],
@@ -149,7 +148,7 @@
      "formId": "00667763",
      "edid": "SCORE_Banner_Driven_Effect",
      "full": "Banner - Driven",
-     "dnam": "Teamwork - Restore 100% AP",
+     "dnam": "",
      "magnitude": 1.0,
      "duration": 3615.0,
      "magGlob": null,
@@ -157,7 +156,7 @@
      "name": "Driven",
      "polarity": "buff",
      "durationDisplay": "1 hour",
-     "display": "Teamwork - Restore 100% AP"
+     "display": "+1 Driven"
     },
     {
      "formId": "00669540",
@@ -176,8 +175,7 @@
    ],
    "effectGroups": [],
    "summaryLines": [
-    "Restores 100% of your Action Points.",
-    "In-game text: Restore 100% AP"
+    "Restores 100% of your Action Points."
    ],
    "obtainRoutes": [
     {
@@ -205,7 +203,7 @@
    "technical": {
     "build": [
      "Source: Scout's Banner",
-     "Trigger: Fires on a kill by you or a nearby teammate.",
+     "Trigger: Battle Banner",
      "Duration: 1 hour"
     ],
     "ids": [
@@ -231,7 +229,7 @@
      "formId": "00669822",
      "edid": "SCORE_Banner_Hardened_Effect",
      "full": "Banner - Hardened",
-     "dnam": "Research - Repair 10% armor CND",
+     "dnam": "",
      "magnitude": 1.0,
      "duration": 3615.0,
      "magGlob": null,
@@ -239,13 +237,13 @@
      "name": "Hardened",
      "polarity": "buff",
      "durationDisplay": "1 hour",
-     "display": "Research - Repair 10% armor CND"
+     "display": "+1 Hardened"
     },
     {
      "formId": "00669821",
      "edid": "SCORE_Banner_Hardened_RepairArmor_Effect",
      "full": "Repair All Equipped Armor",
-     "dnam": "Armor Repair",
+     "dnam": "",
      "magnitude": 1.0,
      "duration": 0.0,
      "magGlob": null,
@@ -253,13 +251,12 @@
      "name": "Repair All Equipped Armor",
      "polarity": "buff",
      "durationDisplay": null,
-     "display": "+1 Repair All Equipped Armor"
+     "display": "Repair All Equipped Armor"
     }
    ],
    "effectGroups": [],
    "summaryLines": [
-    "Repairs 10% condition on all equipped armour.",
-    "In-game text: Repair 10% armor CND"
+    "Repairs 10% condition on all equipped armour."
    ],
    "obtainRoutes": [
     {
@@ -287,7 +284,7 @@
    "technical": {
     "build": [
      "Source: Scout's Banner",
-     "Trigger: Fires on a kill by you or a nearby teammate.",
+     "Trigger: Battle Banner",
      "Duration: 1 hour"
     ],
     "ids": [
@@ -313,7 +310,7 @@
      "formId": "0066953F",
      "edid": "SCORE_Banner_Vision",
      "full": "Scout Valor",
-     "dnam": "Discovery - Highlight enemies for 5s",
+     "dnam": "",
      "magnitude": 1.0,
      "duration": 3615.0,
      "magGlob": null,
@@ -321,13 +318,12 @@
      "name": "Scout Valor",
      "polarity": "buff",
      "durationDisplay": "1 hour",
-     "display": "Discovery - Highlight enemies for 5s"
+     "display": "+1 Scout Valor"
     }
    ],
    "effectGroups": [],
    "summaryLines": [
-    "Highlights nearby enemies through walls.",
-    "In-game text: Highlight enemies for 5s"
+    "Highlights nearby enemies through walls."
    ],
    "obtainRoutes": [
     {
@@ -355,7 +351,7 @@
    "technical": {
     "build": [
      "Source: Scout's Banner",
-     "Trigger: Fires on a kill by you or a nearby teammate.",
+     "Trigger: Battle Banner",
      "Duration: 1 hour"
     ],
     "ids": [
@@ -380,7 +376,7 @@
      "formId": "006697E9",
      "edid": "SCORE_Banner_Forged_Effect",
      "full": "Banner - Forged",
-     "dnam": "Innovation - Repair 10% weapon CND",
+     "dnam": "",
      "magnitude": 1.0,
      "duration": 3615.0,
      "magGlob": null,
@@ -388,13 +384,13 @@
      "name": "Forged",
      "polarity": "buff",
      "durationDisplay": "1 hour",
-     "display": "Innovation - Repair 10% weapon CND"
+     "display": "+1 Forged"
     },
     {
      "formId": "006697E7",
      "edid": "SCORE_Banner_Forged_RepairWeapon_Effect",
      "full": "Repair Equipped Weapon",
-     "dnam": "Healing",
+     "dnam": "",
      "magnitude": 1.0,
      "duration": 0.0,
      "magGlob": null,
@@ -402,13 +398,12 @@
      "name": "Repair Equipped Weapon",
      "polarity": "buff",
      "durationDisplay": null,
-     "display": "+1 Repair Equipped Weapon"
+     "display": "Repair Equipped Weapon"
     }
    ],
    "effectGroups": [],
    "summaryLines": [
-    "Repairs 10% condition on your equipped weapon.",
-    "In-game text: Repair 10% weapon CND"
+    "Repairs 10% condition on your equipped weapon."
    ],
    "obtainRoutes": [
     {
@@ -436,7 +431,7 @@
    "technical": {
     "build": [
      "Source: Scout's Banner",
-     "Trigger: Fires on a kill by you or a nearby teammate.",
+     "Trigger: Battle Banner",
      "Duration: 1 hour"
     ],
     "ids": [
@@ -462,7 +457,7 @@
      "formId": "006663F7",
      "edid": "SCORE_Banner_AutoRevive_ApplyPerk_Effect",
      "full": "Second Wind!",
-     "dnam": "Auto-revive if incapacitated once every 5 min",
+     "dnam": "",
      "magnitude": 1.0,
      "duration": 3615.0,
      "magGlob": null,
@@ -470,13 +465,12 @@
      "name": "Second Wind!",
      "polarity": "buff",
      "durationDisplay": "1 hour",
-     "display": "Auto-revive if incapacitated once every 5 min"
+     "display": "+1 Second Wind!"
     }
    ],
    "effectGroups": [],
    "summaryLines": [
-    "Automatically revives you if you go down, once every 5 minutes.",
-    "In-game text: Auto-revive if incapacitated once every 5 min"
+    "Automatically revives you if you go down, once every 5 minutes."
    ],
    "obtainRoutes": [
     {
@@ -504,7 +498,7 @@
    "technical": {
     "build": [
      "Source: Scout's Banner",
-     "Trigger: Fires on a kill by you or a nearby teammate.",
+     "Trigger: Battle Banner",
      "Duration: 1 hour"
     ],
     "ids": [
@@ -584,7 +578,7 @@
    "technical": {
     "build": [
      "Source: Scout's Banner",
-     "Trigger: Fires on a kill by you or a nearby teammate.",
+     "Trigger: Battle Banner",
      "Duration: 30s"
     ],
     "ids": [
@@ -610,7 +604,7 @@
      "formId": "007D2393",
      "edid": "SCORE_Banner_HumanHeal_Effect",
      "full": "First Aid",
-     "dnam": "Healing <mag> HP/s",
+     "dnam": "",
      "magnitude": 12.0,
      "duration": 3615.0,
      "magGlob": null,
@@ -618,13 +612,12 @@
      "name": "First Aid",
      "polarity": "buff",
      "durationDisplay": "1 hour",
-     "display": "Healing 12 HP/s"
+     "display": "+12 First Aid"
     }
    ],
    "effectGroups": [],
    "summaryLines": [
-    "A healing-over-time trickle for everyone standing near the banner. The rate steps up with the banner's rank.",
-    "In-game text: Healing 12 HP/s"
+    "A healing-over-time trickle for everyone standing near the banner. The rate steps up with the banner's rank."
    ],
    "obtainRoutes": [
     {
@@ -652,7 +645,7 @@
    "technical": {
     "build": [
      "Source: Scout's Banner",
-     "Trigger: Fires on a kill by you or a nearby teammate.",
+     "Trigger: Battle Banner",
      "Duration: 1 hour"
     ],
     "ids": [
