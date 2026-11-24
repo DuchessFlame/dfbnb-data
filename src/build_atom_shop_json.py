@@ -213,7 +213,7 @@ LTB_BUNDLES = [
         "items": [
             {"name": "Weather Control Station (Skyline Valley)", "desc": "Give your C.A.M.P. an electrical red glow!",                                    "formId": "007586AC", "edid": "ATX_ENTM_CAMP_Utility_WeatherStation_Storm_SkylineValley",  "imageUrl": "ATX_CAMP_Utility_WeatherStation_Storm_SkylineValley.avif"},
             {"name": "V63 Power Armour Paint",                   "desc": "Become a Vault 63 champion with this shiny new Power Armour skin.",             "formId": "0077E754", "edid": "ATX_ENTM_Skin_PowerArmor_Model_V63",                       "imageUrl": "ATX_Skin_PowerArmor_Model_StormVaultPA_L.avif"},
-            {"name": "V63 Jetpack Paint",                        "desc": "Matching jetpack skin included with the V63 Power Armour Paint.",               "formId": "0077E754", "edid": "ATX_ENTM_Skin_PowerArmor_Model_V63",                       "imageUrl": "ATX_Skin_PowerArmor_Model_StormVaultPA_C1.avif"},
+            {"name": "V63 Jetpack Paint",                        "desc": "Matching jetpack skin included with the V63 Power Armour Paint.",               "formId": "0077E754", "edid": "ATX_ENTM_Skin_PowerArmor_Model_V63",                       "imageUrl": "ATX_Skin_PowerArmor_Model_StormVaultPA_C1.avif"},   # the store's jetpack-only picture
             {"name": "Vault 63 Door Display",                    "desc": "Bring a piece of Vault 63 to your C.A.M.P.",                                    "formId": "00787127", "edid": "ATX_ENTM_CAMP_Decoration_Vault63",                         "imageUrl": "ATX_CAMP_Decoration_Vault63.avif"},
             {"name": "Moe the Mole Plushie",                     "desc": "Moe the Mole really digs safety.",                                              "formId": "00787128", "edid": "ATX_ENTM_CAMP_FloorDecor_Plushie_MoeTheMole",              "imageUrl": "ATX_CAMP_FloorDecor_Plushie_MoeTheMole.avif"},
             {"name": "V63 Chassis Display Frame",                "desc": "Showcase your Power Armour in Vault 63 style!",                                 "formId": "0075C57E", "edid": "ATX_ENTM_CAMP_Display_ChassisDisplayFrame_V63",            "imageUrl": "ATX_CAMP_Display_ChassisDisplayFrame_V63.avif"},
@@ -332,7 +332,7 @@ LTB_BUNDLES = [
         "imageUrl":  "",
         "items": [
             {"name": "Brotherhood of Steel Scouting Tower",      "desc": "Survey Appalachia for new threats and opportunities from this massive Scouting Tower.", "formId": "005EF0C7", "edid": "ATX_Upgrade2020_BoS_ENTM_CAMP_Structure_BoSScoutingTower",    "imageUrl": "ATX_Upgrade2018_BoS_CAMP_Structure_BoSScoutingTower.avif"},
-            {"name": "Brotherhood of Steel Salute",              "desc": "Ad Victoriam, Brothers.",                                                               "formId": "005EDEEE", "edid": "ATX_Upgrade2020_BoS_ENTM_Emotes_BoSSalute",                  "imageUrl": ""},
+            {"name": "Brotherhood of Steel Salute",              "desc": "Ad Victoriam, Brothers.",                                                               "formId": "005EDEEE", "edid": "ATX_Upgrade2020_BoS_ENTM_Emotes_BoSSalute",                  "imageUrl": "/wp-content/uploads/guide-images/atom-shop/emotes/Brotherhood%20Salute.avif"},
             {"name": "Brotherhood of Steel Barricade",           "desc": "One more tool to protect against the new dangers of Appalachia.",                       "formId": "005EDF2F", "edid": "ATX_Upgrade2020_BoS_ENTM_CAMP_Defense_BoSBarricade",        "imageUrl": "ATX_Upgrade2020_BoS_CAMP_Defense_BoSBarricade.avif"},
             {"name": "Brotherhood Tactical Field Pack",          "desc": "Never be caught unprepared with the Tactical Field Pack.",                              "formId": "005EF0C6", "edid": "ATX_Upgrade2020_BoS_ENTM_Skin_Backpack_BosTacticalFieldPack", "imageUrl": "ATX_Upgrade2018_BoS_Skin_Backpack_BosTacticalFieldPack.avif"},
             {"name": "Brotherhood Barracks Locker",              "desc": "Keep your valuable finds safe and sound with the Barracks Locker.",                     "formId": "005EF0C3", "edid": "ATX_Upgrade2020_BoS_ENTM_CAMP_StashBox_BoSBarracksLocker",  "imageUrl": "ATX_Upgrade2018_BoS_CAMP_StashBox_BoSBarracksLocker.avif"},
@@ -421,6 +421,11 @@ def fix_image_url(url):
     if not url:
         return url
     if url.startswith(IMAGE_BASE_URL) and url.lower().endswith(".avif"):
+        return url
+    # Pictures that live in another shared folder on purpose (emotes, wallpaper,
+    # player icons, season utility icons) keep their own path (24 Nov 2026).
+    if url.startswith("/wp-content/uploads/") and not any(url.startswith(o) for o in OLD_IMAGE_BASES) \
+            and url.lower().endswith(".avif"):
         return url
     for old_base in OLD_IMAGE_BASES:
         if url.startswith(old_base):
@@ -562,6 +567,9 @@ def route_wallpaper(item, etdi_lookup):
     wallpaper texture as its cover (Sport_03) is left alone.
     """
     edid = str(item.get("edid") or "").strip()
+    # A bundle keeps its made-up cover (bundle-<name>.avif, 24 Nov 2026).
+    if item.get("isBundle") and "/bundle-" in str(item.get("imageUrl") or ""):
+        return 0
     # REUSE_ edids are the "Wallpaper Set" listings, whose tile is a set
     # cover (Sport_03), not one wallpaper's swatch - they keep their tile.
     if not _is_wallpaper_edid(edid) or edid.upper().startswith("REUSE_"):

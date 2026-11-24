@@ -1,0 +1,60 @@
+name: Scrape Limited Time Bundles
+
+# Limited Time Bundles are real-money platform DLC and are not in the ESM or the
+# exe, so the patch build can't find them. Once a day this checks Steam for new
+# Fallout 76 DLC (tools/scrape_ltb_steam.py), adds any new bundle to
+# data/ltb_found.json, rebuilds dist/atom_shop.json and pushes both.
+# The Limited Time Bundles page then shows the bundle with no hand edits.
+# New bundles are also written to data/ltb_alerts.json, which Mia reads from
+# GitHub to tell Kat what was added and which pictures to upload to
+# guide-images/atom-shop/bundle-images/.
+on:
+  schedule:
+    - cron: "17 2 * * *"      # daily, 10:17 am Perth
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: scrape-ltb
+  cancel-in-progress: false
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: Check Steam for new bundles
+        run: python tools/scrape_ltb_steam.py
+
+      - name: Rebuild Atom Shop data if anything was added
+        run: |
+          if git diff --quiet -- data/ltb_found.json && git ls-files --error-unmatch data/ltb_found.json >/dev/null 2>&1; then
+            echo "No new bundles."
+          else
+            python src/build_atom_shop_json.py
+          fi
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add data/ltb_found.json data/ltb_alerts.json dist/atom_shop.json 2>/dev/null || git add data/ltb_found.json dist/atom_shop.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "New Limited Time Bundle from Steam"
+            git fetch origin main
+            git pull --rebase origin main
+            git push
+          fi
