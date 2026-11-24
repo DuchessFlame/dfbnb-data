@@ -1234,14 +1234,51 @@ def entm_by_name():
     return out
 
 
+# Bethesda names some real-money bundles differently on the request form.
+# request-form name (normalised) -> LTB_BUNDLES id whose contents it gives.
+REQUEST_LTB_ALIASES = {
+    "brotherhood of steel digital deluxe bundle": "brotherhood-recruitment-bundle",  # Steel Dawn Deluxe Edition bonus = the Recruitment Bundle
+}
+
+
+def _ltb_for_request(name):
+    k = _req_norm(name)
+    want = REQUEST_LTB_ALIASES.get(k)
+    for b in LTB_BUNDLES:
+        if b.get("id") == want or _req_norm(b.get("name")) == k:
+            return b
+    return None
+
+
+# On Bethesda's request list but kept OFF the page until checked (normalised names).
+# Kat, 24 Nov 2026: asking a CM whether this is really requestable (Mia To-Finish).
+REQUEST_SKIP = {
+    "brotherhood of steel digital deluxe bundle",
+}
+
+
 def add_new_request_items(items, req):
     """Append a raw page row for every listed item the page doesn't have. Returns names added."""
-    have = {_req_norm(i.get("name")) for i in items}
+    have = {_req_norm(i.get("name")) for i in items} | REQUEST_SKIP
     entm = None
     added = []
     for name, _first in req:
         k = _req_norm(name)
         if not k or k in have:
+            continue
+        ltb = _ltb_for_request(name)
+        if ltb:
+            # A Limited Time Bundle you can also request: same contents as on the LTB page.
+            def _u(u):
+                return u if not u or u.startswith("/") else LTB_IMAGE_BASE_URL + u
+            items.append({"name": name, "desc": f"The {ltb['name']} items.", "formId": "", "edid": "",
+                          "imageUrl": IMAGE_BASE_URL + "bundle-" + re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-") + ".avif",
+                          "isBundle": True,
+                          "bundleItems": [{"name": i.get("name", ""), "desc": i.get("desc", ""), "technicalNotes": "",
+                                           "formId": i.get("formId", ""), "edid": i.get("edid", ""),
+                                           "imageUrl": _u(i.get("imageUrl", ""))} for i in ltb.get("items", [])]})
+            have.add(k)
+            added.append(name + f" (bundle: {ltb['name']} contents)")
             continue
         if entm is None:
             entm = entm_by_name()
