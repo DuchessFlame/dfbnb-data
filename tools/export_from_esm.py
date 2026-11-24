@@ -5031,7 +5031,8 @@ def _qust_tree(r):
 
 # ------------------------------------------------------------- QUST2 -------
 # The other five ExportQUST2ToTSV.pas files: _Quests, _Stages, _Objectives,
-# _Aliases (quests whose name starts with an event prefix) and _ItemAliases
+# _Aliases (quests whose name starts with an event prefix, plus collectable
+# quests: a script property CollectablesNeededPerBatch, Kind "Collectable") and _ItemAliases
 # (every alias that creates an item, every quest).
 # Flag names and link labels were learned from the October 2026 xEdit files
 # (tools learned them the way xedit_ref_fields.json was learned) and checked
@@ -5222,6 +5223,12 @@ def exp_qust2(esm):
                                     _q2_flags(int.from_bytes(fn, "little") if fn else 0, _Q2_ALIAS_FLAGS),
                                     links]))
         kind = _q2_kind(full)
+        if not kind and b"CollectablesNeededPerBatch" in (dict(tree["head"]).get("VMAD") or b""):
+            # Collectable quests (Dirty Laundry, A Matter of Matter, The Slasher:
+            # Masked Truth): their script hands collectables in by batch. Their
+            # stages / objectives feed the collectable guide walkthroughs, where
+            # hidden optional steps show up (Duchess, 24 Nov 2026).
+            kind = "Collectable"
         if not kind:
             continue
         # xEdit's alias combo finds named aliases, not collections ("045")
