@@ -1190,6 +1190,81 @@ def pa_applicability(edid: str, name: str, desc: str) -> str:
     return f"Applicable to: {ALL_PA_TYPES}"
 
 
+# ── Bethesda's "request an item" list (tools/scrape_request_items.py) ─────────
+# data/request_items_bethesda.json = the support form's Item List + the day each
+# option was first seen. New options get a page row (if the page hasn't got the
+# item yet) and every item first seen in the last NEW_CUTOFF_DAYS gets the NEW pill.
+REQUEST_LIST_FILE = os.path.join(SCRIPT_DIR, "..", "data", "request_items_bethesda.json")
+NEW_CUTOFF_DAYS = 31
+
+
+def _req_norm(s):
+    s = re.sub(r"\(.*?\)", " ", str(s or "")).lower().replace("armour", "armor").replace("armory", "armoury")
+    return " ".join(re.sub(r"[^a-z0-9]+", " ", s).split())
+
+
+def load_request_list():
+    """[(name, firstSeen)] for every option still on Bethesda's list; [] if no file yet."""
+    if not os.path.exists(REQUEST_LIST_FILE):
+        return []
+    try:
+        with open(REQUEST_LIST_FILE, encoding="utf-8") as fh:
+            items = json.load(fh).get("items", {})
+    except Exception as exc:  # a broken file must never stop the Atom Shop build
+        print(f"[atom_shop] WARNING: could not read {REQUEST_LIST_FILE}: {exc}")
+        return []
+    return [(v.get("name", ""), v.get("firstSeen", "2020-01-01"))
+            for v in items.values() if v.get("name") and not v.get("removed")]
+
+
+def entm_by_name():
+    """normalised FULL -> {edid, formId} from the newest ENTM export (non-cut records)."""
+    files = _sorted_tsv(glob.glob(os.path.join(TSV_ROOT, "ENTM_Export_*.tsv")))
+    out = {}
+    if not files:
+        return out
+    with open(files[-1], encoding="utf-8-sig", errors="replace", newline="") as fh:
+        for r in csv.DictReader(fh, delimiter="\t"):
+            edid = str(r.get("EDID") or "").strip()
+            if not edid or edid.lower().startswith(("zzz", "del", "cut")):
+                continue
+            k = _req_norm(r.get("FULL"))
+            if k and (k not in out or edid.startswith("ATX_") and not out[k]["edid"].startswith("ATX_")):
+                out[k] = {"edid": edid, "formId": str(r.get("FormID") or "").strip()}
+    return out
+
+
+def add_new_request_items(items, req):
+    """Append a raw page row for every listed item the page doesn't have. Returns names added."""
+    have = {_req_norm(i.get("name")) for i in items}
+    entm = None
+    added = []
+    for name, _first in req:
+        k = _req_norm(name)
+        if not k or k in have:
+            continue
+        if entm is None:
+            entm = entm_by_name()
+        hit = entm.get(k) or {}
+        row = {"name": name, "desc": "", "formId": hit.get("formId", ""),
+               "edid": hit.get("edid", ""), "imageUrl": "", "isBundle": False}
+        if not hit:
+            # Already on the page inside a bundle? Reuse that row's record and picture.
+            for it in items:
+                for bi in it.get("bundleItems") or []:
+                    if _req_norm(bi.get("name")) == k and (bi.get("edid") or bi.get("imageUrl")):
+                        row.update({"formId": bi.get("formId", ""), "edid": bi.get("edid", ""),
+                                    "imageUrl": bi.get("imageUrl", "")})
+                        hit = bi
+                        break
+                if hit:
+                    break
+        items.append(row)
+        have.add(k)
+        added.append(name + ("" if hit else " (no ENTM match)"))
+    return added
+
+
 def main():
     try:
         with open(SRC, "r", encoding="utf-8") as f:
@@ -1219,6 +1294,11 @@ def main():
         sys.exit(1)
 
     desc_lookup, etdi_lookup = load_desc_lookup()
+
+    req_list = load_request_list()
+    new_rows = add_new_request_items(items, req_list)
+    for n in new_rows:
+        print(f"[atom_shop] Added from Bethesda's request list: {n}")
 
     fixed_count = 0
     img_filled_count = 0
@@ -1289,6 +1369,16 @@ def main():
         fixed_items.append(fixed)
 
     data["items"] = fixed_items
+
+    # NEW pill: first seen on Bethesda's list in the last NEW_CUTOFF_DAYS days.
+    import datetime as _dt
+    cutoff = (_dt.date.today() - _dt.timedelta(days=NEW_CUTOFF_DAYS)).isoformat()
+    recent = {_req_norm(n) for n, first in req_list if first >= cutoff}
+    new_count = 0
+    for it in fixed_items:
+        it["isNew"] = _req_norm(it.get("name")) in recent
+        new_count += it["isNew"]
+    print(f"[atom_shop] NEW pills (first seen on Bethesda's list since {cutoff}): {new_count}")
     print(f"[atom_shop] Routed {wallpaper_count} wallpaper image(s) to the shared wallpaper folder")
 
     if fixed_count:

@@ -1,0 +1,58 @@
+name: Scrape Request Items
+
+# Bethesda's support form for requesting an Atomic Shop item has an "Item List".
+# Once a day this opens that public form in a headless browser
+# (tools/scrape_request_items.py) and saves the list to
+# data/request_items_bethesda.json with the day each item first appeared.
+# build_atom_shop_json.py then adds any newly listed item to the Items Available
+# to Request page and gives it the NEW pill for 31 days.
+on:
+  schedule:
+    - cron: "41 2 * * *"      # daily, 10:41 am Perth
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: scrape-request-items
+  cancel-in-progress: false
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: Install headless browser
+        run: |
+          pip install playwright
+          python -m playwright install --with-deps chromium
+
+      - name: Read Bethesda's request list
+        run: python tools/scrape_request_items.py
+
+      - name: Rebuild Atom Shop data
+        run: python src/build_atom_shop_json.py
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add data/request_items_bethesda.json dist/atom_shop.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Request items list from Bethesda"
+            git fetch origin main
+            git pull --rebase origin main
+            git push
+          fi
