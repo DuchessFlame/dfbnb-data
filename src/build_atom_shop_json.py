@@ -587,7 +587,9 @@ def category_from_edid(edid, is_bundle, name, bundle_items):
         if isinstance(bundle_items, list) and len(bundle_items) > 0:
             if all(_is_wallpaper_edid(bi.get("edid", "")) for bi in bundle_items):
                 return "Wallpaper"
-        if " SET" not in n:
+        # A "Set" with its own EDID is one store item and is categorised by it;
+        # a hand-built Set with no EDID (Mothman Furniture Set) is a bundle.
+        if " SET" not in n or not e:
             return "Bundles"
 
     # ── Name-based overrides ────────────────────────────
