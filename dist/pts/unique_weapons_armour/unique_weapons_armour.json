@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "generated": "2026-11-25T05:44:10Z",
-  "channel": "pts",
+  "generated": "2026-11-25T05:55:56Z",
+  "channel": "live",
   "count": 133,
   "counts": {
     "weapon": 120,
@@ -2688,17 +2688,10 @@
         },
         {
           "route": "Atom Shop",
-          "populated": true,
-          "lines": [
-            "Drops: Unlocks crafting (Weapon Workbench)",
-            "Source: Cold Shoulder Starter Bundle",
-            "Cost: 1,000 Atoms",
-            "Note: In the Atom Shop's Add-ons store."
-          ],
-          "tradeable": false,
-          "dropRate": "N/A",
-          "conditions": [],
-          "conditionsChecked": true
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
         },
         {
           "route": "Limited Time Bundle",
@@ -6373,7 +6366,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "+5 Max Bullet Storm Stacks While Under 25% HP",
+      "inherentEffect": "+5 Max Bullet Storm Stacks While Under 20% HP",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -14226,6 +14219,13 @@
       },
       "starEffects": [
         {
+          "star": 1,
+          "name": "Random",
+          "edid": "",
+          "formId": "",
+          "fixed": false
+        },
+        {
           "star": 2,
           "name": "Random",
           "edid": "",
@@ -18870,13 +18870,16 @@
       "sourceType": "Quest",
       "sourceRef": "The Eye of the Storm",
       "questName": "The Eye of the Storm",
-      "craftable": true,
+      "craftable": false,
       "planName": "",
       "tradeable": true,
       "formId": "0072DF0B",
       "edid": "Stormcutter",
       "inCurrentExport": true,
       "isCut": false,
+      "discoveredBy": [
+        "official"
+      ],
       "uniqueMods": [],
       "namedOnly": true,
       "obtainRoutes": [
@@ -19546,14 +19549,13 @@
       "sourceType": "Quest",
       "sourceRef": "A Matter of Matter",
       "questName": "A Matter of Matter",
-      "craftable": false,
+      "craftable": true,
       "planName": "",
       "tradeable": true,
       "formId": "0072DF0B",
       "edid": "Stormcutter",
       "inCurrentExport": true,
       "isCut": false,
-      "confirmedByGameFiles": false,
       "uniqueMods": [
         {
           "name": "V63-Z Custom",
@@ -19647,10 +19649,7 @@
           "dropRate": null
         }
       ],
-      "recordIds": [],
-      "aka": [
-        "V63-Z"
-      ]
+      "recordIds": []
     },
     {
       "id": "gatlinglaser",
