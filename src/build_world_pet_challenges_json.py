@@ -475,7 +475,8 @@ for r in CHAL:
 groups = []
 # Site rule: Daily -> Weekly first, then the lifetime groups.
 for label in ("Daily", "Weekly"):
-    items = sorted(rot_groups[label], key=lambda x: (x["name"].replace("Epic - ", "").lower(), "Epic" in x["name"], x["edid"]))
+    # Normal challenges A-Z first, then every Epic one A-Z at the bottom (Kat, 25 Nov).
+    items = sorted(rot_groups[label], key=lambda x: ("_Epic" in x["edid"], x["name"].replace("Epic - ", "").lower(), x["edid"]))
     if items:
         groups.append({"name": label, "rotation": True, "challenges": items})
 for label in GROUP_ORDER:

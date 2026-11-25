@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-24T10:23:41.109184Z",
+  "generated": "2026-11-25T05:00:41.799247Z",
   "source": "CHAL/CNDF TSV exports (build_world_pet_challenges_json.py)",
   "total": 20,
   "groups": [
@@ -119,33 +119,6 @@
           ]
         },
         {
-          "form_id": "0094F847",
-          "edid": "SCORE_Challenge_Daily_XP_WorldPet_Any_Epic",
-          "record": "CHAL",
-          "name": "Epic - Gain XP with your Pet",
-          "group": "Daily",
-          "active_pet": "Any World Pet",
-          "tier": 0,
-          "type_label": "Epic Daily",
-          "required": 5000,
-          "counter": "Experience Gained",
-          "desc": "Earn XP while you have a World Pet out.",
-          "reward": "S.C.O.R.E.",
-          "reward_items": [
-            {
-              "name": "S.C.O.R.E.",
-              "kind": "score"
-            }
-          ],
-          "reward_note": "",
-          "scope": "Daily",
-          "classification": "Sub Challenge (Unsorted)",
-          "rotation": true,
-          "conditions_display": [
-            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
-          ]
-        },
-        {
           "form_id": "0094F849",
           "edid": "SCORE_Challenge_Daily_AnyPet_GivePetCommand",
           "record": "CHAL",
@@ -201,34 +174,6 @@
           ]
         },
         {
-          "form_id": "0094F845",
-          "edid": "SCORE_Challenge_Daily_DealDamage_WorldPet_Any_Epic",
-          "record": "CHAL",
-          "name": "Epic - Have your Pet deal damage to an Enemy",
-          "group": "Daily",
-          "active_pet": "Any World Pet",
-          "tier": 0,
-          "type_label": "Epic Daily",
-          "required": 1000,
-          "counter": "Enemy Total Damage Inflicted",
-          "desc": "Damage from your active World Pet's own attacks (its bite or claws) counts. Damage you deal yourself doesn't.",
-          "reward": "S.C.O.R.E.",
-          "reward_items": [
-            {
-              "name": "S.C.O.R.E.",
-              "kind": "score"
-            }
-          ],
-          "reward_note": "",
-          "scope": "Daily",
-          "classification": "Sub Challenge (Unsorted)",
-          "rotation": true,
-          "conditions_display": [
-            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1",
-            ".CHAL_DoesTargetWeaponHaveKeyword(World Pets Unarmed [KYWD:008C90FB]) = 1"
-          ]
-        },
-        {
           "form_id": "0094F846",
           "edid": "SCORE_Challenge_Daily_Kill_WorldPet_Any",
           "record": "CHAL",
@@ -238,34 +183,6 @@
           "tier": 0,
           "type_label": "Daily",
           "required": 5,
-          "counter": "Total Enemies Killed",
-          "desc": "Your active World Pet's own attack (its bite or claws) has to land the killing blow. Your own kills don't count, even with your pet beside you. Any creature, critter or enemy NPC counts.",
-          "reward": "S.C.O.R.E.",
-          "reward_items": [
-            {
-              "name": "S.C.O.R.E.",
-              "kind": "score"
-            }
-          ],
-          "reward_note": "",
-          "scope": "Daily",
-          "classification": "Sub Challenge (Unsorted)",
-          "rotation": true,
-          "conditions_display": [
-            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1",
-            ".CHAL_DoesTargetWeaponHaveKeyword(World Pets Unarmed [KYWD:008C90FB]) = 1"
-          ]
-        },
-        {
-          "form_id": "0094F841",
-          "edid": "SCORE_Challenge_Daily_Kill_WorldPet_Any_Epic",
-          "record": "CHAL",
-          "name": "Epic - Have your Pet kill an Enemy",
-          "group": "Daily",
-          "active_pet": "Any World Pet",
-          "tier": 0,
-          "type_label": "Epic Daily",
-          "required": 10,
           "counter": "Total Enemies Killed",
           "desc": "Your active World Pet's own attack (its bite or claws) has to land the killing blow. Your own kills don't count, even with your pet beside you. Any creature, critter or enemy NPC counts.",
           "reward": "S.C.O.R.E.",
@@ -426,17 +343,17 @@
           ]
         },
         {
-          "form_id": "0094F842",
-          "edid": "SCORE_Challenge_Daily_TravelDistance_WorldPet_Any_Epic",
+          "form_id": "0094F855",
+          "edid": "SCORE_Challenge_Daily_Emote_WorldPet_Any",
           "record": "CHAL",
-          "name": "Epic - Travel on foot with any Pet (KM)",
+          "name": "Use an Emote while your Pet is deployed",
           "group": "Daily",
           "active_pet": "Any World Pet",
           "tier": 0,
-          "type_label": "Epic Daily",
-          "required": 16,
-          "counter": "Total Distance Traveled",
-          "desc": "Travel on foot while you have a World Pet out.",
+          "type_label": "Daily",
+          "required": 1,
+          "counter": "Bodies in Emotion",
+          "desc": "Use any emote while you have a World Pet out.",
           "reward": "S.C.O.R.E.",
           "reward_items": [
             {
@@ -453,17 +370,100 @@
           ]
         },
         {
-          "form_id": "0094F855",
-          "edid": "SCORE_Challenge_Daily_Emote_WorldPet_Any",
+          "form_id": "0094F847",
+          "edid": "SCORE_Challenge_Daily_XP_WorldPet_Any_Epic",
           "record": "CHAL",
-          "name": "Use an Emote while your Pet is deployed",
+          "name": "Epic - Gain XP with your Pet",
           "group": "Daily",
           "active_pet": "Any World Pet",
           "tier": 0,
-          "type_label": "Daily",
-          "required": 1,
-          "counter": "Bodies in Emotion",
-          "desc": "Use any emote while you have a World Pet out.",
+          "type_label": "Epic Daily",
+          "required": 5000,
+          "counter": "Experience Gained",
+          "desc": "Earn XP while you have a World Pet out.",
+          "reward": "S.C.O.R.E.",
+          "reward_items": [
+            {
+              "name": "S.C.O.R.E.",
+              "kind": "score"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Daily",
+          "classification": "Sub Challenge (Unsorted)",
+          "rotation": true,
+          "conditions_display": [
+            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
+          ]
+        },
+        {
+          "form_id": "0094F845",
+          "edid": "SCORE_Challenge_Daily_DealDamage_WorldPet_Any_Epic",
+          "record": "CHAL",
+          "name": "Epic - Have your Pet deal damage to an Enemy",
+          "group": "Daily",
+          "active_pet": "Any World Pet",
+          "tier": 0,
+          "type_label": "Epic Daily",
+          "required": 1000,
+          "counter": "Enemy Total Damage Inflicted",
+          "desc": "Damage from your active World Pet's own attacks (its bite or claws) counts. Damage you deal yourself doesn't.",
+          "reward": "S.C.O.R.E.",
+          "reward_items": [
+            {
+              "name": "S.C.O.R.E.",
+              "kind": "score"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Daily",
+          "classification": "Sub Challenge (Unsorted)",
+          "rotation": true,
+          "conditions_display": [
+            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1",
+            ".CHAL_DoesTargetWeaponHaveKeyword(World Pets Unarmed [KYWD:008C90FB]) = 1"
+          ]
+        },
+        {
+          "form_id": "0094F841",
+          "edid": "SCORE_Challenge_Daily_Kill_WorldPet_Any_Epic",
+          "record": "CHAL",
+          "name": "Epic - Have your Pet kill an Enemy",
+          "group": "Daily",
+          "active_pet": "Any World Pet",
+          "tier": 0,
+          "type_label": "Epic Daily",
+          "required": 10,
+          "counter": "Total Enemies Killed",
+          "desc": "Your active World Pet's own attack (its bite or claws) has to land the killing blow. Your own kills don't count, even with your pet beside you. Any creature, critter or enemy NPC counts.",
+          "reward": "S.C.O.R.E.",
+          "reward_items": [
+            {
+              "name": "S.C.O.R.E.",
+              "kind": "score"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Daily",
+          "classification": "Sub Challenge (Unsorted)",
+          "rotation": true,
+          "conditions_display": [
+            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1",
+            ".CHAL_DoesTargetWeaponHaveKeyword(World Pets Unarmed [KYWD:008C90FB]) = 1"
+          ]
+        },
+        {
+          "form_id": "0094F842",
+          "edid": "SCORE_Challenge_Daily_TravelDistance_WorldPet_Any_Epic",
+          "record": "CHAL",
+          "name": "Epic - Travel on foot with any Pet (KM)",
+          "group": "Daily",
+          "active_pet": "Any World Pet",
+          "tier": 0,
+          "type_label": "Epic Daily",
+          "required": 16,
+          "counter": "Total Distance Traveled",
+          "desc": "Travel on foot while you have a World Pet out.",
           "reward": "S.C.O.R.E.",
           "reward_items": [
             {
@@ -569,33 +569,6 @@
           ]
         },
         {
-          "form_id": "0094F852",
-          "edid": "SCORE_Challenge_Weekly_XP_WorldPet_Any_Epic",
-          "record": "CHAL",
-          "name": "Epic - Gain XP with your Pet",
-          "group": "Weekly",
-          "active_pet": "Any World Pet",
-          "tier": 0,
-          "type_label": "Epic Weekly",
-          "required": 12000,
-          "counter": "Experience Gained",
-          "desc": "Earn XP while you have a World Pet out.",
-          "reward": "S.C.O.R.E.",
-          "reward_items": [
-            {
-              "name": "S.C.O.R.E.",
-              "kind": "score"
-            }
-          ],
-          "reward_note": "",
-          "scope": "Weekly",
-          "classification": "Sub Challenge (Unsorted)",
-          "rotation": true,
-          "conditions_display": [
-            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
-          ]
-        },
-        {
           "form_id": "0094F84E",
           "edid": "SCORE_Challenge_Weekly_DealDamage_WorldPet_Any",
           "record": "CHAL",
@@ -624,34 +597,6 @@
           ]
         },
         {
-          "form_id": "0094F853",
-          "edid": "SCORE_Challenge_Weekly_DealDamage_WorldPet_Any_Epic",
-          "record": "CHAL",
-          "name": "Epic - Have your Pet deal damage to an Enemy",
-          "group": "Weekly",
-          "active_pet": "Any World Pet",
-          "tier": 0,
-          "type_label": "Epic Weekly",
-          "required": 1000,
-          "counter": "Enemy Total Damage Inflicted",
-          "desc": "Damage from your active World Pet's own attacks (its bite or claws) counts. Damage you deal yourself doesn't.",
-          "reward": "S.C.O.R.E.",
-          "reward_items": [
-            {
-              "name": "S.C.O.R.E.",
-              "kind": "score"
-            }
-          ],
-          "reward_note": "",
-          "scope": "Weekly",
-          "classification": "Sub Challenge (Unsorted)",
-          "rotation": true,
-          "conditions_display": [
-            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1",
-            ".CHAL_DoesTargetWeaponHaveKeyword(World Pets Unarmed [KYWD:008C90FB]) = 1"
-          ]
-        },
-        {
           "form_id": "0094F84D",
           "edid": "SCORE_Challenge_Weekly_Kill_WorldPet_Any",
           "record": "CHAL",
@@ -661,34 +606,6 @@
           "tier": 0,
           "type_label": "Weekly",
           "required": 15,
-          "counter": "Total Enemies Killed",
-          "desc": "Your active World Pet's own attack (its bite or claws) has to land the killing blow. Your own kills don't count, even with your pet beside you. Any creature, critter or enemy NPC counts.",
-          "reward": "S.C.O.R.E.",
-          "reward_items": [
-            {
-              "name": "S.C.O.R.E.",
-              "kind": "score"
-            }
-          ],
-          "reward_note": "",
-          "scope": "Weekly",
-          "classification": "Sub Challenge (Unsorted)",
-          "rotation": true,
-          "conditions_display": [
-            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1",
-            ".CHAL_DoesTargetWeaponHaveKeyword(World Pets Unarmed [KYWD:008C90FB]) = 1"
-          ]
-        },
-        {
-          "form_id": "0094F854",
-          "edid": "SCORE_Challenge_Weekly_Kill_WorldPet_Any_Epic",
-          "record": "CHAL",
-          "name": "Epic - Have your Pet kill an Enemy",
-          "group": "Weekly",
-          "active_pet": "Any World Pet",
-          "tier": 0,
-          "type_label": "Epic Weekly",
-          "required": 25,
           "counter": "Total Enemies Killed",
           "desc": "Your active World Pet's own attack (its bite or claws) has to land the killing blow. Your own kills don't count, even with your pet beside you. Any creature, critter or enemy NPC counts.",
           "reward": "S.C.O.R.E.",
@@ -791,6 +708,89 @@
           "rotation": true,
           "conditions_display": [
             ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
+          ]
+        },
+        {
+          "form_id": "0094F852",
+          "edid": "SCORE_Challenge_Weekly_XP_WorldPet_Any_Epic",
+          "record": "CHAL",
+          "name": "Epic - Gain XP with your Pet",
+          "group": "Weekly",
+          "active_pet": "Any World Pet",
+          "tier": 0,
+          "type_label": "Epic Weekly",
+          "required": 12000,
+          "counter": "Experience Gained",
+          "desc": "Earn XP while you have a World Pet out.",
+          "reward": "S.C.O.R.E.",
+          "reward_items": [
+            {
+              "name": "S.C.O.R.E.",
+              "kind": "score"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Weekly",
+          "classification": "Sub Challenge (Unsorted)",
+          "rotation": true,
+          "conditions_display": [
+            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
+          ]
+        },
+        {
+          "form_id": "0094F853",
+          "edid": "SCORE_Challenge_Weekly_DealDamage_WorldPet_Any_Epic",
+          "record": "CHAL",
+          "name": "Epic - Have your Pet deal damage to an Enemy",
+          "group": "Weekly",
+          "active_pet": "Any World Pet",
+          "tier": 0,
+          "type_label": "Epic Weekly",
+          "required": 1000,
+          "counter": "Enemy Total Damage Inflicted",
+          "desc": "Damage from your active World Pet's own attacks (its bite or claws) counts. Damage you deal yourself doesn't.",
+          "reward": "S.C.O.R.E.",
+          "reward_items": [
+            {
+              "name": "S.C.O.R.E.",
+              "kind": "score"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Weekly",
+          "classification": "Sub Challenge (Unsorted)",
+          "rotation": true,
+          "conditions_display": [
+            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1",
+            ".CHAL_DoesTargetWeaponHaveKeyword(World Pets Unarmed [KYWD:008C90FB]) = 1"
+          ]
+        },
+        {
+          "form_id": "0094F854",
+          "edid": "SCORE_Challenge_Weekly_Kill_WorldPet_Any_Epic",
+          "record": "CHAL",
+          "name": "Epic - Have your Pet kill an Enemy",
+          "group": "Weekly",
+          "active_pet": "Any World Pet",
+          "tier": 0,
+          "type_label": "Epic Weekly",
+          "required": 25,
+          "counter": "Total Enemies Killed",
+          "desc": "Your active World Pet's own attack (its bite or claws) has to land the killing blow. Your own kills don't count, even with your pet beside you. Any creature, critter or enemy NPC counts.",
+          "reward": "S.C.O.R.E.",
+          "reward_items": [
+            {
+              "name": "S.C.O.R.E.",
+              "kind": "score"
+            }
+          ],
+          "reward_note": "",
+          "scope": "Weekly",
+          "classification": "Sub Challenge (Unsorted)",
+          "rotation": true,
+          "conditions_display": [
+            ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1",
+            ".CHAL_DoesTargetWeaponHaveKeyword(World Pets Unarmed [KYWD:008C90FB]) = 1"
           ]
         },
         {
