@@ -146,7 +146,8 @@ def batch_table(batches, receive, col_first="Hand-in", col_count="Count"):
 def finding_sentence(total, by_region, plural, pages_label, page_count, everywhere_at=4):
     """The first line of Finding Them - the same words on every guide (Duchess,
     23 Nov 2026); only the numbers and names change, all from the spawn data:
-      There are <b>N</b> {plural} in <b>Region</b>. / : <b>a</b> in <b>R1</b> and <b>b</b> in <b>R2</b>. /
+      There are <b>N</b> {plural} in Region. / : <b>a</b> in R1 and <b>b</b> in R2. /
+      (region names not bold - Duchess, 27 Nov 2026)
       all over Appalachia (4+ regions).
       Each one is a fixed spawn, so it's always in the same place."""
     E = _h.escape
@@ -154,9 +155,9 @@ def finding_sentence(total, by_region, plural, pages_label, page_count, everywhe
     if len(regs) >= everywhere_at:
         where = " all over Appalachia"
     elif len(regs) == 1:
-        where = f" in <strong>{E(regs[0][0])}</strong>"
+        where = f" in {E(regs[0][0])}"
     elif regs:
-        parts = [f"<strong>{n:,}</strong> in <strong>{E(r)}</strong>" for r, n in regs]
+        parts = [f"<strong>{n:,}</strong> in {E(r)}" for r, n in regs]
         where = ": " + (", ".join(parts[:-1]) + " and " + parts[-1])
     else:
         where = ""

@@ -1,7 +1,8 @@
 """npc_dialogue_export.py - the NPCDLG export (22 Nov 2026).
 
 Full dialogue for the quests listed in tools/npc_dialogue_quests.txt, for the
-NPC Lore & Dialogue pages (src/build_npc_lore_json.py):
+NPC Lore & Dialogue pages (src/build_npc_lore_json.py), plus every collectable
+quest (script property CollectablesNeededPerBatch) for the collectable guides:
 
   NPCDLG_Export_<..>_Lines.tsv    one row per response line of every INFO in
                                   those quests: topic, the player's prompt
@@ -53,8 +54,20 @@ def voice_map(data_dir):
     return m
 
 
+def collectable_quests(esm, X):
+    """Collectable quests (Dirty Laundry, A Matter of Matter, The Slasher:
+    Masked Truth): a quest script property CollectablesNeededPerBatch - the same
+    rule QUST2 uses for Kind "Collectable". Their dialogue checks go on the
+    collectable guides' Finale sections (Duchess, 27 Nov 2026)."""
+    out = set()
+    for r in X.R.xedit_order(esm, "QUST"):
+        if b"CollectablesNeededPerBatch" in (dict(X._qust_tree(r)["head"]).get("VMAD") or b""):
+            out.add(r.edid)
+    return out
+
+
 def exp_npc_dialogue(esm, X):
-    want = set(wanted_quests())
+    want = set(wanted_quests()) | collectable_quests(esm, X)
     kids, infos = X._quest_children(esm)
     vm = voice_map(esm.data_dir)
     cc = X.cc
