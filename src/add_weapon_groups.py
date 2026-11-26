@@ -541,6 +541,50 @@ class Resolver:
         return role, (self.families[family] if family else None)
 
 
+# ── shared names get their weapon added (Duchess, 26 Nov 2026) ────────────
+# The game gives many mods the same name on different weapons: "Long Recon
+# Scope" is a mod on 11 weapons, and "Plan: Long Recon Scope" (the old
+# "Plan: Brotherhood Recon Rifle") is the Hunting Rifle one. Brewmaster's
+# search landed on the Syringer's scrap-to-learn row instead. So a name that
+# two or more rows share gets its weapon in brackets, on the site and the bot:
+#   "Plan: Long Recon Scope"  ->  "Plan: Long Recon Scope (Hunting Rifle)"
+# Only shared names change; a name that already says its weapon is left alone.
+# The game's own spelling is kept in `game_name`. Generative: the weapon is
+# the row's weapon_group, nothing hard-coded.
+def _restore_game_names(items):
+    for it in items:
+        if it.get("game_name"):
+            it["name"] = it.pop("game_name")
+
+
+_RX_PLAN_PREFIX = re.compile(r"^(plan|recipe)\s*:\s*", re.I)
+
+
+def _bare(name):
+    # "Plan: Long Recon Scope" and the scrap row "Long Recon Scope" are the same
+    # name to a reader (and to Brewmaster's search), so the prefix is ignored.
+    return _RX_PLAN_PREFIX.sub("", (name or "").strip()).lower()
+
+
+def tag_shared_names(items):
+    # Shared means shared ACROSS weapons (or with a row on another page): two
+    # copies of one plan on the same weapon gain nothing from a weapon tag.
+    owners = collections.defaultdict(set)
+    for it in items:
+        owners[_bare(it.get("name"))].add(it.get("weapon_group") or it.get("id"))
+    n = 0
+    for it in items:
+        name = (it.get("name") or "").strip()
+        wg = it.get("weapon_group") or ""
+        if (not name or not wg or len(owners[_bare(name)]) < 2 or it.get("weapon_unsorted")
+                or it.get("weapon_group_solo") or wg.lower() in name.lower()):
+            continue
+        it["game_name"] = name
+        it["name"] = f"{name} ({wg})"
+        n += 1
+    return n
+
+
 _RX_WEAPON_SKIN_ENT = re.compile(r"skin_?weapon(skin|model)|_weaponskin_|^babylon_entm_weaponskin", re.I)
 
 
@@ -577,6 +621,9 @@ def attach(items):
             i.pop("also_pages", None)
     on_page = lambda i: (i.get("plan_page") == "weapon"
                          or "weapon" in (i.get("also_pages") or []))
+    # Put back the game's own name before anything reads `name`, so a re-run
+    # never stacks a second weapon tag ("(Hunting Rifle) (Hunting Rifle)").
+    _restore_game_names(items)
     weapons = [i for i in items if on_page(i)]
     # Anything NOT on the weapon page must not keep weapon_* fields from an
     # earlier run. These enrichers are re-run in place over a finished
@@ -650,6 +697,7 @@ def attach(items):
 
     pics = tidy_images(weapons)
     images, missing = group_images(weapons)
+    tally["weapon_tagged_names"] = tag_shared_names(items)
     return {"groups": len(sizes), "tally": dict(tally), "sources": res.sources,
             "uniques": ustats, "group_images": images, "images_missing": missing,
             "row_images": pics}
