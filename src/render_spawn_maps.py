@@ -112,6 +112,8 @@ TYPE_LABELS = {
     "placement": "Fixed spawn",
     "spawn": "Spawn point",
     "ambush": "Ambush",
+    # A quest-created spawn at fixed markers (Blue Devil storm encounter).
+    "quest": "Scripted spawn",
     "queen": "Queen spawn",
     "corpse": "Corpse",
     # DF Score Challenges - Level N Terminal Locations (build_terminal_locations.py)
@@ -139,6 +141,7 @@ TYPE_COLOURS = {
     # Orange, not violet: violet is the nest colour, and on the Scorchbeast map
     # (Oct 2026) ambush spots and nests came out the same colour.
     "ambush": (255, 138, 30),           # orange
+    "quest": (255, 193, 7),             # amber — only this creature can appear there
     "queen": (255, 235, 59),            # bright yellow, star shape
     # Placed creature corpses you loot (Scorchbeast, 31 Oct 2026). Cyan diamond:
     # no other type on a creature map uses cyan, and the shape carries it anyway.
@@ -421,6 +424,12 @@ SOURCES = {
     "robot-models": lambda slug: (
         os.path.join(REPO, "dist", "robot_model_spawns", "robot_models_spawns.json"),
         os.path.join(REPO, "data", "robot_model_spawns", "geo_cache.json")),
+    # DF Cryptids (src/build_cryptid_guide_docs.py). Farming-shaped doc (shape A)
+    # keyed cryptid-<slug>; ONE geo cache for every cryptid, keyed by the bare
+    # decimal ref (spawns_configs/cryptids.py writes it).
+    "cryptid":  lambda slug: (
+        os.path.join(REPO, "dist", "farming_spawns", f"cryptid-{slug}_spawns.json"),
+        os.path.join(REPO, "data", "cryptid_spawns", "geo_cache.json")),
     "insects":  lambda slug: (
         os.path.join(REPO, "dist", "insects", f"{slug}.json"),
         os.path.join(REPO, "data", "insect_spawns", f"{slug}.json")),

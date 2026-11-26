@@ -1148,6 +1148,15 @@ jobs:
       - name: Build Treasure Maps JSON
         run: python src/build_treasure_maps_json.py
 
+      # --- CRYPTID GUIDE PAGES (/df/cryptids/<slug>/) ---
+      # dist/cryptids/<slug>.json -> dist/farming_spawns/cryptid-<slug>_spawns.json,
+      # drawn by df-bnb-farming-non-perishable-guide.js (Deathclaw Egg layout).
+      # After Build Cryptids JSON, and after Treasure Maps / vendors / collectrons
+      # because it joins all three. Fixed spawns come from the committed
+      # data/cryptid_spawns/geo_cache.json, so no Mappalachia DB is needed here.
+      - name: Build Cryptid Guide Pages
+        run: python src/build_cryptid_guide_docs.py
+
       # --- WEAPONS ---
       - name: Build Weapons JSON
         run: python src/build_weapons_json.py

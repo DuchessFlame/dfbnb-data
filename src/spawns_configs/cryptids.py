@@ -85,14 +85,24 @@ PAGES = [
     {"slug": "bigfoot", "name": "Bigfoot", "races": ["BigfootRace"],
      "tokens": ["bigfoot"], "mappalachia": []},
     {"slug": "blue-devil", "name": "Blue Devil", "races": ["BlueDevilRace"],
-     "tokens": ["bluedevil"], "mappalachia": []},
+     "tokens": ["bluedevil"], "mappalachia": [],
+     # Storm Encounter (Skyline Valley): lightning hitting the satellite dish at
+     # Naked Creek (DefaultLightningQuestTrigger) starts Storm_SE08, which creates
+     # EncBlueDevil at one of the refs tagged Storm_SE08_Spawn_LRT. Only a Blue
+     # Devil can appear there, so they are fixed spawns. See resolve_quest_spawns.
+     "quest_spawns": ["Storm_SE08"]},
     {"slug": "flatwoods-monster", "name": "Flatwoods Monster",
      "races": ["FlatwoodsMonsterRace"], "tokens": ["flatwoods"], "mappalachia": [],
-     "chance_note": ("The Flatwoods Monster is a random night encounter — after roughly "
-                     "6&nbsp;pm in-game it has about a 2.5% chance to appear at almost any "
-                     "location on the map. It has no fixed spawn points, so there is nothing "
-                     "to map; the Invaders From Beyond event and the Queen of the Hunt daily "
-                     "are the reliable ways to find one.")},
+     # LvlStrangeEncounterPOI (004FB1BB) rolls LCharStrangeEncounterPOI, which picks
+     # the Mothman list or the Flatwoods list. Shared with the Mothman page, so it
+     # only adds placements here (never drops / level summary).
+     "chance_bases": ["004FB1BB"],
+     "chance_note": ("These are NIGHT spawns. At each of these spots the game picks "
+                     "either the Flatwoods Monster or the Mothman, and the Flatwoods "
+                     "Monster only spawns at night (the game's IsTimeSpanAnyNight check), "
+                     "with a 5% chance when it is picked — about 2.5% a visit. The Invaders "
+                     "From Beyond event and the Queen of the Hunt daily are the reliable "
+                     "ways to find one.")},
     {"slug": "grafton-monster", "name": "Grafton Monster",
      "races": ["GraftonMonsterRace"], "tokens": ["grafton"],
      "mappalachia": ["Grafton Monster"]},
@@ -102,10 +112,13 @@ PAGES = [
     {"slug": "mothman", "name": "Mothman", "races": ["MothmanRace"],
      "extra_npcs": ["004EC627"],  # Stalking Mothman (EncMothman01Defender)
      "tokens": ["mothman"], "mappalachia": [],
-     "chance_note": ("These are NIGHT spawns — the Mothman only appears after roughly "
-                     "6&nbsp;pm in-game, and each is a chance (not guaranteed) spawn. See the "
-                     "separate night-spawn map for where they can appear. Its one guaranteed "
-                     "fixed spawn (Enclave Research Facility) is in Fixed Spawn Locations above.")},
+     "chance_note": ("These are NIGHT spawns — the Mothman only spawns here at night "
+                     "(the game's IsTimeSpanAnyNight check). At the cultist encounter spots "
+                     "it has a 5% chance; at the strange encounter spots the game picks the "
+                     "Mothman or the Flatwoods Monster first, so it is about 2.5%. During the "
+                     "Legend of the Mothman spotlight the chance rises to 35%, day or night. "
+                     "Its one guaranteed fixed spawn (Enclave Research Facility) is in Fixed "
+                     "Spawn Locations above.")},
     {"slug": "ogua", "name": "Ogua", "races": ["OguaRace"],
      "tokens": ["ogua"], "mappalachia": []},
     {"slug": "sheepsquatch", "name": "Sheepsquatch", "races": ["SheepsquatchRace"],
@@ -821,6 +834,54 @@ def _drop_instance_twins(seen, cache, geo):
     return seen
 
 
+FO76_DATA_DIRS = [os.environ.get("FO76_DATA") or "",
+                  os.path.expanduser("~/mnt/Fallout76/Data"),
+                  r"D:\steamlibrary\steamapps\common\Fallout76\Data"]
+
+
+def resolve_quest_spawns(pages, geo, cache, seen):
+    """`quest_spawns: [quest EDID]` — a quest that creates the cryptid at placed
+    markers (Blue Devil: Storm_SE08). The markers are the refs whose location ref
+    type is <quest EDID>_Spawn* (LCTN _LCSR export); their coordinates come from
+    SeventySix.esm (Mappalachia has no Skyline Valley placements). Local only: with
+    no game folder the rows already in the committed cache are kept."""
+    want = {pg["slug"]: [q.lower() for q in pg["quest_spawns"]]
+            for pg in pages if pg.get("quest_spawns")}
+    if not want:
+        return
+    data_dir = next((d for d in FO76_DATA_DIRS
+                     if d and os.path.exists(os.path.join(d, "SeventySix.esm"))), None)
+    lcsr = tsv_source.newest("LCTN_Export_*_LCSR.tsv", required=False)
+    if not data_dir or not lcsr:
+        print("[cryptids] quest_spawns: no game folder / LCSR export - keeping cached rows.")
+        return
+    refs = []   # (slug, ref)
+    with open(lcsr, encoding="utf-8", errors="replace", newline="") as f:
+        for r in csv.DictReader(f, delimiter="\t"):
+            lrt = (r.get("LocRefType_EDID") or "").lower()
+            for slug, qs in want.items():
+                if any(lrt.startswith(q + "_spawn") for q in qs):
+                    refs.append((slug, int(r["Ref_FormID"], 16)))
+    if not refs:
+        return
+    sys.path.insert(0, os.path.join(REPO, "tools"))
+    import struct
+    from esm_reader import Esm
+    esm = Esm(data_dir, set(), want_index=False)
+    for slug, ref in refs:
+        hit = esm.world_record(ref)
+        if not hit:
+            continue
+        _sig, rec, _cell, wrld = hit
+        pos = next((d for s, d in rec.subs if s == "DATA"), None)
+        if not pos or not wrld:
+            continue
+        x, y, _z = struct.unpack_from("<fff", pos)
+        region, marker, _ = geo.resolve(APPALACHIA_SPACE, x, y)
+        _record(cache, seen, slug, ref, APPALACHIA_SPACE, ref, x, y, region, marker, "quest")
+    print(f"[cryptids] quest_spawns: {len(refs)} marker(s) from {os.path.basename(lcsr)}")
+
+
 def resolve_fixed_spawns(pages, npcs_by_page, geo, cur, cache, db_ok):
     """Resolve every fixed-spawn placement to (region, marker) and return
     {slug -> seen{instanceFormID -> (x, y, region, marker, source_type)}}.
@@ -900,6 +961,14 @@ def resolve_fixed_spawns(pages, npcs_by_page, geo, cur, cache, db_ok):
                 continue
             base_slug[fid] = pg["slug"]
             base_full[fid] = n.get("full") or pg["name"]
+    # `chance_bases`: a base shared with another page (LvlStrangeEncounterPOI rolls
+    # Mothman OR Flatwoods). Placements only, never drops or the level summary.
+    extra_slugs = defaultdict(list)
+    for pg in pages:
+        for h in pg.get("chance_bases", []):
+            fid = int(h, 16)
+            extra_slugs[fid].append(pg["slug"])
+            base_slug.setdefault(fid, None)
     if base_slug:
         # gather placement rows first so we can count how many times each base is
         # placed on the map — a base placed exactly once is a UNIQUE INDIVIDUAL (e.g.
@@ -915,6 +984,12 @@ def resolve_fixed_spawns(pages, npcs_by_page, geo, cur, cache, db_ok):
                 prows.append((x, y, inst, space, ref))
                 ref_count[int(ref)] += 1
         for x, y, inst, space, ref in prows:
+            for xs in extra_slugs.get(int(ref), []):
+                if inst not in seen[xs]:
+                    pname = next(p["name"] for p in pages if p["slug"] == xs)
+                    region, marker, _ = geo.resolve(space, x, y)
+                    _record(cache, seen, xs, inst, space, ref, x, y, region, marker,
+                            "placement", variant=pname, uniq=False)
             slug = base_slug.get(int(ref))
             if not slug or inst in seen[slug]:
                 continue
@@ -926,6 +1001,9 @@ def resolve_fixed_spawns(pages, npcs_by_page, geo, cur, cache, db_ok):
             _record(cache, seen, slug, inst, space, ref, x, y, region, marker,
                     "placement", variant=base_full.get(int(ref)),
                     uniq=(ref_count.get(int(ref)) == 1))
+
+    # 2b) quest-created spawns (`quest_spawns`) — read from the ESM, cached for CI.
+    resolve_quest_spawns(pages, geo, cache, seen)
 
     # 3) Mappalachia npcName spawns — with spawnWeight + shared-pool tiering.
     # A single spawn point (instanceFormID) carries a WEIGHTED POOL of creatures; the
@@ -1004,7 +1082,7 @@ def tier_spawns(seen_slug, cache, slug, page_name, promote_unique=False,
         weight = rec.get("weight")
         shared = rec.get("shared", False)
         variant = rec.get("variant") or page_name
-        is_guaranteed = (stype in ("ambush", "nest", "queen", "corpse")) or (
+        is_guaranteed = (stype in ("ambush", "nest", "queen", "corpse", "quest")) or (
             stype == "spawn" and weight is not None and weight >= 0.999 and not shared)
         # `promote_placements` — a DIRECT world placement is a guaranteed spawn.
         #

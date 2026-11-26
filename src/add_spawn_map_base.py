@@ -29,6 +29,8 @@ on their own once Duchess uploads the files. It runs in CI after every spawn bui
 `full_map` is derived (<map_base><render-slug>.jpg) — no local Guides folder needed;
 when that folder IS on this machine the upload sheet lists the local file too.
 NPC score-challenge pages (npc-*) are skipped — finish_npc_spawn_maps.py owns them.
+Cryptid pages (cryptid-*) are skipped too — build_cryptid_guide_docs.py stamps their
+map_base (guide-images/cryptids/<slug>/), map_regions and full_map itself.
 
 Usage:
     python src/add_spawn_map_base.py            # all families
@@ -101,7 +103,7 @@ def render_job(family, slug):
     if family == "meat":
         return None
     if family == "farming_spawns":
-        if slug.startswith("npc-"):
+        if slug.startswith(("npc-", "cryptid-")):
             return None
         if slug.startswith("meat-"):
             return ("meat", slug[len("meat-"):])
@@ -208,7 +210,7 @@ def main():
                 print(f"  !! {path}: {e}", file=sys.stderr)
                 continue
 
-            if family == "farming_spawns" and slug.startswith("npc-"):
+            if family == "farming_spawns" and slug.startswith(("npc-", "cryptid-")):
                 continue
             # Multi-item pages with one map set per item (Pre-War Food) carry their
             # own map_base / full_map per item in fixed_items[] — a page-level

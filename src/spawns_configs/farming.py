@@ -411,6 +411,12 @@ def main(argv=None):
             meat_docs += [n for n in os.listdir(os.path.normpath(dist_dir))
                           if n.endswith("_spawns.json")
                           and (n.startswith("plant-") or n == "pre-war-food_spawns.json")]
+            # The enemy pages (build_npc_spawn_guides.py -> npc-*) and the cryptid
+            # pages (build_cryptid_guide_docs.py -> cryptid-*) live here too. Leaving
+            # them off this list is what wiped all 22 NPC spawn page docs.
+            meat_docs += [n for n in os.listdir(os.path.normpath(dist_dir))
+                          if n.endswith("_spawns.json")
+                          and n.startswith(("npc-", "cryptid-"))]
         prune_outputs(os.path.normpath(dist_dir),
                       [c["slug"] + "_spawns" for c in ALL_SETS],
                       tag="[farming_spawns]", also_keep=tuple(meat_docs))
