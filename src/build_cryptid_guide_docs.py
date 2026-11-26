@@ -68,7 +68,7 @@ GUIDES_ROOTS = [os.environ.get("GUIDES_ROOT") or "",
                 os.path.expanduser(r"~/mnt/Guides and Stuff"),
                 r"C:\Users\Duche\OneDrive\Guides and Stuff"]
 # Cryptid folders whose name isn't the page name.
-FOLDER_ALIASES = {"jersey-lesser-devils": "Lesser Devil"}
+FOLDER_ALIASES = {"jersey-lesser-devils": "Jersey and Lesser Devils"}
 ALL_REGIONS = M.ALL_REGIONS
 
 # Fixed Spawn count list labels per source type. "spawn" = an Encounter Spawn
@@ -187,11 +187,13 @@ def _key(s):
 
 
 def cryptid_folder(slug, creature):
-    """Guides and Stuff\Cryptids Guide\<folder> — matched, never invented."""
+    """Guides and Stuff\\.Cryptids\\<folder> — matched, never invented."""
     want = {_key(FOLDER_ALIASES.get(slug, "")), _key(creature), _key(slug)} - {""}
     for root in GUIDES_ROOTS:
-        base = os.path.join(root, "Cryptids Guide") if root else ""
-        if base and os.path.isdir(base):
+        for sub in (".Cryptids", "Cryptids Guide"):
+            base = os.path.join(root, sub) if root else ""
+            if not base or not os.path.isdir(base):
+                continue
             for name in os.listdir(base):
                 if _key(name) in want and os.path.isdir(os.path.join(base, name)):
                     return os.path.join(base, name)
