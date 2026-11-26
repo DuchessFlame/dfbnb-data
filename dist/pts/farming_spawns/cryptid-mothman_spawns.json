@@ -8,10 +8,11 @@
  "name": "Mothman",
  "page_title": "Mothman",
  "blurb": "Where Mothman spawns in Fallout 76, grouped by region, and everything it drops.",
- "intro_note": "21 variants · levels 30–65 · up to 1,700 HP",
+ "intro_note": "20 variants · levels 30–65 · up to 1,700 HP",
  "map_base": "/wp-content/uploads/guide-images/cryptids/mothman/",
  "map_ext": ".jpg",
  "breakdown_lead": "Spawns here:",
+ "maps_expand": true,
  "inventory": {
   "columns": [
    "Mothman",
@@ -6318,13 +6319,6 @@
    },
    {
     "type": "Daily",
-    "name": "Complete the Event: \"The Mothman Equinox\" with any Pet",
-    "required": 1,
-    "edid": "SCORE_Challenge_Daily_QuestComplete_WorldPet_MothmanEquinox",
-    "page": "daily"
-   },
-   {
-    "type": "Daily",
     "name": "Epic - Collect Mothman Eggs",
     "required": 5,
     "edid": "SCORE_Challenge_Daily_Collect_eggs_mothman_Epic",
@@ -6335,13 +6329,6 @@
     "name": "Epic - Kill the Mothman",
     "required": 1,
     "edid": "SCORE_Challenge_Daily_Kill_Mothmen",
-    "page": "daily"
-   },
-   {
-    "type": "Daily",
-    "name": "Kill a Cultist with any Pet during \"The Mothman Equinox\" Event",
-    "required": 8,
-    "edid": "SCORE_Challenge_Daily_Kill_Cultists_WorldPet_Mothman_Equinox",
     "page": "daily"
    },
    {
@@ -6451,7 +6438,40 @@
    ]
   }
  ],
- "random_encounters": [],
+ "random_encounters": [
+  {
+   "form_id": "0056368F",
+   "edid": "W05_RE_ObjectZW01",
+   "name": "Mothman Cultist Totem Worship",
+   "type": "Object Encounters",
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/object-random-encounters/"
+  },
+  {
+   "form_id": "00333851",
+   "edid": "RE_AssaultMJP02",
+   "name": "Mothman vs Glowing One",
+   "type": "Assault Encounters",
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/assault-random-encounters/"
+  },
+  {
+   "form_id": "00523DA4",
+   "edid": "RE_TravelKMK04",
+   "name": "Mothman!",
+   "type": "Travel Encounters",
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/travel-random-encounters/"
+  },
+  {
+   "form_id": "00528CF1",
+   "edid": "RE_SceneKMK08",
+   "name": "Wise Mothman!",
+   "type": "Scene Encounters",
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/scene-random-encounters/"
+  }
+ ],
  "regions": [
   {
    "region": "Ash Heap",
@@ -6485,8 +6505,8 @@
       "62FD84"
      ],
      "coords": [
-      -177264.7,
-      74309.6
+      -177264.734375,
+      74309.5703125
      ],
      "breakdown": [
       {
@@ -6501,8 +6521,8 @@
        "ref": "62FD84",
        "source_type": "ambush",
        "coords": [
-        -177264.7,
-        74309.6
+        -177264.734375,
+        74309.5703125
        ],
        "image_top": "",
        "directions": "",
@@ -6799,6 +6819,10 @@
       "placements": 1
      },
      {
+      "name": "Enclave Research Facility",
+      "placements": 1
+     },
+     {
       "name": "Fissure Site",
       "placements": 2
      },
@@ -6995,7 +7019,7 @@
       "placements": 2
      }
     ],
-    "placements": 112
+    "placements": 113
    },
    {
     "region": "Savage Divide",
@@ -7070,10 +7094,6 @@
      },
      {
       "name": "Emmett Mountain Disposal Site",
-      "placements": 1
-     },
-     {
-      "name": "Enclave Research Facility",
       "placements": 1
      },
      {
@@ -7401,7 +7421,7 @@
       "placements": 2
      }
     ],
-    "placements": 206
+    "placements": 205
    },
    {
     "region": "The Mire",
@@ -7632,11 +7652,10 @@
  "info_notes": [
   {
    "title": "Spawn Notes",
-   "body": "These are NIGHT spawns — the Mothman only appears after roughly 6&nbsp;pm in-game, and each is a chance (not guaranteed) spawn. See the separate night-spawn map for where they can appear. Its one guaranteed fixed spawn (Enclave Research Facility) is in Fixed Spawn Locations above."
+   "body": "These are NIGHT spawns — the Mothman only spawns here at night (the game's IsTimeSpanAnyNight check). At the cultist encounter spots it has a 5% chance; at the strange encounter spots the game picks the Mothman or the Flatwoods Monster first, so it is about 2.5%. During the Legend of the Mothman spotlight the chance rises to 35%, day or night. Its one guaranteed fixed spawn (Enclave Research Facility) is in Fixed Spawn Locations above."
   }
  ],
  "treasure_maps": {
   "maps": []
- },
- "maps_expand": true
+ }
 }

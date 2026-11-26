@@ -12,6 +12,7 @@
  "map_base": "/wp-content/uploads/guide-images/cryptids/blue-devil/",
  "map_ext": ".jpg",
  "breakdown_lead": "Spawns here:",
+ "maps_expand": true,
  "inventory": {
   "columns": [
    "Blue Devil"
@@ -125,7 +126,64 @@
  },
  "vendor_list": [],
  "events_activities": [],
- "random_encounters": [],
+ "random_encounters": [
+  {
+   "form_id": "006D8714",
+   "edid": "RE_Assault_MOON_06",
+   "name": "Blue Devil vs Blood Eagles",
+   "type": "Assault Encounters",
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/assault-random-encounters/"
+  },
+  {
+   "form_id": "006D8716",
+   "edid": "RE_Assault_MOON_08",
+   "name": "Blue Devil vs Cultists",
+   "type": "Assault Encounters",
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/assault-random-encounters/"
+  },
+  {
+   "form_id": "006D8718",
+   "edid": "RE_Assault_MOON_10",
+   "name": "Blue Devil vs Scorched",
+   "type": "Assault Encounters",
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/assault-random-encounters/"
+  },
+  {
+   "form_id": "006D8715",
+   "edid": "RE_Assault_MOON_07",
+   "name": "Blue Devil vs Settlers",
+   "type": "Assault Encounters",
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/assault-random-encounters/"
+  },
+  {
+   "form_id": "006D8717",
+   "edid": "RE_Assault_MOON_09",
+   "name": "Blue Devil vs Super Mutants",
+   "type": "Assault Encounters",
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/assault-random-encounters/"
+  },
+  {
+   "form_id": "006D9000",
+   "edid": "RE_Scene_MOON_03",
+   "name": "Ogua vs Blue Devil",
+   "type": "Scene Encounters",
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/scene-random-encounters/"
+  },
+  {
+   "form_id": "006D8FFF",
+   "edid": "RE_Scene_MOON_02",
+   "name": "Random Blue Devil",
+   "type": "Scene Encounters",
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/scene-random-encounters/"
+  }
+ ],
  "regions": [
   {
    "region": "Ash Heap",
@@ -153,7 +211,59 @@
   },
   {
    "region": "Skyline Valley",
-   "locations": []
+   "locations": [
+    {
+     "marker": "Naked Creek",
+     "count": 2,
+     "sources": {
+      "quest": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "751B3F",
+      "751B40"
+     ],
+     "coords": [
+      -35136.578125,
+      -235248.765625
+     ],
+     "breakdown": [
+      {
+       "label": "Blue Devil scripted spawn",
+       "count": 2,
+       "source_type": "quest"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Blue Devil scripted spawn #1",
+       "ref": "751B3F",
+       "source_type": "quest",
+       "coords": [
+        -35136.578125,
+        -235248.765625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Blue Devil scripted spawn #2",
+       "ref": "751B40",
+       "source_type": "quest",
+       "coords": [
+        -29741.87109375,
+        -237403.78125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
   },
   {
    "region": "The Mire",
@@ -168,9 +278,18 @@
    "locations": []
   }
  ],
- "fixed_counts": [],
- "map_regions": [],
- "full_map": "",
+ "fixed_counts": [
+  {
+   "source_type": "quest",
+   "count": 2,
+   "label": "Scripted spawn points"
+  }
+ ],
+ "fixed_note": "The Blue Devil has a fixed spawn at Naked Creek in Skyline Valley. When lightning hits the satellite dish at that camp, the game starts a Storm Encounter, and a Blue Devil spawns at one of two spots next to the dish.",
+ "map_regions": [
+  "Skyline Valley"
+ ],
+ "full_map": "/wp-content/uploads/guide-images/cryptids/blue-devil/blue-devil.jpg",
  "interior_maps": [],
  "chance_spawns": {
   "regions": [],
@@ -181,6 +300,5 @@
  "info_notes": [],
  "treasure_maps": {
   "maps": []
- },
- "maps_expand": true
+ }
 }

@@ -12,6 +12,7 @@
  "map_base": "/wp-content/uploads/guide-images/cryptids/wendigo/",
  "map_ext": ".jpg",
  "breakdown_lead": "Spawns here:",
+ "maps_expand": true,
  "inventory": {
   "columns": [
    "Wendigo",
@@ -8707,7 +8708,63 @@
    "form_id": "0048F8C1"
   }
  ],
- "random_encounters": [],
+ "random_encounters": [
+  {
+   "form_id": "0048F8C1",
+   "edid": "RE_SceneKMK16_Nuke",
+   "name": "Nuked: Wendigo",
+   "type": "Scene Encounters",
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/scene-random-encounters/"
+  },
+  {
+   "form_id": "005901C7",
+   "edid": "W05_RE_AssaultDWD04_Nuke",
+   "name": "Nuked: Wendigo Colossus Assault",
+   "type": "Assault Encounters",
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/assault-random-encounters/"
+  },
+  {
+   "form_id": "003CB64B",
+   "edid": "RE_WhitespringAssaultSC11",
+   "name": "Special Attack: Wendigos",
+   "type": "Whitespring Assault Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "003D53D1",
+   "edid": "RE_TravelKMK06",
+   "name": "Wendigo by night",
+   "type": "Travel Encounters",
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/travel-random-encounters/"
+  },
+  {
+   "form_id": "003D53D0",
+   "edid": "RE_SceneKMK09",
+   "name": "Wendigo returning to cave",
+   "type": "Scene Encounters",
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/scene-random-encounters/"
+  },
+  {
+   "form_id": "00333853",
+   "edid": "RE_ObjectMJP01",
+   "name": "Wendigo w Dead Caravan",
+   "type": "Object Encounters",
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/object-random-encounters/"
+  },
+  {
+   "form_id": "007493A7",
+   "edid": "Storm_RE_SceneRK01",
+   "name": "Wild Wendigo",
+   "type": "Scene Encounters",
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/scene-random-encounters/"
+  }
+ ],
  "regions": [
   {
    "region": "Ash Heap",
@@ -8733,8 +8790,8 @@
       "7F5F13"
      ],
      "coords": [
-      -215624.0,
-      74004.0
+      -215623.984375,
+      74003.984375
      ],
      "breakdown": [
       {
@@ -8749,8 +8806,8 @@
        "ref": "7F5F13",
        "source_type": "ambush",
        "coords": [
-        -215624.0,
-        74004.0
+        -215623.984375,
+        74003.984375
        ],
        "image_top": "",
        "directions": "",
@@ -8768,49 +8825,6 @@
    "region": "Forest",
    "locations": [
     {
-     "marker": "Vault 51",
-     "count": 1,
-     "sources": {
-      "ambush": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "60D00C"
-     ],
-     "coords": [
-      1364.9,
-      -1889.8
-     ],
-     "breakdown": [
-      {
-       "label": "Wendigo ambush",
-       "count": 1,
-       "source_type": "ambush"
-      }
-     ],
-     "spawns": [
-      {
-       "label": "Wendigo ambush",
-       "ref": "60D00C",
-       "source_type": "ambush",
-       "coords": [
-        1364.9,
-        -1889.8
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "region": "Savage Divide",
-   "locations": [
-    {
      "marker": "Enclave Research Facility",
      "count": 4,
      "sources": {
@@ -8826,8 +8840,8 @@
       "5DD4A6"
      ],
      "coords": [
-      -2225.1,
-      2604.3
+      -2225.11669921875,
+      2604.25927734375
      ],
      "breakdown": [
       {
@@ -8842,8 +8856,8 @@
        "ref": "5DD493",
        "source_type": "ambush",
        "coords": [
-        -2225.1,
-        2604.3
+        -2225.11669921875,
+        2604.25927734375
        ],
        "image_top": "",
        "directions": "",
@@ -8854,8 +8868,8 @@
        "ref": "5DD4A3",
        "source_type": "ambush",
        "coords": [
-        -2042.9,
-        2809.1
+        -2042.875,
+        2809.11694335938
        ],
        "image_top": "",
        "directions": "",
@@ -8866,8 +8880,8 @@
        "ref": "5DD4A5",
        "source_type": "ambush",
        "coords": [
-        -2043.6,
-        3373.1
+        -2043.5859375,
+        3373.10009765625
        ],
        "image_top": "",
        "directions": "",
@@ -8878,8 +8892,8 @@
        "ref": "5DD4A6",
        "source_type": "ambush",
        "coords": [
-        -2221.1,
-        3544.6
+        -2221.10595703125,
+        3544.6103515625
        ],
        "image_top": "",
        "directions": "",
@@ -8887,6 +8901,49 @@
       }
      ]
     },
+    {
+     "marker": "Vault 51",
+     "count": 1,
+     "sources": {
+      "ambush": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "60D00C"
+     ],
+     "coords": [
+      1364.86779785156,
+      -1889.84387207031
+     ],
+     "breakdown": [
+      {
+       "label": "Wendigo ambush",
+       "count": 1,
+       "source_type": "ambush"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Wendigo ambush",
+       "ref": "60D00C",
+       "source_type": "ambush",
+       "coords": [
+        1364.86779785156,
+        -1889.84387207031
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Savage Divide",
+   "locations": [
     {
      "marker": "Monongah Mine",
      "count": 28,
@@ -8927,8 +8984,8 @@
       "5B4EF3"
      ],
      "coords": [
-      -10659.9,
-      14567.8
+      -10659.865234375,
+      14567.8310546875
      ],
      "breakdown": [
       {
@@ -8943,8 +9000,8 @@
        "ref": "58A853",
        "source_type": "ambush",
        "coords": [
-        -7841.0,
-        16146.2
+        -7841.03076171875,
+        16146.228515625
        ],
        "image_top": "",
        "directions": "",
@@ -8955,8 +9012,8 @@
        "ref": "58A8E8",
        "source_type": "ambush",
        "coords": [
-        -9235.7,
-        14514.7
+        -9235.6787109375,
+        14514.728515625
        ],
        "image_top": "",
        "directions": "",
@@ -8967,8 +9024,8 @@
        "ref": "58A8E9",
        "source_type": "ambush",
        "coords": [
-        -11044.3,
-        14067.3
+        -11044.2900390625,
+        14067.30859375
        ],
        "image_top": "",
        "directions": "",
@@ -8979,8 +9036,8 @@
        "ref": "58A8EA",
        "source_type": "ambush",
        "coords": [
-        -9020.4,
-        15313.2
+        -9020.400390625,
+        15313.181640625
        ],
        "image_top": "",
        "directions": "",
@@ -8991,8 +9048,8 @@
        "ref": "5A2D28",
        "source_type": "ambush",
        "coords": [
-        -4510.5,
-        9989.5
+        -4510.5224609375,
+        9989.5302734375
        ],
        "image_top": "",
        "directions": "",
@@ -9003,8 +9060,8 @@
        "ref": "5A2D29",
        "source_type": "ambush",
        "coords": [
-        -5357.2,
-        8249.9
+        -5357.15185546875,
+        8249.900390625
        ],
        "image_top": "",
        "directions": "",
@@ -9015,8 +9072,8 @@
        "ref": "5A2D2A",
        "source_type": "ambush",
        "coords": [
-        -7793.1,
-        8268.5
+        -7793.1318359375,
+        8268.47265625
        ],
        "image_top": "",
        "directions": "",
@@ -9027,8 +9084,8 @@
        "ref": "5A2D2E",
        "source_type": "ambush",
        "coords": [
-        -8922.5,
-        11890.4
+        -8922.4736328125,
+        11890.3779296875
        ],
        "image_top": "",
        "directions": "",
@@ -9039,8 +9096,8 @@
        "ref": "5A2FA4",
        "source_type": "ambush",
        "coords": [
-        -7785.0,
-        16270.2
+        -7785.03271484375,
+        16270.2392578125
        ],
        "image_top": "",
        "directions": "",
@@ -9051,8 +9108,8 @@
        "ref": "5A2FA5",
        "source_type": "ambush",
        "coords": [
-        -9033.3,
-        15280.2
+        -9033.30859375,
+        15280.2421875
        ],
        "image_top": "",
        "directions": "",
@@ -9063,8 +9120,8 @@
        "ref": "5A2FA7",
        "source_type": "ambush",
        "coords": [
-        -11361.5,
-        14447.1
+        -11361.5078125,
+        14447.099609375
        ],
        "image_top": "",
        "directions": "",
@@ -9075,8 +9132,8 @@
        "ref": "5A2FA9",
        "source_type": "ambush",
        "coords": [
-        -11357.8,
-        14383.0
+        -11357.791015625,
+        14382.966796875
        ],
        "image_top": "",
        "directions": "",
@@ -9087,8 +9144,8 @@
        "ref": "5A2FAF",
        "source_type": "ambush",
        "coords": [
-        -11229.8,
-        14288.4
+        -11229.8046875,
+        14288.396484375
        ],
        "image_top": "",
        "directions": "",
@@ -9099,8 +9156,8 @@
        "ref": "5A4FF8",
        "source_type": "ambush",
        "coords": [
-        -10659.9,
-        14567.8
+        -10659.865234375,
+        14567.8310546875
        ],
        "image_top": "",
        "directions": "",
@@ -9111,8 +9168,8 @@
        "ref": "5A5301",
        "source_type": "ambush",
        "coords": [
-        -12378.0,
-        8495.0
+        -12377.9697265625,
+        8495.041015625
        ],
        "image_top": "",
        "directions": "",
@@ -9123,8 +9180,8 @@
        "ref": "5A5303",
        "source_type": "ambush",
        "coords": [
-        -11332.9,
-        11862.4
+        -11332.892578125,
+        11862.4482421875
        ],
        "image_top": "",
        "directions": "",
@@ -9135,8 +9192,8 @@
        "ref": "5A5304",
        "source_type": "ambush",
        "coords": [
-        -11365.5,
-        11950.5
+        -11365.4677734375,
+        11950.474609375
        ],
        "image_top": "",
        "directions": "",
@@ -9147,8 +9204,8 @@
        "ref": "5A5305",
        "source_type": "ambush",
        "coords": [
-        -9733.0,
-        11145.6
+        -9732.951171875,
+        11145.62890625
        ],
        "image_top": "",
        "directions": "",
@@ -9159,8 +9216,8 @@
        "ref": "5A5306",
        "source_type": "ambush",
        "coords": [
-        -9828.4,
-        11253.4
+        -9828.412109375,
+        11253.3984375
        ],
        "image_top": "",
        "directions": "",
@@ -9171,8 +9228,8 @@
        "ref": "5A532B",
        "source_type": "ambush",
        "coords": [
-        -10607.0,
-        8009.3
+        -10607.044921875,
+        8009.26806640625
        ],
        "image_top": "",
        "directions": "",
@@ -9183,8 +9240,8 @@
        "ref": "5A532C",
        "source_type": "ambush",
        "coords": [
-        -10544.0,
-        7998.7
+        -10543.9599609375,
+        7998.7373046875
        ],
        "image_top": "",
        "directions": "",
@@ -9195,8 +9252,8 @@
        "ref": "5A532D",
        "source_type": "ambush",
        "coords": [
-        -10556.5,
-        7941.8
+        -10556.47265625,
+        7941.77490234375
        ],
        "image_top": "",
        "directions": "",
@@ -9207,8 +9264,8 @@
        "ref": "5A61CD",
        "source_type": "ambush",
        "coords": [
-        -7165.2,
-        7438.8
+        -7165.2421875,
+        7438.79736328125
        ],
        "image_top": "",
        "directions": "",
@@ -9219,8 +9276,8 @@
        "ref": "5A61F3",
        "source_type": "ambush",
        "coords": [
-        -7680.5,
-        7430.7
+        -7680.47509765625,
+        7430.6845703125
        ],
        "image_top": "",
        "directions": "",
@@ -9231,8 +9288,8 @@
        "ref": "5A621E",
        "source_type": "ambush",
        "coords": [
-        -8559.3,
-        12029.9
+        -8559.2509765625,
+        12029.8984375
        ],
        "image_top": "",
        "directions": "",
@@ -9243,8 +9300,8 @@
        "ref": "5A7BB7",
        "source_type": "ambush",
        "coords": [
-        -9101.9,
-        10533.7
+        -9101.9072265625,
+        10533.6650390625
        ],
        "image_top": "",
        "directions": "",
@@ -9255,8 +9312,8 @@
        "ref": "5A7BC7",
        "source_type": "ambush",
        "coords": [
-        -9096.2,
-        10851.6
+        -9096.1787109375,
+        10851.6064453125
        ],
        "image_top": "",
        "directions": "",
@@ -9267,8 +9324,8 @@
        "ref": "5B4EF3",
        "source_type": "ambush",
        "coords": [
-        -4285.7,
-        9538.6
+        -4285.744140625,
+        9538.6201171875
        ],
        "image_top": "",
        "directions": "",
@@ -9289,8 +9346,8 @@
       "7C62CB"
      ],
      "coords": [
-      163707.6,
-      216714.3
+      163707.59375,
+      216714.265625
      ],
      "breakdown": [
       {
@@ -9305,8 +9362,8 @@
        "ref": "7C62CB",
        "source_type": "ambush",
        "coords": [
-        163707.6,
-        216714.3
+        163707.59375,
+        216714.265625
        ],
        "image_top": "",
        "directions": "",
@@ -9331,8 +9388,8 @@
       "585B19"
      ],
      "coords": [
-      -4561.3,
-      5129.3
+      -4561.3173828125,
+      5129.3486328125
      ],
      "breakdown": [
       {
@@ -9347,8 +9404,8 @@
        "ref": "585AFE",
        "source_type": "ambush",
        "coords": [
-        -5290.6,
-        5550.4
+        -5290.611328125,
+        5550.39404296875
        ],
        "image_top": "",
        "directions": "",
@@ -9359,8 +9416,8 @@
        "ref": "585B02",
        "source_type": "ambush",
        "coords": [
-        -4854.1,
-        5303.7
+        -4854.0673828125,
+        5303.736328125
        ],
        "image_top": "",
        "directions": "",
@@ -9371,8 +9428,8 @@
        "ref": "585B03",
        "source_type": "ambush",
        "coords": [
-        -4561.3,
-        5129.3
+        -4561.3173828125,
+        5129.3486328125
        ],
        "image_top": "",
        "directions": "",
@@ -9383,8 +9440,8 @@
        "ref": "585B0E",
        "source_type": "ambush",
        "coords": [
-        -3794.5,
-        5070.1
+        -3794.53540039063,
+        5070.13427734375
        ],
        "image_top": "",
        "directions": "",
@@ -9395,8 +9452,8 @@
        "ref": "585B19",
        "source_type": "ambush",
        "coords": [
-        -3898.4,
-        5160.2
+        -3898.36010742188,
+        5160.24853515625
        ],
        "image_top": "",
        "directions": "",
@@ -9428,8 +9485,8 @@
       "450252"
      ],
      "coords": [
-      193279.1,
-      127242.6
+      193279.125,
+      127242.609375
      ],
      "breakdown": [
       {
@@ -9444,8 +9501,8 @@
        "ref": "45024D",
        "source_type": "ambush",
        "coords": [
-        193279.1,
-        127242.6
+        193279.125,
+        127242.609375
        ],
        "image_top": "",
        "directions": "",
@@ -9456,8 +9513,8 @@
        "ref": "450250",
        "source_type": "ambush",
        "coords": [
-        193181.9,
-        125493.0
+        193181.890625,
+        125493.03125
        ],
        "image_top": "",
        "directions": "",
@@ -9468,8 +9525,8 @@
        "ref": "450252",
        "source_type": "ambush",
        "coords": [
-        192109.3,
-        126466.0
+        192109.34375,
+        126466.03125
        ],
        "image_top": "",
        "directions": "",
@@ -9492,8 +9549,8 @@
       "48CC60"
      ],
      "coords": [
-      156013.0,
-      28615.6
+      156013.046875,
+      28615.60546875
      ],
      "breakdown": [
       {
@@ -9508,8 +9565,8 @@
        "ref": "450297",
        "source_type": "ambush",
        "coords": [
-        156013.0,
-        28615.6
+        156013.046875,
+        28615.60546875
        ],
        "image_top": "",
        "directions": "",
@@ -9520,8 +9577,8 @@
        "ref": "48CC5D",
        "source_type": "ambush",
        "coords": [
-        143662.4,
-        47525.6
+        143662.421875,
+        47525.55078125
        ],
        "image_top": "",
        "directions": "",
@@ -9532,8 +9589,8 @@
        "ref": "48CC60",
        "source_type": "ambush",
        "coords": [
-        143509.4,
-        48003.3
+        143509.4375,
+        48003.328125
        ],
        "image_top": "",
        "directions": "",
@@ -9554,8 +9611,8 @@
       "45027F"
      ],
      "coords": [
-      143141.3,
-      52805.1
+      143141.28125,
+      52805.14453125
      ],
      "breakdown": [
       {
@@ -9570,8 +9627,8 @@
        "ref": "45027F",
        "source_type": "ambush",
        "coords": [
-        143141.3,
-        52805.1
+        143141.28125,
+        52805.14453125
        ],
        "image_top": "",
        "directions": "",
@@ -9592,8 +9649,8 @@
       "45023D"
      ],
      "coords": [
-      175387.9,
-      115559.2
+      175387.90625,
+      115559.203125
      ],
      "breakdown": [
       {
@@ -9608,8 +9665,8 @@
        "ref": "45023D",
        "source_type": "ambush",
        "coords": [
-        175387.9,
-        115559.2
+        175387.90625,
+        115559.203125
        ],
        "image_top": "",
        "directions": "",
@@ -9630,8 +9687,8 @@
       "450267"
      ],
      "coords": [
-      188431.7,
-      43432.5
+      188431.65625,
+      43432.515625
      ],
      "breakdown": [
       {
@@ -9646,8 +9703,8 @@
        "ref": "450267",
        "source_type": "ambush",
        "coords": [
-        188431.7,
-        43432.5
+        188431.65625,
+        43432.515625
        ],
        "image_top": "",
        "directions": "",
@@ -9668,8 +9725,8 @@
       "450293"
      ],
      "coords": [
-      156496.0,
-      25702.5
+      156495.96875,
+      25702.484375
      ],
      "breakdown": [
       {
@@ -9684,8 +9741,8 @@
        "ref": "450293",
        "source_type": "ambush",
        "coords": [
-        156496.0,
-        25702.5
+        156495.96875,
+        25702.484375
        ],
        "image_top": "",
        "directions": "",
@@ -9729,8 +9786,8 @@
    "desc": "5 spawns inside"
   },
   {
-   "name": "Transmission Station 1AT-U03 (Enclave Research Facility) (Savage Divide)",
-   "url": "/wp-content/uploads/guide-images/cryptids/wendigo/savage-divide-transmission-station-1at-u03-enclave-research-facility-cell-map.jpg",
+   "name": "Transmission Station 1AT-U03 (Enclave Research Facility) (Forest)",
+   "url": "/wp-content/uploads/guide-images/cryptids/wendigo/forest-transmission-station-1at-u03-enclave-research-facility-cell-map.jpg",
    "desc": "4 spawns inside"
   },
   {
@@ -9755,19 +9812,19 @@
     "region": "Forest",
     "markers": [
      {
+      "name": "Enclave Research Facility",
+      "placements": 1
+     },
+     {
       "name": "Vault 51",
       "placements": 1
      }
     ],
-    "placements": 1
+    "placements": 2
    },
    {
     "region": "Savage Divide",
     "markers": [
-     {
-      "name": "Enclave Research Facility",
-      "placements": 1
-     },
      {
       "name": "Monongah Mine",
       "placements": 1
@@ -9785,7 +9842,7 @@
       "placements": 1
      }
     ],
-    "placements": 8
+    "placements": 7
    },
    {
     "region": "Skyline Valley",
@@ -9840,6 +9897,5 @@
  "info_notes": [],
  "treasure_maps": {
   "maps": []
- },
- "maps_expand": true
+ }
 }

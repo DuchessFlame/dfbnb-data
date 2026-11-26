@@ -7,7 +7,9 @@
     "edid": "BlueDevilRace"
    }
   ],
-  "source_totals": {},
+  "source_totals": {
+   "quest": 2
+  },
   "unresolved": {},
   "hold": false
  },
@@ -16,7 +18,7 @@
  "name": "Blue Devil",
  "page_title": "Cryptids - Blue Devil",
  "url": "/df/cryptids/blue-devil/",
- "blurb": "The Blue Devil in Fallout 76 — 3 NPC variants, 11 possible drops.",
+ "blurb": "The Blue Devil in Fallout 76 — 3 NPC variants, 2 known spawn points, 11 possible drops.",
  "npc_summary": {
   "npc_count": 3,
   "level_min": 50,
@@ -159,7 +161,59 @@
    },
    {
     "region": "Skyline Valley",
-    "locations": []
+    "locations": [
+     {
+      "marker": "Naked Creek",
+      "count": 2,
+      "sources": {
+       "quest": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "751B3F",
+       "751B40"
+      ],
+      "coords": [
+       -35136.6,
+       -235248.8
+      ],
+      "spawns": [
+       {
+        "label": "Blue Devil spawn #1",
+        "ref": "751B3F",
+        "source_type": "quest",
+        "coords": [
+         -35136.6,
+         -235248.8
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Blue Devil spawn #2",
+        "ref": "751B40",
+        "source_type": "quest",
+        "coords": [
+         -29741.9,
+         -237403.8
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "quests",
+        "count": 2,
+        "source_type": "quest"
+       }
+      ]
+     }
+    ]
    },
    {
     "region": "The Mire",
@@ -174,8 +228,8 @@
     "locations": []
    }
   ],
-  "total_markers": 0,
-  "total_placements": 0
+  "total_markers": 1,
+  "total_placements": 2
  },
  "chance_spawns": {
   "locations": [],
