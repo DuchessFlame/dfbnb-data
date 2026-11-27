@@ -100,9 +100,8 @@ PAGES = [
      "chance_note": ("These are NIGHT spawns. At each of these spots the game picks "
                      "either the Flatwoods Monster or the Mothman, and the Flatwoods "
                      "Monster only spawns at night (the game's IsTimeSpanAnyNight check), "
-                     "with a 5% chance when it is picked — about 2.5% a visit. The Invaders "
-                     "From Beyond event and the Queen of the Hunt daily are the reliable "
-                     "ways to find one.")},
+                     "with a 5% chance when it is picked — about 2.5% a visit. The events "
+                     "that spawn it are under Events & Activities.")},
     {"slug": "grafton-monster", "name": "Grafton Monster",
      "races": ["GraftonMonsterRace"], "tokens": ["grafton"],
      "mappalachia": ["Grafton Monster"]},
@@ -1490,14 +1489,18 @@ def tier_spawns(seen_slug, cache, slug, page_name, promote_unique=False,
             guaranteed[inst] = tup
         else:
             weighted.append({"region": region, "marker": marker, "weight": weight,
-                             "variant": variant, "source_type": stype})
+                             "variant": variant, "source_type": stype, "inst": inst})
     by = {}
     for w in weighted:
         marker = w["marker"] or "Unknown location"
         e = by.setdefault((w["region"], marker),
                           {"region": w["region"], "marker": marker,
-                           "weights": [], "variants": set(), "count": 0})
+                           "weights": [], "variants": set(), "count": 0, "refs": set()})
         e["count"] += 1
+        try:    # map refs (hex) so render_spawn_maps can draw chance maps
+            e["refs"].add(f"{int(w['inst']):06X}")
+        except (TypeError, ValueError):
+            pass
         if w["weight"]:
             e["weights"].append(w["weight"])
         e["variants"].add(w["variant"])
@@ -1507,7 +1510,8 @@ def tier_spawns(seen_slug, cache, slug, page_name, promote_unique=False,
         rows.append({"marker": e["marker"], "region": e["region"],
                      "chance_value": round(wmax, 4) if wmax else None,
                      "chance_display": _pct(wmax) if wmax else "possible",
-                     "variants": sorted(e["variants"]), "count": e["count"]})
+                     "variants": sorted(e["variants"]), "count": e["count"],
+                     "refs": sorted(e["refs"])})
     rows.sort(key=lambda r: r["marker"].lower())
     return guaranteed, rows
 

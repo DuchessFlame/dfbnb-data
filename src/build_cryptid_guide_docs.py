@@ -371,12 +371,27 @@ def build_one(src_path, ctx, out_dir):
                                          prev_doc.get("interior_maps"))
 
     doc["chance_spawns"] = M.convert_chance(md)
+    # Chance maps (opt-in, extras "chance_maps": true): the night strange-encounter
+    # spots Mothman and Flatwoods share. convert_chance drops refs (meat has none),
+    # so put them back for render_spawn_maps and let the page show the maps.
+    if ex.get("chance_maps"):
+        refs = {}
+        for loc in (md.get("chance_spawns") or {}).get("locations", []):
+            refs.setdefault((loc.get("region") or "Unknown", loc.get("marker")), []).extend(
+                loc.get("refs") or [])
+        for reg in doc["chance_spawns"]["regions"]:
+            for m in reg["markers"]:
+                m["refs"] = sorted(set(refs.get((reg["region"], m["name"]), [])))
+        if any(m["refs"] for r in doc["chance_spawns"]["regions"] for m in r["markers"]):
+            doc["chance_spawns"].pop("no_maps", None)
+            doc["chance_spawns"]["show_maps"] = True
     n = doc["chance_spawns"]["total_markers"]
     if n:
         doc["chance_spawns"]["lead"] = (
             f"{creature} can spawn at {n} location{'' if n == 1 else 's'} that share a "
             f"spawn pool with other creatures, so {'they are' if _plural(creature) else 'it is'} "
-            f"not guaranteed there. They are listed by name only.")
+            f"not guaranteed there."
+            + ("" if doc["chance_spawns"].get("show_maps") else " They are listed by name only."))
     note = (md.get("chance_spawns") or {}).get("note")
     doc["info_notes"] = [{"title": "Spawn Notes", "body": note}] if note else []
 
