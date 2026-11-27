@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-11-26",
+  "generated": "2026-11-27",
   "source": "Game-file exports (KYWD/NPC/LVLI) + challenges.json + Mappalachia Position/Entity (cached for CI)",
   "races": [
    {
@@ -11,7 +11,8 @@
    }
   ],
   "source_totals": {
-   "ambush": 50
+   "ambush": 50,
+   "placement": 6
   },
   "unresolved": {},
   "hold": false
@@ -21,7 +22,7 @@
  "name": "Wendigo",
  "page_title": "Cryptids - Wendigo",
  "url": "/df/cryptids/wendigo/",
- "blurb": "The Wendigo in Fallout 76 — 26 NPC variants, 50 known spawn points, 15194 possible drops.",
+ "blurb": "The Wendigo in Fallout 76 — 26 NPC variants, 56 known spawn points, 15194 possible drops.",
  "npc_summary": {
   "npc_count": 26,
   "level_min": 15,
@@ -89,11 +90,94 @@
  "farming_tips": null,
  "events_activities": [
   {
-   "name": "Wendigo",
-   "edid": "RE_SceneKMK16_Nuke",
-   "type": "Miscellaneous",
+   "name": "Costa Business: Libby",
+   "edid": "Moon_SQ03_Libby",
+   "type": "Daily",
    "location": "",
-   "form_id": "0048F8C1"
+   "form_id": "006A1030",
+   "spawns": true,
+   "rate_display": "Wendigo can spawn"
+  },
+  {
+   "name": "Daily: Queen of the Hunt",
+   "edid": "SFZ03_Queen",
+   "type": "Daily",
+   "location": "",
+   "form_id": "000451FC",
+   "spawns": true,
+   "rate_display": "Wendigo can spawn"
+  },
+  {
+   "name": "Key To the Past",
+   "edid": "MTNL01_Raiders",
+   "type": "Primary",
+   "location": "",
+   "form_id": "00045A40",
+   "spawns": true,
+   "rate_display": "Wendigo can spawn"
+  },
+  {
+   "name": "Event: A Colossal Problem",
+   "edid": "E06_Colossus",
+   "type": "Public Event",
+   "location": "MonongahMineIntLocation \"Monongah Mine\" [LCTN:005A4E33]",
+   "form_id": "00583D14",
+   "spawns": true,
+   "rate_display": "Wendigo can spawn"
+  },
+  {
+   "name": "Event: Campfire Tales",
+   "edid": "E01C_Tales_Dark",
+   "type": "Public Event",
+   "location": "",
+   "form_id": "004648C3",
+   "spawns": true,
+   "rate_display": "Wendigo can spawn"
+  },
+  {
+   "name": "Event: Guided Meditation",
+   "edid": "MTNM03_Meditation",
+   "type": "Public Event",
+   "location": "",
+   "form_id": "0012E67E",
+   "spawns": true,
+   "rate_display": "Wendigo can spawn"
+  },
+  {
+   "name": "Event: One Violent Night",
+   "edid": "MTNS04_Night",
+   "type": "Public Event",
+   "location": "",
+   "form_id": "0010BAE1",
+   "spawns": true,
+   "rate_display": "Wendigo can spawn"
+  },
+  {
+   "name": "Event: Scorched Earth",
+   "edid": "CB15_ScorchedEarth",
+   "type": "Public Event",
+   "location": "RegionCranberryBogLocation \"Cranberry Bog\" [LCTN:000012A2]",
+   "form_id": "003E271D",
+   "spawns": true,
+   "rate_display": "Wendigo can spawn"
+  },
+  {
+   "name": "Something Sentimental",
+   "edid": "E06_PocketWatch",
+   "type": "Secondary",
+   "location": "",
+   "form_id": "00589140",
+   "spawns": true,
+   "rate_display": "Wendigo can spawn"
+  },
+  {
+   "name": "That Sinking Feeling",
+   "edid": "P01B_Mini_Random01",
+   "type": "Secondary",
+   "location": "",
+   "form_id": "0047F441",
+   "spawns": true,
+   "rate_display": "Wendigo can spawn"
   }
  ],
  "drops": {
@@ -678,14 +762,16 @@
     "locations": [
      {
       "marker": "Enclave Research Facility",
-      "count": 4,
+      "count": 5,
       "sources": {
-       "ambush": 4
+       "ambush": 4,
+       "placement": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
+       "5DC99D",
        "5DD493",
        "5DD4A3",
        "5DD4A5",
@@ -743,6 +829,18 @@
         "image_top": "",
         "directions": "",
         "image_bottom": ""
+       },
+       {
+        "label": "Wendigo spawn",
+        "ref": "5DC99D",
+        "source_type": "placement",
+        "coords": [
+         -1664.6,
+         6774.4
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
        }
       ],
       "breakdown": [
@@ -750,6 +848,11 @@
         "label": "ambush points",
         "count": 4,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
        }
       ]
      },
@@ -1225,9 +1328,10 @@
      },
      {
       "marker": "Vault 79",
-      "count": 5,
+      "count": 6,
       "sources": {
-       "ambush": 5
+       "ambush": 5,
+       "placement": 1
       },
       "image_top": "",
       "directions": "",
@@ -1236,6 +1340,7 @@
        "585AFE",
        "585B02",
        "585B03",
+       "585B04",
        "585B0E",
        "585B19"
       ],
@@ -1303,6 +1408,18 @@
         "image_top": "",
         "directions": "",
         "image_bottom": ""
+       },
+       {
+        "label": "Wendigo spawn",
+        "ref": "585B04",
+        "source_type": "placement",
+        "coords": [
+         -4577.3,
+         5034.1
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
        }
       ],
       "breakdown": [
@@ -1310,6 +1427,49 @@
         "label": "ambush points",
         "count": 5,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Wendigo Cave",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2AD9DB"
+      ],
+      "coords": [
+       11959.9,
+       -8604.9
+      ],
+      "spawns": [
+       {
+        "label": "Wendigo spawn",
+        "ref": "2AD9DB",
+        "source_type": "placement",
+        "coords": [
+         11959.9,
+         -8604.9
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
        }
       ]
      }
@@ -1317,7 +1477,97 @@
    },
    {
     "region": "Skyline Valley",
-    "locations": []
+    "locations": [
+     {
+      "marker": "Old Rag Lookout",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "753A06"
+      ],
+      "coords": [
+       26346.6,
+       -225080.7
+      ],
+      "spawns": [
+       {
+        "label": "Wendigo spawn",
+        "ref": "753A06",
+        "source_type": "placement",
+        "coords": [
+         26346.6,
+         -225080.7
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Shining Creek Cavern",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "77151B",
+       "77151C"
+      ],
+      "coords": [
+       -377.6,
+       1608.8
+      ],
+      "spawns": [
+       {
+        "label": "Wendigo spawn #1",
+        "ref": "77151B",
+        "source_type": "placement",
+        "coords": [
+         -377.6,
+         1608.8
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Wendigo spawn #2",
+        "ref": "77151C",
+        "source_type": "placement",
+        "coords": [
+         -476.1,
+         1718.8
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
    },
    {
     "region": "The Mire",
@@ -1613,163 +1863,12 @@
     "locations": []
    }
   ],
-  "total_markers": 12,
-  "total_placements": 50
+  "total_markers": 15,
+  "total_placements": 56
  },
  "chance_spawns": {
-  "locations": [
-   {
-    "marker": "Abbie's Bunker",
-    "region": "The Mire",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Wendigo"
-    ],
-    "count": 3
-   },
-   {
-    "marker": "Big Maw",
-    "region": "The Mire",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Wendigo"
-    ],
-    "count": 3
-   },
-   {
-    "marker": "Crashed Plane",
-    "region": "The Mire",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Wendigo"
-    ],
-    "count": 1
-   },
-   {
-    "marker": "Enclave Research Facility",
-    "region": "Forest",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Wendigo"
-    ],
-    "count": 1
-   },
-   {
-    "marker": "Excelsior Model Home",
-    "region": "The Mire",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Wendigo"
-    ],
-    "count": 1
-   },
-   {
-    "marker": "Haven Church",
-    "region": "The Mire",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Wendigo"
-    ],
-    "count": 1
-   },
-   {
-    "marker": "Monongah Mine",
-    "region": "Savage Divide",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Wendigo Spawn"
-    ],
-    "count": 1
-   },
-   {
-    "marker": "Old Danielson Cabin",
-    "region": "Savage Divide",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Wendigo"
-    ],
-    "count": 1
-   },
-   {
-    "marker": "Old Rag Lookout",
-    "region": "Skyline Valley",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Wendigo"
-    ],
-    "count": 1
-   },
-   {
-    "marker": "Shining Creek Cavern",
-    "region": "Skyline Valley",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Wendigo"
-    ],
-    "count": 2
-   },
-   {
-    "marker": "Southern Belle Motel",
-    "region": "The Mire",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Wendigo"
-    ],
-    "count": 1
-   },
-   {
-    "marker": "The Chop Shop",
-    "region": "Burning Springs",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Wendigo"
-    ],
-    "count": 1
-   },
-   {
-    "marker": "Vault 51",
-    "region": "Forest",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Wendigo"
-    ],
-    "count": 1
-   },
-   {
-    "marker": "Vault 79",
-    "region": "Savage Divide",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Wendigo"
-    ],
-    "count": 4
-   },
-   {
-    "marker": "Wendigo Cave",
-    "region": "Savage Divide",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Wendigo"
-    ],
-    "count": 1
-   }
-  ],
-  "total": 15,
+  "locations": [],
+  "total": 0,
   "note": null
  }
 }

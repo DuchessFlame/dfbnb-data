@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-11-26",
+  "generated": "2026-11-27",
   "source": "Game-file exports (KYWD/NPC/LVLI) + challenges.json + Mappalachia Position/Entity (cached for CI)",
   "races": [
    {
@@ -8,7 +8,8 @@
    }
   ],
   "source_totals": {
-   "ambush": 12
+   "ambush": 12,
+   "placement": 4
   },
   "unresolved": {},
   "hold": false
@@ -18,7 +19,7 @@
  "name": "Megasloth",
  "page_title": "Cryptids - Megasloth",
  "url": "/df/cryptids/megasloth/",
- "blurb": "The Megasloth in Fallout 76 — 15 NPC variants, 12 known spawn points, 12707 possible drops.",
+ "blurb": "The Megasloth in Fallout 76 — 15 NPC variants, 16 known spawn points, 12707 possible drops.",
  "npc_summary": {
   "npc_count": 15,
   "level_min": 20,
@@ -65,11 +66,40 @@
  "farming_tips": null,
  "events_activities": [
   {
-   "name": "Megasloth",
-   "edid": "RE_SceneKMK18_Nuke",
-   "type": "Miscellaneous",
+   "name": "Daily: Queen of the Hunt",
+   "edid": "SFZ03_Queen",
+   "type": "Daily",
    "location": "",
-   "form_id": "0048F8C3"
+   "form_id": "000451FC",
+   "spawns": true,
+   "rate_display": "Megasloth can spawn"
+  },
+  {
+   "name": "Event: Fasnacht Day",
+   "edid": "E01F_Fasnacht",
+   "type": "Public Event",
+   "location": "",
+   "form_id": "0049886E",
+   "spawns": true,
+   "rate_display": "Megasloth can spawn"
+  },
+  {
+   "name": "Event: Project Paradise",
+   "edid": "SFS09_Habitat",
+   "type": "Public Event",
+   "location": "",
+   "form_id": "005109AF",
+   "spawns": true,
+   "rate_display": "Megasloth can spawn"
+  },
+  {
+   "name": "Event: Scorched Earth",
+   "edid": "CB15_ScorchedEarth",
+   "type": "Public Event",
+   "location": "RegionCranberryBogLocation \"Cranberry Bog\" [LCTN:000012A2]",
+   "form_id": "003E271D",
+   "spawns": true,
+   "rate_display": "Megasloth can spawn"
   }
  ],
  "drops": {
@@ -363,14 +393,17 @@
      },
      {
       "marker": "The Trading Post",
-      "count": 1,
+      "count": 3,
       "sources": {
-       "ambush": 1
+       "ambush": 1,
+       "placement": 2
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
+       "753A0A",
+       "753A0B",
        "753A0D"
       ],
       "coords": [
@@ -389,6 +422,30 @@
         "image_top": "",
         "directions": "",
         "image_bottom": ""
+       },
+       {
+        "label": "Megasloth spawn #1",
+        "ref": "753A0A",
+        "source_type": "placement",
+        "coords": [
+         38630.6,
+         -231760.2
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Megasloth spawn #2",
+        "ref": "753A0B",
+        "source_type": "placement",
+        "coords": [
+         39169.9,
+         -231711.1
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
        }
       ],
       "breakdown": [
@@ -396,6 +453,11 @@
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
        }
       ]
      }
@@ -490,6 +552,44 @@
         "label": "ambush points",
         "count": 2,
         "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Mosstown",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "43CCA1"
+      ],
+      "coords": [
+       130296.9,
+       58520.3
+      ],
+      "spawns": [
+       {
+        "label": "Megasloth spawn",
+        "ref": "43CCA1",
+        "source_type": "placement",
+        "coords": [
+         130296.9,
+         58520.3
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
        }
       ]
      },
@@ -594,6 +694,44 @@
         "source_type": "ambush"
        }
       ]
+     },
+     {
+      "marker": "Tanagra Town",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2FF477"
+      ],
+      "coords": [
+       193535.9,
+       16678.2
+      ],
+      "spawns": [
+       {
+        "label": "Megasloth spawn",
+        "ref": "2FF477",
+        "source_type": "placement",
+        "coords": [
+         193535.9,
+         16678.2
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
      }
     ]
    },
@@ -606,8 +744,8 @@
     "locations": []
    }
   ],
-  "total_markers": 7,
-  "total_placements": 12
+  "total_markers": 9,
+  "total_placements": 16
  },
  "chance_spawns": {
   "locations": [
@@ -669,17 +807,7 @@
     "variants": [
      "Megasloth"
     ],
-    "count": 5
-   },
-   {
-    "marker": "Dark Hollow Manor",
-    "region": "Skyline Valley",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Megasloth"
-    ],
-    "count": 1
+    "count": 4
    },
    {
     "marker": "Dolly Sods Lookout",
@@ -792,16 +920,6 @@
     "count": 4
    },
    {
-    "marker": "KMAX Transmission",
-    "region": "The Mire",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Megasloth"
-    ],
-    "count": 2
-   },
-   {
     "marker": "Mosstown",
     "region": "The Mire",
     "chance_value": 0.0714,
@@ -809,7 +927,7 @@
     "variants": [
      "Megasloth"
     ],
-    "count": 4
+    "count": 3
    },
    {
     "marker": "Overgrown Sundew Grove",
@@ -850,46 +968,6 @@
      "Megasloth"
     ],
     "count": 5
-   },
-   {
-    "marker": "Southern Belle Motel",
-    "region": "The Mire",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Megasloth"
-    ],
-    "count": 3
-   },
-   {
-    "marker": "Sunday Brothers' Cabin",
-    "region": "The Mire",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Megasloth"
-    ],
-    "count": 1
-   },
-   {
-    "marker": "Tanagra Town",
-    "region": "The Mire",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Megasloth"
-    ],
-    "count": 1
-   },
-   {
-    "marker": "The Trading Post",
-    "region": "Skyline Valley",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Megasloth"
-    ],
-    "count": 2
    },
    {
     "marker": "Thunder Mountain Power Plant",
@@ -942,7 +1020,7 @@
     "count": 4
    }
   ],
-  "total": 33,
+  "total": 27,
   "note": null
  }
 }

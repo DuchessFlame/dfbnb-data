@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-11-26",
+  "generated": "2026-11-27",
   "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
   "races": [
    {
@@ -63,11 +63,31 @@
  "farming_tips": null,
  "events_activities": [
   {
-   "name": "Hermit Crab",
-   "edid": "RE_SceneKMK21_Nuke",
-   "type": "Miscellaneous",
+   "name": "Event: Dangerous Pastimes",
+   "edid": "Storm_E01_Dangerous",
+   "type": "Public Event",
    "location": "",
-   "form_id": "0048F8C6"
+   "form_id": "00733DB5",
+   "spawns": true,
+   "rate_display": "Hermit Crab can spawn"
+  },
+  {
+   "name": "Event: Primal Cuts",
+   "edid": "E02A_Meat_Hunt",
+   "type": "Public Event",
+   "location": "",
+   "form_id": "0054B3F3",
+   "spawns": true,
+   "rate_display": "Hermit Crab can spawn"
+  },
+  {
+   "name": "Event: Scorched Earth",
+   "edid": "CB15_ScorchedEarth",
+   "type": "Public Event",
+   "location": "RegionCranberryBogLocation \"Cranberry Bog\" [LCTN:000012A2]",
+   "form_id": "003E271D",
+   "spawns": true,
+   "rate_display": "Hermit Crab can spawn"
   }
  ],
  "drops": {

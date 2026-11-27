@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-11-26",
+  "generated": "2026-11-27",
   "source": "dist/cryptids/wendigo.json + farming pipeline (src/build_cryptid_guide_docs.py)"
  },
  "set": "cryptid",
@@ -8701,11 +8701,94 @@
  ],
  "events_activities": [
   {
-   "name": "Wendigo",
-   "edid": "RE_SceneKMK16_Nuke",
-   "type": "Miscellaneous",
+   "name": "Costa Business: Libby",
+   "edid": "Moon_SQ03_Libby",
+   "type": "Daily",
    "location": "",
-   "form_id": "0048F8C1"
+   "form_id": "006A1030",
+   "spawns": true,
+   "rate_display": "Wendigo can spawn"
+  },
+  {
+   "name": "Daily: Queen of the Hunt",
+   "edid": "SFZ03_Queen",
+   "type": "Daily",
+   "location": "",
+   "form_id": "000451FC",
+   "spawns": true,
+   "rate_display": "Wendigo can spawn"
+  },
+  {
+   "name": "Key To the Past",
+   "edid": "MTNL01_Raiders",
+   "type": "Primary",
+   "location": "",
+   "form_id": "00045A40",
+   "spawns": true,
+   "rate_display": "Wendigo can spawn"
+  },
+  {
+   "name": "Event: A Colossal Problem",
+   "edid": "E06_Colossus",
+   "type": "Public Event",
+   "location": "MonongahMineIntLocation \"Monongah Mine\" [LCTN:005A4E33]",
+   "form_id": "00583D14",
+   "spawns": true,
+   "rate_display": "Wendigo can spawn"
+  },
+  {
+   "name": "Event: Campfire Tales",
+   "edid": "E01C_Tales_Dark",
+   "type": "Public Event",
+   "location": "",
+   "form_id": "004648C3",
+   "spawns": true,
+   "rate_display": "Wendigo can spawn"
+  },
+  {
+   "name": "Event: Guided Meditation",
+   "edid": "MTNM03_Meditation",
+   "type": "Public Event",
+   "location": "",
+   "form_id": "0012E67E",
+   "spawns": true,
+   "rate_display": "Wendigo can spawn"
+  },
+  {
+   "name": "Event: One Violent Night",
+   "edid": "MTNS04_Night",
+   "type": "Public Event",
+   "location": "",
+   "form_id": "0010BAE1",
+   "spawns": true,
+   "rate_display": "Wendigo can spawn"
+  },
+  {
+   "name": "Event: Scorched Earth",
+   "edid": "CB15_ScorchedEarth",
+   "type": "Public Event",
+   "location": "RegionCranberryBogLocation \"Cranberry Bog\" [LCTN:000012A2]",
+   "form_id": "003E271D",
+   "spawns": true,
+   "rate_display": "Wendigo can spawn"
+  },
+  {
+   "name": "Something Sentimental",
+   "edid": "E06_PocketWatch",
+   "type": "Secondary",
+   "location": "",
+   "form_id": "00589140",
+   "spawns": true,
+   "rate_display": "Wendigo can spawn"
+  },
+  {
+   "name": "That Sinking Feeling",
+   "edid": "P01B_Mini_Random01",
+   "type": "Secondary",
+   "location": "",
+   "form_id": "0047F441",
+   "spawns": true,
+   "rate_display": "Wendigo can spawn"
   }
  ],
  "random_encounters": [
@@ -8826,14 +8909,16 @@
    "locations": [
     {
      "marker": "Enclave Research Facility",
-     "count": 4,
+     "count": 5,
      "sources": {
-      "ambush": 4
+      "ambush": 4,
+      "placement": 1
      },
      "image_top": "",
      "directions": "Scorched Wendigo spawn. You will need to have completed the original Enclave questline to be able to enter this location. Hacker and Lock Pick perk cards or Master Infiltrator will help a lot here as well. From the main lobby, face NE and use either the terminal or lock pick to unlock the white door on the left. Follow the corridor around until you get to a room with a green poisonous cloud. You can either jump into Power Armour, a Chinese Stealth Suit or just YOLO it through the cloud. Keep following the path around until you get to a room with a Scorched Mothman in it. Kill the Mothman and then follow the catwalk around on your right. Keep following the platform around until you see a door marked \"Exit\". Walk through that door and follow the path around until you get to another lab. The Wendigo will jump out at you from the top floor of the lab.",
      "image_bottom": "",
      "refs": [
+      "5DC99D",
       "5DD493",
       "5DD4A3",
       "5DD4A5",
@@ -8847,6 +8932,11 @@
       {
        "label": "Wendigo ambush",
        "count": 4,
+       "source_type": "ambush"
+      },
+      {
+       "label": "Wendigo spawn",
+       "count": 1,
        "source_type": "ambush"
       }
      ],
@@ -8894,6 +8984,18 @@
        "coords": [
         -2221.1,
         3544.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Wendigo spawn",
+       "ref": "5DC99D",
+       "source_type": "placement",
+       "coords": [
+        -1664.6,
+        6774.4
        ],
        "image_top": "",
        "directions": "",
@@ -9373,9 +9475,10 @@
     },
     {
      "marker": "Vault 79",
-     "count": 5,
+     "count": 6,
      "sources": {
-      "ambush": 5
+      "ambush": 5,
+      "placement": 1
      },
      "image_top": "",
      "directions": "",
@@ -9384,6 +9487,7 @@
       "585AFE",
       "585B02",
       "585B03",
+      "585B04",
       "585B0E",
       "585B19"
      ],
@@ -9395,6 +9499,11 @@
       {
        "label": "Wendigo ambush",
        "count": 5,
+       "source_type": "ambush"
+      },
+      {
+       "label": "Wendigo spawn",
+       "count": 1,
        "source_type": "ambush"
       }
      ],
@@ -9458,6 +9567,56 @@
        "image_top": "",
        "directions": "",
        "image_bottom": ""
+      },
+      {
+       "label": "Wendigo spawn",
+       "ref": "585B04",
+       "source_type": "placement",
+       "coords": [
+        -4577.3,
+        5034.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Wendigo Cave",
+     "count": 1,
+     "sources": {
+      "placement": 1
+     },
+     "image_top": "/wp-content/uploads/guide-images/cryptids/wendigo/savage-divide-wendigo-cave-map.avif",
+     "directions": "Glowing Wendigo spawn. Follow the cave to the end and take care against the level 100 Mirelurk Kings.",
+     "image_bottom": "",
+     "refs": [
+      "2AD9DB"
+     ],
+     "coords": [
+      11959.9,
+      -8604.9
+     ],
+     "breakdown": [
+      {
+       "label": "Wendigo spawn",
+       "count": 1,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Wendigo spawn",
+       "ref": "2AD9DB",
+       "source_type": "placement",
+       "coords": [
+        11959.9,
+        -8604.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
       }
      ]
     }
@@ -9465,7 +9624,97 @@
   },
   {
    "region": "Skyline Valley",
-   "locations": []
+   "locations": [
+    {
+     "marker": "Old Rag Lookout",
+     "count": 1,
+     "sources": {
+      "placement": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "753A06"
+     ],
+     "coords": [
+      26346.6,
+      -225080.7
+     ],
+     "breakdown": [
+      {
+       "label": "Wendigo spawn",
+       "count": 1,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Wendigo spawn",
+       "ref": "753A06",
+       "source_type": "placement",
+       "coords": [
+        26346.6,
+        -225080.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Shining Creek Cavern",
+     "count": 2,
+     "sources": {
+      "placement": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "77151B",
+      "77151C"
+     ],
+     "coords": [
+      -377.6,
+      1608.8
+     ],
+     "breakdown": [
+      {
+       "label": "Wendigo spawn",
+       "count": 2,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Wendigo spawn #1",
+       "ref": "77151B",
+       "source_type": "placement",
+       "coords": [
+        -377.6,
+        1608.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Wendigo spawn #2",
+       "ref": "77151C",
+       "source_type": "placement",
+       "coords": [
+        -476.1,
+        1718.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
   },
   {
    "region": "The Mire",
@@ -9766,11 +10015,17 @@
    "source_type": "ambush",
    "count": 50,
    "label": "Ambush points"
+  },
+  {
+   "source_type": "placement",
+   "count": 6,
+   "label": "Fixed spawns"
   }
  ],
  "map_regions": [
   "Burning Springs",
   "Savage Divide",
+  "Skyline Valley",
   "The Mire"
  ],
  "full_map": "/wp-content/uploads/guide-images/cryptids/wendigo/wendigo.jpg",
@@ -9783,116 +10038,34 @@
   {
    "name": "Vault 79 (Savage Divide)",
    "url": "/wp-content/uploads/guide-images/cryptids/wendigo/savage-divide-vault-79-cell-map.jpg",
-   "desc": "5 spawns inside"
+   "desc": "6 spawns inside"
   },
   {
    "name": "Transmission Station 1AT-U03 (Enclave Research Facility) (Forest)",
    "url": "/wp-content/uploads/guide-images/cryptids/wendigo/forest-transmission-station-1at-u03-enclave-research-facility-cell-map.jpg",
-   "desc": "4 spawns inside"
+   "desc": "5 spawns inside"
+  },
+  {
+   "name": "Shining Creek Cavern (Skyline Valley)",
+   "url": "/wp-content/uploads/guide-images/cryptids/wendigo/skyline-valley-shining-creek-cavern-cell-map.jpg",
+   "desc": "2 spawns inside"
   },
   {
    "name": "Vault 51 (Forest)",
    "url": "/wp-content/uploads/guide-images/cryptids/wendigo/forest-vault-51-cell-map.jpg",
    "desc": "1 spawn inside"
+  },
+  {
+   "name": "Wendigo Cave (Savage Divide)",
+   "url": "/wp-content/uploads/guide-images/cryptids/wendigo/savage-divide-wendigo-cave-cell-map.jpg",
+   "desc": "1 spawn inside"
   }
  ],
  "chance_spawns": {
-  "regions": [
-   {
-    "region": "Burning Springs",
-    "markers": [
-     {
-      "name": "The Chop Shop",
-      "placements": 1
-     }
-    ],
-    "placements": 1
-   },
-   {
-    "region": "Forest",
-    "markers": [
-     {
-      "name": "Enclave Research Facility",
-      "placements": 1
-     },
-     {
-      "name": "Vault 51",
-      "placements": 1
-     }
-    ],
-    "placements": 2
-   },
-   {
-    "region": "Savage Divide",
-    "markers": [
-     {
-      "name": "Monongah Mine",
-      "placements": 1
-     },
-     {
-      "name": "Old Danielson Cabin",
-      "placements": 1
-     },
-     {
-      "name": "Vault 79",
-      "placements": 4
-     },
-     {
-      "name": "Wendigo Cave",
-      "placements": 1
-     }
-    ],
-    "placements": 7
-   },
-   {
-    "region": "Skyline Valley",
-    "markers": [
-     {
-      "name": "Old Rag Lookout",
-      "placements": 1
-     },
-     {
-      "name": "Shining Creek Cavern",
-      "placements": 2
-     }
-    ],
-    "placements": 3
-   },
-   {
-    "region": "The Mire",
-    "markers": [
-     {
-      "name": "Abbie's Bunker",
-      "placements": 3
-     },
-     {
-      "name": "Big Maw",
-      "placements": 3
-     },
-     {
-      "name": "Crashed Plane",
-      "placements": 1
-     },
-     {
-      "name": "Excelsior Model Home",
-      "placements": 1
-     },
-     {
-      "name": "Haven Church",
-      "placements": 1
-     },
-     {
-      "name": "Southern Belle Motel",
-      "placements": 1
-     }
-    ],
-    "placements": 10
-   }
-  ],
-  "total_markers": 15,
-  "total": 23,
-  "no_maps": true,
-  "lead": "Wendigo can spawn at 15 locations that share a spawn pool with other creatures, so it is not guaranteed there. They are listed by name only."
+  "regions": [],
+  "total_markers": 0,
+  "total": 0,
+  "no_maps": true
  },
  "info_notes": [],
  "treasure_maps": {
