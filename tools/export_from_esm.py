@@ -4921,6 +4921,18 @@ def exp_qust_sp(esm):
         head = "%08X\t%s\t%s" % (r.fid, cc(r.edid), cc(esm.lstring(r.first("FULL"))))
         for sname, props in scripts:
             for pn, v in props:
+                if v[0] in ("struct", "structarr"):
+                    # Struct properties: one row per number member, named
+                    # Property[i].Member (Dirty Laundry's CacheStageAndBatchNumber
+                    # = which hand-in unlocks each Abraxodyne Cache; Duchess,
+                    # 28 Nov 2026). Object members are left out on purpose so the
+                    # readers that pick up a quest's LVLI / GLOB rows don't change.
+                    for i, members in enumerate(v[1] if v[0] == "structarr" else [v[1]]):
+                        for mn, _mt, mv in members:
+                            if mv and mv[0] in ("int", "float", "bool"):
+                                out.append("%s\t%s\t%s[%d].%s\t%s\t%g\t" % (
+                                    head, cc(sname), cc(pn), i, cc(mn), mv[0], mv[1]))
+                    continue
                 vals = v[1] if v[0] == "arr" else [v]
                 for x in vals:
                     if x[0] == "obj":

@@ -128,9 +128,34 @@ def record_name(tsv_dir, edid, patterns=("BOOK_Export_*.tsv", "MISC_Export_*.tsv
 
 
 # ── html pieces ─────────────────────────────────────────────────────────────
-def batch_table(batches, receive, col_first="Hand-in", col_count="Count"):
+def struct_batches(tsv_dir, quest_edid, prop, member="BatchNumber"):
+    """Hand-in numbers held in a struct-array script property, e.g. Dirty
+    Laundry's CacheStageAndBatchNumber[i].BatchNumber (QUST2 _ScriptProps rows
+    'Prop[i].Member', 28 Nov 2026) -> sorted ints [7, 11, 14]."""
+    out = []
+    for r in rows(newest(tsv_dir, "QUST2_Export_*_ScriptProps.tsv")):
+        if (r.get("QuestEDID") or "") != quest_edid:
+            continue
+        pn = r.get("Property") or ""
+        if pn.startswith(prop + "[") and pn.endswith("]." + member):
+            try:
+                out.append(int(float(r.get("Value") or 0)))
+            except ValueError:
+                pass
+    return sorted(set(out))
+
+
+def and_list(items):
+    """['7', '11', '14'] -> '7, 11 and 14'."""
+    items = [str(x) for x in items]
+    return items[0] if len(items) == 1 else (", ".join(items[:-1]) + " and " + items[-1]) if items else ""
+
+
+def batch_table(batches, receive, col_first="Hand-in", col_count="Count", extra=None):
     """Hand-in | <count> | Running total, with a darker Receive row under each
-    line (Duchess, 22 Nov 2026). receive[i] = what batch i+1 gives."""
+    line (Duchess, 22 Nov 2026). receive[i] = what batch i+1 gives.
+    extra = {hand-in number: [(label, text), ...]} adds more darker rows under
+    that hand-in (Dirty Laundry: the Abraxodyne Cache unlocks, 28 Nov 2026)."""
     E = _h.escape
     body, run = [], 0
     for i, n in enumerate(batches, 1):
@@ -138,6 +163,8 @@ def batch_table(batches, receive, col_first="Hand-in", col_count="Count"):
         body.append(f"<tr class=\"abg-hand\"><td>{i}</td><td>{n}</td><td>{run}</td></tr>")
         if i - 1 < len(receive) and receive[i - 1]:
             body.append(f"<tr class=\"abg-receive\"><td>Receive</td><td colspan=\"2\">{E(receive[i - 1])}</td></tr>")
+        for label, text in (extra or {}).get(i, []):
+            body.append(f"<tr class=\"abg-receive\"><td>{E(label)}</td><td colspan=\"2\">{E(text)}</td></tr>")
     return ("<table class=\"abg-table abg-table--handin\"><thead><tr>"
             f"<th>{E(col_first)}</th><th>{E(col_count)}</th><th>Running total</th></tr></thead>"
             f"<tbody>{''.join(body)}</tbody></table>") if body else ""

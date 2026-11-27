@@ -55,16 +55,23 @@ def main():
     # Every briefcase is in Burning Springs (the location data has no region column).
     finding = cg.finding_sentence(total, {"Burning Springs": total}, "Abraxodyne Intel Briefcases",
                                   "Briefcase Locations", len(locs.get("pages") or [])) if total else ""
-    table = cg.batch_table(batches, tapes, "Hand-in", "Briefcases")
+    # Which hand-ins unlock an Abraxodyne Cache: the script's
+    # CacheStageAndBatchNumber struct (7, 11, 14 on live, Nov 2026).
+    caches = cg.struct_batches(tsv, QUEST, "CacheStageAndBatchNumber")
+    cache_rows = {b: [("Cache", "Keycode and coordinates for an Abraxodyne Cache (optional)")] for b in caches}
+    table = cg.batch_table(batches, tapes, "Hand-in", "Briefcases", cache_rows)
     num = lambda v: f"{v:,}" if isinstance(v, int) else "some"
     fill = lambda t: (t.replace("{quest}", quest or "Dirty Laundry").replace("{batch_count}", str(len(batches)))
                        .replace("{quest_total}", str(sum(batches))).replace("{batch_table}", table)
                        .replace("{caps}", num(rw["caps"])).replace("{xp}", num(rw["xp"]))
                        .replace("{plan}", plan or "a plan").replace("{item_name}", item)
-                       .replace("{total}", str(total)).replace("{finding_sentence}", finding))
+                       .replace("{total}", str(total)).replace("{finding_sentence}", finding)
+                       .replace("{cache_count}", str(len(caches)))
+                       .replace("{cache_batches}", cg.and_list(caches) or "some"))
     doc = cg.build(SRC, OUT, fill, IMG)
     print(f"{OUT.name}: {quest}, {len(batches)} hand-ins, {sum(batches)} briefcases, "
-          f"{len(tapes)} tapes, {len(doc['missing_images'])} pictures not on the server yet")
+          f"{len(tapes)} tapes, caches after hand-ins {caches}, "
+          f"{len(doc['missing_images'])} pictures not on the server yet")
     return 0
 
 
