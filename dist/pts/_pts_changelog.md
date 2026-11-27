@@ -2122,14 +2122,16 @@ _Couldn't key this file to records; contents differ._
 ## `fishing.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `fishing_all_rewards.json`  ·  +3 / -0 / ~2
+## `fishing_all_rewards.json`  ·  +3 / -0 / ~4
 
 **Added (3)**
 - Fireside  `FISHAR_00943062`
 - Icy  `FISHAR_00943064`
 - Fish Sauce  `FISHAR_00943AA2`
 
-**Changed (2)**
+**Changed (4)**
+- Recipe: Fish and Tatos  `FISHAR_007AED81` — fields: desc
+- Recipe: Fish Chowder  `FISHAR_007B3FB7` — fields: desc
 - Of the Month  `FISHAR_00805AC2` — fields: routes
 - Babydoll Head Bobber  `FISHAR_0084FF1D` — fields: image
 
