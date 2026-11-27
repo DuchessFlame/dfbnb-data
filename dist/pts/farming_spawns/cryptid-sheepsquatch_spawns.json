@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-11-26",
+  "generated": "2026-11-27",
   "source": "dist/cryptids/sheepsquatch.json + farming pipeline (src/build_cryptid_guide_docs.py)"
  },
  "set": "cryptid",
@@ -5890,7 +5890,53 @@
    "count": 1
   }
  ],
- "events_activities": [],
+ "events_activities": [
+  {
+   "name": "Event: Fasnacht Day",
+   "edid": "E01F_Fasnacht",
+   "type": "Public Event",
+   "location": "",
+   "form_id": "0049886E",
+   "spawns": true,
+   "rate_display": "Sheepsquatch can spawn"
+  },
+  {
+   "name": "Event: Free Range",
+   "edid": "E01B_Herd",
+   "type": "Public Event",
+   "location": "",
+   "form_id": "00498662",
+   "spawns": true,
+   "rate_display": "Sheepsquatch can spawn"
+  },
+  {
+   "name": "Event: Primal Cuts",
+   "edid": "E02A_Meat_Hunt",
+   "type": "Public Event",
+   "location": "",
+   "form_id": "0054B3F3",
+   "spawns": true,
+   "rate_display": "Sheepsquatch can spawn"
+  },
+  {
+   "name": "Event: Project Paradise",
+   "edid": "SFS09_Habitat",
+   "type": "Public Event",
+   "location": "",
+   "form_id": "005109AF",
+   "spawns": true,
+   "rate_display": "Sheepsquatch can spawn"
+  },
+  {
+   "name": "Event: Spin The Wheel",
+   "edid": "E09B_Wheel",
+   "type": "Public Event",
+   "location": "",
+   "form_id": "00634B0B",
+   "spawns": true,
+   "rate_display": "Sheepsquatch can spawn"
+  }
+ ],
  "random_encounters": [
   {
    "form_id": "00571ACA",
@@ -6328,7 +6374,46 @@
   },
   {
    "region": "Skyline Valley",
-   "locations": []
+   "locations": [
+    {
+     "marker": "South River Bridge",
+     "count": 1,
+     "sources": {
+      "placement": 1
+     },
+     "image_top": "/wp-content/uploads/guide-images/cryptids/sheepsquatch/skyline-valley-south-river-bridge-map.avif",
+     "directions": "From the fast travel point, turn to face south and begin running forward. Cross the river and continue running straight. As you cross the river, grab the three Firecaps on the opposite side. Keep running until you reach a walking path marked with wooden rails. Follow this path south up the hill. When the path splits, take the left path and follow it upwards until you reach the stairs. Go up the stairs, and the Sheepsquatch will spawn to your right at the top.",
+     "image_bottom": "",
+     "refs": [
+      "769BED"
+     ],
+     "coords": [
+      42610.2,
+      -253943.4
+     ],
+     "breakdown": [
+      {
+       "label": "Sheepsquatch spawn",
+       "count": 1,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Sheepsquatch spawn",
+       "ref": "769BED",
+       "source_type": "placement",
+       "coords": [
+        42610.2,
+        -253943.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
   },
   {
    "region": "The Mire",
@@ -6400,12 +6485,18 @@
    "source_type": "ambush",
    "count": 18,
    "label": "Ambush points"
+  },
+  {
+   "source_type": "placement",
+   "count": 1,
+   "label": "Fixed spawn"
   }
  ],
  "map_regions": [
   "Ash Heap",
   "Forest",
   "Savage Divide",
+  "Skyline Valley",
   "The Mire"
  ],
  "full_map": "/wp-content/uploads/guide-images/cryptids/sheepsquatch/sheepsquatch.jpg",
@@ -6417,22 +6508,10 @@
   }
  ],
  "chance_spawns": {
-  "regions": [
-   {
-    "region": "Skyline Valley",
-    "markers": [
-     {
-      "name": "South River Bridge",
-      "placements": 1
-     }
-    ],
-    "placements": 1
-   }
-  ],
-  "total_markers": 1,
-  "total": 1,
-  "no_maps": true,
-  "lead": "Sheepsquatch can spawn at 1 location that share a spawn pool with other creatures, so it is not guaranteed there. They are listed by name only."
+  "regions": [],
+  "total_markers": 0,
+  "total": 0,
+  "no_maps": true
  },
  "info_notes": [],
  "treasure_maps": {

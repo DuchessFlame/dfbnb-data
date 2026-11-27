@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-11-26",
+  "generated": "2026-11-27",
   "source": "dist/cryptids/angler.json + farming pipeline (src/build_cryptid_guide_docs.py)"
  },
  "set": "cryptid",
@@ -4331,7 +4331,53 @@
    "count": 2
   }
  ],
- "events_activities": [],
+ "events_activities": [
+  {
+   "name": "Daily: Big Game Hunter",
+   "edid": "TW004",
+   "type": "Daily",
+   "location": "",
+   "form_id": "0011D76B",
+   "spawns": true,
+   "rate_display": "Angler can spawn"
+  },
+  {
+   "name": "Event: Moonshine Jamboree",
+   "edid": "E08A_Moonshine",
+   "type": "Public Event",
+   "location": "",
+   "form_id": "006216DA",
+   "spawns": true,
+   "rate_display": "Angler can spawn"
+  },
+  {
+   "name": "Event: Project Paradise",
+   "edid": "SFS09_Habitat",
+   "type": "Public Event",
+   "location": "",
+   "form_id": "005109AF",
+   "spawns": true,
+   "rate_display": "Angler can spawn"
+  },
+  {
+   "name": "Event: Scorched Earth",
+   "edid": "CB15_ScorchedEarth",
+   "type": "Public Event",
+   "location": "RegionCranberryBogLocation \"Cranberry Bog\" [LCTN:000012A2]",
+   "form_id": "003E271D",
+   "spawns": true,
+   "rate_display": "Angler can spawn"
+  },
+  {
+   "name": "Event: Spin The Wheel",
+   "edid": "E09B_Wheel",
+   "type": "Public Event",
+   "location": "",
+   "form_id": "00634B0B",
+   "spawns": true,
+   "rate_display": "Angler can spawn"
+  }
+ ],
  "random_encounters": [
   {
    "form_id": "00529E1D",
@@ -4506,6 +4552,70 @@
        "image_bottom": ""
       }
      ]
+    },
+    {
+     "marker": "Mire's Eye",
+     "count": 3,
+     "sources": {
+      "placement": 3
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3954B9",
+      "3954BA",
+      "3954BD"
+     ],
+     "coords": [
+      190692.5,
+      173445.9
+     ],
+     "breakdown": [
+      {
+       "label": "Angler spawn",
+       "count": 3,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Angler spawn #1",
+       "ref": "3954B9",
+       "source_type": "placement",
+       "coords": [
+        190692.5,
+        173445.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Angler spawn #2",
+       "ref": "3954BA",
+       "source_type": "placement",
+       "coords": [
+        190948.2,
+        173394.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Angler spawn #3",
+       "ref": "3954BD",
+       "source_type": "placement",
+       "coords": [
+        190845.4,
+        173577.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
     }
    ]
   },
@@ -4528,6 +4638,11 @@
    "source_type": "spawn",
    "count": 3,
    "label": "Spawn points"
+  },
+  {
+   "source_type": "placement",
+   "count": 3,
+   "label": "Fixed spawns"
   }
  ],
  "map_regions": [
@@ -5330,7 +5445,7 @@
      },
      {
       "name": "Mire's Eye",
-      "placements": 5
+      "placements": 2
      },
      {
       "name": "Mosstown",
@@ -5365,7 +5480,7 @@
       "placements": 5
      }
     ],
-    "placements": 235
+    "placements": 232
    },
    {
     "region": "Toxic Valley",
@@ -5451,7 +5566,7 @@
    }
   ],
   "total_markers": 216,
-  "total": 1214,
+  "total": 1211,
   "no_maps": true,
   "lead": "Angler can spawn at 216 locations that share a spawn pool with other creatures, so it is not guaranteed there. They are listed by name only."
  },

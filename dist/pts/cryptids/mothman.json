@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-11-26",
+  "generated": "2026-11-27",
   "source": "Game-file exports (KYWD/NPC/LVLI) + challenges.json + Mappalachia Position/Entity (cached for CI)",
   "races": [
    {
@@ -8,7 +8,8 @@
    }
   ],
   "source_totals": {
-   "ambush": 1
+   "ambush": 1,
+   "placement": 31
   },
   "unresolved": {},
   "hold": false
@@ -18,7 +19,7 @@
  "name": "Mothman",
  "page_title": "Cryptids - Mothman",
  "url": "/df/cryptids/mothman/",
- "blurb": "The Mothman in Fallout 76 — 21 NPC variants, 1 known spawn point, 12647 possible drops.",
+ "blurb": "The Mothman in Fallout 76 — 21 NPC variants, 32 known spawn points, 12647 possible drops.",
  "npc_summary": {
   "npc_count": 21,
   "level_min": 30,
@@ -135,11 +136,31 @@
  "farming_tips": null,
  "events_activities": [
   {
-   "name": "Mothman Sighting",
-   "edid": "MILE_CaravanEscort_Module_Mothman",
-   "type": "Module",
+   "name": "Hideout: :",
+   "edid": "HIDEHideoutQuest",
+   "type": "15",
    "location": "",
-   "form_id": "00769CF0"
+   "form_id": "008B2ED0",
+   "spawns": true,
+   "rate_display": "Mothman can spawn"
+  },
+  {
+   "name": "Daily: Queen of the Hunt",
+   "edid": "SFZ03_Queen",
+   "type": "Daily",
+   "location": "",
+   "form_id": "000451FC",
+   "spawns": true,
+   "rate_display": "Mothman can spawn"
+  },
+  {
+   "name": "Daily Ops",
+   "edid": "DailyOps",
+   "type": "Daily Ops",
+   "location": "",
+   "form_id": "",
+   "spawns": true,
+   "rate_display": "Mothman can spawn"
   },
   {
    "name": "Event: The Mothman Equinox",
@@ -147,6 +168,15 @@
    "type": "Public Event",
    "location": "",
    "form_id": "006173A1"
+  },
+  {
+   "name": "Chasing A Lead",
+   "edid": "HIDE_Intro_CantonBreadcrumb",
+   "type": "Secondary",
+   "location": "",
+   "form_id": "008F362C",
+   "spawns": true,
+   "rate_display": "Mothman can spawn"
   }
  ],
  "drops": {
@@ -280,7 +310,84 @@
   "regions": [
    {
     "region": "Ash Heap",
-    "locations": []
+    "locations": [
+     {
+      "marker": "Brim Quarry",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "59B68A"
+      ],
+      "coords": [
+       -156974.5,
+       -86616.3
+      ],
+      "spawns": [
+       {
+        "label": "Mothman spawn",
+        "ref": "59B68A",
+        "source_type": "placement",
+        "coords": [
+         -156974.5,
+         -86616.3
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Unfinished Mansion",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "59B77C"
+      ],
+      "coords": [
+       -69310.0,
+       -138255.6
+      ],
+      "spawns": [
+       {
+        "label": "Mothman spawn",
+        "ref": "59B77C",
+        "source_type": "placement",
+        "coords": [
+         -69310.0,
+         -138255.6
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
    },
    {
     "region": "Atlantic City",
@@ -292,21 +399,518 @@
    },
    {
     "region": "Cranberry Bog",
-    "locations": []
-   },
-   {
-    "region": "Forest",
     "locations": [
      {
-      "marker": "Point Pleasant",
+      "marker": "Old Mold Quarry",
       "count": 1,
       "sources": {
-       "ambush": 1
+       "placement": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
+       "59B2A1"
+      ],
+      "coords": [
+       205935.1,
+       -100181.4
+      ],
+      "spawns": [
+       {
+        "label": "Mothman spawn",
+        "ref": "59B2A1",
+        "source_type": "placement",
+        "coords": [
+         205935.1,
+         -100181.4
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Sunrise Field",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "59AE41"
+      ],
+      "coords": [
+       157037.7,
+       -181509.1
+      ],
+      "spawns": [
+       {
+        "label": "Mothman spawn",
+        "ref": "59AE41",
+        "source_type": "placement",
+        "coords": [
+         157037.7,
+         -181509.1
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Superior Sunset Farm",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "59AE21"
+      ],
+      "coords": [
+       125256.2,
+       -113053.6
+      ],
+      "spawns": [
+       {
+        "label": "Mothman spawn",
+        "ref": "59AE21",
+        "source_type": "placement",
+        "coords": [
+         125256.2,
+         -113053.6
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Forest",
+    "locations": [
+     {
+      "marker": "Aaronholt Homestead",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "599738"
+      ],
+      "coords": [
+       -129528.0,
+       189375.4
+      ],
+      "spawns": [
+       {
+        "label": "Mothman spawn",
+        "ref": "599738",
+        "source_type": "placement",
+        "coords": [
+         -129528.0,
+         189375.4
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Billings Homestead",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "59BE80"
+      ],
+      "coords": [
+       -174799.4,
+       -9007.0
+      ],
+      "spawns": [
+       {
+        "label": "Mothman spawn",
+        "ref": "59BE80",
+        "source_type": "placement",
+        "coords": [
+         -174799.4,
+         -9007.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Camp Adams Lookout",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "59BE31"
+      ],
+      "coords": [
+       -142498.8,
+       -41520.0
+      ],
+      "spawns": [
+       {
+        "label": "Mothman spawn",
+        "ref": "59BE31",
+        "source_type": "placement",
+        "coords": [
+         -142498.8,
+         -41520.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Camp McClintock",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "59BED8"
+      ],
+      "coords": [
+       -83924.1,
+       -15105.4
+      ],
+      "spawns": [
+       {
+        "label": "Mothman spawn",
+        "ref": "59BED8",
+        "source_type": "placement",
+        "coords": [
+         -83924.1,
+         -15105.4
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Clancy Manor",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "58DE7B"
+      ],
+      "coords": [
+       -92349.9,
+       183685.3
+      ],
+      "spawns": [
+       {
+        "label": "Mothman spawn",
+        "ref": "58DE7B",
+        "source_type": "placement",
+        "coords": [
+         -92349.9,
+         183685.3
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Enclave Research Facility",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5DC9AE"
+      ],
+      "coords": [
+       -2546.8,
+       3328.0
+      ],
+      "spawns": [
+       {
+        "label": "Mothman spawn",
+        "ref": "5DC9AE",
+        "source_type": "placement",
+        "coords": [
+         -2546.8,
+         3328.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Kanawha County Cemetery",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "558EB8"
+      ],
+      "coords": [
+       -174278.5,
+       -29023.7
+      ],
+      "spawns": [
+       {
+        "label": "Mothman spawn",
+        "ref": "558EB8",
+        "source_type": "placement",
+        "coords": [
+         -174278.5,
+         -29023.7
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Morgantown Station",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "59A68B"
+      ],
+      "coords": [
+       -41390.8,
+       104074.1
+      ],
+      "spawns": [
+       {
+        "label": "Mothman spawn",
+        "ref": "59A68B",
+        "source_type": "placement",
+        "coords": [
+         -41390.8,
+         104074.1
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Organ Cave North",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "59A6E3"
+      ],
+      "coords": [
+       -100022.1,
+       108607.4
+      ],
+      "spawns": [
+       {
+        "label": "Mothman spawn",
+        "ref": "59A6E3",
+        "source_type": "placement",
+        "coords": [
+         -100022.1,
+         108607.4
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Organ Cave South",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "73ED73"
+      ],
+      "coords": [
+       -125823.4,
+       89445.9
+      ],
+      "spawns": [
+       {
+        "label": "Mothman spawn",
+        "ref": "73ED73",
+        "source_type": "placement",
+        "coords": [
+         -125823.4,
+         89445.9
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Point Pleasant",
+      "count": 2,
+      "sources": {
+       "ambush": 1,
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "59A615",
        "62FD84"
       ],
       "coords": [
@@ -325,6 +929,18 @@
         "image_top": "",
         "directions": "",
         "image_bottom": ""
+       },
+       {
+        "label": "Mothman spawn",
+        "ref": "59A615",
+        "source_type": "placement",
+        "coords": [
+         -177542.6,
+         73077.1
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
        }
       ],
       "breakdown": [
@@ -332,6 +948,87 @@
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Transmission Station 1AT-U03",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5997C8"
+      ],
+      "coords": [
+       -146625.7,
+       121626.4
+      ],
+      "spawns": [
+       {
+        "label": "Mothman spawn",
+        "ref": "5997C8",
+        "source_type": "placement",
+        "coords": [
+         -146625.7,
+         121626.4
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Wixon Homestead",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5983DF"
+      ],
+      "coords": [
+       -108077.7,
+       58726.0
+      ],
+      "spawns": [
+       {
+        "label": "Mothman spawn",
+        "ref": "5983DF",
+        "source_type": "placement",
+        "coords": [
+         -108077.7,
+         58726.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
        }
       ]
      }
@@ -339,7 +1036,198 @@
    },
    {
     "region": "Savage Divide",
-    "locations": []
+    "locations": [
+     {
+      "marker": "Converted Munitions Factory",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "59C09E"
+      ],
+      "coords": [
+       117785.2,
+       186726.5
+      ],
+      "spawns": [
+       {
+        "label": "Mothman spawn",
+        "ref": "59C09E",
+        "source_type": "placement",
+        "coords": [
+         117785.2,
+         186726.5
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Johnson's Acre",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "58D019"
+      ],
+      "coords": [
+       75958.1,
+       -179880.4
+      ],
+      "spawns": [
+       {
+        "label": "Mothman spawn",
+        "ref": "58D019",
+        "source_type": "placement",
+        "coords": [
+         75958.1,
+         -179880.4
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Lucky Hole Mine",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "58D022"
+      ],
+      "coords": [
+       89610.9,
+       -136567.8
+      ],
+      "spawns": [
+       {
+        "label": "Mothman spawn",
+        "ref": "58D022",
+        "source_type": "placement",
+        "coords": [
+         89610.9,
+         -136567.8
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Mysterious Cave",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "59C0BF"
+      ],
+      "coords": [
+       127647.7,
+       207764.2
+      ],
+      "spawns": [
+       {
+        "label": "Mothman spawn",
+        "ref": "59C0BF",
+        "source_type": "placement",
+        "coords": [
+         127647.7,
+         207764.2
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Sacrament",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "58DBC4"
+      ],
+      "coords": [
+       79750.9,
+       177615.2
+      ],
+      "spawns": [
+       {
+        "label": "Mothman spawn",
+        "ref": "58DBC4",
+        "source_type": "placement",
+        "coords": [
+         79750.9,
+         177615.2
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
    },
    {
     "region": "Skyline Valley",
@@ -347,7 +1235,211 @@
    },
    {
     "region": "The Mire",
-    "locations": []
+    "locations": [
+     {
+      "marker": "Blakes Offering",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "58D069",
+       "59B231"
+      ],
+      "coords": [
+       200584.6,
+       -36131.1
+      ],
+      "spawns": [
+       {
+        "label": "Mothman spawn #1",
+        "ref": "58D069",
+        "source_type": "placement",
+        "coords": [
+         200584.6,
+         -36131.1
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mothman spawn #2",
+        "ref": "59B231",
+        "source_type": "placement",
+        "coords": [
+         205061.1,
+         -49401.7
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Excelsior Model Home",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "59B20A"
+      ],
+      "coords": [
+       178506.3,
+       99318.2
+      ],
+      "spawns": [
+       {
+        "label": "Mothman spawn",
+        "ref": "59B20A",
+        "source_type": "placement",
+        "coords": [
+         178506.3,
+         99318.2
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Gnarled Shallows",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "59AB9D"
+      ],
+      "coords": [
+       206803.9,
+       147312.4
+      ],
+      "spawns": [
+       {
+        "label": "Mothman spawn",
+        "ref": "59AB9D",
+        "source_type": "placement",
+        "coords": [
+         206803.9,
+         147312.4
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Moth-Home",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "58DBB7"
+      ],
+      "coords": [
+       151901.4,
+       -32489.1
+      ],
+      "spawns": [
+       {
+        "label": "Mothman spawn",
+        "ref": "58DBB7",
+        "source_type": "placement",
+        "coords": [
+         151901.4,
+         -32489.1
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Southern Belle Motel",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "59B203"
+      ],
+      "coords": [
+       159729.3,
+       29180.3
+      ],
+      "spawns": [
+       {
+        "label": "Mothman spawn",
+        "ref": "59B203",
+        "source_type": "placement",
+        "coords": [
+         159729.3,
+         29180.3
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
    },
    {
     "region": "The Pitt",
@@ -355,11 +1447,88 @@
    },
    {
     "region": "Toxic Valley",
-    "locations": []
+    "locations": [
+     {
+      "marker": "Surly's Shack",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "59A1F9"
+      ],
+      "coords": [
+       -60935.8,
+       206753.4
+      ],
+      "spawns": [
+       {
+        "label": "Mothman spawn",
+        "ref": "59A1F9",
+        "source_type": "placement",
+        "coords": [
+         -60935.8,
+         206753.4
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Toxic Dried Lakebed",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "59A788"
+      ],
+      "coords": [
+       -5518.6,
+       170152.7
+      ],
+      "spawns": [
+       {
+        "label": "Mothman spawn",
+        "ref": "59A788",
+        "source_type": "placement",
+        "coords": [
+         -5518.6,
+         170152.7
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
    }
   ],
-  "total_markers": 1,
-  "total_placements": 1
+  "total_markers": 30,
+  "total_placements": 32
  },
  "chance_spawns": {
   "locations": [
@@ -381,7 +1550,7 @@
     "variants": [
      "Mothman"
     ],
-    "count": 3
+    "count": 2
    },
    {
     "marker": "Abandoned Bog Town",
@@ -621,7 +1790,7 @@
     "variants": [
      "Mothman"
     ],
-    "count": 3
+    "count": 2
    },
    {
     "marker": "Black Bear Lodge",
@@ -642,16 +1811,6 @@
      "Mothman"
     ],
     "count": 1
-   },
-   {
-    "marker": "Blakes Offering",
-    "region": "The Mire",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mothman"
-    ],
-    "count": 2
    },
    {
     "marker": "Bloody Frank's",
@@ -691,7 +1850,7 @@
     "variants": [
      "Mothman"
     ],
-    "count": 2
+    "count": 1
    },
    {
     "marker": "Camp Adams",
@@ -711,7 +1870,7 @@
     "variants": [
      "Mothman"
     ],
-    "count": 2
+    "count": 1
    },
    {
     "marker": "Camp McClintock",
@@ -721,7 +1880,7 @@
     "variants": [
      "Mothman"
     ],
-    "count": 3
+    "count": 2
    },
    {
     "marker": "Camp Venture",
@@ -781,7 +1940,7 @@
     "variants": [
      "Mothman"
     ],
-    "count": 2
+    "count": 1
    },
    {
     "marker": "Clancy Manor",
@@ -861,7 +2020,7 @@
     "variants": [
      "Mothman"
     ],
-    "count": 6
+    "count": 5
    },
    {
     "marker": "Cow Spots Creamery",
@@ -1054,16 +2213,6 @@
     "count": 1
    },
    {
-    "marker": "Enclave Research Facility",
-    "region": "Forest",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Scorched Mothman"
-    ],
-    "count": 1
-   },
-   {
     "marker": "Excelsior Model Home",
     "region": "The Mire",
     "chance_value": null,
@@ -1071,7 +2220,7 @@
     "variants": [
      "Mothman"
     ],
-    "count": 4
+    "count": 3
    },
    {
     "marker": "Federal Disposal Field HZ-21",
@@ -1271,7 +2420,7 @@
     "variants": [
      "Mothman"
     ],
-    "count": 3
+    "count": 2
    },
    {
     "marker": "Grafton",
@@ -1511,16 +2660,6 @@
     "variants": [
      "Mothman"
     ],
-    "count": 2
-   },
-   {
-    "marker": "Kanawha County Cemetery",
-    "region": "Forest",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mothman"
-    ],
     "count": 1
    },
    {
@@ -1602,7 +2741,7 @@
     "variants": [
      "Mothman"
     ],
-    "count": 2
+    "count": 1
    },
    {
     "marker": "Makeshift Vault",
@@ -1772,7 +2911,7 @@
     "variants": [
      "Mothman"
     ],
-    "count": 2
+    "count": 1
    },
    {
     "marker": "Morgantown Trainyard",
@@ -1812,7 +2951,7 @@
     "variants": [
      "Mothman"
     ],
-    "count": 2
+    "count": 1
    },
    {
     "marker": "Mountainside Bed & Breakfast",
@@ -1832,7 +2971,7 @@
     "variants": [
      "Mothman"
     ],
-    "count": 2
+    "count": 1
    },
    {
     "marker": "National Isolated Radio Array",
@@ -1905,26 +3044,6 @@
     "count": 1
    },
    {
-    "marker": "Old Mold Quarry",
-    "region": "Cranberry Bog",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mothman"
-    ],
-    "count": 1
-   },
-   {
-    "marker": "Organ Cave North",
-    "region": "Forest",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mothman"
-    ],
-    "count": 1
-   },
-   {
     "marker": "Organ Cave South",
     "region": "Forest",
     "chance_value": null,
@@ -1932,7 +3051,7 @@
     "variants": [
      "Mothman"
     ],
-    "count": 3
+    "count": 2
    },
    {
     "marker": "Orwell Orchards",
@@ -2021,17 +3140,6 @@
     "chance_display": "possible",
     "variants": [
      "Mothman"
-    ],
-    "count": 2
-   },
-   {
-    "marker": "Point Pleasant",
-    "region": "Forest",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mothman",
-     "Wise Mothman"
     ],
     "count": 2
    },
@@ -2213,7 +3321,7 @@
     "variants": [
      "Mothman"
     ],
-    "count": 7
+    "count": 6
    },
    {
     "marker": "Sacramental Glade",
@@ -2386,16 +3494,6 @@
     "count": 2
    },
    {
-    "marker": "Southern Belle Motel",
-    "region": "The Mire",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mothman"
-    ],
-    "count": 1
-   },
-   {
     "marker": "Southhampton Estate",
     "region": "The Mire",
     "chance_value": null,
@@ -2483,7 +3581,7 @@
     "variants": [
      "Mothman"
     ],
-    "count": 2
+    "count": 1
    },
    {
     "marker": "Superior Sunset Farm",
@@ -2493,7 +3591,7 @@
     "variants": [
      "Mothman"
     ],
-    "count": 3
+    "count": 2
    },
    {
     "marker": "Surly's Shack",
@@ -2503,7 +3601,7 @@
     "variants": [
      "Mothman"
     ],
-    "count": 3
+    "count": 2
    },
    {
     "marker": "Surly's Shack",
@@ -2713,7 +3811,7 @@
     "variants": [
      "Mothman"
     ],
-    "count": 2
+    "count": 1
    },
    {
     "marker": "Toxic Larry's Meat 'n Go",
@@ -2728,16 +3826,6 @@
    {
     "marker": "Toxic Larry's Meat 'n Go",
     "region": "The Mire",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mothman"
-    ],
-    "count": 1
-   },
-   {
-    "marker": "Transmission Station 1AT-U03",
-    "region": "Forest",
     "chance_value": null,
     "chance_display": "possible",
     "variants": [
@@ -2778,16 +3866,6 @@
    {
     "marker": "Tyler County Fairgrounds",
     "region": "Forest",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mothman"
-    ],
-    "count": 1
-   },
-   {
-    "marker": "Unfinished Mansion",
-    "region": "Ash Heap",
     "chance_value": null,
     "chance_display": "possible",
     "variants": [
@@ -2926,16 +4004,6 @@
     "count": 1
    },
    {
-    "marker": "Wixon Homestead",
-    "region": "Forest",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mothman"
-    ],
-    "count": 1
-   },
-   {
     "marker": "Woods Estate",
     "region": "Toxic Valley",
     "chance_value": null,
@@ -2966,7 +4034,7 @@
     "count": 2
    }
   ],
-  "total": 260,
-  "note": "These are NIGHT spawns — the Mothman only spawns here at night (the game's IsTimeSpanAnyNight check). At the cultist encounter spots it has a 5% chance; at the strange encounter spots the game picks the Mothman or the Flatwoods Monster first, so it is about 2.5%. During the Legend of the Mothman spotlight the chance rises to 35%, day or night. Its one guaranteed fixed spawn (Enclave Research Facility) is in Fixed Spawn Locations above."
+  "total": 250,
+  "note": "These are NIGHT spawns — the Mothman only spawns here at night (the game's IsTimeSpanAnyNight check). At each of these strange encounter spots the game picks the Mothman or the Flatwoods Monster first, so it is about 2.5%. During the Legend of the Mothman spotlight the chance goes up, day or night."
  }
 }
