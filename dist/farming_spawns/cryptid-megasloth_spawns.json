@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-11-26",
+  "generated": "2026-11-27",
   "source": "dist/cryptids/megasloth.json + farming pipeline (src/build_cryptid_guide_docs.py)"
  },
  "set": "cryptid",
@@ -5945,11 +5945,40 @@
  ],
  "events_activities": [
   {
-   "name": "Megasloth",
-   "edid": "RE_SceneKMK18_Nuke",
-   "type": "Miscellaneous",
+   "name": "Daily: Queen of the Hunt",
+   "edid": "SFZ03_Queen",
+   "type": "Daily",
    "location": "",
-   "form_id": "0048F8C3"
+   "form_id": "000451FC",
+   "spawns": true,
+   "rate_display": "Megasloth can spawn"
+  },
+  {
+   "name": "Event: Fasnacht Day",
+   "edid": "E01F_Fasnacht",
+   "type": "Public Event",
+   "location": "",
+   "form_id": "0049886E",
+   "spawns": true,
+   "rate_display": "Megasloth can spawn"
+  },
+  {
+   "name": "Event: Project Paradise",
+   "edid": "SFS09_Habitat",
+   "type": "Public Event",
+   "location": "",
+   "form_id": "005109AF",
+   "spawns": true,
+   "rate_display": "Megasloth can spawn"
+  },
+  {
+   "name": "Event: Scorched Earth",
+   "edid": "CB15_ScorchedEarth",
+   "type": "Public Event",
+   "location": "RegionCranberryBogLocation \"Cranberry Bog\" [LCTN:000012A2]",
+   "form_id": "003E271D",
+   "spawns": true,
+   "rate_display": "Megasloth can spawn"
   }
  ],
  "random_encounters": [
@@ -6110,14 +6139,17 @@
     },
     {
      "marker": "The Trading Post",
-     "count": 1,
+     "count": 3,
      "sources": {
-      "ambush": 1
+      "ambush": 1,
+      "placement": 2
      },
      "image_top": "",
      "directions": "",
      "image_bottom": "",
      "refs": [
+      "753A0A",
+      "753A0B",
       "753A0D"
      ],
      "coords": [
@@ -6129,6 +6161,11 @@
        "label": "Megasloth ambush",
        "count": 1,
        "source_type": "ambush"
+      },
+      {
+       "label": "Megasloth spawn",
+       "count": 2,
+       "source_type": "ambush"
       }
      ],
      "spawns": [
@@ -6139,6 +6176,30 @@
        "coords": [
         38772.9,
         -231779.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Megasloth spawn #1",
+       "ref": "753A0A",
+       "source_type": "placement",
+       "coords": [
+        38630.6,
+        -231760.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Megasloth spawn #2",
+       "ref": "753A0B",
+       "source_type": "placement",
+       "coords": [
+        39169.9,
+        -231711.1
        ],
        "image_top": "",
        "directions": "",
@@ -6233,6 +6294,44 @@
        "coords": [
         177650.4,
         -42089.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Mosstown",
+     "count": 1,
+     "sources": {
+      "placement": 1
+     },
+     "image_top": "/wp-content/uploads/guide-images/cryptids/megasloth/the-mire-mosstown-map.avif",
+     "directions": "From the spawn in location, turn SW and run forward. You should go through some trees, a clearing with a few parts of wooden building debris, and then some more trees. If a mega sloth does spawn, then he will spawn near a blue rusty car that has a first aid kit, an orange crate, and a green and white chair next to it.",
+     "image_bottom": "/wp-content/uploads/guide-images/cryptids/megasloth/the-mire-mosstown-item.avif",
+     "refs": [
+      "43CCA1"
+     ],
+     "coords": [
+      130296.9,
+      58520.3
+     ],
+     "breakdown": [
+      {
+       "label": "Megasloth spawn",
+       "count": 1,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Megasloth spawn",
+       "ref": "43CCA1",
+       "source_type": "placement",
+       "coords": [
+        130296.9,
+        58520.3
        ],
        "image_top": "",
        "directions": "",
@@ -6341,6 +6440,44 @@
        "image_bottom": ""
       }
      ]
+    },
+    {
+     "marker": "Tanagra Town",
+     "count": 1,
+     "sources": {
+      "placement": 1
+     },
+     "image_top": "",
+     "directions": "You can find a Mega Sloth wandering around the base of the tree.",
+     "image_bottom": "/wp-content/uploads/guide-images/cryptids/megasloth/the-mire-tanagra-town-item.avif",
+     "refs": [
+      "2FF477"
+     ],
+     "coords": [
+      193535.9,
+      16678.2
+     ],
+     "breakdown": [
+      {
+       "label": "Megasloth spawn",
+       "count": 1,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Megasloth spawn",
+       "ref": "2FF477",
+       "source_type": "placement",
+       "coords": [
+        193535.9,
+        16678.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
     }
    ]
   },
@@ -6358,6 +6495,11 @@
    "source_type": "ambush",
    "count": 12,
    "label": "Ambush points"
+  },
+  {
+   "source_type": "placement",
+   "count": 4,
+   "label": "Fixed spawns"
   }
  ],
  "map_regions": [
@@ -6430,19 +6572,11 @@
     "region": "Skyline Valley",
     "markers": [
      {
-      "name": "Dark Hollow Manor",
-      "placements": 1
-     },
-     {
       "name": "High Knob Lookout",
       "placements": 8
-     },
-     {
-      "name": "The Trading Post",
-      "placements": 2
      }
     ],
-    "placements": 11
+    "placements": 8
    },
    {
     "region": "The Mire",
@@ -6461,7 +6595,7 @@
      },
      {
       "name": "Dabney Homestead",
-      "placements": 5
+      "placements": 4
      },
      {
       "name": "Dolly Sods Lookout",
@@ -6484,24 +6618,8 @@
       "placements": 4
      },
      {
-      "name": "KMAX Transmission",
-      "placements": 2
-     },
-     {
       "name": "Mosstown",
-      "placements": 4
-     },
-     {
-      "name": "Southern Belle Motel",
       "placements": 3
-     },
-     {
-      "name": "Sunday Brothers' Cabin",
-      "placements": 1
-     },
-     {
-      "name": "Tanagra Town",
-      "placements": 1
      },
      {
       "name": "Thunder Mountain Power Plant",
@@ -6516,13 +6634,13 @@
       "placements": 3
      }
     ],
-    "placements": 48
+    "placements": 39
    }
   ],
-  "total_markers": 33,
-  "total": 102,
+  "total_markers": 27,
+  "total": 90,
   "no_maps": true,
-  "lead": "Megasloth can spawn at 33 locations that share a spawn pool with other creatures, so it is not guaranteed there. They are listed by name only."
+  "lead": "Megasloth can spawn at 27 locations that share a spawn pool with other creatures, so it is not guaranteed there. They are listed by name only."
  },
  "info_notes": [],
  "treasure_maps": {

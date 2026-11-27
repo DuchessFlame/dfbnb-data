@@ -53,6 +53,7 @@ import build_farming_used_for as B
 import build_meat_guide_docs as M
 import creature_inventory as CI
 import farming_spawns_sources as sources
+from spawns_configs import cryptids as C
 import rng76
 
 DIST = os.path.join(REPO, "dist")
@@ -232,6 +233,25 @@ def intro_line(md, creature):
     return " · ".join(bits)
 
 
+def _owning_quest(edid):
+    """The quest a reward list belongs to: a quest EDID inside its own EDID
+    (E07A_Mothman_CultistHighPriestReward_Loot -> E07A_Mothman), else the one
+    named, typed quest of its prefix family (HTO_* -> HTO_HostileTakeOver_Master_Quest,
+    "Infestation")."""
+    if not edid:
+        return None
+    C._evq_tables()
+    quests = C._EVQ["t"][5]
+    q = C._quest_named_in(edid, quests)
+    if q and q["full"] and not q["full"].startswith("["):
+        return q
+    head = edid.split("_")[0].lower() + "_"
+    cands = [q for k, q in quests.items() if k.startswith(head) and q["full"]
+             and not q["full"].startswith("[") and not C._CUT_RE.search(q["edid"])
+             and (q["type"] or "").lower() not in ("", "none", "server")]
+    return cands[0] if len(cands) == 1 else None
+
+
 def build_one(src_path, ctx, out_dir):
     md = json.load(open(src_path, encoding="utf-8"))
     slug = md.get("slug") or os.path.basename(src_path)[:-5]
@@ -317,7 +337,19 @@ def build_one(src_path, ctx, out_dir):
         B._patch_events_activities(item_events, ctx["rates"], own,
                                    closure_lists=closure, tables=ctx["tables"])
         seen = {(e.get("edid") or e.get("name")) for e in evs}
+        have_q = {e.get("edid") for e in evs if e.get("edid")}
         for e in item_events.get("events_activities") or []:
+            # Reward pools come named from their list EDID ("HTO cr LLS Rewards
+            # Bespoke Mob"). Name them after the event that pays them out, and drop
+            # the row when that event is already listed (27 Nov 2026).
+            q = _owning_quest(e.get("edid") or "")
+            if q:
+                if q["edid"] in have_q:
+                    continue
+                e = dict(e, name=q["full"], edid=q["edid"],
+                         type=(q["type"] if q["type"] not in ("", "None") and not q["type"].isdigit()
+                               else e.get("type")))
+                have_q.add(q["edid"])
             k = e.get("edid") or e.get("name")
             if k not in seen and (e.get("rate_value") is None or e.get("rate_value") > 0):
                 evs.append(e)

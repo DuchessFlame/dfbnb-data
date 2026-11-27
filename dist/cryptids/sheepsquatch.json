@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-11-26",
+  "generated": "2026-11-27",
   "source": "Game-file exports (KYWD/NPC/LVLI) + challenges.json + Mappalachia Position/Entity (cached for CI)",
   "races": [
    {
@@ -8,7 +8,8 @@
    }
   ],
   "source_totals": {
-   "ambush": 18
+   "ambush": 18,
+   "placement": 1
   },
   "unresolved": {},
   "hold": false
@@ -18,7 +19,7 @@
  "name": "Sheepsquatch",
  "page_title": "Cryptids - Sheepsquatch",
  "url": "/df/cryptids/sheepsquatch/",
- "blurb": "The Sheepsquatch in Fallout 76 — 11 NPC variants, 18 known spawn points, 11543 possible drops.",
+ "blurb": "The Sheepsquatch in Fallout 76 — 11 NPC variants, 19 known spawn points, 11543 possible drops.",
  "npc_summary": {
   "npc_count": 11,
   "level_min": 50,
@@ -63,7 +64,53 @@
   }
  ],
  "farming_tips": null,
- "events_activities": [],
+ "events_activities": [
+  {
+   "name": "Event: Fasnacht Day",
+   "edid": "E01F_Fasnacht",
+   "type": "Public Event",
+   "location": "",
+   "form_id": "0049886E",
+   "spawns": true,
+   "rate_display": "Sheepsquatch can spawn"
+  },
+  {
+   "name": "Event: Free Range",
+   "edid": "E01B_Herd",
+   "type": "Public Event",
+   "location": "",
+   "form_id": "00498662",
+   "spawns": true,
+   "rate_display": "Sheepsquatch can spawn"
+  },
+  {
+   "name": "Event: Primal Cuts",
+   "edid": "E02A_Meat_Hunt",
+   "type": "Public Event",
+   "location": "",
+   "form_id": "0054B3F3",
+   "spawns": true,
+   "rate_display": "Sheepsquatch can spawn"
+  },
+  {
+   "name": "Event: Project Paradise",
+   "edid": "SFS09_Habitat",
+   "type": "Public Event",
+   "location": "",
+   "form_id": "005109AF",
+   "spawns": true,
+   "rate_display": "Sheepsquatch can spawn"
+  },
+  {
+   "name": "Event: Spin The Wheel",
+   "edid": "E09B_Wheel",
+   "type": "Public Event",
+   "location": "",
+   "form_id": "00634B0B",
+   "spawns": true,
+   "rate_display": "Sheepsquatch can spawn"
+  }
+ ],
  "drops": {
   "lists": [
    {
@@ -571,7 +618,46 @@
    },
    {
     "region": "Skyline Valley",
-    "locations": []
+    "locations": [
+     {
+      "marker": "South River Bridge",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "769BED"
+      ],
+      "coords": [
+       42610.2,
+       -253943.4
+      ],
+      "spawns": [
+       {
+        "label": "Sheepsquatch spawn",
+        "ref": "769BED",
+        "source_type": "placement",
+        "coords": [
+         42610.2,
+         -253943.4
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
    },
    {
     "region": "The Mire",
@@ -638,23 +724,12 @@
     "locations": []
    }
   ],
-  "total_markers": 6,
-  "total_placements": 18
+  "total_markers": 7,
+  "total_placements": 19
  },
  "chance_spawns": {
-  "locations": [
-   {
-    "marker": "South River Bridge",
-    "region": "Skyline Valley",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Sheepsquatch"
-    ],
-    "count": 1
-   }
-  ],
-  "total": 1,
+  "locations": [],
+  "total": 0,
   "note": null
  }
 }

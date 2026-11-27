@@ -31,7 +31,7 @@ Usage:
 """
 
 import os, re, csv, sys, glob, json, sqlite3, datetime
-from collections import defaultdict
+from collections import Counter, defaultdict
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.dirname(HERE)
@@ -113,12 +113,10 @@ PAGES = [
      "extra_npcs": ["004EC627"],  # Stalking Mothman (EncMothman01Defender)
      "tokens": ["mothman"], "mappalachia": [],
      "chance_note": ("These are NIGHT spawns — the Mothman only spawns here at night "
-                     "(the game's IsTimeSpanAnyNight check). At the cultist encounter spots "
-                     "it has a 5% chance; at the strange encounter spots the game picks the "
-                     "Mothman or the Flatwoods Monster first, so it is about 2.5%. During the "
-                     "Legend of the Mothman spotlight the chance rises to 35%, day or night. "
-                     "Its one guaranteed fixed spawn (Enclave Research Facility) is in Fixed "
-                     "Spawn Locations above.")},
+                     "(the game's IsTimeSpanAnyNight check). At each of these strange "
+                     "encounter spots the game picks the Mothman or the Flatwoods Monster "
+                     "first, so it is about 2.5%. During the Legend of the Mothman spotlight "
+                     "the chance goes up, day or night.")},
     {"slug": "ogua", "name": "Ogua", "races": ["OguaRace"],
      "tokens": ["ogua"], "mappalachia": []},
     {"slug": "sheepsquatch", "name": "Sheepsquatch", "races": ["SheepsquatchRace"],
@@ -210,6 +208,7 @@ def load_npcs():
                 "inam_fid": (r.get("INAM_FormID") or "").strip().upper(),
                 "inam_edid": (r.get("INAM_EDID") or "").strip(),
                 "tplt_edid": (r.get("TPLT_EDID") or "").strip(),
+                "tplt_fid": (r.get("TPLT_FormID") or "").strip().upper(),
                 "level": (r.get("ACBS_Level") or "").strip(),
                 "min_lvl": (r.get("ACBS_CalcMinLvl") or "").strip(),
                 "max_lvl": (r.get("ACBS_CalcMaxLvl") or "").strip(),
@@ -498,6 +497,213 @@ def _spawn_quests(tokens):
     return hits
 
 
+# Events that SPAWN the creature, read up the record graph (27 Nov 2026). The
+# event bosses aren't the page's own NPCs: Spin the Wheel uses E09B_LvlGrafton,
+# Heart of the Swamp SFS08_Heart_LvlGrafton_NEW, Fasnacht a WAVE, Bigfoot crashes
+# events as LvlBigfoot_PartyCrasher. So: page NPCs -> every leveled list / template
+# copy that can make them -> whatever references those (NPC_Export _Refs). A QUST
+# reference is the quest itself; a WAVE / FLST / NPC_ / LVLN named for a quest
+# (E09B_Wheel_..., SFS08_Heart_...) belongs to that quest. Cut records (zzz / DEL /
+# CUT) and random encounters (they have their own expand) are left out.
+_EVQ = {}
+_EVQ_SKIP = re.compile(r"(^|_)(RE|SQ|GQ|COMP_RQ|Debug|Test)(_|$)|^(zzz|DEL|CUT)|_Module", re.I)
+class _SiteCut:
+    """The site-wide cut test (plan_sources.is_cut_content: zzz / CUT / DEL plus
+    the confirmed-cut families - Milepost Zero caravans, the Drifter, Quickplay...)
+    with a .search() so it drops in where a regex was. Never keep a private cut
+    list here: the 27 Nov 2026 first pass did, and put Caravan: Skyline Drive on
+    eight pages."""
+    _extra = re.compile(r"DELETED|_CUT_", re.I)
+
+    def search(self, edid):
+        import plan_sources
+        return bool(edid) and (plan_sources.is_cut_content(edid)
+                               or bool(self._extra.search(edid)))
+
+
+_CUT_RE = _SiteCut()
+
+
+def _evq_tables():
+    if "t" in _EVQ:
+        return _EVQ["t"]
+    by_race, by_fid = load_npcs()
+    parents = defaultdict(set)
+    for l, ents in load_lvln_entries().items():
+        for x in ents:
+            parents[x].add(l)
+    tmpl = defaultdict(set)
+    for fid, r in by_fid.items():
+        if r.get("tplt_fid"):
+            tmpl[r["tplt_fid"]].add(fid)
+    refs = defaultdict(list)
+    fam_q = defaultdict(Counter)
+    path = _newest("NPC_Export_*_Refs.tsv")
+    if path:
+        with open(path, encoding="utf-8", errors="replace") as f:
+            rd = csv.reader(f, delimiter="\t")
+            next(rd, None)
+            for row in rd:
+                if len(row) >= 5:
+                    refs[row[0].strip().upper()].append((row[3].strip(), row[4].strip()))
+                    if row[4].strip() == "QUST" and row[1].count("_") >= 2:
+                        fam_q[_family(row[1])][row[3].strip().lower()] += 1
+    quests = {q["edid"].lower(): q for q in _load_quests() if q["edid"]}
+    # Event-only record families named for something that isn't a quest: Safe and
+    # Sound (MOON_MSignals) owns the MOON_Herd_* creatures and its Blue Devil wave
+    # MOON_Herd_WaveType_BD. When every MOON_Herd_* NPC a quest points at belongs
+    # to ONE quest, the family prefix maps to that quest.
+    fam = {}
+    for k, cnt in fam_q.items():
+        (top, n), = cnt.most_common(1)
+        if top in quests and n >= 3 and n >= 0.75 * sum(cnt.values()):
+            fam[k] = quests[top]
+    _EVQ["fam"] = fam
+    head_q = defaultdict(Counter)
+    for k, cnt in fam_q.items():
+        head_q[k.split("_")[0]].update(cnt)
+    _EVQ["fam_q"] = head_q
+    desc = {}
+    qpath = _newest("QUEST_Export_*.tsv")
+    if qpath:
+        with open(qpath, encoding="utf-8", errors="replace") as f:
+            for r in csv.DictReader(f, delimiter="\t"):
+                desc[(r.get("EDID") or "").strip()] = r.get("DESC - Description") or ""
+    _EVQ["desc"] = desc
+    _EVQ["t"] = (by_race, by_fid, parents, tmpl, refs, quests)
+    return _EVQ["t"]
+
+
+def _family(edid):
+    return "_".join(edid.split("_")[:2]).lower()
+
+
+def _quest_named_in(edid, quests):
+    """Longest run of '_'-joined words in an EDID that is a quest EDID; else the
+    quest that owns the EDID's record family (MOON_Herd_* -> MOON_MSignals)."""
+    q = _quest_named_in_edid(edid, quests)
+    if q is None and edid.count("_") >= 2:
+        q = _EVQ.get("fam", {}).get(_family(edid))
+    if q is None:
+        q = _quest_by_prefix(edid, quests)
+    return q
+
+
+# Prefix fallback (27 Nov 2026): event waves are named for the quest's code, not
+# its full EDID - MTNS04_WaveTypeWendigoBoss (One Violent Night = MTNS04_Night),
+# E02A_SheepsquatchPrime_WaveType (Primal Cuts = E02A_Meat_Hunt), SFZ03_... (Queen
+# of the Hunt), DailyOpsWave_Zetan (Daily Ops). Candidates = typed, named quests
+# sharing the code; ties broken by a word of the EDID in the quest's name /
+# description ("Prime" -> "Hunt down monstrous creatures for their Prime Meat"),
+# then by which quest the code's NPCs point at. Generic families never match.
+_EVQ_TIER = ({"public event", "event", "daily ops", "expedition", "daily"},
+             {"primary", "secondary", "side"})
+_GENERIC_HEADS = re.compile(r"^(WaveType|Wave|EWS|Imgui|Epic|Workshop|LChar|LvlChar|Lvl|Enc)", re.I)
+_GENERIC_WORDS = {"wave", "type", "wavetype", "lvl", "enc", "boss", "legendary", "list",
+                  "spawn", "special", "the", "and", "of", "fl", "lchar"}
+
+
+def _words(text):
+    t = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", text or "")
+    return {w for w in re.split(r"[^A-Za-z]+", t.lower()) if len(w) >= 4} - _GENERIC_WORDS
+
+
+def _quest_by_prefix(edid, quests):
+    head = edid.split("_")[0]
+    if not head:
+        return None
+    if _GENERIC_HEADS.match(head):
+        # Generic wave named for an event code inside it:
+        # WaveType_SpecialSFZ03CryptidsNight -> SFZ03 (Queen of the Hunt).
+        for code in re.findall(r"(?<![A-Z])([A-Z]{2,5}\d{2})", edid):
+            q = _quest_by_prefix(code + "_x", quests)
+            if q:
+                return q
+        return None
+    heads = [head]
+    chunks = re.findall(r"[A-Z]?[a-z]+|[A-Z]+(?![a-z])|\d+", head)
+    for i in range(len(chunks) - 1, 0, -1):          # DailyOpsWave -> DailyOps
+        h = "".join(chunks[:i])
+        if len(h) >= 4 and not _GENERIC_HEADS.match(h):
+            heads.append(h)
+    descs = _EVQ.get("desc", {})
+    for h in heads:
+        pre = h.lower() + "_"
+        cands = [q for k, q in quests.items() if k.startswith(pre) and q["full"]
+                 and not q["full"].startswith("[") and not _CUT_RE.search(q["edid"])]
+        for tier in _EVQ_TIER:
+            tc = [q for q in cands if (q["type"] or "").lower() in tier]
+            if not tc:
+                continue
+            if len(tc) == 1:
+                return tc[0]
+            mine = _words(edid[len(h):])
+            hit = [q for q in tc if mine & _words(q["full"] + " " + descs.get(q["edid"], ""))]
+            if len(hit) == 1:
+                return hit[0]
+            cnt = _EVQ.get("fam_q", {}).get(h.lower(), Counter())
+            cnt = Counter({k: v for k, v in cnt.items() if k in {q["edid"].lower() for q in tc}})
+            if cnt:
+                (top, n), = cnt.most_common(1)
+                if n >= 0.75 * sum(cnt.values()):
+                    return quests[top]
+            types = {q["type"] for q in tc}
+            if len(types) == 1 and next(iter(types)).lower() in ("daily ops", "expedition"):
+                t = next(iter(types))
+                return {"edid": h, "full": t, "type": t, "form_id": "", "location": ""}
+            return None
+    return None
+
+
+def _quest_named_in_edid(edid, quests):
+    t = edid.split("_")
+    best = None
+    for i in range(len(t)):
+        for j in range(len(t), i, -1):
+            k = "_".join(t[i:j]).lower()
+            if k in quests and (best is None or j - i > best[0]):
+                best = (j - i, k)
+    return quests[best[1]] if best else None
+
+
+def spawn_event_quests(pg):
+    by_race, by_fid, parents, tmpl, refs, quests = _evq_tables()
+    why = {}
+    seed = {r["formid"] for rc in pg["races"] for r in by_race.get(rc, [])}
+    seed |= {x.upper() for x in pg.get("extra_npcs", [])}
+    todo, seen = list(seed), set(seed)
+    while todo:
+        f = todo.pop()
+        for q in parents.get(f, set()) | tmpl.get(f, set()):
+            if q not in seen:
+                seen.add(q)
+                todo.append(q)
+    hits = {}
+    for fid in seen:
+        ed = (by_fid.get(fid) or {}).get("edid", "")
+        cands = []
+        if ed and fid not in seed and not _CUT_RE.search(ed):
+            cands.append(_quest_named_in(ed, quests))
+        for red, sig in refs.get(fid, ()):
+            if _CUT_RE.search(red):
+                continue
+            if sig == "QUST":
+                cands.append(quests.get(red.lower()))
+            elif sig in ("WAVE", "FLST", "NPC_", "LVLN"):
+                cands.append(_quest_named_in(red, quests))
+        for q in cands:
+            if not q or q["edid"].lower() == ed.lower():
+                continue
+            if _EVQ_SKIP.search(q["edid"]) or _CUT_RE.search(q["edid"]):
+                continue
+            if not q["full"] or q["full"].startswith("[") or (q["type"] or "").lower() in ("", "none", "module"):
+                continue
+            hits[q["edid"]] = q
+            why.setdefault(q["edid"], ed)
+    _EVQ.setdefault("why", {})[pg["slug"]] = why
+    return hits
+
+
 def resolve_events(pg, death_list_fids, tbls, appearance_fn):
     """Activities, Events & Quests that FEATURE this cryptid. Two passes, both
     keyword/registry driven (no hardcoded FormIDs):
@@ -516,6 +722,11 @@ def resolve_events(pg, death_list_fids, tbls, appearance_fn):
         if not q["full"] or (q["type"] or "").lower() == "none":
             continue
         if _QUEST_SKIP_RE.search(q["full"]):
+            continue
+        # Cut quests, caravan modules, random-encounter scenes (own expand) and the
+        # Overseer caches named after the TOWN (Grafton, Flatwoods), not the creature.
+        if (_CUT_RE.search(q["edid"]) or (q["type"] or "").lower() == "module"
+                or re.search(r"^RE_|_RE_|Overseer_CacheQuest", q["edid"], re.I)):
             continue
         hay = (q["full"] + " " + q["edid"]).lower()
         if not any(re.search(r"\b" + re.escape(t) + r"\b", hay) for t in toks):
@@ -543,6 +754,17 @@ def resolve_events(pg, death_list_fids, tbls, appearance_fn):
             out.append({"name": q["full"], "edid": edid, "type": q["type"] or "Quest",
                         "location": q["location"], "form_id": q["form_id"],
                         "rate_display": f"{pg['name']}s spawn", "spawns": True})
+
+    # Record-graph pass: events whose waves / bosses are this creature.
+    for edid, q in sorted(spawn_event_quests(pg).items()):
+        key = q["form_id"] or edid
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append({"name": re.sub(r"<Alias=[^>]*>", "", q["full"]).strip(), "edid": edid,
+                    "type": q["type"] or "Quest", "location": q["location"],
+                    "form_id": q["form_id"], "spawns": True,
+                    "rate_display": f"{pg['name']} can spawn"})
 
     # LVLI reward-closure pass (nested event reward bags)
     if death_list_fids:
@@ -1058,8 +1280,154 @@ def _pct(w):
     return rate_format.fmt_rate(w)
 
 
+def load_lvln_entries():
+    """{leveled creature list FormID: [entry FormIDs]} from the AWARE export's
+    LVLN / LVLO rows (tools/esm_awareness_extract.py). Empty when there is none."""
+    path = tsv_source.newest("AWARE_Export_*.tsv", required=False)
+    out = defaultdict(list)
+    if not path:
+        return out
+    with open(path, encoding="utf-8", errors="replace") as f:
+        for row in csv.reader(f, delimiter="\t"):
+            if len(row) > 5 and row[0] == "LVLN" and row[3] == "LVLO":
+                out[row[1].strip().upper()].append(row[5].strip().upper())
+    return out
+
+
+def dedicated_bases(pages, by_fid, lvln):
+    """{slug: {base FormID (int)}} — the placed leveled creatures that can ONLY
+    produce this page's races (LvlGrafton -> LCharGrafton -> Grafton normal /
+    glowing / scorched). Dedication is about WHAT spawns, not how often
+    (spawn-guide): such a placement is a fixed spawn. A list that can roll another
+    species (LvlStrangeEncounterPOI: Mothman OR Flatwoods) is not dedicated."""
+    memo = {}
+
+    def races(fid, depth=0, stack=()):
+        # memo: a list can appear several times in one tree (LCharSheepsquatch lists
+        # LCharSheepsquatch_Normal three times) — a repeat is fine, only a loop isn't.
+        if fid in memo:
+            return memo[fid]
+        if depth > 8 or fid in stack:
+            return None
+        stack = stack + (fid,)
+        memo[fid] = res = _races(fid, depth, stack)
+        return res
+
+    def _races(fid, depth, stack):
+        if fid in lvln:
+            out = set()
+            for e in lvln[fid]:
+                r = races(e, depth + 1, stack)
+                if r is None:
+                    return None
+                out |= r
+            return out
+        row = by_fid.get(fid)
+        if not row:
+            return None
+        if row.get("tplt_fid") and row["tplt_fid"] in lvln:
+            return races(row["tplt_fid"], depth + 1, stack)
+        return {row["race"]} if row.get("race") else None
+    out = {}
+    for pg in pages:
+        want = set(pg.get("races", []))
+        keep = set()
+        for fid, row in by_fid.items():
+            if row.get("tplt_fid") in lvln:
+                r = races(fid)
+                if r and r <= want:
+                    keep.add(int(fid, 16))
+        out[pg["slug"]] = keep
+    return out
+
+
+def _enable_state(esm, rec, depth=0):
+    """(on at server start?, kind) for a placed ref with an enable parent (XESP),
+    traced 27 Nov 2026. A child follows its parent; the 'opposite' flag (bit 0)
+    flips it; a ref flagged initially disabled (0x800) starts off. Kinds:
+      'denizen' — the parent is a DenizenEnableMarker (Wastelanders wanderer scene;
+                  its script is a client stub, the server decides when it runs),
+      'scripted' — any other parent with a script (VMAD), also server-run.
+    A plain EnableMarker that starts ON with nothing in the files switching it
+    (Penitentiary LC043_EnemyDisableMarker, Black Mountain LC003_Dome_EnableMarker)
+    leaves the creature there; Organ Cave's anglers hang off the Meat Week marker
+    UD11_EnableMarker_Meat with 'opposite' set — there except during Meat Week."""
+    import struct
+    on, kind = not (rec.flags & 0x800), None
+    for s, d in rec.subs:
+        if s != "XESP" or len(d) < 8:
+            continue
+        pfid, flags = struct.unpack_from("<II", d)
+        hit = esm.world_record(pfid)
+        if not hit:
+            return on, "unknown"
+        prec = hit[1]
+        base = prec.first("NAME")
+        bed = (esm.index.get(struct.unpack_from("<I", base)[0]) or ("", ""))[1] if base else ""
+        if "denizen" in (bed or "").lower():
+            kind = "denizen"
+        elif prec.first("VMAD") is not None:
+            kind = "scripted"
+        p_on, p_kind = _enable_state(esm, prec, depth + 1) if depth < 6 else (True, None)
+        kind = kind or p_kind
+        on = on and (p_on != bool(flags & 1))
+        break
+    return on, kind
+
+
+def flag_enable_parents(cache):
+    """Mark cached `placement` rows whose placed actor has an enable parent (XESP):
+    something else switches it on, e.g. Grafton at Watoga Civic Center is enabled
+    by a quest marker. Those stay chance spawns. Needs SeventySix.esm (local run);
+    CI keeps the flags already in the committed cache."""
+    data_dir = next((d for d in FO76_DATA_DIRS
+                     if d and os.path.exists(os.path.join(d, "SeventySix.esm"))), None)
+    if not data_dir:
+        return
+    sys.path.insert(0, os.path.join(REPO, "tools"))
+    import struct
+    from esm_reader import Esm
+    esm = Esm(data_dir, set(), want_index=True)   # index: keyword EDIDs for XLKR
+    ambush = {(r.get("page"), k.rsplit(":", 1)[-1]) for k, r in cache.items()
+              if isinstance(r, dict) and r.get("source_type") == "ambush"}
+    n = m = 0
+    for key, rec in cache.items():
+        if not isinstance(rec, dict) or rec.get("source_type") != "placement":
+            continue
+        inst = key.rsplit(":", 1)[-1]
+        if not inst.isdigit():
+            continue
+        hit = esm.world_record(int(inst))
+        rec.pop("enable_parent", None)
+        rec.pop("linked_ambush", None)
+        if not hit:
+            continue
+        if any(s == "XESP" for s, _ in hit[1].subs):
+            rec["enable_parent"] = True
+            rec.pop("on_at_start", None)
+            rec.pop("enable_kind", None)
+            on, kind = _enable_state(esm, hit[1])
+            if on:
+                rec["on_at_start"] = True
+            if kind:
+                rec["enable_kind"] = kind
+            n += 1
+        # The placed creature is linked to an ambush point the page already counts
+        # (XLKR — LinkAmbushFurniture at Summersville Dam, a plain link to
+        # Wendigo_CorpseEating in Vault 51): one creature, not two.
+        for s, d in hit[1].subs:
+            if s == "XLKR" and len(d) >= 8:
+                kw, ref = struct.unpack_from("<II", d)
+                if (rec.get("page"), str(ref)) in ambush:
+                    rec["linked_ambush"] = ref
+                    m += 1
+                    break
+    print(f"[cryptids] enable parents: {n} placement(s) switched on by something else; "
+          f"{m} placed creature(s) already counted at their ambush marker")
+
+
 def tier_spawns(seen_slug, cache, slug, page_name, promote_unique=False,
-                promote_placements=False):
+                promote_placements=False, dedicated=None):
     """Split a page's resolved placements into two tiers (spawn-guide):
 
       GUARANTEED — ambush / nest markers, and NPC-table points where the creature's
@@ -1100,6 +1468,16 @@ def tier_spawns(seen_slug, cache, slug, page_name, promote_unique=False,
         # Mappalachia's NPC table, where one point carries a pool that really can roll
         # several species. Only their weight decides.
         if promote_placements and stype == "placement":
+            is_guaranteed = True
+        # A placed leveled creature that can only be this cryptid, and that nothing
+        # else switches on, is a fixed spawn (cryptid run only).
+        if dedicated and stype == "placement" and rec.get("linked_ambush"):
+            continue    # the same creature as an ambush point already on the page
+        # Switched on by something else: still fixed when it is ON from server start
+        # and no server script or quest flips it (see _enable_state).
+        if (dedicated and stype == "placement" and rec.get("base") in dedicated
+                and (not rec.get("enable_parent")
+                     or (rec.get("on_at_start") and not rec.get("enable_kind")))):
             is_guaranteed = True
         # opt-in: a `placement` that is a UNIQUE NAMED INDIVIDUAL (placed exactly once,
         # with its own FULL name distinct from the page) is a guaranteed static spawn —
@@ -1329,6 +1707,11 @@ def run(argv=None):
               "will be empty. Run once locally with MAPPALACHIA_DB set to seed the cache.")
 
     seen_by_page = resolve_fixed_spawns(pages, npcs_by_page, geo, cur, cache, db_ok)
+    # Placed leveled creatures that can only be this cryptid -> fixed spawns,
+    # unless something else switches them on (enable parent, read from the ESM).
+    dedicated = dedicated_bases(pages, by_fid, load_lvln_entries())
+    if db_ok:
+        flag_enable_parents(cache)
 
     hub = []
     for pg in pages:
@@ -1337,7 +1720,8 @@ def run(argv=None):
         keep = ebuild.load_existing(os.path.join(OUT_DIR, pg["slug"] + ".json"))
         # Tier: Fixed Spawn Locations = GUARANTEED only; Chance to Spawn = weighted rest.
         guaranteed, chance_spawns = tier_spawns(
-            seen_by_page[pg["slug"]], cache, pg["slug"], pg["name"])
+            seen_by_page[pg["slug"]], cache, pg["slug"], pg["name"],
+            dedicated=dedicated.get(pg["slug"]))
         regions_out, src_totals, unresolved, total, placements = ebuild.group_regions(
             guaranteed, ALL_REGIONS, keep)
         label_spawns(regions_out, pg["name"])
@@ -1392,6 +1776,20 @@ def run(argv=None):
                        "challenges": len(uf), "fixed_spawns": placements,
                        "events": len(events), "random_encounters": len(res)},
         })
+
+    # A named-slug run (batches) keeps the other cryptids' cards from the last hub,
+    # instead of writing a hub with only this batch in it (27 Nov 2026).
+    if slug_filter and os.path.exists(HUB_FILE):
+        try:
+            prev = json.load(open(HUB_FILE, encoding="utf-8"))
+            done = {h["slug"] for h in hub}
+            hub += [h for h in prev.get("cryptids", []) + prev.get("cryptids_pending", [])
+                    if h.get("slug") not in done]
+            order = {pg["slug"]: i for i, pg in enumerate(PAGES)}
+            hub = [h for h in hub if h.get("slug") in order]
+            hub.sort(key=lambda h: order[h["slug"]])
+        except (OSError, ValueError, KeyError):
+            pass
 
     hub_doc = {
         "_meta": {"generated": generated, "source": SOURCE_TAG},

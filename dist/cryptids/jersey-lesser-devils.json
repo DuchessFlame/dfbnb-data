@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-11-26",
+  "generated": "2026-11-27",
   "source": "Game-file exports (KYWD/NPC/LVLI) + challenges.json + Mappalachia Position/Entity (cached for CI)",
   "races": [
    {
@@ -11,7 +11,8 @@
    }
   ],
   "source_totals": {
-   "ambush": 1
+   "ambush": 1,
+   "placement": 4
   },
   "unresolved": {},
   "hold": false
@@ -21,7 +22,7 @@
  "name": "Jersey and Lesser Devils",
  "page_title": "Cryptids - Jersey and Lesser Devils",
  "url": "/df/cryptids/jersey-lesser-devils/",
- "blurb": "The Jersey and Lesser Devils in Fallout 76 — 8 NPC variants, 1 known spawn point, 682 possible drops.",
+ "blurb": "The Jersey and Lesser Devils in Fallout 76 — 8 NPC variants, 5 known spawn points, 682 possible drops.",
  "npc_summary": {
   "npc_count": 8,
   "level_min": 91,
@@ -180,15 +181,69 @@
     "region": "Atlantic City",
     "locations": [
      {
-      "marker": "Flooded City Center",
-      "count": 1,
+      "marker": "Casino Quarter",
+      "count": 2,
       "sources": {
-       "ambush": 1
+       "placement": 2
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
+       "72FC13",
+       "72FC15"
+      ],
+      "coords": [
+       -7452.5,
+       -453.1
+      ],
+      "spawns": [
+       {
+        "label": "Jersey and Lesser Devils spawn #1",
+        "ref": "72FC13",
+        "source_type": "placement",
+        "coords": [
+         -7452.5,
+         -453.1
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Jersey and Lesser Devils spawn #2",
+        "ref": "72FC15",
+        "source_type": "placement",
+        "coords": [
+         -7756.6,
+         -678.2
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Flooded City Center",
+      "count": 3,
+      "sources": {
+       "ambush": 1,
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "6D2F24",
+       "6D2F25",
        "74EBF1"
       ],
       "coords": [
@@ -207,6 +262,30 @@
         "image_top": "",
         "directions": "",
         "image_bottom": ""
+       },
+       {
+        "label": "Jersey and Lesser Devils spawn #1",
+        "ref": "6D2F24",
+        "source_type": "placement",
+        "coords": [
+         -6768.9,
+         6794.5
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Jersey and Lesser Devils spawn #2",
+        "ref": "6D2F25",
+        "source_type": "placement",
+        "coords": [
+         -7153.7,
+         6988.6
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
        }
       ],
       "breakdown": [
@@ -214,6 +293,11 @@
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
        }
       ]
      }
@@ -252,33 +336,12 @@
     "locations": []
    }
   ],
-  "total_markers": 1,
-  "total_placements": 1
+  "total_markers": 2,
+  "total_placements": 5
  },
  "chance_spawns": {
-  "locations": [
-   {
-    "marker": "Casino Quarter",
-    "region": "Atlantic City",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Jersey and Lesser Devils"
-    ],
-    "count": 2
-   },
-   {
-    "marker": "Flooded City Center",
-    "region": "Atlantic City",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Jersey and Lesser Devils"
-    ],
-    "count": 3
-   }
-  ],
-  "total": 2,
+  "locations": [],
+  "total": 0,
   "note": null
  }
 }

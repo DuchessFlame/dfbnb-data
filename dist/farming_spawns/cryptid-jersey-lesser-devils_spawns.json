@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-11-26",
+  "generated": "2026-11-27",
   "source": "dist/cryptids/jersey-lesser-devils.json + farming pipeline (src/build_cryptid_guide_docs.py)"
  },
  "set": "cryptid",
@@ -768,15 +768,69 @@
    "region": "Atlantic City",
    "locations": [
     {
-     "marker": "Flooded City Center",
-     "count": 1,
+     "marker": "Casino Quarter",
+     "count": 2,
      "sources": {
-      "ambush": 1
+      "placement": 2
+     },
+     "image_top": "",
+     "directions": "From the Veribird, turn and face South. Jump off the edge of the platform to the ground level. Face South and follow the road to the end. Stop when you get to the bus and jump on top of it. Face South and you should see a set of stairs in front of you. Walk over and follow the stairs to the top. At the top of the stairs, face East and use the Nuka Cola sign to get over to the next platform. Face South and walk behind the circular structure and the Lesser Devils will spawn.",
+     "image_bottom": "",
+     "refs": [
+      "72FC13",
+      "72FC15"
+     ],
+     "coords": [
+      -7452.5,
+      -453.1
+     ],
+     "breakdown": [
+      {
+       "label": "Jersey and Lesser Devils spawn",
+       "count": 2,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Jersey and Lesser Devils spawn #1",
+       "ref": "72FC13",
+       "source_type": "placement",
+       "coords": [
+        -7452.5,
+        -453.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": "/wp-content/uploads/guide-images/cryptids/jersey-lesser-devils/atlantic-city-casino-quarter-jersey-and-lesser-devils-spawn-1-item.avif"
+      },
+      {
+       "label": "Jersey and Lesser Devils spawn #2",
+       "ref": "72FC15",
+       "source_type": "placement",
+       "coords": [
+        -7756.6,
+        -678.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Flooded City Center",
+     "count": 3,
+     "sources": {
+      "ambush": 1,
+      "placement": 2
      },
      "image_top": "",
      "directions": "From the Veribird, face West and jump off the roof to the ground. Continue West along the path, towards City Hall. At the front of City Hall, keep walking West and stop at the bus on your left. Turn right (North) and follow the road/water until you get to the top of the pile of dirt. An Overgrown Thorn will spawn on your left and right, just before the pile of dirt. Turn left (West) and enter the middle of the Derelict Plaza. The Lesser Devils will spawn.",
      "image_bottom": "/wp-content/uploads/guide-images/cryptids/jersey-lesser-devils/atlantic-city-flooded-city-center-item.avif",
      "refs": [
+      "6D2F24",
+      "6D2F25",
       "74EBF1"
      ],
      "coords": [
@@ -788,6 +842,11 @@
        "label": "Jersey and Lesser Devils ambush",
        "count": 1,
        "source_type": "ambush"
+      },
+      {
+       "label": "Jersey and Lesser Devils spawn",
+       "count": 2,
+       "source_type": "ambush"
       }
      ],
      "spawns": [
@@ -798,6 +857,30 @@
        "coords": [
         -176.0,
         -6248.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Jersey and Lesser Devils spawn #1",
+       "ref": "6D2F24",
+       "source_type": "placement",
+       "coords": [
+        -6768.9,
+        6794.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Jersey and Lesser Devils spawn #2",
+       "ref": "6D2F25",
+       "source_type": "placement",
+       "coords": [
+        -7153.7,
+        6988.6
        ],
        "image_top": "",
        "directions": "",
@@ -845,6 +928,11 @@
    "source_type": "ambush",
    "count": 1,
    "label": "Ambush point"
+  },
+  {
+   "source_type": "placement",
+   "count": 4,
+   "label": "Fixed spawns"
   }
  ],
  "map_regions": [],
@@ -853,30 +941,19 @@
   {
    "name": "Flooded City Center (Atlantic City)",
    "url": "/wp-content/uploads/guide-images/cryptids/jersey-lesser-devils/atlantic-city-flooded-city-center-cell-map.jpg",
-   "desc": "1 spawn inside"
+   "desc": "3 spawns inside"
+  },
+  {
+   "name": "Casino Quarter (Atlantic City)",
+   "url": "/wp-content/uploads/guide-images/cryptids/jersey-lesser-devils/atlantic-city-casino-quarter-cell-map.jpg",
+   "desc": "2 spawns inside"
   }
  ],
  "chance_spawns": {
-  "regions": [
-   {
-    "region": "Atlantic City",
-    "markers": [
-     {
-      "name": "Casino Quarter",
-      "placements": 2
-     },
-     {
-      "name": "Flooded City Center",
-      "placements": 3
-     }
-    ],
-    "placements": 5
-   }
-  ],
-  "total_markers": 2,
-  "total": 5,
-  "no_maps": true,
-  "lead": "Jersey and Lesser Devils can spawn at 2 locations that share a spawn pool with other creatures, so they are not guaranteed there. They are listed by name only."
+  "regions": [],
+  "total_markers": 0,
+  "total": 0,
+  "no_maps": true
  },
  "info_notes": [],
  "treasure_maps": {

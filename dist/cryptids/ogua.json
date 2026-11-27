@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-11-26",
+  "generated": "2026-11-27",
   "source": "Game-file exports (KYWD/NPC/LVLI) + challenges.json + Mappalachia Position/Entity (cached for CI)",
   "races": [
    {
@@ -8,7 +8,8 @@
    }
   ],
   "source_totals": {
-   "ambush": 6
+   "ambush": 6,
+   "placement": 1
   },
   "unresolved": {},
   "hold": false
@@ -18,7 +19,7 @@
  "name": "Ogua",
  "page_title": "Cryptids - Ogua",
  "url": "/df/cryptids/ogua/",
- "blurb": "The Ogua in Fallout 76 — 10 NPC variants, 6 known spawn points, 51 possible drops.",
+ "blurb": "The Ogua in Fallout 76 — 10 NPC variants, 7 known spawn points, 51 possible drops.",
  "npc_summary": {
   "npc_count": 10,
   "level_min": 1,
@@ -56,7 +57,35 @@
   }
  ],
  "farming_tips": null,
- "events_activities": [],
+ "events_activities": [
+  {
+   "name": "Event: Beasts of Burden",
+   "edid": "MOON_Ambush",
+   "type": "Public Event",
+   "location": "LocSacramentalGladeLocation \"Sacramental Glade\" [LCTN:000616AB]",
+   "form_id": "0068F383",
+   "spawns": true,
+   "rate_display": "Ogua can spawn"
+  },
+  {
+   "name": "Event: Fasnacht Day",
+   "edid": "E01F_Fasnacht",
+   "type": "Public Event",
+   "location": "",
+   "form_id": "0049886E",
+   "spawns": true,
+   "rate_display": "Ogua can spawn"
+  },
+  {
+   "name": "Event: Sinkhole Solutions",
+   "edid": "Burn_E02_Sinkhole",
+   "type": "Public Event",
+   "location": "LocBurnSinkholeLocation \"Tycoon Lake\" [LCTN:0080BFF1]",
+   "form_id": "0080BFD0",
+   "spawns": true,
+   "rate_display": "Ogua can spawn"
+  }
+ ],
  "drops": {
   "lists": [
    {
@@ -362,14 +391,16 @@
     "locations": [
      {
       "marker": "Old Crimora Mines",
-      "count": 2,
+      "count": 3,
       "sources": {
-       "ambush": 2
+       "ambush": 2,
+       "placement": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
+       "750F86",
        "75D6B3",
        "75D6B4"
       ],
@@ -401,6 +432,18 @@
         "image_top": "",
         "directions": "",
         "image_bottom": ""
+       },
+       {
+        "label": "Ogua spawn",
+        "ref": "750F86",
+        "source_type": "placement",
+        "coords": [
+         -43941.3,
+         -253405.6
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
        }
       ],
       "breakdown": [
@@ -408,6 +451,11 @@
         "label": "ambush points",
         "count": 2,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
        }
       ]
      }
@@ -427,22 +475,11 @@
    }
   ],
   "total_markers": 2,
-  "total_placements": 6
+  "total_placements": 7
  },
  "chance_spawns": {
-  "locations": [
-   {
-    "marker": "Old Crimora Mines",
-    "region": "Skyline Valley",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Ogua"
-    ],
-    "count": 1
-   }
-  ],
-  "total": 1,
+  "locations": [],
+  "total": 0,
   "note": null
  }
 }

@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-11-26",
+  "generated": "2026-11-27",
   "source": "Game-file exports (KYWD/NPC/LVLI) + challenges.json + Mappalachia Position/Entity (cached for CI)",
   "races": [
    {
@@ -8,7 +8,8 @@
    }
   ],
   "source_totals": {
-   "ambush": 5
+   "ambush": 5,
+   "placement": 2
   },
   "unresolved": {},
   "hold": false
@@ -18,7 +19,7 @@
  "name": "Grafton Monster",
  "page_title": "Cryptids - Grafton Monster",
  "url": "/df/cryptids/grafton-monster/",
- "blurb": "The Grafton Monster in Fallout 76 — 14 NPC variants, 5 known spawn points, 12683 possible drops.",
+ "blurb": "The Grafton Monster in Fallout 76 — 14 NPC variants, 7 known spawn points, 12683 possible drops.",
  "npc_summary": {
   "npc_count": 14,
   "level_min": 10,
@@ -86,6 +87,15 @@
  "farming_tips": null,
  "events_activities": [
   {
+   "name": "Daily: Queen of the Hunt",
+   "edid": "SFZ03_Queen",
+   "type": "Daily",
+   "location": "",
+   "form_id": "000451FC",
+   "spawns": true,
+   "rate_display": "Grafton Monster can spawn"
+  },
+  {
    "name": "Activity: Grafton Day",
    "edid": "TWZ07",
    "type": "Event",
@@ -93,18 +103,49 @@
    "form_id": "0025C0F4"
   },
   {
-   "name": "Grafton Cache",
-   "edid": "MQ_Overseer_CacheQuest_X2_Grafton",
-   "type": "Miscellaneous",
+   "name": "Event: Fasnacht Day",
+   "edid": "E01F_Fasnacht",
+   "type": "Public Event",
    "location": "",
-   "form_id": "003D7F5F"
+   "form_id": "0049886E",
+   "spawns": true,
+   "rate_display": "Grafton Monster can spawn"
   },
   {
-   "name": "Grafton Steel",
-   "edid": "CUT_Factory_GraftonSteel",
-   "type": "Secondary",
-   "location": "LocToxicGraftonSteelLocation \"Grafton Steel\" [LCTN:0006D2F2]",
-   "form_id": "00241430"
+   "name": "Event: Heart of the Swamp",
+   "edid": "SFS08_Heart",
+   "type": "Public Event",
+   "location": "",
+   "form_id": "00093187",
+   "spawns": true,
+   "rate_display": "Grafton Monster can spawn"
+  },
+  {
+   "name": "Event: Primal Cuts",
+   "edid": "E02A_Meat_Hunt",
+   "type": "Public Event",
+   "location": "",
+   "form_id": "0054B3F3",
+   "spawns": true,
+   "rate_display": "Grafton Monster can spawn"
+  },
+  {
+   "name": "Event: Project Paradise",
+   "edid": "SFS09_Habitat",
+   "type": "Public Event",
+   "location": "",
+   "form_id": "005109AF",
+   "spawns": true,
+   "rate_display": "Grafton Monster can spawn"
+  },
+  {
+   "name": "Event: Spin The Wheel",
+   "edid": "E09B_Wheel",
+   "type": "Public Event",
+   "location": "",
+   "form_id": "00634B0B",
+   "spawns": true,
+   "rate_display": "Grafton Monster can spawn"
   }
  ],
  "drops": {
@@ -242,6 +283,44 @@
    {
     "region": "Forest",
     "locations": [
+     {
+      "marker": "Charleston Trainyard",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "4FD421"
+      ],
+      "coords": [
+       -113705.9,
+       -44878.4
+      ],
+      "spawns": [
+       {
+        "label": "Grafton Monster spawn",
+        "ref": "4FD421",
+        "source_type": "placement",
+        "coords": [
+         -113705.9,
+         -44878.4
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
      {
       "marker": "Summersville Dam",
       "count": 1,
@@ -417,6 +496,44 @@
     "region": "Toxic Valley",
     "locations": [
      {
+      "marker": "Hemlock Holes",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3C3F6F"
+      ],
+      "coords": [
+       -65246.6,
+       178882.7
+      ],
+      "spawns": [
+       {
+        "label": "Grafton Monster spawn",
+        "ref": "3C3F6F",
+        "source_type": "placement",
+        "coords": [
+         -65246.6,
+         178882.7
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
       "marker": "Toxic Dried Lakebed",
       "count": 1,
       "sources": {
@@ -457,41 +574,11 @@
     ]
    }
   ],
-  "total_markers": 5,
-  "total_placements": 5
+  "total_markers": 7,
+  "total_placements": 7
  },
  "chance_spawns": {
   "locations": [
-   {
-    "marker": "Charleston Trainyard",
-    "region": "Forest",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Grafton Monster"
-    ],
-    "count": 1
-   },
-   {
-    "marker": "Hemlock Holes",
-    "region": "Toxic Valley",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Grafton Monster"
-    ],
-    "count": 1
-   },
-   {
-    "marker": "Summersville Dam",
-    "region": "Forest",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Grafton Monster"
-    ],
-    "count": 1
-   },
    {
     "marker": "The Whitespring Golf Club",
     "region": "Savage Divide",
@@ -523,7 +610,7 @@
     "count": 1
    }
   ],
-  "total": 6,
+  "total": 3,
   "note": null
  }
 }

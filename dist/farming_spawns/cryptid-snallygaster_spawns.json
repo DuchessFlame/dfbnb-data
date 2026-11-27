@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-11-26",
+  "generated": "2026-11-27",
   "source": "dist/cryptids/snallygaster.json + farming pipeline (src/build_cryptid_guide_docs.py)"
  },
  "set": "cryptid",
@@ -1542,7 +1542,80 @@
    "count": 1
   }
  ],
- "events_activities": [],
+ "events_activities": [
+  {
+   "name": "Daily: Big Game Hunter",
+   "edid": "TW004",
+   "type": "Daily",
+   "location": "",
+   "form_id": "0011D76B",
+   "spawns": true,
+   "rate_display": "Snallygaster can spawn"
+  },
+  {
+   "name": "Daily: Queen of the Hunt",
+   "edid": "SFZ03_Queen",
+   "type": "Daily",
+   "location": "",
+   "form_id": "000451FC",
+   "spawns": true,
+   "rate_display": "Snallygaster can spawn"
+  },
+  {
+   "name": "Event: Gearin' Up",
+   "edid": "Burn_E01_Gear",
+   "type": "Public Event",
+   "location": "SubRegionBurningSprings16Location \"Burning Springs\" [LCTN:007D6A9A]",
+   "form_id": "007F1E8A",
+   "spawns": true,
+   "rate_display": "Snallygaster can spawn"
+  },
+  {
+   "name": "Event: Primal Cuts",
+   "edid": "E02A_Meat_Hunt",
+   "type": "Public Event",
+   "location": "",
+   "form_id": "0054B3F3",
+   "spawns": true,
+   "rate_display": "Snallygaster can spawn"
+  },
+  {
+   "name": "Event: Project Paradise",
+   "edid": "SFS09_Habitat",
+   "type": "Public Event",
+   "location": "",
+   "form_id": "005109AF",
+   "spawns": true,
+   "rate_display": "Snallygaster can spawn"
+  },
+  {
+   "name": "Event: Radiation Rumble",
+   "edid": "E05_Radiation",
+   "type": "Public Event",
+   "location": "",
+   "form_id": "00562877",
+   "spawns": true,
+   "rate_display": "Snallygaster can spawn"
+  },
+  {
+   "name": "Event: Scorched Earth",
+   "edid": "CB15_ScorchedEarth",
+   "type": "Public Event",
+   "location": "RegionCranberryBogLocation \"Cranberry Bog\" [LCTN:000012A2]",
+   "form_id": "003E271D",
+   "spawns": true,
+   "rate_display": "Snallygaster can spawn"
+  },
+  {
+   "name": "Event: Spin The Wheel",
+   "edid": "E09B_Wheel",
+   "type": "Public Event",
+   "location": "",
+   "form_id": "00634B0B",
+   "spawns": true,
+   "rate_display": "Snallygaster can spawn"
+  }
+ ],
  "random_encounters": [
   {
    "form_id": "00571ACB",
@@ -1689,7 +1762,84 @@
   },
   {
    "region": "Forest",
-   "locations": []
+   "locations": [
+    {
+     "marker": "Charleston",
+     "count": 1,
+     "sources": {
+      "placement": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "28A431"
+     ],
+     "coords": [
+      -102036.0,
+      -55982.6
+     ],
+     "breakdown": [
+      {
+       "label": "Snallygaster spawn",
+       "count": 1,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Snallygaster spawn",
+       "ref": "28A431",
+       "source_type": "placement",
+       "coords": [
+        -102036.0,
+        -55982.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Charleston Capitol Building",
+     "count": 1,
+     "sources": {
+      "placement": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "432ECC"
+     ],
+     "coords": [
+      -94088.0,
+      -61816.0
+     ],
+     "breakdown": [
+      {
+       "label": "Snallygaster spawn",
+       "count": 1,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Snallygaster spawn",
+       "ref": "432ECC",
+       "source_type": "placement",
+       "coords": [
+        -94088.0,
+        -61816.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
   },
   {
    "region": "Savage Divide",
@@ -1872,10 +2022,16 @@
    "source_type": "spawn",
    "count": 13,
    "label": "Spawn points"
+  },
+  {
+   "source_type": "placement",
+   "count": 2,
+   "label": "Fixed spawns"
   }
  ],
  "map_regions": [
   "Cranberry Bog",
+  "Forest",
   "Savage Divide",
   "Toxic Valley"
  ],
@@ -1897,19 +2053,11 @@
     "region": "Forest",
     "markers": [
      {
-      "name": "Charleston",
-      "placements": 1
-     },
-     {
-      "name": "Charleston Capitol Building",
-      "placements": 1
-     },
-     {
       "name": "Enclave Research Facility",
       "placements": 1
      }
     ],
-    "placements": 3
+    "placements": 1
    },
    {
     "region": "Savage Divide",
@@ -1950,10 +2098,10 @@
     "placements": 4
    }
   ],
-  "total_markers": 9,
-  "total": 17,
+  "total_markers": 7,
+  "total": 15,
   "no_maps": true,
-  "lead": "Snallygaster can spawn at 9 locations that share a spawn pool with other creatures, so it is not guaranteed there. They are listed by name only."
+  "lead": "Snallygaster can spawn at 7 locations that share a spawn pool with other creatures, so it is not guaranteed there. They are listed by name only."
  },
  "info_notes": [],
  "treasure_maps": {

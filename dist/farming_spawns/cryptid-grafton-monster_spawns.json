@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-11-26",
+  "generated": "2026-11-27",
   "source": "dist/cryptids/grafton-monster.json + farming pipeline (src/build_cryptid_guide_docs.py)"
  },
  "set": "cryptid",
@@ -5762,6 +5762,15 @@
  "vendor_list": [],
  "events_activities": [
   {
+   "name": "Daily: Queen of the Hunt",
+   "edid": "SFZ03_Queen",
+   "type": "Daily",
+   "location": "",
+   "form_id": "000451FC",
+   "spawns": true,
+   "rate_display": "Grafton Monster can spawn"
+  },
+  {
    "name": "Activity: Grafton Day",
    "edid": "TWZ07",
    "type": "Event",
@@ -5769,18 +5778,49 @@
    "form_id": "0025C0F4"
   },
   {
-   "name": "Grafton Cache",
-   "edid": "MQ_Overseer_CacheQuest_X2_Grafton",
-   "type": "Miscellaneous",
+   "name": "Event: Fasnacht Day",
+   "edid": "E01F_Fasnacht",
+   "type": "Public Event",
    "location": "",
-   "form_id": "003D7F5F"
+   "form_id": "0049886E",
+   "spawns": true,
+   "rate_display": "Grafton Monster can spawn"
   },
   {
-   "name": "Grafton Steel",
-   "edid": "CUT_Factory_GraftonSteel",
-   "type": "Secondary",
-   "location": "LocToxicGraftonSteelLocation \"Grafton Steel\" [LCTN:0006D2F2]",
-   "form_id": "00241430"
+   "name": "Event: Heart of the Swamp",
+   "edid": "SFS08_Heart",
+   "type": "Public Event",
+   "location": "",
+   "form_id": "00093187",
+   "spawns": true,
+   "rate_display": "Grafton Monster can spawn"
+  },
+  {
+   "name": "Event: Primal Cuts",
+   "edid": "E02A_Meat_Hunt",
+   "type": "Public Event",
+   "location": "",
+   "form_id": "0054B3F3",
+   "spawns": true,
+   "rate_display": "Grafton Monster can spawn"
+  },
+  {
+   "name": "Event: Project Paradise",
+   "edid": "SFS09_Habitat",
+   "type": "Public Event",
+   "location": "",
+   "form_id": "005109AF",
+   "spawns": true,
+   "rate_display": "Grafton Monster can spawn"
+  },
+  {
+   "name": "Event: Spin The Wheel",
+   "edid": "E09B_Wheel",
+   "type": "Public Event",
+   "location": "",
+   "form_id": "00634B0B",
+   "spawns": true,
+   "rate_display": "Grafton Monster can spawn"
   }
  ],
  "random_encounters": [
@@ -5828,6 +5868,44 @@
   {
    "region": "Forest",
    "locations": [
+    {
+     "marker": "Charleston Trainyard",
+     "count": 1,
+     "sources": {
+      "placement": 1
+     },
+     "image_top": "/wp-content/uploads/guide-images/cryptids/grafton-monster/forest-charleston-trainyard-map.avif",
+     "directions": "From the fast travel point, follow the train tracks South until you get to the second red metal bridge. Face West and look up and down the river bed, generally, he is hanging around near the red bridge or he is playing with the molerats closer to the Poseidon Energy Plant WV-06.",
+     "image_bottom": "",
+     "refs": [
+      "4FD421"
+     ],
+     "coords": [
+      -113705.9,
+      -44878.4
+     ],
+     "breakdown": [
+      {
+       "label": "Grafton Monster spawn",
+       "count": 1,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Grafton Monster spawn",
+       "ref": "4FD421",
+       "source_type": "placement",
+       "coords": [
+        -113705.9,
+        -44878.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
     {
      "marker": "Summersville Dam",
      "count": 1,
@@ -6003,6 +6081,44 @@
    "region": "Toxic Valley",
    "locations": [
     {
+     "marker": "Hemlock Holes",
+     "count": 1,
+     "sources": {
+      "placement": 1
+     },
+     "image_top": "/wp-content/uploads/guide-images/cryptids/grafton-monster/toxic-valley-hemlock-holes-map.avif",
+     "directions": "From the fast travel point, face South and run over to the diner/building. Jump on top of the building and face SE. The Grafton Monster here likes to wander around and pick fights with any enemies in the area, so you might need to use VATS to find him. Don't forget to loot the diner for salt, pepper, spices, and sugar.",
+     "image_bottom": "",
+     "refs": [
+      "3C3F6F"
+     ],
+     "coords": [
+      -65246.6,
+      178882.7
+     ],
+     "breakdown": [
+      {
+       "label": "Grafton Monster spawn",
+       "count": 1,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Grafton Monster spawn",
+       "ref": "3C3F6F",
+       "source_type": "placement",
+       "coords": [
+        -65246.6,
+        178882.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
      "marker": "Toxic Dried Lakebed",
      "count": 1,
      "sources": {
@@ -6048,6 +6164,11 @@
    "source_type": "ambush",
    "count": 5,
    "label": "Ambush points"
+  },
+  {
+   "source_type": "placement",
+   "count": 2,
+   "label": "Fixed spawns"
   }
  ],
  "map_regions": [
@@ -6070,20 +6191,6 @@
     "placements": 1
    },
    {
-    "region": "Forest",
-    "markers": [
-     {
-      "name": "Charleston Trainyard",
-      "placements": 1
-     },
-     {
-      "name": "Summersville Dam",
-      "placements": 1
-     }
-    ],
-    "placements": 2
-   },
-   {
     "region": "Savage Divide",
     "markers": [
      {
@@ -6096,22 +6203,12 @@
      }
     ],
     "placements": 5
-   },
-   {
-    "region": "Toxic Valley",
-    "markers": [
-     {
-      "name": "Hemlock Holes",
-      "placements": 1
-     }
-    ],
-    "placements": 1
    }
   ],
-  "total_markers": 6,
-  "total": 9,
+  "total_markers": 3,
+  "total": 6,
   "no_maps": true,
-  "lead": "Grafton Monster can spawn at 6 locations that share a spawn pool with other creatures, so it is not guaranteed there. They are listed by name only."
+  "lead": "Grafton Monster can spawn at 3 locations that share a spawn pool with other creatures, so it is not guaranteed there. They are listed by name only."
  },
  "info_notes": [],
  "treasure_maps": {
