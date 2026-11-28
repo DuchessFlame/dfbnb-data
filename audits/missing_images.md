@@ -1,6 +1,6 @@
 # Missing images
 
-Every item on a reward page with no picture anywhere: not in the shared library, not in its own event folder, not on any other page. Built 2026-11-16 from the server listing of 2026-11-16T03:35:10Z.
+Every item on a reward page with no picture anywhere: not in the shared library, not in its own event folder, not on any other page. Built 2026-11-28 from the server listing of 2026-11-28T06:35:01Z.
 
 **3307 items have no picture on the server**: 342 are already on your computer and just need uploading, 2965 need art found (7198 rows - the same item can appear on several pages; one upload fixes every page it is on).
 
@@ -954,7 +954,7 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: T-60 Atom Cat Paint *(cut)* | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `00501930.avif` |
 | Plan: T-60 Blood Cleanser | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `0018103C.avif` |
 | Plan: T-60 BOS Elder Paint | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `0047AABE.avif` |
-| Plan: T-60 BOS Initiate Paint *(cut)* | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `0047AA88.avif` |
+| Plan: T-60 BOS Initiate Paint | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `0047AA88.avif` |
 | Plan: T-60 BOS Knight CPT Paint | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `0047AAC1.avif` |
 | Plan: T-60 BOS Knight Paint | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `0047AAC0.avif` |
 | Plan: T-60 BOS Knight SGT Paint | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `0047AAC2.avif` |
@@ -1647,7 +1647,7 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Quantum Paint (Cryolator) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `008F4CBD.avif` |
 | Raider Paint (Railway Rifle) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `0091EEA1.avif` |
 | Reaper Paint (Gatling Laser) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `00787F82.avif` |
-| Reaper Paint (Gatling Laser) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `00841336.avif` |
+| Reaper Paint (Gatling Laser) (Ultracite Gatling Laser) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `00841336.avif` |
 | Red Rocket Paint (The Dragon) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `00664EB3.avif` |
 | Red Terror *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `mg42-light-machine-gun.avif` |
 | Redd-Upper (Auto Axe) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `00668705.avif` |
@@ -2038,12 +2038,12 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: Magazine Rack | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `001D4A72.avif` |
 | Plan: Makeshift Wine Rack | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0078664A.avif` |
 | Plan: Marquee Arrows | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00111E58.avif` |
-| Plan: Mattress *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `004E484D.avif` |
+| Plan: Mattress | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `004E484D.avif` |
 | Plan: Meat Bag Stash Box | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `005EDA75.avif` |
 | Plan: Meat Pile | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0059EDBC.avif` |
-| Plan: Medium Generator *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `004E7A57.avif` |
+| Plan: Medium Generator | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `004E7A57.avif` |
 | Plan: Megasloth Pelt Rug | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `005A728E.avif` |
-| Plan: Metal Bed *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `004E4852.avif` |
+| Plan: Metal Bed | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `004E4852.avif` |
 | Plan: Metal Bench | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `003D64D0.avif` |
 | Plan: Metal Box | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `000CD29D.avif` |
 | Plan: Metal Building Set | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00089E5C.avif` |
@@ -2327,7 +2327,7 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: Spin the Wheel Ornament | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0067A923.avif` |
 | Plan: Spin The Wheel Poster *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0066F3DE.avif` |
 | Plan: Spin The Wheel Posters | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0067A930.avif` |
-| Plan: Spinning Rack *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `003D64FF.avif` |
+| Plan: Spinning Rack | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `003D64FF.avif` |
 | Plan: Standing Gorilla | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `005AD986.avif` |
 | Plan: Star Light | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0072DB4F.avif` |
 | Plan: Star Light *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0072DB2F.avif` |
@@ -2339,8 +2339,8 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: Stone Fountain | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `004E8541.avif` |
 | Plan: Stop Sign Stool | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `007F4A2B.avif` |
 | Plan: Storm Goliath Figure | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `007586AE.avif` |
-| Plan: Straw Goat *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0072E371.avif` |
-| Plan: Straw Goat *(cut)* | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0072DB2D.avif` |
+| Plan: Straw Goat | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0072E371.avif` |
+| Plan: Straw Goat | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0072DB2D.avif` |
 | Plan: Street Lights | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `004F6D73.avif` |
 | Plan: Suitcase | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006E23F6.avif` |
 | Plan: Suitcase - Black | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `006E23CC.avif` |
