@@ -164,7 +164,7 @@ def batch_table(batches, receive, col_first="Hand-in", col_count="Count", extra=
         if i - 1 < len(receive) and receive[i - 1]:
             body.append(f"<tr class=\"abg-receive\"><td>Receive</td><td colspan=\"2\">{E(receive[i - 1])}</td></tr>")
         for label, text in (extra or {}).get(i, []):
-            body.append(f"<tr class=\"abg-receive\"><td>{E(label)}</td><td colspan=\"2\">{E(text)}</td></tr>")
+            body.append(f"<tr class=\"abg-receive abg-cache\"><td>{E(label)}</td><td colspan=\"2\">{E(text)}</td></tr>")
     return ("<table class=\"abg-table abg-table--handin\"><thead><tr>"
             f"<th>{E(col_first)}</th><th>{E(col_count)}</th><th>Running total</th></tr></thead>"
             f"<tbody>{''.join(body)}</tbody></table>") if body else ""

@@ -82,6 +82,7 @@ def main():
     num = lambda v: f"{v:,}" if isinstance(v, int) else "some"
     fill = lambda t: (t.replace("{quest}", quest or "The Slasher: Masked Truth")
                        .replace("{quest_masks_th}", ordinal(need)).replace("{quest_masks}", str(need))
+                       .replace("{batch_count}", str(len(batches)))
                        .replace("{batch_table}", table).replace("{caps}", num(rw["caps"]))
                        .replace("{plan}", plan or "a plan").replace("{pickup_xp}", num(xp))
                        .replace("{item_name}", item).replace("{total}", str(spawns.get("total") or ""))
