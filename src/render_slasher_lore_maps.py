@@ -15,7 +15,8 @@ Where the Slasher notes and holotapes turn up, read from the game files:
 The Disturbed Graves are left off (Duchess, 22 Oct 2026 - they have their own maps
 on the grave pages).
 
-Outputs (default: Guides and Stuff\.Collectables\Slasher Lore):
+Outputs (default: Guides and Stuff\.Collectables\Slasher Mask Locations\Slasher Lore;
+moved there 28 Nov 2026):
   01 Full Maps\slasher-lore-map.jpg
   03 Region Tiles\<region-slug>-lore-map.jpg   (only regions with a spot)
   slasher-lore_coords.csv
@@ -53,7 +54,7 @@ OFFSET = 52                             # lettered square sits up-right of its s
 DEFAULT_OUT = os.environ.get(
     "SLASHER_LORE_OUT",
     os.path.join(os.path.expanduser("~"), "OneDrive", "Guides and Stuff",
-                 ".Collectables", "Slasher Lore"))
+                 ".Collectables", "Slasher Mask Locations", "Slasher Lore"))
 
 
 # (quest EDID, alias name) -> what the reader finds there. The position comes from

@@ -345,6 +345,29 @@ def build(src_path, out_path, fill, image_base):
            "sections": secs, "image_dims": dims, "missing_images": missing}
     if g.get("footer"):
         doc["footer"] = fill(g["footer"])
+    # Maps root expand + Gallery (28 Nov 2026, Captain Bee's Diary first):
+    #   "maps":    [{"name": file stem, "title", "desc", "download"}]  (JPEG, guide-maps-expand)
+    #   "gallery": [{"name": file stem or URL, "caption"}]            (AVIF)
+    # Only files on the server get through; the rest go to missing_images.
+    def _pass(items, ext, section):
+        keep = []
+        for it in items or []:
+            n = it["name"]
+            url = n if "/" in n else f"{image_base}{n}{ext}"
+            if on_server(url):
+                out = {k: fill(v) if isinstance(v, str) else v for k, v in it.items() if k != "name"}
+                out["url"] = url
+                d = (g.get("image_dims") or {}).get(n)
+                if d:
+                    dims[url] = d
+                keep.append(out)
+            else:
+                missing.append({"section": section, "name": n, "url": url})
+        return keep
+    if g.get("maps"):
+        doc["maps"] = _pass(g["maps"], ".jpg", "Maps")
+    if g.get("gallery"):
+        doc["gallery"] = _pass(g["gallery"], ".avif", "Gallery")
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     with open(out_path, "w", encoding="utf-8", newline="\n") as fh:
         json.dump(doc, fh, ensure_ascii=False, indent=2)
