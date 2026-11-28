@@ -57,6 +57,8 @@ def _n(v):
 
 
 def _curve_at(path, x=LEVEL):
+    if not path:
+        return None
     p = os.path.join(CURVE_DIR, *path.replace("\\", "/").lower().split("/"))
     try:
         with open(p, encoding="utf-8") as fh:
@@ -104,7 +106,9 @@ class ModEffects:
             self.spel.setdefault(r.get("SPEL_FormID"), []).append(r)
         self.mgef = {r.get("MGEF_FormID"): r for r in rows("MGEF_Export_*.tsv")}
         self.expl = {r.get("MGEF_FormID"): r for r in rows("MGEF_Export_*_Explosions.tsv")}
-        self.curv = {r.get("EDID"): r.get("JASF_Path") for r in rows("CURV_Export_*.tsv")}
+        # _CURV file only: "CURV_Export_*.tsv" also matches the newer _POINTS file
+        # (no JASF_Path), which broke the brain build from 22 Nov 2026.
+        self.curv = {r.get("EDID"): r.get("JASF_Path") for r in rows("CURV_Export_*_CURV.tsv")}
         self.spel_head = {r.get("SPEL_FormID"): r for r in rows("SPEL_Export_*_HEADER.tsv")}
         self.ench = {}
         for r in rows("ENCH_Export_*.tsv"):

@@ -57,8 +57,17 @@ def rows(path):
 
 
 def newest(tsv_dir, pattern, skip=()):
-    hits = [p for p in Path(tsv_dir).glob(pattern) if not any(p.name.endswith(s) for s in skip)]
-    return str(max(hits, key=lambda p: p.stat().st_mtime)) if hits else None
+    """The newest export by the date in its file name (tsv_source rules), never
+    by file time: a GitHub checkout gives every file the same time, so mtime
+    picked an old _ScriptProps there and "{cache_batches}" came out "some"
+    (28 Nov 2026)."""
+    import sys
+    if str(Path(__file__).resolve().parent) not in sys.path:
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import tsv_source
+    hits = tsv_source.all_matching(os.path.join(str(tsv_dir), pattern))
+    hits = [h for h in hits if not any(os.path.basename(h).endswith(s) for s in skip)]
+    return hits[-1] if hits else None
 
 
 # ── game-file facts ─────────────────────────────────────────────────────────
