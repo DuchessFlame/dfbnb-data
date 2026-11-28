@@ -682,6 +682,14 @@ def build_guide(doc, channel):
     import collectable_guide as cg
     tapes = [h["name"] for h in doc["holotapes"]]
     table = cg.batch_table(batches, tapes, "Hand-in", "Brains")
+    # Quest Rewards (Duchess, 28 Nov 2026): caps + XP per hand-in from the quest
+    # script's RewardsList, base XP = level 1 of the finishing reward's XP curve,
+    # challenge tiers from CHAL.
+    tsv_dir = os.path.join(REPO, "tsv", "pts") if channel == "pts" else os.path.join(REPO, "tsv")
+    rewards = cg.rewards_table(cg.hand_in_rewards(tsv_dir, QUEST_EDID))
+    curve = (hi.get("xp_curve") or [None])[0]
+    base_xp = cg.curve_base_xp(tsv_dir, curve) if curve else None
+    steps = cg.challenge_steps(tsv_dir, CHAL_PREFIX)
     fill = lambda t: (t.replace("{total}", str(doc["total_real"])).replace("{quest}", doc["quest"])
                       .replace("{caps}", caps).replace("{regions}", regions)
                       .replace("{batch_count}", str(len(batches))).replace("{quest_brains}", str(need))
@@ -691,6 +699,9 @@ def build_guide(doc, channel):
                       .replace("{camp_cost}", E(qf["camp_cost"] or "a few components"))
                       .replace("{holotape_count}", str(len(doc["holotapes"])))
                       .replace("{password_block}", pw)
+                      .replace("{rewards_table}", rewards)
+                      .replace("{base_xp}", f"{base_xp:,}" if base_xp is not None else "some")
+                      .replace("{challenge_steps}", cg.and_list(steps) or "several")
                       .replace("{finding_sentence}", cg.finding_sentence(
                           doc["total_real"], by_reg, "Brains in Jars", "Brain in a Jar Locations",
                           len(doc.get("pages") or []))))

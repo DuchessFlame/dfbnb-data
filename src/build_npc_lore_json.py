@@ -2,10 +2,10 @@
 r"""
 build_npc_lore_json.py - NPC Lore & Dialogue pages (Duchess, 22 Nov 2026).
 
-  /df/bounty-hunting/marshal-canton-lore-and-dialogue/   (PTS only for now)
-  /df/bounty-hunting/the-ghoul-lore-and-dialogue/         (Billie = his codename; her lines count as his)
+  /df/quests/character-lore/marshal-canton-lore-and-dialogue/   (PTS only for now)
+  /df/quests/character-lore/the-ghoul-lore-and-dialogue/         (Billie = his codename; her lines count as his)
   /df/minerva/minerva-lore-and-dialogue/                  (+ Tommy Ten-Toes)
-  /df/npcs/aries-lore-and-dialogue/
+  /df/quests/character-lore/aries-lore-and-dialogue/
 
 Prose (who they are, where to find them) lives in data/npc_lore_pages.json.
 Everything else is read from the game-file exports on every build:

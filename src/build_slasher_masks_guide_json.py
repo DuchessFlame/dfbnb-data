@@ -14,7 +14,10 @@ Everything countable comes from the game files:
   {caps} {plan}    GMRW SDOW_MQ01_QuestRewards (caps global; the plan in its reward list)
   {pickup_xp}      GLOB SDOW_SlasherClue_XP_Reward
   {item_name}      MISC SDOW_SlasherClue
-  {total} {challenge_steps} {challenge_max}  dist/collectable_spawns_pint-sized-slasher-masks.json
+  {total}          dist/collectable_spawns_pint-sized-slasher-masks.json
+  {challenge_steps} {challenge_max}  CHAL SDOW_Challenge_Lifetime_Collect_SlasherClue_* TNAM
+  {base_xp}        level-1 value of the GMRW's XP curve (CURV _POINTS)
+  {pickup_xp}      MISCSP SDOW_SlasherClue AmountOfXPToGive (GLOB SDOW_SlasherClue_XP_Reward)
 """
 from __future__ import annotations
 
@@ -65,14 +68,18 @@ def main():
     notes = cg.numbered_names(tsv, "BOOK_Export_*.tsv", "EDID", "SDOW_MQ01_Bodies_Note0", skip=("_Locations.tsv",))
     rw = cg.gmrw_reward(tsv, "SDOW_MQ01_QuestRewards")
     plan = next((p for p in (plan_in_list(tsv, l) for l in rw["lists"]) if p), "")
-    xp = cg.glob_value(tsv, "SDOW_SlasherClue_XP_Reward")
+    xp = cg.misc_script_value(tsv, "SDOW_SlasherClue", "AmountOfXPToGive")
+    if xp is None:
+        xp = cg.glob_value(tsv, "SDOW_SlasherClue_XP_Reward")
+    base_xp = cg.curve_base_xp(tsv, rw["xp_curve"]) if rw.get("xp_curve") else None
     item = cg.record_name(tsv, "SDOW_SlasherClue", ("MISC_Export_*.tsv",)) or "Pint-Sized Slasher Mask"
     try:
         spawns = json.load(open(ROOT / "dist" / "collectable_spawns_pint-sized-slasher-masks.json", encoding="utf-8"))
     except OSError:
         spawns = {}
-    steps = sorted({c.get("required") for c in (spawns.get("challenges") or {}).get("items", []) if c.get("required")})
-    steps_txt = (", ".join(str(s) for s in steps[:-1]) + f" and {steps[-1]}") if len(steps) > 1 else (str(steps[0]) if steps else "")
+    steps = cg.challenge_steps(tsv, "SDOW_Challenge_Lifetime_Collect_SlasherClue_") or sorted(
+        {c.get("required") for c in (spawns.get("challenges") or {}).get("items", []) if c.get("required")})
+    steps_txt = cg.and_list(steps)
     by_reg = {r["region"]: sum(l.get("count") or len(l.get("spawns") or []) for l in r.get("locations") or [])
               for r in spawns.get("regions") or []}
     finding = cg.finding_sentence(spawns["total"], by_reg, "Pint-Sized Slasher Masks",
@@ -87,6 +94,7 @@ def main():
                        .replace("{plan}", plan or "a plan").replace("{pickup_xp}", num(xp))
                        .replace("{item_name}", item).replace("{total}", str(spawns.get("total") or ""))
                        .replace("{challenge_steps}", steps_txt).replace("{challenge_max}", str(steps[-1] if steps else ""))
+                       .replace("{base_xp}", num(base_xp))
                        .replace("{finding_sentence}", finding))
     doc = cg.build(SRC, OUT, fill, IMG)
     print(f"{OUT.name}: {quest}, {need} masks in {len(batches)} batches, {len(notes)} notes, "

@@ -102,12 +102,15 @@ def glob_value(tsv_dir, edid):
 
 
 def gmrw_reward(tsv_dir, gmrw_edid):
-    """{caps, xp, items:[EDID...], lists:[EDID...]} for a quest reward (GMRW)."""
-    out = {"caps": None, "xp": None, "items": [], "lists": []}
+    """{caps, xp, xp_curve, items:[EDID...], lists:[EDID...]} for a quest reward (GMRW)."""
+    out = {"caps": None, "xp": None, "xp_curve": None, "items": [], "lists": []}
     p = newest(tsv_dir, "GMRW_Export_*.tsv", skip=("_Refs.tsv",))
     for r in rows(p):
         if (r.get("EDID") or "") != gmrw_edid:
             continue
+        c = (r.get("XPCT_XPCurveTable") or "").split(":")
+        if len(c) >= 2 and out["xp_curve"] is None:
+            out["xp_curve"] = c[1]   # XP that grows with level (curve_base_xp)
         for key, col in (("xp", "NAM7_XPGlobal"), ("caps", "NAM8_CapsGlobal")):
             g = (r.get(col) or "").split(":")
             if len(g) >= 2 and out[key] is None:
@@ -125,6 +128,83 @@ def record_name(tsv_dir, edid, patterns=("BOOK_Export_*.tsv", "MISC_Export_*.tsv
                 if (r.get(k) or "") == edid and (r.get("FULL") or "").strip():
                     return r["FULL"].strip()
     return ""
+
+
+def _num(v):
+    try:
+        return int(float(v))
+    except (TypeError, ValueError):
+        return None
+
+
+def _prop_value(r):
+    """A script-property row's number: the value itself, or a GLOB's value."""
+    t = r.get("Type") or ""
+    return _num(r.get("GlobValue")) if t in ("obj", "structobj") else _num(r.get("Value"))
+
+
+def hand_in_rewards(tsv_dir, quest_edid, list_prop="RewardsList"):
+    """Caps and XP each hand-in pays, in order: the quest script's RewardsList[i]
+    .CapsReward / .XPReward (a number or a GLOB; QUST2 _ScriptProps struct rows,
+    28 Nov 2026) -> [{"caps": 20, "xp": 250}, ...]. Hand-ins that pay nothing
+    (0 / AAAIgnoreMe) are kept as 0 so the caller can skip the table."""
+    got = {}
+    for r in rows(newest(tsv_dir, "QUST2_Export_*_ScriptProps.tsv")):
+        if (r.get("QuestEDID") or "") != quest_edid:
+            continue
+        m = re.fullmatch(re.escape(list_prop) + r"\[(\d+)\]\.(\w+)", r.get("Property") or "")
+        if not m:
+            continue
+        key = {"capsreward": "caps", "xpreward": "xp"}.get(m.group(2).lower())
+        if key:
+            got.setdefault(int(m.group(1)), {"caps": 0, "xp": 0})[key] = _prop_value(r) or 0
+    return [got[i] for i in sorted(got)]
+
+
+def misc_script_value(tsv_dir, misc_edid, prop):
+    """A number on a MISC's script (MISCSP export, 28 Nov 2026), e.g. the XP a
+    picked-up collectable gives: AmountOfXPToGive."""
+    for r in rows(newest(tsv_dir, "MISCSP_Export_*.tsv")):
+        if (r.get("EDID") or "") == misc_edid and (r.get("Property") or "") == prop:
+            return _prop_value(r)
+    return None
+
+
+def acti_script_value(tsv_dir, acti_edid, prop):
+    """A number on an ACTI's script (ACTI export, last column: Script::Prop=value##...)."""
+    for r in rows(newest(tsv_dir, "ACTI_Export_*_ACTI.tsv")):
+        if (r.get("ACTI_EDID") or "") != acti_edid:
+            continue
+        for v in r.values():
+            if isinstance(v, str) and "::" + prop + "=" in v:
+                m = re.search(r"::" + re.escape(prop) + r"=([-\d.]+)", v)
+                if m:
+                    return _num(m.group(1))
+    return None
+
+
+def curve_base_xp(tsv_dir, curve_edid):
+    """The level-1 value of an XP curve (CURV _POINTS): the base XP a quest gives
+    when it pays on a level scale (Duchess, 28 Nov 2026: say "base XP")."""
+    pts = []
+    for r in rows(newest(tsv_dir, "CURV_Export_*_POINTS.tsv")):
+        if (r.get("EDID") or "") == curve_edid:
+            x, y = _num(r.get("X")), _num(r.get("Y"))
+            if x is not None and y is not None:
+                pts.append((x, y))
+    return min(pts)[1] if pts else None
+
+
+def challenge_steps(tsv_dir, chal_prefix):
+    """Counts the lifetime collect challenges ask for (CHAL TNAM), sorted. The
+    prefix leaves out cut tiers (zzz...)."""
+    out = set()
+    for r in rows(newest(tsv_dir, "CHAL_Export_*.tsv")):
+        if (r.get("EDID") or "").startswith(chal_prefix):
+            n = _num(r.get("TNAM"))
+            if n and 0 < n < 9999999:
+                out.add(n)
+    return sorted(out)
 
 
 # ── html pieces ─────────────────────────────────────────────────────────────
@@ -168,6 +248,18 @@ def batch_table(batches, receive, col_first="Hand-in", col_count="Count", extra=
     return ("<table class=\"abg-table abg-table--handin\"><thead><tr>"
             f"<th>{E(col_first)}</th><th>{E(col_count)}</th><th>Running total</th></tr></thead>"
             f"<tbody>{''.join(body)}</tbody></table>") if body else ""
+
+
+def rewards_table(rewards, col_first="Hand-in"):
+    """Hand-in | Caps | XP for each hand-in (Quest Rewards, Duchess 28 Nov 2026).
+    Empty when no hand-in pays caps or XP."""
+    if not any(r["caps"] or r["xp"] for r in rewards):
+        return ""
+    body = "".join(f"<tr><td>{i}</td><td>{r['caps']:,}</td><td>{r['xp']:,}</td></tr>"
+                   for i, r in enumerate(rewards, 1))
+    return ("<table class=\"abg-table abg-table--handin abg-table--rewards\"><thead><tr>"
+            f"<th>{_h.escape(col_first)}</th><th>Caps</th><th>XP</th></tr></thead>"
+            f"<tbody>{body}</tbody></table>")
 
 
 def finding_sentence(total, by_region, plural, pages_label, page_count, everywhere_at=4):

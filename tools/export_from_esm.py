@@ -43,7 +43,10 @@ straight from the game files, so these no longer need xEdit:
             ExportQUST2ToTSV.pas - only that one file; the .pas stays the manual
             backup and still writes all six)
     QUSTSP  QUST2_Export_<Month>_<Year>_ScriptProps.tsv  (quest script properties:
-            reward lists and chance GLOBs a quest's script rolls itself)
+            reward lists and chance GLOBs a quest's script rolls itself; struct
+            members as Property[i].Member, record members Type "structobj")
+    MISCSP  MISCSP_Export_<Month>_<Year>.tsv  (MISC script properties, same columns:
+            the XP a collectable gives when picked up; no .pas)
     LVLI    LVLI_Export_<Month>_<Year>_LVLI_List/_Entries/_Refs/_Math.tsv  (ExportLVLIToCSV.pas;
             _Math carries EntryChanceNoneCurveTable, the per-entry LVOT rng76 reads)
     QUST2   QUST2_Export_<Month>_<Year>_Quests/_Stages/_Objectives/_Aliases/_ItemAliases
@@ -4900,6 +4903,58 @@ def _npc_script_defaults(esm, sp_rows):
 
 
 # ------------------------------------------------------------- QUST _ScriptProps --
+def _script_prop_rows(esm, head, scripts, out):
+    """One row per script property (QUSTSP / MISCSP share these columns after
+    the record's own FormID / EDID / name): Script, Property, Type, Value,
+    GlobValue. Struct members are written as Property[i].Member."""
+    for sname, props in scripts:
+        for pn, v in props:
+            if v[0] in ("struct", "structarr"):
+                # Struct properties: one row per number member, named
+                # Property[i].Member (Dirty Laundry's CacheStageAndBatchNumber
+                # = which hand-in unlocks each Abraxodyne Cache; Duchess,
+                # 28 Nov 2026). Object members get Type "structobj" (not "obj")
+                # so readers that pick up a quest's LVLI / GLOB rows by Type
+                # don't change; Value FormID:EDID:SIG, GlobValue for a GLOB
+                # (A Matter of Matter's RewardsList[i] caps tier per hand-in,
+                # Duchess 28 Nov 2026).
+                for i, members in enumerate(v[1] if v[0] == "structarr" else [v[1]]):
+                    for mn, _mt, mv in members:
+                        if mv and mv[0] in ("int", "float", "bool"):
+                            out.append("%s\t%s\t%s[%d].%s\t%s\t%g\t" % (
+                                head, cc(sname), cc(pn), i, cc(mn), mv[0], mv[1]))
+                        elif mv and mv[0] == "obj" and mv[1]:
+                            fid = mv[1]
+                            sig = esm.sig_of(fid) or ""
+                            gv = ""
+                            if sig == "GLOB":
+                                g = esm.get(fid)
+                                f = g.first("FLTV") if g else None
+                                if f and len(f) >= 4:
+                                    gv = "%g" % struct.unpack_from("<f", f)[0]
+                            out.append("%s\t%s\t%s[%d].%s\tstructobj\t%08X:%s:%s\t%s" % (
+                                head, cc(sname), cc(pn), i, cc(mn), fid,
+                                cc(esm.edid_of(fid)), sig, gv))
+                continue
+            vals = v[1] if v[0] == "arr" else [v]
+            for x in vals:
+                if x[0] == "obj":
+                    fid = x[1]
+                    if not fid:
+                        continue
+                    sig = esm.sig_of(fid) or ""
+                    gv = ""
+                    if sig == "GLOB":
+                        g = esm.get(fid)
+                        f = g.first("FLTV") if g else None
+                        if f and len(f) >= 4:
+                            gv = "%g" % struct.unpack_from("<f", f)[0]
+                    out.append("%s\t%s\t%s\tobj\t%08X:%s:%s\t%s" % (
+                        head, cc(sname), cc(pn), fid, cc(esm.edid_of(fid)), sig, gv))
+                elif x[0] in ("int", "float", "bool"):
+                    out.append("%s\t%s\t%s\t%s\t%g\t" % (head, cc(sname), cc(pn), x[0], x[1]))
+
+
 def exp_qust_sp(esm):
     """Quest script properties (VMAD): one row per property, with the record it
     points at (FormID:EDID:SIG) or its number. A GLOB property also carries the
@@ -4919,38 +4974,28 @@ def exp_qust_sp(esm):
         except Exception:                                 # noqa: BLE001
             continue
         head = "%08X\t%s\t%s" % (r.fid, cc(r.edid), cc(esm.lstring(r.first("FULL"))))
-        for sname, props in scripts:
-            for pn, v in props:
-                if v[0] in ("struct", "structarr"):
-                    # Struct properties: one row per number member, named
-                    # Property[i].Member (Dirty Laundry's CacheStageAndBatchNumber
-                    # = which hand-in unlocks each Abraxodyne Cache; Duchess,
-                    # 28 Nov 2026). Object members are left out on purpose so the
-                    # readers that pick up a quest's LVLI / GLOB rows don't change.
-                    for i, members in enumerate(v[1] if v[0] == "structarr" else [v[1]]):
-                        for mn, _mt, mv in members:
-                            if mv and mv[0] in ("int", "float", "bool"):
-                                out.append("%s\t%s\t%s[%d].%s\t%s\t%g\t" % (
-                                    head, cc(sname), cc(pn), i, cc(mn), mv[0], mv[1]))
-                    continue
-                vals = v[1] if v[0] == "arr" else [v]
-                for x in vals:
-                    if x[0] == "obj":
-                        fid = x[1]
-                        if not fid:
-                            continue
-                        sig = esm.sig_of(fid) or ""
-                        gv = ""
-                        if sig == "GLOB":
-                            g = esm.get(fid)
-                            f = g.first("FLTV") if g else None
-                            if f and len(f) >= 4:
-                                gv = "%g" % struct.unpack_from("<f", f)[0]
-                        out.append("%s\t%s\t%s\tobj\t%08X:%s:%s\t%s" % (
-                            head, cc(sname), cc(pn), fid, cc(esm.edid_of(fid)), sig, gv))
-                    elif x[0] in ("int", "float", "bool"):
-                        out.append("%s\t%s\t%s\t%s\t%g\t" % (head, cc(sname), cc(pn), x[0], x[1]))
+        _script_prop_rows(esm, head, scripts, out)
     return {"_ScriptProps": out}
+
+
+def exp_misc_sp(esm):
+    """MISC script properties (VMAD), same columns as QUSTSP with the MISC's own
+    FormID / EDID / name first. Read by src/build_abraxodyne_guide_json.py: the
+    XP a picked-up Abraxodyne Intel gives (Burn_SQ04_AbraxoIntelDispenser,
+    Burn_SQ04_PickupScript AmountOfXPToGive; Duchess, 28 Nov 2026). Own prefix
+    (MISCSP_Export) so nothing that reads MISC_Export_*.tsv picks it up."""
+    out = ["FormID\tEDID\tFULL\tScript\tProperty\tType\tValue\tGlobValue"]
+    for r in R.xedit_order(esm, "MISC"):
+        vm = r.first("VMAD")
+        if not vm:
+            continue
+        try:
+            scripts = _VmadReader(vm).scripts()
+        except Exception:                                 # noqa: BLE001
+            continue
+        head = "%08X\t%s\t%s" % (r.fid, cc(r.edid), cc(esm.lstring(r.first("FULL"))))
+        _script_prop_rows(esm, head, scripts, out)
+    return out
 
 
 # ------------------------------------------------------------- QUST2 tree --
@@ -6032,6 +6077,7 @@ EXPORTS = {
     "REFRLVLI": (["LVLI"], "REFRLVLI_Placements", exp_refrlvli),
     "QUST2RQ": (["QUST"], "QUST2_Export", exp_qust2_rq),
     "QUSTSP": (["QUST", "GLOB"], "QUST2_Export", exp_qust_sp),
+    "MISCSP": (["MISC", "GLOB"], "MISCSP_Export", exp_misc_sp),
     "LVLI": (["LVLI", "GLOB"], "LVLI_Export", exp_lvli),
     "QUST2": (["QUST"], "QUST2_Export", exp_qust2),
     "ALLYDLG": (["QUST"], "ALLYDLG_Export", exp_allydlg),

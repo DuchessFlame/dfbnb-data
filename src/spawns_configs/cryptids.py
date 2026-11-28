@@ -490,6 +490,8 @@ def _spawn_quests(tokens):
             continue
         with open(path, encoding="utf-8", errors="replace") as fh:
             for r in csv.DictReader(fh, delimiter="\t"):
+                if r.get("Type") == "structobj":
+                    continue   # struct members (28 Nov 2026) - not alias / spawn rows
                 line = " ".join(v or "" for v in r.values()).lower()
                 if any(re.search(re.escape(t), line) for t in tokens):
                     hits[(r.get("QuestEDID") or "").strip()] = (r.get("QuestFormID") or "").strip()

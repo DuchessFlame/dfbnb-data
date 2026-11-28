@@ -13,6 +13,10 @@ Everything countable comes from the game files:
   {batch_table}  Hand-in | Briefcases | Running total + Receive: Abraxodyne Tape NN
                  (NOTE Burn_SQ04_DirtyLaundry_HolotapeN, tape N = hand-in N)
   {caps} {xp} {plan}  GMRW Burn_SQ04_QuestReward_Final (caps/XP globals, the BOOK it gives)
+  {pickup_xp}    MISCSP Burn_SQ04_AbraxoIntelDispenser AmountOfXPToGive (XP per briefcase)
+  {cache_xp}     ACTI Burn_SQ04_AbraxoCache_Activator AmountOfXPToGive
+  {rewards_table} Hand-in | Caps | XP from RewardsList[i] (QUST2 _ScriptProps struct rows)
+  {challenge_steps} CHAL Burn_Challenge_Lifetime_Collect_AbraxodyneChemicalBriefcase_* TNAM
   {item_name}    MISC Burn_SQ04_AbraxoIntelDispenser (what a briefcase becomes in the Pip-Boy)
   {total}        total_real in dist/abraxodyne_intel_briefcases.json
 If the quest export is missing, the dist is left as it is.
@@ -60,6 +64,13 @@ def main():
     caches = cg.struct_batches(tsv, QUEST, "CacheStageAndBatchNumber")
     cache_rows = {b: [("Cache", "Keycode and coordinates for an Abraxodyne Cache (optional)")] for b in caches}
     table = cg.batch_table(batches, tapes, "Hand-in", "Briefcases", cache_rows)
+    # Quest Rewards (Duchess, 28 Nov 2026): pick-up XP from the briefcase's own
+    # script (MISCSP), the cache's from its activator, caps + XP per hand-in from
+    # the quest script's RewardsList, challenge tiers from CHAL.
+    pickup_xp = cg.misc_script_value(tsv, "Burn_SQ04_AbraxoIntelDispenser", "AmountOfXPToGive")
+    cache_xp = cg.acti_script_value(tsv, "Burn_SQ04_AbraxoCache_Activator", "AmountOfXPToGive")
+    rewards = cg.rewards_table(cg.hand_in_rewards(tsv, QUEST))
+    steps = cg.challenge_steps(tsv, "Burn_Challenge_Lifetime_Collect_AbraxodyneChemicalBriefcase_")
     num = lambda v: f"{v:,}" if isinstance(v, int) else "some"
     fill = lambda t: (t.replace("{quest}", quest or "Dirty Laundry").replace("{batch_count}", str(len(batches)))
                        .replace("{quest_total}", str(sum(batches))).replace("{batch_table}", table)
@@ -67,7 +78,10 @@ def main():
                        .replace("{plan}", plan or "a plan").replace("{item_name}", item)
                        .replace("{total}", str(total)).replace("{finding_sentence}", finding)
                        .replace("{cache_count}", str(len(caches)))
-                       .replace("{cache_batches}", cg.and_list(caches) or "some"))
+                       .replace("{cache_batches}", cg.and_list(caches) or "some")
+                       .replace("{pickup_xp}", num(pickup_xp)).replace("{cache_xp}", num(cache_xp))
+                       .replace("{rewards_table}", rewards)
+                       .replace("{challenge_steps}", cg.and_list(steps) or "several"))
     doc = cg.build(SRC, OUT, fill, IMG)
     print(f"{OUT.name}: {quest}, {len(batches)} hand-ins, {sum(batches)} briefcases, "
           f"{len(tapes)} tapes, caches after hand-ins {caches}, "
