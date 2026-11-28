@@ -14,6 +14,7 @@ Output: dist/captain_bees_diary_guide.json.
 From the game files:
   {page_count}    how many Bee's Diary pages exist (BOOK Storm_SteelJackNote_0N)
   {final_note}    BOOK Storm_Bees_finalNote name ("Bee's Final Note")
+  {note:EDID}     the note's full text in the step where you find it (BOOK export)
   {loot_table}    Page | Place | Container | Loot, from CONTITEMS (container per page)
                   and CONT (container name). Wix said "no reward"; the files win.
 Maps: src/render_captain_bees_diary_maps.py (run on the PC, needs Mappalachia).
@@ -101,9 +102,10 @@ def main():
         print(f"build_captain_bees_diary_guide_json: only {len(conts)} diary pages found; dist left as is")
         return 0
     table = loot_table(tsv, conts)
-    fill = lambda t: (t.replace("{page_count}", str(len(conts)))
+    base_fill = lambda t: (t.replace("{page_count}", str(len(conts)))
                        .replace("{final_note}", _h.escape(final or "Bee's Final Note"))
                        .replace("{loot_table}", table))
+    fill = lambda t: base_fill(cg.fill_notes(t, tsv))   # {note:EDID}: full note text in its step
     doc = cg.build(SRC, OUT, fill, IMG)
     print(f"{OUT.name}: {len(conts)} pages + {final!r}, "
           f"{len(doc['missing_images'])} pictures not on the server yet")

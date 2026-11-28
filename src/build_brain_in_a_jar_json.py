@@ -265,11 +265,22 @@ def mod_details(mod_name, weapon, channel):
             "omods": sorted(o.get("OMOD_FormID") for o in hits), "parent": pm.group(1) if pm else ""}
 
 
+def _dist_json(channel, rel):
+    """A dist file for this channel. PTS: dist/pts/<rel>, else dist/<rel> - the PTS
+    build (dfbnb-pts-build.yml) clears dist/pts and writes this run's PTS output to
+    dist/ until its final relocate step, so during that build dist/pts/<rel> is
+    missing (28 Nov 2026: every V63-Z recipe lost its plan icon + Mod Details)."""
+    if channel == "pts":
+        d = _json(os.path.join(REPO, "dist", "pts", rel))
+        if d:
+            return d
+    return _json(os.path.join(REPO, "dist", rel))
+
+
 def quest_weapon(quest, channel):
     """The weapon the quest itself hands you (Unique Weapons & Armour build: questName),
     with its sources one per line and the weapon's own legendary block."""
-    base = os.path.join(REPO, "dist", "pts") if channel == "pts" else os.path.join(REPO, "dist")
-    uwa = _json(os.path.join(base, "unique_weapons_armour", "unique_weapons_armour.json")) or {}
+    uwa = _dist_json(channel, os.path.join("unique_weapons_armour", "unique_weapons_armour.json")) or {}
     by_name = {it.get("name"): it for it in uwa.get("items", [])}
     w = next((it for it in uwa.get("items", []) if it.get("questName") == quest and it.get("kind") == "Weapon"), None)
     if not w:
@@ -309,12 +320,11 @@ def reward_pictures(tiers, channel):
                                    weapon's picture when the unique has none) + weaponMod
       'Plan: <Legendary mod>'   -> the legendary star pages entry (star + picture)
     Only pictures on the server are used."""
-    base = os.path.join(REPO, "dist", "pts") if channel == "pts" else os.path.join(REPO, "dist")
-    uwa = _json(os.path.join(base, "unique_weapons_armour", "unique_weapons_armour.json")) or {}
+    uwa = _dist_json(channel, os.path.join("unique_weapons_armour", "unique_weapons_armour.json")) or {}
     by_name = {it.get("name"): it for it in uwa.get("items", [])}
     legmods = {}
     for n in range(1, 6):
-        d = _json(os.path.join(base, "legendary_star_pages", f"{n}-star.json")) or {}
+        d = _dist_json(channel, os.path.join("legendary_star_pages", f"{n}-star.json")) or {}
         for it in d.get("items", []):
             legmods.setdefault(it.get("name"), it)
     for t in tiers:

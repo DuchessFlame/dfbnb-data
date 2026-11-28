@@ -431,6 +431,10 @@ jobs:
       - name: Build Captain Bee's Diary Guide JSON
         run: python src/build_captain_bees_diary_guide_json.py --data-dir tsv
 
+      # Quests > Secrets & Easter Eggs pages: notes, loot, Dusty's cages from the game files (28 Nov 2026)
+      - name: Build Secrets Guides JSON
+        run: python src/build_secrets_guides_json.py --data-dir tsv
+
       # Lore Holotape Checklist (14 Nov 2026)
       - name: Build Lore Holotapes JSON
         run: python src/build_lore_holotapes_json.py
@@ -989,6 +993,8 @@ jobs:
         run: |
           python src/build_slasher_uniques.py --dist dist
           python -c "import json;d=json.load(open('dist/seasonal_events/seasonal_events_rewards_by_page.json',encoding='utf-8'));u=d['byPage']['the-slasher-all-rewards'].get('uniques') or [];assert len(u)>20,len(u);print('slasher uniques ok',len(u))"
+          # Pint-Sized Slasher Masks reward checklist (reads the uniques just written)
+          python src/build_slasher_masks_rewards_json.py --data-dir tsv --dist dist
 
       # Every unique's source line must reach its own leveled list in the
       # game files (uwa_source_links.py). The build already drops a line that

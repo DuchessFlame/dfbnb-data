@@ -9,6 +9,7 @@ on:
       - 'src/build_seasonal_events_json.py'
       - 'src/slasher_guide.py'
       - 'src/build_slasher_uniques.py'
+      - 'src/build_slasher_masks_rewards_json.py'
       - 'src/plan_quest_guides.py'
       - 'src/build_drop_rates.py'
 
@@ -57,7 +58,10 @@ jobs:
       # The Slasher All Rewards page's Unique Rewards checklist rides on the
       # file just written, so re-add it before the commit (src/build_slasher_uniques.py).
       - name: Build Slasher Unique Rewards
-        run: python src/build_slasher_uniques.py --dist dist
+        run: |
+          python src/build_slasher_uniques.py --dist dist
+          # Pint-Sized Slasher Masks reward checklist (reads the uniques just written)
+          python src/build_slasher_masks_rewards_json.py --data-dir tsv --dist dist
 
       - name: Commit dist outputs
         shell: bash
@@ -66,6 +70,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
           git add dist/seasonal_events/seasonal_events_rewards_by_page.json
+          git add dist/slasher_masks_rewards.json
 
           if git diff --cached --quiet; then
             echo "No changes to commit."

@@ -294,6 +294,41 @@ def finding_sentence(total, by_region, plural, pages_label, page_count, everywhe
             f"Each one is a fixed spawn, so it's always in the same place.")
 
 
+# ── notes shown in the step where you pick them up (Duchess, 28 Nov 2026:
+#    "do it as the quest goes along like for the slasher guide") ─────────────
+_NOTE_CACHE = {}
+
+
+def note_html(tsv_dir, edid):
+    """A note's full text from the newest BOOK export, as a styled block.
+    The export flattens line breaks into runs of 2+ spaces, so those become
+    lines; [pagebreak] becomes a page divider. Handwritten vs typewriter font
+    follows the note's own <font face>."""
+    if not _NOTE_CACHE:
+        for r in rows(newest(tsv_dir, "BOOK_Export_*.tsv", skip=("_Locations.tsv",))):
+            _NOTE_CACHE[r.get("EDID") or ""] = (r.get("FULL") or "", r.get("DESC") or "")
+    if edid not in _NOTE_CACHE:
+        raise SystemExit(f"note_html: BOOK {edid} not in the export")
+    title, desc = _NOTE_CACHE[edid]
+    kind = "type" if "Typewriter" in desc else "hand"
+    text = re.sub(r"<[^>]+>", "", desc)
+    pages = []
+    for page in re.split(r"\[pagebreak\]", text, flags=re.I):
+        # a row of dashes under a typewriter heading is a line break too
+        lines = [ln.strip() for ln in re.split(r"\s{2,}|\s*-{4,}\s*", page) if ln.strip()]
+        out = [f"<p>{_h.escape(ln)}</p>" for ln in lines]
+        if out:
+            pages.append("".join(out))
+    body = '<hr class="cg-note__break">'.join(pages)
+    return (f'<div class="cg-note cg-note--{kind}"><div class="cg-note__title">{_h.escape(title)}</div>'
+            f'<div class="cg-note__text">{body}</div></div>')
+
+
+def fill_notes(text, tsv_dir):
+    """Replace every {note:EDID} with note_html()."""
+    return re.sub(r"\{note:([A-Za-z0-9_]+)\}", lambda m: note_html(tsv_dir, m.group(1)), text)
+
+
 # ── build ───────────────────────────────────────────────────────────────────
 def build(src_path, out_path, fill, image_base):
     """Read the hand-written guide (src_path), fill {placeholders} with fill(),
