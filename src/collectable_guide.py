@@ -71,6 +71,17 @@ def newest(tsv_dir, pattern, skip=()):
 
 
 # ── game-file facts ─────────────────────────────────────────────────────────
+def quest_info(tsv_dir, quest_edid):
+    """{name, desc} of a quest from the QUST2 _Quests export (FULL + DESC), for the
+    location pages' intro card quest line (Duchess, 28 Nov 2026). None when missing."""
+    for r in rows(newest(tsv_dir, "QUST2_Export_*_Quests.tsv")):
+        if (r.get("EDID") or "") == quest_edid:
+            name = (r.get("FULL") or "").strip()
+            desc = (r.get("DESC") or "").strip()
+            return {"name": name, "desc": desc} if name else None
+    return None
+
+
 def quest_batches(tsv_dir, quest_edid):
     """(quest name, [CollectablesNeededPerBatch...]) from QUST2 _ScriptProps."""
     name, out = "", []
@@ -274,8 +285,8 @@ def rewards_table(rewards, col_first="Hand-in"):
 def finding_sentence(total, by_region, plural, pages_label, page_count, everywhere_at=4):
     """The first line of Finding Them - the same words on every guide (Duchess,
     23 Nov 2026); only the numbers and names change, all from the spawn data:
-      There are <b>N</b> {plural} in Region. / : <b>a</b> in R1 and <b>b</b> in R2. /
-      (region names not bold - Duchess, 27 Nov 2026)
+      There are N {plural} in Region. / : a in R1 and b in R2. /
+      (no bold in the middle of a sentence - Duchess, 28 Nov 2026)
       all over Appalachia (4+ regions).
       Each one is a fixed spawn, so it's always in the same place."""
     E = _h.escape
@@ -285,12 +296,12 @@ def finding_sentence(total, by_region, plural, pages_label, page_count, everywhe
     elif len(regs) == 1:
         where = f" in {E(regs[0][0])}"
     elif regs:
-        parts = [f"<strong>{n:,}</strong> in {E(r)}" for r, n in regs]
+        parts = [f"{n:,} in {E(r)}" for r, n in regs]
         where = ": " + (", ".join(parts[:-1]) + " and " + parts[-1])
     else:
         where = ""
     # No "The ... Locations pages have every one." line (Duchess, 23 Nov 2026).
-    return (f"There are <strong>{int(total):,}</strong> {E(plural)}{where}. "
+    return (f"There are {int(total):,} {E(plural)}{where}. "
             f"Each one is a fixed spawn, so it's always in the same place.")
 
 
@@ -329,8 +340,65 @@ def fill_notes(text, tsv_dir):
     return re.sub(r"\{note:([A-Za-z0-9_]+)\}", lambda m: note_html(tsv_dir, m.group(1)), text)
 
 
+# ── FAQ template (Duchess, 28 Nov 2026) ─────────────────────────────────────
+# Every collectable guide asks the same questions, in this order, filled from
+# the game files. A guide.json FAQ section sets "faq": {"singular", "plural",
+# "answers": {key: html} (swap one answer), "skip": [keys], "extra": [{"q","a"}]
+# (its own questions, after these)}. The FAQ is closed on every load.
+FAQ_TEMPLATE = [
+    ("all", "Do I have to find all {total} {plural}?", None),   # answer built in faq_html()
+    ("quest", "Do I have to do {quest} to get the lifetime rewards?",
+     "No. The lifetime challenges count every {singular} you pick up, on the quest or not."),
+    ("trade", "Can I give spare {plural} to a friend?",
+     "No. {Plural} can&rsquo;t be dropped, traded or sold."),
+    ("custom", "Will I keep the lifetime rewards on a Custom World?",
+     "Yes, but they don&rsquo;t carry over to Adventure mode. On Adventure the challenges start at 0 "
+     "and you collect the {plural} again."),
+]
+
+
+def faq_html(spec, fill, nums):
+    """The FAQ section's html from FAQ_TEMPLATE + the guide's own answers / extras.
+    nums: {"total", "quest_total", "challenge_max"} from the per-set builder."""
+    total, need, top = nums.get("total"), nums.get("quest_total"), nums.get("challenge_max")
+    words = {"{singular}": spec.get("singular", ""), "{plural}": spec.get("plural", ""),
+             "{Plural}": (spec.get("plural", "")[:1].upper() + spec.get("plural", "")[1:])}
+    def sub(t):
+        for k, v in words.items():
+            t = t.replace(k, v)
+        return fill(t.replace("{total}", str(total or "")).replace("{quest_total}", str(need or ""))
+                     .replace("{challenge_max}", str(top or "")))
+    def para(a):
+        a = sub(a)
+        return a if a.lstrip().startswith("<p") else f"<p>{a}</p>"
+    if top and total and int(top) >= int(total):
+        all_a = "Only for the lifetime challenges, which go all the way to {total}. {quest} only needs {quest_total}."
+    elif top:
+        all_a = "No. {quest} only needs {quest_total}. The lifetime challenges stop at {challenge_max}."
+    else:
+        all_a = "No. {quest} only needs {quest_total}."
+    answers, skip = spec.get("answers") or {}, set(spec.get("skip") or [])
+    out = []
+    for key, q, a in FAQ_TEMPLATE:
+        if key in skip:
+            continue
+        out.append(f"<h4>{sub(q)}</h4>{para(answers.get(key) or a or all_a)}")
+    for x in spec.get("extra") or []:
+        out.append(f"<h4>{sub(x['q'])}</h4>{para(x['a'])}")
+    return "".join(out)
+
+
+def credit_for(url, rules):
+    """Photo credit for a picture URL from the guide's "photo_credits" rules
+    ([{"folder": "/wp-content/...", "credit": "gamer handle"}]); handles only."""
+    for r in rules or []:
+        if url.startswith(r["folder"]):
+            return r["credit"]
+    return ""
+
+
 # ── build ───────────────────────────────────────────────────────────────────
-def build(src_path, out_path, fill, image_base):
+def build(src_path, out_path, fill, image_base, quest=None, faq_nums=None):
     """Read the hand-written guide (src_path), fill {placeholders} with fill(),
     turn picture names into server URLs (only those on the server), write out_path.
     A picture name with a '/' in it is already a full /wp-content/... URL."""
@@ -362,7 +430,7 @@ def build(src_path, out_path, fill, image_base):
                     dims[url] = d
             else:
                 missing.append({"section": title, "name": item, "url": url})
-        html = fill(s.get("html", ""))
+        html = faq_html(s["faq"], fill, faq_nums or {}) if s.get("faq") else fill(s.get("html", ""))
         # inline {img:name,name}: keep only pictures on the server
         def inline(m):
             keep = []
@@ -379,14 +447,17 @@ def build(src_path, out_path, fill, image_base):
         if imgs:
             out["images"] = imgs
         for k in ("closed", "spoiler"):
-            if s.get(k):
+            if s.get(k) or (k == "closed" and s.get("faq")):   # FAQ always closed (28 Nov 2026)
                 out[k] = True
         secs.append(out)
     doc = {"_meta": {"built_from": str(Path(src_path).relative_to(REPO)).replace("\\", "/"),
                      "note": "Built file - edit the source above, not this."},
-           "title": fill(g["title"]), "subtitle": fill(g.get("subtitle", "")),
-           "pills": [{"label": fill(p["label"]), "url": p["url"]} for p in g.get("pills", [])],
-           "sections": secs, "image_dims": dims, "missing_images": missing}
+           "title": fill(g["title"]), "sections": secs, "image_dims": dims, "missing_images": missing}
+    # Guides with a quest show its name + description instead (Duchess, 28 Nov 2026).
+    if g.get("subtitle"):
+        doc["subtitle"] = fill(g["subtitle"])
+    if g.get("pills"):
+        doc["pills"] = [{"label": fill(p["label"]), "url": p["url"]} for p in g["pills"]]
     if g.get("footer"):
         doc["footer"] = fill(g["footer"])
     # Maps root expand + Gallery (28 Nov 2026, Captain Bee's Diary first):
@@ -408,10 +479,23 @@ def build(src_path, out_path, fill, image_base):
             else:
                 missing.append({"section": section, "name": n, "url": url})
         return keep
+    # The collectable's quest ({name, desc}, quest_info) - read by the location pages.
+    if quest:
+        doc["quest"] = quest
     if g.get("maps"):
         doc["maps"] = _pass(g["maps"], ".jpg", "Maps")
     if g.get("gallery"):
         doc["gallery"] = _pass(g["gallery"], ".avif", "Gallery")
+    # Photo credits by folder (Duchess, 28 Nov 2026): "Image credit: X" under the photo.
+    if g.get("photo_credits"):
+        used = set()
+        for sec in secs:
+            used.update(sec.get("images") or [])
+            if sec.get("item_image"):
+                used.add(sec["item_image"])
+        used.update(x["url"] for x in doc.get("gallery") or [])
+        cr = {u: credit_for(u, g["photo_credits"]) for u in sorted(used)}
+        doc["image_credits"] = {u: c for u, c in cr.items() if c}
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     with open(out_path, "w", encoding="utf-8", newline="\n") as fh:
         json.dump(doc, fh, ensure_ascii=False, indent=2)

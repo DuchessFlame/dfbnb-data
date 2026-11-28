@@ -34,7 +34,13 @@ PAGES = {   # slug -> (PC photo folder, region for the close-up, map title)
     "pioneer-treasure-hunt": ("Pioneer Treasure Hunt", "Skyline Valley", "Pioneer Treasure Hunt"),
     "dustys-treasure-hunt": ("Dustys Treasure Hunt", "Burning Springs", "Dusty's Treasure Hunt"),
     "odd-looking-rock": ("Odd Looking Rock", "Burning Springs", "Odd Looking Rock"),
+    "tnt-dome-2-key": ("TNT Dome Keys", "Black Mountain Ordnance Works", "TNT Dome 2 Key"),
+    "tnt-dome-3-key": ("TNT Dome Keys", "Black Mountain Ordnance Works", "TNT Dome 3 Key"),
+    "tnt-dome-7-key": ("TNT Dome Keys", "Black Mountain Ordnance Works", "TNT Dome 7 Key"),
+    "tnt-dome-8-key": ("TNT Dome Keys", "Black Mountain Ordnance Works", "TNT Dome 8 Key"),
 }
+# Close-up only shows these types (the domes' chains cross the whole map; the close-up is the dome).
+CLOSEUP_ONLY = {s: {"prize"} for s in ("tnt-dome-2-key", "tnt-dome-3-key", "tnt-dome-7-key", "tnt-dome-8-key")}
 TYPES = {   # type -> (legend label, colour, shape)
     "note": ("Note", (255, 193, 7), "circle"),
     "place": ("Riddle answer", (255, 255, 255), "circle"),
@@ -45,6 +51,8 @@ LEGEND = {  # per-page legend wording
     "dustys-treasure-hunt": {"note": "Note (one of these)", "key": "Dusty's Keys", "prize": "Storage room doors"},
     "pioneer-treasure-hunt": {"note": "Start note", "place": "Riddle answers", "prize": "Prize stump"},
     "odd-looking-rock": {"prize": "Odd Looking Rock"},
+    **{s: {"key": "Key and code steps", "place": "Places to go", "prize": "The dome"}
+       for s in ("tnt-dome-2-key", "tnt-dome-3-key", "tnt-dome-7-key", "tnt-dome-8-key")},
 }
 
 
@@ -66,7 +74,8 @@ def setup_types(slug):
         rsm.PAGE_TYPE_LABELS[slug][key] = words.get(t, lab)
 
 
-CROP = {"dustys-treasure-hunt": dict(pad=110, min_side=440)}   # all spots inside one POI: zoom in
+CROP = {"dustys-treasure-hunt": dict(pad=110, min_side=440),
+        **{s: dict(pad=260, min_side=620) for s in ("tnt-dome-2-key", "tnt-dome-3-key", "tnt-dome-7-key", "tnt-dome-8-key")}}   # all spots inside one POI: zoom in
 
 
 def close_up(bg, rows, title, slug=""):
@@ -121,7 +130,8 @@ def main():
         rsm.render_exterior(bg_path, [dict(r) for r in rows], title,
                             os.path.join(out, f"{slug}-map.jpg"), os.path.join(out, f"{slug}-map_numbered.jpg"))
         reg = region.lower().replace(" ", "-")
-        close_up(bg, rows, f"{title} - {region}", slug).save(os.path.join(out, f"{slug}-{reg}-map.jpg"), "JPEG", quality=88, optimize=True)
+        only = CLOSEUP_ONLY.get(slug)
+        close_up(bg, [r for r in rows if not only or r["type"] in only], f"{title} - {region}", slug).save(os.path.join(out, f"{slug}-{reg}-map.jpg"), "JPEG", quality=88, optimize=True)
         print(slug, len(rows), "spots ->", out)
 
 

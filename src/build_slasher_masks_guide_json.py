@@ -96,7 +96,9 @@ def main():
                        .replace("{challenge_steps}", steps_txt).replace("{challenge_max}", str(steps[-1] if steps else ""))
                        .replace("{base_xp}", num(base_xp))
                        .replace("{finding_sentence}", finding))
-    doc = cg.build(SRC, OUT, fill, IMG)
+    doc = cg.build(SRC, OUT, fill, IMG, quest=cg.quest_info(tsv, QUEST),
+                   faq_nums={"total": spawns.get("total"), "quest_total": need,
+                             "challenge_max": steps[-1] if steps else None})
     print(f"{OUT.name}: {quest}, {need} masks in {len(batches)} batches, {len(notes)} notes, "
           f"{len(doc['missing_images'])} pictures not on the server yet")
     return 0

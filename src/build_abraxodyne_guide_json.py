@@ -82,7 +82,9 @@ def main():
                        .replace("{pickup_xp}", num(pickup_xp)).replace("{cache_xp}", num(cache_xp))
                        .replace("{rewards_table}", rewards)
                        .replace("{challenge_steps}", cg.and_list(steps) or "several"))
-    doc = cg.build(SRC, OUT, fill, IMG)
+    doc = cg.build(SRC, OUT, fill, IMG, quest=cg.quest_info(tsv, QUEST),
+                   faq_nums={"total": total, "quest_total": sum(batches),
+                             "challenge_max": steps[-1] if steps else None})
     print(f"{OUT.name}: {quest}, {len(batches)} hand-ins, {sum(batches)} briefcases, "
           f"{len(tapes)} tapes, caches after hand-ins {caches}, "
           f"{len(doc['missing_images'])} pictures not on the server yet")

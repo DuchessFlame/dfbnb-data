@@ -1,21 +1,6 @@
 {
- "_note": "Hand-written prose for /df/collectables/pint-sized-slasher-masks/guide/ (collectable guide template, 22 Nov 2026). src/build_slasher_masks_guide_json.py fills every {number} from the game files and keeps only pictures that are on the server; the rest go in missing_images. Short names = Slasher-Mask-Locations/mask-guide-images/<name>.avif; full /wp-content/ paths reuse pictures already on the server (Slasher Lore pictures by Eldritch_Equations).",
+ "_note": "Hand-written prose for /df/collectables/pint-sized-slasher-masks/guide/ (collectable guide template, 22 Nov 2026). src/build_slasher_masks_guide_json.py fills every {number} from the game files and keeps only pictures that are on the server; the rest go in missing_images. Short names = Slasher-Mask-Locations/mask-guide-images/<name>.avif; full /wp-content/ paths reuse pictures already on the server. photo_credits: every Slasher Lore picture is by Eldritch_Equations (\"Image credit:\" under each photo).",
  "title": "Collectables - Pint-Sized Slasher Masks Guide",
- "subtitle": "How to start {quest}, where the masks turn up, what each batch of masks gives you, and the rewards.",
- "pills": [
-  {
-   "label": "Mask Spawn Locations",
-   "url": "/df/collectables/pint-sized-slasher-masks/spawn-locations/"
-  },
-  {
-   "label": "The Slasher Lore Checklist",
-   "url": "/df/collectables/slasher-lore/checklist/"
-  },
-  {
-   "label": "The Slasher Guide",
-   "url": "/df/seasonal-events/the-slasher/the-slasher-guide/"
-  }
- ],
  "sections": [
   {
    "title": "Finding Them",
@@ -36,12 +21,12 @@
     "/wp-content/uploads/guide-images/collectables/Slasher-Masks/Slasher-Lore/article-clipping-1-note.avif",
     "/wp-content/uploads/guide-images/collectables/Slasher-Masks/Slasher-Lore/a-page-torn-from-a-children-s-book-note.avif"
    ],
-   "html": "<h4>Step 1 &ndash; Find the masks</h4><p>After the broadcast, the objective is <em>Find Pint-Sized Slasher Masks in cabins, campgrounds, and fairgrounds</em>. You need <strong>{quest_masks}</strong> for the quest. There's no one to hand them in to: the quest counts them as you pick them up. With your first mask you also get the holotape <em>Broadcast Recording: Breaking News</em>, a copy of the broadcast you can play as often as you like.</p>{img:walkthrough-broadcast-holotape}<h4>Step 2 &ndash; Collect the clippings</h4><p>Some masks have a newspaper clipping inside. They pop up on their own as you go, so there's nothing extra to find: see Collecting the Masks below for which mask gives which.</p>{img:/wp-content/uploads/guide-images/collectables/Slasher-Masks/Slasher-Lore/article-clipping-1-note.avif}<h4>Step 3 &ndash; Read the torn page</h4><p>Your {quest_masks_th} mask gives you <em>A page torn from a children's book</em>. Read it: it's a children's poem about the Pint-Sized Slasher, with directions written underneath.</p>{img:/wp-content/uploads/guide-images/collectables/Slasher-Masks/Slasher-Lore/a-page-torn-from-a-children-s-book-note.avif}<h4>Step 4 &ndash; Follow the directions</h4><p>The objective is now <em>Investigate the area described in the note</em>, with the hint <em>&quot;By the dog kennel, he smells your fear&quot;</em>. What you find there is in <strong>The Finale</strong> below (spoilers). Optional: the quest also asks you to tune in to <strong>The Debunker</strong> radio station for more news reports.</p>"
+   "html": "<h4>Step 1 &ndash; Find the masks</h4><p>After the broadcast, the objective is <em>Find Pint-Sized Slasher Masks in cabins, campgrounds, and fairgrounds</em>. You need {quest_masks} for the quest. There's no one to hand them in to: the quest counts them as you pick them up. With your first mask you also get the holotape <em>Broadcast Recording: Breaking News</em>, a copy of the broadcast you can play as often as you like.</p>{img:walkthrough-broadcast-holotape}<h4>Step 2 &ndash; Collect the clippings</h4><p>Some masks have a newspaper clipping inside. They pop up on their own as you go, so there's nothing extra to find: see Collecting the Masks below for which mask gives which.</p>{img:/wp-content/uploads/guide-images/collectables/Slasher-Masks/Slasher-Lore/article-clipping-1-note.avif}<h4>Step 3 &ndash; Read the torn page</h4><p>Your {quest_masks_th} mask gives you <em>A page torn from a children's book</em>. Read it: it's a children's poem about the Pint-Sized Slasher, with directions written underneath.</p>{img:/wp-content/uploads/guide-images/collectables/Slasher-Masks/Slasher-Lore/a-page-torn-from-a-children-s-book-note.avif}<h4>Step 4 &ndash; Follow the directions</h4><p>The objective is now <em>Investigate the area described in the note</em>, with the hint <em>&quot;By the dog kennel, he smells your fear&quot;</em>. What you find there is in The Finale below (spoilers). Optional: the quest also asks you to tune in to The Debunker radio station for more news reports.</p>"
   },
   {
    "title": "Collecting the Masks",
    "images": [],
-   "html": "<p>There&rsquo;s no one to hand the masks in to: the quest counts them as you pick them up, in <strong>{batch_count}</strong> batches, totalling <strong>{quest_masks}</strong> of the {total} available.</p><p>The lifetime challenges keep counting after that.</p>{batch_table}"
+   "html": "<p>There&rsquo;s no one to hand the masks in to: the quest counts them as you pick them up, in {batch_count} batches, totalling {quest_masks} of the {total} available.</p><p>The lifetime challenges keep counting after that.</p>{batch_table}"
   },
   {
    "title": "Quest Rewards",
@@ -51,7 +36,16 @@
   {
    "title": "FAQ and Important Info",
    "images": [],
-   "html": "<h4>Do I have to find all {total} masks?</h4><p>No. The quest only needs {quest_masks}. The lifetime challenges stop at {challenge_max}, and there is no reward for collecting all {total}.</p><h4>Can I do this after The Slasher ends?</h4><p>No. {quest} is only available for the duration of The Slasher Seasonal Content.</p><h4>Can I give spare masks to a friend?</h4><p>No. Masks can't be dropped, traded or sold.</p>"
+   "faq": {
+    "singular": "mask",
+    "plural": "masks",
+    "extra": [
+     {
+      "q": "Can I do this after The Slasher ends?",
+      "a": "No. {quest} is only available for the duration of The Slasher Seasonal Content."
+     }
+    ]
+   }
   },
   {
    "title": "The Finale",
@@ -61,17 +55,16 @@
     "/wp-content/uploads/guide-images/collectables/Slasher-Masks/Slasher-Lore/we-re-coming-for-you-location.avif",
     "/wp-content/uploads/guide-images/collectables/Slasher-Masks/Slasher-Lore/we-re-coming-for-you-note.avif"
    ],
-   "html": "<p>The directions under the poem read <em>&quot;Amid the ruins of suburbia, by road 85. Look for him.&quot;</em> Head there and search the <strong>dog kennel</strong> the quest marks.</p>{img:/wp-content/uploads/guide-images/collectables/Slasher-Masks/Slasher-Lore/we-re-coming-for-you-location.avif}<p>By the kennel the killers have left a bloody mess, and in it the note <em>We're Coming For You</em>. Pick it up and {quest} is done.</p>{img:/wp-content/uploads/guide-images/collectables/Slasher-Masks/Slasher-Lore/we-re-coming-for-you-note.avif}"
+   "html": "<p>The directions under the poem read <em>&quot;Amid the ruins of suburbia, by road 85. Look for him.&quot;</em> Head there and search the dog kennel the quest marks.</p>{img:/wp-content/uploads/guide-images/collectables/Slasher-Masks/Slasher-Lore/we-re-coming-for-you-location.avif}<p>By the kennel the killers have left a bloody mess, and in it the note <em>We're Coming For You</em>. Pick it up and {quest} is done.</p>{img:/wp-content/uploads/guide-images/collectables/Slasher-Masks/Slasher-Lore/we-re-coming-for-you-note.avif}"
   },
   {
    "title": "Lore",
    "closed": true,
    "spoiler": true,
    "images": [],
-   "html": "<p>The <em>Breaking News</em> broadcast comes from <strong>Remington Goodwin</strong> of The Debunker news radio station. He reports corpses displayed all over Appalachia, and a violent group paying homage to the serial killer known as the Pint-Sized Slasher.</p><p>The note at the kennel is signed by the <strong>Pint-Sized Phantoms</strong>, who say they bargain with death on his behalf, and promise more \"gifts\".</p><p>Every broadcast, clipping and note from this quest, with the full text: <a href=\"/df/collectables/slasher-lore/checklist/\">The Slasher Lore Checklist</a>.</p>"
+   "html": "<p>The <em>Breaking News</em> broadcast comes from Remington Goodwin of The Debunker news radio station. He reports corpses displayed all over Appalachia, and a violent group paying homage to the serial killer known as the Pint-Sized Slasher.</p><p>The note at the kennel is signed by the Pint-Sized Phantoms, who say they bargain with death on his behalf, and promise more \"gifts\".</p><p>Every broadcast, clipping and note from this quest, with the full text: <a href=\"/df/collectables/slasher-lore/checklist/\">The Slasher Lore Checklist</a>.</p>"
   }
  ],
- "footer": "Slasher Lore photos by Eldritch_Equations.",
  "image_dims": {
   "start-breaking-news-radio": [
    1920,
@@ -105,5 +98,11 @@
    627,
    800
   ]
- }
+ },
+ "photo_credits": [
+  {
+   "folder": "/wp-content/uploads/guide-images/collectables/Slasher-Masks/Slasher-Lore/",
+   "credit": "Eldritch_Equations"
+  }
+ ]
 }

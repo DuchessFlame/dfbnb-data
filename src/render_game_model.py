@@ -178,12 +178,19 @@ def model_for(esm, form=None, edid=None):
             d = buf[o + 24:o + 24 + sz]
             if struct.unpack_from("<I", buf, o + 8)[0] & 0x40000:
                 d = zlib.decompress(d[4:])
-            ed = mod = mods = None
+            ed = mod = mods = mod2 = mo2s = None
             for st, v in _subs(d):
                 if st == b"EDID": ed = v.rstrip(b"\0").decode("latin1")
                 elif st == b"MODL" and mod is None: mod = v.rstrip(b"\0").decode("latin1")
                 elif st == b"MODS" and mods is None and len(v) >= 4: mods = struct.unpack_from("<I", v)[0]
+                elif st == b"MOD2" and mod2 is None: mod2 = v.rstrip(b"\0").decode("latin1")
+                elif st == b"MO2S" and mo2s is None and len(v) >= 4: mo2s = struct.unpack_from("<I", v)[0]
             if (want is not None and fid == want) or (edid and ed == edid):
+                # ARMO (outfits, armour): MODL is the armour-addon FormID, not a model path.
+                # Use the world model (MOD2, the item as it lies on the ground) and its
+                # material swap (MO2S), so each outfit variant gets its own textures (28 Nov 2026).
+                if t == b"ARMO" and mod2:
+                    return t.decode(), f"{fid:08X}", ed, mod2, mo2s
                 return t.decode(), f"{fid:08X}", ed, mod, mods
         o += 24 + sz
     return None

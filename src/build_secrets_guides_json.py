@@ -32,8 +32,12 @@ ROOT = HERE.parent
 sys.path.insert(0, str(HERE))
 import collectable_guide as cg  # noqa: E402
 
-PAGES = ["pioneer-treasure-hunt", "dustys-treasure-hunt", "odd-looking-rock"]
+PAGES = ["pioneer-treasure-hunt", "dustys-treasure-hunt", "odd-looking-rock",
+         "tnt-dome-2-key", "tnt-dome-3-key", "tnt-dome-7-key", "tnt-dome-8-key"]
 IMG = "/wp-content/uploads/guide-images/quests/secrets-and-easter-eggs/{slug}/"
+# The four TNT dome pages share one folder (Duchess made it 28 Nov 2026); names carry dome-N-.
+IMG_FOR = {s: "/wp-content/uploads/guide-images/quests/tnt-dome-keys/"
+           for s in ("tnt-dome-2-key", "tnt-dome-3-key", "tnt-dome-7-key", "tnt-dome-8-key")}
 
 # Loot lists in plain words. A list not named here stops the build, so a game-file
 # name never reaches the page.
@@ -72,7 +76,8 @@ class Files:
 
     def name(self, edid):
         return self.cont.get(edid) or cg.record_name(
-            self.tsv, edid, ("BOOK_Export_*.tsv", "ALCH_Export_*.tsv", "MISC_Export_*.tsv", "KEYM_Export_*.tsv")) or ""
+            self.tsv, edid, ("BOOK_Export_*.tsv", "ALCH_Export_*.tsv", "MISC_Export_*.tsv", "KEYM_Export_*.tsv",
+                             "ARMO_Export_*.tsv", "SPEL_Export_*_HEADER.tsv")) or ""
 
     def loot(self, cont, words_only=False):
         if cont not in self.items:
@@ -120,7 +125,7 @@ def build(slug, tsv, f):
         if "{cages_table}" in t:
             t = t.replace("{cages_table}", cages_table(f))
         return t
-    doc = cg.build(src, out, fill, IMG.format(slug=slug))
+    doc = cg.build(src, out, fill, IMG_FOR.get(slug) or IMG.format(slug=slug))
     print(f"{out.name}: {len(doc['sections'])} sections, {len(doc['missing_images'])} pictures not on the server yet")
 
 

@@ -716,7 +716,9 @@ def build_guide(doc, channel):
                           doc["total_real"], by_reg, "Brains in Jars", "Brain in a Jar Locations",
                           len(doc.get("pages") or []))))
     out = cg.build(os.path.join(DATA, "guide.json"), os.path.join(OUT_DIR, "brain_in_a_jar_guide.json"),
-                   fill, GUIDE_IMG_BASE)
+                   fill, GUIDE_IMG_BASE, quest=cg.quest_info(tsv_dir, QUEST_EDID),
+                   faq_nums={"total": doc["total_real"], "quest_total": need,
+                             "challenge_max": steps[-1] if steps else None})
     print(f"  guide: {len(out['sections'])} sections, {len(out['missing_images'])} pictures not on the server yet")
 
 if __name__ == "__main__":
