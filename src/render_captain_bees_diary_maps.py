@@ -80,6 +80,9 @@ def main():
     if bg.size != (rsm.S, rsm.S):
         bg = bg.resize((rsm.S, rsm.S), Image.LANCZOS)
 
+    # Legend wording on the 4096 maps (default would read "Spawn").
+    rsm._PAGE["slug"] = STEM
+    rsm.PAGE_TYPE_LABELS[STEM] = {"": "Diary pages + final note"}
     rows = [dict(p, count=1, refs=[p["ref"]], source_type="") for p in pts]
     rsm.render_exterior(bg_path, rows, "Captain Bee's Diary",
                         os.path.join(a.out, f"{STEM}-map.jpg"),

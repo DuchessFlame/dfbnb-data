@@ -427,6 +427,10 @@ jobs:
       - name: Build Slasher Masks Guide JSON
         run: python src/build_slasher_masks_guide_json.py --data-dir tsv
 
+      # Captain Bee's Diary (Quests > Secrets & Easter Eggs): loot table from CONTITEMS (28 Nov 2026)
+      - name: Build Captain Bee's Diary Guide JSON
+        run: python src/build_captain_bees_diary_guide_json.py --data-dir tsv
+
       # Lore Holotape Checklist (14 Nov 2026)
       - name: Build Lore Holotapes JSON
         run: python src/build_lore_holotapes_json.py

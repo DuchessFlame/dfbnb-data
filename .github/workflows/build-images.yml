@@ -84,6 +84,7 @@ jobs:
         run: |
           python src/build_abraxodyne_guide_json.py --data-dir tsv
           python src/build_slasher_masks_guide_json.py --data-dir tsv
+          python src/build_captain_bees_diary_guide_json.py --data-dir tsv
 
       - name: "[6] One-weapon guides"
         run: python src/build_weapon_guides_json.py
